@@ -3171,5 +3171,829 @@
     "shadow-punch": {
       "name": "Shadow Punch"
     }
+  },
+  "pokemon": {
+    "venusaur-mega": {
+      "name": "Mega Venusaur"
+    },
+    "venusaur": {
+      "name": "Venusaur"
+    },
+    "charizard": {
+      "name": "Charizard"
+    },
+    "charizard-mega-x": {
+      "name": "Mega Charizard X"
+    },
+    "charizard-mega-y": {
+      "name": "Mega Charizard Y"
+    },
+    "blastoise": {
+      "name": "Blastoise"
+    },
+    "blastoise-mega": {
+      "name": "Mega Blastoise"
+    },
+    "beedrill": {
+      "name": "Beedrill"
+    },
+    "beedrill-mega": {
+      "name": "Mega Beedrill"
+    },
+    "pidgeot-mega": {
+      "name": "Mega Pidgeot"
+    },
+    "pidgeot": {
+      "name": "Pidgeot"
+    },
+    "arbok": {
+      "name": "Arbok"
+    },
+    "pikachu": {
+      "name": "Pikachu"
+    },
+    "raichu-alola": {
+      "name": "Alolan Raichu"
+    },
+    "raichu": {
+      "name": "Raichu"
+    },
+    "clefable": {
+      "name": "Clefable"
+    },
+    "clefable-mega": {
+      "name": "Mega Clefable"
+    },
+    "ninetales-alola": {
+      "name": "Alolan Ninetales"
+    },
+    "ninetales": {
+      "name": "Ninetales"
+    },
+    "arcanine": {
+      "name": "Arcanine"
+    },
+    "arcanine-hisui": {
+      "name": "Hisuian Arcanine"
+    },
+    "alakazam": {
+      "name": "Alakazam"
+    },
+    "alakazam-mega": {
+      "name": "Mega Alakazam"
+    },
+    "machamp": {
+      "name": "Machamp"
+    },
+    "victreebel-mega": {
+      "name": "Mega Victreebel"
+    },
+    "victreebel": {
+      "name": "Victreebel"
+    },
+    "slowbro-galar": {
+      "name": "Galarian Slowbro"
+    },
+    "slowbro-mega": {
+      "name": "Mega Slowbro"
+    },
+    "slowbro": {
+      "name": "Slowbro"
+    },
+    "gengar": {
+      "name": "Gengar"
+    },
+    "gengar-mega": {
+      "name": "Mega Gengar"
+    },
+    "kangaskhan": {
+      "name": "Kangaskhan"
+    },
+    "kangaskhan-mega": {
+      "name": "Mega Kangaskhan"
+    },
+    "starmie-mega": {
+      "name": "Mega Starmie"
+    },
+    "starmie": {
+      "name": "Starmie"
+    },
+    "pinsir-mega": {
+      "name": "Mega Pinsir"
+    },
+    "pinsir": {
+      "name": "Pinsir"
+    },
+    "tauros-paldea-combat-breed": {
+      "name": "Paldean Tauros (Combat Breed)"
+    },
+    "tauros": {
+      "name": "Tauros"
+    },
+    "tauros-paldea-aqua-breed": {
+      "name": "Paldean Tauros (Aqua Breed)"
+    },
+    "tauros-paldea-blaze-breed": {
+      "name": "Paldean Tauros (Blaze Breed)"
+    },
+    "gyarados": {
+      "name": "Gyarados"
+    },
+    "gyarados-mega": {
+      "name": "Mega Gyarados"
+    },
+    "ditto": {
+      "name": "Ditto"
+    },
+    "vaporeon": {
+      "name": "Vaporeon"
+    },
+    "jolteon": {
+      "name": "Jolteon"
+    },
+    "flareon": {
+      "name": "Flareon"
+    },
+    "aerodactyl": {
+      "name": "Aerodactyl"
+    },
+    "aerodactyl-mega": {
+      "name": "Mega Aerodactyl"
+    },
+    "snorlax": {
+      "name": "Snorlax"
+    },
+    "dragonite": {
+      "name": "Dragonite"
+    },
+    "dragonite-mega": {
+      "name": "Mega Dragonite"
+    },
+    "meganium-mega": {
+      "name": "Mega Meganium"
+    },
+    "meganium": {
+      "name": "Meganium"
+    },
+    "typhlosion-hisui": {
+      "name": "Hisuian Typhlosion"
+    },
+    "typhlosion": {
+      "name": "Typhlosion"
+    },
+    "feraligatr": {
+      "name": "Feraligatr"
+    },
+    "feraligatr-mega": {
+      "name": "Mega Feraligatr"
+    },
+    "ariados": {
+      "name": "Ariados"
+    },
+    "ampharos": {
+      "name": "Ampharos"
+    },
+    "ampharos-mega": {
+      "name": "Mega Ampharos"
+    },
+    "azumarill": {
+      "name": "Azumarill"
+    },
+    "politoed": {
+      "name": "Politoed"
+    },
+    "espeon": {
+      "name": "Espeon"
+    },
+    "umbreon": {
+      "name": "Umbreon"
+    },
+    "slowking-galar": {
+      "name": "Galarian Slowking"
+    },
+    "slowking": {
+      "name": "Slowking"
+    },
+    "forretress": {
+      "name": "Forretress"
+    },
+    "steelix-mega": {
+      "name": "Mega Steelix"
+    },
+    "steelix": {
+      "name": "Steelix"
+    },
+    "scizor-mega": {
+      "name": "Mega Scizor"
+    },
+    "scizor": {
+      "name": "Scizor"
+    },
+    "heracross": {
+      "name": "Heracross"
+    },
+    "heracross-mega": {
+      "name": "Mega Heracross"
+    },
+    "skarmory-mega": {
+      "name": "Mega Skarmory"
+    },
+    "skarmory": {
+      "name": "Skarmory"
+    },
+    "houndoom": {
+      "name": "Houndoom"
+    },
+    "houndoom-mega": {
+      "name": "Mega Houndoom"
+    },
+    "tyranitar-mega": {
+      "name": "Mega Tyranitar"
+    },
+    "tyranitar": {
+      "name": "Tyranitar"
+    },
+    "pelipper": {
+      "name": "Pelipper"
+    },
+    "gardevoir": {
+      "name": "Gardevoir"
+    },
+    "gardevoir-mega": {
+      "name": "Mega Gardevoir"
+    },
+    "sableye-mega": {
+      "name": "Mega Sableye"
+    },
+    "sableye": {
+      "name": "Sableye"
+    },
+    "aggron": {
+      "name": "Aggron"
+    },
+    "aggron-mega": {
+      "name": "Mega Aggron"
+    },
+    "medicham": {
+      "name": "Medicham"
+    },
+    "medicham-mega": {
+      "name": "Mega Medicham"
+    },
+    "manectric": {
+      "name": "Manectric"
+    },
+    "manectric-mega": {
+      "name": "Mega Manectric"
+    },
+    "sharpedo-mega": {
+      "name": "Mega Sharpedo"
+    },
+    "sharpedo": {
+      "name": "Sharpedo"
+    },
+    "camerupt": {
+      "name": "Camerupt"
+    },
+    "camerupt-mega": {
+      "name": "Mega Camerupt"
+    },
+    "torkoal": {
+      "name": "Torkoal"
+    },
+    "altaria": {
+      "name": "Altaria"
+    },
+    "altaria-mega": {
+      "name": "Mega Altaria"
+    },
+    "milotic": {
+      "name": "Milotic"
+    },
+    "castform": {
+      "name": "Castform"
+    },
+    "banette": {
+      "name": "Banette"
+    },
+    "banette-mega": {
+      "name": "Mega Banette"
+    },
+    "chimecho": {
+      "name": "Chimecho"
+    },
+    "chimecho-mega": {
+      "name": "Mega Chimecho"
+    },
+    "absol": {
+      "name": "Absol"
+    },
+    "absol-mega": {
+      "name": "Mega Absol"
+    },
+    "glalie": {
+      "name": "Glalie"
+    },
+    "glalie-mega": {
+      "name": "Mega Glalie"
+    },
+    "torterra": {
+      "name": "Torterra"
+    },
+    "infernape": {
+      "name": "Infernape"
+    },
+    "empoleon": {
+      "name": "Empoleon"
+    },
+    "luxray": {
+      "name": "Luxray"
+    },
+    "roserade": {
+      "name": "Roserade"
+    },
+    "rampardos": {
+      "name": "Rampardos"
+    },
+    "bastiodon": {
+      "name": "Bastiodon"
+    },
+    "lopunny": {
+      "name": "Lopunny"
+    },
+    "lopunny-mega": {
+      "name": "Mega Lopunny"
+    },
+    "spiritomb": {
+      "name": "Spiritomb"
+    },
+    "garchomp": {
+      "name": "Garchomp"
+    },
+    "garchomp-mega": {
+      "name": "Mega Garchomp"
+    },
+    "lucario": {
+      "name": "Lucario"
+    },
+    "lucario-mega": {
+      "name": "Mega Lucario"
+    },
+    "hippowdon": {
+      "name": "Hippowdon"
+    },
+    "toxicroak": {
+      "name": "Toxicroak"
+    },
+    "abomasnow": {
+      "name": "Abomasnow"
+    },
+    "abomasnow-mega": {
+      "name": "Mega Abomasnow"
+    },
+    "weavile": {
+      "name": "Weavile"
+    },
+    "rhyperior": {
+      "name": "Rhyperior"
+    },
+    "leafeon": {
+      "name": "Leafeon"
+    },
+    "glaceon": {
+      "name": "Glaceon"
+    },
+    "gliscor": {
+      "name": "Gliscor"
+    },
+    "mamoswine": {
+      "name": "Mamoswine"
+    },
+    "gallade": {
+      "name": "Gallade"
+    },
+    "gallade-mega": {
+      "name": "Mega Gallade"
+    },
+    "froslass": {
+      "name": "Froslass"
+    },
+    "froslass-mega": {
+      "name": "Mega Froslass"
+    },
+    "rotom-fan": {
+      "name": "Fan Rotom"
+    },
+    "rotom-frost": {
+      "name": "Frost Rotom"
+    },
+    "rotom-heat": {
+      "name": "Heat Rotom"
+    },
+    "rotom-mow": {
+      "name": "Mow Rotom"
+    },
+    "rotom": {
+      "name": "Rotom"
+    },
+    "rotom-wash": {
+      "name": "Wash Rotom"
+    },
+    "serperior": {
+      "name": "Serperior"
+    },
+    "emboar": {
+      "name": "Emboar"
+    },
+    "emboar-mega": {
+      "name": "Mega Emboar"
+    },
+    "samurott-hisui": {
+      "name": "Hisuian Samurott"
+    },
+    "samurott": {
+      "name": "Samurott"
+    },
+    "watchog": {
+      "name": "Watchog"
+    },
+    "liepard": {
+      "name": "Liepard"
+    },
+    "simisage": {
+      "name": "Simisage"
+    },
+    "simisear": {
+      "name": "Simisear"
+    },
+    "simipour": {
+      "name": "Simipour"
+    },
+    "excadrill": {
+      "name": "Excadrill"
+    },
+    "excadrill-mega": {
+      "name": "Mega Excadrill"
+    },
+    "audino": {
+      "name": "Audino"
+    },
+    "audino-mega": {
+      "name": "Mega Audino"
+    },
+    "conkeldurr": {
+      "name": "Conkeldurr"
+    },
+    "whimsicott": {
+      "name": "Whimsicott"
+    },
+    "krookodile": {
+      "name": "Krookodile"
+    },
+    "cofagrigus": {
+      "name": "Cofagrigus"
+    },
+    "garbodor": {
+      "name": "Garbodor"
+    },
+    "zoroark-hisui": {
+      "name": "Hisuian Zoroark"
+    },
+    "zoroark": {
+      "name": "Zoroark"
+    },
+    "reuniclus": {
+      "name": "Reuniclus"
+    },
+    "vanilluxe": {
+      "name": "Vanilluxe"
+    },
+    "emolga": {
+      "name": "Emolga"
+    },
+    "chandelure": {
+      "name": "Chandelure"
+    },
+    "chandelure-mega": {
+      "name": "Mega Chandelure"
+    },
+    "beartic": {
+      "name": "Beartic"
+    },
+    "stunfisk-galar": {
+      "name": "Galarian Stunfisk"
+    },
+    "stunfisk": {
+      "name": "Stunfisk"
+    },
+    "golurk": {
+      "name": "Golurk"
+    },
+    "golurk-mega": {
+      "name": "Mega Golurk"
+    },
+    "hydreigon": {
+      "name": "Hydreigon"
+    },
+    "volcarona": {
+      "name": "Volcarona"
+    },
+    "chesnaught": {
+      "name": "Chesnaught"
+    },
+    "chesnaught-mega": {
+      "name": "Mega Chesnaught"
+    },
+    "delphox": {
+      "name": "Delphox"
+    },
+    "delphox-mega": {
+      "name": "Mega Delphox"
+    },
+    "greninja": {
+      "name": "Greninja"
+    },
+    "greninja-mega": {
+      "name": "Mega Greninja"
+    },
+    "diggersby": {
+      "name": "Diggersby"
+    },
+    "talonflame": {
+      "name": "Talonflame"
+    },
+    "vivillon": {
+      "name": "Vivillon"
+    },
+    "floette": {
+      "name": "Floette"
+    },
+    "floette-mega": {
+      "name": "Mega Floette"
+    },
+    "florges": {
+      "name": "Florges"
+    },
+    "pangoro": {
+      "name": "Pangoro"
+    },
+    "furfrou": {
+      "name": "Furfrou"
+    },
+    "meowstic-mega": {
+      "name": "Mega Meowstic"
+    },
+    "meowstic-male": {
+      "name": "Male Meowstic"
+    },
+    "meowstic-female": {
+      "name": "Female Meowstic"
+    },
+    "aegislash-shield": {
+      "name": "Shield Aegislash"
+    },
+    "aegislash-blade": {
+      "name": "Blade Aegislash"
+    },
+    "aromatisse": {
+      "name": "Aromatisse"
+    },
+    "slurpuff": {
+      "name": "Slurpuff"
+    },
+    "clawitzer": {
+      "name": "Clawitzer"
+    },
+    "heliolisk": {
+      "name": "Heliolisk"
+    },
+    "tyrantrum": {
+      "name": "Tyrantrum"
+    },
+    "aurorus": {
+      "name": "Aurorus"
+    },
+    "sylveon": {
+      "name": "Sylveon"
+    },
+    "hawlucha": {
+      "name": "Hawlucha"
+    },
+    "hawlucha-mega": {
+      "name": "Mega Hawlucha"
+    },
+    "dedenne": {
+      "name": "Dedenne"
+    },
+    "goodra": {
+      "name": "Goodra"
+    },
+    "goodra-hisui": {
+      "name": "Hisuian Goodra"
+    },
+    "klefki": {
+      "name": "Klefki"
+    },
+    "trevenant": {
+      "name": "Trevenant"
+    },
+    "gourgeist-small": {
+      "name": "Small Gourgeist"
+    },
+    "gourgeist-average": {
+      "name": "Average Gourgeist"
+    },
+    "gourgeist-large": {
+      "name": "Large Gourgeist"
+    },
+    "gourgeist-super": {
+      "name": "Super Gourgeist"
+    },
+    "avalugg": {
+      "name": "Avalugg"
+    },
+    "avalugg-hisui": {
+      "name": "Hisuian Avalugg"
+    },
+    "noivern": {
+      "name": "Noivern"
+    },
+    "decidueye": {
+      "name": "Decidueye"
+    },
+    "decidueye-hisui": {
+      "name": "Hisuian Decidueye"
+    },
+    "incineroar": {
+      "name": "Incineroar"
+    },
+    "primarina": {
+      "name": "Primarina"
+    },
+    "toucannon": {
+      "name": "Toucannon"
+    },
+    "crabominable": {
+      "name": "Crabominable"
+    },
+    "crabominable-mega": {
+      "name": "Mega Crabominable"
+    },
+    "lycanroc-midday": {
+      "name": "Midday Lycanroc"
+    },
+    "lycanroc-midnight": {
+      "name": "Midnight Lycanroc"
+    },
+    "lycanroc-dusk": {
+      "name": "Dusk Lycanroc"
+    },
+    "toxapex": {
+      "name": "Toxapex"
+    },
+    "mudsdale": {
+      "name": "Mudsdale"
+    },
+    "araquanid": {
+      "name": "Araquanid"
+    },
+    "salazzle": {
+      "name": "Salazzle"
+    },
+    "tsareena": {
+      "name": "Tsareena"
+    },
+    "oranguru": {
+      "name": "Oranguru"
+    },
+    "passimian": {
+      "name": "Passimian"
+    },
+    "mimikyu-disguised": {
+      "name": "Disguised Mimikyu"
+    },
+    "drampa": {
+      "name": "Drampa"
+    },
+    "drampa-mega": {
+      "name": "Mega Drampa"
+    },
+    "kommo-o": {
+      "name": "Kommo-o"
+    },
+    "corviknight": {
+      "name": "Corviknight"
+    },
+    "flapple": {
+      "name": "Flapple"
+    },
+    "appletun": {
+      "name": "Appletun"
+    },
+    "sandaconda": {
+      "name": "Sandaconda"
+    },
+    "polteageist": {
+      "name": "Polteageist"
+    },
+    "hatterene": {
+      "name": "Hatterene"
+    },
+    "mr-rime": {
+      "name": "Mr. Rime"
+    },
+    "runerigus": {
+      "name": "Runerigus"
+    },
+    "alcremie": {
+      "name": "Alcremie"
+    },
+    "morpeko-full-belly": {
+      "name": "Full Belly Morpeko"
+    },
+    "dragapult": {
+      "name": "Dragapult"
+    },
+    "wyrdeer": {
+      "name": "Wyrdeer"
+    },
+    "kleavor": {
+      "name": "Kleavor"
+    },
+    "basculegion-male": {
+      "name": "Male Basculegion"
+    },
+    "basculegion-female": {
+      "name": "Female Basculegion"
+    },
+    "sneasler": {
+      "name": "Sneasler"
+    },
+    "meowscarada": {
+      "name": "Meowscarada"
+    },
+    "skeledirge": {
+      "name": "Skeledirge"
+    },
+    "quaquaval": {
+      "name": "Quaquaval"
+    },
+    "maushold-family-of-four": {
+      "name": "Maushold (Family of Four)"
+    },
+    "garganacl": {
+      "name": "Garganacl"
+    },
+    "armarouge": {
+      "name": "Armarouge"
+    },
+    "ceruledge": {
+      "name": "Ceruledge"
+    },
+    "bellibolt": {
+      "name": "Bellibolt"
+    },
+    "scovillain-mega": {
+      "name": "Mega Scovillain"
+    },
+    "scovillain": {
+      "name": "Scovillain"
+    },
+    "espathra": {
+      "name": "Espathra"
+    },
+    "tinkaton": {
+      "name": "Tinkaton"
+    },
+    "palafin-zero": {
+      "name": "Zero Form Palafin"
+    },
+    "palafin-hero": {
+      "name": "Hero Form Palafin"
+    },
+    "orthworm": {
+      "name": "Orthworm"
+    },
+    "glimmora": {
+      "name": "Glimmora"
+    },
+    "glimmora-mega": {
+      "name": "Mega Glimmora"
+    },
+    "farigiraf": {
+      "name": "Farigiraf"
+    },
+    "kingambit": {
+      "name": "Kingambit"
+    },
+    "sinistcha": {
+      "name": "Sinistcha"
+    },
+    "archaludon": {
+      "name": "Archaludon"
+    },
+    "hydrapple": {
+      "name": "Hydrapple"
+    }
   }
 }

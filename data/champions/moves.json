@@ -11,7 +11,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 1,
@@ -24,7 +24,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Defense stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 2,
@@ -36,8 +36,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "classifications": ["bullet"]
     },
     {
       "id": 3,
@@ -50,7 +50,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move's power is doubled if the user isn't holding an item.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 4,
@@ -62,8 +62,8 @@
       "range": "Self or Ally",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the Attack Defense Sp. Atk Sp. Def Speed accuracy or evasiveness of the user or an ally by 2 stages.",
-      "classifications": ["metronome"]
+      "effect": "Boosts the Attack Defense Sp.Atk Sp.Def Speed accuracy or evasiveness of the user or an ally by 2 stages.",
+      "classifications": []
     },
     {
       "id": 5,
@@ -76,13 +76,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 6,
@@ -108,7 +102,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 8,
@@ -121,13 +115,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": [
-        "slicing",
-        "wind",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["slicing", "wind"]
     },
     {
       "id": 9,
@@ -140,7 +128,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of making the target flinch.",
-      "classifications": ["slicing", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["slicing"]
     },
     {
       "id": 10,
@@ -153,7 +141,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Confuses the target if its stats were boosted during the turn this move is used.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 11,
@@ -166,7 +154,7 @@
       "pp": 16,
       "priority": 2,
       "effect": "The user switches spots with one of its allies. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 12,
@@ -178,8 +166,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Def stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Sp.Def stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 13,
@@ -191,8 +179,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Has a 10% chance of boosting the user's Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of boosting the user's Attack Defense Sp.Atk Sp.Def and Speed stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 14,
@@ -204,8 +192,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Def stat by 1 stage.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Sp.Def stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 15,
@@ -218,7 +206,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["slicing", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["slicing"]
     },
     {
       "id": 16,
@@ -231,7 +219,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 17,
@@ -244,7 +232,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user gains the Aqua Ring status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 18,
@@ -257,7 +245,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 19,
@@ -270,7 +258,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 20,
@@ -282,8 +270,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 21,
@@ -295,8 +283,8 @@
       "range": "single-ally",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts an ally's Sp. Def stat by 1 stage.",
-      "classifications": ["metronome"]
+      "effect": "Boosts an ally's Sp.Def stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 22,
@@ -309,7 +297,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the target has already taken damage during the turn this move is used.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 23,
@@ -322,12 +310,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Infatuated status. This move will fail against a target that is the same gender as the user or whose gender is unknown.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 24,
@@ -340,7 +323,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 25,
@@ -353,7 +336,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 1 stage. This move's type depends on Morpeko's form.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 26,
@@ -362,11 +345,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the user's side the Aurora Veil status for 5 turns. This move can be used only in snow.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 27,
@@ -379,7 +362,7 @@
       "pp": 12,
       "priority": -4,
       "effect": "This move's power is doubled if the target has already dealt damage to the user with a move in the same turn.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 28,
@@ -392,7 +375,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of confusing the target. If this move misses or fails the user takes damage equal to 1/2 of its max HP.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 29,
@@ -405,12 +388,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "Lowers the target's Attack stat by 1 stage.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 30,
@@ -436,7 +414,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user switches out of battle to be replaced by another party Pokemon. If the user had any stat changes a substitute or other such effects they will be passed on to the Pokemon switching in.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 32,
@@ -449,7 +427,7 @@
       "pp": 8,
       "priority": -3,
       "effect": "If the user is hit by a contact move before it uses this move the attacker will be burned.",
-      "classifications": ["bullet", "blocked-by-protect"]
+      "classifications": ["bullet"]
     },
     {
       "id": 33,
@@ -462,7 +440,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The target is attacked as many times as the number of Pokemon in the user's party. Pokemon that have fainted or have a status condition are not counted. This move's power is calculated based on the Attack stats of the party Pokemon.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 34,
@@ -475,7 +453,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move fails unless the user has eaten a Berry during the battle.",
-      "classifications": ["blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 35,
@@ -488,7 +466,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user loses 1/2 of its max HP to boost its Attack stat to its sixth stage. This move fails if the user doesn't have enough remaining HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 36,
@@ -501,7 +479,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 37,
@@ -514,13 +492,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 30% chance of making the target flinch.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 38,
@@ -533,13 +505,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 39,
@@ -552,7 +518,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 40,
@@ -565,7 +531,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 41,
@@ -578,7 +544,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target. This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 42,
@@ -591,7 +557,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Has a 10% chance of freezing targets. This move never misses in snow.",
-      "classifications": ["wind", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 43,
@@ -604,7 +570,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Gives the target the Can't Escape status.",
-      "classifications": ["metronome", "magic-coat-reflectable", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 44,
@@ -617,7 +583,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The damage dealt by this move is calculated using the user's Defense stat instead of its Attack stat.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 45,
@@ -630,7 +596,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of paralyzing the target. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 46,
@@ -643,7 +609,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 47,
@@ -656,7 +622,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 48,
@@ -669,13 +635,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn. This move has a 30% chance of paralyzing the target.",
-      "classifications": [
-        "contact",
-        "metronome",
-        "affected-by-gravity",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 49,
@@ -688,7 +648,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user takes 1/3 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 50,
@@ -701,7 +661,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Attack stats by 1 stage.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 51,
@@ -714,7 +674,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 52,
@@ -727,7 +687,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 53,
@@ -740,7 +700,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If the target is holding a Berry the user eats that Berry and gains its effect.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 54,
@@ -752,8 +712,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 55,
@@ -766,7 +726,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Attack and Defense stats by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 56,
@@ -779,7 +739,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 1 stage. When Grassy Terrain is active this move's power is halved.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 57,
@@ -792,13 +752,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 58,
@@ -811,7 +765,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 59,
@@ -824,7 +778,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user loses the Fire type. Cures the user of being frozen. This move fails unless it is used by a Fire type.",
-      "classifications": ["metronome", "defrosts", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 60,
@@ -837,7 +791,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Burns targets if their stats were boosted during the turn this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 61,
@@ -849,8 +803,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Atk and Sp. Def stats by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Sp.Atk and Sp.Def stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 62,
@@ -863,13 +817,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the opponent's side the Spikes status.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 63,
@@ -881,8 +829,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Def stat by 1 stage. The user gains the Electric Boost status.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Sp.Def stat by 1 stage. The user gains the Electric Boost status.",
+      "classifications": []
     },
     {
       "id": 64,
@@ -894,8 +842,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 70% chance of boosting the user's Sp. Atk stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 70% chance of boosting the user's Sp.Atk stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 65,
@@ -908,12 +856,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 66,
@@ -926,7 +869,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 1 stage.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 67,
@@ -952,7 +895,7 @@
       "pp": 12,
       "priority": -6,
       "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 69,
@@ -965,7 +908,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Lowers the user's Defense stat by 1 stage.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 70,
@@ -977,8 +920,8 @@
       "range": "self",
       "pp": 8,
       "priority": 0,
-      "effect": "The user loses 1/3 of its max HP to boost its Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP.",
-      "classifications": ["sound", "snatchable"]
+      "effect": "The user loses 1/3 of its max HP to boost its Attack Defense Sp.Atk Sp.Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 71,
@@ -991,7 +934,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Removes all stat changes from the target. This move never misses.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 72,
@@ -1003,8 +946,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "classifications": ["contact"]
     },
     {
       "id": 73,
@@ -1013,11 +956,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "all-allies",
+      "range": "single-ally",
       "pp": 12,
       "priority": 0,
       "effect": "Boosts allies' Attack and Defense stats by 1 stage.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 74,
@@ -1030,7 +973,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Attack and Defense stats as well as its accuracy by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 75,
@@ -1043,7 +986,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 76,
@@ -1056,12 +999,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Confuses the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 77,
@@ -1087,12 +1025,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Causes all other Pokemon on the field to lose their held items.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 79,
@@ -1104,8 +1037,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Defense and Sp.Def stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 80,
@@ -1118,7 +1051,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's Defense stat by 3 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 81,
@@ -1131,13 +1064,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 2 stages.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 82,
@@ -1146,11 +1073,11 @@
       "category": "physical",
       "power": null,
       "accuracy": 100,
-      "range": "Special",
+      "range": "Varies",
       "pp": 20,
       "priority": -5,
       "effect": "The user retaliates to deal double the damage it took from an opponent's physical move during the turn this move is used.",
-      "classifications": ["contact", "blocked-by-protect"]
+      "classifications": ["contact"]
     },
     {
       "id": 83,
@@ -1163,7 +1090,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If the user is not already holding an item it steals the target's held item.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 84,
@@ -1176,7 +1103,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 85,
@@ -1189,7 +1116,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 86,
@@ -1202,13 +1129,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 10% chance of poisoning the target. This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 87,
@@ -1221,13 +1142,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of lowering the target's Defense stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 88,
@@ -1240,13 +1155,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 89,
@@ -1255,11 +1164,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Special",
+      "range": "Varies",
       "pp": 12,
       "priority": 0,
       "effect": "Ghost-type: The user loses 1/2 of its max HP to give the target the Cursed status. Non-Ghost-type: Lowers the user's Speed stat by 1 stage and boosts its Attack and Defense stats by 1 stage.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 90,
@@ -1272,7 +1181,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of making the target flinch.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 91,
@@ -1285,7 +1194,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move ignores the target's stat changes when dealing damage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 92,
@@ -1298,7 +1207,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 93,
@@ -1310,7 +1219,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Boosts the target's Attack and Sp. Atk stats by 2 stages.",
+      "effect": "Boosts the target's Attack and Sp.Atk stats by 2 stages.",
       "classifications": []
     },
     {
@@ -1324,12 +1233,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's evasiveness by 1 stage. Removes statuses such as Reflect Spikes and Safeguard as well as any terrain.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 95,
@@ -1368,7 +1272,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Underground status on the turn this move is used then attacks on the following turn.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 98,
@@ -1381,7 +1285,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of leaving the target poisoned paralyzed or asleep.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 99,
@@ -1394,12 +1298,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Move Disabled status for 4 turns.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 100,
@@ -1412,7 +1311,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of paralyzing targets.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 101,
@@ -1425,7 +1324,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Submerged status on the turn this move is used then attacks on the following turn.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 102,
@@ -1438,7 +1337,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks twice in a row.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 103,
@@ -1451,7 +1350,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Boosts the user's evasiveness by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 104,
@@ -1464,7 +1363,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user takes 1/3 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 105,
@@ -1476,8 +1375,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 106,
@@ -1490,7 +1389,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives allies a Critical-Hit Ratio Boost. Dragon types receive a 2-stage boost. All other types receive a 1-stage boost.",
-      "classifications": ["sound", "metronome"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 107,
@@ -1503,13 +1402,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 108,
@@ -1522,7 +1415,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Attack and Speed stats by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 109,
@@ -1535,7 +1428,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks twice in a row. If there are 2 opposing Pokemon each of them is attacked once.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 110,
@@ -1548,7 +1441,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 111,
@@ -1561,7 +1454,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 20% chance of making the target flinch. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 112,
@@ -1574,7 +1467,7 @@
       "pp": 12,
       "priority": -6,
       "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 113,
@@ -1587,13 +1480,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 114,
@@ -1606,7 +1493,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 3/4 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 115,
@@ -1619,7 +1506,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 116,
@@ -1632,7 +1519,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 117,
@@ -1645,7 +1532,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks twice in a row.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 118,
@@ -1658,13 +1545,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Confuses the target.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 119,
@@ -1676,8 +1557,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 120,
@@ -1690,7 +1571,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled against targets that have the Underground status. When Grassy Terrain is active this move's power is halved.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 121,
@@ -1702,13 +1583,8 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Atk stat by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the target's Sp.Atk stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 122,
@@ -1721,7 +1597,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Removes 3 PP from the move last used by the target.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 123,
@@ -1734,7 +1610,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Turns the entire field into Electric Terrain for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 124,
@@ -1747,7 +1623,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If this move hits the target before it uses a move its move becomes Electric type for that turn.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 125,
@@ -1760,7 +1636,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The higher the user's Speed stat compared to the target's the greater this move's power (ranging between 40 and 150).",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 126,
@@ -1772,8 +1648,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp.Atk stat is boosted by 1 stage on the turn this move is used.",
+      "classifications": []
     },
     {
       "id": 127,
@@ -1786,7 +1662,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 128,
@@ -1799,12 +1675,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Gives the target the Encore status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 129,
@@ -1817,7 +1688,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Deals damage to the target equal to its remaining HP minus the user's remaining HP. This move fails if the target's HP is the same as or lower than the user's.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 130,
@@ -1842,8 +1713,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": ["bullet"]
     },
     {
       "id": 132,
@@ -1856,12 +1727,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Changes the target's Ability to be the same as the user's.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 133,
@@ -1874,7 +1740,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 134,
@@ -1887,7 +1753,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "If the user is under the effect of Psychic Terrain this move's power is boosted by 50% and its range extends to all opponents.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 135,
@@ -1900,7 +1766,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user faints upon using this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 136,
@@ -1913,7 +1779,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 10% chance of making the target flinch.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 137,
@@ -1926,7 +1792,7 @@
       "pp": 8,
       "priority": 2,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 138,
@@ -1939,7 +1805,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move's power is doubled if the user is poisoned badly poisoned burned or paralyzed. Although this move is a physical move the damage it deals is not halved when the user is burned.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 139,
@@ -1952,7 +1818,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives all Pokemon on the field the Fairy Locked status.",
-      "classifications": ["metronome", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 140,
@@ -1965,7 +1831,7 @@
       "pp": 12,
       "priority": 3,
       "effect": "Makes the target flinch. This move fails unless it is the first move used by the user after it enters a battle.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 141,
@@ -1977,13 +1843,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 142,
@@ -1996,12 +1857,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 143,
@@ -2014,7 +1870,7 @@
       "pp": 12,
       "priority": 2,
       "effect": "This move can hit a target using a move such as Protect or Detect and removes the effects of those moves.",
-      "classifications": ["mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 144,
@@ -2027,7 +1883,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Attack stat by 3 stages if this move knocks out the target.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 145,
@@ -2040,7 +1896,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move has a 30% chance of its power being doubled.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 146,
@@ -2052,8 +1908,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 50% chance of boosting the user's Sp. Atk stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 50% chance of boosting the user's Sp.Atk stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 147,
@@ -2066,7 +1922,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user faints. This move deals damage to the target equal to the user's remaining HP at the time this move was used.",
-      "classifications": ["metronome", "blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 148,
@@ -2079,7 +1935,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 149,
@@ -2092,13 +1948,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target and a 10% chance of making the target flinch.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 150,
@@ -2111,7 +1961,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Defense stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 151,
@@ -2124,13 +1974,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 152,
@@ -2143,7 +1987,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 153,
@@ -2156,7 +2000,7 @@
       "pp": 12,
       "priority": 2,
       "effect": "This move fails unless it is the first move used by the user after it enters a battle.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 154,
@@ -2169,7 +2013,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Knocks out the target. The accuracy of this move is fixed at 30%.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 155,
@@ -2182,7 +2026,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The less HP the user has left the greater this move's power (ranging between 20 and 200).",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 156,
@@ -2195,7 +2039,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 157,
@@ -2208,7 +2052,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 158,
@@ -2221,13 +2065,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of burning the target. Cures the user of being frozen. The user also takes 1/3 of the damage dealt by this move.",
-      "classifications": [
-        "contact",
-        "metronome",
-        "defrosts",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 159,
@@ -2239,8 +2077,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 160,
@@ -2252,13 +2090,8 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Boosts the target's Sp. Atk stat by 1 stage and confuses it.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Boosts the target's Sp.Atk stat by 1 stage and confuses it.",
+      "classifications": []
     },
     {
       "id": 161,
@@ -2271,7 +2104,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power and effects depend on the user's held item. The held item is lost after this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 162,
@@ -2284,7 +2117,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 163,
@@ -2297,7 +2130,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move never misses and is always a critical hit.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 164,
@@ -2310,13 +2143,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn.",
-      "classifications": [
-        "contact",
-        "metronome",
-        "affected-by-gravity",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 165,
@@ -2329,13 +2156,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The damage dealt by this move is calculated by combining the effectiveness of the move's own type with that of the Flying type. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": [
-        "contact",
-        "metronome",
-        "affected-by-gravity",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 166,
@@ -2347,8 +2168,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": ["bullet"]
     },
     {
       "id": 167,
@@ -2361,7 +2182,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user gains a 2-stage Critical-Hit Ratio Boost.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 168,
@@ -2374,7 +2195,7 @@
       "pp": 20,
       "priority": -3,
       "effect": "This move fails if the user has already taken damage from a move in the same turn.",
-      "classifications": ["contact", "punch", "blocked-by-protect"]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 169,
@@ -2400,12 +2221,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Forest Cursed status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 171,
@@ -2418,7 +2234,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The damage dealt by this move is calculated using the target's Attack stat instead of the user's Attack stat.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 172,
@@ -2431,7 +2247,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move is also super effective against Water-type Pokemon.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 173,
@@ -2444,7 +2260,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 174,
@@ -2457,7 +2273,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Always a critical hit.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 175,
@@ -2470,7 +2286,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target's spot the Future Attack status.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 176,
@@ -2483,12 +2299,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target the No Ability status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 177,
@@ -2501,7 +2312,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 178,
@@ -2514,7 +2325,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 179,
@@ -2527,7 +2338,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move can't be used twice in a row.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 180,
@@ -2540,12 +2351,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 181,
@@ -2558,7 +2364,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The heavier the target the greater this move's power (ranging between 20 and 120).",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 182,
@@ -2571,7 +2377,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If the user is under the effect of Grassy Terrain this move's priority becomes +1.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 183,
@@ -2584,7 +2390,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Turns the entire field into Grassy Terrain for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 184,
@@ -2597,7 +2403,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the target's Defense stat by 1 stage. This move's power is boosted by 50% when the Gravity status is active.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 185,
@@ -2610,7 +2416,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Gives the entire field the Gravity status for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 186,
@@ -2622,8 +2428,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Attack and Sp. Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Attack and Sp.Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead.",
+      "classifications": []
     },
     {
       "id": 187,
@@ -2635,8 +2441,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp. Def stats.",
-      "classifications": ["metronome", "blocked-by-protect"]
+      "effect": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp.Def stats.",
+      "classifications": []
     },
     {
       "id": 188,
@@ -2648,8 +2454,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user swaps the changes to its Defense and Sp. Def stats with the changes to the target's Defense and Sp. Def stats.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "The user swaps the changes to its Defense and Sp.Def stats with the changes to the target's Defense and Sp.Def stats.",
+      "classifications": []
     },
     {
       "id": 189,
@@ -2662,7 +2468,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Knocks out the target. The accuracy of this move is fixed at 30%.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 190,
@@ -2675,7 +2481,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Has a 30% chance of poisoning the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 191,
@@ -2688,13 +2494,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The lower the user's Speed stat compared to the target's the greater this move's power (ranging between 1 and 150).",
-      "classifications": [
-        "contact",
-        "bullet",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "bullet"]
     },
     {
       "id": 192,
@@ -2707,13 +2507,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the user's Speed stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 193,
@@ -2726,7 +2520,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The more HP the target has left the greater this move's power (ranging between 1 and 100).",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 194,
@@ -2739,7 +2533,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Eliminates every stat change on the entire field.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 195,
@@ -2752,7 +2546,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user takes 1/2 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 196,
@@ -2764,14 +2558,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 197,
@@ -2780,11 +2568,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Team",
+      "range": "all-allies",
       "pp": 8,
       "priority": 0,
       "effect": "The user cures the status conditions of all the Pokemon in its party including itself as well as its allies.",
-      "classifications": ["sound", "snatchable", "metronome"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 198,
@@ -2797,7 +2585,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Restores 1/2 of the target's max HP.",
-      "classifications": ["metronome", "magic-coat-reflectable", "blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 199,
@@ -2810,7 +2598,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user faints. The Pokemon taking its place will have its HP fully restored and its status conditions cured.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 200,
@@ -2823,7 +2611,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 201,
@@ -2836,7 +2624,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of burning targets.",
-      "classifications": ["wind", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 202,
@@ -2849,7 +2637,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 203,
@@ -2875,7 +2663,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the target has a status condition.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 205,
@@ -2888,7 +2676,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 206,
@@ -2901,13 +2689,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "If this move misses or fails the user takes damage equal to 1/2 of its max HP.",
-      "classifications": [
-        "contact",
-        "metronome",
-        "affected-by-gravity",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 207,
@@ -2920,7 +2702,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Knocks out the target. The accuracy of this move is fixed at 30%.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 208,
@@ -2933,7 +2715,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 209,
@@ -2946,7 +2728,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the Attack stats of the user and its allies by 1 stage.",
-      "classifications": ["sound", "snatchable", "metronome"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 210,
@@ -2959,7 +2741,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of confusing the target. This move never misses in rain and can hit a target that has the Sky-High status.",
-      "classifications": ["wind", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 211,
@@ -2972,7 +2754,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 212,
@@ -2985,7 +2767,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 213,
@@ -2998,7 +2780,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 214,
@@ -3011,7 +2793,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 215,
@@ -3024,12 +2806,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Puts the target to sleep.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 216,
@@ -3042,7 +2819,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of freezing the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 217,
@@ -3055,13 +2832,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of freezing the target and a 10% chance of making the target flinch.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 218,
@@ -3074,13 +2845,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the user's Speed stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 219,
@@ -3093,13 +2858,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of freezing the target.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 220,
@@ -3112,7 +2871,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 221,
@@ -3125,7 +2884,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Removes any terrain.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 222,
@@ -3138,7 +2897,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of making the target flinch.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 223,
@@ -3151,7 +2910,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 224,
@@ -3164,7 +2923,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 1 stage.",
-      "classifications": ["wind", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 225,
@@ -3177,7 +2936,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Sealing Off status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 226,
@@ -3190,7 +2949,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of burning the target. This move's power is doubled if the target has a status condition.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 227,
@@ -3203,7 +2962,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Burns the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 228,
@@ -3216,7 +2975,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 229,
@@ -3229,7 +2988,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user gains the Ingrained status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 230,
@@ -3242,7 +3001,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user makes the target reuse the last move it used.",
-      "classifications": ["blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 231,
@@ -3255,7 +3014,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Boosts the user's Defense stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 232,
@@ -3268,7 +3027,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of making the target flinch.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 233,
@@ -3281,7 +3040,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of lowering the target's Defense stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 234,
@@ -3294,7 +3053,7 @@
       "pp": 16,
       "priority": 1,
       "effect": "",
-      "classifications": ["contact", "punch", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 235,
@@ -3320,7 +3079,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move's power is boosted by 50% if the target is holding an item. Causes the target to lose its held item.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 237,
@@ -3333,13 +3092,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 238,
@@ -3352,7 +3105,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move's power is doubled if the user's stats were lowered during the turn this move is used.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 239,
@@ -3365,7 +3118,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move fails unless the user has already used all the other moves it knows.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 240,
@@ -3378,7 +3131,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is increased by 50 for each time that a Pokemon in the user's party has fainted.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 241,
@@ -3391,7 +3144,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of burning targets.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 242,
@@ -3404,13 +3157,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 243,
@@ -3422,8 +3169,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 244,
@@ -3436,7 +3183,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 245,
@@ -3449,12 +3196,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target the Leech Seeded status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 246,
@@ -3463,11 +3205,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Allies",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "Restores 1/4 of the max HP of the user and its allies.",
-      "classifications": ["snatchable"]
+      "classifications": []
     },
     {
       "id": 247,
@@ -3476,11 +3218,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the user's side the Light Screen status for 5 turns.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 248,
@@ -3493,7 +3235,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user takes 1/2 of the damage dealt by this move.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 249,
@@ -3506,7 +3248,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 20% chance of lowering the target's Defense stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 250,
@@ -3519,7 +3261,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Locked On status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 251,
@@ -3532,7 +3274,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The heavier the target the greater this move's power (ranging between 20 and 120).",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 252,
@@ -3545,7 +3287,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 253,
@@ -3557,8 +3299,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 254,
@@ -3571,7 +3313,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 255,
@@ -3584,13 +3326,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 256,
@@ -3603,13 +3339,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Changes the target's type to Psychic.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 257,
@@ -3622,7 +3352,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the entire field the Magic Room status for 5 turns.",
-      "classifications": ["metronome", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 258,
@@ -3635,7 +3365,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Magnet Rise status.",
-      "classifications": ["snatchable", "metronome", "affected-by-gravity"]
+      "classifications": []
     },
     {
       "id": 259,
@@ -3644,11 +3374,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Team",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
-      "effect": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp. Def stats are boosted by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp.Def stats are boosted by 1 stage.",
+      "classifications": []
     },
     {
       "id": 260,
@@ -3661,13 +3391,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of burning targets. The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": [
-        "bullet",
-        "metronome",
-        "defrosts",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["bullet"]
     },
     {
       "id": 261,
@@ -3680,7 +3404,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Gives the target the Can't Escape status.",
-      "classifications": ["metronome", "magic-coat-reflectable", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 262,
@@ -3693,7 +3417,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 263,
@@ -3706,7 +3430,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 264,
@@ -3718,8 +3442,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp. Atk stats by 2 stages. The user faints upon using this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Attack and Sp.Atk stats by 2 stages. The user faints upon using this move.",
+      "classifications": []
     },
     {
       "id": 265,
@@ -3728,11 +3452,11 @@
       "category": "physical",
       "power": null,
       "accuracy": 100,
-      "range": "Special",
+      "range": "Varies",
       "pp": 12,
       "priority": 0,
       "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 266,
@@ -3744,14 +3468,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
-      "classifications": [
-        "sound",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 267,
@@ -3763,8 +3481,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp.Atk stat is boosted by 1 stage on the turn this move is used.",
+      "classifications": []
     },
     {
       "id": 268,
@@ -3777,13 +3495,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 20% chance of boosting the user's Attack stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 269,
@@ -3796,7 +3508,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 270,
@@ -3809,7 +3521,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's evasiveness by 2 stages. The user gains the Minimized status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 271,
@@ -3818,11 +3530,11 @@
       "category": "status",
       "power": null,
       "accuracy": 100,
-      "range": "Special",
+      "range": "Varies",
       "pp": 20,
       "priority": -5,
       "effect": "The user retaliates to deal double the damage it took from an opponent's special move during the turn this move is used.",
-      "classifications": ["blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 272,
@@ -3835,7 +3547,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "If the user is under the effect of Misty Terrain this move's power is boosted by 50%. The user faints upon using this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 273,
@@ -3848,7 +3560,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Turns the entire field into Misty Terrain for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 274,
@@ -3860,8 +3572,8 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Atk stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Atk stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 275,
@@ -3874,7 +3586,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 276,
@@ -3887,7 +3599,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 277,
@@ -3900,7 +3612,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Poisons targets.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 278,
@@ -3913,7 +3625,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of making the target flinch.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 279,
@@ -3926,7 +3638,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 280,
@@ -3939,7 +3651,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the target's accuracy by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 281,
@@ -3952,7 +3664,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of lowering targets' accuracy by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 282,
@@ -3964,8 +3676,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Atk stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Sp.Atk stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 283,
@@ -3977,8 +3689,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Atk stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Sp.Atk stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 284,
@@ -3991,7 +3703,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 40% chance of lowering the target's accuracy by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 285,
@@ -4004,7 +3716,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Deals 50 HP of damage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 286,
@@ -4017,13 +3729,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 287,
@@ -4035,14 +3741,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage.",
-      "classifications": [
-        "sound",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 288,
@@ -4055,7 +3755,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 289,
@@ -4064,11 +3764,11 @@
       "category": "physical",
       "power": 120,
       "accuracy": 100,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Rampaging status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 290,
@@ -4080,8 +3780,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "classifications": []
     },
     {
       "id": 291,
@@ -4094,7 +3794,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user adds its remaining HP to the target's remaining HP then splits the total in half for them to share.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 292,
@@ -4107,7 +3807,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 293,
@@ -4119,14 +3819,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokemon.",
-      "classifications": [
-        "sound",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokemon.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 294,
@@ -4139,7 +3833,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the user attacks after the target.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 295,
@@ -4152,7 +3846,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Gives all Pokemon on the field the Perishing status.",
-      "classifications": ["sound", "metronome"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 296,
@@ -4165,7 +3859,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "",
-      "classifications": ["wind", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 297,
@@ -4174,11 +3868,11 @@
       "category": "special",
       "power": 120,
       "accuracy": 100,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Rampaging status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 298,
@@ -4191,7 +3885,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Concealed status on the turn this move is used then attacks on the following turn. This move can hit a target using a move such as Protect or Detect and removes the effects of those moves.",
-      "classifications": ["contact", "metronome", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 299,
@@ -4204,7 +3898,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 300,
@@ -4217,7 +3911,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of lowering the target's Attack stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 301,
@@ -4230,7 +3924,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If the target is holding a Berry the user eats that Berry and gains its effect.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 302,
@@ -4243,13 +3937,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 50% chance of badly poisoning the target.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 303,
@@ -4262,7 +3950,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 30% chance of poisoning the target.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 304,
@@ -4275,13 +3963,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Poisons the target.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 305,
@@ -4294,7 +3976,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "When used on an ally this move restores 1/2 of its max HP instead of dealing damage.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 306,
@@ -4307,7 +3989,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move fails if the target isn't holding an item.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 307,
@@ -4320,7 +4002,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 1 to 10 times in a row. The attack ends if the user misses.",
-      "classifications": ["contact", "slicing", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 308,
@@ -4333,7 +4015,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 1 stage.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 309,
@@ -4346,7 +4028,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 310,
@@ -4359,7 +4041,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Atk/Def Swapped status.",
-      "classifications": ["snatchable"]
+      "classifications": []
     },
     {
       "id": 311,
@@ -4371,8 +4053,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp. Atk stats.",
-      "classifications": ["metronome", "blocked-by-protect"]
+      "effect": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp.Atk stats.",
+      "classifications": []
     },
     {
       "id": 312,
@@ -4384,8 +4066,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user swaps the changes to its Attack and Sp. Atk stats with the changes to the target's Attack and Sp. Atk stats.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "The user swaps the changes to its Attack and Sp.Atk stats with the changes to the target's Attack and Sp.Atk stats.",
+      "classifications": []
     },
     {
       "id": 313,
@@ -4398,7 +4080,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Atk/Def Swapped status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 314,
@@ -4411,7 +4093,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is increased by 20 for each stage that the user's stats have been boosted.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 315,
@@ -4424,7 +4106,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 316,
@@ -4450,7 +4132,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user copies the target's stat changes.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 318,
@@ -4462,8 +4144,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": []
     },
     {
       "id": 319,
@@ -4476,13 +4158,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 320,
@@ -4495,7 +4171,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target the Healing Prevented status for 2 turns.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 321,
@@ -4508,7 +4184,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Turns the entire field into Psychic Terrain for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 322,
@@ -4521,7 +4197,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["slicing", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["slicing"]
     },
     {
       "id": 323,
@@ -4530,11 +4206,11 @@
       "category": "physical",
       "power": 90,
       "accuracy": 90,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's Defense stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 324,
@@ -4547,7 +4223,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This is a special move but the damage it deals is calculated using the target's Defense stat.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 325,
@@ -4560,7 +4236,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Causes the target to move last in the turn.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 326,
@@ -4573,7 +4249,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 327,
@@ -4582,11 +4258,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 16,
       "priority": 3,
       "effect": "The user protects itself and its allies from priority moves for the turn.",
-      "classifications": ["snatchable"]
+      "classifications": []
     },
     {
       "id": 328,
@@ -4598,8 +4274,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Atk Sp. Def and Speed stats by 1 stage.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Sp.Atk Sp.Def and Speed stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 329,
@@ -4625,7 +4301,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side. This move's type depends on the user's form.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 331,
@@ -4634,11 +4310,11 @@
       "category": "physical",
       "power": 120,
       "accuracy": 100,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Rampaging status.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 332,
@@ -4651,7 +4327,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Summons rain for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 333,
@@ -4664,7 +4340,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Boosts the user's Speed stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 334,
@@ -4677,13 +4353,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 335,
@@ -4696,7 +4366,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 336,
@@ -4709,7 +4379,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Regenerates the last held item that the user consumed. The user then holds this item once more.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 337,
@@ -4718,11 +4388,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the user's side the Reflect status for 5 turns.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 338,
@@ -4735,7 +4405,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user becomes the same type or types as the target.",
-      "classifications": ["metronome", "blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 339,
@@ -4748,7 +4418,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Fully restores the user's HP and cures any status conditions. The user falls asleep for 2 turns. This move fails if the user's HP is full.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 340,
@@ -4761,7 +4431,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The less HP the user has left the greater this move's power (ranging between 20 and 200).",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 341,
@@ -4774,7 +4444,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move's power is doubled if the target is under the effect of Electric Terrain.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 342,
@@ -4787,7 +4457,7 @@
       "pp": 20,
       "priority": -6,
       "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random.",
-      "classifications": ["sound", "metronome", "magic-coat-reflectable", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 343,
@@ -4800,7 +4470,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 344,
@@ -4813,7 +4483,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 345,
@@ -4826,7 +4496,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of making targets flinch.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 346,
@@ -4839,7 +4509,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 347,
@@ -4852,7 +4522,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 348,
@@ -4865,7 +4535,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Changes the user's Ability to be the same as the target's.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 349,
@@ -4878,7 +4548,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP. If the user is a Flying type it will lose the Flying type for the turn.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 350,
@@ -4891,7 +4561,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "If multiple Pokemon use this move in the same turn the second user onward will act immediately after the first and the power of the second Round onward will be doubled.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 351,
@@ -4904,13 +4574,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move ignores the target's stat changes when dealing damage.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 352,
@@ -4919,11 +4583,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the user's side the Safeguard status for 5 turns.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 353,
@@ -4936,7 +4600,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Salt Cured status.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 354,
@@ -4949,7 +4613,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 355,
@@ -4962,7 +4626,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Summons a sandstorm for 5 turns.",
-      "classifications": ["wind", "metronome"]
+      "classifications": ["wind"]
     },
     {
       "id": 356,
@@ -4975,7 +4639,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 30% chance of burning the target. Cures the user and target of being frozen.",
-      "classifications": ["metronome", "defrosts", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 357,
@@ -4988,7 +4652,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row. This move lowers the user's Defense stat by 1 stage and boosts its Speed stat by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 358,
@@ -5001,12 +4665,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 359,
@@ -5019,7 +4678,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of burning the target. Cures the user and target of being frozen.",
-      "classifications": ["metronome", "defrosts", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 360,
@@ -5032,13 +4691,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Defense stat by 2 stages.",
-      "classifications": [
-        "sound",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 361,
@@ -5051,7 +4704,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 362,
@@ -5064,7 +4717,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Deals 50 HP of damage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 363,
@@ -5077,7 +4730,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user faints upon using this move.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 364,
@@ -5089,8 +4742,8 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Has a 20% chance of lowering the target's Sp. Def stat by 1 stage.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Has a 20% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "classifications": ["bullet"]
     },
     {
       "id": 365,
@@ -5103,13 +4756,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 366,
@@ -5122,13 +4769,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 367,
@@ -5141,7 +4782,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 368,
@@ -5167,7 +4808,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Knocks out the target. This move does not affect Ice types. The accuracy of this move is fixed at 30%. If used by Pokemon other than Ice types the accuracy of this move is 20%.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 370,
@@ -5180,7 +4821,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 20% chance of poisoning the target. Becomes a physical move if that will deal more damage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 371,
@@ -5192,8 +4833,8 @@
       "range": "self",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage and boosts its Attack Sp. Atk and Speed stats by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage and boosts its Attack Sp.Atk and Speed stats by 2 stages.",
+      "classifications": []
     },
     {
       "id": 372,
@@ -5206,7 +4847,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Boosts the user's Defense stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 373,
@@ -5219,12 +4860,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Changes the target's Ability to Simple.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 374,
@@ -5237,13 +4873,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Puts the target to sleep.",
-      "classifications": [
-        "sound",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 375,
@@ -5256,7 +4886,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user and the target swap their Abilities.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 376,
@@ -5268,8 +4898,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp. Atk stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers the target's Sp.Atk stat by 1 stage.",
+      "classifications": ["contact"]
     },
     {
       "id": 377,
@@ -5282,7 +4912,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. This move has a 30% chance of making the target flinch and it has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 378,
@@ -5295,7 +4925,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 379,
@@ -5308,13 +4938,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Puts the target to sleep.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 380,
@@ -5340,7 +4964,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of poisoning the target.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 382,
@@ -5353,7 +4977,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of poisoning targets.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 383,
@@ -5366,7 +4990,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "If the target is off the ground it gains the Landed status. This move can hit a target that has the Sky-High status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 384,
@@ -5379,7 +5003,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 385,
@@ -5392,7 +5016,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 386,
@@ -5404,8 +5028,8 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers targets' Sp. Atk stats by 1 stage.",
-      "classifications": ["sound", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers targets' Sp.Atk stats by 1 stage.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 387,
@@ -5418,7 +5042,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Can be used only if the user is asleep. Has a 30% chance of making the target flinch.",
-      "classifications": ["sound", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 388,
@@ -5444,12 +5068,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Changes the target's type to Water.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 390,
@@ -5462,7 +5081,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 391,
@@ -5475,7 +5094,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 392,
@@ -5488,13 +5107,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 393,
@@ -5507,7 +5120,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Cures targets of their burns.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 394,
@@ -5520,7 +5133,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user and the target swap their Speed stats.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 395,
@@ -5533,7 +5146,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Defense stat by 2 stages and boosts its Attack stat by 2 stages.",
-      "classifications": ["magic-coat-reflectable", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 396,
@@ -5542,11 +5155,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Enemy Side",
+      "range": "opponent's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the opponent's side the Spikes status.",
-      "classifications": ["metronome", "magic-coat-reflectable"]
+      "classifications": []
     },
     {
       "id": 397,
@@ -5572,7 +5185,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target the Can't Escape status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 399,
@@ -5585,7 +5198,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The higher the user's Stockpiling level the greater this move's power (ranging between 100 and 300). This move fails unless the user has the Stockpiling status.",
-      "classifications": ["metronome", "blocked-by-protect"]
+      "classifications": []
     },
     {
       "id": 400,
@@ -5598,12 +5211,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Removes 4 PP from the move last used by the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 401,
@@ -5616,13 +5224,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Puts the target to sleep.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 402,
@@ -5631,11 +5233,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Enemy Side",
+      "range": "opponent's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the opponent's side the Stealth Rock status.",
-      "classifications": ["metronome", "magic-coat-reflectable"]
+      "classifications": []
     },
     {
       "id": 403,
@@ -5648,7 +5250,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "After attacking the user takes damage equal to 1/2 of its max HP.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 404,
@@ -5661,7 +5263,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Removes any terrain. This move fails if there is no terrain on the field.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 405,
@@ -5674,7 +5276,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 10% chance of boosting the user's Defense stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 406,
@@ -5683,11 +5285,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Enemy Side",
+      "range": "opponent's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the opponent's side the Sticky Web status.",
-      "classifications": ["metronome", "magic-coat-reflectable"]
+      "classifications": []
     },
     {
       "id": 407,
@@ -5699,8 +5301,8 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times.",
-      "classifications": ["snatchable", "metronome"]
+      "effect": "Boosts the user's Defense and Sp.Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times.",
+      "classifications": []
     },
     {
       "id": 408,
@@ -5713,7 +5315,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 409,
@@ -5726,13 +5328,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the opponent's side the Stealth Rock status.",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 410,
@@ -5745,7 +5341,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 411,
@@ -5758,7 +5354,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is increased by 20 for each stage that the user's stats have been boosted.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 412,
@@ -5771,7 +5367,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Always a critical hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 413,
@@ -5784,12 +5380,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Restores the user's HP by an amount equal to the target's Attack stat. Lowers the target's Attack stat by 1 stage.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 414,
@@ -5802,12 +5393,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 415,
@@ -5816,11 +5402,11 @@
       "category": "physical",
       "power": 50,
       "accuracy": null,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 1,
       "priority": 0,
       "effect": "",
-      "classifications": ["contact", "blocked-by-protect"]
+      "classifications": ["contact"]
     },
     {
       "id": 416,
@@ -5832,8 +5418,8 @@
       "range": "all-opponents",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers targets' Sp. Atk stats by 1 stage.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Lowers targets' Sp.Atk stats by 1 stage.",
+      "classifications": []
     },
     {
       "id": 417,
@@ -5846,7 +5432,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user eats its held Berry and boosts its Defense stat by 2 stages. This move can't be used if the user is not holding a Berry.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 418,
@@ -5859,13 +5445,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": [
-        "powder",
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 419,
@@ -5878,7 +5458,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user loses 1/4 of its max HP to create a substitute. The substitute will be hit by moves instead of the user and it will vanish when it takes damage equal to 1/4 of the user's max HP.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 420,
@@ -5891,7 +5471,7 @@
       "pp": 8,
       "priority": 1,
       "effect": "This move fails unless the target has chosen an attack and has not yet attacked during the turn this move is used.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 421,
@@ -5904,7 +5484,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Summons harsh sunlight for 5 turns.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 422,
@@ -5917,7 +5497,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Deals damage to the target equal to 1/2 of its remaining HP. Deals 1 HP of damage to a target that has only 1 HP left.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 423,
@@ -5930,7 +5510,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "If this move misses or fails the user takes damage equal to 1/2 of its max HP. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 424,
@@ -5943,7 +5523,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Lowers the user's Attack and Defense stats by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 425,
@@ -5956,7 +5536,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "This move's power is doubled against targets that have the Submerged status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 426,
@@ -5969,12 +5549,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Boosts the target's Attack stat by 2 stages and confuses it.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 427,
@@ -5987,7 +5562,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The higher the user's Stockpiling level the more HP the user restores. Level 1 1/4 of the user's max HP is restored. Level 2 1/2 of the user's max HP is restored. Level 3 The user's HP is fully restored. This move fails unless the user has the Stockpiling status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 428,
@@ -6000,12 +5575,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Confuses the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 429,
@@ -6018,12 +5588,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' evasiveness by 2 stages.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 430,
@@ -6036,7 +5601,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user and the target swap their held items.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 431,
@@ -6049,7 +5614,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Attack stat by 2 stages.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 432,
@@ -6062,7 +5627,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 433,
@@ -6075,7 +5640,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the target the Syrupy status for 3 turns.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 434,
@@ -6088,7 +5653,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 435,
@@ -6097,11 +5662,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 16,
       "priority": 0,
       "effect": "Gives the user's side the Tailwind status for 4 turns.",
-      "classifications": ["snatchable", "wind", "metronome"]
+      "classifications": ["wind"]
     },
     {
       "id": 436,
@@ -6114,12 +5679,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Taunted status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 437,
@@ -6131,8 +5691,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect.",
-      "classifications": ["metronome", "magic-coat-reflectable", "mirror-move-copyable"]
+      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect.",
+      "classifications": []
     },
     {
       "id": 438,
@@ -6145,7 +5705,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Causes all Pokemon on the field to eat their held Berries.",
-      "classifications": ["metronome"]
+      "classifications": []
     },
     {
       "id": 439,
@@ -6158,7 +5718,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Confuses all other Pokemon on the field.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 440,
@@ -6171,7 +5731,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 441,
@@ -6184,7 +5744,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the user is under the effect of a terrain. This move's type depends on the terrain.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 442,
@@ -6197,7 +5757,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "If the user is not already holding an item it steals the target's held item.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 443,
@@ -6206,11 +5766,11 @@
       "category": "physical",
       "power": 120,
       "accuracy": 100,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Rampaging status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 444,
@@ -6223,7 +5783,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Throat Chopped status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 445,
@@ -6236,7 +5796,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of paralyzing the target. This move never misses in rain and can hit a target that has the Sky-High status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 446,
@@ -6249,13 +5809,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of paralyzing the target and a 10% chance of making the target flinch.",
-      "classifications": [
-        "contact",
-        "biting",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 447,
@@ -6268,13 +5822,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of paralyzing the target.",
-      "classifications": [
-        "contact",
-        "punch",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 448,
@@ -6287,12 +5835,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 449,
@@ -6305,7 +5848,7 @@
       "pp": 1,
       "priority": 0,
       "effect": "Has a 10% chance of paralyzing the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 450,
@@ -6318,12 +5861,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Attack and Defense stats by 1 stage.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 451,
@@ -6348,8 +5886,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Boosts the user's Sp. Atk stat by 1 stage.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "effect": "Boosts the user's Sp.Atk stat by 1 stage.",
+      "classifications": ["sound-based"]
     },
     {
       "id": 453,
@@ -6362,12 +5900,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Unable to Repeat status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 454,
@@ -6380,12 +5913,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Badly poisons the target. If the user is a Poison type this move will never miss.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 455,
@@ -6394,11 +5922,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Enemy Side",
+      "range": "opponent's-side",
       "pp": 20,
       "priority": 0,
       "effect": "Gives the opponent's side the Toxic Spikes status.",
-      "classifications": ["metronome", "magic-coat-reflectable"]
+      "classifications": []
     },
     {
       "id": 456,
@@ -6411,12 +5939,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Lowers the target's Speed stat by 2 stages and poisons it.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 457,
@@ -6429,7 +5952,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the user's Speed stat by 1 stage.",
-      "classifications": ["contact", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 458,
@@ -6455,7 +5978,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 20% chance of leaving the target burned frozen or paralyzed.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 460,
@@ -6468,7 +5991,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user and the target swap their held items.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 461,
@@ -6481,7 +6004,7 @@
       "pp": 8,
       "priority": -7,
       "effect": "Gives the entire field the Trick Room status for 5 turns.",
-      "classifications": ["metronome", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 462,
@@ -6494,12 +6017,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Trick-or-Treating status.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 463,
@@ -6512,7 +6030,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage and has a 30% chance of making the target flinch. This move has a 1-stage Critical-Hit Ratio Boost.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 464,
@@ -6525,7 +6043,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 3 times in a row-first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 465,
@@ -6538,7 +6056,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Lowers the target's Attack stat by 1 stage.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 466,
@@ -6551,7 +6069,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks twice in a row.",
-      "classifications": ["blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 467,
@@ -6564,7 +6082,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 468,
@@ -6577,7 +6095,7 @@
       "pp": 16,
       "priority": 3,
       "effect": "Makes the target flinch. This move fails if the target isn't about to use a priority move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 469,
@@ -6586,11 +6104,11 @@
       "category": "special",
       "power": 90,
       "accuracy": 100,
-      "range": "Random Target",
+      "range": "random-opponent",
       "pp": 12,
       "priority": 0,
       "effect": "The user gains the Uproar status.",
-      "classifications": ["sound", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["sound-based"]
     },
     {
       "id": 470,
@@ -6603,7 +6121,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 471,
@@ -6616,7 +6134,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "This move's power is doubled if the target is poisoned or badly poisoned.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 472,
@@ -6629,7 +6147,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 473,
@@ -6642,7 +6160,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 10% chance of paralyzing the target. The user also takes 1/3 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 474,
@@ -6655,7 +6173,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Has a 20% chance of confusing the target.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 475,
@@ -6668,7 +6186,7 @@
       "pp": 20,
       "priority": 1,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 476,
@@ -6681,7 +6199,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 477,
@@ -6694,7 +6212,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of making the target flinch.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 478,
@@ -6707,7 +6225,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user takes 1/3 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 479,
@@ -6720,7 +6238,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "When a weather condition is present this move's power is doubled and its type changes. Harsh sunlight Fire type. Rain Water type. Snow Ice type. Sandstorm Rock type.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 480,
@@ -6733,7 +6251,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives the target the Bound status. This move's power is doubled if the target has the Submerged status.",
-      "classifications": ["metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 481,
@@ -6746,7 +6264,7 @@
       "pp": 20,
       "priority": -6,
       "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random.",
-      "classifications": ["wind", "metronome", "magic-coat-reflectable", "mirror-move-copyable"]
+      "classifications": ["wind"]
     },
     {
       "id": 482,
@@ -6755,11 +6273,11 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "users-side",
+      "range": "user's-side",
       "pp": 12,
       "priority": 3,
       "effect": "During the turn this move is used the user protects its side from moves that target all allies.",
-      "classifications": ["snatchable"]
+      "classifications": []
     },
     {
       "id": 483,
@@ -6772,7 +6290,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user takes 1/4 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 484,
@@ -6785,12 +6303,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Burns the target.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 485,
@@ -6803,7 +6316,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the user's spot the Wish status.",
-      "classifications": ["snatchable", "metronome"]
+      "classifications": []
     },
     {
       "id": 486,
@@ -6816,7 +6329,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Gives the entire field the Wonder Room status for 5 turns.",
-      "classifications": ["metronome", "mirror-move-copyable"]
+      "classifications": []
     },
     {
       "id": 487,
@@ -6829,7 +6342,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "The user takes 1/3 of the damage dealt by this move.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 488,
@@ -6842,12 +6355,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Changes the target's Ability to Insomnia.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 489,
@@ -6860,7 +6368,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "Gives the target the Bound status.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     },
     {
       "id": 490,
@@ -6873,13 +6381,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "",
-      "classifications": [
-        "contact",
-        "slicing",
-        "metronome",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 491,
@@ -6892,12 +6394,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "Makes the target drowsy. This move never misses.",
-      "classifications": [
-        "metronome",
-        "magic-coat-reflectable",
-        "blocked-by-protect",
-        "mirror-move-copyable"
-      ]
+      "classifications": []
     },
     {
       "id": 492,
@@ -6910,7 +6407,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": ["bullet", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["bullet"]
     },
     {
       "id": 493,
@@ -6923,7 +6420,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of making the target flinch.",
-      "classifications": ["contact", "metronome", "blocked-by-protect", "mirror-move-copyable"]
+      "classifications": ["contact"]
     }
   ]
 }

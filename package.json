@@ -6,6 +6,7 @@
     "scrape:abilities": "node --experimental-strip-types scripts/abilities-descriptions-scrape.mts",
     "scrape:champions:moves": "node --experimental-strip-types scripts/moves-scrape.mts",
     "scrape:champions:moves:translations": "node --experimental-strip-types scripts/moves-translations-scrape.mts",
+    "scrape:champions:pokemon:translations": "node --experimental-strip-types scripts/pokemon-translations-scrape.mts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
