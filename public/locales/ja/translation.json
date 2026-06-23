@@ -1,423 +1,82 @@
 {
   "welcome": "ようこそ、私たちのアプリに！",
+  "app": {
+    "subtitle": "分析コンソール"
+  },
   "home": {
-    "title": "ホーム"
+    "title": "ホーム",
+    "description": "ヘッダーから表示言語とカラーモードを切り替えて、チーム作成や統計分析にすぐ移れます。",
+    "quickSwitchTitle": "言語とテーマ",
+    "quickSwitchDescription": "英語と日本語を選び、ライト / ダークをページ遷移なしで切り替えられます。",
+    "primaryAction": "チームビルダーを開く",
+    "secondaryAction": "MUI の Next.js ガイド",
+    "featureOneTitle": "コンポーネント中心の UI",
+    "featureOneBody": "レイアウトとスタイルを MUI のプリミティブで組んでいるので、どちらの配色でも自然に馴染みます。",
+    "featureTwoTitle": "サーバー安全な翻訳",
+    "featureTwoBody": "翻訳はローカルにバンドルされ、言語変更にすぐ追従します。"
+  },
+  "preferences": {
+    "language": "言語",
+    "lightMode": "ライトモードに切り替え",
+    "darkMode": "ダークモードに切り替え"
+  },
+  "navigation": {
+    "openMenu": "メニューを開く",
+    "groups": {
+      "teambuilder": "チームビルダー",
+      "battle": "対戦",
+      "statistics": "統計"
+    },
+    "items": {
+      "createTeam": "チーム作成",
+      "draftAssistant": "ドラフト支援",
+      "coreFinder": "コア探索",
+      "battleRecord": "対戦記録",
+      "matchupPlanner": "マッチアップ計画",
+      "damageCalc": "ダメージ計算",
+      "usageTrends": "使用率推移",
+      "metaTables": "環境表",
+      "winrateInsights": "勝率分析"
+    }
+  },
+  "teamBuilder": {
+    "title": "チームビルダー",
+    "regulation": "レギュレーション {{regulation}}",
+    "openDrawer": "サイドバーを開く",
+    "closeDrawer": "サイドバーを閉じる",
+    "slotTabs": "チーム枠",
+    "back": "一覧へ戻る",
+    "slotLabel": "スロット {{index}}",
+    "slotDescription": "ここにステータス、技、努力値の設定を入れます。",
+    "change": "変更",
+    "remove": "外す",
+    "emptySlot": "このスロットにはまだポケモンが選ばれていません。",
+    "selectPokemon": "ポケモンを選ぶ",
+    "choosePokemon": "ポケモンを選択",
+    "query": {
+      "label": "検索",
+      "helper": "名前で検索、または @type:ほのお でタイプ絞り込み",
+      "type": "タイプ",
+      "noResults": "条件に一致するポケモンがいません。",
+      "more": "絞り込むと他の候補も表示されます。"
+    },
+    "loading": "チームデータを読み込み中...",
+    "createTeam": "チームを作成",
+    "noTeamsTitle": "チームがありません",
+    "noTeamsDescription": "新しくチームを作成してください。",
+    "selectTeamHint": "左のドロワーからチームを選択するか、新しく作成してください。",
+    "teamOverviewTitle": "チーム概要",
+    "teamLabel": "チーム {{index}}",
+    "emptyMember": "空きスロット {{index}}",
+    "memberLabel": "メンバー {{index}}",
+    "drawer": {
+      "overview": "概要",
+      "roster": "編成",
+      "loadout": "セット",
+      "notes": "メモ"
+    }
   },
   "moves": {
-    "protect": {
-      "name": "まもる"
-    },
-    "fake-out": {
-      "name": "ねこだまし"
-    },
-    "rock-slide": {
-      "name": "いわなだれ"
-    },
-    "tailwind": {
-      "name": "おいかぜ"
-    },
-    "close-combat": {
-      "name": "インファイト"
-    },
-    "dire-claw": {
-      "name": "フェイタルクロー"
-    },
-    "sucker-punch": {
-      "name": "ふいうち"
-    },
-    "earthquake": {
-      "name": "じしん"
-    },
-    "weather-ball": {
-      "name": "ウェザーボール"
-    },
-    "aqua-jet": {
-      "name": "アクアジェット"
-    },
-    "kowtow-cleave": {
-      "name": "ドゲザン"
-    },
-    "last-respects": {
-      "name": "おはかまいり"
-    },
-    "moonblast": {
-      "name": "ムーンフォース"
-    },
-    "dragon-claw": {
-      "name": "ドラゴンクロー"
-    },
-    "flare-blitz": {
-      "name": "フレアドライブ"
-    },
-    "iron-head": {
-      "name": "アイアンヘッド"
-    },
-    "trick-room": {
-      "name": "トリックルーム"
-    },
-    "heat-wave": {
-      "name": "ねっぷう"
-    },
-    "wave-crash": {
-      "name": "ウェーブタックル"
-    },
-    "parting-shot": {
-      "name": "すてゼリフ"
-    },
-    "dazzling-gleam": {
-      "name": "マジカルシャイン"
-    },
-    "low-kick": {
-      "name": "けたぐり"
-    },
-    "rage-powder": {
-      "name": "いかりのこな"
-    },
-    "dual-wingbeat": {
-      "name": "ダブルウイング"
-    },
-    "flip-turn": {
-      "name": "クイックターン"
-    },
-    "hyper-voice": {
-      "name": "ハイパーボイス"
-    },
-    "solar-beam": {
-      "name": "ソーラービーム"
-    },
-    "encore": {
-      "name": "アンコール"
-    },
-    "matcha-gotcha": {
-      "name": "シャカシャカほう"
-    },
-    "shadow-ball": {
-      "name": "シャドーボール"
-    },
-    "hurricane": {
-      "name": "ぼうふう"
-    },
-    "psychic": {
-      "name": "サイコキネシス"
-    },
-    "stomping-tantrum": {
-      "name": "じだんだ"
-    },
-    "will-o-wisp": {
-      "name": "おにび"
-    },
-    "calm-mind": {
-      "name": "めいそう"
-    },
-    "sludge-bomb": {
-      "name": "ヘドロばくだん"
-    },
-    "throat-chop": {
-      "name": "じごくづき"
-    },
-    "helping-hand": {
-      "name": "てだすけ"
-    },
-    "hydro-pump": {
-      "name": "ハイドロポンプ"
-    },
-    "life-dew": {
-      "name": "いのちのしずく"
-    },
-    "swords-dance": {
-      "name": "つるぎのまい"
-    },
-    "thunderbolt": {
-      "name": "１０まんボルト"
-    },
-    "blizzard": {
-      "name": "ふぶき"
-    },
-    "earth-power": {
-      "name": "だいちのちから"
-    },
-    "icy-wind": {
-      "name": "こごえるかぜ"
-    },
-    "wide-guard": {
-      "name": "ワイドガード"
-    },
-    "aura-sphere": {
-      "name": "はどうだん"
-    },
-    "darkest-lariat": {
-      "name": "ＤＤラリアット"
-    },
-    "draco-meteor": {
-      "name": "りゅうせいぐん"
-    },
-    "dragon-pulse": {
-      "name": "りゅうのはどう"
-    },
-    "electro-shot": {
-      "name": "エレクトロビーム"
-    },
-    "flash-cannon": {
-      "name": "ラスターカノン"
-    },
-    "knock-off": {
-      "name": "はたきおとす"
-    },
-    "volt-switch": {
-      "name": "ボルトチェンジ"
-    },
-    "brave-bird": {
-      "name": "ブレイブバード"
-    },
-    "bullet-punch": {
-      "name": "バレットパンチ"
-    },
-    "liquidation": {
-      "name": "アクアブレイク"
-    },
-    "overheat": {
-      "name": "オーバーヒート"
-    },
-    "shadow-sneak": {
-      "name": "かげうち"
-    },
-    "aurora-veil": {
-      "name": "オーロラベール"
-    },
-    "bug-bite": {
-      "name": "むしくい"
-    },
-    "clanging-scales": {
-      "name": "スケイルノイズ"
-    },
-    "clangorous-soul": {
-      "name": "ソウルビート"
-    },
-    "electroweb": {
-      "name": "エレキネット"
-    },
-    "follow-me": {
-      "name": "このゆびとまれ"
-    },
-    "light-of-ruin": {
-      "name": "はめつのひかり"
-    },
-    "perish-song": {
-      "name": "ほろびのうた"
-    },
-    "poltergeist": {
-      "name": "ポルターガイスト"
-    },
-    "quick-attack": {
-      "name": "でんこうせっか"
-    },
-    "rain-dance": {
-      "name": "あまごい"
-    },
-    "scald": {
-      "name": "ねっとう"
-    },
-    "substitute": {
-      "name": "みがわり"
-    },
-    "taunt": {
-      "name": "ちょうはつ"
-    },
-    "body-press": {
-      "name": "ボディプレス"
-    },
-    "bulk-up": {
-      "name": "ビルドアップ"
-    },
-    "coaching": {
-      "name": "コーチング"
-    },
-    "dark-pulse": {
-      "name": "あくのはどう"
-    },
-    "detect": {
-      "name": "みきり"
-    },
-    "disable": {
-      "name": "かなしばり"
-    },
-    "double-edge": {
-      "name": "すてみタックル"
-    },
-    "dragon-dance": {
-      "name": "りゅうのまい"
-    },
-    "drain-punch": {
-      "name": "ドレインパンチ"
-    },
-    "draining-kiss": {
-      "name": "ドレインキッス"
-    },
-    "eruption": {
-      "name": "ふんか"
-    },
-    "extreme-speed": {
-      "name": "しんそく"
-    },
-    "flamethrower": {
-      "name": "かえんほうしゃ"
-    },
-    "giga-drain": {
-      "name": "ギガドレイン"
-    },
-    "high-horsepower": {
-      "name": "１０まんばりき"
-    },
-    "hyper-beam": {
-      "name": "はかいこうせん"
-    },
-    "ice-beam": {
-      "name": "れいとうビーム"
-    },
-    "ice-punch": {
-      "name": "れいとうパンチ"
-    },
-    "leech-seed": {
-      "name": "やどりぎのタネ"
-    },
-    "light-screen": {
-      "name": "ひかりのかべ"
-    },
-    "muddy-water": {
-      "name": "だくりゅう"
-    },
-    "power-gem": {
-      "name": "パワージェム"
-    },
-    "psyshock": {
-      "name": "サイコショック"
-    },
-    "recover": {
-      "name": "じこさいせい"
-    },
-    "rock-tomb": {
-      "name": "がんせきふうじ"
-    },
-    "roost": {
-      "name": "はねやすめ"
-    },
-    "sacred-sword": {
-      "name": "せいなるつるぎ"
-    },
-    "scale-shot": {
-      "name": "スケイルショット"
-    },
-    "sleep-powder": {
-      "name": "ねむりごな"
-    },
-    "snarl": {
-      "name": "バークアウト"
-    },
-    "spiky-shield": {
-      "name": "ニードルガード"
-    },
-    "super-fang": {
-      "name": "いかりのまえば"
-    },
-    "acrobatics": {
-      "name": "アクロバット"
-    },
-    "air-slash": {
-      "name": "エアスラッシュ"
-    },
-    "breaking-swipe": {
-      "name": "ワイドブレイカー"
-    },
-    "coil": {
-      "name": "とぐろをまく"
-    },
-    "crunch": {
-      "name": "かみくだく"
-    },
-    "energy-ball": {
-      "name": "エナジーボール"
-    },
-    "feint": {
-      "name": "フェイント"
-    },
-    "foul-play": {
-      "name": "イカサマ"
-    },
-    "freeze-dry": {
-      "name": "フリーズドライ"
-    },
-    "heavy-slam": {
-      "name": "ヘビーボンバー"
-    },
-    "hypnosis": {
-      "name": "さいみんじゅつ"
-    },
-    "imprison": {
-      "name": "ふういん"
-    },
-    "iron-defense": {
-      "name": "てっぺき"
-    },
-    "jet-punch": {
-      "name": "ジェットパンチ"
-    },
-    "leaf-storm": {
-      "name": "リーフストーム"
-    },
-    "nasty-plot": {
-      "name": "わるだくみ"
-    },
-    "phantom-force": {
-      "name": "ゴーストダイブ"
-    },
-    "play-rough": {
-      "name": "じゃれつく"
-    },
-    "poison-jab": {
-      "name": "どくづき"
-    },
-    "psycho-cut": {
-      "name": "サイコカッター"
-    },
-    "reflect": {
-      "name": "リフレクター"
-    },
-    "stone-edge": {
-      "name": "ストーンエッジ"
-    },
-    "strength-sap": {
-      "name": "ちからをすいとる"
-    },
-    "sunny-day": {
-      "name": "にほんばれ"
-    },
-    "thunder": {
-      "name": "かみなり"
-    },
-    "thunder-wave": {
-      "name": "でんじは"
-    },
-    "trick": {
-      "name": "トリック"
-    },
-    "triple-axel": {
-      "name": "トリプルアクセル"
-    },
-    "twin-beam": {
-      "name": "ツインビーム"
-    },
-    "u-turn": {
-      "name": "とんぼがえり"
-    },
-    "water-spout": {
-      "name": "しおふき"
-    },
-    "waterfall": {
-      "name": "たきのぼり"
-    },
-    "yawn": {
-      "name": "あくび"
-    },
     "accelerock": {
       "name": "アクセルロック"
     },
@@ -426,6 +85,12 @@
     },
     "acid-spray": {
       "name": "アシッドボム"
+    },
+    "acrobatics": {
+      "name": "アクロバット"
+    },
+    "acupressure": {
+      "name": "つぼをつく"
     },
     "aerial-ace": {
       "name": "つばめがえし"
@@ -436,29 +101,68 @@
     "agility": {
       "name": "こうそくいどう"
     },
+    "air-cutter": {
+      "name": "エアカッター"
+    },
+    "air-slash": {
+      "name": "エアスラッシュ"
+    },
     "alluring-voice": {
       "name": "みわくのボイス"
     },
     "ally-switch": {
       "name": "サイドチェンジ"
     },
+    "amnesia": {
+      "name": "ドわすれ"
+    },
     "ancient-power": {
       "name": "げんしのちから"
+    },
+    "apple-acid": {
+      "name": "りんごさん"
     },
     "aqua-cutter": {
       "name": "アクアカッター"
     },
+    "aqua-jet": {
+      "name": "アクアジェット"
+    },
+    "aqua-ring": {
+      "name": "アクアリング"
+    },
     "aqua-step": {
       "name": "アクアステップ"
+    },
+    "aqua-tail": {
+      "name": "アクアテール"
     },
     "armor-cannon": {
       "name": "アーマーキャノン"
     },
+    "aromatic-mist": {
+      "name": "アロマミスト"
+    },
     "assurance": {
       "name": "ダメおし"
     },
+    "attract": {
+      "name": "メロメロ"
+    },
+    "aura-sphere": {
+      "name": "はどうだん"
+    },
+    "aura-wheel": {
+      "name": "オーラぐるま"
+    },
+    "aurora-veil": {
+      "name": "オーロラベール"
+    },
     "avalanche": {
       "name": "ゆきなだれ"
+    },
+    "axe-kick": {
+      "name": "かかとおとし"
     },
     "baby-doll-eyes": {
       "name": "つぶらなひとみ"
@@ -469,11 +173,20 @@
     "baton-pass": {
       "name": "バトンタッチ"
     },
+    "beak-blast": {
+      "name": "くちばしキャノン"
+    },
     "beat-up": {
       "name": "ふくろだたき"
     },
+    "belch": {
+      "name": "ゲップ"
+    },
     "belly-drum": {
       "name": "はらだいこ"
+    },
+    "bind": {
+      "name": "しめつける"
     },
     "bite": {
       "name": "かみつく"
@@ -490,17 +203,53 @@
     "blaze-kick": {
       "name": "ブレイズキック"
     },
+    "blizzard": {
+      "name": "ふぶき"
+    },
+    "block": {
+      "name": "とおせんぼう"
+    },
+    "body-press": {
+      "name": "ボディプレス"
+    },
     "body-slam": {
       "name": "のしかかり"
+    },
+    "bone-rush": {
+      "name": "ボーンラッシュ"
+    },
+    "boomburst": {
+      "name": "ばくおんぱ"
+    },
+    "bounce": {
+      "name": "とびはねる"
+    },
+    "brave-bird": {
+      "name": "ブレイブバード"
+    },
+    "breaking-swipe": {
+      "name": "ワイドブレイカー"
     },
     "brick-break": {
       "name": "かわらわり"
     },
+    "brutal-swing": {
+      "name": "ぶんまわす"
+    },
+    "bug-bite": {
+      "name": "むしくい"
+    },
     "bug-buzz": {
       "name": "むしのさざめき"
     },
+    "bulk-up": {
+      "name": "ビルドアップ"
+    },
     "bulldoze": {
       "name": "じならし"
+    },
+    "bullet-punch": {
+      "name": "バレットパンチ"
     },
     "bullet-seed": {
       "name": "タネマシンガン"
@@ -508,8 +257,20 @@
     "burn-up": {
       "name": "もえつきる"
     },
+    "burning-jealousy": {
+      "name": "しっとのほのお"
+    },
+    "calm-mind": {
+      "name": "めいそう"
+    },
     "ceaseless-edge": {
       "name": "ひけん・ちえなみ"
+    },
+    "charge": {
+      "name": "じゅうでん"
+    },
+    "charge-beam": {
+      "name": "チャージビーム"
     },
     "charm": {
       "name": "あまえる"
@@ -520,26 +281,146 @@
     "chilly-reception": {
       "name": "さむいギャグ"
     },
+    "circle-throw": {
+      "name": "ともえなげ"
+    },
+    "clanging-scales": {
+      "name": "スケイルノイズ"
+    },
+    "clangorous-soul": {
+      "name": "ソウルビート"
+    },
+    "clear-smog": {
+      "name": "クリアスモッグ"
+    },
+    "close-combat": {
+      "name": "インファイト"
+    },
+    "coaching": {
+      "name": "コーチング"
+    },
+    "coil": {
+      "name": "とぐろをまく"
+    },
+    "comeuppance": {
+      "name": "ほうふく"
+    },
+    "confuse-ray": {
+      "name": "あやしいひかり"
+    },
+    "copycat": {
+      "name": "まねっこ"
+    },
+    "corrosive-gas": {
+      "name": "ふしょくガス"
+    },
+    "cosmic-power": {
+      "name": "コスモパワー"
+    },
     "cotton-guard": {
       "name": "コットンガード"
+    },
+    "cotton-spore": {
+      "name": "わたほうし"
+    },
+    "counter": {
+      "name": "カウンター"
+    },
+    "covet": {
+      "name": "ほしがる"
+    },
+    "crabhammer": {
+      "name": "クラブハンマー"
+    },
+    "cross-chop": {
+      "name": "クロスチョップ"
+    },
+    "cross-poison": {
+      "name": "クロスポイズン"
+    },
+    "crunch": {
+      "name": "かみくだく"
+    },
+    "crush-claw": {
+      "name": "ブレイククロー"
     },
     "curse": {
       "name": "のろい"
     },
+    "dark-pulse": {
+      "name": "あくのはどう"
+    },
+    "darkest-lariat": {
+      "name": "ＤＤラリアット"
+    },
+    "dazzling-gleam": {
+      "name": "マジカルシャイン"
+    },
+    "decorate": {
+      "name": "デコレーション"
+    },
+    "defog": {
+      "name": "きりばらい"
+    },
     "destiny-bond": {
       "name": "みちづれ"
+    },
+    "detect": {
+      "name": "みきり"
+    },
+    "dig": {
+      "name": "あなをほる"
+    },
+    "dire-claw": {
+      "name": "フェイタルクロー"
+    },
+    "disable": {
+      "name": "かなしばり"
     },
     "discharge": {
       "name": "ほうでん"
     },
+    "dive": {
+      "name": "ダイビング"
+    },
+    "double-hit": {
+      "name": "ダブルアタック"
+    },
+    "double-team": {
+      "name": "かげぶんしん"
+    },
+    "double-edge": {
+      "name": "すてみタックル"
+    },
+    "draco-meteor": {
+      "name": "りゅうせいぐん"
+    },
     "dragon-cheer": {
       "name": "ドラゴンエール"
+    },
+    "dragon-claw": {
+      "name": "ドラゴンクロー"
+    },
+    "dragon-dance": {
+      "name": "りゅうのまい"
     },
     "dragon-darts": {
       "name": "ドラゴンアロー"
     },
+    "dragon-pulse": {
+      "name": "りゅうのはどう"
+    },
     "dragon-rush": {
       "name": "ドラゴンダイブ"
+    },
+    "dragon-tail": {
+      "name": "ドラゴンテール"
+    },
+    "drain-punch": {
+      "name": "ドレインパンチ"
+    },
+    "draining-kiss": {
+      "name": "ドレインキッス"
     },
     "drill-peck": {
       "name": "ドリルくちばし"
@@ -547,29 +428,89 @@
     "drill-run": {
       "name": "ドリルライナー"
     },
+    "dual-wingbeat": {
+      "name": "ダブルウイング"
+    },
+    "dynamic-punch": {
+      "name": "ばくれつパンチ"
+    },
+    "earth-power": {
+      "name": "だいちのちから"
+    },
+    "earthquake": {
+      "name": "じしん"
+    },
     "eerie-impulse": {
       "name": "かいでんぱ"
+    },
+    "eerie-spell": {
+      "name": "ぶきみなじゅもん"
+    },
+    "electric-terrain": {
+      "name": "エレキフィールド"
+    },
+    "electrify": {
+      "name": "そうでん"
+    },
+    "electro-ball": {
+      "name": "エレキボール"
+    },
+    "electro-shot": {
+      "name": "エレクトロビーム"
+    },
+    "electroweb": {
+      "name": "エレキネット"
+    },
+    "encore": {
+      "name": "アンコール"
     },
     "endeavor": {
       "name": "がむしゃら"
     },
+    "endure": {
+      "name": "こらえる"
+    },
+    "energy-ball": {
+      "name": "エナジーボール"
+    },
     "entrainment": {
       "name": "なかまづくり"
+    },
+    "eruption": {
+      "name": "ふんか"
     },
     "expanding-force": {
       "name": "ワイドフォース"
     },
+    "explosion": {
+      "name": "だいばくはつ"
+    },
     "extrasensory": {
       "name": "じんつうりき"
     },
+    "extreme-speed": {
+      "name": "しんそく"
+    },
     "facade": {
       "name": "からげんき"
+    },
+    "fairy-lock": {
+      "name": "フェアリーロック"
+    },
+    "fake-out": {
+      "name": "ねこだまし"
     },
     "fake-tears": {
       "name": "うそなき"
     },
     "feather-dance": {
       "name": "フェザーダンス"
+    },
+    "feint": {
+      "name": "フェイント"
+    },
+    "fell-stinger": {
+      "name": "とどめばり"
     },
     "fickle-beam": {
       "name": "きまぐレーザー"
@@ -586,23 +527,50 @@
     "fire-fang": {
       "name": "ほのおのキバ"
     },
+    "fire-lash": {
+      "name": "ほのおのムチ"
+    },
     "fire-punch": {
       "name": "ほのおのパンチ"
     },
     "fire-spin": {
       "name": "ほのおのうず"
     },
+    "first-impression": {
+      "name": "であいがしら"
+    },
     "fissure": {
       "name": "じわれ"
+    },
+    "flail": {
+      "name": "じたばた"
     },
     "flame-charge": {
       "name": "ニトロチャージ"
     },
+    "flamethrower": {
+      "name": "かえんほうしゃ"
+    },
+    "flare-blitz": {
+      "name": "フレアドライブ"
+    },
+    "flash-cannon": {
+      "name": "ラスターカノン"
+    },
+    "flatter": {
+      "name": "おだてる"
+    },
     "fling": {
       "name": "なげつける"
     },
+    "flip-turn": {
+      "name": "クイックターン"
+    },
     "flower-trick": {
       "name": "トリックフラワー"
+    },
+    "fly": {
+      "name": "そらをとぶ"
     },
     "flying-press": {
       "name": "フライングプレス"
@@ -613,17 +581,77 @@
     "focus-energy": {
       "name": "きあいだめ"
     },
+    "focus-punch": {
+      "name": "きあいパンチ"
+    },
+    "follow-me": {
+      "name": "このゆびとまれ"
+    },
+    "forest's-curse": {
+      "name": "もりののろい"
+    },
+    "foul-play": {
+      "name": "イカサマ"
+    },
+    "freeze-dry": {
+      "name": "フリーズドライ"
+    },
+    "frenzy-plant": {
+      "name": "ハードプラント"
+    },
+    "frost-breath": {
+      "name": "こおりのいぶき"
+    },
+    "future-sight": {
+      "name": "みらいよち"
+    },
+    "gastro-acid": {
+      "name": "いえき"
+    },
+    "giga-drain": {
+      "name": "ギガドレイン"
+    },
+    "giga-impact": {
+      "name": "ギガインパクト"
+    },
     "gigaton-hammer": {
       "name": "デカハンマー"
+    },
+    "glare": {
+      "name": "へびにらみ"
     },
     "grass-knot": {
       "name": "くさむすび"
     },
+    "grassy-glide": {
+      "name": "グラススライダー"
+    },
+    "grassy-terrain": {
+      "name": "グラスフィールド"
+    },
+    "grav-apple": {
+      "name": "Ｇのちから"
+    },
     "gravity": {
       "name": "じゅうりょく"
     },
+    "growth": {
+      "name": "せいちょう"
+    },
+    "guard-split": {
+      "name": "ガードシェア"
+    },
+    "guard-swap": {
+      "name": "ガードスワップ"
+    },
+    "guillotine": {
+      "name": "ハサミギロチン"
+    },
     "gunk-shot": {
       "name": "ダストシュート"
+    },
+    "gyro-ball": {
+      "name": "ジャイロボール"
     },
     "hammer-arm": {
       "name": "アームハンマー"
@@ -640,26 +668,74 @@
     "headlong-rush": {
       "name": "ぶちかまし"
     },
+    "heal-bell": {
+      "name": "いやしのすず"
+    },
+    "heal-pulse": {
+      "name": "いやしのはどう"
+    },
+    "healing-wish": {
+      "name": "いやしのねがい"
+    },
     "heat-crash": {
       "name": "ヒートスタンプ"
+    },
+    "heat-wave": {
+      "name": "ねっぷう"
+    },
+    "heavy-slam": {
+      "name": "ヘビーボンバー"
+    },
+    "helping-hand": {
+      "name": "てだすけ"
     },
     "hex": {
       "name": "たたりめ"
     },
+    "high-horsepower": {
+      "name": "１０まんばりき"
+    },
     "high-jump-kick": {
       "name": "とびひざげり"
+    },
+    "horn-drill": {
+      "name": "つのドリル"
+    },
+    "horn-leech": {
+      "name": "ウッドホーン"
     },
     "howl": {
       "name": "とおぼえ"
     },
+    "hurricane": {
+      "name": "ぼうふう"
+    },
     "hydro-cannon": {
       "name": "ハイドロカノン"
+    },
+    "hydro-pump": {
+      "name": "ハイドロポンプ"
+    },
+    "hyper-beam": {
+      "name": "はかいこうせん"
+    },
+    "hyper-voice": {
+      "name": "ハイパーボイス"
+    },
+    "hypnosis": {
+      "name": "さいみんじゅつ"
+    },
+    "ice-beam": {
+      "name": "れいとうビーム"
     },
     "ice-fang": {
       "name": "こおりのキバ"
     },
     "ice-hammer": {
       "name": "アイスハンマー"
+    },
+    "ice-punch": {
+      "name": "れいとうパンチ"
     },
     "ice-shard": {
       "name": "こおりのつぶて"
@@ -673,17 +749,47 @@
     "icicle-spear": {
       "name": "つららばり"
     },
+    "icy-wind": {
+      "name": "こごえるかぜ"
+    },
+    "imprison": {
+      "name": "ふういん"
+    },
     "infernal-parade": {
       "name": "ひゃっきやこう"
+    },
+    "inferno": {
+      "name": "れんごく"
     },
     "infestation": {
       "name": "まとわりつく"
     },
+    "ingrain": {
+      "name": "ねをはる"
+    },
     "instruct": {
       "name": "さいはい"
     },
-    "king’s-shield": {
+    "iron-defense": {
+      "name": "てっぺき"
+    },
+    "iron-head": {
+      "name": "アイアンヘッド"
+    },
+    "iron-tail": {
+      "name": "アイアンテール"
+    },
+    "jet-punch": {
+      "name": "ジェットパンチ"
+    },
+    "king's-shield": {
       "name": "キングシールド"
+    },
+    "knock-off": {
+      "name": "はたきおとす"
+    },
+    "kowtow-cleave": {
+      "name": "ドゲザン"
     },
     "lash-out": {
       "name": "うっぷんばらし"
@@ -691,11 +797,41 @@
     "last-resort": {
       "name": "とっておき"
     },
+    "last-respects": {
+      "name": "おはかまいり"
+    },
+    "lava-plume": {
+      "name": "ふんえん"
+    },
     "leaf-blade": {
       "name": "リーフブレード"
     },
+    "leaf-storm": {
+      "name": "リーフストーム"
+    },
     "leech-life": {
       "name": "きゅうけつ"
+    },
+    "leech-seed": {
+      "name": "やどりぎのタネ"
+    },
+    "life-dew": {
+      "name": "いのちのしずく"
+    },
+    "light-screen": {
+      "name": "ひかりのかべ"
+    },
+    "light-of-ruin": {
+      "name": "はめつのひかり"
+    },
+    "liquidation": {
+      "name": "アクアブレイク"
+    },
+    "lock-on": {
+      "name": "ロックオン"
+    },
+    "low-kick": {
+      "name": "けたぐり"
     },
     "low-sweep": {
       "name": "ローキック"
@@ -715,1193 +851,50 @@
     "magic-room": {
       "name": "マジックルーム"
     },
-    "mean-look": {
-      "name": "くろいまなざし"
-    },
-    "mega-kick": {
-      "name": "メガトンキック"
-    },
-    "memento": {
-      "name": "おきみやげ"
-    },
-    "meteor-mash": {
-      "name": "コメットパンチ"
-    },
-    "mirror-coat": {
-      "name": "ミラーコート"
-    },
-    "morning-sun": {
-      "name": "あさのひざし"
-    },
-    "mortal-spin": {
-      "name": "キラースピン"
-    },
-    "mystical-fire": {
-      "name": "マジカルフレイム"
-    },
-    "night-shade": {
-      "name": "ナイトヘッド"
-    },
-    "night-slash": {
-      "name": "つじぎり"
-    },
-    "nuzzle": {
-      "name": "ほっぺすりすり"
-    },
-    "outrage": {
-      "name": "げきりん"
-    },
-    "pain-split": {
-      "name": "いたみわけ"
-    },
-    "parabolic-charge": {
-      "name": "パラボラチャージ"
-    },
-    "payback": {
-      "name": "しっぺがえし"
-    },
-    "pin-missile": {
-      "name": "ミサイルばり"
-    },
-    "pollen-puff": {
-      "name": "かふんだんご"
-    },
-    "population-bomb": {
-      "name": "ネズミざん"
-    },
-    "power-whip": {
-      "name": "パワーウィップ"
-    },
-    "precipice-blades": {
-      "name": "だんがいのつるぎ"
-    },
-    "psychic-fangs": {
-      "name": "サイコファング"
-    },
-    "psychic-noise": {
-      "name": "サイコノイズ"
-    },
-    "psychic-terrain": {
-      "name": "サイコフィールド"
-    },
-    "quash": {
-      "name": "さきおくり"
-    },
-    "quick-guard": {
-      "name": "ファストガード"
-    },
-    "quiver-dance": {
-      "name": "ちょうのまい"
-    },
-    "rage": {
-      "name": "いかり"
-    },
-    "raging-fury": {
-      "name": "だいふんげき"
-    },
-    "razor-shell": {
-      "name": "シェルブレード"
-    },
-    "reflect-type": {
-      "name": "ミラータイプ"
-    },
-    "rest": {
-      "name": "ねむる"
-    },
-    "roar": {
-      "name": "ほえる"
-    },
-    "rock-blast": {
-      "name": "ロックブラスト"
-    },
-    "round": {
-      "name": "りんしょう"
-    },
-    "safeguard": {
-      "name": "しんぴのまもり"
-    },
-    "salt-cure": {
-      "name": "しおづけ"
-    },
-    "sandstorm": {
-      "name": "すなあらし"
-    },
-    "scorching-sands": {
-      "name": "ねっさのだいち"
-    },
-    "self-destruct": {
-      "name": "じばく"
-    },
-    "shadow-claw": {
-      "name": "シャドークロー"
-    },
-    "shed-tail": {
-      "name": "しっぽきり"
-    },
-    "sheer-cold": {
-      "name": "ぜったいれいど"
-    },
-    "shell-smash": {
-      "name": "からをやぶる"
-    },
-    "skill-swap": {
-      "name": "スキルスワップ"
-    },
-    "slack-off": {
-      "name": "なまける"
-    },
-    "sludge-wave": {
-      "name": "ヘドロウェーブ"
-    },
-    "soak": {
-      "name": "みずびたし"
-    },
-    "speed-swap": {
-      "name": "スピードスワップ"
-    },
-    "stealth-rock": {
-      "name": "ステルスロック"
-    },
-    "steel-wing": {
-      "name": "はがねのつばさ"
-    },
-    "stockpile": {
-      "name": "たくわえる"
-    },
-    "stone-axe": {
-      "name": "がんせきアックス"
-    },
-    "strange-steam": {
-      "name": "ワンダースチーム"
-    },
-    "string-shot": {
-      "name": "いとをはく"
-    },
-    "struggle-bug": {
-      "name": "むしのていこう"
-    },
-    "superpower": {
-      "name": "ばかぢから"
-    },
-    "surf": {
-      "name": "なみのり"
-    },
-    "swagger": {
-      "name": "いばる"
-    },
-    "synthesis": {
-      "name": "こうごうせい"
-    },
-    "temper-flare": {
-      "name": "やけっぱち"
-    },
-    "thief": {
-      "name": "どろぼう"
-    },
-    "thunder-fang": {
-      "name": "かみなりのキバ"
-    },
-    "thunder-punch": {
-      "name": "かみなりパンチ"
-    },
-    "torch-song": {
-      "name": "フレアソング"
-    },
-    "toxic": {
-      "name": "どくどく"
-    },
-    "trailblaze": {
-      "name": "くさわけ"
-    },
-    "transform": {
-      "name": "へんしん"
-    },
-    "triple-arrows": {
-      "name": "３ぼんのや"
-    },
-    "trop-kick": {
-      "name": "トロピカルキック"
-    },
-    "upper-hand": {
-      "name": "はやてがえし"
-    },
-    "vacuum-wave": {
-      "name": "しんくうは"
-    },
-    "venoshock": {
-      "name": "ベノムショック"
-    },
-    "volt-tackle": {
-      "name": "ボルテッカー"
-    },
-    "water-pulse": {
-      "name": "みずのはどう"
-    },
-    "water-shuriken": {
-      "name": "みずしゅりけん"
-    },
-    "whirlwind": {
-      "name": "ふきとばし"
-    },
-    "wild-charge": {
-      "name": "ワイルドボルト"
-    },
-    "wish": {
-      "name": "ねがいごと"
-    },
-    "wood-hammer": {
-      "name": "ウッドハンマー"
-    },
-    "zen-headbutt": {
-      "name": "しねんのずつき"
-    },
-    "absorb": {
-      "name": "すいとる"
-    },
-    "acid": {
-      "name": "ようかいえき"
-    },
-    "acid-downpour": {
-      "name": "アシッドポイズンデリート"
-    },
-    "acupressure": {
-      "name": "つぼをつく"
-    },
-    "aeroblast": {
-      "name": "エアロブラスト"
-    },
-    "air-cutter": {
-      "name": "エアカッター"
-    },
-    "all-out-pummeling": {
-      "name": "ぜんりょくむそうげきれつけん"
-    },
-    "amnesia": {
-      "name": "ドわすれ"
-    },
-    "anchor-shot": {
-      "name": "アンカーショット"
-    },
-    "apple-acid": {
-      "name": "りんごさん"
-    },
-    "aqua-ring": {
-      "name": "アクアリング"
-    },
-    "aqua-tail": {
-      "name": "アクアテール"
-    },
-    "arm-thrust": {
-      "name": "つっぱり"
-    },
-    "aromatherapy": {
-      "name": "アロマセラピー"
-    },
-    "aromatic-mist": {
-      "name": "アロマミスト"
-    },
-    "assist": {
-      "name": "ねこのて"
-    },
-    "astonish": {
-      "name": "おどろかす"
-    },
-    "astral-barrage": {
-      "name": "アストラルビット"
-    },
-    "attack-order": {
-      "name": "こうげきしれい"
-    },
-    "attract": {
-      "name": "メロメロ"
-    },
-    "aura-wheel": {
-      "name": "オーラぐるま"
-    },
-    "aurora-beam": {
-      "name": "オーロラビーム"
-    },
-    "autotomize": {
-      "name": "ボディパージ"
-    },
-    "axe-kick": {
-      "name": "かかとおとし"
-    },
-    "baddy-bad": {
-      "name": "わるわるゾーン"
-    },
-    "barb-barrage": {
-      "name": "どくばりセンボン"
-    },
-    "barrage": {
-      "name": "たまなげ"
-    },
-    "barrier": {
-      "name": "バリアー"
-    },
-    "beak-blast": {
-      "name": "くちばしキャノン"
-    },
-    "behemoth-bash": {
-      "name": "きょじゅうだん"
-    },
-    "behemoth-blade": {
-      "name": "きょじゅうざん"
-    },
-    "belch": {
-      "name": "ゲップ"
-    },
-    "bestow": {
-      "name": "ギフトパス"
-    },
-    "bide": {
-      "name": "がまん"
-    },
-    "bind": {
-      "name": "しめつける"
-    },
-    "black-hole-eclipse": {
-      "name": "ブラックホールイクリプス"
-    },
-    "blazing-torque": {
-      "name": "バーンアクセル"
-    },
-    "bleakwind-storm": {
-      "name": "こがらしあらし"
-    },
-    "block": {
-      "name": "とおせんぼう"
-    },
-    "blood-moon": {
-      "name": "ブラッドムーン"
-    },
-    "bloom-doom": {
-      "name": "ブルームシャインエクストラ"
-    },
-    "blue-flare": {
-      "name": "あおいほのお"
-    },
-    "bolt-beak": {
-      "name": "でんげきくちばし"
-    },
-    "bolt-strike": {
-      "name": "らいげき"
-    },
-    "bone-club": {
-      "name": "ホネこんぼう"
-    },
-    "bone-rush": {
-      "name": "ボーンラッシュ"
-    },
-    "bonemerang": {
-      "name": "ホネブーメラン"
-    },
-    "boomburst": {
-      "name": "ばくおんぱ"
-    },
-    "bounce": {
-      "name": "とびはねる"
-    },
-    "bouncy-bubble": {
-      "name": "いきいきバブル"
-    },
-    "branch-poke": {
-      "name": "えだづき"
-    },
-    "breakneck-blitz": {
-      "name": "ウルトラダッシュアタック"
-    },
-    "brine": {
-      "name": "しおみず"
-    },
-    "brutal-swing": {
-      "name": "ぶんまわす"
-    },
-    "bubble": {
-      "name": "あわ"
-    },
-    "bubble-beam": {
-      "name": "バブルこうせん"
-    },
-    "burning-bulwark": {
-      "name": "かえんのまもり"
-    },
-    "burning-jealousy": {
-      "name": "しっとのほのお"
-    },
-    "buzzy-buzz": {
-      "name": "びりびりエレキ"
-    },
-    "camouflage": {
-      "name": "ほごしょく"
-    },
-    "captivate": {
-      "name": "ゆうわく"
-    },
-    "catastropika": {
-      "name": "ひっさつのピカチュート"
-    },
-    "celebrate": {
-      "name": "おいわい"
-    },
-    "charge": {
-      "name": "じゅうでん"
-    },
-    "charge-beam": {
-      "name": "チャージビーム"
-    },
-    "chatter": {
-      "name": "おしゃべり"
-    },
-    "chip-away": {
-      "name": "なしくずし"
-    },
-    "chloroblast": {
-      "name": "クロロブラスト"
-    },
-    "circle-throw": {
-      "name": "ともえなげ"
-    },
-    "clamp": {
-      "name": "からではさむ"
-    },
-    "clangorous-soulblaze": {
-      "name": "ブレイジングソウルビート"
-    },
-    "clear-smog": {
-      "name": "クリアスモッグ"
-    },
-    "collision-course": {
-      "name": "アクセルブレイク"
-    },
-    "combat-torque": {
-      "name": "ファイトアクセル"
-    },
-    "comet-punch": {
-      "name": "れんぞくパンチ"
-    },
-    "comeuppance": {
-      "name": "ほうふく"
-    },
-    "confide": {
-      "name": "ないしょばなし"
-    },
-    "confuse-ray": {
-      "name": "あやしいひかり"
-    },
-    "confusion": {
-      "name": "ねんりき"
-    },
-    "constrict": {
-      "name": "からみつく"
-    },
-    "continental-crush": {
-      "name": "ワールズエンドフォール"
-    },
-    "conversion": {
-      "name": "テクスチャー"
-    },
-    "conversion-2": {
-      "name": "テクスチャー２"
-    },
-    "copycat": {
-      "name": "まねっこ"
-    },
-    "core-enforcer": {
-      "name": "コアパニッシャー"
-    },
-    "corkscrew-crash": {
-      "name": "ちょうぜつらせんれんげき"
-    },
-    "corrosive-gas": {
-      "name": "ふしょくガス"
-    },
-    "cosmic-power": {
-      "name": "コスモパワー"
-    },
-    "cotton-spore": {
-      "name": "わたほうし"
-    },
-    "counter": {
-      "name": "カウンター"
-    },
-    "court-change": {
-      "name": "コートチェンジ"
-    },
-    "covet": {
-      "name": "ほしがる"
-    },
-    "crabhammer": {
-      "name": "クラブハンマー"
-    },
-    "crafty-shield": {
-      "name": "トリックガード"
-    },
-    "cross-chop": {
-      "name": "クロスチョップ"
-    },
-    "cross-poison": {
-      "name": "クロスポイズン"
-    },
-    "crush-claw": {
-      "name": "ブレイククロー"
-    },
-    "crush-grip": {
-      "name": "にぎりつぶす"
-    },
-    "cut": {
-      "name": "いあいぎり"
-    },
-    "dark-void": {
-      "name": "ダークホール"
-    },
-    "decorate": {
-      "name": "デコレーション"
-    },
-    "defend-order": {
-      "name": "ぼうぎょしれい"
-    },
-    "defense-curl": {
-      "name": "まるくなる"
-    },
-    "defog": {
-      "name": "きりばらい"
-    },
-    "devastating-drake": {
-      "name": "アルティメットドラゴンバーン"
-    },
-    "diamond-storm": {
-      "name": "ダイヤストーム"
-    },
-    "dig": {
-      "name": "あなをほる"
-    },
-    "disarming-voice": {
-      "name": "チャームボイス"
-    },
-    "dive": {
-      "name": "ダイビング"
-    },
-    "dizzy-punch": {
-      "name": "ピヨピヨパンチ"
-    },
-    "doodle": {
-      "name": "うつしえ"
-    },
-    "doom-desire": {
-      "name": "はめつのねがい"
-    },
-    "double-hit": {
-      "name": "ダブルアタック"
-    },
-    "double-iron-bash": {
-      "name": "ダブルパンツァー"
-    },
-    "double-kick": {
-      "name": "にどげり"
-    },
-    "double-shock": {
-      "name": "でんこうそうげき"
-    },
-    "double-slap": {
-      "name": "おうふくビンタ"
-    },
-    "double-team": {
-      "name": "かげぶんしん"
-    },
-    "dragon-ascent": {
-      "name": "ガリョウテンセイ"
-    },
-    "dragon-breath": {
-      "name": "りゅうのいぶき"
-    },
-    "dragon-energy": {
-      "name": "ドラゴンエナジー"
-    },
-    "dragon-hammer": {
-      "name": "ドラゴンハンマー"
-    },
-    "dragon-rage": {
-      "name": "りゅうのいかり"
-    },
-    "dragon-tail": {
-      "name": "ドラゴンテール"
-    },
-    "dream-eater": {
-      "name": "ゆめくい"
-    },
-    "drum-beating": {
-      "name": "ドラムアタック"
-    },
-    "dual-chop": {
-      "name": "ダブルチョップ"
-    },
-    "dynamax-cannon": {
-      "name": "ダイマックスほう"
-    },
-    "dynamic-punch": {
-      "name": "ばくれつパンチ"
-    },
-    "echoed-voice": {
-      "name": "エコーボイス"
-    },
-    "eerie-spell": {
-      "name": "ぶきみなじゅもん"
-    },
-    "egg-bomb": {
-      "name": "タマゴばくだん"
-    },
-    "electric-terrain": {
-      "name": "エレキフィールド"
-    },
-    "electrify": {
-      "name": "そうでん"
-    },
-    "electro-ball": {
-      "name": "エレキボール"
-    },
-    "electro-drift": {
-      "name": "イナズマドライブ"
-    },
-    "embargo": {
-      "name": "さしおさえ"
-    },
-    "ember": {
-      "name": "ひのこ"
-    },
-    "endure": {
-      "name": "こらえる"
-    },
-    "esper-wing": {
-      "name": "オーラウイング"
-    },
-    "eternabeam": {
-      "name": "ムゲンダイビーム"
-    },
-    "explosion": {
-      "name": "だいばくはつ"
-    },
-    "extreme-evoboost": {
-      "name": "ナインエボルブースト"
-    },
-    "fairy-lock": {
-      "name": "フェアリーロック"
-    },
-    "fairy-wind": {
-      "name": "ようせいのかぜ"
-    },
-    "false-surrender": {
-      "name": "どげざつき"
-    },
-    "false-swipe": {
-      "name": "みねうち"
-    },
-    "feint-attack": {
-      "name": "だましうち"
-    },
-    "fell-stinger": {
-      "name": "とどめばり"
-    },
-    "fiery-wrath": {
-      "name": "もえあがるいかり"
-    },
-    "fillet-away": {
-      "name": "みをけずる"
-    },
-    "fire-lash": {
-      "name": "ほのおのムチ"
-    },
-    "fire-pledge": {
-      "name": "ほのおのちかい"
-    },
-    "first-impression": {
-      "name": "であいがしら"
-    },
-    "fishious-rend": {
-      "name": "エラがみ"
-    },
-    "flail": {
-      "name": "じたばた"
-    },
-    "flame-burst": {
-      "name": "はじけるほのお"
-    },
-    "flame-wheel": {
-      "name": "かえんぐるま"
-    },
-    "flash": {
-      "name": "フラッシュ"
-    },
-    "flatter": {
-      "name": "おだてる"
-    },
-    "fleur-cannon": {
-      "name": "フルールカノン"
-    },
-    "floaty-fall": {
-      "name": "ふわふわフォール"
-    },
-    "floral-healing": {
-      "name": "フラワーヒール"
-    },
-    "flower-shield": {
-      "name": "フラワーガード"
-    },
-    "fly": {
-      "name": "そらをとぶ"
-    },
-    "focus-punch": {
-      "name": "きあいパンチ"
-    },
-    "force-palm": {
-      "name": "はっけい"
-    },
-    "foresight": {
-      "name": "みやぶる"
-    },
-    "forest’s-curse": {
-      "name": "もりののろい"
-    },
-    "freeze-shock": {
-      "name": "フリーズボルト"
-    },
-    "freezing-glare": {
-      "name": "いてつくしせん"
-    },
-    "freezy-frost": {
-      "name": "こちこちフロスト"
-    },
-    "frenzy-plant": {
-      "name": "ハードプラント"
-    },
-    "frost-breath": {
-      "name": "こおりのいぶき"
-    },
-    "frustration": {
-      "name": "やつあたり"
-    },
-    "fury-attack": {
-      "name": "みだれづき"
-    },
-    "fury-cutter": {
-      "name": "れんぞくぎり"
-    },
-    "fury-swipes": {
-      "name": "みだれひっかき"
-    },
-    "fusion-bolt": {
-      "name": "クロスサンダー"
-    },
-    "fusion-flare": {
-      "name": "クロスフレイム"
-    },
-    "future-sight": {
-      "name": "みらいよち"
-    },
-    "gastro-acid": {
-      "name": "いえき"
-    },
-    "gear-grind": {
-      "name": "ギアソーサー"
-    },
-    "gear-up": {
-      "name": "アシストギア"
-    },
-    "genesis-supernova": {
-      "name": "オリジンズスーパーノヴァ"
-    },
-    "geomancy": {
-      "name": "ジオコントロール"
-    },
-    "giga-impact": {
-      "name": "ギガインパクト"
-    },
-    "gigavolt-havoc": {
-      "name": "スパーキングギガボルト"
-    },
-    "glacial-lance": {
-      "name": "ブリザードランス"
-    },
-    "glaciate": {
-      "name": "こごえるせかい"
-    },
-    "glaive-rush": {
-      "name": "きょけんとつげき"
-    },
-    "glare": {
-      "name": "へびにらみ"
-    },
-    "glitzy-glow": {
-      "name": "どばどばオーラ"
-    },
-    "grass-pledge": {
-      "name": "くさのちかい"
-    },
-    "grass-whistle": {
-      "name": "くさぶえ"
-    },
-    "grassy-glide": {
-      "name": "グラススライダー"
-    },
-    "grassy-terrain": {
-      "name": "グラスフィールド"
-    },
-    "grav-apple": {
-      "name": "Ｇのちから"
-    },
-    "growl": {
-      "name": "なきごえ"
-    },
-    "growth": {
-      "name": "せいちょう"
-    },
-    "grudge": {
-      "name": "おんねん"
-    },
-    "guard-split": {
-      "name": "ガードシェア"
-    },
-    "guard-swap": {
-      "name": "ガードスワップ"
-    },
-    "guardian-of-alola": {
-      "name": "ガーディアン・デ・アローラ"
-    },
-    "guillotine": {
-      "name": "ハサミギロチン"
-    },
-    "gust": {
-      "name": "かぜおこし"
-    },
-    "gyro-ball": {
-      "name": "ジャイロボール"
-    },
-    "hail": {
-      "name": "あられ"
-    },
-    "happy-hour": {
-      "name": "ハッピータイム"
-    },
-    "harden": {
-      "name": "かたくなる"
-    },
-    "head-charge": {
-      "name": "アフロブレイク"
-    },
-    "headbutt": {
-      "name": "ずつき"
-    },
-    "heal-bell": {
-      "name": "いやしのすず"
-    },
-    "heal-block": {
-      "name": "かいふくふうじ"
-    },
-    "heal-order": {
-      "name": "かいふくしれい"
-    },
-    "heal-pulse": {
-      "name": "いやしのはどう"
-    },
-    "healing-wish": {
-      "name": "いやしのねがい"
-    },
-    "heart-stamp": {
-      "name": "ハートスタンプ"
-    },
-    "heart-swap": {
-      "name": "ハートスワップ"
-    },
-    "hidden-power": {
-      "name": "めざめるパワー"
-    },
-    "hold-back": {
-      "name": "てかげん"
-    },
-    "hold-hands": {
-      "name": "てをつなぐ"
-    },
-    "hone-claws": {
-      "name": "つめとぎ"
-    },
-    "horn-attack": {
-      "name": "つのでつく"
-    },
-    "horn-drill": {
-      "name": "つのドリル"
-    },
-    "horn-leech": {
-      "name": "ウッドホーン"
-    },
-    "hydro-steam": {
-      "name": "ハイドロスチーム"
-    },
-    "hydro-vortex": {
-      "name": "スーパーアクアトルネード"
-    },
-    "hyper-drill": {
-      "name": "ハイパードリル"
-    },
-    "hyper-fang": {
-      "name": "ひっさつまえば"
-    },
-    "hyperspace-fury": {
-      "name": "いじげんラッシュ"
-    },
-    "hyperspace-hole": {
-      "name": "いじげんホール"
-    },
-    "ice-ball": {
-      "name": "アイスボール"
-    },
-    "ice-burn": {
-      "name": "コールドフレア"
-    },
-    "incinerate": {
-      "name": "やきつくす"
-    },
-    "inferno": {
-      "name": "れんごく"
-    },
-    "inferno-overdrive": {
-      "name": "ダイナミックフルフレイム"
-    },
-    "ingrain": {
-      "name": "ねをはる"
-    },
-    "ion-deluge": {
-      "name": "プラズマシャワー"
-    },
-    "iron-tail": {
-      "name": "アイアンテール"
-    },
-    "ivy-cudgel": {
-      "name": "ツタこんぼう"
-    },
-    "jaw-lock": {
-      "name": "くらいつく"
-    },
-    "judgment": {
-      "name": "さばきのつぶて"
-    },
-    "jump-kick": {
-      "name": "とびげり"
-    },
-    "jungle-healing": {
-      "name": "ジャングルヒール"
-    },
-    "karate-chop": {
-      "name": "からてチョップ"
-    },
-    "kinesis": {
-      "name": "スプーンまげ"
-    },
-    "land’s-wrath": {
-      "name": "グランドフォース"
-    },
-    "laser-focus": {
-      "name": "とぎすます"
-    },
-    "lava-plume": {
-      "name": "ふんえん"
-    },
-    "leaf-tornado": {
-      "name": "グラスミキサー"
-    },
-    "leafage": {
-      "name": "このは"
-    },
-    "leer": {
-      "name": "にらみつける"
-    },
-    "let’s-snuggle-forever": {
-      "name": "ぽかぼかフレンドタイム"
-    },
-    "lick": {
-      "name": "したでなめる"
-    },
-    "light-that-burns-the-sky": {
-      "name": "てんこがすめつぼうのひかり"
-    },
-    "lock-on": {
-      "name": "ロックオン"
-    },
-    "lovely-kiss": {
-      "name": "あくまのキッス"
-    },
-    "lucky-chant": {
-      "name": "おまじない"
-    },
-    "lunar-blessing": {
-      "name": "みかづきのいのり"
-    },
-    "lunar-dance": {
-      "name": "みかづきのまい"
-    },
-    "luster-purge": {
-      "name": "ラスターパージ"
-    },
-    "magic-coat": {
-      "name": "マジックコート"
-    },
-    "magical-leaf": {
-      "name": "マジカルリーフ"
-    },
-    "magical-torque": {
-      "name": "マジカルアクセル"
-    },
-    "magma-storm": {
-      "name": "マグマストーム"
-    },
-    "magnet-bomb": {
-      "name": "マグネットボム"
-    },
     "magnet-rise": {
       "name": "でんじふゆう"
     },
     "magnetic-flux": {
       "name": "じばそうさ"
     },
-    "magnitude": {
-      "name": "マグニチュード"
-    },
     "make-it-rain": {
       "name": "ゴールドラッシュ"
     },
-    "malicious-moonsault": {
-      "name": "ハイパーダーククラッシャー"
+    "matcha-gotcha": {
+      "name": "シャカシャカほう"
     },
-    "malignant-chain": {
-      "name": "じゃどくのくさり"
+    "mean-look": {
+      "name": "くろいまなざし"
     },
-    "mat-block": {
-      "name": "たたみがえし"
-    },
-    "max-airstream": {
-      "name": "ダイジェット"
-    },
-    "max-darkness": {
-      "name": "ダイアーク"
-    },
-    "max-flare": {
-      "name": "ダイバーン"
-    },
-    "max-flutterby": {
-      "name": "ダイワーム"
-    },
-    "max-geyser": {
-      "name": "ダイストリーム"
-    },
-    "max-guard": {
-      "name": "ダイウォール"
-    },
-    "max-hailstorm": {
-      "name": "ダイアイス"
-    },
-    "max-knuckle": {
-      "name": "ダイナックル"
-    },
-    "max-lightning": {
-      "name": "ダイサンダー"
-    },
-    "max-mindstorm": {
-      "name": "ダイサイコ"
-    },
-    "max-ooze": {
-      "name": "ダイアシッド"
-    },
-    "max-overgrowth": {
-      "name": "ダイソウゲン"
-    },
-    "max-phantasm": {
-      "name": "ダイホロウ"
-    },
-    "max-quake": {
-      "name": "ダイアース"
-    },
-    "max-rockfall": {
-      "name": "ダイロック"
-    },
-    "max-starfall": {
-      "name": "ダイフェアリー"
-    },
-    "max-steelspike": {
-      "name": "ダイスチル"
-    },
-    "max-strike": {
-      "name": "ダイアタック"
-    },
-    "max-wyrmwind": {
-      "name": "ダイドラグーン"
-    },
-    "me-first": {
-      "name": "さきどり"
-    },
-    "meditate": {
-      "name": "ヨガのポーズ"
-    },
-    "mega-drain": {
-      "name": "メガドレイン"
-    },
-    "mega-punch": {
-      "name": "メガトンパンチ"
+    "mega-kick": {
+      "name": "メガトンキック"
     },
     "megahorn": {
       "name": "メガホーン"
     },
-    "menacing-moonraze-maelstrom": {
-      "name": "ムーンライトブラスター"
+    "memento": {
+      "name": "おきみやげ"
     },
     "metal-burst": {
       "name": "メタルバースト"
     },
-    "metal-claw": {
-      "name": "メタルクロー"
-    },
     "metal-sound": {
       "name": "きんぞくおん"
-    },
-    "meteor-assault": {
-      "name": "スターアサルト"
     },
     "meteor-beam": {
       "name": "メテオビーム"
     },
-    "metronome": {
-      "name": "ゆびをふる"
-    },
-    "mighty-cleave": {
-      "name": "パワフルエッジ"
+    "meteor-mash": {
+      "name": "コメットパンチ"
     },
     "milk-drink": {
       "name": "ミルクのみ"
     },
-    "mimic": {
-      "name": "ものまね"
-    },
-    "mind-blown": {
-      "name": "ビックリヘッド"
-    },
-    "mind-reader": {
-      "name": "こころのめ"
-    },
     "minimize": {
       "name": "ちいさくなる"
     },
-    "miracle-eye": {
-      "name": "ミラクルアイ"
-    },
-    "mirror-move": {
-      "name": "オウムがえし"
-    },
-    "mirror-shot": {
-      "name": "ミラーショット"
-    },
-    "mist": {
-      "name": "しろいきり"
-    },
-    "mist-ball": {
-      "name": "ミストボール"
+    "mirror-coat": {
+      "name": "ミラーコート"
     },
     "misty-explosion": {
       "name": "ミストバースト"
@@ -1909,98 +902,71 @@
     "misty-terrain": {
       "name": "ミストフィールド"
     },
-    "moongeist-beam": {
-      "name": "シャドーレイ"
+    "moonblast": {
+      "name": "ムーンフォース"
     },
     "moonlight": {
       "name": "つきのひかり"
     },
+    "morning-sun": {
+      "name": "あさのひざし"
+    },
+    "mortal-spin": {
+      "name": "キラースピン"
+    },
     "mountain-gale": {
       "name": "ひょうざんおろし"
-    },
-    "mud-bomb": {
-      "name": "どろばくだん"
     },
     "mud-shot": {
       "name": "マッドショット"
     },
-    "mud-sport": {
-      "name": "どろあそび"
-    },
     "mud-slap": {
       "name": "どろかけ"
     },
-    "multi-attack": {
-      "name": "マルチアタック"
+    "muddy-water": {
+      "name": "だくりゅう"
     },
-    "mystical-power": {
-      "name": "しんぴのちから"
+    "mystical-fire": {
+      "name": "マジカルフレイム"
     },
-    "natural-gift": {
-      "name": "しぜんのめぐみ"
-    },
-    "nature-power": {
-      "name": "しぜんのちから"
-    },
-    "nature’s-madness": {
-      "name": "しぜんのいかり"
-    },
-    "needle-arm": {
-      "name": "ニードルアーム"
-    },
-    "never-ending-nightmare": {
-      "name": "むげんあんやへのいざない"
+    "nasty-plot": {
+      "name": "わるだくみ"
     },
     "night-daze": {
       "name": "ナイトバースト"
     },
-    "nightmare": {
-      "name": "あくむ"
+    "night-shade": {
+      "name": "ナイトヘッド"
     },
-    "no-retreat": {
-      "name": "はいすいのじん"
+    "night-slash": {
+      "name": "つじぎり"
     },
     "noble-roar": {
       "name": "おたけび"
     },
-    "noxious-torque": {
-      "name": "ポイズンアクセル"
+    "nuzzle": {
+      "name": "ほっぺすりすり"
     },
-    "oblivion-wing": {
-      "name": "デスウイング"
+    "outrage": {
+      "name": "げきりん"
     },
-    "obstruct": {
-      "name": "ブロッキング"
+    "overheat": {
+      "name": "オーバーヒート"
     },
-    "oceanic-operetta": {
-      "name": "わだつみのシンフォニア"
+    "pain-split": {
+      "name": "いたみわけ"
     },
-    "octazooka": {
-      "name": "オクタンほう"
+    "parabolic-charge": {
+      "name": "パラボラチャージ"
     },
-    "octolock": {
-      "name": "たこがため"
+    "parting-shot": {
+      "name": "すてゼリフ"
     },
-    "odor-sleuth": {
-      "name": "かぎわける"
+    "payback": {
+      "name": "しっぺがえし"
     },
-    "ominous-wind": {
-      "name": "あやしいかぜ"
-    },
-    "order-up": {
-      "name": "いっちょうあがり"
-    },
-    "origin-pulse": {
-      "name": "こんげんのはどう"
-    },
-    "overdrive": {
-      "name": "オーバードライブ"
-    },
-    "pay-day": {
-      "name": "ネコにこばん"
-    },
-    "peck": {
-      "name": "つつく"
+    "perish-song": {
+      "name": "ほろびのうた"
     },
     "petal-blizzard": {
       "name": "はなふぶき"
@@ -2008,17 +974,14 @@
     "petal-dance": {
       "name": "はなびらのまい"
     },
-    "photon-geyser": {
-      "name": "フォトンゲイザー"
+    "phantom-force": {
+      "name": "ゴーストダイブ"
     },
-    "pika-papow": {
-      "name": "ピカピカサンダー"
+    "pin-missile": {
+      "name": "ミサイルばり"
     },
-    "plasma-fists": {
-      "name": "プラズマフィスト"
-    },
-    "play-nice": {
-      "name": "なかよくする"
+    "play-rough": {
+      "name": "じゃれつく"
     },
     "pluck": {
       "name": "ついばむ"
@@ -2026,29 +989,26 @@
     "poison-fang": {
       "name": "どくどくのキバ"
     },
-    "poison-gas": {
-      "name": "どくガス"
+    "poison-jab": {
+      "name": "どくづき"
     },
     "poison-powder": {
       "name": "どくのこな"
     },
-    "poison-sting": {
-      "name": "どくばり"
+    "pollen-puff": {
+      "name": "かふんだんご"
     },
-    "poison-tail": {
-      "name": "ポイズンテール"
+    "poltergeist": {
+      "name": "ポルターガイスト"
+    },
+    "population-bomb": {
+      "name": "ネズミざん"
     },
     "pounce": {
       "name": "とびつく"
     },
-    "pound": {
-      "name": "はたく"
-    },
-    "powder": {
-      "name": "ふんじん"
-    },
-    "powder-snow": {
-      "name": "こなゆき"
+    "power-gem": {
+      "name": "パワージェム"
     },
     "power-shift": {
       "name": "パワーシフト"
@@ -2065,113 +1025,104 @@
     "power-trip": {
       "name": "つけあがる"
     },
-    "power-up-punch": {
-      "name": "グロウパンチ"
+    "power-whip": {
+      "name": "パワーウィップ"
     },
-    "present": {
-      "name": "プレゼント"
-    },
-    "prismatic-laser": {
-      "name": "プリズムレーザー"
-    },
-    "psybeam": {
-      "name": "サイケこうせん"
-    },
-    "psyblade": {
-      "name": "サイコブレイド "
+    "protect": {
+      "name": "まもる"
     },
     "psych-up": {
       "name": "じこあんじ"
     },
-    "psycho-boost": {
-      "name": "サイコブースト"
+    "psychic": {
+      "name": "サイコキネシス"
     },
-    "psycho-shift": {
-      "name": "サイコシフト"
+    "psychic-fangs": {
+      "name": "サイコファング"
+    },
+    "psychic-noise": {
+      "name": "サイコノイズ"
+    },
+    "psychic-terrain": {
+      "name": "サイコフィールド"
+    },
+    "psycho-cut": {
+      "name": "サイコカッター"
     },
     "psyshield-bash": {
       "name": "バリアーラッシュ"
     },
-    "psystrike": {
-      "name": "サイコブレイク"
+    "psyshock": {
+      "name": "サイコショック"
     },
-    "psywave": {
-      "name": "サイコウェーブ"
+    "quash": {
+      "name": "さきおくり"
     },
-    "pulverizing-pancake": {
-      "name": "ほんきをだす　こうげき"
+    "quick-attack": {
+      "name": "でんこうせっか"
     },
-    "punishment": {
-      "name": "おしおき"
+    "quick-guard": {
+      "name": "ファストガード"
     },
-    "purify": {
-      "name": "じょうか"
-    },
-    "pursuit": {
-      "name": "おいうち"
-    },
-    "pyro-ball": {
-      "name": "かえんボール"
+    "quiver-dance": {
+      "name": "ちょうのまい"
     },
     "rage-fist": {
       "name": "ふんどのこぶし"
     },
+    "rage-powder": {
+      "name": "いかりのこな"
+    },
     "raging-bull": {
       "name": "レイジングブル"
+    },
+    "raging-fury": {
+      "name": "だいふんげき"
+    },
+    "rain-dance": {
+      "name": "あまごい"
     },
     "rapid-spin": {
       "name": "こうそくスピン"
     },
-    "razor-leaf": {
-      "name": "はっぱカッター"
+    "razor-shell": {
+      "name": "シェルブレード"
     },
-    "razor-wind": {
-      "name": "かまいたち"
+    "recover": {
+      "name": "じこさいせい"
     },
     "recycle": {
       "name": "リサイクル"
     },
-    "refresh": {
-      "name": "リフレッシュ"
+    "reflect": {
+      "name": "リフレクター"
     },
-    "relic-song": {
-      "name": "いにしえのうた"
+    "reflect-type": {
+      "name": "ミラータイプ"
     },
-    "retaliate": {
-      "name": "かたきうち"
-    },
-    "return": {
-      "name": "おんがえし"
-    },
-    "revelation-dance": {
-      "name": "めざめるダンス"
-    },
-    "revenge": {
-      "name": "リベンジ"
+    "rest": {
+      "name": "ねむる"
     },
     "reversal": {
       "name": "きしかいせい"
     },
-    "revival-blessing": {
-      "name": "さいきのいのり"
-    },
     "rising-voltage": {
       "name": "ライジングボルト"
     },
-    "roar-of-time": {
-      "name": "ときのほうこう"
+    "roar": {
+      "name": "ほえる"
     },
-    "rock-climb": {
-      "name": "ロッククライム"
+    "rock-blast": {
+      "name": "ロックブラスト"
     },
     "rock-polish": {
       "name": "ロックカット"
     },
-    "rock-smash": {
-      "name": "いわくだき"
+    "rock-slide": {
+      "name": "いわなだれ"
     },
-    "rock-throw": {
-      "name": "いわおとし"
+    "rock-tomb": {
+      "name": "がんせきふうじ"
     },
     "rock-wrecker": {
       "name": "がんせきほう"
@@ -2179,101 +1130,77 @@
     "role-play": {
       "name": "なりきり"
     },
-    "rolling-kick": {
-      "name": "まわしげり"
+    "roost": {
+      "name": "はねやすめ"
     },
-    "rollout": {
-      "name": "ころがる"
+    "round": {
+      "name": "りんしょう"
     },
-    "rototiller": {
-      "name": "たがやす"
+    "sacred-sword": {
+      "name": "せいなるつるぎ"
     },
-    "ruination": {
-      "name": "カタストロフィ"
+    "safeguard": {
+      "name": "しんぴのまもり"
     },
-    "sacred-fire": {
-      "name": "せいなるほのお"
-    },
-    "sand-attack": {
-      "name": "すなかけ"
+    "salt-cure": {
+      "name": "しおづけ"
     },
     "sand-tomb": {
       "name": "すなじごく"
     },
-    "sandsear-storm": {
-      "name": "ねっさのあらし"
+    "sandstorm": {
+      "name": "すなあらし"
     },
-    "sappy-seed": {
-      "name": "すくすくボンバー"
+    "scald": {
+      "name": "ねっとう"
     },
-    "savage-spin-out": {
-      "name": "ぜったいほしょくかいてんざん"
+    "scale-shot": {
+      "name": "スケイルショット"
     },
     "scary-face": {
       "name": "こわいかお"
     },
-    "scratch": {
-      "name": "ひっかく"
+    "scorching-sands": {
+      "name": "ねっさのだいち"
     },
     "screech": {
       "name": "いやなおと"
     },
-    "searing-shot": {
-      "name": "かえんだん"
-    },
-    "searing-sunraze-smash": {
-      "name": "サンシャインスマッシャー"
-    },
-    "secret-power": {
-      "name": "ひみつのちから"
-    },
-    "secret-sword": {
-      "name": "しんぴのつるぎ"
-    },
     "seed-bomb": {
       "name": "タネばくだん"
-    },
-    "seed-flare": {
-      "name": "シードフレア"
     },
     "seismic-toss": {
       "name": "ちきゅうなげ"
     },
-    "shadow-bone": {
-      "name": "シャドーボーン"
+    "self-destruct": {
+      "name": "じばく"
     },
-    "sharpen": {
-      "name": "かくばる"
+    "shadow-ball": {
+      "name": "シャドーボール"
     },
-    "shattered-psyche": {
-      "name": "マキシマムサイブレイカー"
+    "shadow-claw": {
+      "name": "シャドークロー"
+    },
+    "shadow-punch": {
+      "name": "シャドーパンチ"
+    },
+    "shadow-sneak": {
+      "name": "かげうち"
+    },
+    "shed-tail": {
+      "name": "しっぽきり"
+    },
+    "sheer-cold": {
+      "name": "ぜったいれいど"
     },
     "shell-side-arm": {
       "name": "シェルアームズ"
     },
-    "shell-trap": {
-      "name": "トラップシェル"
+    "shell-smash": {
+      "name": "からをやぶる"
     },
     "shelter": {
       "name": "たてこもる"
-    },
-    "shift-gear": {
-      "name": "ギアチェンジ"
-    },
-    "shock-wave": {
-      "name": "でんげきは"
-    },
-    "shore-up": {
-      "name": "すなあつめ"
-    },
-    "signal-beam": {
-      "name": "シグナルビーム"
-    },
-    "silk-trap": {
-      "name": "スレッドトラップ"
-    },
-    "silver-wind": {
-      "name": "ぎんいろのかぜ"
     },
     "simple-beam": {
       "name": "シンプルビーム"
@@ -2281,41 +1208,29 @@
     "sing": {
       "name": "うたう"
     },
-    "sinister-arrow-raid": {
-      "name": "シャドーアローズストライク"
-    },
-    "sizzly-slide": {
-      "name": "めらめらバーン"
-    },
-    "sketch": {
-      "name": "スケッチ"
+    "skill-swap": {
+      "name": "スキルスワップ"
     },
     "skitter-smack": {
       "name": "はいよるいちげき"
     },
-    "skull-bash": {
-      "name": "ロケットずつき"
-    },
     "sky-attack": {
       "name": "ゴッドバード"
     },
-    "sky-drop": {
-      "name": "フリーフォール"
+    "slack-off": {
+      "name": "なまける"
     },
-    "sky-uppercut": {
-      "name": "スカイアッパー"
-    },
-    "slam": {
-      "name": "たたきつける"
-    },
-    "slash": {
-      "name": "きりさく"
+    "sleep-powder": {
+      "name": "ねむりごな"
     },
     "sleep-talk": {
       "name": "ねごと"
     },
-    "sludge": {
-      "name": "ヘドロこうげき"
+    "sludge-bomb": {
+      "name": "ヘドロばくだん"
+    },
+    "sludge-wave": {
+      "name": "ヘドロウェーブ"
     },
     "smack-down": {
       "name": "うちおとす"
@@ -2323,23 +1238,11 @@
     "smart-strike": {
       "name": "スマートホーン"
     },
-    "smelling-salts": {
-      "name": "きつけ"
-    },
-    "smog": {
-      "name": "スモッグ"
-    },
-    "smokescreen": {
-      "name": "えんまく"
-    },
     "snap-trap": {
       "name": "トラバサミ"
     },
-    "snatch": {
-      "name": "よこどり"
-    },
-    "snipe-shot": {
-      "name": "ねらいうち"
+    "snarl": {
+      "name": "バークアウト"
     },
     "snore": {
       "name": "いびき"
@@ -2347,50 +1250,32 @@
     "snowscape": {
       "name": "ゆきげしき"
     },
+    "soak": {
+      "name": "みずびたし"
+    },
     "soft-boiled": {
       "name": "タマゴうみ"
+    },
+    "solar-beam": {
+      "name": "ソーラービーム"
     },
     "solar-blade": {
       "name": "ソーラーブレード"
     },
-    "sonic-boom": {
-      "name": "ソニックブーム"
-    },
-    "soul-stealing-7-star-strike": {
-      "name": "しちせいだっこんたい"
-    },
-    "spacial-rend": {
-      "name": "あくうせつだん"
-    },
-    "spark": {
-      "name": "スパーク"
-    },
     "sparkling-aria": {
       "name": "うたかたのアリア"
     },
-    "sparkly-swirl": {
-      "name": "きらきらストーム"
-    },
-    "spectral-thief": {
-      "name": "シャドースチール"
+    "speed-swap": {
+      "name": "スピードスワップ"
     },
     "spicy-extract": {
       "name": "ハバネロエキス"
     },
-    "spider-web": {
-      "name": "クモのす"
-    },
-    "spike-cannon": {
-      "name": "とげキャノン"
-    },
     "spikes": {
       "name": "まきびし"
     },
-    "spin-out": {
-      "name": "ホイールスピン"
-    },
-    "spirit-break": {
-      "name": "ソウルクラッシュ"
+    "spiky-shield": {
+      "name": "ニードルガード"
     },
     "spirit-shackle": {
       "name": "かげぬい"
@@ -2401,29 +1286,11 @@
     "spite": {
       "name": "うらみ"
     },
-    "splash": {
-      "name": "はねる"
-    },
-    "splintered-stormshards": {
-      "name": "ラジアルエッジストーム"
-    },
-    "splishy-splash": {
-      "name": "ざぶざぶサーフ"
-    },
     "spore": {
       "name": "キノコのほうし"
     },
-    "spotlight": {
-      "name": "スポットライト"
-    },
-    "springtide-storm": {
-      "name": "はるのあらし"
-    },
-    "steam-eruption": {
-      "name": "スチームバースト"
-    },
-    "steamroller": {
-      "name": "ハードローラー"
+    "stealth-rock": {
+      "name": "ステルスロック"
     },
     "steel-beam": {
       "name": "てっていこうせん"
@@ -2431,14 +1298,23 @@
     "steel-roller": {
       "name": "アイアンローラー"
     },
+    "steel-wing": {
+      "name": "はがねのつばさ"
+    },
     "sticky-web": {
       "name": "ねばねばネット"
     },
-    "stoked-sparksurfer": {
-      "name": "ライトニングサーフライド"
+    "stockpile": {
+      "name": "たくわえる"
     },
-    "stomp": {
-      "name": "ふみつけ"
+    "stomping-tantrum": {
+      "name": "じだんだ"
+    },
+    "stone-axe": {
+      "name": "がんせきアックス"
+    },
+    "stone-edge": {
+      "name": "ストーンエッジ"
     },
     "stored-power": {
       "name": "アシストパワー"
@@ -2446,11 +1322,17 @@
     "storm-throw": {
       "name": "やまあらし"
     },
-    "strength": {
-      "name": "かいりき"
+    "strength-sap": {
+      "name": "ちからをすいとる"
+    },
+    "string-shot": {
+      "name": "いとをはく"
     },
     "struggle": {
       "name": "わるあがき"
+    },
+    "struggle-bug": {
+      "name": "むしのていこう"
     },
     "stuff-cheeks": {
       "name": "ほおばる"
@@ -2458,26 +1340,29 @@
     "stun-spore": {
       "name": "しびれごな"
     },
-    "submission": {
-      "name": "じごくぐるま"
+    "substitute": {
+      "name": "みがわり"
     },
-    "subzero-slammer": {
-      "name": "レイジングジオフリーズ"
+    "sucker-punch": {
+      "name": "ふいうち"
     },
-    "sunsteel-strike": {
-      "name": "メテオドライブ"
+    "sunny-day": {
+      "name": "にほんばれ"
+    },
+    "super-fang": {
+      "name": "いかりのまえば"
     },
     "supercell-slam": {
       "name": "サンダーダイブ"
     },
-    "supersonic": {
-      "name": "ちょうおんぱ"
+    "superpower": {
+      "name": "ばかぢから"
     },
-    "supersonic-skystrike": {
-      "name": "ファイナルダイブクラッシュ"
+    "surf": {
+      "name": "なみのり"
     },
-    "surging-strikes": {
-      "name": "すいりゅうれんだ"
+    "swagger": {
+      "name": "いばる"
     },
     "swallow": {
       "name": "のみこむ"
@@ -2488,41 +1373,26 @@
     "sweet-scent": {
       "name": "あまいかおり"
     },
-    "swift": {
-      "name": "スピードスター"
-    },
     "switcheroo": {
       "name": "すりかえ"
     },
-    "synchronoise": {
-      "name": "シンクロノイズ"
+    "swords-dance": {
+      "name": "つるぎのまい"
+    },
+    "synthesis": {
+      "name": "こうごうせい"
     },
     "syrup-bomb": {
       "name": "みずあめボム"
     },
-    "tachyon-cutter": {
-      "name": "タキオンカッター"
-    },
-    "tackle": {
-      "name": "たいあたり"
-    },
-    "tail-glow": {
-      "name": "ほたるび"
-    },
     "tail-slap": {
       "name": "スイープビンタ"
     },
-    "tail-whip": {
-      "name": "しっぽをふる"
+    "tailwind": {
+      "name": "おいかぜ"
     },
-    "take-down": {
-      "name": "とっしん"
-    },
-    "take-heart": {
-      "name": "ブレイブチャージ"
-    },
-    "tar-shot": {
-      "name": "タールショット"
+    "taunt": {
+      "name": "ちょうはつ"
     },
     "tearful-look": {
       "name": "なみだめ"
@@ -2530,50 +1400,38 @@
     "teatime": {
       "name": "おちゃかい"
     },
-    "techno-blast": {
-      "name": "テクノバスター"
-    },
-    "tectonic-rage": {
-      "name": "ライジングランドオーバー"
-    },
     "teeter-dance": {
       "name": "フラフラダンス"
     },
-    "telekinesis": {
-      "name": "テレキネシス"
-    },
-    "teleport": {
-      "name": "テレポート"
-    },
-    "tera-blast": {
-      "name": "テラバースト"
-    },
-    "tera-starstorm": {
-      "name": "テラクラスター"
+    "temper-flare": {
+      "name": "やけっぱち"
     },
     "terrain-pulse": {
       "name": "だいちのはどう"
     },
-    "thousand-arrows": {
-      "name": "サウザンアロー"
-    },
-    "thousand-waves": {
-      "name": "サウザンウェーブ"
+    "thief": {
+      "name": "どろぼう"
     },
     "thrash": {
       "name": "あばれる"
     },
-    "thunder-cage": {
-      "name": "サンダープリズン"
+    "throat-chop": {
+      "name": "じごくづき"
     },
-    "thunder-shock": {
-      "name": "でんきショック"
+    "thunder": {
+      "name": "かみなり"
     },
-    "thunderclap": {
-      "name": "じんらい"
+    "thunder-fang": {
+      "name": "かみなりのキバ"
     },
-    "thunderous-kick": {
-      "name": "らいめいげり"
+    "thunder-punch": {
+      "name": "かみなりパンチ"
+    },
+    "thunder-wave": {
+      "name": "でんじは"
+    },
+    "thunderbolt": {
+      "name": "１０まんボルト"
     },
     "tickle": {
       "name": "くすぐる"
@@ -2581,11 +1439,14 @@
     "tidy-up": {
       "name": "おかたづけ"
     },
-    "topsy-turvy": {
-      "name": "ひっくりかえす"
+    "torch-song": {
+      "name": "フレアソング"
     },
     "torment": {
       "name": "いちゃもん"
+    },
+    "toxic": {
+      "name": "どくどく"
     },
     "toxic-spikes": {
       "name": "どくびし"
@@ -2593,89 +1454,98 @@
     "toxic-thread": {
       "name": "どくのいと"
     },
+    "trailblaze": {
+      "name": "くさわけ"
+    },
+    "transform": {
+      "name": "へんしん"
+    },
     "tri-attack": {
       "name": "トライアタック"
+    },
+    "trick": {
+      "name": "トリック"
+    },
+    "trick-room": {
+      "name": "トリックルーム"
     },
     "trick-or-treat": {
       "name": "ハロウィン"
     },
-    "triple-dive": {
-      "name": "トリプルダイブ"
+    "triple-arrows": {
+      "name": "３ぼんのや"
     },
-    "triple-kick": {
-      "name": "トリプルキック"
+    "triple-axel": {
+      "name": "トリプルアクセル"
     },
-    "trump-card": {
-      "name": "きりふだ"
+    "trop-kick": {
+      "name": "トロピカルキック"
     },
-    "twineedle": {
-      "name": "ダブルニードル"
+    "twin-beam": {
+      "name": "ツインビーム"
     },
-    "twinkle-tackle": {
-      "name": "ラブリースターインパクト"
+    "u-turn": {
+      "name": "とんぼがえり"
     },
-    "twister": {
-      "name": "たつまき"
+    "upper-hand": {
+      "name": "はやてがえし"
     },
     "uproar": {
       "name": "さわぐ"
     },
-    "v-create": {
-      "name": "Ｖジェネレート"
+    "vacuum-wave": {
+      "name": "しんくうは"
     },
-    "veevee-volley": {
-      "name": "ブイブイブレイク"
+    "venoshock": {
+      "name": "ベノムショック"
     },
-    "venom-drench": {
-      "name": "ベノムトラップ"
+    "volt-switch": {
+      "name": "ボルトチェンジ"
     },
-    "victory-dance": {
-      "name": "しょうりのまい"
+    "volt-tackle": {
+      "name": "ボルテッカー"
     },
-    "vine-whip": {
-      "name": "つるのムチ"
+    "water-pulse": {
+      "name": "みずのはどう"
     },
-    "vise-grip": {
-      "name": "はさむ"
+    "water-shuriken": {
+      "name": "みずしゅりけん"
     },
-    "vital-throw": {
-      "name": "あてみなげ"
+    "water-spout": {
+      "name": "しおふき"
     },
-    "wake-up-slap": {
-      "name": "めざましビンタ"
+    "waterfall": {
+      "name": "たきのぼり"
     },
-    "water-gun": {
-      "name": "みずでっぽう"
+    "wave-crash": {
+      "name": "ウェーブタックル"
     },
-    "water-pledge": {
-      "name": "みずのちかい"
-    },
-    "water-sport": {
-      "name": "みずあそび"
+    "weather-ball": {
+      "name": "ウェザーボール"
     },
     "whirlpool": {
       "name": "うずしお"
     },
-    "wicked-blow": {
-      "name": "あんこくきょうだ"
+    "whirlwind": {
+      "name": "ふきとばし"
     },
-    "wicked-torque": {
-      "name": "ダークアクセル"
+    "wide-guard": {
+      "name": "ワイドガード"
     },
-    "wildbolt-storm": {
-      "name": "かみなりあらし"
+    "wild-charge": {
+      "name": "ワイルドボルト"
     },
-    "wing-attack": {
-      "name": "つばさでうつ"
+    "will-o-wisp": {
+      "name": "おにび"
     },
-    "withdraw": {
-      "name": "からにこもる"
+    "wish": {
+      "name": "ねがいごと"
     },
     "wonder-room": {
       "name": "ワンダールーム"
     },
-    "work-up": {
-      "name": "ふるいたてる"
+    "wood-hammer": {
+      "name": "ウッドハンマー"
     },
     "worry-seed": {
       "name": "なやみのタネ"
@@ -2683,23 +1553,17 @@
     "wrap": {
       "name": "まきつく"
     },
-    "wring-out": {
-      "name": "しぼりとる"
-    },
     "x-scissor": {
       "name": "シザークロス"
+    },
+    "yawn": {
+      "name": "あくび"
     },
     "zap-cannon": {
       "name": "でんじほう"
     },
-    "zing-zap": {
-      "name": "びりびりちくちく"
-    },
-    "zippy-zap": {
-      "name": "ばちばちアクセル"
-    },
-    "shadow-punch": {
-      "name": "シャドーパンチ"
+    "zen-headbutt": {
+      "name": "しねんのずつき"
     }
   },
   "pokemon": {
@@ -3524,6 +2388,120 @@
     },
     "hydrapple": {
       "name": "カミツオロチ"
+    },
+    "raichu-mega-x": {
+      "name": "メガXライチュウ"
+    },
+    "raichu-mega-y": {
+      "name": "メガYライチュウ"
+    },
+    "vileplume": {
+      "name": "ラフレシア"
+    },
+    "qwilfish": {
+      "name": "ハリーセン"
+    },
+    "sceptile": {
+      "name": "ジュカイン"
+    },
+    "sceptile-mega": {
+      "name": "メガジュカイン"
+    },
+    "blaziken": {
+      "name": "バシャーモ"
+    },
+    "blaziken-mega": {
+      "name": "メガバシャーモ"
+    },
+    "swampert": {
+      "name": "ラグラージ"
+    },
+    "swampert-mega": {
+      "name": "メガラグラージ"
+    },
+    "mawile": {
+      "name": "クチート"
+    },
+    "mawile-mega": {
+      "name": "メガクチート"
+    },
+    "metagross": {
+      "name": "メタグロス"
+    },
+    "metagross-mega": {
+      "name": "メガメタグロス"
+    },
+    "staraptor": {
+      "name": "ムクホーク"
+    },
+    "staraptor-mega": {
+      "name": "メガムクホーク"
+    },
+    "musharna": {
+      "name": "ムシャーナ"
+    },
+    "scolipede": {
+      "name": "ペンドラー"
+    },
+    "scolipede-mega": {
+      "name": "メガペンドラー"
+    },
+    "scrafty": {
+      "name": "ズルズキン"
+    },
+    "scrafty-mega": {
+      "name": "メガズルズキン"
+    },
+    "eelektross": {
+      "name": "シビルドン"
+    },
+    "eelektross-mega": {
+      "name": "メガシビルドン"
+    },
+    "pyroar-male": {
+      "name": "カエンジシ オスのすがた"
+    },
+    "pyroar-mega": {
+      "name": "メガカエンジシ"
+    },
+    "malamar": {
+      "name": "カラマネロ"
+    },
+    "malamar-mega": {
+      "name": "メガカラマネロ"
+    },
+    "barbaracle": {
+      "name": "ガメノデス"
+    },
+    "barbaracle-mega": {
+      "name": "メガガメノデス"
+    },
+    "dragalge": {
+      "name": "ドラミドロ"
+    },
+    "dragalge-mega": {
+      "name": "メガドラミドロ"
+    },
+    "grimmsnarl": {
+      "name": "オーロンゲ"
+    },
+    "falinks": {
+      "name": "タイレーツ"
+    },
+    "falinks-mega": {
+      "name": "メガタイレーツ"
+    },
+    "overqwil": {
+      "name": "ハリーマン"
+    },
+    "houndstone": {
+      "name": "ハカドッグ"
+    },
+    "annihilape": {
+      "name": "コノヨザル"
+    },
+    "gholdengo": {
+      "name": "サーフゴー"
     }
   }
 }

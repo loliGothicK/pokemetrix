@@ -1,27 +1,42 @@
 import { data } from "@data/champions/moves.json";
-import { z } from "zod";
 import { moveCategories, moveClassifications, moveRanges, types } from "@/types/pokemon";
+import { z as zod } from "zod";
+import { toValidationError, ValidationError } from "zod-validation-error";
+import { Either, tryCatch } from "fp-ts/Either";
 
-const toZodUnion = <const T extends readonly string[]>(tuple: T) => {
-  return z.union(tuple.map((item) => z.literal(item)));
-};
+export function parse(value: zod.input<typeof schema>): Either<ValidationError, Move> {
+  return tryCatch(() => schema.parse(value), toValidationError());
+}
 
-const MoveSchema = z.object({
-  id: z.number(),
-  identifier: z.string(),
-  type: toZodUnion(types),
-  category: toZodUnion(moveCategories),
-  power: z.number().nullable(),
-  accuracy: z.number().nullable(),
-  range: toZodUnion(moveRanges),
-  pp: z.number(),
-  priority: z.number().nullable(),
-  effect: z.string().nullable(),
-  classifications: z.array(toZodUnion(moveClassifications)),
-});
+const schema = zod
+  .object({
+    id: zod.number(),
+    identifier: zod.string(),
+    type: zod.enum(types, {
+      error: (iss) => `${iss.input}" is invalid`,
+    }),
+    category: zod.enum(moveCategories),
+    power: zod.number().nullable(),
+    accuracy: zod.number().nullable(),
+    range: zod.enum(moveRanges, {
+      error: (iss) => `${iss.input}" is invalid`,
+    }),
+    pp: zod.number(),
+    priority: zod.number().nullable(),
+    effect: zod.string().nullable(),
+    classifications: zod.array(
+      zod.enum(moveClassifications, {
+        error: (iss) => `"${iss.input}" is invalid`,
+      }),
+    ),
+  })
+  .brand<"Move">();
 
-type Move = z.infer<typeof MoveSchema>;
+type Move = zod.infer<typeof schema>;
 
 export const MoveList: Move[] = data.map((move) => {
-  return MoveSchema.parse(move);
+  return schema.parse({ ...move, type: move.type.toLocaleLowerCase() });
 });
+
+export const moveById = new Map(MoveList.map((move) => [move.id, move]));
+export const moveByIdentifier = new Map(MoveList.map((move) => [move.identifier, move]));

@@ -1,23 +1,13 @@
 "use client";
 
 import { createTheme } from "@mui/material/styles";
+import type { PaletteMode } from "@mui/material";
+import { appPalette, getAppPalette } from "@/theme/palette";
 
-const theme = createTheme({
+const sharedThemeOptions = {
   cssVariables: true,
   shape: {
     borderRadius: 18,
-  },
-  palette: {
-    primary: {
-      main: "#1565c0",
-    },
-    secondary: {
-      main: "#00897b",
-    },
-    background: {
-      default: "#f3f6fb",
-      paper: "#ffffff",
-    },
   },
   typography: {
     fontFamily:
@@ -55,6 +45,30 @@ const theme = createTheme({
       },
     },
   },
-});
+} as const;
 
-export default theme;
+export function createAppTheme(mode: PaletteMode) {
+  const palette = getAppPalette(mode);
+
+  return createTheme({
+    ...sharedThemeOptions,
+    palette: {
+      mode,
+      primary: {
+        main: appPalette.brand.primary,
+      },
+      secondary: {
+        main: appPalette.brand.secondary,
+      },
+      background: {
+        default: palette.canvas,
+        paper: palette.surface,
+      },
+      text: {
+        primary: palette.ink,
+      },
+    },
+  });
+}
+
+export default createAppTheme("light");

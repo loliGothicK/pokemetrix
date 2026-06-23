@@ -1,9 +1,167 @@
 {
   "welcome": "Welcome to our app",
+  "app": {
+    "subtitle": "Analytics Console"
+  },
   "home": {
-    "title": "Home"
+    "title": "POKÉMETRIX",
+    "description": "This is a collection of tools designed to support Pokémon battles.",
+    "tools": {
+      "teamBuilder": {
+        "title": "Team Builder",
+        "desc": "Build Teams"
+      },
+      "damageSimulator": {
+        "title": "Damage Simulator",
+        "desc": "Simulate Damage fast"
+      }
+    }
+  },
+  "preferences": {
+    "language": "Language",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode"
+  },
+  "navigation": {
+    "openMenu": "Open menu",
+    "groups": {
+      "teambuilder": "Teambuilder",
+      "battle": "Battle",
+      "statistics": "Statistics"
+    },
+    "items": {
+      "createTeam": "Create Team",
+      "draftAssistant": "Draft Assistant",
+      "coreFinder": "Core Finder",
+      "battleRecord": "Battle Record",
+      "matchupPlanner": "Matchup Planner",
+      "damageCalc": "Damage Calc",
+      "usageTrends": "Usage Trends",
+      "metaTables": "Meta Tables",
+      "winrateInsights": "Winrate Insights"
+    }
+  },
+  "teamBuilder": {
+    "title": "Team Builder",
+    "regulation": "Regulation {{regulation}}",
+    "openDrawer": "Open team drawer",
+    "closeDrawer": "Close team drawer",
+    "slotTabs": "Team slots",
+    "back": "Back to overview",
+    "slotLabel": "Slot {{index}}",
+    "slotDescription": "This is where stats, moves, and EVs will live.",
+    "change": "Change",
+    "remove": "Remove",
+    "emptySlot": "This slot does not have a Pokémon yet.",
+    "selectPokemon": "Select a Pokémon",
+    "query": {
+      "label": "Search",
+      "helper": "Search by name, or filter with @type:fire",
+      "type": "Type",
+      "noResults": "No Pokémon match your filters.",
+      "more": "Refine your filters to see more results."
+    },
+    "loading": "Loading team data...",
+    "createTeam": "Create team",
+    "noTeamsTitle": "No teams yet",
+    "noTeamsDescription": "Create a new team to start building.",
+    "selectTeamHint": "Pick a team from the drawer or create a new one.",
+    "teamOverviewTitle": "Team overview",
+    "teamLabel": "Team {{index}}",
+    "emptyMember": "Empty slot {{index}}",
+    "memberLabel": "Member {{index}}",
+    "forgetMove": "Forget this move.",
+    "removeItem": "Remove Held Item",
+    "import": "import from",
+    "export": "export as pokepate format",
+    "drawer": {
+      "overview": "Overview",
+      "roster": "Roster",
+      "loadout": "Loadout",
+      "notes": "Notes"
+    },
+    "status": {
+      "hp": {
+        "name": "HP"
+      },
+      "atk": {
+        "name": "Atk"
+      },
+      "def": {
+        "name": "Def"
+      },
+      "spa": {
+        "name": "SpA"
+      },
+      "spd": {
+        "name": "SpD"
+      },
+      "spe": {
+        "name": "Spe"
+      }
+    }
+  },
+  "types": {
+    "normal": {
+      "name": "Normal"
+    },
+    "fire": {
+      "name": "Fire"
+    },
+    "water": {
+      "name": "Water"
+    },
+    "electric": {
+      "name": "Electric"
+    },
+    "grass": {
+      "name": "Grass"
+    },
+    "ice": {
+      "name": "Ice"
+    },
+    "fighting": {
+      "name": "Fighting"
+    },
+    "poison": {
+      "name": "Poison"
+    },
+    "ground": {
+      "name": "Ground"
+    },
+    "flying": {
+      "name": "Flying"
+    },
+    "psychic": {
+      "name": "Psychic"
+    },
+    "bug": {
+      "name": "Bug"
+    },
+    "rock": {
+      "name": "Rock"
+    },
+    "ghost": {
+      "name": "Ghost"
+    },
+    "dragon": {
+      "name": "Dragon"
+    },
+    "dark": {
+      "name": "Dark"
+    },
+    "steel": {
+      "name": "Steel"
+    },
+    "fairy": {
+      "name": "Fairy"
+    }
   },
   "items": {
+    "null": {
+      "name": "None",
+      "description": "No Held Item"
+    },
     "abomasite": {
       "name": "Abomasite",
       "description": "A held item that allows Abomasnow to Mega Evolve."
@@ -471,2705 +629,2120 @@
     "yache-berry": {
       "name": "Yache Berry",
       "description": "Halves the damage taken when the holder is hit with a supereffective Ice-type move. Disappears for the duration of the battle after a single use."
+    },
+    "barbaracite": {
+      "name": "Barbaracite",
+      "description": "A held item that allows Barbaracle to Mega Evolve."
+    },
+    "big-root": {
+      "name": "Big Root",
+      "description": "Boosts the amount of HP restored through HP-absorbing moves by 30%. HP restored by moves such as Ingrain and Strength Sap will also be boosted by 30%."
+    },
+    "blazikenite": {
+      "name": "Blazikenite",
+      "description": "A held item that allows Blaziken to Mega Evolve."
+    },
+    "damp-rock": {
+      "name": "Damp Rock",
+      "description": "When the holder summons rain with its moves or Ability, the duration is extended by 3 turns. (Total duration: 8 turns)"
+    },
+    "dragalgite": {
+      "name": "Dragalgite",
+      "description": "A held item that allows Dragalge to Mega Evolve."
+    },
+    "eelektrossite": {
+      "name": "Eelektrossite",
+      "description": "A held item that allows Eelektross to Mega Evolve."
+    },
+    "expert-belt": {
+      "name": "Expert Belt",
+      "description": "Boosts the power of the holder's supereffective moves by 20%."
+    },
+    "falinksite": {
+      "name": "Falinksite",
+      "description": "A held item that allows Falinks to Mega Evolve."
+    },
+    "heat-rock": {
+      "name": "Heat Rock",
+      "description": "When the holder summons harsh sunlight with its moves or Ability, the duration is extended by 3 turns."
+    },
+    "icy-rock": {
+      "name": "Icy Rock",
+      "description": "When the holder summons snow with its moves or Ability, the duration is extended by 3 turns. (Total duration: 8 turns)"
+    },
+    "iron-ball": {
+      "name": "Iron Ball",
+      "description": "Halves the holder's Speed stat. If the holder is off the ground, it will be grounded, meaning it can be affected by Ground-type moves, as well as the Spikes, Toxic Spikes, and Sticky Web statuses."
+    },
+    "king's-rock": {
+      "name": "King's Rock",
+      "description": "When the holder deals damage with its moves, there is a 10% chance that targets will flinch."
+    },
+    "life-orb": {
+      "name": "Life Orb",
+      "description": "Boosts the power of the holder's moves by 30%. However, the holder also loses 1/10 of its max HP each time it successfully lands an attack."
+    },
+    "light-clay": {
+      "name": "Light Clay",
+      "description": "When the holder uses Light Screen, Reflect, or Aurora Veil, the duration is extended by 3 turns. (Total duration: 8 turns)"
+    },
+    "malamarite": {
+      "name": "Malamarite",
+      "description": "A held item that allows Malamar to Mega Evolve."
+    },
+    "mawilite": {
+      "name": "Mawilite",
+      "description": "A held item that allows Mawile to Mega Evolve."
+    },
+    "metagrossite": {
+      "name": "Metagrossite",
+      "description": "A held item that allows Metagross to Mega Evolve."
+    },
+    "metronome": {
+      "name": "Metronome",
+      "description": "Boosts the power of a move that is used repeatedly. This boost will be 20% on the second usage, 40% on the third, and soon, up to a maximum boost of 100%. If the streak is broken, the move's power returns to its usual value."
+    },
+    "muscle-band": {
+      "name": "Muscle Band",
+      "description": "Boosts the power of the holder's physical moves by 10%."
+    },
+    "pyroarite": {
+      "name": "Pyroarite",
+      "description": "A held item that allows Pyroar to Mega Evolve."
+    },
+    "raichunite-x": {
+      "name": "Raichunite X",
+      "description": "A held item that allows Raichu to Mega Evolve into Mega Raichu X. It has no effect on Alolan Raichu."
+    },
+    "raichunite-y": {
+      "name": "Raichunite Y",
+      "description": "A held item that allows Raichu to Mega Evolve into Mega Raichu Y. It has no effect on Alolan Raichu."
+    },
+    "sceptilite": {
+      "name": "Sceptilite",
+      "description": "A held item that allows Sceptile to Mega Evolve."
+    },
+    "scolipite": {
+      "name": "Scolipite",
+      "description": "A held item that allows Scolipede to Mega Evolve."
+    },
+    "scraftinite": {
+      "name": "Scraftinite",
+      "description": "A held item that allows Scrafty to Mega Evolve."
+    },
+    "shed-shell": {
+      "name": "Shed Shell",
+      "description": "Enables the holder to ignore any effects that would usually prevent it from switching out of battle and being replaced by another party Pokémon."
+    },
+    "smooth-rock": {
+      "name": "Smooth Rock",
+      "description": "When the holder summons a sandstorm with its moves or Ability, the duration is extended by 3 turns. (Total duration: 8 turns)"
+    },
+    "staraptite": {
+      "name": "Staraptite",
+      "description": "A held item that allows Staraptor to Mega Evolve."
+    },
+    "swampertite": {
+      "name": "Swampertite",
+      "description": "A held item that allows Swampert to Mega Evolve."
+    },
+    "wide-lens": {
+      "name": "Wide Lens",
+      "description": "Boosts the accuracy of the holder's moves by 10%."
+    },
+    "wise-glasses": {
+      "name": "Wise Glasses",
+      "description": "Boosts the power of the holder's special moves by 10%."
+    },
+    "zoom-lens": {
+      "name": "Zoom Lens",
+      "description": "Boosts the accuracy of the holder's moves by 20% when the holder acts after the targets."
     }
   },
   "moves": {
-    "protect": {
-      "name": "Protect"
-    },
-    "fake-out": {
-      "name": "Fake Out"
-    },
-    "rock-slide": {
-      "name": "Rock Slide"
-    },
-    "tailwind": {
-      "name": "Tailwind"
-    },
-    "close-combat": {
-      "name": "Close Combat"
-    },
-    "dire-claw": {
-      "name": "Dire Claw"
-    },
-    "sucker-punch": {
-      "name": "Sucker Punch"
-    },
-    "earthquake": {
-      "name": "Earthquake"
-    },
-    "weather-ball": {
-      "name": "Weather Ball"
-    },
-    "aqua-jet": {
-      "name": "Aqua Jet"
-    },
-    "kowtow-cleave": {
-      "name": "Kowtow Cleave"
-    },
-    "last-respects": {
-      "name": "Last Respects"
-    },
-    "moonblast": {
-      "name": "Moonblast"
-    },
-    "dragon-claw": {
-      "name": "Dragon Claw"
-    },
-    "flare-blitz": {
-      "name": "Flare Blitz"
-    },
-    "iron-head": {
-      "name": "Iron Head"
-    },
-    "trick-room": {
-      "name": "Trick Room"
-    },
-    "heat-wave": {
-      "name": "Heat Wave"
-    },
-    "wave-crash": {
-      "name": "Wave Crash"
-    },
-    "parting-shot": {
-      "name": "Parting Shot"
-    },
-    "dazzling-gleam": {
-      "name": "Dazzling Gleam"
-    },
-    "low-kick": {
-      "name": "Low Kick"
-    },
-    "rage-powder": {
-      "name": "Rage Powder"
-    },
-    "dual-wingbeat": {
-      "name": "Dual Wingbeat"
-    },
-    "flip-turn": {
-      "name": "Flip Turn"
-    },
-    "hyper-voice": {
-      "name": "Hyper Voice"
-    },
-    "solar-beam": {
-      "name": "Solar Beam"
-    },
-    "encore": {
-      "name": "Encore"
-    },
-    "matcha-gotcha": {
-      "name": "Matcha Gotcha"
-    },
-    "shadow-ball": {
-      "name": "Shadow Ball"
-    },
-    "hurricane": {
-      "name": "Hurricane"
-    },
-    "psychic": {
-      "name": "Psychic"
-    },
-    "stomping-tantrum": {
-      "name": "Stomping Tantrum"
-    },
-    "will-o-wisp": {
-      "name": "Will-O-Wisp"
-    },
-    "calm-mind": {
-      "name": "Calm Mind"
-    },
-    "sludge-bomb": {
-      "name": "Sludge Bomb"
-    },
-    "throat-chop": {
-      "name": "Throat Chop"
-    },
-    "helping-hand": {
-      "name": "Helping Hand"
-    },
-    "hydro-pump": {
-      "name": "Hydro Pump"
-    },
-    "life-dew": {
-      "name": "Life Dew"
-    },
-    "swords-dance": {
-      "name": "Swords Dance"
-    },
-    "thunderbolt": {
-      "name": "Thunderbolt"
-    },
-    "blizzard": {
-      "name": "Blizzard"
-    },
-    "earth-power": {
-      "name": "Earth Power"
-    },
-    "icy-wind": {
-      "name": "Icy Wind"
-    },
-    "wide-guard": {
-      "name": "Wide Guard"
-    },
-    "aura-sphere": {
-      "name": "Aura Sphere"
-    },
-    "darkest-lariat": {
-      "name": "Darkest Lariat"
-    },
-    "draco-meteor": {
-      "name": "Draco Meteor"
-    },
-    "dragon-pulse": {
-      "name": "Dragon Pulse"
-    },
-    "electro-shot": {
-      "name": "Electro Shot"
-    },
-    "flash-cannon": {
-      "name": "Flash Cannon"
-    },
-    "knock-off": {
-      "name": "Knock Off"
-    },
-    "volt-switch": {
-      "name": "Volt Switch"
-    },
-    "brave-bird": {
-      "name": "Brave Bird"
-    },
-    "bullet-punch": {
-      "name": "Bullet Punch"
-    },
-    "liquidation": {
-      "name": "Liquidation"
-    },
-    "overheat": {
-      "name": "Overheat"
-    },
-    "shadow-sneak": {
-      "name": "Shadow Sneak"
-    },
-    "aurora-veil": {
-      "name": "Aurora Veil"
-    },
-    "bug-bite": {
-      "name": "Bug Bite"
-    },
-    "clanging-scales": {
-      "name": "Clanging Scales"
-    },
-    "clangorous-soul": {
-      "name": "Clangorous Soul"
-    },
-    "electroweb": {
-      "name": "Electroweb"
-    },
-    "follow-me": {
-      "name": "Follow Me"
-    },
-    "light-of-ruin": {
-      "name": "Light of Ruin"
-    },
-    "perish-song": {
-      "name": "Perish Song"
-    },
-    "poltergeist": {
-      "name": "Poltergeist"
-    },
-    "quick-attack": {
-      "name": "Quick Attack"
-    },
-    "rain-dance": {
-      "name": "Rain Dance"
-    },
-    "scald": {
-      "name": "Scald"
-    },
-    "substitute": {
-      "name": "Substitute"
-    },
-    "taunt": {
-      "name": "Taunt"
-    },
-    "body-press": {
-      "name": "Body Press"
-    },
-    "bulk-up": {
-      "name": "Bulk Up"
-    },
-    "coaching": {
-      "name": "Coaching"
-    },
-    "dark-pulse": {
-      "name": "Dark Pulse"
-    },
-    "detect": {
-      "name": "Detect"
-    },
-    "disable": {
-      "name": "Disable"
-    },
-    "double-edge": {
-      "name": "Double-Edge"
-    },
-    "dragon-dance": {
-      "name": "Dragon Dance"
-    },
-    "drain-punch": {
-      "name": "Drain Punch"
-    },
-    "draining-kiss": {
-      "name": "Draining Kiss"
-    },
-    "eruption": {
-      "name": "Eruption"
-    },
-    "extreme-speed": {
-      "name": "Extreme Speed"
-    },
-    "flamethrower": {
-      "name": "Flamethrower"
-    },
-    "giga-drain": {
-      "name": "Giga Drain"
-    },
-    "high-horsepower": {
-      "name": "High Horsepower"
-    },
-    "hyper-beam": {
-      "name": "Hyper Beam"
-    },
-    "ice-beam": {
-      "name": "Ice Beam"
-    },
-    "ice-punch": {
-      "name": "Ice Punch"
-    },
-    "leech-seed": {
-      "name": "Leech Seed"
-    },
-    "light-screen": {
-      "name": "Light Screen"
-    },
-    "muddy-water": {
-      "name": "Muddy Water"
-    },
-    "power-gem": {
-      "name": "Power Gem"
-    },
-    "psyshock": {
-      "name": "Psyshock"
-    },
-    "recover": {
-      "name": "Recover"
-    },
-    "rock-tomb": {
-      "name": "Rock Tomb"
-    },
-    "roost": {
-      "name": "Roost"
-    },
-    "sacred-sword": {
-      "name": "Sacred Sword"
-    },
-    "scale-shot": {
-      "name": "Scale Shot"
-    },
-    "sleep-powder": {
-      "name": "Sleep Powder"
-    },
-    "snarl": {
-      "name": "Snarl"
-    },
-    "spiky-shield": {
-      "name": "Spiky Shield"
-    },
-    "super-fang": {
-      "name": "Super Fang"
-    },
-    "acrobatics": {
-      "name": "Acrobatics"
-    },
-    "air-slash": {
-      "name": "Air Slash"
-    },
-    "breaking-swipe": {
-      "name": "Breaking Swipe"
-    },
-    "coil": {
-      "name": "Coil"
-    },
-    "crunch": {
-      "name": "Crunch"
-    },
-    "energy-ball": {
-      "name": "Energy Ball"
-    },
-    "feint": {
-      "name": "Feint"
-    },
-    "foul-play": {
-      "name": "Foul Play"
-    },
-    "freeze-dry": {
-      "name": "Freeze-Dry"
-    },
-    "heavy-slam": {
-      "name": "Heavy Slam"
-    },
-    "hypnosis": {
-      "name": "Hypnosis"
-    },
-    "imprison": {
-      "name": "Imprison"
-    },
-    "iron-defense": {
-      "name": "Iron Defense"
-    },
-    "jet-punch": {
-      "name": "Jet Punch"
-    },
-    "leaf-storm": {
-      "name": "Leaf Storm"
-    },
-    "nasty-plot": {
-      "name": "Nasty Plot"
-    },
-    "phantom-force": {
-      "name": "Phantom Force"
-    },
-    "play-rough": {
-      "name": "Play Rough"
-    },
-    "poison-jab": {
-      "name": "Poison Jab"
-    },
-    "psycho-cut": {
-      "name": "Psycho Cut"
-    },
-    "reflect": {
-      "name": "Reflect"
-    },
-    "stone-edge": {
-      "name": "Stone Edge"
-    },
-    "strength-sap": {
-      "name": "Strength Sap"
-    },
-    "sunny-day": {
-      "name": "Sunny Day"
-    },
-    "thunder": {
-      "name": "Thunder"
-    },
-    "thunder-wave": {
-      "name": "Thunder Wave"
-    },
-    "trick": {
-      "name": "Trick"
-    },
-    "triple-axel": {
-      "name": "Triple Axel"
-    },
-    "twin-beam": {
-      "name": "Twin Beam"
-    },
-    "u-turn": {
-      "name": "U-turn"
-    },
-    "water-spout": {
-      "name": "Water Spout"
-    },
-    "waterfall": {
-      "name": "Waterfall"
-    },
-    "yawn": {
-      "name": "Yawn"
-    },
     "accelerock": {
-      "name": "Accelerock"
+      "name": "Accelerock",
+      "effect": ""
     },
     "acid-armor": {
-      "name": "Acid Armor"
+      "name": "Acid Armor",
+      "effect": "Boosts the user's Defense stat by 2 stages."
     },
     "acid-spray": {
-      "name": "Acid Spray"
-    },
-    "aerial-ace": {
-      "name": "Aerial Ace"
-    },
-    "after-you": {
-      "name": "After You"
-    },
-    "agility": {
-      "name": "Agility"
-    },
-    "alluring-voice": {
-      "name": "Alluring Voice"
-    },
-    "ally-switch": {
-      "name": "Ally Switch"
-    },
-    "ancient-power": {
-      "name": "Ancient Power"
-    },
-    "aqua-cutter": {
-      "name": "Aqua Cutter"
-    },
-    "aqua-step": {
-      "name": "Aqua Step"
-    },
-    "armor-cannon": {
-      "name": "Armor Cannon"
-    },
-    "assurance": {
-      "name": "Assurance"
-    },
-    "avalanche": {
-      "name": "Avalanche"
-    },
-    "baby-doll-eyes": {
-      "name": "Baby-Doll Eyes"
-    },
-    "baneful-bunker": {
-      "name": "Baneful Bunker"
-    },
-    "baton-pass": {
-      "name": "Baton Pass"
-    },
-    "beat-up": {
-      "name": "Beat Up"
-    },
-    "belly-drum": {
-      "name": "Belly Drum"
-    },
-    "bite": {
-      "name": "Bite"
-    },
-    "bitter-blade": {
-      "name": "Bitter Blade"
-    },
-    "bitter-malice": {
-      "name": "Bitter Malice"
-    },
-    "blast-burn": {
-      "name": "Blast Burn"
-    },
-    "blaze-kick": {
-      "name": "Blaze Kick"
-    },
-    "body-slam": {
-      "name": "Body Slam"
-    },
-    "brick-break": {
-      "name": "Brick Break"
-    },
-    "bug-buzz": {
-      "name": "Bug Buzz"
-    },
-    "bulldoze": {
-      "name": "Bulldoze"
-    },
-    "bullet-seed": {
-      "name": "Bullet Seed"
-    },
-    "burn-up": {
-      "name": "Burn Up"
-    },
-    "ceaseless-edge": {
-      "name": "Ceaseless Edge"
-    },
-    "charm": {
-      "name": "Charm"
-    },
-    "chilling-water": {
-      "name": "Chilling Water"
-    },
-    "chilly-reception": {
-      "name": "Chilly Reception"
-    },
-    "cotton-guard": {
-      "name": "Cotton Guard"
-    },
-    "curse": {
-      "name": "Curse"
-    },
-    "destiny-bond": {
-      "name": "Destiny Bond"
-    },
-    "discharge": {
-      "name": "Discharge"
-    },
-    "dragon-cheer": {
-      "name": "Dragon Cheer"
-    },
-    "dragon-darts": {
-      "name": "Dragon Darts"
-    },
-    "dragon-rush": {
-      "name": "Dragon Rush"
-    },
-    "drill-peck": {
-      "name": "Drill Peck"
-    },
-    "drill-run": {
-      "name": "Drill Run"
-    },
-    "eerie-impulse": {
-      "name": "Eerie Impulse"
-    },
-    "endeavor": {
-      "name": "Endeavor"
-    },
-    "entrainment": {
-      "name": "Entrainment"
-    },
-    "expanding-force": {
-      "name": "Expanding Force"
-    },
-    "extrasensory": {
-      "name": "Extrasensory"
-    },
-    "facade": {
-      "name": "Facade"
-    },
-    "fake-tears": {
-      "name": "Fake Tears"
-    },
-    "feather-dance": {
-      "name": "Feather Dance"
-    },
-    "fickle-beam": {
-      "name": "Fickle Beam"
-    },
-    "fiery-dance": {
-      "name": "Fiery Dance"
-    },
-    "final-gambit": {
-      "name": "Final Gambit"
-    },
-    "fire-blast": {
-      "name": "Fire Blast"
-    },
-    "fire-fang": {
-      "name": "Fire Fang"
-    },
-    "fire-punch": {
-      "name": "Fire Punch"
-    },
-    "fire-spin": {
-      "name": "Fire Spin"
-    },
-    "fissure": {
-      "name": "Fissure"
-    },
-    "flame-charge": {
-      "name": "Flame Charge"
-    },
-    "fling": {
-      "name": "Fling"
-    },
-    "flower-trick": {
-      "name": "Flower Trick"
-    },
-    "flying-press": {
-      "name": "Flying Press"
-    },
-    "focus-blast": {
-      "name": "Focus Blast"
-    },
-    "focus-energy": {
-      "name": "Focus Energy"
-    },
-    "gigaton-hammer": {
-      "name": "Gigaton Hammer"
-    },
-    "grass-knot": {
-      "name": "Grass Knot"
-    },
-    "gravity": {
-      "name": "Gravity"
-    },
-    "gunk-shot": {
-      "name": "Gunk Shot"
-    },
-    "hammer-arm": {
-      "name": "Hammer Arm"
-    },
-    "hard-press": {
-      "name": "Hard Press"
-    },
-    "haze": {
-      "name": "Haze"
-    },
-    "head-smash": {
-      "name": "Head Smash"
-    },
-    "headlong-rush": {
-      "name": "Headlong Rush"
-    },
-    "heat-crash": {
-      "name": "Heat Crash"
-    },
-    "hex": {
-      "name": "Hex"
-    },
-    "high-jump-kick": {
-      "name": "High Jump Kick"
-    },
-    "howl": {
-      "name": "Howl"
-    },
-    "hydro-cannon": {
-      "name": "Hydro Cannon"
-    },
-    "ice-fang": {
-      "name": "Ice Fang"
-    },
-    "ice-hammer": {
-      "name": "Ice Hammer"
-    },
-    "ice-shard": {
-      "name": "Ice Shard"
-    },
-    "ice-spinner": {
-      "name": "Ice Spinner"
-    },
-    "icicle-crash": {
-      "name": "Icicle Crash"
-    },
-    "icicle-spear": {
-      "name": "Icicle Spear"
-    },
-    "infernal-parade": {
-      "name": "Infernal Parade"
-    },
-    "infestation": {
-      "name": "Infestation"
-    },
-    "instruct": {
-      "name": "Instruct"
-    },
-    "king’s-shield": {
-      "name": "King’s Shield"
-    },
-    "lash-out": {
-      "name": "Lash Out"
-    },
-    "last-resort": {
-      "name": "Last Resort"
-    },
-    "leaf-blade": {
-      "name": "Leaf Blade"
-    },
-    "leech-life": {
-      "name": "Leech Life"
-    },
-    "low-sweep": {
-      "name": "Low Sweep"
-    },
-    "lumina-crash": {
-      "name": "Lumina Crash"
-    },
-    "lunge": {
-      "name": "Lunge"
-    },
-    "mach-punch": {
-      "name": "Mach Punch"
-    },
-    "magic-powder": {
-      "name": "Magic Powder"
-    },
-    "magic-room": {
-      "name": "Magic Room"
-    },
-    "mean-look": {
-      "name": "Mean Look"
-    },
-    "mega-kick": {
-      "name": "Mega Kick"
-    },
-    "memento": {
-      "name": "Memento"
-    },
-    "meteor-mash": {
-      "name": "Meteor Mash"
-    },
-    "mirror-coat": {
-      "name": "Mirror Coat"
-    },
-    "morning-sun": {
-      "name": "Morning Sun"
-    },
-    "mortal-spin": {
-      "name": "Mortal Spin"
-    },
-    "mystical-fire": {
-      "name": "Mystical Fire"
-    },
-    "night-shade": {
-      "name": "Night Shade"
-    },
-    "night-slash": {
-      "name": "Night Slash"
-    },
-    "nuzzle": {
-      "name": "Nuzzle"
-    },
-    "outrage": {
-      "name": "Outrage"
-    },
-    "pain-split": {
-      "name": "Pain Split"
-    },
-    "parabolic-charge": {
-      "name": "Parabolic Charge"
-    },
-    "payback": {
-      "name": "Payback"
-    },
-    "pin-missile": {
-      "name": "Pin Missile"
-    },
-    "pollen-puff": {
-      "name": "Pollen Puff"
-    },
-    "population-bomb": {
-      "name": "Population Bomb"
-    },
-    "power-whip": {
-      "name": "Power Whip"
-    },
-    "precipice-blades": {
-      "name": "Precipice Blades"
-    },
-    "psychic-fangs": {
-      "name": "Psychic Fangs"
-    },
-    "psychic-noise": {
-      "name": "Psychic Noise"
-    },
-    "psychic-terrain": {
-      "name": "Psychic Terrain"
-    },
-    "quash": {
-      "name": "Quash"
-    },
-    "quick-guard": {
-      "name": "Quick Guard"
-    },
-    "quiver-dance": {
-      "name": "Quiver Dance"
-    },
-    "rage": {
-      "name": "Rage"
-    },
-    "raging-fury": {
-      "name": "Raging Fury"
-    },
-    "razor-shell": {
-      "name": "Razor Shell"
-    },
-    "reflect-type": {
-      "name": "Reflect Type"
-    },
-    "rest": {
-      "name": "Rest"
-    },
-    "roar": {
-      "name": "Roar"
-    },
-    "rock-blast": {
-      "name": "Rock Blast"
-    },
-    "round": {
-      "name": "Round"
-    },
-    "safeguard": {
-      "name": "Safeguard"
-    },
-    "salt-cure": {
-      "name": "Salt Cure"
-    },
-    "sandstorm": {
-      "name": "Sandstorm"
-    },
-    "scorching-sands": {
-      "name": "Scorching Sands"
-    },
-    "self-destruct": {
-      "name": "Self-Destruct"
-    },
-    "shadow-claw": {
-      "name": "Shadow Claw"
-    },
-    "shed-tail": {
-      "name": "Shed Tail"
-    },
-    "sheer-cold": {
-      "name": "Sheer Cold"
-    },
-    "shell-smash": {
-      "name": "Shell Smash"
-    },
-    "skill-swap": {
-      "name": "Skill Swap"
-    },
-    "slack-off": {
-      "name": "Slack Off"
-    },
-    "sludge-wave": {
-      "name": "Sludge Wave"
-    },
-    "soak": {
-      "name": "Soak"
-    },
-    "speed-swap": {
-      "name": "Speed Swap"
-    },
-    "stealth-rock": {
-      "name": "Stealth Rock"
-    },
-    "steel-wing": {
-      "name": "Steel Wing"
-    },
-    "stockpile": {
-      "name": "Stockpile"
-    },
-    "stone-axe": {
-      "name": "Stone Axe"
-    },
-    "strange-steam": {
-      "name": "Strange Steam"
-    },
-    "string-shot": {
-      "name": "String Shot"
-    },
-    "struggle-bug": {
-      "name": "Struggle Bug"
-    },
-    "superpower": {
-      "name": "Superpower"
-    },
-    "surf": {
-      "name": "Surf"
-    },
-    "swagger": {
-      "name": "Swagger"
-    },
-    "synthesis": {
-      "name": "Synthesis"
-    },
-    "temper-flare": {
-      "name": "Temper Flare"
-    },
-    "thief": {
-      "name": "Thief"
-    },
-    "thunder-fang": {
-      "name": "Thunder Fang"
-    },
-    "thunder-punch": {
-      "name": "Thunder Punch"
-    },
-    "torch-song": {
-      "name": "Torch Song"
-    },
-    "toxic": {
-      "name": "Toxic"
-    },
-    "trailblaze": {
-      "name": "Trailblaze"
-    },
-    "transform": {
-      "name": "Transform"
-    },
-    "triple-arrows": {
-      "name": "Triple Arrows"
-    },
-    "trop-kick": {
-      "name": "Trop Kick"
-    },
-    "upper-hand": {
-      "name": "Upper Hand"
-    },
-    "vacuum-wave": {
-      "name": "Vacuum Wave"
-    },
-    "venoshock": {
-      "name": "Venoshock"
-    },
-    "volt-tackle": {
-      "name": "Volt Tackle"
-    },
-    "water-pulse": {
-      "name": "Water Pulse"
-    },
-    "water-shuriken": {
-      "name": "Water Shuriken"
-    },
-    "whirlwind": {
-      "name": "Whirlwind"
-    },
-    "wild-charge": {
-      "name": "Wild Charge"
-    },
-    "wish": {
-      "name": "Wish"
-    },
-    "wood-hammer": {
-      "name": "Wood Hammer"
-    },
-    "zen-headbutt": {
-      "name": "Zen Headbutt"
-    },
-    "absorb": {
-      "name": "Absorb"
-    },
-    "acid": {
-      "name": "Acid"
-    },
-    "acid-downpour": {
-      "name": "Acid Downpour"
+      "name": "Acid Spray",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages."
+    },
+    "acrobatics": {
+      "name": "Acrobatics",
+      "effect": "This move's power is doubled if the user isn't holding an item."
     },
     "acupressure": {
-      "name": "Acupressure"
+      "name": "Acupressure",
+      "effect": "Boosts the Attack Defense Sp. Atk Sp. Def Speed accuracy or evasiveness of the user or an ally by 2 stages."
     },
-    "aeroblast": {
-      "name": "Aeroblast"
+    "aerial-ace": {
+      "name": "Aerial Ace",
+      "effect": "This move never misses."
+    },
+    "after-you": {
+      "name": "After You",
+      "effect": "Makes the target move immediately after the user."
+    },
+    "agility": {
+      "name": "Agility",
+      "effect": "Boosts the user's Speed stat by 2 stages."
     },
     "air-cutter": {
-      "name": "Air Cutter"
+      "name": "Air Cutter",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
-    "all-out-pummeling": {
-      "name": "All-Out Pummeling"
+    "air-slash": {
+      "name": "Air Slash",
+      "effect": "Has a 30% chance of making the target flinch."
+    },
+    "alluring-voice": {
+      "name": "Alluring Voice",
+      "effect": "Confuses the target if its stats were boosted during the turn this move is used."
+    },
+    "ally-switch": {
+      "name": "Ally Switch",
+      "effect": "The user switches spots with one of its allies. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
     "amnesia": {
-      "name": "Amnesia"
+      "name": "Amnesia",
+      "effect": "Boosts the user's Sp. Def stat by 2 stages."
     },
-    "anchor-shot": {
-      "name": "Anchor Shot"
+    "ancient-power": {
+      "name": "Ancient Power",
+      "effect": "Has a 10% chance of boosting the user's Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage."
     },
     "apple-acid": {
-      "name": "Apple Acid"
+      "name": "Apple Acid",
+      "effect": "Lowers the target's Sp. Def stat by 1 stage."
+    },
+    "aqua-cutter": {
+      "name": "Aqua Cutter",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "aqua-jet": {
+      "name": "Aqua Jet",
+      "effect": ""
     },
     "aqua-ring": {
-      "name": "Aqua Ring"
+      "name": "Aqua Ring",
+      "effect": "The user gains the Aqua Ring status."
+    },
+    "aqua-step": {
+      "name": "Aqua Step",
+      "effect": "Boosts the user's Speed stat by 1 stage."
     },
     "aqua-tail": {
-      "name": "Aqua Tail"
+      "name": "Aqua Tail",
+      "effect": ""
     },
-    "arm-thrust": {
-      "name": "Arm Thrust"
-    },
-    "aromatherapy": {
-      "name": "Aromatherapy"
+    "armor-cannon": {
+      "name": "Armor Cannon",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage."
     },
     "aromatic-mist": {
-      "name": "Aromatic Mist"
+      "name": "Aromatic Mist",
+      "effect": "Boosts an ally's Sp. Def stat by 1 stage."
     },
-    "assist": {
-      "name": "Assist"
-    },
-    "astonish": {
-      "name": "Astonish"
-    },
-    "astral-barrage": {
-      "name": "Astral Barrage"
-    },
-    "attack-order": {
-      "name": "Attack Order"
+    "assurance": {
+      "name": "Assurance",
+      "effect": "This move's power is doubled if the target has already taken damage during the turn this move is used."
     },
     "attract": {
-      "name": "Attract"
+      "name": "Attract",
+      "effect": "Gives the target the Infatuated status. This move will fail against a target that is the same gender as the user or whose gender is unknown."
+    },
+    "aura-sphere": {
+      "name": "Aura Sphere",
+      "effect": "This move never misses."
     },
     "aura-wheel": {
-      "name": "Aura Wheel"
+      "name": "Aura Wheel",
+      "effect": "Boosts the user's Speed stat by 1 stage. This move's type depends on Morpeko's form."
     },
-    "aurora-beam": {
-      "name": "Aurora Beam"
+    "aurora-veil": {
+      "name": "Aurora Veil",
+      "effect": "Gives the user's side the Aurora Veil status for 5 turns. This move can be used only in snow."
     },
-    "autotomize": {
-      "name": "Autotomize"
+    "avalanche": {
+      "name": "Avalanche",
+      "effect": "This move's power is doubled if the target has already dealt damage to the user with a move in the same turn."
     },
     "axe-kick": {
-      "name": "Axe Kick"
+      "name": "Axe Kick",
+      "effect": "Has a 30% chance of confusing the target. If this move misses or fails the user takes damage equal to 1/2 of its max HP."
     },
-    "baddy-bad": {
-      "name": "Baddy Bad"
+    "baby-doll-eyes": {
+      "name": "Baby-Doll Eyes",
+      "effect": "Lowers the target's Attack stat by 1 stage."
     },
-    "barb-barrage": {
-      "name": "Barb Barrage"
+    "baneful-bunker": {
+      "name": "Baneful Bunker",
+      "effect": "The user protects itself from incoming moves for the turn. Any attackers that use contact moves against the user during this turn become poisoned. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
-    "barrage": {
-      "name": "Barrage"
-    },
-    "barrier": {
-      "name": "Barrier"
+    "baton-pass": {
+      "name": "Baton Pass",
+      "effect": "The user switches out of battle to be replaced by another party Pokemon. If the user had any stat changes a substitute or other such effects they will be passed on to the Pokemon switching in."
     },
     "beak-blast": {
-      "name": "Beak Blast"
+      "name": "Beak Blast",
+      "effect": "If the user is hit by a contact move before it uses this move the attacker will be burned."
     },
-    "behemoth-bash": {
-      "name": "Behemoth Bash"
-    },
-    "behemoth-blade": {
-      "name": "Behemoth Blade"
+    "beat-up": {
+      "name": "Beat Up",
+      "effect": "The target is attacked as many times as the number of Pokemon in the user's party. Pokemon that have fainted or have a status condition are not counted. This move's power is calculated based on the Attack stats of the party Pokemon."
     },
     "belch": {
-      "name": "Belch"
+      "name": "Belch",
+      "effect": "This move fails unless the user has eaten a Berry during the battle."
     },
-    "bestow": {
-      "name": "Bestow"
-    },
-    "bide": {
-      "name": "Bide"
+    "belly-drum": {
+      "name": "Belly Drum",
+      "effect": "The user loses 1/2 of its max HP to boost its Attack stat to its sixth stage. This move fails if the user doesn't have enough remaining HP."
     },
     "bind": {
-      "name": "Bind"
+      "name": "Bind",
+      "effect": "Gives the target the Bound status."
     },
-    "black-hole-eclipse": {
-      "name": "Black Hole Eclipse"
+    "bite": {
+      "name": "Bite",
+      "effect": "Has a 30% chance of making the target flinch."
     },
-    "blazing-torque": {
-      "name": "Blazing Torque"
+    "bitter-blade": {
+      "name": "Bitter Blade",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "bleakwind-storm": {
-      "name": "Bleakwind Storm"
+    "bitter-malice": {
+      "name": "Bitter Malice",
+      "effect": "Lowers the target's Attack stat by 1 stage."
+    },
+    "blast-burn": {
+      "name": "Blast Burn",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
+    },
+    "blaze-kick": {
+      "name": "Blaze Kick",
+      "effect": "Has a 10% chance of burning the target. This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "blizzard": {
+      "name": "Blizzard",
+      "effect": "Has a 10% chance of freezing targets. This move never misses in snow."
     },
     "block": {
-      "name": "Block"
+      "name": "Block",
+      "effect": "Gives the target the Can't Escape status."
     },
-    "blood-moon": {
-      "name": "Blood Moon"
+    "body-press": {
+      "name": "Body Press",
+      "effect": "The damage dealt by this move is calculated using the user's Defense stat instead of its Attack stat."
     },
-    "bloom-doom": {
-      "name": "Bloom Doom"
-    },
-    "blue-flare": {
-      "name": "Blue Flare"
-    },
-    "bolt-beak": {
-      "name": "Bolt Beak"
-    },
-    "bolt-strike": {
-      "name": "Bolt Strike"
-    },
-    "bone-club": {
-      "name": "Bone Club"
+    "body-slam": {
+      "name": "Body Slam",
+      "effect": "Has a 30% chance of paralyzing the target. If the target has the Minimized status this move's power is doubled and it will be sure to hit."
     },
     "bone-rush": {
-      "name": "Bone Rush"
-    },
-    "bonemerang": {
-      "name": "Bonemerang"
+      "name": "Bone Rush",
+      "effect": "The user attacks 2 to 5 times in a row."
     },
     "boomburst": {
-      "name": "Boomburst"
+      "name": "Boomburst",
+      "effect": ""
     },
     "bounce": {
-      "name": "Bounce"
+      "name": "Bounce",
+      "effect": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn. This move has a 30% chance of paralyzing the target."
     },
-    "bouncy-bubble": {
-      "name": "Bouncy Bubble"
+    "brave-bird": {
+      "name": "Brave Bird",
+      "effect": "The user takes 1/3 of the damage dealt by this move."
     },
-    "branch-poke": {
-      "name": "Branch Poke"
+    "breaking-swipe": {
+      "name": "Breaking Swipe",
+      "effect": "Lowers targets' Attack stats by 1 stage."
     },
-    "breakneck-blitz": {
-      "name": "Breakneck Blitz"
-    },
-    "brine": {
-      "name": "Brine"
+    "brick-break": {
+      "name": "Brick Break",
+      "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side."
     },
     "brutal-swing": {
-      "name": "Brutal Swing"
+      "name": "Brutal Swing",
+      "effect": ""
     },
-    "bubble": {
-      "name": "Bubble"
+    "bug-bite": {
+      "name": "Bug Bite",
+      "effect": "If the target is holding a Berry the user eats that Berry and gains its effect."
     },
-    "bubble-beam": {
-      "name": "Bubble Beam"
+    "bug-buzz": {
+      "name": "Bug Buzz",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
     },
-    "burning-bulwark": {
-      "name": "Burning Bulwark"
+    "bulk-up": {
+      "name": "Bulk Up",
+      "effect": "Boosts the user's Attack and Defense stats by 1 stage."
+    },
+    "bulldoze": {
+      "name": "Bulldoze",
+      "effect": "Lowers targets' Speed stats by 1 stage. When Grassy Terrain is active this move's power is halved."
+    },
+    "bullet-punch": {
+      "name": "Bullet Punch",
+      "effect": ""
+    },
+    "bullet-seed": {
+      "name": "Bullet Seed",
+      "effect": "The user attacks 2 to 5 times in a row."
+    },
+    "burn-up": {
+      "name": "Burn Up",
+      "effect": "The user loses the Fire type. Cures the user of being frozen. This move fails unless it is used by a Fire type."
     },
     "burning-jealousy": {
-      "name": "Burning Jealousy"
+      "name": "Burning Jealousy",
+      "effect": "Burns targets if their stats were boosted during the turn this move is used."
     },
-    "buzzy-buzz": {
-      "name": "Buzzy Buzz"
+    "calm-mind": {
+      "name": "Calm Mind",
+      "effect": "Boosts the user's Sp. Atk and Sp. Def stats by 1 stage."
     },
-    "camouflage": {
-      "name": "Camouflage"
-    },
-    "captivate": {
-      "name": "Captivate"
-    },
-    "catastropika": {
-      "name": "Catastropika"
-    },
-    "celebrate": {
-      "name": "Celebrate"
+    "ceaseless-edge": {
+      "name": "Ceaseless Edge",
+      "effect": "Gives the opponent's side the Spikes status."
     },
     "charge": {
-      "name": "Charge"
+      "name": "Charge",
+      "effect": "Boosts the user's Sp. Def stat by 1 stage. The user gains the Electric Boost status."
     },
     "charge-beam": {
-      "name": "Charge Beam"
+      "name": "Charge Beam",
+      "effect": "Has a 70% chance of boosting the user's Sp. Atk stat by 1 stage."
     },
-    "chatter": {
-      "name": "Chatter"
+    "charm": {
+      "name": "Charm",
+      "effect": "Lowers the target's Attack stat by 2 stages."
     },
-    "chip-away": {
-      "name": "Chip Away"
+    "chilling-water": {
+      "name": "Chilling Water",
+      "effect": "Lowers the target's Attack stat by 1 stage."
     },
-    "chloroblast": {
-      "name": "Chloroblast"
+    "chilly-reception": {
+      "name": "Chilly Reception",
+      "effect": "Summons snow for 5 turns. The user switches out of battle to be replaced by another party Pokemon."
     },
     "circle-throw": {
-      "name": "Circle Throw"
+      "name": "Circle Throw",
+      "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random."
     },
-    "clamp": {
-      "name": "Clamp"
+    "clanging-scales": {
+      "name": "Clanging Scales",
+      "effect": "Lowers the user's Defense stat by 1 stage."
     },
-    "clangorous-soulblaze": {
-      "name": "Clangorous Soulblaze"
+    "clangorous-soul": {
+      "name": "Clangorous Soul",
+      "effect": "The user loses 1/3 of its max HP to boost its Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP."
     },
     "clear-smog": {
-      "name": "Clear Smog"
+      "name": "Clear Smog",
+      "effect": "Removes all stat changes from the target. This move never misses."
     },
-    "collision-course": {
-      "name": "Collision Course"
+    "close-combat": {
+      "name": "Close Combat",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage."
     },
-    "combat-torque": {
-      "name": "Combat Torque"
+    "coaching": {
+      "name": "Coaching",
+      "effect": "Boosts allies' Attack and Defense stats by 1 stage."
     },
-    "comet-punch": {
-      "name": "Comet Punch"
+    "coil": {
+      "name": "Coil",
+      "effect": "Boosts the user's Attack and Defense stats as well as its accuracy by 1 stage."
     },
     "comeuppance": {
-      "name": "Comeuppance"
-    },
-    "confide": {
-      "name": "Confide"
+      "name": "Comeuppance",
+      "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used."
     },
     "confuse-ray": {
-      "name": "Confuse Ray"
-    },
-    "confusion": {
-      "name": "Confusion"
-    },
-    "constrict": {
-      "name": "Constrict"
-    },
-    "continental-crush": {
-      "name": "Continental Crush"
-    },
-    "conversion": {
-      "name": "Conversion"
-    },
-    "conversion-2": {
-      "name": "Conversion 2"
+      "name": "Confuse Ray",
+      "effect": "Confuses the target."
     },
     "copycat": {
-      "name": "Copycat"
-    },
-    "core-enforcer": {
-      "name": "Core Enforcer"
-    },
-    "corkscrew-crash": {
-      "name": "Corkscrew Crash"
+      "name": "Copycat",
+      "effect": "The user mimics the move that was last used. This move fails if no other move has been used yet."
     },
     "corrosive-gas": {
-      "name": "Corrosive Gas"
+      "name": "Corrosive Gas",
+      "effect": "Causes all other Pokemon on the field to lose their held items."
     },
     "cosmic-power": {
-      "name": "Cosmic Power"
+      "name": "Cosmic Power",
+      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage."
+    },
+    "cotton-guard": {
+      "name": "Cotton Guard",
+      "effect": "Boosts the user's Defense stat by 3 stages."
     },
     "cotton-spore": {
-      "name": "Cotton Spore"
+      "name": "Cotton Spore",
+      "effect": "Lowers targets' Speed stats by 2 stages."
     },
     "counter": {
-      "name": "Counter"
-    },
-    "court-change": {
-      "name": "Court Change"
+      "name": "Counter",
+      "effect": "The user retaliates to deal double the damage it took from an opponent's physical move during the turn this move is used."
     },
     "covet": {
-      "name": "Covet"
+      "name": "Covet",
+      "effect": "If the user is not already holding an item it steals the target's held item."
     },
     "crabhammer": {
-      "name": "Crabhammer"
-    },
-    "crafty-shield": {
-      "name": "Crafty Shield"
+      "name": "Crabhammer",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
     "cross-chop": {
-      "name": "Cross Chop"
+      "name": "Cross Chop",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
     "cross-poison": {
-      "name": "Cross Poison"
+      "name": "Cross Poison",
+      "effect": "Has a 10% chance of poisoning the target. This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "crunch": {
+      "name": "Crunch",
+      "effect": "Has a 20% chance of lowering the target's Defense stat by 1 stage."
     },
     "crush-claw": {
-      "name": "Crush Claw"
+      "name": "Crush Claw",
+      "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage."
     },
-    "crush-grip": {
-      "name": "Crush Grip"
+    "curse": {
+      "name": "Curse",
+      "effect": "Ghost-type: The user loses 1/2 of its max HP to give the target the Cursed status. Non-Ghost-type: Lowers the user's Speed stat by 1 stage and boosts its Attack and Defense stats by 1 stage."
     },
-    "cut": {
-      "name": "Cut"
+    "dark-pulse": {
+      "name": "Dark Pulse",
+      "effect": "Has a 20% chance of making the target flinch."
     },
-    "dark-void": {
-      "name": "Dark Void"
+    "darkest-lariat": {
+      "name": "Darkest Lariat",
+      "effect": "This move ignores the target's stat changes when dealing damage."
+    },
+    "dazzling-gleam": {
+      "name": "Dazzling Gleam",
+      "effect": ""
     },
     "decorate": {
-      "name": "Decorate"
-    },
-    "defend-order": {
-      "name": "Defend Order"
-    },
-    "defense-curl": {
-      "name": "Defense Curl"
+      "name": "Decorate",
+      "effect": "Boosts the target's Attack and Sp. Atk stats by 2 stages."
     },
     "defog": {
-      "name": "Defog"
+      "name": "Defog",
+      "effect": "Lowers the target's evasiveness by 1 stage. Removes statuses such as Reflect Spikes and Safeguard as well as any terrain."
     },
-    "devastating-drake": {
-      "name": "Devastating Drake"
+    "destiny-bond": {
+      "name": "Destiny Bond",
+      "effect": "The user gains the Destiny Bound status. This move fails if used in succession."
     },
-    "diamond-storm": {
-      "name": "Diamond Storm"
+    "detect": {
+      "name": "Detect",
+      "effect": "The user protects itself from incoming moves for the turn. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
     "dig": {
-      "name": "Dig"
+      "name": "Dig",
+      "effect": "The user gains the Underground status on the turn this move is used then attacks on the following turn."
     },
-    "disarming-voice": {
-      "name": "Disarming Voice"
+    "dire-claw": {
+      "name": "Dire Claw",
+      "effect": "Has a 30% chance of leaving the target poisoned paralyzed or asleep."
+    },
+    "disable": {
+      "name": "Disable",
+      "effect": "Gives the target the Move Disabled status for 4 turns."
+    },
+    "discharge": {
+      "name": "Discharge",
+      "effect": "Has a 30% chance of paralyzing targets."
     },
     "dive": {
-      "name": "Dive"
-    },
-    "dizzy-punch": {
-      "name": "Dizzy Punch"
-    },
-    "doodle": {
-      "name": "Doodle"
-    },
-    "doom-desire": {
-      "name": "Doom Desire"
+      "name": "Dive",
+      "effect": "The user gains the Submerged status on the turn this move is used then attacks on the following turn."
     },
     "double-hit": {
-      "name": "Double Hit"
-    },
-    "double-iron-bash": {
-      "name": "Double Iron Bash"
-    },
-    "double-kick": {
-      "name": "Double Kick"
-    },
-    "double-shock": {
-      "name": "Double Shock"
-    },
-    "double-slap": {
-      "name": "Double Slap"
+      "name": "Double Hit",
+      "effect": "The user attacks twice in a row."
     },
     "double-team": {
-      "name": "Double Team"
+      "name": "Double Team",
+      "effect": "Boosts the user's evasiveness by 1 stage."
     },
-    "dragon-ascent": {
-      "name": "Dragon Ascent"
+    "double-edge": {
+      "name": "Double-Edge",
+      "effect": "The user takes 1/3 of the damage dealt by this move."
     },
-    "dragon-breath": {
-      "name": "Dragon Breath"
+    "draco-meteor": {
+      "name": "Draco Meteor",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages."
     },
-    "dragon-energy": {
-      "name": "Dragon Energy"
+    "dragon-cheer": {
+      "name": "Dragon Cheer",
+      "effect": "Gives allies a Critical-Hit Ratio Boost. Dragon types receive a 2-stage boost. All other types receive a 1-stage boost."
     },
-    "dragon-hammer": {
-      "name": "Dragon Hammer"
+    "dragon-claw": {
+      "name": "Dragon Claw",
+      "effect": ""
     },
-    "dragon-rage": {
-      "name": "Dragon Rage"
+    "dragon-dance": {
+      "name": "Dragon Dance",
+      "effect": "Boosts the user's Attack and Speed stats by 1 stage."
+    },
+    "dragon-darts": {
+      "name": "Dragon Darts",
+      "effect": "The user attacks twice in a row. If there are 2 opposing Pokemon each of them is attacked once."
+    },
+    "dragon-pulse": {
+      "name": "Dragon Pulse",
+      "effect": ""
+    },
+    "dragon-rush": {
+      "name": "Dragon Rush",
+      "effect": "Has a 20% chance of making the target flinch. If the target has the Minimized status this move's power is doubled and it will be sure to hit."
     },
     "dragon-tail": {
-      "name": "Dragon Tail"
+      "name": "Dragon Tail",
+      "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random."
     },
-    "dream-eater": {
-      "name": "Dream Eater"
+    "drain-punch": {
+      "name": "Drain Punch",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "drum-beating": {
-      "name": "Drum Beating"
+    "draining-kiss": {
+      "name": "Draining Kiss",
+      "effect": "The user's HP is restored by 3/4 of the damage dealt by this move."
     },
-    "dual-chop": {
-      "name": "Dual Chop"
+    "drill-peck": {
+      "name": "Drill Peck",
+      "effect": ""
     },
-    "dynamax-cannon": {
-      "name": "Dynamax Cannon"
+    "drill-run": {
+      "name": "Drill Run",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "dual-wingbeat": {
+      "name": "Dual Wingbeat",
+      "effect": "The user attacks twice in a row."
     },
     "dynamic-punch": {
-      "name": "Dynamic Punch"
+      "name": "Dynamic Punch",
+      "effect": "Confuses the target."
     },
-    "echoed-voice": {
-      "name": "Echoed Voice"
+    "earth-power": {
+      "name": "Earth Power",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
+    },
+    "earthquake": {
+      "name": "Earthquake",
+      "effect": "This move's power is doubled against targets that have the Underground status. When Grassy Terrain is active this move's power is halved."
+    },
+    "eerie-impulse": {
+      "name": "Eerie Impulse",
+      "effect": "Lowers the target's Sp. Atk stat by 2 stages."
     },
     "eerie-spell": {
-      "name": "Eerie Spell"
-    },
-    "egg-bomb": {
-      "name": "Egg Bomb"
+      "name": "Eerie Spell",
+      "effect": "Removes 3 PP from the move last used by the target."
     },
     "electric-terrain": {
-      "name": "Electric Terrain"
+      "name": "Electric Terrain",
+      "effect": "Turns the entire field into Electric Terrain for 5 turns."
     },
     "electrify": {
-      "name": "Electrify"
+      "name": "Electrify",
+      "effect": "If this move hits the target before it uses a move its move becomes Electric type for that turn."
     },
     "electro-ball": {
-      "name": "Electro Ball"
+      "name": "Electro Ball",
+      "effect": "The higher the user's Speed stat compared to the target's the greater this move's power (ranging between 40 and 150)."
     },
-    "electro-drift": {
-      "name": "Electro Drift"
+    "electro-shot": {
+      "name": "Electro Shot",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used."
     },
-    "embargo": {
-      "name": "Embargo"
+    "electroweb": {
+      "name": "Electroweb",
+      "effect": "Lowers targets' Speed stats by 1 stage."
     },
-    "ember": {
-      "name": "Ember"
+    "encore": {
+      "name": "Encore",
+      "effect": "Gives the target the Encore status."
+    },
+    "endeavor": {
+      "name": "Endeavor",
+      "effect": "Deals damage to the target equal to its remaining HP minus the user's remaining HP. This move fails if the target's HP is the same as or lower than the user's."
     },
     "endure": {
-      "name": "Endure"
+      "name": "Endure",
+      "effect": "During the turn this move is used if the user takes damage from a move that would knock it out it will endure the hit with 1 HP. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
-    "esper-wing": {
-      "name": "Esper Wing"
+    "energy-ball": {
+      "name": "Energy Ball",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
     },
-    "eternabeam": {
-      "name": "Eternabeam"
+    "entrainment": {
+      "name": "Entrainment",
+      "effect": "Changes the target's Ability to be the same as the user's."
+    },
+    "eruption": {
+      "name": "Eruption",
+      "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150)."
+    },
+    "expanding-force": {
+      "name": "Expanding Force",
+      "effect": "If the user is under the effect of Psychic Terrain this move's power is boosted by 50% and its range extends to all opponents."
     },
     "explosion": {
-      "name": "Explosion"
+      "name": "Explosion",
+      "effect": "The user faints upon using this move."
     },
-    "extreme-evoboost": {
-      "name": "Extreme Evoboost"
+    "extrasensory": {
+      "name": "Extrasensory",
+      "effect": "Has a 10% chance of making the target flinch."
+    },
+    "extreme-speed": {
+      "name": "Extreme Speed",
+      "effect": ""
+    },
+    "facade": {
+      "name": "Facade",
+      "effect": "This move's power is doubled if the user is poisoned badly poisoned burned or paralyzed. Although this move is a physical move the damage it deals is not halved when the user is burned."
     },
     "fairy-lock": {
-      "name": "Fairy Lock"
+      "name": "Fairy Lock",
+      "effect": "Gives all Pokemon on the field the Fairy Locked status."
     },
-    "fairy-wind": {
-      "name": "Fairy Wind"
+    "fake-out": {
+      "name": "Fake Out",
+      "effect": "Makes the target flinch. This move fails unless it is the first move used by the user after it enters a battle."
     },
-    "false-surrender": {
-      "name": "False Surrender"
+    "fake-tears": {
+      "name": "Fake Tears",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages."
     },
-    "false-swipe": {
-      "name": "False Swipe"
+    "feather-dance": {
+      "name": "Feather Dance",
+      "effect": "Lowers the target's Attack stat by 2 stages."
     },
-    "feint-attack": {
-      "name": "Feint Attack"
+    "feint": {
+      "name": "Feint",
+      "effect": "This move can hit a target using a move such as Protect or Detect and removes the effects of those moves."
     },
     "fell-stinger": {
-      "name": "Fell Stinger"
+      "name": "Fell Stinger",
+      "effect": "Boosts the user's Attack stat by 3 stages if this move knocks out the target."
     },
-    "fiery-wrath": {
-      "name": "Fiery Wrath"
+    "fickle-beam": {
+      "name": "Fickle Beam",
+      "effect": "This move has a 30% chance of its power being doubled."
     },
-    "fillet-away": {
-      "name": "Fillet Away"
+    "fiery-dance": {
+      "name": "Fiery Dance",
+      "effect": "Has a 50% chance of boosting the user's Sp. Atk stat by 1 stage."
+    },
+    "final-gambit": {
+      "name": "Final Gambit",
+      "effect": "The user faints. This move deals damage to the target equal to the user's remaining HP at the time this move was used."
+    },
+    "fire-blast": {
+      "name": "Fire Blast",
+      "effect": "Has a 10% chance of burning the target."
+    },
+    "fire-fang": {
+      "name": "Fire Fang",
+      "effect": "Has a 10% chance of burning the target and a 10% chance of making the target flinch."
     },
     "fire-lash": {
-      "name": "Fire Lash"
+      "name": "Fire Lash",
+      "effect": "Lowers the target's Defense stat by 1 stage."
     },
-    "fire-pledge": {
-      "name": "Fire Pledge"
+    "fire-punch": {
+      "name": "Fire Punch",
+      "effect": "Has a 10% chance of burning the target."
+    },
+    "fire-spin": {
+      "name": "Fire Spin",
+      "effect": "Gives the target the Bound status."
     },
     "first-impression": {
-      "name": "First Impression"
+      "name": "First Impression",
+      "effect": "This move fails unless it is the first move used by the user after it enters a battle."
     },
-    "fishious-rend": {
-      "name": "Fishious Rend"
+    "fissure": {
+      "name": "Fissure",
+      "effect": "Knocks out the target. The accuracy of this move is fixed at 30%."
     },
     "flail": {
-      "name": "Flail"
+      "name": "Flail",
+      "effect": "The less HP the user has left the greater this move's power (ranging between 20 and 200)."
     },
-    "flame-burst": {
-      "name": "Flame Burst"
+    "flame-charge": {
+      "name": "Flame Charge",
+      "effect": "Boosts the user's Speed stat by 1 stage."
     },
-    "flame-wheel": {
-      "name": "Flame Wheel"
+    "flamethrower": {
+      "name": "Flamethrower",
+      "effect": "Has a 10% chance of burning the target."
     },
-    "flash": {
-      "name": "Flash"
+    "flare-blitz": {
+      "name": "Flare Blitz",
+      "effect": "Has a 10% chance of burning the target. Cures the user of being frozen. The user also takes 1/3 of the damage dealt by this move."
+    },
+    "flash-cannon": {
+      "name": "Flash Cannon",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
     },
     "flatter": {
-      "name": "Flatter"
+      "name": "Flatter",
+      "effect": "Boosts the target's Sp. Atk stat by 1 stage and confuses it."
     },
-    "fleur-cannon": {
-      "name": "Fleur Cannon"
+    "fling": {
+      "name": "Fling",
+      "effect": "This move's power and effects depend on the user's held item. The held item is lost after this move is used."
     },
-    "floaty-fall": {
-      "name": "Floaty Fall"
+    "flip-turn": {
+      "name": "Flip Turn",
+      "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon."
     },
-    "floral-healing": {
-      "name": "Floral Healing"
-    },
-    "flower-shield": {
-      "name": "Flower Shield"
+    "flower-trick": {
+      "name": "Flower Trick",
+      "effect": "This move never misses and is always a critical hit."
     },
     "fly": {
-      "name": "Fly"
+      "name": "Fly",
+      "effect": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn."
+    },
+    "flying-press": {
+      "name": "Flying Press",
+      "effect": "The damage dealt by this move is calculated by combining the effectiveness of the move's own type with that of the Flying type. If the target has the Minimized status this move's power is doubled and it will be sure to hit."
+    },
+    "focus-blast": {
+      "name": "Focus Blast",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
+    },
+    "focus-energy": {
+      "name": "Focus Energy",
+      "effect": "The user gains a 2-stage Critical-Hit Ratio Boost."
     },
     "focus-punch": {
-      "name": "Focus Punch"
+      "name": "Focus Punch",
+      "effect": "This move fails if the user has already taken damage from a move in the same turn."
     },
-    "force-palm": {
-      "name": "Force Palm"
+    "follow-me": {
+      "name": "Follow Me",
+      "effect": "The user redirects opponents' moves toward itself. This effect works only on single-target moves."
     },
-    "foresight": {
-      "name": "Foresight"
+    "forest's-curse": {
+      "name": "Forest’s Curse",
+      "effect": "Gives the target the Forest Cursed status."
     },
-    "forest’s-curse": {
-      "name": "Forest’s Curse"
+    "foul-play": {
+      "name": "Foul Play",
+      "effect": "The damage dealt by this move is calculated using the target's Attack stat instead of the user's Attack stat."
     },
-    "freeze-shock": {
-      "name": "Freeze Shock"
-    },
-    "freezing-glare": {
-      "name": "Freezing Glare"
-    },
-    "freezy-frost": {
-      "name": "Freezy Frost"
+    "freeze-dry": {
+      "name": "Freeze-Dry",
+      "effect": "This move is also super effective against Water-type Pokemon."
     },
     "frenzy-plant": {
-      "name": "Frenzy Plant"
+      "name": "Frenzy Plant",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
     },
     "frost-breath": {
-      "name": "Frost Breath"
-    },
-    "frustration": {
-      "name": "Frustration"
-    },
-    "fury-attack": {
-      "name": "Fury Attack"
-    },
-    "fury-cutter": {
-      "name": "Fury Cutter"
-    },
-    "fury-swipes": {
-      "name": "Fury Swipes"
-    },
-    "fusion-bolt": {
-      "name": "Fusion Bolt"
-    },
-    "fusion-flare": {
-      "name": "Fusion Flare"
+      "name": "Frost Breath",
+      "effect": "Always a critical hit."
     },
     "future-sight": {
-      "name": "Future Sight"
+      "name": "Future Sight",
+      "effect": "Gives the target's spot the Future Attack status."
     },
     "gastro-acid": {
-      "name": "Gastro Acid"
+      "name": "Gastro Acid",
+      "effect": "Gives the target the No Ability status."
     },
-    "gear-grind": {
-      "name": "Gear Grind"
-    },
-    "gear-up": {
-      "name": "Gear Up"
-    },
-    "genesis-supernova": {
-      "name": "Genesis Supernova"
-    },
-    "geomancy": {
-      "name": "Geomancy"
+    "giga-drain": {
+      "name": "Giga Drain",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
     "giga-impact": {
-      "name": "Giga Impact"
+      "name": "Giga Impact",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
     },
-    "gigavolt-havoc": {
-      "name": "Gigavolt Havoc"
-    },
-    "glacial-lance": {
-      "name": "Glacial Lance"
-    },
-    "glaciate": {
-      "name": "Glaciate"
-    },
-    "glaive-rush": {
-      "name": "Glaive Rush"
+    "gigaton-hammer": {
+      "name": "Gigaton Hammer",
+      "effect": "This move can't be used twice in a row."
     },
     "glare": {
-      "name": "Glare"
+      "name": "Glare",
+      "effect": "Paralyzes the target."
     },
-    "glitzy-glow": {
-      "name": "Glitzy Glow"
-    },
-    "grass-pledge": {
-      "name": "Grass Pledge"
-    },
-    "grass-whistle": {
-      "name": "Grass Whistle"
+    "grass-knot": {
+      "name": "Grass Knot",
+      "effect": "The heavier the target the greater this move's power (ranging between 20 and 120)."
     },
     "grassy-glide": {
-      "name": "Grassy Glide"
+      "name": "Grassy Glide",
+      "effect": "If the user is under the effect of Grassy Terrain this move's priority becomes +1."
     },
     "grassy-terrain": {
-      "name": "Grassy Terrain"
+      "name": "Grassy Terrain",
+      "effect": "Turns the entire field into Grassy Terrain for 5 turns."
     },
     "grav-apple": {
-      "name": "Grav Apple"
+      "name": "Grav Apple",
+      "effect": "Lowers the target's Defense stat by 1 stage. This move's power is boosted by 50% when the Gravity status is active."
     },
-    "growl": {
-      "name": "Growl"
+    "gravity": {
+      "name": "Gravity",
+      "effect": "Gives the entire field the Gravity status for 5 turns."
     },
     "growth": {
-      "name": "Growth"
-    },
-    "grudge": {
-      "name": "Grudge"
+      "name": "Growth",
+      "effect": "Boosts the user's Attack and Sp. Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead."
     },
     "guard-split": {
-      "name": "Guard Split"
+      "name": "Guard Split",
+      "effect": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp. Def stats."
     },
     "guard-swap": {
-      "name": "Guard Swap"
-    },
-    "guardian-of-alola": {
-      "name": "Guardian of Alola"
+      "name": "Guard Swap",
+      "effect": "The user swaps the changes to its Defense and Sp. Def stats with the changes to the target's Defense and Sp. Def stats."
     },
     "guillotine": {
-      "name": "Guillotine"
+      "name": "Guillotine",
+      "effect": "Knocks out the target. The accuracy of this move is fixed at 30%."
     },
-    "gust": {
-      "name": "Gust"
+    "gunk-shot": {
+      "name": "Gunk Shot",
+      "effect": "Has a 30% chance of poisoning the target."
     },
     "gyro-ball": {
-      "name": "Gyro Ball"
+      "name": "Gyro Ball",
+      "effect": "The lower the user's Speed stat compared to the target's the greater this move's power (ranging between 1 and 150)."
     },
-    "hail": {
-      "name": "Hail"
+    "hammer-arm": {
+      "name": "Hammer Arm",
+      "effect": "Lowers the user's Speed stat by 1 stage."
     },
-    "happy-hour": {
-      "name": "Happy Hour"
+    "hard-press": {
+      "name": "Hard Press",
+      "effect": "The more HP the target has left the greater this move's power (ranging between 1 and 100)."
     },
-    "harden": {
-      "name": "Harden"
+    "haze": {
+      "name": "Haze",
+      "effect": "Eliminates every stat change on the entire field."
     },
-    "head-charge": {
-      "name": "Head Charge"
+    "head-smash": {
+      "name": "Head Smash",
+      "effect": "The user takes 1/2 of the damage dealt by this move."
     },
-    "headbutt": {
-      "name": "Headbutt"
+    "headlong-rush": {
+      "name": "Headlong Rush",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage."
     },
     "heal-bell": {
-      "name": "Heal Bell"
-    },
-    "heal-block": {
-      "name": "Heal Block"
-    },
-    "heal-order": {
-      "name": "Heal Order"
+      "name": "Heal Bell",
+      "effect": "The user cures the status conditions of all the Pokemon in its party including itself as well as its allies."
     },
     "heal-pulse": {
-      "name": "Heal Pulse"
+      "name": "Heal Pulse",
+      "effect": "Restores 1/2 of the target's max HP."
     },
     "healing-wish": {
-      "name": "Healing Wish"
+      "name": "Healing Wish",
+      "effect": "The user faints. The Pokemon taking its place will have its HP fully restored and its status conditions cured."
     },
-    "heart-stamp": {
-      "name": "Heart Stamp"
+    "heat-crash": {
+      "name": "Heat Crash",
+      "effect": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit."
     },
-    "heart-swap": {
-      "name": "Heart Swap"
+    "heat-wave": {
+      "name": "Heat Wave",
+      "effect": "Has a 10% chance of burning targets."
     },
-    "hidden-power": {
-      "name": "Hidden Power"
+    "heavy-slam": {
+      "name": "Heavy Slam",
+      "effect": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit."
     },
-    "hold-back": {
-      "name": "Hold Back"
+    "helping-hand": {
+      "name": "Helping Hand",
+      "effect": "Boosts the power of an ally's move by 50% during the turn this move is used."
     },
-    "hold-hands": {
-      "name": "Hold Hands"
+    "hex": {
+      "name": "Hex",
+      "effect": "This move's power is doubled if the target has a status condition."
     },
-    "hone-claws": {
-      "name": "Hone Claws"
+    "high-horsepower": {
+      "name": "High Horsepower",
+      "effect": ""
     },
-    "horn-attack": {
-      "name": "Horn Attack"
+    "high-jump-kick": {
+      "name": "High Jump Kick",
+      "effect": "If this move misses or fails the user takes damage equal to 1/2 of its max HP."
     },
     "horn-drill": {
-      "name": "Horn Drill"
+      "name": "Horn Drill",
+      "effect": "Knocks out the target. The accuracy of this move is fixed at 30%."
     },
     "horn-leech": {
-      "name": "Horn Leech"
+      "name": "Horn Leech",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "hydro-steam": {
-      "name": "Hydro Steam"
+    "howl": {
+      "name": "Howl",
+      "effect": "Boosts the Attack stats of the user and its allies by 1 stage."
     },
-    "hydro-vortex": {
-      "name": "Hydro Vortex"
+    "hurricane": {
+      "name": "Hurricane",
+      "effect": "Has a 30% chance of confusing the target. This move never misses in rain and can hit a target that has the Sky-High status."
     },
-    "hyper-drill": {
-      "name": "Hyper Drill"
+    "hydro-cannon": {
+      "name": "Hydro Cannon",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
     },
-    "hyper-fang": {
-      "name": "Hyper Fang"
+    "hydro-pump": {
+      "name": "Hydro Pump",
+      "effect": ""
     },
-    "hyperspace-fury": {
-      "name": "Hyperspace Fury"
+    "hyper-beam": {
+      "name": "Hyper Beam",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
     },
-    "hyperspace-hole": {
-      "name": "Hyperspace Hole"
+    "hyper-voice": {
+      "name": "Hyper Voice",
+      "effect": ""
     },
-    "ice-ball": {
-      "name": "Ice Ball"
+    "hypnosis": {
+      "name": "Hypnosis",
+      "effect": "Puts the target to sleep."
     },
-    "ice-burn": {
-      "name": "Ice Burn"
+    "ice-beam": {
+      "name": "Ice Beam",
+      "effect": "Has a 10% chance of freezing the target."
     },
-    "incinerate": {
-      "name": "Incinerate"
+    "ice-fang": {
+      "name": "Ice Fang",
+      "effect": "Has a 10% chance of freezing the target and a 10% chance of making the target flinch."
+    },
+    "ice-hammer": {
+      "name": "Ice Hammer",
+      "effect": "Lowers the user's Speed stat by 1 stage."
+    },
+    "ice-punch": {
+      "name": "Ice Punch",
+      "effect": "Has a 10% chance of freezing the target."
+    },
+    "ice-shard": {
+      "name": "Ice Shard",
+      "effect": ""
+    },
+    "ice-spinner": {
+      "name": "Ice Spinner",
+      "effect": "Removes any terrain."
+    },
+    "icicle-crash": {
+      "name": "Icicle Crash",
+      "effect": "Has a 30% chance of making the target flinch."
+    },
+    "icicle-spear": {
+      "name": "Icicle Spear",
+      "effect": "The user attacks 2 to 5 times in a row."
+    },
+    "icy-wind": {
+      "name": "Icy Wind",
+      "effect": "Lowers targets' Speed stats by 1 stage."
+    },
+    "imprison": {
+      "name": "Imprison",
+      "effect": "The user gains the Sealing Off status."
+    },
+    "infernal-parade": {
+      "name": "Infernal Parade",
+      "effect": "Has a 30% chance of burning the target. This move's power is doubled if the target has a status condition."
     },
     "inferno": {
-      "name": "Inferno"
+      "name": "Inferno",
+      "effect": "Burns the target."
     },
-    "inferno-overdrive": {
-      "name": "Inferno Overdrive"
+    "infestation": {
+      "name": "Infestation",
+      "effect": "Gives the target the Bound status."
     },
     "ingrain": {
-      "name": "Ingrain"
+      "name": "Ingrain",
+      "effect": "The user gains the Ingrained status."
     },
-    "ion-deluge": {
-      "name": "Ion Deluge"
+    "instruct": {
+      "name": "Instruct",
+      "effect": "The user makes the target reuse the last move it used."
+    },
+    "iron-defense": {
+      "name": "Iron Defense",
+      "effect": "Boosts the user's Defense stat by 2 stages."
+    },
+    "iron-head": {
+      "name": "Iron Head",
+      "effect": "Has a 20% chance of making the target flinch."
     },
     "iron-tail": {
-      "name": "Iron Tail"
+      "name": "Iron Tail",
+      "effect": "Has a 30% chance of lowering the target's Defense stat by 1 stage."
     },
-    "ivy-cudgel": {
-      "name": "Ivy Cudgel"
+    "jet-punch": {
+      "name": "Jet Punch",
+      "effect": ""
     },
-    "jaw-lock": {
-      "name": "Jaw Lock"
+    "king's-shield": {
+      "name": "King’s Shield",
+      "effect": "The user protects itself from incoming attacks for the turn and changes into its Shield Forme. Any attackers that use contact moves against the user during this turn will have their Attack stats lowered by 1 stage. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
-    "judgment": {
-      "name": "Judgment"
+    "knock-off": {
+      "name": "Knock Off",
+      "effect": "This move's power is boosted by 50% if the target is holding an item. Causes the target to lose its held item."
     },
-    "jump-kick": {
-      "name": "Jump Kick"
+    "kowtow-cleave": {
+      "name": "Kowtow Cleave",
+      "effect": "This move never misses."
     },
-    "jungle-healing": {
-      "name": "Jungle Healing"
+    "lash-out": {
+      "name": "Lash Out",
+      "effect": "This move's power is doubled if the user's stats were lowered during the turn this move is used."
     },
-    "karate-chop": {
-      "name": "Karate Chop"
+    "last-resort": {
+      "name": "Last Resort",
+      "effect": "This move fails unless the user has already used all the other moves it knows."
     },
-    "kinesis": {
-      "name": "Kinesis"
-    },
-    "land’s-wrath": {
-      "name": "Land’s Wrath"
-    },
-    "laser-focus": {
-      "name": "Laser Focus"
+    "last-respects": {
+      "name": "Last Respects",
+      "effect": "This move's power is increased by 50 for each time that a Pokemon in the user's party has fainted."
     },
     "lava-plume": {
-      "name": "Lava Plume"
+      "name": "Lava Plume",
+      "effect": "Has a 30% chance of burning targets."
     },
-    "leaf-tornado": {
-      "name": "Leaf Tornado"
+    "leaf-blade": {
+      "name": "Leaf Blade",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
-    "leafage": {
-      "name": "Leafage"
+    "leaf-storm": {
+      "name": "Leaf Storm",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages."
     },
-    "leer": {
-      "name": "Leer"
+    "leech-life": {
+      "name": "Leech Life",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "let’s-snuggle-forever": {
-      "name": "Let’s Snuggle Forever"
+    "leech-seed": {
+      "name": "Leech Seed",
+      "effect": "Gives the target the Leech Seeded status."
     },
-    "lick": {
-      "name": "Lick"
+    "life-dew": {
+      "name": "Life Dew",
+      "effect": "Restores 1/4 of the max HP of the user and its allies."
     },
-    "light-that-burns-the-sky": {
-      "name": "Light That Burns the Sky"
+    "light-screen": {
+      "name": "Light Screen",
+      "effect": "Gives the user's side the Light Screen status for 5 turns."
+    },
+    "light-of-ruin": {
+      "name": "Light of Ruin",
+      "effect": "The user takes 1/2 of the damage dealt by this move."
+    },
+    "liquidation": {
+      "name": "Liquidation",
+      "effect": "Has a 20% chance of lowering the target's Defense stat by 1 stage."
     },
     "lock-on": {
-      "name": "Lock-On"
+      "name": "Lock-On",
+      "effect": "The user gains the Locked On status."
     },
-    "lovely-kiss": {
-      "name": "Lovely Kiss"
+    "low-kick": {
+      "name": "Low Kick",
+      "effect": "The heavier the target the greater this move's power (ranging between 20 and 120)."
     },
-    "lucky-chant": {
-      "name": "Lucky Chant"
+    "low-sweep": {
+      "name": "Low Sweep",
+      "effect": "Lowers the target's Speed stat by 1 stage."
     },
-    "lunar-blessing": {
-      "name": "Lunar Blessing"
+    "lumina-crash": {
+      "name": "Lumina Crash",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages."
     },
-    "lunar-dance": {
-      "name": "Lunar Dance"
+    "lunge": {
+      "name": "Lunge",
+      "effect": "Lowers the target's Attack stat by 1 stage."
     },
-    "luster-purge": {
-      "name": "Luster Purge"
+    "mach-punch": {
+      "name": "Mach Punch",
+      "effect": ""
     },
-    "magic-coat": {
-      "name": "Magic Coat"
+    "magic-powder": {
+      "name": "Magic Powder",
+      "effect": "Changes the target's type to Psychic."
     },
-    "magical-leaf": {
-      "name": "Magical Leaf"
-    },
-    "magical-torque": {
-      "name": "Magical Torque"
-    },
-    "magma-storm": {
-      "name": "Magma Storm"
-    },
-    "magnet-bomb": {
-      "name": "Magnet Bomb"
+    "magic-room": {
+      "name": "Magic Room",
+      "effect": "Gives the entire field the Magic Room status for 5 turns."
     },
     "magnet-rise": {
-      "name": "Magnet Rise"
+      "name": "Magnet Rise",
+      "effect": "The user gains the Magnet Rise status."
     },
     "magnetic-flux": {
-      "name": "Magnetic Flux"
-    },
-    "magnitude": {
-      "name": "Magnitude"
+      "name": "Magnetic Flux",
+      "effect": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp. Def stats are boosted by 1 stage."
     },
     "make-it-rain": {
-      "name": "Make It Rain"
+      "name": "Make It Rain",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages."
     },
-    "malicious-moonsault": {
-      "name": "Malicious Moonsault"
+    "matcha-gotcha": {
+      "name": "Matcha Gotcha",
+      "effect": "Has a 20% chance of burning targets. The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "malignant-chain": {
-      "name": "Malignant Chain"
+    "mean-look": {
+      "name": "Mean Look",
+      "effect": "Gives the target the Can't Escape status."
     },
-    "mat-block": {
-      "name": "Mat Block"
-    },
-    "max-airstream": {
-      "name": "Max Airstream"
-    },
-    "max-darkness": {
-      "name": "Max Darkness"
-    },
-    "max-flare": {
-      "name": "Max Flare"
-    },
-    "max-flutterby": {
-      "name": "Max Flutterby"
-    },
-    "max-geyser": {
-      "name": "Max Geyser"
-    },
-    "max-guard": {
-      "name": "Max Guard"
-    },
-    "max-hailstorm": {
-      "name": "Max Hailstorm"
-    },
-    "max-knuckle": {
-      "name": "Max Knuckle"
-    },
-    "max-lightning": {
-      "name": "Max Lightning"
-    },
-    "max-mindstorm": {
-      "name": "Max Mindstorm"
-    },
-    "max-ooze": {
-      "name": "Max Ooze"
-    },
-    "max-overgrowth": {
-      "name": "Max Overgrowth"
-    },
-    "max-phantasm": {
-      "name": "Max Phantasm"
-    },
-    "max-quake": {
-      "name": "Max Quake"
-    },
-    "max-rockfall": {
-      "name": "Max Rockfall"
-    },
-    "max-starfall": {
-      "name": "Max Starfall"
-    },
-    "max-steelspike": {
-      "name": "Max Steelspike"
-    },
-    "max-strike": {
-      "name": "Max Strike"
-    },
-    "max-wyrmwind": {
-      "name": "Max Wyrmwind"
-    },
-    "me-first": {
-      "name": "Me First"
-    },
-    "meditate": {
-      "name": "Meditate"
-    },
-    "mega-drain": {
-      "name": "Mega Drain"
-    },
-    "mega-punch": {
-      "name": "Mega Punch"
+    "mega-kick": {
+      "name": "Mega Kick",
+      "effect": ""
     },
     "megahorn": {
-      "name": "Megahorn"
+      "name": "Megahorn",
+      "effect": ""
     },
-    "menacing-moonraze-maelstrom": {
-      "name": "Menacing Moonraze Maelstrom"
+    "memento": {
+      "name": "Memento",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 2 stages. The user faints upon using this move."
     },
     "metal-burst": {
-      "name": "Metal Burst"
-    },
-    "metal-claw": {
-      "name": "Metal Claw"
+      "name": "Metal Burst",
+      "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used."
     },
     "metal-sound": {
-      "name": "Metal Sound"
-    },
-    "meteor-assault": {
-      "name": "Meteor Assault"
+      "name": "Metal Sound",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages."
     },
     "meteor-beam": {
-      "name": "Meteor Beam"
+      "name": "Meteor Beam",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used."
     },
-    "metronome": {
-      "name": "Metronome"
-    },
-    "mighty-cleave": {
-      "name": "Mighty Cleave"
+    "meteor-mash": {
+      "name": "Meteor Mash",
+      "effect": "Has a 20% chance of boosting the user's Attack stat by 1 stage."
     },
     "milk-drink": {
-      "name": "Milk Drink"
-    },
-    "mimic": {
-      "name": "Mimic"
-    },
-    "mind-blown": {
-      "name": "Mind Blown"
-    },
-    "mind-reader": {
-      "name": "Mind Reader"
+      "name": "Milk Drink",
+      "effect": "Restores 1/2 of the user's max HP."
     },
     "minimize": {
-      "name": "Minimize"
+      "name": "Minimize",
+      "effect": "Boosts the user's evasiveness by 2 stages. The user gains the Minimized status."
     },
-    "miracle-eye": {
-      "name": "Miracle Eye"
-    },
-    "mirror-move": {
-      "name": "Mirror Move"
-    },
-    "mirror-shot": {
-      "name": "Mirror Shot"
-    },
-    "mist": {
-      "name": "Mist"
-    },
-    "mist-ball": {
-      "name": "Mist Ball"
+    "mirror-coat": {
+      "name": "Mirror Coat",
+      "effect": "The user retaliates to deal double the damage it took from an opponent's special move during the turn this move is used."
     },
     "misty-explosion": {
-      "name": "Misty Explosion"
+      "name": "Misty Explosion",
+      "effect": "If the user is under the effect of Misty Terrain this move's power is boosted by 50%. The user faints upon using this move."
     },
     "misty-terrain": {
-      "name": "Misty Terrain"
+      "name": "Misty Terrain",
+      "effect": "Turns the entire field into Misty Terrain for 5 turns."
     },
-    "moongeist-beam": {
-      "name": "Moongeist Beam"
+    "moonblast": {
+      "name": "Moonblast",
+      "effect": "Has a 10% chance of lowering the target's Sp. Atk stat by 1 stage."
     },
     "moonlight": {
-      "name": "Moonlight"
+      "name": "Moonlight",
+      "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead."
+    },
+    "morning-sun": {
+      "name": "Morning Sun",
+      "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead."
+    },
+    "mortal-spin": {
+      "name": "Mortal Spin",
+      "effect": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Poisons targets."
     },
     "mountain-gale": {
-      "name": "Mountain Gale"
-    },
-    "mud-bomb": {
-      "name": "Mud Bomb"
+      "name": "Mountain Gale",
+      "effect": "Has a 30% chance of making the target flinch."
     },
     "mud-shot": {
-      "name": "Mud Shot"
-    },
-    "mud-sport": {
-      "name": "Mud Sport"
+      "name": "Mud Shot",
+      "effect": "Lowers the target's Speed stat by 1 stage."
     },
     "mud-slap": {
-      "name": "Mud-Slap"
+      "name": "Mud-Slap",
+      "effect": "Lowers the target's accuracy by 1 stage."
     },
-    "multi-attack": {
-      "name": "Multi-Attack"
+    "muddy-water": {
+      "name": "Muddy Water",
+      "effect": "Has a 30% chance of lowering targets' accuracy by 1 stage."
     },
-    "mystical-power": {
-      "name": "Mystical Power"
+    "mystical-fire": {
+      "name": "Mystical Fire",
+      "effect": "Lowers the target's Sp. Atk stat by 1 stage."
     },
-    "natural-gift": {
-      "name": "Natural Gift"
-    },
-    "nature-power": {
-      "name": "Nature Power"
-    },
-    "nature’s-madness": {
-      "name": "Nature’s Madness"
-    },
-    "needle-arm": {
-      "name": "Needle Arm"
-    },
-    "never-ending-nightmare": {
-      "name": "Never-Ending Nightmare"
+    "nasty-plot": {
+      "name": "Nasty Plot",
+      "effect": "Boosts the user's Sp. Atk stat by 2 stages."
     },
     "night-daze": {
-      "name": "Night Daze"
+      "name": "Night Daze",
+      "effect": "Has a 40% chance of lowering the target's accuracy by 1 stage."
     },
-    "nightmare": {
-      "name": "Nightmare"
+    "night-shade": {
+      "name": "Night Shade",
+      "effect": "Deals 50 HP of damage."
     },
-    "no-retreat": {
-      "name": "No Retreat"
+    "night-slash": {
+      "name": "Night Slash",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
     "noble-roar": {
-      "name": "Noble Roar"
+      "name": "Noble Roar",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage."
     },
-    "noxious-torque": {
-      "name": "Noxious Torque"
+    "nuzzle": {
+      "name": "Nuzzle",
+      "effect": "Paralyzes the target."
     },
-    "oblivion-wing": {
-      "name": "Oblivion Wing"
+    "outrage": {
+      "name": "Outrage",
+      "effect": "The user gains the Rampaging status."
     },
-    "obstruct": {
-      "name": "Obstruct"
+    "overheat": {
+      "name": "Overheat",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages."
     },
-    "oceanic-operetta": {
-      "name": "Oceanic Operetta"
+    "pain-split": {
+      "name": "Pain Split",
+      "effect": "The user adds its remaining HP to the target's remaining HP then splits the total in half for them to share."
     },
-    "octazooka": {
-      "name": "Octazooka"
+    "parabolic-charge": {
+      "name": "Parabolic Charge",
+      "effect": "The user's HP is restored by 1/2 of the damage dealt by this move."
     },
-    "octolock": {
-      "name": "Octolock"
+    "parting-shot": {
+      "name": "Parting Shot",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokemon."
     },
-    "odor-sleuth": {
-      "name": "Odor Sleuth"
+    "payback": {
+      "name": "Payback",
+      "effect": "This move's power is doubled if the user attacks after the target."
     },
-    "ominous-wind": {
-      "name": "Ominous Wind"
-    },
-    "order-up": {
-      "name": "Order Up"
-    },
-    "origin-pulse": {
-      "name": "Origin Pulse"
-    },
-    "overdrive": {
-      "name": "Overdrive"
-    },
-    "pay-day": {
-      "name": "Pay Day"
-    },
-    "peck": {
-      "name": "Peck"
+    "perish-song": {
+      "name": "Perish Song",
+      "effect": "Gives all Pokemon on the field the Perishing status."
     },
     "petal-blizzard": {
-      "name": "Petal Blizzard"
+      "name": "Petal Blizzard",
+      "effect": ""
     },
     "petal-dance": {
-      "name": "Petal Dance"
+      "name": "Petal Dance",
+      "effect": "The user gains the Rampaging status."
     },
-    "photon-geyser": {
-      "name": "Photon Geyser"
+    "phantom-force": {
+      "name": "Phantom Force",
+      "effect": "The user gains the Concealed status on the turn this move is used then attacks on the following turn. This move can hit a target using a move such as Protect or Detect and removes the effects of those moves."
     },
-    "pika-papow": {
-      "name": "Pika Papow"
+    "pin-missile": {
+      "name": "Pin Missile",
+      "effect": "The user attacks 2 to 5 times in a row."
     },
-    "plasma-fists": {
-      "name": "Plasma Fists"
-    },
-    "play-nice": {
-      "name": "Play Nice"
+    "play-rough": {
+      "name": "Play Rough",
+      "effect": "Has a 10% chance of lowering the target's Attack stat by 1 stage."
     },
     "pluck": {
-      "name": "Pluck"
+      "name": "Pluck",
+      "effect": "If the target is holding a Berry the user eats that Berry and gains its effect."
     },
     "poison-fang": {
-      "name": "Poison Fang"
+      "name": "Poison Fang",
+      "effect": "Has a 50% chance of badly poisoning the target."
     },
-    "poison-gas": {
-      "name": "Poison Gas"
+    "poison-jab": {
+      "name": "Poison Jab",
+      "effect": "Has a 30% chance of poisoning the target."
     },
     "poison-powder": {
-      "name": "Poison Powder"
+      "name": "Poison Powder",
+      "effect": "Poisons the target."
     },
-    "poison-sting": {
-      "name": "Poison Sting"
+    "pollen-puff": {
+      "name": "Pollen Puff",
+      "effect": "When used on an ally this move restores 1/2 of its max HP instead of dealing damage."
     },
-    "poison-tail": {
-      "name": "Poison Tail"
+    "poltergeist": {
+      "name": "Poltergeist",
+      "effect": "This move fails if the target isn't holding an item."
+    },
+    "population-bomb": {
+      "name": "Population Bomb",
+      "effect": "The user attacks 1 to 10 times in a row. The attack ends if the user misses."
     },
     "pounce": {
-      "name": "Pounce"
+      "name": "Pounce",
+      "effect": "Lowers the target's Speed stat by 1 stage."
     },
-    "pound": {
-      "name": "Pound"
-    },
-    "powder": {
-      "name": "Powder"
-    },
-    "powder-snow": {
-      "name": "Powder Snow"
+    "power-gem": {
+      "name": "Power Gem",
+      "effect": ""
     },
     "power-shift": {
-      "name": "Power Shift"
+      "name": "Power Shift",
+      "effect": "The user gains the Atk/Def Swapped status."
     },
     "power-split": {
-      "name": "Power Split"
+      "name": "Power Split",
+      "effect": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp. Atk stats."
     },
     "power-swap": {
-      "name": "Power Swap"
+      "name": "Power Swap",
+      "effect": "The user swaps the changes to its Attack and Sp. Atk stats with the changes to the target's Attack and Sp. Atk stats."
     },
     "power-trick": {
-      "name": "Power Trick"
+      "name": "Power Trick",
+      "effect": "The user gains the Atk/Def Swapped status."
     },
     "power-trip": {
-      "name": "Power Trip"
+      "name": "Power Trip",
+      "effect": "This move's power is increased by 20 for each stage that the user's stats have been boosted."
     },
-    "power-up-punch": {
-      "name": "Power-Up Punch"
+    "power-whip": {
+      "name": "Power Whip",
+      "effect": ""
     },
-    "present": {
-      "name": "Present"
-    },
-    "prismatic-laser": {
-      "name": "Prismatic Laser"
-    },
-    "psybeam": {
-      "name": "Psybeam"
-    },
-    "psyblade": {
-      "name": "Psyblade"
+    "protect": {
+      "name": "Protect",
+      "effect": "The user protects itself from incoming moves for the turn. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
     "psych-up": {
-      "name": "Psych Up"
+      "name": "Psych Up",
+      "effect": "The user copies the target's stat changes."
     },
-    "psycho-boost": {
-      "name": "Psycho Boost"
+    "psychic": {
+      "name": "Psychic",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage."
     },
-    "psycho-shift": {
-      "name": "Psycho Shift"
+    "psychic-fangs": {
+      "name": "Psychic Fangs",
+      "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side."
+    },
+    "psychic-noise": {
+      "name": "Psychic Noise",
+      "effect": "Gives the target the Healing Prevented status for 2 turns."
+    },
+    "psychic-terrain": {
+      "name": "Psychic Terrain",
+      "effect": "Turns the entire field into Psychic Terrain for 5 turns."
+    },
+    "psycho-cut": {
+      "name": "Psycho Cut",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
     "psyshield-bash": {
-      "name": "Psyshield Bash"
+      "name": "Psyshield Bash",
+      "effect": "Boosts the user's Defense stat by 1 stage."
     },
-    "psystrike": {
-      "name": "Psystrike"
+    "psyshock": {
+      "name": "Psyshock",
+      "effect": "This is a special move but the damage it deals is calculated using the target's Defense stat."
     },
-    "psywave": {
-      "name": "Psywave"
+    "quash": {
+      "name": "Quash",
+      "effect": "Causes the target to move last in the turn."
     },
-    "pulverizing-pancake": {
-      "name": "Pulverizing Pancake"
+    "quick-attack": {
+      "name": "Quick Attack",
+      "effect": ""
     },
-    "punishment": {
-      "name": "Punishment"
+    "quick-guard": {
+      "name": "Quick Guard",
+      "effect": "The user protects itself and its allies from priority moves for the turn."
     },
-    "purify": {
-      "name": "Purify"
-    },
-    "pursuit": {
-      "name": "Pursuit"
-    },
-    "pyro-ball": {
-      "name": "Pyro Ball"
+    "quiver-dance": {
+      "name": "Quiver Dance",
+      "effect": "Boosts the user's Sp. Atk Sp. Def and Speed stats by 1 stage."
     },
     "rage-fist": {
-      "name": "Rage Fist"
+      "name": "Rage Fist",
+      "effect": "This move's power is increased by 50 each time the user takes damage from a move, up to a maximum power of 350. If the user switches out of battle, the move's power returns to its usual value."
+    },
+    "rage-powder": {
+      "name": "Rage Powder",
+      "effect": "The user redirects opponents' moves toward itself. This effect works only on single-target moves."
     },
     "raging-bull": {
-      "name": "Raging Bull"
+      "name": "Raging Bull",
+      "effect": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side. This move's type depends on the user's form."
+    },
+    "raging-fury": {
+      "name": "Raging Fury",
+      "effect": "The user gains the Rampaging status."
+    },
+    "rain-dance": {
+      "name": "Rain Dance",
+      "effect": "Summons rain for 5 turns."
     },
     "rapid-spin": {
-      "name": "Rapid Spin"
+      "name": "Rapid Spin",
+      "effect": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Boosts the user's Speed stat by 1 stage."
     },
-    "razor-leaf": {
-      "name": "Razor Leaf"
+    "razor-shell": {
+      "name": "Razor Shell",
+      "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage."
     },
-    "razor-wind": {
-      "name": "Razor Wind"
+    "recover": {
+      "name": "Recover",
+      "effect": "Restores 1/2 of the user's max HP."
     },
     "recycle": {
-      "name": "Recycle"
+      "name": "Recycle",
+      "effect": "Regenerates the last held item that the user consumed. The user then holds this item once more."
     },
-    "refresh": {
-      "name": "Refresh"
+    "reflect": {
+      "name": "Reflect",
+      "effect": "Gives the user's side the Reflect status for 5 turns."
     },
-    "relic-song": {
-      "name": "Relic Song"
+    "reflect-type": {
+      "name": "Reflect Type",
+      "effect": "The user becomes the same type or types as the target."
     },
-    "retaliate": {
-      "name": "Retaliate"
-    },
-    "return": {
-      "name": "Return"
-    },
-    "revelation-dance": {
-      "name": "Revelation Dance"
-    },
-    "revenge": {
-      "name": "Revenge"
+    "rest": {
+      "name": "Rest",
+      "effect": "Fully restores the user's HP and cures any status conditions. The user falls asleep for 2 turns. This move fails if the user's HP is full."
     },
     "reversal": {
-      "name": "Reversal"
-    },
-    "revival-blessing": {
-      "name": "Revival Blessing"
+      "name": "Reversal",
+      "effect": "The less HP the user has left the greater this move's power (ranging between 20 and 200)."
     },
     "rising-voltage": {
-      "name": "Rising Voltage"
+      "name": "Rising Voltage",
+      "effect": "This move's power is doubled if the target is under the effect of Electric Terrain."
     },
-    "roar-of-time": {
-      "name": "Roar of Time"
+    "roar": {
+      "name": "Roar",
+      "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random."
     },
-    "rock-climb": {
-      "name": "Rock Climb"
+    "rock-blast": {
+      "name": "Rock Blast",
+      "effect": "The user attacks 2 to 5 times in a row."
     },
     "rock-polish": {
-      "name": "Rock Polish"
+      "name": "Rock Polish",
+      "effect": "Boosts the user's Speed stat by 2 stages."
     },
-    "rock-smash": {
-      "name": "Rock Smash"
+    "rock-slide": {
+      "name": "Rock Slide",
+      "effect": "Has a 30% chance of making targets flinch."
     },
-    "rock-throw": {
-      "name": "Rock Throw"
+    "rock-tomb": {
+      "name": "Rock Tomb",
+      "effect": "Lowers the target's Speed stat by 1 stage."
     },
     "rock-wrecker": {
-      "name": "Rock Wrecker"
+      "name": "Rock Wrecker",
+      "effect": "The user gains the Recharging status on the turn after this move is used."
     },
     "role-play": {
-      "name": "Role Play"
+      "name": "Role Play",
+      "effect": "Changes the user's Ability to be the same as the target's."
     },
-    "rolling-kick": {
-      "name": "Rolling Kick"
+    "roost": {
+      "name": "Roost",
+      "effect": "Restores 1/2 of the user's max HP. If the user is a Flying type it will lose the Flying type for the turn."
     },
-    "rollout": {
-      "name": "Rollout"
+    "round": {
+      "name": "Round",
+      "effect": "If multiple Pokemon use this move in the same turn the second user onward will act immediately after the first and the power of the second Round onward will be doubled."
     },
-    "rototiller": {
-      "name": "Rototiller"
+    "sacred-sword": {
+      "name": "Sacred Sword",
+      "effect": "This move ignores the target's stat changes when dealing damage."
     },
-    "ruination": {
-      "name": "Ruination"
+    "safeguard": {
+      "name": "Safeguard",
+      "effect": "Gives the user's side the Safeguard status for 5 turns."
     },
-    "sacred-fire": {
-      "name": "Sacred Fire"
-    },
-    "sand-attack": {
-      "name": "Sand Attack"
+    "salt-cure": {
+      "name": "Salt Cure",
+      "effect": "Gives the target the Salt Cured status."
     },
     "sand-tomb": {
-      "name": "Sand Tomb"
+      "name": "Sand Tomb",
+      "effect": "Gives the target the Bound status."
     },
-    "sandsear-storm": {
-      "name": "Sandsear Storm"
+    "sandstorm": {
+      "name": "Sandstorm",
+      "effect": "Summons a sandstorm for 5 turns."
     },
-    "sappy-seed": {
-      "name": "Sappy Seed"
+    "scald": {
+      "name": "Scald",
+      "effect": "Has a 30% chance of burning the target. Cures the user and target of being frozen."
     },
-    "savage-spin-out": {
-      "name": "Savage Spin-Out"
+    "scale-shot": {
+      "name": "Scale Shot",
+      "effect": "The user attacks 2 to 5 times in a row. This move lowers the user's Defense stat by 1 stage and boosts its Speed stat by 1 stage."
     },
     "scary-face": {
-      "name": "Scary Face"
+      "name": "Scary Face",
+      "effect": "Lowers the target's Speed stat by 2 stages."
     },
-    "scratch": {
-      "name": "Scratch"
+    "scorching-sands": {
+      "name": "Scorching Sands",
+      "effect": "Has a 30% chance of burning the target. Cures the user and target of being frozen."
     },
     "screech": {
-      "name": "Screech"
-    },
-    "searing-shot": {
-      "name": "Searing Shot"
-    },
-    "searing-sunraze-smash": {
-      "name": "Searing Sunraze Smash"
-    },
-    "secret-power": {
-      "name": "Secret Power"
-    },
-    "secret-sword": {
-      "name": "Secret Sword"
+      "name": "Screech",
+      "effect": "Lowers the target's Defense stat by 2 stages."
     },
     "seed-bomb": {
-      "name": "Seed Bomb"
-    },
-    "seed-flare": {
-      "name": "Seed Flare"
+      "name": "Seed Bomb",
+      "effect": ""
     },
     "seismic-toss": {
-      "name": "Seismic Toss"
-    },
-    "shadow-bone": {
-      "name": "Shadow Bone"
-    },
-    "sharpen": {
-      "name": "Sharpen"
-    },
-    "shattered-psyche": {
-      "name": "Shattered Psyche"
-    },
-    "shell-side-arm": {
-      "name": "Shell Side Arm"
-    },
-    "shell-trap": {
-      "name": "Shell Trap"
-    },
-    "shelter": {
-      "name": "Shelter"
-    },
-    "shift-gear": {
-      "name": "Shift Gear"
-    },
-    "shock-wave": {
-      "name": "Shock Wave"
-    },
-    "shore-up": {
-      "name": "Shore Up"
-    },
-    "signal-beam": {
-      "name": "Signal Beam"
-    },
-    "silk-trap": {
-      "name": "Silk Trap"
-    },
-    "silver-wind": {
-      "name": "Silver Wind"
-    },
-    "simple-beam": {
-      "name": "Simple Beam"
-    },
-    "sing": {
-      "name": "Sing"
-    },
-    "sinister-arrow-raid": {
-      "name": "Sinister Arrow Raid"
-    },
-    "sizzly-slide": {
-      "name": "Sizzly Slide"
-    },
-    "sketch": {
-      "name": "Sketch"
-    },
-    "skitter-smack": {
-      "name": "Skitter Smack"
-    },
-    "skull-bash": {
-      "name": "Skull Bash"
-    },
-    "sky-attack": {
-      "name": "Sky Attack"
-    },
-    "sky-drop": {
-      "name": "Sky Drop"
-    },
-    "sky-uppercut": {
-      "name": "Sky Uppercut"
-    },
-    "slam": {
-      "name": "Slam"
-    },
-    "slash": {
-      "name": "Slash"
-    },
-    "sleep-talk": {
-      "name": "Sleep Talk"
-    },
-    "sludge": {
-      "name": "Sludge"
-    },
-    "smack-down": {
-      "name": "Smack Down"
-    },
-    "smart-strike": {
-      "name": "Smart Strike"
-    },
-    "smelling-salts": {
-      "name": "Smelling Salts"
-    },
-    "smog": {
-      "name": "Smog"
-    },
-    "smokescreen": {
-      "name": "Smokescreen"
-    },
-    "snap-trap": {
-      "name": "Snap Trap"
-    },
-    "snatch": {
-      "name": "Snatch"
-    },
-    "snipe-shot": {
-      "name": "Snipe Shot"
-    },
-    "snore": {
-      "name": "Snore"
-    },
-    "snowscape": {
-      "name": "Snowscape"
-    },
-    "soft-boiled": {
-      "name": "Soft-Boiled"
-    },
-    "solar-blade": {
-      "name": "Solar Blade"
-    },
-    "sonic-boom": {
-      "name": "Sonic Boom"
-    },
-    "soul-stealing-7-star-strike": {
-      "name": "Soul-Stealing 7-Star Strike"
-    },
-    "spacial-rend": {
-      "name": "Spacial Rend"
-    },
-    "spark": {
-      "name": "Spark"
-    },
-    "sparkling-aria": {
-      "name": "Sparkling Aria"
-    },
-    "sparkly-swirl": {
-      "name": "Sparkly Swirl"
-    },
-    "spectral-thief": {
-      "name": "Spectral Thief"
-    },
-    "spicy-extract": {
-      "name": "Spicy Extract"
-    },
-    "spider-web": {
-      "name": "Spider Web"
-    },
-    "spike-cannon": {
-      "name": "Spike Cannon"
-    },
-    "spikes": {
-      "name": "Spikes"
-    },
-    "spin-out": {
-      "name": "Spin Out"
-    },
-    "spirit-break": {
-      "name": "Spirit Break"
-    },
-    "spirit-shackle": {
-      "name": "Spirit Shackle"
-    },
-    "spit-up": {
-      "name": "Spit Up"
-    },
-    "spite": {
-      "name": "Spite"
-    },
-    "splash": {
-      "name": "Splash"
-    },
-    "splintered-stormshards": {
-      "name": "Splintered Stormshards"
-    },
-    "splishy-splash": {
-      "name": "Splishy Splash"
-    },
-    "spore": {
-      "name": "Spore"
-    },
-    "spotlight": {
-      "name": "Spotlight"
-    },
-    "springtide-storm": {
-      "name": "Springtide Storm"
-    },
-    "steam-eruption": {
-      "name": "Steam Eruption"
-    },
-    "steamroller": {
-      "name": "Steamroller"
-    },
-    "steel-beam": {
-      "name": "Steel Beam"
-    },
-    "steel-roller": {
-      "name": "Steel Roller"
-    },
-    "sticky-web": {
-      "name": "Sticky Web"
-    },
-    "stoked-sparksurfer": {
-      "name": "Stoked Sparksurfer"
-    },
-    "stomp": {
-      "name": "Stomp"
-    },
-    "stored-power": {
-      "name": "Stored Power"
-    },
-    "storm-throw": {
-      "name": "Storm Throw"
-    },
-    "strength": {
-      "name": "Strength"
-    },
-    "struggle": {
-      "name": "Struggle"
-    },
-    "stuff-cheeks": {
-      "name": "Stuff Cheeks"
-    },
-    "stun-spore": {
-      "name": "Stun Spore"
-    },
-    "submission": {
-      "name": "Submission"
-    },
-    "subzero-slammer": {
-      "name": "Subzero Slammer"
-    },
-    "sunsteel-strike": {
-      "name": "Sunsteel Strike"
-    },
-    "supercell-slam": {
-      "name": "Supercell Slam"
-    },
-    "supersonic": {
-      "name": "Supersonic"
-    },
-    "supersonic-skystrike": {
-      "name": "Supersonic Skystrike"
-    },
-    "surging-strikes": {
-      "name": "Surging Strikes"
-    },
-    "swallow": {
-      "name": "Swallow"
-    },
-    "sweet-kiss": {
-      "name": "Sweet Kiss"
-    },
-    "sweet-scent": {
-      "name": "Sweet Scent"
-    },
-    "swift": {
-      "name": "Swift"
-    },
-    "switcheroo": {
-      "name": "Switcheroo"
-    },
-    "synchronoise": {
-      "name": "Synchronoise"
-    },
-    "syrup-bomb": {
-      "name": "Syrup Bomb"
-    },
-    "tachyon-cutter": {
-      "name": "Tachyon Cutter"
-    },
-    "tackle": {
-      "name": "Tackle"
-    },
-    "tail-glow": {
-      "name": "Tail Glow"
-    },
-    "tail-slap": {
-      "name": "Tail Slap"
-    },
-    "tail-whip": {
-      "name": "Tail Whip"
-    },
-    "take-down": {
-      "name": "Take Down"
-    },
-    "take-heart": {
-      "name": "Take Heart"
-    },
-    "tar-shot": {
-      "name": "Tar Shot"
-    },
-    "tearful-look": {
-      "name": "Tearful Look"
-    },
-    "teatime": {
-      "name": "Teatime"
-    },
-    "techno-blast": {
-      "name": "Techno Blast"
-    },
-    "tectonic-rage": {
-      "name": "Tectonic Rage"
-    },
-    "teeter-dance": {
-      "name": "Teeter Dance"
-    },
-    "telekinesis": {
-      "name": "Telekinesis"
-    },
-    "teleport": {
-      "name": "Teleport"
-    },
-    "tera-blast": {
-      "name": "Tera Blast"
-    },
-    "tera-starstorm": {
-      "name": "Tera Starstorm"
-    },
-    "terrain-pulse": {
-      "name": "Terrain Pulse"
-    },
-    "thousand-arrows": {
-      "name": "Thousand Arrows"
-    },
-    "thousand-waves": {
-      "name": "Thousand Waves"
-    },
-    "thrash": {
-      "name": "Thrash"
-    },
-    "thunder-cage": {
-      "name": "Thunder Cage"
-    },
-    "thunder-shock": {
-      "name": "Thunder Shock"
-    },
-    "thunderclap": {
-      "name": "Thunderclap"
-    },
-    "thunderous-kick": {
-      "name": "Thunderous Kick"
-    },
-    "tickle": {
-      "name": "Tickle"
-    },
-    "tidy-up": {
-      "name": "Tidy Up"
-    },
-    "topsy-turvy": {
-      "name": "Topsy-Turvy"
-    },
-    "torment": {
-      "name": "Torment"
-    },
-    "toxic-spikes": {
-      "name": "Toxic Spikes"
-    },
-    "toxic-thread": {
-      "name": "Toxic Thread"
-    },
-    "tri-attack": {
-      "name": "Tri Attack"
-    },
-    "trick-or-treat": {
-      "name": "Trick-or-Treat"
-    },
-    "triple-dive": {
-      "name": "Triple Dive"
-    },
-    "triple-kick": {
-      "name": "Triple Kick"
-    },
-    "trump-card": {
-      "name": "Trump Card"
-    },
-    "twineedle": {
-      "name": "Twineedle"
-    },
-    "twinkle-tackle": {
-      "name": "Twinkle Tackle"
-    },
-    "twister": {
-      "name": "Twister"
-    },
-    "uproar": {
-      "name": "Uproar"
-    },
-    "v-create": {
-      "name": "V-create"
-    },
-    "veevee-volley": {
-      "name": "Veevee Volley"
-    },
-    "venom-drench": {
-      "name": "Venom Drench"
-    },
-    "victory-dance": {
-      "name": "Victory Dance"
-    },
-    "vine-whip": {
-      "name": "Vine Whip"
-    },
-    "vise-grip": {
-      "name": "Vise Grip"
-    },
-    "vital-throw": {
-      "name": "Vital Throw"
-    },
-    "wake-up-slap": {
-      "name": "Wake-Up Slap"
-    },
-    "water-gun": {
-      "name": "Water Gun"
-    },
-    "water-pledge": {
-      "name": "Water Pledge"
-    },
-    "water-sport": {
-      "name": "Water Sport"
-    },
-    "whirlpool": {
-      "name": "Whirlpool"
-    },
-    "wicked-blow": {
-      "name": "Wicked Blow"
-    },
-    "wicked-torque": {
-      "name": "Wicked Torque"
-    },
-    "wildbolt-storm": {
-      "name": "Wildbolt Storm"
-    },
-    "wing-attack": {
-      "name": "Wing Attack"
-    },
-    "withdraw": {
-      "name": "Withdraw"
-    },
-    "wonder-room": {
-      "name": "Wonder Room"
-    },
-    "work-up": {
-      "name": "Work Up"
-    },
-    "worry-seed": {
-      "name": "Worry Seed"
-    },
-    "wrap": {
-      "name": "Wrap"
-    },
-    "wring-out": {
-      "name": "Wring Out"
-    },
-    "x-scissor": {
-      "name": "X-Scissor"
-    },
-    "zap-cannon": {
-      "name": "Zap Cannon"
-    },
-    "zing-zap": {
-      "name": "Zing Zap"
-    },
-    "zippy-zap": {
-      "name": "Zippy Zap"
+      "name": "Seismic Toss",
+      "effect": "Deals 50 HP of damage."
+    },
+    "self-destruct": {
+      "name": "Self-Destruct",
+      "effect": "The user faints upon using this move."
+    },
+    "shadow-ball": {
+      "name": "Shadow Ball",
+      "effect": "Has a 20% chance of lowering the target's Sp. Def stat by 1 stage."
+    },
+    "shadow-claw": {
+      "name": "Shadow Claw",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
     },
     "shadow-punch": {
-      "name": "Shadow Punch"
+      "name": "Shadow Punch",
+      "effect": "This move never misses."
+    },
+    "shadow-sneak": {
+      "name": "Shadow Sneak",
+      "effect": ""
+    },
+    "shed-tail": {
+      "name": "Shed Tail",
+      "effect": "The user loses 1/2 of its max HP to create a substitute then switches out of battle to be replaced by another party Pokemon. The substitute will be hit by moves instead of that Pokemon and it will vanish when it takes damage equal to 1/4 of the user's max HP."
+    },
+    "sheer-cold": {
+      "name": "Sheer Cold",
+      "effect": "Knocks out the target. This move does not affect Ice types. The accuracy of this move is fixed at 30%. If used by Pokemon other than Ice types the accuracy of this move is 20%."
+    },
+    "shell-side-arm": {
+      "name": "Shell Side Arm",
+      "effect": "Has a 20% chance of poisoning the target. Becomes a physical move if that will deal more damage."
+    },
+    "shell-smash": {
+      "name": "Shell Smash",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage and boosts its Attack Sp. Atk and Speed stats by 2 stages."
+    },
+    "shelter": {
+      "name": "Shelter",
+      "effect": "Boosts the user's Defense stat by 2 stages."
+    },
+    "simple-beam": {
+      "name": "Simple Beam",
+      "effect": "Changes the target's Ability to Simple."
+    },
+    "sing": {
+      "name": "Sing",
+      "effect": "Puts the target to sleep."
+    },
+    "skill-swap": {
+      "name": "Skill Swap",
+      "effect": "The user and the target swap their Abilities."
+    },
+    "skitter-smack": {
+      "name": "Skitter Smack",
+      "effect": "Lowers the target's Sp. Atk stat by 1 stage."
+    },
+    "sky-attack": {
+      "name": "Sky Attack",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. This move has a 30% chance of making the target flinch and it has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "slack-off": {
+      "name": "Slack Off",
+      "effect": "Restores 1/2 of the user's max HP."
+    },
+    "sleep-powder": {
+      "name": "Sleep Powder",
+      "effect": "Puts the target to sleep."
+    },
+    "sleep-talk": {
+      "name": "Sleep Talk",
+      "effect": "Can be used only if the user is asleep. The user uses one of the other moves it knows at random."
+    },
+    "sludge-bomb": {
+      "name": "Sludge Bomb",
+      "effect": "Has a 30% chance of poisoning the target."
+    },
+    "sludge-wave": {
+      "name": "Sludge Wave",
+      "effect": "Has a 10% chance of poisoning targets."
+    },
+    "smack-down": {
+      "name": "Smack Down",
+      "effect": "If the target is off the ground it gains the Landed status. This move can hit a target that has the Sky-High status."
+    },
+    "smart-strike": {
+      "name": "Smart Strike",
+      "effect": "This move never misses."
+    },
+    "snap-trap": {
+      "name": "Snap Trap",
+      "effect": "Gives the target the Bound status."
+    },
+    "snarl": {
+      "name": "Snarl",
+      "effect": "Lowers targets' Sp. Atk stats by 1 stage."
+    },
+    "snore": {
+      "name": "Snore",
+      "effect": "Can be used only if the user is asleep. Has a 30% chance of making the target flinch."
+    },
+    "snowscape": {
+      "name": "Snowscape",
+      "effect": "Summons snow for 5 turns."
+    },
+    "soak": {
+      "name": "Soak",
+      "effect": "Changes the target's type to Water."
+    },
+    "soft-boiled": {
+      "name": "Soft-Boiled",
+      "effect": "Restores 1/2 of the user's max HP."
+    },
+    "solar-beam": {
+      "name": "Solar Beam",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition."
+    },
+    "solar-blade": {
+      "name": "Solar Blade",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition."
+    },
+    "sparkling-aria": {
+      "name": "Sparkling Aria",
+      "effect": "Cures targets of their burns."
+    },
+    "speed-swap": {
+      "name": "Speed Swap",
+      "effect": "The user and the target swap their Speed stats."
+    },
+    "spicy-extract": {
+      "name": "Spicy Extract",
+      "effect": "Lowers the target's Defense stat by 2 stages and boosts its Attack stat by 2 stages."
+    },
+    "spikes": {
+      "name": "Spikes",
+      "effect": "Gives the opponent's side the Spikes status."
+    },
+    "spiky-shield": {
+      "name": "Spiky Shield",
+      "effect": "The user protects itself from incoming moves for the turn. Any attackers that use contact moves against the user during this turn take damage equal to 1/8 of their max HP. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
+    },
+    "spirit-shackle": {
+      "name": "Spirit Shackle",
+      "effect": "Gives the target the Can't Escape status."
+    },
+    "spit-up": {
+      "name": "Spit Up",
+      "effect": "The higher the user's Stockpiling level the greater this move's power (ranging between 100 and 300). This move fails unless the user has the Stockpiling status."
+    },
+    "spite": {
+      "name": "Spite",
+      "effect": "Removes 4 PP from the move last used by the target."
+    },
+    "spore": {
+      "name": "Spore",
+      "effect": "Puts the target to sleep."
+    },
+    "stealth-rock": {
+      "name": "Stealth Rock",
+      "effect": "Gives the opponent's side the Stealth Rock status."
+    },
+    "steel-beam": {
+      "name": "Steel Beam",
+      "effect": "After attacking the user takes damage equal to 1/2 of its max HP."
+    },
+    "steel-roller": {
+      "name": "Steel Roller",
+      "effect": "Removes any terrain. This move fails if there is no terrain on the field."
+    },
+    "steel-wing": {
+      "name": "Steel Wing",
+      "effect": "Has a 10% chance of boosting the user's Defense stat by 1 stage."
+    },
+    "sticky-web": {
+      "name": "Sticky Web",
+      "effect": "Gives the opponent's side the Sticky Web status."
+    },
+    "stockpile": {
+      "name": "Stockpile",
+      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times."
+    },
+    "stomping-tantrum": {
+      "name": "Stomping Tantrum",
+      "effect": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn."
+    },
+    "stone-axe": {
+      "name": "Stone Axe",
+      "effect": "Gives the opponent's side the Stealth Rock status."
+    },
+    "stone-edge": {
+      "name": "Stone Edge",
+      "effect": "This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "stored-power": {
+      "name": "Stored Power",
+      "effect": "This move's power is increased by 20 for each stage that the user's stats have been boosted."
+    },
+    "storm-throw": {
+      "name": "Storm Throw",
+      "effect": "Always a critical hit."
+    },
+    "strength-sap": {
+      "name": "Strength Sap",
+      "effect": "Restores the user's HP by an amount equal to the target's Attack stat. Lowers the target's Attack stat by 1 stage."
+    },
+    "string-shot": {
+      "name": "String Shot",
+      "effect": "Lowers targets' Speed stats by 2 stages."
+    },
+    "struggle": {
+      "name": "Struggle",
+      "effect": ""
+    },
+    "struggle-bug": {
+      "name": "Struggle Bug",
+      "effect": "Lowers targets' Sp. Atk stats by 1 stage."
+    },
+    "stuff-cheeks": {
+      "name": "Stuff Cheeks",
+      "effect": "The user eats its held Berry and boosts its Defense stat by 2 stages. This move can't be used if the user is not holding a Berry."
+    },
+    "stun-spore": {
+      "name": "Stun Spore",
+      "effect": "Paralyzes the target."
+    },
+    "substitute": {
+      "name": "Substitute",
+      "effect": "The user loses 1/4 of its max HP to create a substitute. The substitute will be hit by moves instead of the user and it will vanish when it takes damage equal to 1/4 of the user's max HP."
+    },
+    "sucker-punch": {
+      "name": "Sucker Punch",
+      "effect": "This move fails unless the target has chosen an attack and has not yet attacked during the turn this move is used."
+    },
+    "sunny-day": {
+      "name": "Sunny Day",
+      "effect": "Summons harsh sunlight for 5 turns."
+    },
+    "super-fang": {
+      "name": "Super Fang",
+      "effect": "Deals damage to the target equal to 1/2 of its remaining HP. Deals 1 HP of damage to a target that has only 1 HP left."
+    },
+    "supercell-slam": {
+      "name": "Supercell Slam",
+      "effect": "If this move misses or fails the user takes damage equal to 1/2 of its max HP. If the target has the Minimized status this move's power is doubled and it will be sure to hit."
+    },
+    "superpower": {
+      "name": "Superpower",
+      "effect": "Lowers the user's Attack and Defense stats by 1 stage."
+    },
+    "surf": {
+      "name": "Surf",
+      "effect": "This move's power is doubled against targets that have the Submerged status."
+    },
+    "swagger": {
+      "name": "Swagger",
+      "effect": "Boosts the target's Attack stat by 2 stages and confuses it."
+    },
+    "swallow": {
+      "name": "Swallow",
+      "effect": "The higher the user's Stockpiling level the more HP the user restores. Level 1 1/4 of the user's max HP is restored. Level 2 1/2 of the user's max HP is restored. Level 3 The user's HP is fully restored. This move fails unless the user has the Stockpiling status."
+    },
+    "sweet-kiss": {
+      "name": "Sweet Kiss",
+      "effect": "Confuses the target."
+    },
+    "sweet-scent": {
+      "name": "Sweet Scent",
+      "effect": "Lowers targets' evasiveness by 2 stages."
+    },
+    "switcheroo": {
+      "name": "Switcheroo",
+      "effect": "The user and the target swap their held items."
+    },
+    "swords-dance": {
+      "name": "Swords Dance",
+      "effect": "Boosts the user's Attack stat by 2 stages."
+    },
+    "synthesis": {
+      "name": "Synthesis",
+      "effect": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead."
+    },
+    "syrup-bomb": {
+      "name": "Syrup Bomb",
+      "effect": "Gives the target the Syrupy status for 3 turns."
+    },
+    "tail-slap": {
+      "name": "Tail Slap",
+      "effect": "The user attacks 2 to 5 times in a row."
+    },
+    "tailwind": {
+      "name": "Tailwind",
+      "effect": "Gives the user's side the Tailwind status for 4 turns."
+    },
+    "taunt": {
+      "name": "Taunt",
+      "effect": "Gives the target the Taunted status."
+    },
+    "tearful-look": {
+      "name": "Tearful Look",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect."
+    },
+    "teatime": {
+      "name": "Teatime",
+      "effect": "Causes all Pokemon on the field to eat their held Berries."
+    },
+    "teeter-dance": {
+      "name": "Teeter Dance",
+      "effect": "Confuses all other Pokemon on the field."
+    },
+    "temper-flare": {
+      "name": "Temper Flare",
+      "effect": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn."
+    },
+    "terrain-pulse": {
+      "name": "Terrain Pulse",
+      "effect": "This move's power is doubled if the user is under the effect of a terrain. This move's type depends on the terrain."
+    },
+    "thief": {
+      "name": "Thief",
+      "effect": "If the user is not already holding an item it steals the target's held item."
+    },
+    "thrash": {
+      "name": "Thrash",
+      "effect": "The user gains the Rampaging status."
+    },
+    "throat-chop": {
+      "name": "Throat Chop",
+      "effect": "Gives the target the Throat Chopped status."
+    },
+    "thunder": {
+      "name": "Thunder",
+      "effect": "Has a 30% chance of paralyzing the target. This move never misses in rain and can hit a target that has the Sky-High status."
+    },
+    "thunder-fang": {
+      "name": "Thunder Fang",
+      "effect": "Has a 10% chance of paralyzing the target and a 10% chance of making the target flinch."
+    },
+    "thunder-punch": {
+      "name": "Thunder Punch",
+      "effect": "Has a 10% chance of paralyzing the target."
+    },
+    "thunder-wave": {
+      "name": "Thunder Wave",
+      "effect": "Paralyzes the target."
+    },
+    "thunderbolt": {
+      "name": "Thunderbolt",
+      "effect": "Has a 10% chance of paralyzing the target."
+    },
+    "tickle": {
+      "name": "Tickle",
+      "effect": "Lowers the target's Attack and Defense stats by 1 stage."
+    },
+    "tidy-up": {
+      "name": "Tidy Up",
+      "effect": "Removes the Sticky Web Stealth Rock Substitute Spikes and Toxic Spikes statuses from the entire field. Boosts the user's Attack and Speed stats by 1 stage."
+    },
+    "torch-song": {
+      "name": "Torch Song",
+      "effect": "Boosts the user's Sp. Atk stat by 1 stage."
+    },
+    "torment": {
+      "name": "Torment",
+      "effect": "Gives the target the Unable to Repeat status."
+    },
+    "toxic": {
+      "name": "Toxic",
+      "effect": "Badly poisons the target. If the user is a Poison type this move will never miss."
+    },
+    "toxic-spikes": {
+      "name": "Toxic Spikes",
+      "effect": "Gives the opponent's side the Toxic Spikes status."
+    },
+    "toxic-thread": {
+      "name": "Toxic Thread",
+      "effect": "Lowers the target's Speed stat by 2 stages and poisons it."
+    },
+    "trailblaze": {
+      "name": "Trailblaze",
+      "effect": "Boosts the user's Speed stat by 1 stage."
+    },
+    "transform": {
+      "name": "Transform",
+      "effect": "The user transforms into a copy of the target. It also copies all of the target's stats apart from its HP."
+    },
+    "tri-attack": {
+      "name": "Tri Attack",
+      "effect": "Has a 20% chance of leaving the target burned frozen or paralyzed."
+    },
+    "trick": {
+      "name": "Trick",
+      "effect": "The user and the target swap their held items."
+    },
+    "trick-room": {
+      "name": "Trick Room",
+      "effect": "Gives the entire field the Trick Room status for 5 turns."
+    },
+    "trick-or-treat": {
+      "name": "Trick-or-Treat",
+      "effect": "Gives the target the Trick-or-Treating status."
+    },
+    "triple-arrows": {
+      "name": "Triple Arrows",
+      "effect": "Has a 50% chance of lowering the target's Defense stat by 1 stage and has a 30% chance of making the target flinch. This move has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "triple-axel": {
+      "name": "Triple Axel",
+      "effect": "The user attacks 3 times in a rowâ€”first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses."
+    },
+    "trop-kick": {
+      "name": "Trop Kick",
+      "effect": "Lowers the target's Attack stat by 1 stage."
+    },
+    "twin-beam": {
+      "name": "Twin Beam",
+      "effect": "The user attacks twice in a row."
+    },
+    "u-turn": {
+      "name": "U-turn",
+      "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon."
+    },
+    "upper-hand": {
+      "name": "Upper Hand",
+      "effect": "Makes the target flinch. This move fails if the target isn't about to use a priority move."
+    },
+    "uproar": {
+      "name": "Uproar",
+      "effect": "The user gains the Uproar status."
+    },
+    "vacuum-wave": {
+      "name": "Vacuum Wave",
+      "effect": ""
+    },
+    "venoshock": {
+      "name": "Venoshock",
+      "effect": "This move's power is doubled if the target is poisoned or badly poisoned."
+    },
+    "volt-switch": {
+      "name": "Volt Switch",
+      "effect": "After attacking the user switches out of battle to be replaced by another party Pokemon."
+    },
+    "volt-tackle": {
+      "name": "Volt Tackle",
+      "effect": "Has a 10% chance of paralyzing the target. The user also takes 1/3 of the damage dealt by this move."
+    },
+    "water-pulse": {
+      "name": "Water Pulse",
+      "effect": "Has a 20% chance of confusing the target."
+    },
+    "water-shuriken": {
+      "name": "Water Shuriken",
+      "effect": "The user attacks 2 to 5 times in a row."
+    },
+    "water-spout": {
+      "name": "Water Spout",
+      "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150)."
+    },
+    "waterfall": {
+      "name": "Waterfall",
+      "effect": "Has a 20% chance of making the target flinch."
+    },
+    "wave-crash": {
+      "name": "Wave Crash",
+      "effect": "The user takes 1/3 of the damage dealt by this move."
+    },
+    "weather-ball": {
+      "name": "Weather Ball",
+      "effect": "When a weather condition is present this move's power is doubled and its type changes. Harsh sunlight Fire type. Rain Water type. Snow Ice type. Sandstorm Rock type."
+    },
+    "whirlpool": {
+      "name": "Whirlpool",
+      "effect": "Gives the target the Bound status. This move's power is doubled if the target has the Submerged status."
+    },
+    "whirlwind": {
+      "name": "Whirlwind",
+      "effect": "If there are other Pokemon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokemon at random."
+    },
+    "wide-guard": {
+      "name": "Wide Guard",
+      "effect": "During the turn this move is used the user protects its side from moves that target all allies."
+    },
+    "wild-charge": {
+      "name": "Wild Charge",
+      "effect": "The user takes 1/4 of the damage dealt by this move."
+    },
+    "will-o-wisp": {
+      "name": "Will-O-Wisp",
+      "effect": "Burns the target."
+    },
+    "wish": {
+      "name": "Wish",
+      "effect": "Gives the user's spot the Wish status."
+    },
+    "wonder-room": {
+      "name": "Wonder Room",
+      "effect": "Gives the entire field the Wonder Room status for 5 turns."
+    },
+    "wood-hammer": {
+      "name": "Wood Hammer",
+      "effect": "The user takes 1/3 of the damage dealt by this move."
+    },
+    "worry-seed": {
+      "name": "Worry Seed",
+      "effect": "Changes the target's Ability to Insomnia."
+    },
+    "wrap": {
+      "name": "Wrap",
+      "effect": "Gives the target the Bound status."
+    },
+    "x-scissor": {
+      "name": "X-Scissor",
+      "effect": ""
+    },
+    "yawn": {
+      "name": "Yawn",
+      "effect": "Makes the target drowsy. This move never misses."
+    },
+    "zap-cannon": {
+      "name": "Zap Cannon",
+      "effect": "Paralyzes the target."
+    },
+    "zen-headbutt": {
+      "name": "Zen Headbutt",
+      "effect": "Has a 20% chance of making the target flinch."
     }
   },
   "pokemon": {
@@ -3212,7 +2785,7 @@
     "pikachu": {
       "name": "Pikachu"
     },
-    "raichu-alola": {
+    "alolan-raichu": {
       "name": "Alolan Raichu"
     },
     "raichu": {
@@ -3224,7 +2797,7 @@
     "clefable-mega": {
       "name": "Mega Clefable"
     },
-    "ninetales-alola": {
+    "alolan-ninetales": {
       "name": "Alolan Ninetales"
     },
     "ninetales": {
@@ -3233,7 +2806,7 @@
     "arcanine": {
       "name": "Arcanine"
     },
-    "arcanine-hisui": {
+    "hisuian-arcanine": {
       "name": "Hisuian Arcanine"
     },
     "alakazam": {
@@ -3251,7 +2824,7 @@
     "victreebel": {
       "name": "Victreebel"
     },
-    "slowbro-galar": {
+    "galarian-slowbro": {
       "name": "Galarian Slowbro"
     },
     "slowbro-mega": {
@@ -3335,7 +2908,7 @@
     "meganium": {
       "name": "Meganium"
     },
-    "typhlosion-hisui": {
+    "hisuian-typhlosion": {
       "name": "Hisuian Typhlosion"
     },
     "typhlosion": {
@@ -3368,7 +2941,7 @@
     "umbreon": {
       "name": "Umbreon"
     },
-    "slowking-galar": {
+    "galarian-slowking": {
       "name": "Galarian Slowking"
     },
     "slowking": {
@@ -3608,7 +3181,7 @@
     "emboar-mega": {
       "name": "Mega Emboar"
     },
-    "samurott-hisui": {
+    "hisuian-samurott": {
       "name": "Hisuian Samurott"
     },
     "samurott": {
@@ -3656,7 +3229,7 @@
     "garbodor": {
       "name": "Garbodor"
     },
-    "zoroark-hisui": {
+    "hisuian-zoroark": {
       "name": "Hisuian Zoroark"
     },
     "zoroark": {
@@ -3680,7 +3253,7 @@
     "beartic": {
       "name": "Beartic"
     },
-    "stunfisk-galar": {
+    "galarian-stunfisk": {
       "name": "Galarian Stunfisk"
     },
     "stunfisk": {
@@ -3728,6 +3301,9 @@
     "floette": {
       "name": "Floette"
     },
+    "floette-eternal": {
+      "name": "Floette (Eternal Flower)"
+    },
     "floette-mega": {
       "name": "Mega Floette"
     },
@@ -3750,10 +3326,10 @@
       "name": "Female Meowstic"
     },
     "aegislash-shield": {
-      "name": "Shield Aegislash"
+      "name": "Aegislash"
     },
     "aegislash-blade": {
-      "name": "Blade Aegislash"
+      "name": "Aegislash"
     },
     "aromatisse": {
       "name": "Aromatisse"
@@ -3788,7 +3364,7 @@
     "goodra": {
       "name": "Goodra"
     },
-    "goodra-hisui": {
+    "hisuian-goodra": {
       "name": "Hisuian Goodra"
     },
     "klefki": {
@@ -3812,7 +3388,7 @@
     "avalugg": {
       "name": "Avalugg"
     },
-    "avalugg-hisui": {
+    "hisuian-avalugg": {
       "name": "Hisuian Avalugg"
     },
     "noivern": {
@@ -3821,7 +3397,7 @@
     "decidueye": {
       "name": "Decidueye"
     },
-    "decidueye-hisui": {
+    "hisuian-decidueye": {
       "name": "Hisuian Decidueye"
     },
     "incineroar": {
@@ -3870,7 +3446,7 @@
       "name": "Passimian"
     },
     "mimikyu-disguised": {
-      "name": "Disguised Mimikyu"
+      "name": "Mimikyu"
     },
     "drampa": {
       "name": "Drampa"
@@ -3909,7 +3485,7 @@
       "name": "Alcremie"
     },
     "morpeko-full-belly": {
-      "name": "Full Belly Morpeko"
+      "name": "Morpeko"
     },
     "dragapult": {
       "name": "Dragapult"
@@ -3966,10 +3542,10 @@
       "name": "Tinkaton"
     },
     "palafin-zero": {
-      "name": "Zero Form Palafin"
+      "name": "Palafin"
     },
     "palafin-hero": {
-      "name": "Hero Form Palafin"
+      "name": "Palafin"
     },
     "orthworm": {
       "name": "Orthworm"
@@ -3994,6 +3570,1401 @@
     },
     "hydrapple": {
       "name": "Hydrapple"
+    },
+    "raichu-mega-x": {
+      "name": "Mega Raichu X"
+    },
+    "raichu-mega-y": {
+      "name": "Mega Raichu Y"
+    },
+    "vileplume": {
+      "name": "Vileplume"
+    },
+    "qwilfish": {
+      "name": "Qwilfish"
+    },
+    "sceptile": {
+      "name": "Sceptile"
+    },
+    "sceptile-mega": {
+      "name": "Mega Sceptile"
+    },
+    "blaziken": {
+      "name": "Blaziken"
+    },
+    "blaziken-mega": {
+      "name": "Mega Blaziken"
+    },
+    "swampert": {
+      "name": "Swampert"
+    },
+    "swampert-mega": {
+      "name": "Mega Swampert"
+    },
+    "mawile": {
+      "name": "Mawile"
+    },
+    "mawile-mega": {
+      "name": "Mega Mawile"
+    },
+    "metagross": {
+      "name": "Metagross"
+    },
+    "metagross-mega": {
+      "name": "Mega Metagross"
+    },
+    "staraptor": {
+      "name": "Staraptor"
+    },
+    "staraptor-mega": {
+      "name": "Mega Staraptor"
+    },
+    "musharna": {
+      "name": "Musharna"
+    },
+    "scolipede": {
+      "name": "Scolipede"
+    },
+    "scolipede-mega": {
+      "name": "Mega Scolipede"
+    },
+    "scrafty": {
+      "name": "Scrafty"
+    },
+    "scrafty-mega": {
+      "name": "Mega Scrafty"
+    },
+    "eelektross": {
+      "name": "Eelektross"
+    },
+    "eelektross-mega": {
+      "name": "Mega Eelektross"
+    },
+    "pyroar-male": {
+      "name": "Male Pyroar"
+    },
+    "pyroar-mega": {
+      "name": "Mega Pyroar"
+    },
+    "malamar": {
+      "name": "Malamar"
+    },
+    "malamar-mega": {
+      "name": "Mega Malamar"
+    },
+    "barbaracle": {
+      "name": "Barbaracle"
+    },
+    "barbaracle-mega": {
+      "name": "Mega Barbaracle"
+    },
+    "dragalge": {
+      "name": "Dragalge"
+    },
+    "dragalge-mega": {
+      "name": "Mega Dragalge"
+    },
+    "grimmsnarl": {
+      "name": "Grimmsnarl"
+    },
+    "falinks": {
+      "name": "Falinks"
+    },
+    "falinks-mega": {
+      "name": "Mega Falinks"
+    },
+    "overqwil": {
+      "name": "Overqwil"
+    },
+    "houndstone": {
+      "name": "Houndstone"
+    },
+    "annihilape": {
+      "name": "Annihilape"
+    },
+    "gholdengo": {
+      "name": "Gholdengo"
+    }
+  },
+  "abilities": {
+    "stench": {
+      "name": "Stench",
+      "description": "By releasing a stench when attacking, the Pokémon may cause the target to flinch."
+    },
+    "drizzle": {
+      "name": "Drizzle",
+      "description": "The Pokémon makes it rain when it enters a battle."
+    },
+    "speed-boost": {
+      "name": "Speed Boost",
+      "description": "The Pokémon's Speed stat is boosted every turn."
+    },
+    "battle-armor": {
+      "name": "Battle Armor",
+      "description": "Hard armor protects the Pokémon from critical hits."
+    },
+    "sturdy": {
+      "name": "Sturdy",
+      "description": "The Pokémon cannot be knocked out by a single hit as long as its HP is full. One-hit KO moves will also fail to knock it out."
+    },
+    "damp": {
+      "name": "Damp",
+      "description": "The Pokémon dampens its surroundings, preventing all Pokémon from using explosive moves such as Self-Destruct."
+    },
+    "limber": {
+      "name": "Limber",
+      "description": "The Pokémon's limber body prevents it from being paralyzed."
+    },
+    "sand-veil": {
+      "name": "Sand Veil",
+      "description": "Boosts the Pokémon's evasiveness in a sandstorm."
+    },
+    "static": {
+      "name": "Static",
+      "description": "The Pokémon is charged with static electricity and may paralyze attackers that make direct contact with it."
+    },
+    "volt-absorb": {
+      "name": "Volt Absorb",
+      "description": "If hit by an Electric-type move, the Pokémon has its HP restored instead of taking damage."
+    },
+    "water-absorb": {
+      "name": "Water Absorb",
+      "description": "If hit by a Water-type move, the Pokémon has its HP restored instead of taking damage."
+    },
+    "oblivious": {
+      "name": "Oblivious",
+      "description": "The Pokémon is oblivious, keeping it from being infatuated, falling for taunts, or being affected by Intimidate."
+    },
+    "cloud-nine": {
+      "name": "Cloud Nine",
+      "description": "Eliminates the effects of weather."
+    },
+    "compound-eyes": {
+      "name": "Compound Eyes",
+      "description": "The Pokémon's compound eyes boost its accuracy."
+    },
+    "insomnia": {
+      "name": "Insomnia",
+      "description": "The Pokémon's insomnia prevents it from falling asleep."
+    },
+    "color-change": {
+      "name": "Color Change",
+      "description": "The Pokémon’s type becomes the type of the move used on it."
+    },
+    "immunity": {
+      "name": "Immunity",
+      "description": "The Pokémon's immune system prevents it from being poisoned."
+    },
+    "flash-fire": {
+      "name": "Flash Fire",
+      "description": "If hit by a Fire-type move, the Pokémon absorbs the flames and uses them to power up its own Fire-type moves."
+    },
+    "shield-dust": {
+      "name": "Shield Dust",
+      "description": "Protective dust shields the Pokémon from the additional effects of moves."
+    },
+    "own-tempo": {
+      "name": "Own Tempo",
+      "description": "The Pokémon sticks to its own tempo, preventing it from becoming confused or being affected by Intimidate."
+    },
+    "suction-cups": {
+      "name": "Suction Cups",
+      "description": "The Pokémon uses suction cups to stay in one spot. This protects it from moves and items that would force it to switch out."
+    },
+    "intimidate": {
+      "name": "Intimidate",
+      "description": "When the Pokémon enters a battle, it intimidates opposing Pokémon and makes them cower, lowering their Attack stats."
+    },
+    "shadow-tag": {
+      "name": "Shadow Tag",
+      "description": "The Pokémon steps on the opposing Pokémon's shadows to prevent them from fleeing or switching out."
+    },
+    "rough-skin": {
+      "name": "Rough Skin",
+      "description": "The Pokémon's rough skin damages attackers that make direct contact with it."
+    },
+    "wonder-guard": {
+      "name": "Wonder Guard",
+      "description": "Its mysterious power only lets supereffective moves hit the Pokémon."
+    },
+    "levitate": {
+      "name": "Levitate",
+      "description": "Damage dealing Ground-type moves have no effect on this Pokémon. Cannot be trapped by Arena Trap ability. Takes no damage from Spikes."
+    },
+    "effect-spore": {
+      "name": "Effect Spore",
+      "description": "Contact with the Pokémon may inflict poison, sleep, or paralysis on the attacker."
+    },
+    "synchronize": {
+      "name": "Synchronize",
+      "description": "If the Pokémon is burned, paralyzed, or poisoned by another Pokémon, that Pokémon will be inflicted with the same status condition."
+    },
+    "clear-body": {
+      "name": "Clear Body",
+      "description": "Prevents other Pokémon's moves or Abilities from lowering the Pokémon's stats."
+    },
+    "natural-cure": {
+      "name": "Natural Cure",
+      "description": "The Pokémon's status conditions are cured when it switches out."
+    },
+    "lightning-rod": {
+      "name": "Lightning Rod",
+      "description": "The Pokémon draws in all Electric-type moves. Instead of taking damage from them, its Sp. Atk stat is boosted."
+    },
+    "serene-grace": {
+      "name": "Serene Grace",
+      "description": "Raises the likelihood of additional effects occurring when the Pokémon uses its moves."
+    },
+    "swift-swim": {
+      "name": "Swift Swim",
+      "description": "Boosts the Pokémon's Speed stat in rain."
+    },
+    "chlorophyll": {
+      "name": "Chlorophyll",
+      "description": "Boosts the Pokémon's Speed stat in harsh sunlight."
+    },
+    "illuminate": {
+      "name": "Illuminate",
+      "description": "By illuminating its surroundings, the Pokémon prevents its accuracy from being lowered."
+    },
+    "trace": {
+      "name": "Trace",
+      "description": "Ability becomes the same as that of the opponent. Switching this Pokémon out of battle restores its original ability. In a Double Battle, a random opponent’s ability will be copied."
+    },
+    "huge-power": {
+      "name": "Huge Power",
+      "description": "The Pokémon's Attack stat is doubled while it has this ability."
+    },
+    "poison-point": {
+      "name": "Poison Point",
+      "description": "Contact with the Pokémon may poison the attacker."
+    },
+    "inner-focus": {
+      "name": "Inner Focus",
+      "description": "The Pokémon's intense focus prevents it from flinching or being affected by Intimidate."
+    },
+    "magma-armor": {
+      "name": "Magma Armor",
+      "description": "The Pokémon’s hot magma coating prevents it from being frozen."
+    },
+    "water-veil": {
+      "name": "Water Veil",
+      "description": "The Pokémon's water veil prevents it from being burned."
+    },
+    "magnet-pull": {
+      "name": "Magnet Pull",
+      "description": "Prevents Steel-type Pokémon from fleeing by pulling them in with magnetism."
+    },
+    "soundproof": {
+      "name": "Soundproof",
+      "description": "Soundproofing gives the Pokémon full immunity to all sound-based moves."
+    },
+    "rain-dish": {
+      "name": "Rain Dish",
+      "description": "The Pokémon gradually regains HP in rain."
+    },
+    "sand-stream": {
+      "name": "Sand Stream",
+      "description": "The Pokémon summons a sandstorm when it enters a battle."
+    },
+    "pressure": {
+      "name": "Pressure",
+      "description": "Puts other Pokémon under pressure, causing them to expend more PP to use their moves."
+    },
+    "thick-fat": {
+      "name": "Thick Fat",
+      "description": "The Pokémon is protected by a layer of thick fat, which halves the damage taken from Fire- and Ice-type moves."
+    },
+    "early-bird": {
+      "name": "Early Bird",
+      "description": "The Pokémon awakens from sleep twice as fast as other Pokémon."
+    },
+    "flame-body": {
+      "name": "Flame Body",
+      "description": "Contact with the Pokémon may burn the attacker."
+    },
+    "run-away": {
+      "name": "Run Away",
+      "description": "Enables a sure getaway from wild Pokémon."
+    },
+    "keen-eye": {
+      "name": "Keen Eye",
+      "description": "The Pokémon's keen eyes prevent its accuracy from being lowered."
+    },
+    "hyper-cutter": {
+      "name": "Hyper Cutter",
+      "description": "The Pokémon's prized, mighty pincers prevent other Pokémon from lowering its Attack stat."
+    },
+    "pickup": {
+      "name": "Pickup",
+      "description": "The Pokémon may pick up an item another Pokémon used during a battle. It may pick up items outside of battle, too."
+    },
+    "truant": {
+      "name": "Truant",
+      "description": "Each time the Pokémon uses a move, it spends the next turn loafing around."
+    },
+    "hustle": {
+      "name": "Hustle",
+      "description": "Boosts the Pokémon's Attack stat but lowers its accuracy."
+    },
+    "cute-charm": {
+      "name": "Cute Charm",
+      "description": "The Pokémon may infatuate attackers that make direct contact with it."
+    },
+    "plus": {
+      "name": "Plus",
+      "description": "Boosts the Sp. Atk stat of the Pokémon if an ally with the Plus or Minus Ability is also in battle."
+    },
+    "minus": {
+      "name": "Minus",
+      "description": "Boosts the Sp. Atk stat of the Pokémon if an ally with the Plus or Minus Ability is also in battle."
+    },
+    "forecast": {
+      "name": "Forecast",
+      "description": "The Pokémon transforms with the weather to change its type to Water, Fire, or Ice."
+    },
+    "sticky-hold": {
+      "name": "Sticky Hold",
+      "description": "The Pokémon's held items cling to its sticky body and cannot be removed by other Pokémon."
+    },
+    "shed-skin": {
+      "name": "Shed Skin",
+      "description": "The Pokémon may cure its own status conditions by shedding its skin."
+    },
+    "guts": {
+      "name": "Guts",
+      "description": "It's so gutsy that having a status condition boosts the Pokémon's Attack stat."
+    },
+    "marvel-scale": {
+      "name": "Marvel Scale",
+      "description": "The Pokémon's marvelous scales boost its Defense stat if it has a status condition."
+    },
+    "liquid-ooze": {
+      "name": "Liquid Ooze",
+      "description": "The strong stench of the Pokémon's oozed liquid damages attackers that use HP-draining moves."
+    },
+    "overgrow": {
+      "name": "Overgrow",
+      "description": "Powers up Grass-type moves when the Pokémon's HP is low."
+    },
+    "blaze": {
+      "name": "Blaze",
+      "description": "Powers up Fire-type moves when the Pokémon's HP is low."
+    },
+    "torrent": {
+      "name": "Torrent",
+      "description": "Powers up Water-type moves when the Pokémon's HP is low."
+    },
+    "swarm": {
+      "name": "Swarm",
+      "description": "Powers up Bug-type moves when the Pokémon's HP is low."
+    },
+    "rock-head": {
+      "name": "Rock Head",
+      "description": "Protects the Pokémon from recoil damage."
+    },
+    "drought": {
+      "name": "Drought",
+      "description": "Turns the sunlight harsh when the Pokémon enters a battle."
+    },
+    "arena-trap": {
+      "name": "Arena Trap",
+      "description": "Prevents opposing Pokémon from fleeing from battle."
+    },
+    "vital-spirit": {
+      "name": "Vital Spirit",
+      "description": "The Pokémon is full of vitality, and that prevents it from falling asleep."
+    },
+    "white-smoke": {
+      "name": "White Smoke",
+      "description": "The Pokémon is protected by its white smoke, which prevents other Pokémon from lowering its stats."
+    },
+    "pure-power": {
+      "name": "Pure Power",
+      "description": "Using its pure power, the Pokémon doubles its Attack stat."
+    },
+    "shell-armor": {
+      "name": "Shell Armor",
+      "description": "A hard shell protects the Pokémon from critical hits."
+    },
+    "air-lock": {
+      "name": "Air Lock",
+      "description": "Eliminates the effects of weather."
+    },
+    "tangled-feet": {
+      "name": "Tangled Feet",
+      "description": "Boosts the Pokémon's evasiveness if it is confused."
+    },
+    "motor-drive": {
+      "name": "Motor Drive",
+      "description": "The Pokémon takes no damage when hit by Electric-type moves. Instead, its Speed stat is boosted."
+    },
+    "rivalry": {
+      "name": "Rivalry",
+      "description": "The Pokémon's competitive spirit makes it deal more damage to Pokémon of the same gender, but less damage to Pokémon of the opposite gender."
+    },
+    "steadfast": {
+      "name": "Steadfast",
+      "description": "The Pokémon's determination boosts its Speed stat every time it flinches."
+    },
+    "snow-cloak": {
+      "name": "Snow Cloak",
+      "description": "Boosts the Pokémon's evasiveness in snow."
+    },
+    "gluttony": {
+      "name": "Gluttony",
+      "description": "If the Pokémon is holding a Berry to be eaten when its HP is low, it will instead eat the Berry when its HP drops to half or less."
+    },
+    "anger-point": {
+      "name": "Anger Point",
+      "description": "The Pokémon is angered when it takes a critical hit, and that maxes its Attack stat."
+    },
+    "unburden": {
+      "name": "Unburden",
+      "description": "Boosts the Speed stat if the Pokémon's held item is used or lost."
+    },
+    "heatproof": {
+      "name": "Heatproof",
+      "description": "The Pokémon's heatproof body halves the damage taken from Fire-type moves."
+    },
+    "simple": {
+      "name": "Simple",
+      "description": "Doubles the effects of the Pokémon's stat changes."
+    },
+    "dry-skin": {
+      "name": "Dry Skin",
+      "description": "Restores the Pokémon's HP in rain or when it is hit by Water-type moves. Reduces HP in harsh sunlight, and increases the damage received from Fire-type moves."
+    },
+    "download": {
+      "name": "Download",
+      "description": "The Pokémon compares an opposing Pokémon's Defense and Sp. Def stats before raising its own Attack or Sp. Atk stat—whichever will be more effective."
+    },
+    "iron-fist": {
+      "name": "Iron Fist",
+      "description": "The power of punching moves is increased by 20%. This stacks with"
+    },
+    "poison-heal": {
+      "name": "Poison Heal",
+      "description": "If poisoned, the Pokémon has its HP restored instead of taking damage."
+    },
+    "adaptability": {
+      "name": "Adaptability",
+      "description": "Increases the Same Type Attack Bonus from *1.5 to *2."
+    },
+    "skill-link": {
+      "name": "Skill Link",
+      "description": "Maximizes the number of times multistrike moves hit."
+    },
+    "hydration": {
+      "name": "Hydration",
+      "description": "Cures the Pokémon's status conditions in rain."
+    },
+    "solar-power": {
+      "name": "Solar Power",
+      "description": "In harsh sunlight, the Pokémon's Sp. Atk stat is boosted, but its HP decreases every turn."
+    },
+    "quick-feet": {
+      "name": "Quick Feet",
+      "description": "Boosts the Speed stat if the Pokémon has a status condition."
+    },
+    "normalize": {
+      "name": "Normalize",
+      "description": "All the Pokémon’s moves become Normal type. The power of those moves is boosted a little."
+    },
+    "sniper": {
+      "name": "Sniper",
+      "description": "If the Pokémon's attack lands a critical hit, the attack is powered up even further."
+    },
+    "magic-guard": {
+      "name": "Magic Guard",
+      "description": "The Pokémon only takes damage from attacks."
+    },
+    "no-guard": {
+      "name": "No Guard",
+      "description": "The accuracy of all moves known by this Pokémon and all Pokémon targeting this Pokémon raises to 100%"
+    },
+    "stall": {
+      "name": "Stall",
+      "description": "The Pokémon is always the last to use its moves."
+    },
+    "technician": {
+      "name": "Technician",
+      "description": "Powers up weak moves so the Pokémon can deal more damage with them."
+    },
+    "leaf-guard": {
+      "name": "Leaf Guard",
+      "description": "Prevents status conditions in harsh sunlight."
+    },
+    "klutz": {
+      "name": "Klutz",
+      "description": "The Pokémon can't use any held items."
+    },
+    "mold-breaker": {
+      "name": "Mold Breaker",
+      "description": "The Pokémon's moves are not affected by foe’s abilities during battle"
+    },
+    "super-luck": {
+      "name": "Super Luck",
+      "description": "The Pokémon is so lucky that the critical-hit ratios of its moves are boosted."
+    },
+    "aftermath": {
+      "name": "Aftermath",
+      "description": "Damages the attacker if it knocks out the Pokémon with a move that makes direct contact."
+    },
+    "anticipation": {
+      "name": "Anticipation",
+      "description": "The Pokémon can sense an opposing Pokémon's dangerous moves."
+    },
+    "forewarn": {
+      "name": "Forewarn",
+      "description": "When it enters a battle, the Pokémon can tell one of the moves an opposing Pokémon has."
+    },
+    "unaware": {
+      "name": "Unaware",
+      "description": "When attacking, the Pokémon ignores the target's stat changes."
+    },
+    "tinted-lens": {
+      "name": "Tinted Lens",
+      "description": "The Pokémon can use “not very effective” moves to deal regular damage."
+    },
+    "filter": {
+      "name": "Filter",
+      "description": "Reduces the power of supereffective attacks that hit the Pokémon."
+    },
+    "slow-start": {
+      "name": "Slow Start",
+      "description": "For five turns, the Pokémon's Attack and Speed stats are halved."
+    },
+    "scrappy": {
+      "name": "Scrappy",
+      "description": "The Pokémon can hit Ghost-type Pokémon with Normal- and Fighting-type moves. It is also unaffected by Intimidate."
+    },
+    "storm-drain": {
+      "name": "Storm Drain",
+      "description": "The Pokémon draws in all Water-type moves. Instead of taking damage from them, its Sp. Atk stat is boosted."
+    },
+    "ice-body": {
+      "name": "Ice Body",
+      "description": "The Pokémon gradually regains HP in snow."
+    },
+    "solid-rock": {
+      "name": "Solid Rock",
+      "description": "Reduces the power of supereffective attacks that hit the Pokémon."
+    },
+    "snow-warning": {
+      "name": "Snow Warning",
+      "description": "Snowstorm blows when the Pokémon enters battle. As of X & Y, this lasts 5 turns."
+    },
+    "honey-gather": {
+      "name": "Honey Gather",
+      "description": "The Pokémon may gather Honey after a battle."
+    },
+    "frisk": {
+      "name": "Frisk",
+      "description": "When it enters a battle, the Pokémon can check an opposing Pokémon's held item."
+    },
+    "reckless": {
+      "name": "Reckless",
+      "description": "Powers up moves that have recoil damage."
+    },
+    "multitype": {
+      "name": "Multitype",
+      "description": "Changes the Pokémon's type to match the plate it holds."
+    },
+    "flower-gift": {
+      "name": "Flower Gift",
+      "description": "Boosts the Attack and Sp. Def stats of itself and allies in harsh sunlight."
+    },
+    "bad-dreams": {
+      "name": "Bad Dreams",
+      "description": "Damages opposing Pokémon that are asleep."
+    },
+    "pickpocket": {
+      "name": "Pickpocket",
+      "description": "The Pokémon steals the held item from attackers that made direct contact with it."
+    },
+    "sheer-force": {
+      "name": "Sheer Force",
+      "description": "Removes any additional effects from the Pokémon's moves, but increases the moves' power."
+    },
+    "contrary": {
+      "name": "Contrary",
+      "description": "Reverses any stat changes affecting the Pokémon so that attempts to boost its stats instead lower them—and attempts to lower its stats will boost them."
+    },
+    "unnerve": {
+      "name": "Unnerve",
+      "description": "Unnerves opposing Pokémon and makes them unable to eat Berries."
+    },
+    "defiant": {
+      "name": "Defiant",
+      "description": "If the Pokémon has any stat lowered by an opposing Pokémon, its Attack stat will be boosted sharply."
+    },
+    "defeatist": {
+      "name": "Defeatist",
+      "description": "Halves the Pokémon’s Attack and Sp. Atk stats when its HP becomes half or less."
+    },
+    "cursed-body": {
+      "name": "Cursed Body",
+      "description": "May disable a move that has dealt damage to the Pokémon."
+    },
+    "healer": {
+      "name": "Healer",
+      "description": "Sometimes cures the status conditions of the Pokémon's allies."
+    },
+    "friend-guard": {
+      "name": "Friend Guard",
+      "description": "Reduces damage dealt to allies."
+    },
+    "weak-armor": {
+      "name": "Weak Armor",
+      "description": "The Pokémon's Defense stat is lowered when it takes damage from physical moves, but its Speed stat is sharply boosted."
+    },
+    "heavy-metal": {
+      "name": "Heavy Metal",
+      "description": "Doubles the Pokémon's weight."
+    },
+    "light-metal": {
+      "name": "Light Metal",
+      "description": "Halves the Pokémon's weight."
+    },
+    "multiscale": {
+      "name": "Multiscale",
+      "description": "Reduces damage afflicted to the Pokémon by 50% if at maximum HP"
+    },
+    "toxic-boost": {
+      "name": "Toxic Boost",
+      "description": "Powers up physical moves when the Pokémon is poisoned."
+    },
+    "flare-boost": {
+      "name": "Flare Boost",
+      "description": "Powers up special moves when the Pokémon is burned."
+    },
+    "harvest": {
+      "name": "Harvest",
+      "description": "May create another Berry after one is used."
+    },
+    "telepathy": {
+      "name": "Telepathy",
+      "description": "The Pokémon anticipates and dodges the attacks of its allies."
+    },
+    "moody": {
+      "name": "Moody",
+      "description": "Every turn, one of the Pokémon's stats will be boosted sharply but another stat will be lowered."
+    },
+    "overcoat": {
+      "name": "Overcoat",
+      "description": "The Pokémon takes no damage from sandstorms. It is also protected from the effects of powders and spores."
+    },
+    "poison-touch": {
+      "name": "Poison Touch",
+      "description": "May poison a target when the Pokémon makes contact."
+    },
+    "regenerator": {
+      "name": "Regenerator",
+      "description": "The Pokémon has a little of its HP restored when withdrawn from battle."
+    },
+    "big-pecks": {
+      "name": "Big Pecks",
+      "description": "Prevents the Pokémon from having its Defense stat lowered."
+    },
+    "sand-rush": {
+      "name": "Sand Rush",
+      "description": "Boosts the Pokémon's Speed stat in a sandstorm."
+    },
+    "wonder-skin": {
+      "name": "Wonder Skin",
+      "description": "Makes status moves more likely to miss the Pokémon."
+    },
+    "analytic": {
+      "name": "Analytic",
+      "description": "Boosts the power of the Pokémon's move if it is the last to act that turn."
+    },
+    "illusion": {
+      "name": "Illusion",
+      "description": "The Pokémon fools opponents by entering battle disguised as the last Pokémon in its Trainer's party."
+    },
+    "imposter": {
+      "name": "Imposter",
+      "description": "The Pokémon transforms itself into the Pokémon it's facing."
+    },
+    "infiltrator": {
+      "name": "Infiltrator",
+      "description": "The protections and stat boosts caused by the moves Substitute, Reflect, Light Screen and Safeguard by the opponent are ignored."
+    },
+    "mummy": {
+      "name": "Mummy",
+      "description": "Contact with the Pokémon changes the attacker’s Ability to Mummy."
+    },
+    "moxie": {
+      "name": "Moxie",
+      "description": "When the Pokémon knocks out a target, it shows moxie, which boosts its Attack stat."
+    },
+    "justified": {
+      "name": "Justified",
+      "description": "When the Pokémon is hit by a Dark-type attack, its Attack stat is boosted by its sense of justice."
+    },
+    "rattled": {
+      "name": "Rattled",
+      "description": "The Pokémon gets scared when hit by a Dark-, Ghost-, or Bug-type attack or if intimidated, which boosts its Speed stat."
+    },
+    "magic-bounce": {
+      "name": "Magic Bounce",
+      "description": "Reflects non-attacking moves used on the Pokémon back to the attacking Pokémon"
+    },
+    "sap-sipper": {
+      "name": "Sap Sipper",
+      "description": "The Pokémon takes no damage when hit by Grass-type moves. Instead, its Attack stat is boosted."
+    },
+    "prankster": {
+      "name": "Prankster",
+      "description": "Gives priority to the Pokémon's status moves."
+    },
+    "sand-force": {
+      "name": "Sand Force",
+      "description": "Boosts the power of Rock-, Ground-, and Steel-type moves in a sandstorm."
+    },
+    "iron-barbs": {
+      "name": "Iron Barbs",
+      "description": "Inflicts damage on the attacker upon contact with iron barbs."
+    },
+    "zen-mode": {
+      "name": "Zen Mode",
+      "description": "Changes the Pokémon’s shape when HP is half or less."
+    },
+    "victory-star": {
+      "name": "Victory Star",
+      "description": "Boosts the accuracy of its allies and itself."
+    },
+    "turboblaze": {
+      "name": "Turboblaze",
+      "description": "The Pokémon's moves are unimpeded by the Ability of the target."
+    },
+    "teravolt": {
+      "name": "Teravolt",
+      "description": "The Pokémon's moves are unimpeded by the Ability of the target."
+    },
+    "aroma-veil": {
+      "name": "Aroma Veil",
+      "description": "Protects the Pokémon and its allies from effects that prevent the use of moves."
+    },
+    "flower-veil": {
+      "name": "Flower Veil",
+      "description": "Ally Grass-type Pokémon are protected from status conditions and the lowering of their stats."
+    },
+    "cheek-pouch": {
+      "name": "Cheek Pouch",
+      "description": "The Pokémon's HP is restored when it eats any Berry, in addition to the Berry's usual effect."
+    },
+    "protean": {
+      "name": "Protean",
+      "description": "Before the Pokémon uses a move, it becomes a pure Pokémon of that type. This only works once per switch in."
+    },
+    "fur-coat": {
+      "name": "Fur Coat",
+      "description": "Halves the damage from physical moves."
+    },
+    "magician": {
+      "name": "Magician",
+      "description": "The Pokémon steals the held item from any target it hits with a move."
+    },
+    "bulletproof": {
+      "name": "Bulletproof",
+      "description": "Protects the Pokémon from some ball and bomb moves."
+    },
+    "competitive": {
+      "name": "Competitive",
+      "description": "Boosts the Pokémon's Sp. Atk stat sharply when its stats are lowered by an opposing Pokémon."
+    },
+    "strong-jaw": {
+      "name": "Strong Jaw",
+      "description": "The Pokémon's strong jaw boosts the power of its biting moves."
+    },
+    "refrigerate": {
+      "name": "Refrigerate",
+      "description": "Normal-type moves become Ice-type moves. The power of those moves is boosted a little."
+    },
+    "sweet-veil": {
+      "name": "Sweet Veil",
+      "description": "Prevents the Pokémon and its allies from falling asleep."
+    },
+    "stance-change": {
+      "name": "Stance Change",
+      "description": "The Pokémon changes its form to Blade Forme when it uses an attack move and changes to Shield Forme when it uses King’s Shield."
+    },
+    "gale-wings": {
+      "name": "Gale Wings",
+      "description": "Gives priority to the Pokémon's Flying-type moves while its HP is full."
+    },
+    "mega-launcher": {
+      "name": "Mega Launcher",
+      "description": "Powers up pulse moves."
+    },
+    "grass-pelt": {
+      "name": "Grass Pelt",
+      "description": "Boosts the Pokémon's Defense stat on Grassy Terrain."
+    },
+    "symbiosis": {
+      "name": "Symbiosis",
+      "description": "The Pokémon passes its held item to an ally that has used up an item."
+    },
+    "tough-claws": {
+      "name": "Tough Claws",
+      "description": "Powers up moves that make direct contact."
+    },
+    "pixilate": {
+      "name": "Pixilate",
+      "description": "Normal-type moves become Fairy-type moves. The power of those moves is boosted a little."
+    },
+    "gooey": {
+      "name": "Gooey",
+      "description": "Contact with the Pokémon lowers the attacker's Speed stat."
+    },
+    "aerilate": {
+      "name": "Aerilate",
+      "description": "Normal-type moves become Flying-type moves. The power of those moves is boosted a little."
+    },
+    "parental-bond": {
+      "name": "Parental Bond",
+      "description": "Parent and child each attacks."
+    },
+    "dark-aura": {
+      "name": "Dark Aura",
+      "description": "Powers up each Pokémon’s Dark-type moves."
+    },
+    "fairy-aura": {
+      "name": "Fairy Aura",
+      "description": "Powers up every Pokémon in play's Fairy-type moves by 33%"
+    },
+    "aura-break": {
+      "name": "Aura Break",
+      "description": "The effects of “Aura” Abilities are reversed to lower the power of affected moves."
+    },
+    "primordial-sea": {
+      "name": "Primordial Sea",
+      "description": "The Pokémon changes the weather to nullify Fire-type attacks."
+    },
+    "desolate-land": {
+      "name": "Desolate Land",
+      "description": "The Pokémon changes the weather to nullify Water-type attacks."
+    },
+    "delta-stream": {
+      "name": "Delta Stream",
+      "description": "The Pokémon changes the weather to eliminate all of the Flying type’s weaknesses."
+    },
+    "stamina": {
+      "name": "Stamina",
+      "description": "Boosts the Defense stat when the Pokémon is hit by an attack."
+    },
+    "wimp-out": {
+      "name": "Wimp Out",
+      "description": "The Pokémon cowardly switches out when its HP becomes half or less."
+    },
+    "emergency-exit": {
+      "name": "Emergency Exit",
+      "description": "The Pokémon, sensing danger, switches out when its HP becomes half or less."
+    },
+    "water-compaction": {
+      "name": "Water Compaction",
+      "description": "Boosts the Defense stat sharply when the Pokémon is hit by a Water-type move."
+    },
+    "merciless": {
+      "name": "Merciless",
+      "description": "The Pokémon's attacks become critical hits if the target is poisoned."
+    },
+    "shields-down": {
+      "name": "Shields Down",
+      "description": "When its HP drops to half or less, the Pokémon's shell breaks and it becomes aggressive."
+    },
+    "stakeout": {
+      "name": "Stakeout",
+      "description": "Doubles the damage dealt to a target that has just switched into battle."
+    },
+    "water-bubble": {
+      "name": "Water Bubble",
+      "description": "Lowers the power of Fire-type moves that hit the Pokémon and prevents it from being burned."
+    },
+    "steelworker": {
+      "name": "Steelworker",
+      "description": "Powers up Steel-type moves."
+    },
+    "berserk": {
+      "name": "Berserk",
+      "description": "Boosts the Pokémon's Sp. Atk stat when it takes a  hit that causes its HP to become half or less."
+    },
+    "slush-rush": {
+      "name": "Slush Rush",
+      "description": "Boosts the Pokémon's Speed stat in snow."
+    },
+    "long-reach": {
+      "name": "Long Reach",
+      "description": "The Pokémon uses its moves without making contact with the target."
+    },
+    "liquid-voice": {
+      "name": "Liquid Voice",
+      "description": "Sound-based moves become Water-type moves."
+    },
+    "triage": {
+      "name": "Triage",
+      "description": "Gives priority to the Pokémon's healing moves."
+    },
+    "galvanize": {
+      "name": "Galvanize",
+      "description": "Normal-type moves become Electric-type moves. The power of those moves is boosted a little."
+    },
+    "surge-surfer": {
+      "name": "Surge Surfer",
+      "description": "Doubles the Pokémon's Speed stat on Electric Terrain."
+    },
+    "schooling": {
+      "name": "Schooling",
+      "description": "When it has a lot of HP, the Pokémon forms a powerful school. It stops schooling when its HP is low."
+    },
+    "disguise": {
+      "name": "Disguise",
+      "description": "Once per battle, the shroud that covers the Pokémon can protect it from an attack."
+    },
+    "battle-bond": {
+      "name": "Battle Bond",
+      "description": "When the Pokémon knocks out a target, its bond with its Trainer is strengthened, and its Attack, Sp. Atk, and Speed stats are boosted."
+    },
+    "power-construct": {
+      "name": "Power Construct",
+      "description": "Other Cells gather to aid when its HP becomes half or less. Then the Pokémon changes its form to Complete Forme."
+    },
+    "corrosion": {
+      "name": "Corrosion",
+      "description": "The Pokémon can poison the target even if it's a Steel or Poison type."
+    },
+    "comatose": {
+      "name": "Comatose",
+      "description": "The Pokémon is always drowsing and will never wake up. It can attack while in its sleeping state."
+    },
+    "queenly-majesty": {
+      "name": "Queenly Majesty",
+      "description": "Opponents are unable to use priority moves against the Pokémon or its allies."
+    },
+    "innards-out": {
+      "name": "Innards Out",
+      "description": "Damages the attacker landing the finishing hit by the amount equal to its last HP."
+    },
+    "dancer": {
+      "name": "Dancer",
+      "description": "Whenever a dance move is used in battle, the Pokémon will copy the user to immediately perform that dance move itself."
+    },
+    "battery": {
+      "name": "Battery",
+      "description": "Powers up ally Pokémon's special moves."
+    },
+    "fluffy": {
+      "name": "Fluffy",
+      "description": "Halves the damage taken from moves that make direct contact, but doubles that of Fire-type moves."
+    },
+    "dazzling": {
+      "name": "Dazzling",
+      "description": "The Pokémon dazzles its opponents, making them unable to use priority moves against the Pokémon or its allies."
+    },
+    "soul-heart": {
+      "name": "Soul Heart",
+      "description": "Boosts the Pokémon's Sp. Atk stat every time another Pokémon faints."
+    },
+    "tangling-hair": {
+      "name": "Tangling Hair",
+      "description": "Contact with the Pokémon lowers the attacker's Speed stat."
+    },
+    "receiver": {
+      "name": "Receiver",
+      "description": "The Pokémon copies the Ability of a defeated ally."
+    },
+    "power-of-alchemy": {
+      "name": "Power Of Alchemy",
+      "description": "The Pokémon copies the Ability of a defeated ally."
+    },
+    "beast-boost": {
+      "name": "Beast Boost",
+      "description": "The Pokémon boosts its most proficient stat each time it knocks out a Pokémon."
+    },
+    "rks-system": {
+      "name": "Rks System",
+      "description": "Changes the Pokémon’s type to match the memory disc it holds."
+    },
+    "electric-surge": {
+      "name": "Electric Surge",
+      "description": "Turns the ground into Electric Terrain when the Pokémon enters a battle."
+    },
+    "psychic-surge": {
+      "name": "Psychic Surge",
+      "description": "Turns the ground into Psychic Terrain when the Pokémon enters a battle."
+    },
+    "misty-surge": {
+      "name": "Misty Surge",
+      "description": "Turns the ground into Misty Terrain when the Pokémon enters a battle."
+    },
+    "grassy-surge": {
+      "name": "Grassy Surge",
+      "description": "Turns the ground into Grassy Terrain when the Pokémon enters a battle."
+    },
+    "full-metal-body": {
+      "name": "Full Metal Body",
+      "description": "Prevents other Pokémon’s moves or Abilities from lowering the Pokémon’s stats."
+    },
+    "shadow-shield": {
+      "name": "Shadow Shield",
+      "description": "Reduces the amount of damage the Pokémon takes while its HP is full."
+    },
+    "prism-armor": {
+      "name": "Prism Armor",
+      "description": "Reduces the power of supereffective attacks taken."
+    },
+    "neuroforce": {
+      "name": "Neuroforce",
+      "description": "Powers up moves that are super effective."
+    },
+    "intrepid-sword": {
+      "name": "Intrepid Sword",
+      "description": "Boosts the Pokémon’s Attack stat the first time the Pokémon enters a battle."
+    },
+    "dauntless-shield": {
+      "name": "Dauntless Shield",
+      "description": "Boosts the Pokémon’s Defense stat the first time the Pokémon enters a battle."
+    },
+    "libero": {
+      "name": "Libero",
+      "description": "Changes the Pokémon's type to the type of the move it's about to use. This works only once each time the Pokémon enters battle."
+    },
+    "ball-fetch": {
+      "name": "Ball Fetch",
+      "description": "If the Pokémon is not holding an item, it will fetch the Poké Ball from the first failed throw of the battle."
+    },
+    "cotton-down": {
+      "name": "Cotton Down",
+      "description": "When the Pokémon is hit by an attack, it scatters cotton fluff around and lowers the Speed stat of all Pokémon except itself."
+    },
+    "propeller-tail": {
+      "name": "Propeller Tail",
+      "description": "Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves."
+    },
+    "mirror-armor": {
+      "name": "Mirror Armor",
+      "description": "Bounces back only the stat-lowering effects that the Pokémon receives."
+    },
+    "gulp-missile": {
+      "name": "Gulp Missile",
+      "description": "When the Pokémon uses Surf or Dive, it will come back with prey. When it takes damage, it will spit out the prey to attack."
+    },
+    "stalwart": {
+      "name": "Stalwart",
+      "description": "Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves."
+    },
+    "steam-engine": {
+      "name": "Steam Engine",
+      "description": "Boosts the Speed stat drastically when the Pokémon is hit by a Fire- or Water-type move."
+    },
+    "punk-rock": {
+      "name": "Punk Rock",
+      "description": "Boosts the power of sound-based moves. The Pokémon also takes half the damage from these kinds of moves."
+    },
+    "sand-spit": {
+      "name": "Sand Spit",
+      "description": "The Pokémon creates a sandstorm when it's hit by an attack."
+    },
+    "ice-scales": {
+      "name": "Ice Scales",
+      "description": "The Pokémon is protected by ice scales, which halve the damage taken from special moves."
+    },
+    "ripen": {
+      "name": "Ripen",
+      "description": "Ripens Berries and doubles their effect."
+    },
+    "ice-face": {
+      "name": "Ice Face",
+      "description": "The Pokémon's ice head can take a physical attack as a substitute, but the attack also changes the Pokémon's appearance. The ice will be restored when it snows."
+    },
+    "power-spot": {
+      "name": "Power Spot",
+      "description": "Just being next to the Pokémon powers up moves."
+    },
+    "mimicry": {
+      "name": "Mimicry",
+      "description": "Changes the Pokémon’s type depending on the terrain."
+    },
+    "screen-cleaner": {
+      "name": "Screen Cleaner",
+      "description": "When the Pokémon enters a battle, the effects of Light Screen, Reflect, and Aurora Veil are nullified for both opposing and ally Pokémon."
+    },
+    "steely-spirit": {
+      "name": "Steely Spirit",
+      "description": "Powers up the Steel-type moves of the Pokémon and its allies."
+    },
+    "perish-body": {
+      "name": "Perish Body",
+      "description": "When hit by a move that makes direct contact, the Pokémon and the attacker will faint after three turns unless they switch out of battle."
+    },
+    "wandering-spirit": {
+      "name": "Wandering Spirit",
+      "description": "The Pokémon exchanges Abilities with a Pokémon that hits it with a move that makes direct contact."
+    },
+    "gorilla-tactics": {
+      "name": "Gorilla Tactics",
+      "description": "Boosts the Pokémon’s Attack stat but only allows the use of the first selected move."
+    },
+    "neutralizing-gas": {
+      "name": "Neutralizing Gas",
+      "description": "While the Pokémon is in the battle, the effects of all other Pokémon's Abilities will be nullified or will not be triggered."
+    },
+    "pastel-veil": {
+      "name": "Pastel Veil",
+      "description": "Protects the Pokémon and its ally Pokémon from being poisoned."
+    },
+    "hunger-switch": {
+      "name": "Hunger Switch",
+      "description": "The Pokémon changes its form, alternating between its Full Belly Mode and Hangry Mode after the end of every turn."
+    },
+    "quick-draw": {
+      "name": "Quick Draw",
+      "description": "Enables the Pokémon to move first occasionally."
+    },
+    "unseen-fist": {
+      "name": "Unseen Fist",
+      "description": "The Pokémon can deal damage with moves that make physical contact, even if the target is protected."
+    },
+    "curious-medicine": {
+      "name": "Curious Medicine",
+      "description": "When the Pokémon enters a battle, it scatters medicine from its shell, which removes all stat changes from allies."
+    },
+    "transistor": {
+      "name": "Transistor",
+      "description": "Powers up Electric-type moves."
+    },
+    "dragons-maw": {
+      "name": "Dragons Maw",
+      "description": "Powers up Dragon-type moves."
+    },
+    "chilling-neigh": {
+      "name": "Chilling Neigh",
+      "description": "When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack stat."
+    },
+    "grim-neigh": {
+      "name": "Grim Neigh",
+      "description": "When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk stat."
+    },
+    "as-one-glastrier": {
+      "name": "As One Glastrier",
+      "description": "This Ability combines the effects of both Calyrex's Unnerve Ability and Glastrier's Chilling Neigh Ability."
+    },
+    "as-one-spectrier": {
+      "name": "As One Spectrier",
+      "description": "This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's Grim Neigh Ability."
+    },
+    "lingering-aroma": {
+      "name": "Lingering Aroma",
+      "description": "Contact with the Pokémon changes the attacker's Ability to Lingering Aroma."
+    },
+    "seed-sower": {
+      "name": "Seed Sower",
+      "description": "Turns the ground into Grassy Terrain when the Pokémon is hit by an attack."
+    },
+    "thermal-exchange": {
+      "name": "Thermal Exchange",
+      "description": "Boosts the Attack stat when the Pokémon is hit by a Fire-type move. The Pokémon also cannot be burned."
+    },
+    "anger-shell": {
+      "name": "Anger Shell",
+      "description": "When an attack causes its HP to drop to half or less, the Pokémon gets angry. This lowers its Defense and Sp. Def stats but boosts its Attack, Sp. Atk, and Speed stats."
+    },
+    "purifying-salt": {
+      "name": "Purifying Salt",
+      "description": "The Pokémon's pure salt protects it from status conditions and halves the damage taken from Ghost-type moves."
+    },
+    "well-baked-body": {
+      "name": "Well Baked Body",
+      "description": "The Pokémon takes no damage when hit by Fire-type moves. Instead, its Defense stat is sharply boosted."
+    },
+    "wind-rider": {
+      "name": "Wind Rider",
+      "description": "Boosts the Pokémon's Attack stat if Tailwind takes effect or if the Pokémon is hit by a wind move. The Pokémon also takes no damage from wind moves."
+    },
+    "guard-dog": {
+      "name": "Guard Dog",
+      "description": "Boosts the Pokémon’s Attack stat if intimidated. Moves and items that would force the Pokémon to switch out also fail to work."
+    },
+    "rocky-payload": {
+      "name": "Rocky Payload",
+      "description": "Powers up Rock-type moves."
+    },
+    "wind-power": {
+      "name": "Wind Power",
+      "description": "The Pokémon becomes charged when it is hit by a wind move, boosting the power of the next Electric-type move the Pokémon uses."
+    },
+    "zero-to-hero": {
+      "name": "Zero To Hero",
+      "description": "The Pokémon transforms into its Hero Form when it switches out."
+    },
+    "commander": {
+      "name": "Commander",
+      "description": "When the Pokémon enters a battle, it goes inside the mouth of an ally Dondozo if one is on the field. The Pokémon then issues commands from there."
+    },
+    "electromorphosis": {
+      "name": "Electromorphosis",
+      "description": "The Pokémon becomes charged when it takes damage, boosting the power of the next Electric-type move the Pokémon uses."
+    },
+    "protosynthesis": {
+      "name": "Protosynthesis",
+      "description": "Boosts the Pokémon's most proficient stat in harsh sunlight or if the Pokémon is holding Booster Energy."
+    },
+    "quark-drive": {
+      "name": "Quark Drive",
+      "description": "Boosts the Pokémon's most proficient stat on Electric Terrain or if the Pokémon is holding Booster Energy."
+    },
+    "good-as-gold": {
+      "name": "Good As Gold",
+      "description": "A body of pure, solid gold gives the Pokémon full immunity to other Pokémon's status moves."
+    },
+    "vessel-of-ruin": {
+      "name": "Vessel Of Ruin",
+      "description": "The power of the Pokémon's ruinous vessel lowers the Sp. Atk stats of all Pokémon except itself."
+    },
+    "sword-of-ruin": {
+      "name": "Sword Of Ruin",
+      "description": "The power of the Pokémon's ruinous sword lowers the Defense stats of all Pokémon except itself."
+    },
+    "tablets-of-ruin": {
+      "name": "Tablets Of Ruin",
+      "description": "The power of the Pokémon's ruinous wooden tablets lowers the Attack stats of all Pokémon except itself."
+    },
+    "beads-of-ruin": {
+      "name": "Beads Of Ruin",
+      "description": "The power of the Pokémon's ruinous beads lowers the Sp. Def stats of all Pokémon except itself."
+    },
+    "orichalcum-pulse": {
+      "name": "Orichalcum Pulse",
+      "description": "Turns the sunlight harsh when the Pokémon enters a battle. The ancient pulse thrumming through the Pokémon also boosts its Attack stat in harsh sunlight."
+    },
+    "hadron-engine": {
+      "name": "Hadron Engine",
+      "description": "Turns the ground into Electric Terrain when the Pokémon enters a battle. The futuristic engine within the Pokémon also boosts its Sp. Atk stat on Electric Terrain."
+    },
+    "opportunist": {
+      "name": "Opportunist",
+      "description": "If an opponent's stat is boosted, the Pokémon seizes the opportunity to boost the same stat for itself."
+    },
+    "cud-chew": {
+      "name": "Cud Chew",
+      "description": "When the Pokémon eats a Berry, it will regurgitate that Berry at the end of the next turn and eat it one more time."
+    },
+    "sharpness": {
+      "name": "Sharpness",
+      "description": "Powers up slicing moves."
+    },
+    "supreme-overlord": {
+      "name": "Supreme Overlord",
+      "description": "When the Pokémon enters a battle, its Attack and Sp. Atk stats are slightly boosted for each of the allies in its party that have already been defeated."
+    },
+    "costar": {
+      "name": "Costar",
+      "description": "When the Pokémon enters a battle, it copies an ally's stat changes."
+    },
+    "toxic-debris": {
+      "name": "Toxic Debris",
+      "description": "Scatters poison spikes at the feet of the opposing team when the Pokémon takes damage from physical moves."
+    },
+    "armor-tail": {
+      "name": "Armor Tail",
+      "description": "The mysterious tail covering the Pokémon's head makes opponents unable to use priority moves against the Pokémon or its allies."
+    },
+    "earth-eater": {
+      "name": "Earth Eater",
+      "description": "If hit by a Ground-type move, the Pokémon has its HP restored instead of taking damage."
+    },
+    "mycelium-might": {
+      "name": "Mycelium Might",
+      "description": "The Pokémon will always act more slowly when using status moves, but these moves will be unimpeded by the Ability of the target."
+    },
+    "minds-eye": {
+      "name": "Minds Eye",
+      "description": "The Pokémon ignores changes to opponents' evasiveness, its accuracy can't be lowered, and it can hit Ghost types with Normal-type and Fighting-type moves"
+    },
+    "supersweet-syrup": {
+      "name": "Supersweet Syrup",
+      "description": "Lowers the evasion of opposing Pokémon by 1 stage when first sent into battle"
+    },
+    "hospitality": {
+      "name": "Hospitality",
+      "description": "When the Pokémon enters a battle, it showers its ally with hospitality, restoring a small amount of the ally's HP"
+    },
+    "toxic-chain": {
+      "name": "Toxic Chain",
+      "description": "The power of the Pokémon's toxic chain may badly poison any target the Pokémon hits with a move"
+    },
+    "embody-aspect": {
+      "name": "Embody Aspect",
+      "description": "The Pokémon's heart fills with memories, causing the Mask to shine and one of the Pokémon's stats to be boosted."
+    },
+    "tera-shift": {
+      "name": "Tera Shift",
+      "description": "When the Pokémon enters a battle, it absorbs the energy around itself and transforms into its Terastal Form."
+    },
+    "tera-shell": {
+      "name": "Tera Shell",
+      "description": "The Pokémon's shell contains the powers of each type. All damage-dealing moves that hit the Pokémon when its HP is full will not be very effective."
+    },
+    "teraform-zero": {
+      "name": "Teraform Zero",
+      "description": "When Terapagos changes into its Stellar Form, it uses its hidden powers to eliminate all effects of weather and terrain, reducing them to zero."
+    },
+    "poison-puppeteer": {
+      "name": "Poison Puppeteer",
+      "description": "Pokémon poisoned by Pecharunt's moves will also become confused."
+    },
+    "piercing-drill": {
+      "name": "Piercing Drill",
+      "description": "When the Pokémon uses contact moves, it can hit even targets that are protecting themselves, dealing 1/4 of the damage that the move would otherwise deal. Everything aside from the target's protective effects is still triggered."
+    },
+    "dragonize": {
+      "name": "Dragonize",
+      "description": "The Pokémon's Normal-type moves become Dragon-type moves and their power is boosted by 20%."
+    },
+    "mega-sol": {
+      "name": "Mega Sol",
+      "description": "Even when the sunlight has not turned harsh, the Pokémon can use its moves as if the weather were harsh sunlight."
+    },
+    "spicy-spray": {
+      "name": "Spicy Spray",
+      "description": "When the Pokémon takes damage from a move, it burns the attacker."
+    }
+  },
+  "range": {
+    "self": {
+      "name": "Self"
+    },
+    "single-target": {
+      "name": "Single Target"
+    },
+    "user's-side": {
+      "name": "User's Side"
+    },
+    "opponent's-side": {
+      "name": "Opponent's Side"
+    },
+    "entire-field": {
+      "name": "Entire Field"
+    },
+    "all-opponents": {
+      "name": "All Opponents"
+    },
+    "single-ally": {
+      "name": "Single Ally"
+    },
+    "all-allies": {
+      "name": "All Allies"
+    },
+    "all-pokemon": {
+      "name": "All Pokemon"
+    },
+    "random-opponent": {
+      "name": "Random Opponent"
+    },
+    "varies": {
+      "name": "Varies"
     }
   }
 }

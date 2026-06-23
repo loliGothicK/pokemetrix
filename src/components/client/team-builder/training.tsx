@@ -1,0 +1,1040 @@
+import {
+  alpha,
+  Autocomplete,
+  Avatar,
+  Box,
+  Chip,
+  Divider,
+  IconButton,
+  Paper,
+  Slider,
+  Stack,
+  TextField,
+  Typography,
+  Tooltip,
+  Alert,
+  Popover,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TableContainer,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
+import { useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { getAppPalette } from "@/theme/palette";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material/styles";
+import { pokemonById, pokemonList } from "@/data/pokemon";
+import { championsPokemonList } from "@/data/champions-pokemon";
+import { itemList } from "@/data/items";
+import { abilityById } from "@/data/abilities";
+import { moveById } from "@/data/moves";
+import { getStatLens, TrainedPokemon } from "@/store/team/team";
+import NumberField from "@/components/client/input/NumberField";
+import { calcHp, calcStatus } from "@/data/utility/training";
+import { match } from "ts-pattern";
+import { EV, Gender } from "@/types/pokemon";
+import { useBattleData } from "@/hooks/useBattleData";
+import { itemSprite, typeIcon } from "@/lib/image";
+import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
+import { Add, Remove, ArrowDropDown, ChangeCircle } from "@mui/icons-material";
+import { activeSlotLintIssueAtom, MAX_EV_TOTAL } from "@/store/team/lint";
+import { useAtom } from "jotai";
+import { activeTeamLintAtom } from "@/store/team/options";
+import { useHotkeys } from "react-hotkeys-hook";
+import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
+
+const DICTIONARY = (() => {
+  const mapped = new Map(
+    pokemonList.map(({ species_id, identifier }) => [
+      identifier,
+      {
+        species_id,
+      },
+    ]),
+  );
+  return new Map(
+    championsPokemonList.map((pokemon) => [
+      pokemon.identifier,
+      {
+        ...pokemon,
+        ...mapped.get(pokemon.identifier)!,
+      },
+    ]),
+  );
+})();
+
+const STAT_LABELS = ["atk", "def", "spa", "spd", "spe"] as const;
+
+const NATURE_MATRIX: Record<
+  (typeof STAT_LABELS)[number],
+  Record<(typeof STAT_LABELS)[number], Nature | null>
+> = {
+  atk: { atk: "Serious", def: "Lonely", spa: "Adamant", spd: "Naughty", spe: "Brave" },
+  def: { atk: "Bold", def: null, spa: "Impish", spd: "Lax", spe: "Relaxed" },
+  spa: { atk: "Modest", def: "Mild", spa: null, spd: "Rash", spe: "Quiet" },
+  spd: { atk: "Calm", def: "Gentle", spa: "Careful", spd: null, spe: "Sassy" },
+  spe: { atk: "Timid", def: "Hasty", spa: "Jolly", spd: "Naive", spe: null },
+};
+
+// アイテムIDからメガシンカ後のデータを引くためのマップ
+const megaPokemonByStoneId = new Map(
+  championsPokemonList
+    .filter((p) => p.mega)
+    .flatMap((p) => p.mega!.map(({ stone_id, mega_id }) => [stone_id, mega_id])),
+);
+
+export function Training({
+  member,
+  onUpdate,
+}: {
+  member: TrainedPokemon;
+  onUpdate: (trained: TrainedPokemon) => void;
+}) {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const palette = getAppPalette(theme.palette.mode);
+  const [ongoing, setOngoing] = useState<TrainedPokemon | null>(member);
+  const [isLintOn] = useAtom(activeTeamLintAtom);
+  const { battleData, isError } = useBattleData(member.slug, "Doubles");
+  const [nature, setNature] = useState<Nature | null>(
+    (ongoing?.nature && natureObjectToString(ongoing.nature)) || null,
+  );
+  const [natureAnchorEl, setNatureAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isNaturePopoverOpen = Boolean(natureAnchorEl);
+  const [issue] = useAtom(activeSlotLintIssueAtom);
+  const items = useMemo(() => {
+    return itemList.toSorted((a, b) => a.category.localeCompare(b.category));
+  }, []);
+
+  // --- Drawerの状態管理 ---
+  const [activeMoveSlot, setActiveMoveSlot] = useState<number | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useHotkeys("esc", () => {
+    if (drawerOpen) {
+      setDrawerOpen(false);
+    }
+  });
+
+  const handleUpdate = (trained: TrainedPokemon) => {
+    setOngoing(trained);
+    onUpdate(trained);
+  };
+
+  if (!ongoing) {
+    return (
+      <Paper
+        elevation={0}
+        sx={{ p: 4, borderRadius: 4, border: "1px solid", borderColor: palette.edge }}
+      >
+        <Typography variant="h6">{t("teamBuilder.emptySlot")}</Typography>
+      </Paper>
+    );
+  }
+
+  const pokemon = DICTIONARY.get(ongoing.identifier)!;
+  const [useForm, setUseForm] = useState(false);
+
+  const formChangeState = useMemo(() => {
+    if (ongoing.item && pokemon.mega?.some(({ stone_id }) => stone_id === ongoing.item)) {
+      const megaId = megaPokemonByStoneId.get(ongoing.item)!;
+      const megaPokemon = DICTIONARY.get(pokemonById.get(megaId)!.identifier);
+      if (megaPokemon) return { type: "mega" as const, data: megaPokemon };
+    }
+    if (pokemon.form) {
+      const formPokemon = DICTIONARY.get(pokemonById.get(pokemon.form)!.identifier);
+      if (formPokemon) return { type: "form" as const, data: formPokemon };
+    }
+    return null;
+  }, [ongoing.item, pokemon]);
+
+  const activePokemon = useMemo(() => {
+    if (useForm && formChangeState?.data) {
+      return formChangeState.data;
+    }
+    return pokemon;
+  }, [useForm, formChangeState, pokemon]);
+
+  const remainingEvs = useMemo(() => {
+    return MAX_EV_TOTAL - Object.values(ongoing.evs).reduce((a, b) => a + b, 0 as number);
+  }, [ongoing]);
+
+  const handleDrawerOpen = (slot: number) => {
+    setActiveMoveSlot(slot);
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setActiveMoveSlot(null);
+    setDrawerOpen(false);
+  };
+
+  const handleSelectMove = (moveId: number | null) => {
+    if (activeMoveSlot === null) return;
+
+    const newMoves = ongoing.moves;
+    newMoves[activeMoveSlot] = moveId;
+
+    handleUpdate({ ...ongoing, moves: newMoves });
+
+    if (moveId !== null && activeMoveSlot < 3) {
+      setActiveMoveSlot(activeMoveSlot + 1);
+    }
+  };
+
+  const handleClearMove = (
+    e: ReactMouseEvent<HTMLButtonElement, MouseEvent>,
+    slotIndex: number,
+  ) => {
+    e.stopPropagation();
+    const newMoves = ongoing.moves;
+    newMoves[slotIndex] = null;
+    handleUpdate({ ...ongoing, moves: newMoves });
+  };
+
+  return (
+    <Stack
+      direction={"column"}
+      className={"Training-root"}
+      sx={{ ml: { xs: 0, md: drawerOpen ? "400px" : 0 }, transition: "margin 0.3s", minWidth: 0 }}
+    >
+      {/* メインコンテンツ（Basics, Items, Nature等） */}
+      <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>
+        <Paper
+          elevation={0}
+          sx={{
+            m: { xs: 0, md: 2 },
+            px: { xs: 0, md: 4 },
+            overflow: "hidden",
+            borderRadius: { xs: 3, md: 5 },
+            border: "1px solid",
+            borderColor: palette.edge,
+            bgcolor: palette.surfaceRaised,
+          }}
+        >
+          <Box sx={{ p: { xs: 3, md: 4 } }}>
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={3}
+              sx={{ alignItems: "flex-start" }}
+            >
+              {/* ポケモン画像領域 */}
+              <Box
+                sx={{
+                  width: 144,
+                  height: 144,
+                  borderRadius: 4,
+                  bgcolor: palette.surface,
+                  display: "grid",
+                  placeItems: "center",
+                  position: "relative",
+                  boxShadow: 1,
+                }}
+              >
+                <Image
+                  src={`/pokemon/${activePokemon.identifier}.png`}
+                  alt={ongoing.identifier}
+                  width={112}
+                  height={112}
+                />
+                {ongoing.item &&
+                  (() => {
+                    const item = itemList.find((i) => i.id === ongoing.item);
+                    return item ? (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 6,
+                          right: 6,
+                          width: 50,
+                          height: 50,
+                          borderRadius: "50%",
+                          bgcolor: alpha(palette.surfaceRaised, 0.7),
+                          boxShadow: 2,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backdropFilter: "blur(2px)",
+                        }}
+                      >
+                        <Image
+                          src={itemSprite(item.identifier)}
+                          alt={item.identifier}
+                          width={45}
+                          height={45}
+                        />
+                      </Box>
+                    ) : null;
+                  })()}
+                {formChangeState && (
+                  <Tooltip
+                    title={
+                      useForm
+                        ? formChangeState.type === "mega"
+                          ? "Cancel Mega Evolve"
+                          : "Revert Form"
+                        : formChangeState.type === "mega"
+                          ? "Mega Evolve"
+                          : "Change Form"
+                    }
+                    placement="top"
+                  >
+                    <Box
+                      onClick={() => setUseForm(!useForm)}
+                      sx={{
+                        position: "absolute",
+                        bottom: 6,
+                        left: 6,
+                        p: 0.5,
+                        width: 48,
+                        height: 48,
+                        borderRadius: 2,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        bgcolor: useForm
+                          ? alpha(theme.palette.primary.main, 0.1)
+                          : alpha(palette.surfaceRaised, 0.7),
+                        borderColor: useForm ? theme.palette.primary.main : palette.edgeSoft,
+                        transition: "all 0.2s",
+                        backdropFilter: "blur(2px)",
+                        "&:hover": {
+                          bgcolor: useForm
+                            ? alpha(theme.palette.primary.main, 0.15)
+                            : alpha(theme.palette.primary.main, 0.05),
+                          borderColor: theme.palette.primary.light,
+                          transform: "scale(1.05)",
+                        },
+                      }}
+                    >
+                      {formChangeState.type === "mega" ? (
+                        <Image
+                          src={"/Mega_Evolution_symbol.png"}
+                          alt="Mega Evolve"
+                          width={28}
+                          height={37}
+                          style={{
+                            filter: useForm ? "none" : "grayscale(80%) opacity(0.6)",
+                            transition: "filter 0.2s",
+                          }}
+                        />
+                      ) : (
+                        <ChangeCircle
+                          sx={{
+                            fontSize: 32,
+                            color: useForm
+                              ? theme.palette.primary.main
+                              : theme.palette.text.secondary,
+                            transition: "color 0.2s",
+                          }}
+                        />
+                      )}
+                    </Box>
+                  </Tooltip>
+                )}
+              </Box>
+
+              <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                <Box>
+                  <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                    <Typography variant="h4">
+                      {t(`pokemon.${activePokemon.identifier}.name`)}
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                    {pokemon.types.map((type) => (
+                      <Chip
+                        avatar={<Avatar src={typeIcon(type)} />}
+                        key={type}
+                        label={type}
+                        size="medium"
+                      />
+                    ))}
+                  </Stack>
+                </Box>
+
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  sx={{ alignItems: "flex-start", flexWrap: "wrap", width: "100%" }}
+                >
+                  <Autocomplete
+                    value={items.find(({ id }) => id === ongoing.item) || null}
+                    options={items}
+                    groupBy={(option) => option.category}
+                    getOptionLabel={(option) => t(`items.${option.identifier}.name`)}
+                    sx={{ width: { xs: "100%", md: 300 } }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Held Item"}
+                        slotProps={{ ...params.slotProps, formHelperText: { component: "div" } }}
+                        helperText={
+                          issue &&
+                          remainingEvs === 0 &&
+                          issue.item.length > 0 && (
+                            <Box>
+                              {issue.item.map((issue) => (
+                                <Alert severity={issue.severity} key={issue.source._tag}>
+                                  {issue.source.message}
+                                </Alert>
+                              ))}
+                            </Box>
+                          )
+                        }
+                      />
+                    )}
+                    renderValue={(params) => (
+                      <Chip
+                        avatar={<Avatar src={itemSprite(params.identifier)} />}
+                        label={t(`items.${params.identifier}.name`)}
+                      />
+                    )}
+                    renderOption={({ key, ...props }, value) => (
+                      <Stack
+                        key={key}
+                        component={"li"}
+                        direction={"column"}
+                        sx={{ alignItems: "flex-start" }}
+                        {...props}
+                      >
+                        <Chip
+                          avatar={<Avatar src={itemSprite(value.identifier)} />}
+                          label={t(`items.${value.identifier}.name`)}
+                        />
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                        >{`${t(`items.${value.identifier}.description`).split(".")[0]}.`}</Typography>
+                      </Stack>
+                    )}
+                    onChange={(_, value) => {
+                      setUseForm(false);
+                      handleUpdate({ ...ongoing, item: value?.id || null });
+                    }}
+                  />
+
+                  <Autocomplete
+                    value={ongoing.ability}
+                    options={
+                      useForm && formChangeState?.type === "mega"
+                        ? activePokemon.abilities
+                        : pokemon.abilities
+                    }
+                    getOptionLabel={(option) =>
+                      t(`abilities.${abilityById.get(option)?.identifier}.name`)
+                    }
+                    sx={{ width: { xs: "100%", md: 300 } }}
+                    renderInput={(params) => <TextField {...params} label={"Ability"} />}
+                    onChange={(_, value) => handleUpdate({ ...ongoing, ability: value! })}
+                  />
+                  <Autocomplete
+                    options={["male", "female"] as const}
+                    value={ongoing.gender.specified || null}
+                    onChange={(_, newValue) =>
+                      handleUpdate({
+                        ...ongoing,
+                        gender: { fixed: false, specified: newValue || "male" },
+                      })
+                    }
+                    onInputChange={(_, newInputValue) =>
+                      handleUpdate({
+                        ...ongoing,
+                        gender: { fixed: false, specified: newInputValue as Gender },
+                      })
+                    }
+                    renderInput={(params) => <TextField {...params} label="Gender" />}
+                    disabled={ongoing.gender.fixed}
+                    sx={{ width: { xs: "calc(50% - 4px)", sm: 140 } }}
+                  />
+                  <Box sx={{ width: { xs: "calc(50% - 4px)", sm: 140 } }}>
+                    <TextField
+                      label="Nature"
+                      value={nature || ""}
+                      slotProps={{
+                        input: {
+                          readOnly: true,
+                          endAdornment: (
+                            <ArrowDropDown
+                              sx={{
+                                color: "action.active",
+                                mr: -0.5,
+                                transform: isNaturePopoverOpen ? "rotate(180deg)" : "none",
+                                transition: "transform 0.2s",
+                              }}
+                            />
+                          ),
+                        },
+                      }}
+                      onClick={(e) => setNatureAnchorEl(e.currentTarget as any)}
+                      sx={{
+                        width: "100%",
+                        cursor: "pointer",
+                        "& .MuiInputBase-root": { cursor: "pointer" },
+                        "& .MuiOutlinedInput-root": {
+                          ...(isNaturePopoverOpen && {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "primary.main",
+                              borderWidth: 2,
+                            },
+                          }),
+                        },
+                        "& .MuiInputLabel-root": {
+                          ...(isNaturePopoverOpen && { color: "primary.main" }),
+                        },
+                      }}
+                    />
+
+                    <Popover
+                      open={isNaturePopoverOpen}
+                      anchorEl={natureAnchorEl}
+                      onClose={() => setNatureAnchorEl(null)}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
+                      slotProps={{
+                        paper: {
+                          sx: {
+                            p: 1,
+                            mt: 0.5,
+                            maxWidth: "95vw",
+                            overflowX: "auto",
+                            bgcolor: palette.surfaceRaised,
+                            border: "1px solid",
+                            borderColor: palette.edge,
+                            boxShadow: theme.shadows[4],
+                          },
+                        },
+                      }}
+                    >
+                      <TableContainer
+                        component={Paper}
+                        elevation={0}
+                        sx={{ bgcolor: "transparent" }}
+                      >
+                        <Table
+                          size="small"
+                          sx={{
+                            "& .MuiTableCell-root": {
+                              p: 1,
+                              textAlign: "center",
+                              minWidth: 80,
+                              fontSize: "0.8rem",
+                              border: `1px solid ${palette.edgeSoft}`,
+                            },
+                          }}
+                        >
+                          <TableHead>
+                            <TableRow>
+                              <TableCell
+                                sx={{ fontWeight: "bold", bgcolor: alpha(palette.surface, 0.5) }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  sx={{ fontSize: "0.65rem", fontWeight: "bold" }}
+                                >
+                                  <Box component="span" color="error.main">
+                                    +
+                                  </Box>{" "}
+                                  Increase /{" "}
+                                  <Box component="span" color="info.main">
+                                    -
+                                  </Box>{" "}
+                                  Decrease
+                                </Typography>
+                              </TableCell>
+                              {STAT_LABELS.map((col) => (
+                                <TableCell
+                                  key={col}
+                                  sx={{
+                                    fontWeight: "bold",
+                                    color: "info.main",
+                                    bgcolor: alpha(theme.palette.info.main, 0.05),
+                                  }}
+                                >
+                                  {col.toUpperCase()} (-)
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {STAT_LABELS.map((row) => (
+                              <TableRow key={row}>
+                                <TableCell
+                                  sx={{
+                                    fontWeight: "bold",
+                                    color: "error.main",
+                                    bgcolor: alpha(theme.palette.error.main, 0.05),
+                                  }}
+                                >
+                                  {row.toUpperCase()} (+)
+                                </TableCell>
+                                {STAT_LABELS.map((col) => {
+                                  const currentCellNature = NATURE_MATRIX[row][col];
+                                  const isSelectable = currentCellNature !== null;
+                                  const isSelected = isSelectable && nature === currentCellNature;
+
+                                  return (
+                                    <TableCell
+                                      key={col}
+                                      onClick={() => {
+                                        if (!isSelectable) return;
+                                        setNature(currentCellNature);
+                                        handleUpdate({
+                                          ...ongoing,
+                                          nature: natureStringToObject(currentCellNature),
+                                        });
+                                        setNatureAnchorEl(null);
+                                      }}
+                                      sx={{
+                                        cursor: isSelectable ? "pointer" : "default",
+                                        fontWeight: isSelected ? 700 : 400,
+                                        bgcolor: isSelected
+                                          ? alpha(theme.palette.primary.main, 0.15)
+                                          : !isSelectable
+                                            ? alpha(theme.palette.action.disabledBackground, 0.3)
+                                            : "transparent",
+                                        color: isSelected
+                                          ? theme.palette.primary.main
+                                          : !isSelectable
+                                            ? "text.disabled"
+                                            : "text.primary",
+                                        transition: "all 0.1s",
+                                        outline: isSelected
+                                          ? `2px solid ${theme.palette.primary.main}`
+                                          : undefined,
+                                        outlineOffset: "-2px",
+                                        "&:hover": {
+                                          bgcolor: isSelected
+                                            ? alpha(theme.palette.primary.main, 0.2)
+                                            : isSelectable
+                                              ? alpha(theme.palette.primary.main, 0.08)
+                                              : alpha(theme.palette.action.disabledBackground, 0.3),
+                                        },
+                                      }}
+                                    >
+                                      {isSelectable ? currentCellNature : "—"}
+                                    </TableCell>
+                                  );
+                                })}
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </Popover>
+                  </Box>
+                </Stack>
+
+                <Divider />
+
+                {/* --- 技スロット --- */}
+                <Typography variant="subtitle2" color="text.secondary">
+                  Moves
+                </Typography>
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" },
+                    gap: 2,
+                  }}
+                >
+                  {[0, 1, 2, 3].map((index) => {
+                    const currentMoveId = ongoing.moves[index];
+                    const moveInfo = currentMoveId ? moveById.get(currentMoveId) : null;
+                    const isActive = activeMoveSlot === index;
+
+                    return (
+                      <Paper
+                        key={index}
+                        variant="outlined"
+                        sx={{
+                          p: 1.5,
+                          cursor: "pointer",
+                          borderColor: isActive ? theme.palette.primary.main : palette.edgeSoft,
+                          bgcolor: isActive
+                            ? alpha(theme.palette.primary.main, 0.05)
+                            : "transparent",
+                          "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.1) },
+                        }}
+                        onClick={() => handleDrawerOpen(index)}
+                      >
+                        {moveInfo ? (
+                          <Stack
+                            direction="row"
+                            sx={{ justifyContent: "space-between", alignItems: "center" }}
+                          >
+                            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                              <Avatar
+                                src={typeIcon(moveInfo.type)}
+                                sx={{ width: 20, height: 20 }}
+                              />
+                              <Typography sx={{ fontWeight: 500 }}>
+                                {t(`moves.${moveInfo.identifier}.name`)}
+                              </Typography>
+                            </Stack>
+                            <Tooltip title={t("teamBuilder.forgetMove")}>
+                              <IconButton
+                                size="small"
+                                onClick={(e) => handleClearMove(e, index)}
+                                sx={{
+                                  color: palette.edge,
+                                  "&:hover": {
+                                    color: "error.main",
+                                    bgcolor: alpha(theme.palette.error.main, 0.1),
+                                  },
+                                }}
+                              >
+                                <CloseIcon fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                          </Stack>
+                        ) : (
+                          <Typography color="text.secondary" sx={{ fontStyle: "italic", py: 0.5 }}>
+                            + Select Move {index + 1}
+                          </Typography>
+                        )}
+                      </Paper>
+                    );
+                  })}
+                </Box>
+              </Stack>
+            </Stack>
+          </Box>
+        </Paper>
+      </Box>
+
+      {/* --- 技選択 Drawer --- */}
+      <MoveSelectionDrawer
+        open={drawerOpen}
+        activeSlot={activeMoveSlot}
+        onClose={handleDrawerClose}
+        onChangeSlot={setActiveMoveSlot}
+        onSelectMove={handleSelectMove}
+        ongoing={ongoing}
+        pokemon={pokemon}
+        battleData={battleData}
+        isError={isError}
+      />
+
+      {/* EV Spreads */}
+      <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>
+        <Paper
+          elevation={0}
+          sx={{
+            m: { xs: 0, md: 2 },
+            py: { xs: 3, md: 4 },
+            px: { xs: 2, md: 8 },
+            borderRadius: { xs: 3, md: 5 },
+            border: "1px solid",
+            borderColor: palette.edge,
+            bgcolor: palette.surfaceRaised,
+          }}
+        >
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <Typography variant="h4" sx={{ mb: { xs: 1, md: 3 } }}>
+              EV Spreads
+            </Typography>
+            {isLintOn &&
+              issue &&
+              issue.status.length > 0 &&
+              issue.status.map((issue) => {
+                return (
+                  <Alert severity={issue.severity} key={issue.source._tag}>
+                    {issue.source.message}
+                  </Alert>
+                );
+              })}
+          </Stack>
+          <Divider sx={{ pt: 2, mb: 4 }} />
+          <Stack spacing={{ xs: 1.5, md: 1.5 }}>
+            {/* 1. ループの外で全体の合計使用EVを一度だけ計算する */}
+            {(() => {
+              const STAT_KEYS = ["hp", "atk", "def", "spa", "spd", "spe"] as const;
+
+              const totalUsedEvs = STAT_KEYS.reduce((sum, key) => {
+                const val = ongoing.evs?.[key];
+                return sum + (typeof val === "number" && !Number.isNaN(val) ? val : 0);
+              }, 0);
+
+              const remainingEvsTotal = MAX_EV_TOTAL - totalUsedEvs;
+
+              const handleNatureToggle = (
+                stat: "hp" | "atk" | "def" | "spa" | "spd" | "spe",
+                type: "plus" | "minus",
+              ) => {
+                const currentPlus = ongoing.nature?.plus;
+                const currentMinus = ongoing.nature?.minus;
+
+                let newPlus = currentPlus;
+                let newMinus = currentMinus;
+
+                if (type === "plus") {
+                  newPlus = currentPlus === stat ? undefined : stat; // トグル解除対応
+                  if (newMinus === stat) newMinus = undefined; // 矛盾解消
+                } else {
+                  newMinus = currentMinus === stat ? undefined : stat;
+                  if (newPlus === stat) newPlus = undefined;
+                }
+
+                const newNature = {
+                  plus: newPlus,
+                  minus: newMinus,
+                };
+
+                const nature = natureObjectToString(newNature);
+
+                setNature(nature || null);
+
+                handleUpdate({
+                  ...ongoing,
+                  nature: newNature,
+                });
+              };
+
+              return (
+                <>
+                  {STAT_KEYS.map((stat) => {
+                    const statLens = getStatLens(stat);
+                    const statIndex = STAT_KEYS.indexOf(stat);
+                    const rawEv = statLens.get(ongoing);
+                    const currentEv = typeof rawEv === "number" && !Number.isNaN(rawEv) ? rawEv : 0;
+
+                    const maxAvailable = Math.min(32, remainingEvsTotal + currentEv);
+
+                    const updateEv = (newValue: number) => {
+                      const safeValue = Number.isNaN(newValue) ? 0 : newValue;
+                      const clampedValue = Math.min(maxAvailable, Math.max(0, safeValue));
+                      const updatedPokemon = statLens.set(clampedValue as EV)(ongoing);
+                      handleUpdate(updatedPokemon);
+                    };
+
+                    const isPlus = ongoing.nature?.plus === stat;
+                    const isMinus = ongoing.nature?.minus === stat;
+                    const natureMultiplier = isPlus ? 1.1 : isMinus ? 0.9 : 1.0;
+
+                    // 効率的なEV投資ポイントを算出
+                    const efficientMarks = useMemo(() => {
+                      if (stat === "hp" || !isPlus) return false;
+                      const marks = [];
+                      for (let v = 0; v <= 32; v++) {
+                        // 補正なし(1.0)の生ステータスを計算
+                        const raw = calcStatus(activePokemon.status[statIndex], v, 1.0);
+                        if (raw % 10 === 0) {
+                          marks.push({ value: v });
+                        }
+                      }
+                      return marks.length > 0 ? marks : false;
+                    }, [stat, isPlus, statIndex]);
+
+                    return (
+                      <Box
+                        key={stat}
+                        sx={{
+                          display: "grid",
+                          alignItems: "center",
+                          columnGap: { xs: 1.5, md: 2.5 },
+                          rowGap: { xs: 1, md: 0.5 },
+                          gridTemplateColumns: {
+                            xs: "1fr auto auto",
+                            md: "72px 1fr auto 56px",
+                          },
+                          gridTemplateAreas: {
+                            xs: `"label number value" "slider slider slider"`,
+                            md: `"label slider number value"`,
+                          },
+                          p: { xs: 1.5, md: 2 },
+                          borderRadius: 2,
+                          border: "1px solid",
+                          borderColor: isPlus
+                            ? alpha(theme.palette.error.main, 0.2)
+                            : isMinus
+                              ? alpha(theme.palette.info.main, 0.2)
+                              : palette.edgeSoft,
+                          bgcolor: alpha(palette.surface, 0.4),
+                          transition: "border-color 0.2s, background-color 0.2s",
+                        }}
+                      >
+                        {/* ステータス名と性格補正トグル */}
+                        <Stack
+                          direction="row"
+                          spacing={0.75}
+                          sx={{ gridArea: "label", alignItems: "center", minWidth: 0 }}
+                        >
+                          <Typography
+                            sx={{
+                              fontWeight: "bold",
+                              textTransform: "uppercase",
+                              lineHeight: 1,
+                            }}
+                          >
+                            {t(`teamBuilder.status.${stat}.name`)}
+                          </Typography>
+                          {stat !== "hp" && (
+                            <Stack direction="row" spacing={0.25}>
+                              {/* プラス補正ボタン */}
+                              <Box
+                                onClick={() => handleNatureToggle(stat, "plus")}
+                                role="button"
+                                aria-label={`${stat} +`}
+                                aria-pressed={isPlus}
+                                sx={{
+                                  display: "flex",
+                                  cursor: "pointer",
+                                  userSelect: "none",
+                                  borderRadius: 1,
+                                  p: { xs: 0.25, md: 0 },
+                                  color: isPlus ? "error.main" : "text.secondary",
+                                  bgcolor: isPlus
+                                    ? alpha(theme.palette.error.main, 0.12)
+                                    : "transparent",
+                                  transition: "all 0.2s",
+                                  "&:hover": {
+                                    bgcolor: alpha(theme.palette.error.main, 0.12),
+                                  },
+                                }}
+                              >
+                                <Add
+                                  sx={{
+                                    fontSize: "1.1rem",
+                                    stroke: "currentColor",
+                                    strokeWidth: 1,
+                                  }}
+                                />
+                              </Box>
+
+                              {/* マイナス補正ボタン */}
+                              <Box
+                                onClick={() => handleNatureToggle(stat, "minus")}
+                                role="button"
+                                aria-label={`${stat} -`}
+                                aria-pressed={isMinus}
+                                sx={{
+                                  display: "flex",
+                                  cursor: "pointer",
+                                  userSelect: "none",
+                                  borderRadius: 1,
+                                  p: { xs: 0.25, md: 0 },
+                                  color: isMinus ? "info.main" : "text.secondary",
+                                  bgcolor: isMinus
+                                    ? alpha(theme.palette.info.main, 0.12)
+                                    : "transparent",
+                                  transition: "all 0.2s",
+                                  "&:hover": {
+                                    bgcolor: alpha(theme.palette.info.main, 0.12),
+                                  },
+                                }}
+                              >
+                                <Remove
+                                  sx={{
+                                    fontSize: "1.1rem",
+                                    stroke: "currentColor",
+                                    strokeWidth: 1,
+                                  }}
+                                />
+                              </Box>
+                            </Stack>
+                          )}
+                        </Stack>
+                        <Slider
+                          value={currentEv}
+                          step={1}
+                          min={0}
+                          max={32}
+                          disabled={maxAvailable <= 0 && currentEv === 0}
+                          onChange={(_, value) => updateEv(value as number)}
+                          marks={efficientMarks as any}
+                          sx={{
+                            gridArea: "slider",
+                            color: "primary.main",
+                            "& .MuiSlider-mark": {
+                              backgroundColor: "error.main",
+                              width: 3,
+                              height: 10,
+                              borderRadius: 1,
+                            },
+                            "& .MuiSlider-markActive": {
+                              backgroundColor: "error.dark",
+                            },
+                          }}
+                        />
+
+                        <Box
+                          sx={{
+                            gridArea: "number",
+                            width: { xs: 76, md: 96 },
+                            "& .MuiFormControl-root": { width: "100%" },
+                            "& .MuiInputBase-root": { width: "100%" },
+                            "& .MuiInputBase-input": {
+                              flex: 1,
+                              width: "auto",
+                              minWidth: 0,
+                              textAlign: "center",
+                            },
+                          }}
+                        >
+                          <NumberField
+                            label={t(`teamBuilder.status.${stat}.name`)}
+                            min={0}
+                            max={maxAvailable}
+                            step={1}
+                            value={currentEv}
+                            size="small"
+                            onValueChange={(val) => {
+                              const parsed = Number(val);
+                              updateEv(parsed);
+                            }}
+                          />
+                        </Box>
+
+                        <Typography
+                          sx={{
+                            gridArea: "value",
+                            textAlign: "right",
+                            whiteSpace: "nowrap",
+                            fontWeight: 700,
+                            color: isPlus ? "error.main" : isMinus ? "info.main" : "inherit",
+                          }}
+                        >
+                          {match(stat)
+                            .with("hp", () => calcHp(activePokemon.status[0], currentEv))
+                            .with("atk", () =>
+                              calcStatus(activePokemon.status[1], currentEv, natureMultiplier),
+                            )
+                            .with("def", () =>
+                              calcStatus(activePokemon.status[2], currentEv, natureMultiplier),
+                            )
+                            .with("spa", () =>
+                              calcStatus(activePokemon.status[3], currentEv, natureMultiplier),
+                            )
+                            .with("spd", () =>
+                              calcStatus(activePokemon.status[4], currentEv, natureMultiplier),
+                            )
+                            .with("spe", () =>
+                              calcStatus(activePokemon.status[5], currentEv, natureMultiplier),
+                            )
+                            .exhaustive()}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+
+                  <Divider />
+
+                  <Typography>{`Remaining Evs: ${remainingEvs}`}</Typography>
+                </>
+              );
+            })()}
+          </Stack>
+        </Paper>
+      </Box>
+    </Stack>
+  );
+}

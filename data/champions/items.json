@@ -1,589 +1,744 @@
 {
   "data": [
     {
-      "id": 1,
+      "id": 710,
       "identifier": "abomasite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 2,
+      "id": 713,
       "identifier": "absolite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 3,
+      "id": 708,
       "identifier": "aerodactylite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 4,
+      "id": 703,
       "identifier": "aggronite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 5,
+      "id": 715,
       "identifier": "alakazite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 6,
+      "id": 776,
       "identifier": "altarianite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 7,
+      "id": 694,
       "identifier": "ampharosite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 8,
+      "id": 130,
       "identifier": "aspear-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 9,
+      "id": 778,
       "identifier": "audinite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 10,
+      "id": 176,
       "identifier": "babiri-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 11,
+      "id": 704,
       "identifier": "banettite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 12,
+      "id": 2177,
+      "identifier": "barbaracite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 791,
       "identifier": "beedrillite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 13,
+      "id": 273,
+      "identifier": "big-root",
+      "category": "held-item"
+    },
+    {
+      "id": 218,
       "identifier": "black-belt",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 14,
+      "id": 217,
       "identifier": "black-glasses",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 15,
+      "id": 697,
       "identifier": "blastoisinite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 16,
+      "id": 700,
+      "identifier": "blazikenite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 190,
       "identifier": "bright-powder",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 17,
+      "id": 788,
       "identifier": "cameruptite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 18,
+      "id": 2178,
       "identifier": "chandelurite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 19,
+      "id": 226,
       "identifier": "charcoal",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 20,
+      "id": 696,
       "identifier": "charizardite-x",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 21,
+      "id": 714,
       "identifier": "charizardite-y",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 22,
+      "id": 172,
       "identifier": "charti-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 23,
+      "id": 126,
       "identifier": "cheri-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 24,
+      "id": 2179,
       "identifier": "chesnaughtite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 25,
+      "id": 127,
       "identifier": "chesto-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 26,
+      "id": 177,
       "identifier": "chilan-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 27,
+      "id": 2180,
       "identifier": "chimechite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 28,
+      "id": 264,
       "identifier": "choice-scarf",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 29,
+      "id": 166,
       "identifier": "chople-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 30,
+      "id": 2181,
       "identifier": "clefablite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 31,
+      "id": 169,
       "identifier": "coba-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 32,
+      "id": 175,
       "identifier": "colbur-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 33,
+      "id": 2182,
       "identifier": "crabominite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 34,
+      "id": 262,
+      "identifier": "damp-rock",
+      "category": "held-item"
+    },
+    {
+      "id": 2183,
       "identifier": "delphoxite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 35,
+      "id": 2184,
+      "identifier": "dragalgite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 227,
       "identifier": "dragon-fang",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 36,
+      "id": 2185,
       "identifier": "dragoninite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 37,
+      "id": 2186,
       "identifier": "drampanite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 38,
+      "id": 2187,
+      "identifier": "eelektrossite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 2188,
       "identifier": "emboarite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 39,
+      "id": 2189,
       "identifier": "excadrite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 40,
+      "id": 245,
+      "identifier": "expert-belt",
+      "category": "held-item"
+    },
+    {
+      "id": 2049,
       "identifier": "fairy-feather",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 41,
+      "id": 2190,
+      "identifier": "falinksite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 2191,
       "identifier": "feraligite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 42,
+      "id": 2192,
       "identifier": "floettite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 43,
+      "id": 207,
       "identifier": "focus-band",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 44,
+      "id": 252,
       "identifier": "focus-sash",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 45,
+      "id": 2193,
       "identifier": "froslassite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 46,
+      "id": 777,
       "identifier": "galladite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 47,
+      "id": 719,
       "identifier": "garchompite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 48,
+      "id": 693,
       "identifier": "gardevoirite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 49,
+      "id": 692,
       "identifier": "gengarite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 50,
+      "id": 784,
       "identifier": "glalitite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 51,
+      "id": 2194,
       "identifier": "glimmoranite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 52,
+      "id": 2195,
       "identifier": "golurkite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 53,
+      "id": 2196,
       "identifier": "greninjite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 54,
+      "id": 712,
       "identifier": "gyaradosite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 55,
+      "id": 174,
       "identifier": "haban-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 56,
+      "id": 215,
       "identifier": "hard-stone",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 57,
+      "id": 2197,
       "identifier": "hawluchanite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 58,
+      "id": 261,
+      "identifier": "heat-rock",
+      "category": "held-item"
+    },
+    {
+      "id": 716,
       "identifier": "heracronite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 59,
+      "id": 702,
       "identifier": "houndoominite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 60,
+      "id": 259,
+      "identifier": "icy-rock",
+      "category": "held-item"
+    },
+    {
+      "id": 255,
+      "identifier": "iron-ball",
+      "category": "held-item"
+    },
+    {
+      "id": 711,
       "identifier": "kangaskhanite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 61,
+      "id": 173,
       "identifier": "kasib-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 62,
+      "id": 167,
       "identifier": "kebia-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 63,
-      "identifier": "kings-rock",
-      "category": "Held Item"
+      "id": 2198,
+      "identifier": "king’s-rock",
+      "category": "held-item"
     },
     {
-      "id": 64,
+      "id": 211,
       "identifier": "leftovers",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 65,
+      "id": 131,
       "identifier": "leppa-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 66,
+      "id": 247,
+      "identifier": "life-orb",
+      "category": "held-item"
+    },
+    {
+      "id": 213,
       "identifier": "light-ball",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 67,
+      "id": 246,
+      "identifier": "light-clay",
+      "category": "held-item"
+    },
+    {
+      "id": 789,
       "identifier": "lopunnite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 68,
+      "id": 709,
       "identifier": "lucarionite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 69,
+      "id": 134,
       "identifier": "lum-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 70,
+      "id": 219,
       "identifier": "magnet",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 71,
+      "id": 2199,
+      "identifier": "malamarite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 718,
       "identifier": "manectite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 72,
+      "id": 717,
+      "identifier": "mawilite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 701,
       "identifier": "medichamite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 73,
+      "id": 2201,
       "identifier": "meganiumite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 74,
+      "id": 196,
       "identifier": "mental-herb",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 75,
+      "id": 2202,
       "identifier": "meowsticite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 76,
+      "id": 779,
+      "identifier": "metagrossite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 210,
       "identifier": "metal-coat",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 77,
+      "id": 254,
+      "identifier": "metronome",
+      "category": "held-item"
+    },
+    {
+      "id": 216,
       "identifier": "miracle-seed",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 78,
+      "id": 243,
+      "identifier": "muscle-band",
+      "category": "held-item"
+    },
+    {
+      "id": 220,
       "identifier": "mystic-water",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 79,
+      "id": 223,
       "identifier": "never-melt-ice",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 80,
+      "id": 161,
       "identifier": "occa-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 81,
+      "id": 132,
       "identifier": "oran-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 82,
+      "id": 162,
       "identifier": "passho-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 83,
+      "id": 170,
       "identifier": "payapa-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 84,
+      "id": 128,
       "identifier": "pecha-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 85,
+      "id": 133,
       "identifier": "persim-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 86,
+      "id": 783,
       "identifier": "pidgeotite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 87,
+      "id": 707,
       "identifier": "pinsirite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 88,
+      "id": 222,
       "identifier": "poison-barb",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 89,
+      "id": 2203,
+      "identifier": "pyroarite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 194,
       "identifier": "quick-claw",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 90,
+      "id": 2204,
+      "identifier": "raichunite-x",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 2205,
+      "identifier": "raichunite-y",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 129,
       "identifier": "rawst-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 91,
+      "id": 164,
       "identifier": "rindo-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 92,
+      "id": 720,
       "identifier": "roseli-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 93,
+      "id": 775,
       "identifier": "sablenite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 94,
+      "id": 774,
+      "identifier": "sceptilite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 706,
       "identifier": "scizorite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 95,
+      "id": 2206,
+      "identifier": "scolipite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 209,
       "identifier": "scope-lens",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 96,
+      "id": 2207,
       "identifier": "scovillainite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 97,
+      "id": 2208,
+      "identifier": "scraftinite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 221,
       "identifier": "sharp-beak",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 98,
+      "id": 780,
       "identifier": "sharpedonite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 99,
+      "id": 272,
+      "identifier": "shed-shell",
+      "category": "held-item"
+    },
+    {
+      "id": 230,
       "identifier": "shell-bell",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 100,
+      "id": 168,
       "identifier": "shuca-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 101,
+      "id": 228,
       "identifier": "silk-scarf",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 102,
+      "id": 199,
       "identifier": "silver-powder",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 103,
+      "id": 135,
       "identifier": "sitrus-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 104,
+      "id": 2209,
       "identifier": "skarmorite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 105,
+      "id": 781,
       "identifier": "slowbronite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 106,
+      "id": 260,
+      "identifier": "smooth-rock",
+      "category": "held-item"
+    },
+    {
+      "id": 214,
       "identifier": "soft-sand",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 107,
+      "id": 224,
       "identifier": "spell-tag",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 108,
+      "id": 2210,
+      "identifier": "staraptite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 2211,
       "identifier": "starminite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 109,
+      "id": 782,
       "identifier": "steelixite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 110,
+      "id": 773,
+      "identifier": "swampertite",
+      "category": "mega-evolution"
+    },
+    {
+      "id": 171,
       "identifier": "tanga-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 111,
+      "id": 225,
       "identifier": "twisted-spoon",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 112,
+      "id": 705,
       "identifier": "tyranitarite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 113,
+      "id": 695,
       "identifier": "venusaurite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 114,
+      "id": 2212,
       "identifier": "victreebelite",
-      "category": "Mega Evolution"
+      "category": "mega-evolution"
     },
     {
-      "id": 115,
+      "id": 163,
       "identifier": "wacan-berry",
-      "category": "Berry"
+      "category": "berry"
     },
     {
-      "id": 116,
+      "id": 191,
       "identifier": "white-herb",
-      "category": "Held Item"
+      "category": "held-item"
     },
     {
-      "id": 117,
+      "id": 242,
+      "identifier": "wide-lens",
+      "category": "held-item"
+    },
+    {
+      "id": 244,
+      "identifier": "wise-glasses",
+      "category": "held-item"
+    },
+    {
+      "id": 165,
       "identifier": "yache-berry",
-      "category": "Berry"
+      "category": "berry"
+    },
+    {
+      "id": 253,
+      "identifier": "zoom-lens",
+      "category": "held-item"
     }
   ]
 }

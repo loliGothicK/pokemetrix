@@ -1,32 +1,37 @@
-// src/i18n/config.ts
-
 import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpApi from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
+import enTranslation from "../../public/locales/en/translation.json";
+import jaTranslation from "../../public/locales/ja/translation.json";
 
-// サポートする言語をオブジェクトで定義しています。
-// ユーザーが言語を手動で切り替える場合に使用するためのものです。
 export const supportedLngs = {
   en: "English",
   ja: "日本語",
-};
+} as const;
 
-i18n
-  .use(HttpApi) // 翻訳ファイルを非同期に読み込むため
-  .use(LanguageDetector) // ユーザーの言語設定を検知するため
-  .use(initReactI18next) // i18next インスタンスを初期化
-  .init({
-    fallbackLng: "en", // フォールバック言語。指定された言語ファイルがない場合などにこの言語が使用される
-    returnEmptyString: false, // 空文字での定義を許可に
-    supportedLngs: Object.keys(supportedLngs),
-    debug: true, // true にすると開発コンソールに i18next が正しく初期化されたことを示す出力が表示される
+export const defaultLanguage = "en" as const;
 
-    // 18next が翻訳メッセージ内のコードをエスケープし、XSS 攻撃から保護するためのもの
-    // React がこのエスケープを行ってくれるので、今回はこれをオフにする
-    interpolation: {
-      escapeValue: false,
+export const supportedLanguageOptions = Object.entries(supportedLngs).map(([value, label]) => ({
+  value,
+  label,
+}));
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: enTranslation,
     },
-  });
+    ja: {
+      translation: jaTranslation,
+    },
+  },
+  lng: defaultLanguage,
+  fallbackLng: defaultLanguage,
+  returnEmptyString: false,
+  supportedLngs: Object.keys(supportedLngs),
+  debug: process.env.NODE_ENV === "development",
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18n;

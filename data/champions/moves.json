@@ -36,8 +36,8 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
-      "classifications": ["bullet"]
+      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 3,
@@ -59,10 +59,10 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Self or Ally",
+      "range": "single-ally",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the Attack Defense Sp.Atk Sp.Def Speed accuracy or evasiveness of the user or an ally by 2 stages.",
+      "effect": "Boosts the Attack Defense Sp. Atk Sp. Def Speed accuracy or evasiveness of the user or an ally by 2 stages.",
       "classifications": []
     },
     {
@@ -111,7 +111,7 @@
       "category": "special",
       "power": 60,
       "accuracy": 95,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
       "effect": "This move has a 1-stage Critical-Hit Ratio Boost.",
@@ -166,7 +166,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Def stat by 2 stages.",
+      "effect": "Boosts the user's Sp. Def stat by 2 stages.",
       "classifications": []
     },
     {
@@ -179,7 +179,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Has a 10% chance of boosting the user's Attack Defense Sp.Atk Sp.Def and Speed stats by 1 stage.",
+      "effect": "Has a 10% chance of boosting the user's Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage.",
       "classifications": []
     },
     {
@@ -192,7 +192,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Def stat by 1 stage.",
+      "effect": "Lowers the target's Sp. Def stat by 1 stage.",
       "classifications": []
     },
     {
@@ -270,7 +270,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
       "classifications": []
     },
     {
@@ -283,7 +283,7 @@
       "range": "single-ally",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts an ally's Sp.Def stat by 1 stage.",
+      "effect": "Boosts an ally's Sp. Def stat by 1 stage.",
       "classifications": []
     },
     {
@@ -323,7 +323,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "This move never misses.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 25,
@@ -427,7 +427,7 @@
       "pp": 8,
       "priority": -3,
       "effect": "If the user is hit by a contact move before it uses this move the attacker will be burned.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 33,
@@ -553,7 +553,7 @@
       "category": "special",
       "power": 110,
       "accuracy": 70,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 8,
       "priority": 0,
       "effect": "Has a 10% chance of freezing targets. This move never misses in snow.",
@@ -657,7 +657,7 @@
       "category": "physical",
       "power": 60,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Attack stats by 1 stage.",
@@ -712,7 +712,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
       "classifications": ["sound-based"]
     },
     {
@@ -765,7 +765,7 @@
       "pp": 20,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 59,
@@ -787,7 +787,7 @@
       "category": "special",
       "power": 70,
       "accuracy": 100,
-      "range": "Opponent's Side",
+      "range": "all-opponents",
       "pp": 8,
       "priority": 0,
       "effect": "Burns targets if their stats were boosted during the turn this move is used.",
@@ -803,7 +803,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Atk and Sp.Def stats by 1 stage.",
+      "effect": "Boosts the user's Sp. Atk and Sp. Def stats by 1 stage.",
       "classifications": []
     },
     {
@@ -829,7 +829,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Def stat by 1 stage. The user gains the Electric Boost status.",
+      "effect": "Boosts the user's Sp. Def stat by 1 stage. The user gains the Electric Boost status.",
       "classifications": []
     },
     {
@@ -842,7 +842,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 70% chance of boosting the user's Sp.Atk stat by 1 stage.",
+      "effect": "Has a 70% chance of boosting the user's Sp. Atk stat by 1 stage.",
       "classifications": []
     },
     {
@@ -904,7 +904,7 @@
       "category": "special",
       "power": 110,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 8,
       "priority": 0,
       "effect": "Lowers the user's Defense stat by 1 stage.",
@@ -920,7 +920,7 @@
       "range": "self",
       "pp": 8,
       "priority": 0,
-      "effect": "The user loses 1/3 of its max HP to boost its Attack Defense Sp.Atk Sp.Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP.",
+      "effect": "The user loses 1/3 of its max HP to boost its Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP.",
       "classifications": ["sound-based"]
     },
     {
@@ -946,7 +946,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
       "classifications": ["contact"]
     },
     {
@@ -982,7 +982,7 @@
       "category": "physical",
       "power": 1,
       "accuracy": 100,
-      "range": "Previous opponent",
+      "range": "varies",
       "pp": 12,
       "priority": 0,
       "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
@@ -1037,7 +1037,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Defense and Sp.Def stats by 1 stage.",
+      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage.",
       "classifications": []
     },
     {
@@ -1060,7 +1060,7 @@
       "category": "status",
       "power": null,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 2 stages.",
@@ -1073,7 +1073,7 @@
       "category": "physical",
       "power": null,
       "accuracy": 100,
-      "range": "Varies",
+      "range": "varies",
       "pp": 20,
       "priority": -5,
       "effect": "The user retaliates to deal double the damage it took from an opponent's physical move during the turn this move is used.",
@@ -1164,7 +1164,7 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "Varies",
+      "range": "varies",
       "pp": 12,
       "priority": 0,
       "effect": "Ghost-type: The user loses 1/2 of its max HP to give the target the Cursed status. Non-Ghost-type: Lowers the user's Speed stat by 1 stage and boosts its Attack and Defense stats by 1 stage.",
@@ -1203,7 +1203,7 @@
       "category": "special",
       "power": 80,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "",
@@ -1219,7 +1219,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Boosts the target's Attack and Sp.Atk stats by 2 stages.",
+      "effect": "Boosts the target's Attack and Sp. Atk stats by 2 stages.",
       "classifications": []
     },
     {
@@ -1375,7 +1375,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
       "classifications": []
     },
     {
@@ -1389,7 +1389,7 @@
       "pp": 16,
       "priority": 0,
       "effect": "Gives allies a Critical-Hit Ratio Boost. Dragon types receive a 2-stage boost. All other types receive a 1-stage boost.",
-      "classifications": ["sound-based"]
+      "classifications": []
     },
     {
       "id": 107,
@@ -1557,7 +1557,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
       "classifications": []
     },
     {
@@ -1583,7 +1583,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Atk stat by 2 stages.",
+      "effect": "Lowers the target's Sp. Atk stat by 2 stages.",
       "classifications": []
     },
     {
@@ -1636,7 +1636,7 @@
       "pp": 12,
       "priority": 0,
       "effect": "The higher the user's Speed stat compared to the target's the greater this move's power (ranging between 40 and 150).",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 126,
@@ -1648,7 +1648,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp.Atk stat is boosted by 1 stage on the turn this move is used.",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
       "classifications": []
     },
     {
@@ -1658,7 +1658,7 @@
       "category": "special",
       "power": 55,
       "accuracy": 95,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 1 stage.",
@@ -1713,8 +1713,8 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
-      "classifications": ["bullet"]
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 132,
@@ -1736,7 +1736,7 @@
       "category": "special",
       "power": 150,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 8,
       "priority": 0,
       "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
@@ -1843,7 +1843,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
       "classifications": []
     },
     {
@@ -1908,7 +1908,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 50% chance of boosting the user's Sp.Atk stat by 1 stage.",
+      "effect": "Has a 50% chance of boosting the user's Sp. Atk stat by 1 stage.",
       "classifications": []
     },
     {
@@ -2077,7 +2077,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
       "classifications": []
     },
     {
@@ -2090,7 +2090,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Boosts the target's Sp.Atk stat by 1 stage and confuses it.",
+      "effect": "Boosts the target's Sp. Atk stat by 1 stage and confuses it.",
       "classifications": []
     },
     {
@@ -2168,8 +2168,8 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
-      "classifications": ["bullet"]
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 167,
@@ -2428,7 +2428,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Attack and Sp.Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead.",
+      "effect": "Boosts the user's Attack and Sp. Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead.",
       "classifications": []
     },
     {
@@ -2441,7 +2441,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp.Def stats.",
+      "effect": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp. Def stats.",
       "classifications": []
     },
     {
@@ -2454,7 +2454,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user swaps the changes to its Defense and Sp.Def stats with the changes to the target's Defense and Sp.Def stats.",
+      "effect": "The user swaps the changes to its Defense and Sp. Def stats with the changes to the target's Defense and Sp. Def stats.",
       "classifications": []
     },
     {
@@ -2494,7 +2494,7 @@
       "pp": 8,
       "priority": 0,
       "effect": "The lower the user's Speed stat compared to the target's the greater this move's power (ranging between 1 and 150).",
-      "classifications": ["contact", "bullet"]
+      "classifications": ["contact", "ball-and-bomb"]
     },
     {
       "id": 192,
@@ -2558,7 +2558,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage.",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
       "classifications": ["contact", "punch"]
     },
     {
@@ -2620,7 +2620,7 @@
       "category": "special",
       "power": 95,
       "accuracy": 90,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "Has a 10% chance of burning targets.",
@@ -2724,7 +2724,7 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "all-allies",
+      "range": "self",
       "pp": 20,
       "priority": 0,
       "effect": "Boosts the Attack stats of the user and its allies by 1 stage.",
@@ -2789,7 +2789,7 @@
       "category": "special",
       "power": 90,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "",
@@ -2919,7 +2919,7 @@
       "category": "special",
       "power": 55,
       "accuracy": 95,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 16,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 1 stage.",
@@ -3169,7 +3169,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
       "classifications": []
     },
     {
@@ -3299,7 +3299,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
       "classifications": []
     },
     {
@@ -3377,11 +3377,24 @@
       "range": "all-allies",
       "pp": 20,
       "priority": 0,
-      "effect": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp.Def stats are boosted by 1 stage.",
+      "effect": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp. Def stats are boosted by 1 stage.",
       "classifications": []
     },
     {
       "id": 260,
+      "identifier": "make-it-rain",
+      "type": "Steel",
+      "category": "special",
+      "power": 120,
+      "accuracy": 95,
+      "range": "all-allies",
+      "pp": 8,
+      "priority": 0,
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
+      "classifications": []
+    },
+    {
+      "id": 261,
       "identifier": "matcha-gotcha",
       "type": "Grass",
       "category": "special",
@@ -3391,10 +3404,10 @@
       "pp": 16,
       "priority": 0,
       "effect": "Has a 20% chance of burning targets. The user's HP is restored by 1/2 of the damage dealt by this move.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 261,
+      "id": 262,
       "identifier": "mean-look",
       "type": "Normal",
       "category": "status",
@@ -3407,7 +3420,7 @@
       "classifications": []
     },
     {
-      "id": 262,
+      "id": 263,
       "identifier": "mega-kick",
       "type": "Normal",
       "category": "physical",
@@ -3420,7 +3433,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 263,
+      "id": 264,
       "identifier": "megahorn",
       "type": "Bug",
       "category": "physical",
@@ -3433,7 +3446,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 264,
+      "id": 265,
       "identifier": "memento",
       "type": "Dark",
       "category": "status",
@@ -3442,24 +3455,24 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp.Atk stats by 2 stages. The user faints upon using this move.",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 2 stages. The user faints upon using this move.",
       "classifications": []
     },
     {
-      "id": 265,
+      "id": 266,
       "identifier": "metal-burst",
       "type": "Steel",
       "category": "physical",
       "power": null,
       "accuracy": 100,
-      "range": "Varies",
+      "range": "varies",
       "pp": 12,
       "priority": 0,
       "effect": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
       "classifications": []
     },
     {
-      "id": 266,
+      "id": 267,
       "identifier": "metal-sound",
       "type": "Steel",
       "category": "status",
@@ -3468,11 +3481,11 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Def stat by 2 stages.",
+      "effect": "Lowers the target's Sp. Def stat by 2 stages.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 267,
+      "id": 268,
       "identifier": "meteor-beam",
       "type": "Rock",
       "category": "special",
@@ -3481,11 +3494,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp.Atk stat is boosted by 1 stage on the turn this move is used.",
+      "effect": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
       "classifications": []
     },
     {
-      "id": 268,
+      "id": 269,
       "identifier": "meteor-mash",
       "type": "Steel",
       "category": "physical",
@@ -3498,7 +3511,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 269,
+      "id": 270,
       "identifier": "milk-drink",
       "type": "Normal",
       "category": "status",
@@ -3511,7 +3524,7 @@
       "classifications": []
     },
     {
-      "id": 270,
+      "id": 271,
       "identifier": "minimize",
       "type": "Normal",
       "category": "status",
@@ -3524,20 +3537,20 @@
       "classifications": []
     },
     {
-      "id": 271,
+      "id": 272,
       "identifier": "mirror-coat",
       "type": "Psychic",
       "category": "status",
       "power": null,
       "accuracy": 100,
-      "range": "Varies",
+      "range": "varies",
       "pp": 20,
       "priority": -5,
       "effect": "The user retaliates to deal double the damage it took from an opponent's special move during the turn this move is used.",
       "classifications": []
     },
     {
-      "id": 272,
+      "id": 273,
       "identifier": "misty-explosion",
       "type": "Fairy",
       "category": "special",
@@ -3550,7 +3563,7 @@
       "classifications": []
     },
     {
-      "id": 273,
+      "id": 274,
       "identifier": "misty-terrain",
       "type": "Fairy",
       "category": "status",
@@ -3563,7 +3576,7 @@
       "classifications": []
     },
     {
-      "id": 274,
+      "id": 275,
       "identifier": "moonblast",
       "type": "Fairy",
       "category": "special",
@@ -3572,11 +3585,11 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Atk stat by 1 stage.",
+      "effect": "Has a 10% chance of lowering the target's Sp. Atk stat by 1 stage.",
       "classifications": []
     },
     {
-      "id": 275,
+      "id": 276,
       "identifier": "moonlight",
       "type": "Fairy",
       "category": "status",
@@ -3589,7 +3602,7 @@
       "classifications": []
     },
     {
-      "id": 276,
+      "id": 277,
       "identifier": "morning-sun",
       "type": "Normal",
       "category": "status",
@@ -3602,20 +3615,20 @@
       "classifications": []
     },
     {
-      "id": 277,
+      "id": 278,
       "identifier": "mortal-spin",
       "type": "Poison",
       "category": "physical",
       "power": 30,
       "accuracy": 100,
-      "range": "All Adjacent Opponents",
+      "range": "all-opponents",
       "pp": 16,
       "priority": 0,
       "effect": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Poisons targets.",
       "classifications": ["contact"]
     },
     {
-      "id": 278,
+      "id": 279,
       "identifier": "mountain-gale",
       "type": "Ice",
       "category": "physical",
@@ -3628,7 +3641,7 @@
       "classifications": []
     },
     {
-      "id": 279,
+      "id": 280,
       "identifier": "mud-shot",
       "type": "Ground",
       "category": "special",
@@ -3641,7 +3654,7 @@
       "classifications": []
     },
     {
-      "id": 280,
+      "id": 281,
       "identifier": "mud-slap",
       "type": "Ground",
       "category": "special",
@@ -3654,20 +3667,20 @@
       "classifications": []
     },
     {
-      "id": 281,
+      "id": 282,
       "identifier": "muddy-water",
       "type": "Water",
       "category": "special",
       "power": 90,
       "accuracy": 85,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of lowering targets' accuracy by 1 stage.",
       "classifications": []
     },
     {
-      "id": 282,
+      "id": 283,
       "identifier": "mystical-fire",
       "type": "Fire",
       "category": "special",
@@ -3676,11 +3689,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Atk stat by 1 stage.",
+      "effect": "Lowers the target's Sp. Atk stat by 1 stage.",
       "classifications": []
     },
     {
-      "id": 283,
+      "id": 284,
       "identifier": "nasty-plot",
       "type": "Dark",
       "category": "status",
@@ -3689,11 +3702,11 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Atk stat by 2 stages.",
+      "effect": "Boosts the user's Sp. Atk stat by 2 stages.",
       "classifications": []
     },
     {
-      "id": 284,
+      "id": 285,
       "identifier": "night-daze",
       "type": "Dark",
       "category": "special",
@@ -3706,7 +3719,7 @@
       "classifications": []
     },
     {
-      "id": 285,
+      "id": 286,
       "identifier": "night-shade",
       "type": "Ghost",
       "category": "status",
@@ -3719,7 +3732,7 @@
       "classifications": []
     },
     {
-      "id": 286,
+      "id": 287,
       "identifier": "night-slash",
       "type": "Dark",
       "category": "physical",
@@ -3732,7 +3745,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 287,
+      "id": 288,
       "identifier": "noble-roar",
       "type": "Normal",
       "category": "status",
@@ -3741,11 +3754,11 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage.",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 288,
+      "id": 289,
       "identifier": "nuzzle",
       "type": "Electric",
       "category": "physical",
@@ -3758,7 +3771,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 289,
+      "id": 290,
       "identifier": "outrage",
       "type": "Dragon",
       "category": "physical",
@@ -3771,7 +3784,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 290,
+      "id": 291,
       "identifier": "overheat",
       "type": "Fire",
       "category": "special",
@@ -3780,11 +3793,11 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "effect": "Lowers the user's Sp.Atk stat by 2 stages.",
+      "effect": "Lowers the user's Sp. Atk stat by 2 stages.",
       "classifications": []
     },
     {
-      "id": 291,
+      "id": 292,
       "identifier": "pain-split",
       "type": "Normal",
       "category": "status",
@@ -3797,7 +3810,7 @@
       "classifications": []
     },
     {
-      "id": 292,
+      "id": 293,
       "identifier": "parabolic-charge",
       "type": "Electric",
       "category": "special",
@@ -3810,7 +3823,7 @@
       "classifications": []
     },
     {
-      "id": 293,
+      "id": 294,
       "identifier": "parting-shot",
       "type": "Dark",
       "category": "status",
@@ -3819,11 +3832,11 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokemon.",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokemon.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 294,
+      "id": 295,
       "identifier": "payback",
       "type": "Dark",
       "category": "physical",
@@ -3836,20 +3849,20 @@
       "classifications": ["contact"]
     },
     {
-      "id": 295,
+      "id": 296,
       "identifier": "perish-song",
       "type": "Normal",
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "All",
+      "range": "all-pokemon",
       "pp": 8,
       "priority": 0,
       "effect": "Gives all Pokemon on the field the Perishing status.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 296,
+      "id": 297,
       "identifier": "petal-blizzard",
       "type": "Grass",
       "category": "physical",
@@ -3862,7 +3875,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 297,
+      "id": 298,
       "identifier": "petal-dance",
       "type": "Grass",
       "category": "special",
@@ -3875,7 +3888,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 298,
+      "id": 299,
       "identifier": "phantom-force",
       "type": "Ghost",
       "category": "physical",
@@ -3888,7 +3901,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 299,
+      "id": 300,
       "identifier": "pin-missile",
       "type": "Bug",
       "category": "physical",
@@ -3901,7 +3914,7 @@
       "classifications": []
     },
     {
-      "id": 300,
+      "id": 301,
       "identifier": "play-rough",
       "type": "Fairy",
       "category": "physical",
@@ -3914,7 +3927,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 301,
+      "id": 302,
       "identifier": "pluck",
       "type": "Flying",
       "category": "physical",
@@ -3927,7 +3940,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 302,
+      "id": 303,
       "identifier": "poison-fang",
       "type": "Poison",
       "category": "physical",
@@ -3940,7 +3953,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 303,
+      "id": 304,
       "identifier": "poison-jab",
       "type": "Poison",
       "category": "physical",
@@ -3953,7 +3966,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 304,
+      "id": 305,
       "identifier": "poison-powder",
       "type": "Poison",
       "category": "status",
@@ -3966,7 +3979,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 305,
+      "id": 306,
       "identifier": "pollen-puff",
       "type": "Bug",
       "category": "special",
@@ -3976,10 +3989,10 @@
       "pp": 16,
       "priority": 0,
       "effect": "When used on an ally this move restores 1/2 of its max HP instead of dealing damage.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 306,
+      "id": 307,
       "identifier": "poltergeist",
       "type": "Ghost",
       "category": "physical",
@@ -3992,7 +4005,7 @@
       "classifications": []
     },
     {
-      "id": 307,
+      "id": 308,
       "identifier": "population-bomb",
       "type": "Normal",
       "category": "physical",
@@ -4005,7 +4018,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 308,
+      "id": 309,
       "identifier": "pounce",
       "type": "Bug",
       "category": "physical",
@@ -4018,7 +4031,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 309,
+      "id": 310,
       "identifier": "power-gem",
       "type": "Rock",
       "category": "special",
@@ -4031,7 +4044,7 @@
       "classifications": []
     },
     {
-      "id": 310,
+      "id": 311,
       "identifier": "power-shift",
       "type": "Normal",
       "category": "special",
@@ -4044,7 +4057,7 @@
       "classifications": []
     },
     {
-      "id": 311,
+      "id": 312,
       "identifier": "power-split",
       "type": "Psychic",
       "category": "status",
@@ -4053,11 +4066,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp.Atk stats.",
+      "effect": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp. Atk stats.",
       "classifications": []
     },
     {
-      "id": 312,
+      "id": 313,
       "identifier": "power-swap",
       "type": "Psychic",
       "category": "status",
@@ -4066,11 +4079,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user swaps the changes to its Attack and Sp.Atk stats with the changes to the target's Attack and Sp.Atk stats.",
+      "effect": "The user swaps the changes to its Attack and Sp. Atk stats with the changes to the target's Attack and Sp. Atk stats.",
       "classifications": []
     },
     {
-      "id": 313,
+      "id": 314,
       "identifier": "power-trick",
       "type": "Psychic",
       "category": "status",
@@ -4083,7 +4096,7 @@
       "classifications": []
     },
     {
-      "id": 314,
+      "id": 315,
       "identifier": "power-trip",
       "type": "Dark",
       "category": "physical",
@@ -4096,7 +4109,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 315,
+      "id": 316,
       "identifier": "power-whip",
       "type": "Grass",
       "category": "physical",
@@ -4109,7 +4122,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 316,
+      "id": 317,
       "identifier": "protect",
       "type": "Normal",
       "category": "status",
@@ -4122,7 +4135,7 @@
       "classifications": []
     },
     {
-      "id": 317,
+      "id": 318,
       "identifier": "psych-up",
       "type": "Normal",
       "category": "status",
@@ -4135,7 +4148,7 @@
       "classifications": []
     },
     {
-      "id": 318,
+      "id": 319,
       "identifier": "psychic",
       "type": "Psychic",
       "category": "special",
@@ -4144,11 +4157,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Has a 10% chance of lowering the target's Sp.Def stat by 1 stage.",
+      "effect": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
       "classifications": []
     },
     {
-      "id": 319,
+      "id": 320,
       "identifier": "psychic-fangs",
       "type": "Psychic",
       "category": "physical",
@@ -4161,7 +4174,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 320,
+      "id": 321,
       "identifier": "psychic-noise",
       "type": "Psychic",
       "category": "special",
@@ -4174,7 +4187,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 321,
+      "id": 322,
       "identifier": "psychic-terrain",
       "type": "Psychic",
       "category": "status",
@@ -4187,7 +4200,7 @@
       "classifications": []
     },
     {
-      "id": 322,
+      "id": 323,
       "identifier": "psycho-cut",
       "type": "Psychic",
       "category": "physical",
@@ -4200,7 +4213,7 @@
       "classifications": ["slicing"]
     },
     {
-      "id": 323,
+      "id": 324,
       "identifier": "psyshield-bash",
       "type": "Psychic",
       "category": "physical",
@@ -4213,7 +4226,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 324,
+      "id": 325,
       "identifier": "psyshock",
       "type": "Psychic",
       "category": "special",
@@ -4226,7 +4239,7 @@
       "classifications": []
     },
     {
-      "id": 325,
+      "id": 326,
       "identifier": "quash",
       "type": "Dark",
       "category": "status",
@@ -4239,7 +4252,7 @@
       "classifications": []
     },
     {
-      "id": 326,
+      "id": 327,
       "identifier": "quick-attack",
       "type": "Normal",
       "category": "physical",
@@ -4252,7 +4265,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 327,
+      "id": 328,
       "identifier": "quick-guard",
       "type": "Fighting",
       "category": "status",
@@ -4265,7 +4278,7 @@
       "classifications": []
     },
     {
-      "id": 328,
+      "id": 329,
       "identifier": "quiver-dance",
       "type": "Bug",
       "category": "status",
@@ -4274,11 +4287,24 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Atk Sp.Def and Speed stats by 1 stage.",
+      "effect": "Boosts the user's Sp. Atk Sp. Def and Speed stats by 1 stage.",
       "classifications": []
     },
     {
-      "id": 329,
+      "id": 330,
+      "identifier": "rage-fist",
+      "type": "Ghost",
+      "category": "physical",
+      "power": 50,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 12,
+      "priority": 0,
+      "effect": "This move's power is increased by 50 each time the user takes damage from a move, up to a maximum power of 350. If the user switches out of battle, the move's power returns to its usual value.",
+      "classifications": ["contact", "punch"]
+    },
+    {
+      "id": 331,
       "identifier": "rage-powder",
       "type": "Bug",
       "category": "status",
@@ -4291,7 +4317,7 @@
       "classifications": []
     },
     {
-      "id": 330,
+      "id": 332,
       "identifier": "raging-bull",
       "type": "Normal",
       "category": "physical",
@@ -4304,7 +4330,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 331,
+      "id": 333,
       "identifier": "raging-fury",
       "type": "Fire",
       "category": "physical",
@@ -4317,7 +4343,7 @@
       "classifications": []
     },
     {
-      "id": 332,
+      "id": 334,
       "identifier": "rain-dance",
       "type": "Water",
       "category": "status",
@@ -4330,7 +4356,7 @@
       "classifications": []
     },
     {
-      "id": 333,
+      "id": 335,
       "identifier": "rapid-spin",
       "type": "Normal",
       "category": "physical",
@@ -4343,7 +4369,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 334,
+      "id": 336,
       "identifier": "razor-shell",
       "type": "Water",
       "category": "physical",
@@ -4356,7 +4382,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 335,
+      "id": 337,
       "identifier": "recover",
       "type": "Normal",
       "category": "status",
@@ -4369,7 +4395,7 @@
       "classifications": []
     },
     {
-      "id": 336,
+      "id": 338,
       "identifier": "recycle",
       "type": "Normal",
       "category": "status",
@@ -4382,7 +4408,7 @@
       "classifications": []
     },
     {
-      "id": 337,
+      "id": 339,
       "identifier": "reflect",
       "type": "Psychic",
       "category": "status",
@@ -4395,7 +4421,7 @@
       "classifications": []
     },
     {
-      "id": 338,
+      "id": 340,
       "identifier": "reflect-type",
       "type": "Normal",
       "category": "status",
@@ -4408,7 +4434,7 @@
       "classifications": []
     },
     {
-      "id": 339,
+      "id": 341,
       "identifier": "rest",
       "type": "Psychic",
       "category": "status",
@@ -4421,7 +4447,7 @@
       "classifications": []
     },
     {
-      "id": 340,
+      "id": 342,
       "identifier": "reversal",
       "type": "Fighting",
       "category": "physical",
@@ -4434,7 +4460,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 341,
+      "id": 343,
       "identifier": "rising-voltage",
       "type": "Electric",
       "category": "special",
@@ -4447,7 +4473,7 @@
       "classifications": []
     },
     {
-      "id": 342,
+      "id": 344,
       "identifier": "roar",
       "type": "Normal",
       "category": "status",
@@ -4460,7 +4486,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 343,
+      "id": 345,
       "identifier": "rock-blast",
       "type": "Rock",
       "category": "physical",
@@ -4470,10 +4496,10 @@
       "pp": 12,
       "priority": 0,
       "effect": "The user attacks 2 to 5 times in a row.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 344,
+      "id": 346,
       "identifier": "rock-polish",
       "type": "Rock",
       "category": "status",
@@ -4486,20 +4512,20 @@
       "classifications": []
     },
     {
-      "id": 345,
+      "id": 347,
       "identifier": "rock-slide",
       "type": "Rock",
       "category": "physical",
       "power": 75,
       "accuracy": 90,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of making targets flinch.",
       "classifications": []
     },
     {
-      "id": 346,
+      "id": 348,
       "identifier": "rock-tomb",
       "type": "Rock",
       "category": "physical",
@@ -4512,7 +4538,7 @@
       "classifications": []
     },
     {
-      "id": 347,
+      "id": 349,
       "identifier": "rock-wrecker",
       "type": "Rock",
       "category": "physical",
@@ -4522,10 +4548,10 @@
       "pp": 8,
       "priority": 0,
       "effect": "The user gains the Recharging status on the turn after this move is used.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 348,
+      "id": 350,
       "identifier": "role-play",
       "type": "Psychic",
       "category": "status",
@@ -4538,7 +4564,7 @@
       "classifications": []
     },
     {
-      "id": 349,
+      "id": 351,
       "identifier": "roost",
       "type": "Flying",
       "category": "status",
@@ -4551,7 +4577,7 @@
       "classifications": []
     },
     {
-      "id": 350,
+      "id": 352,
       "identifier": "round",
       "type": "Normal",
       "category": "special",
@@ -4564,7 +4590,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 351,
+      "id": 353,
       "identifier": "sacred-sword",
       "type": "Fighting",
       "category": "physical",
@@ -4577,7 +4603,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 352,
+      "id": 354,
       "identifier": "safeguard",
       "type": "Normal",
       "category": "status",
@@ -4590,7 +4616,7 @@
       "classifications": []
     },
     {
-      "id": 353,
+      "id": 355,
       "identifier": "salt-cure",
       "type": "Rock",
       "category": "physical",
@@ -4603,7 +4629,7 @@
       "classifications": []
     },
     {
-      "id": 354,
+      "id": 356,
       "identifier": "sand-tomb",
       "type": "Ground",
       "category": "physical",
@@ -4616,7 +4642,7 @@
       "classifications": []
     },
     {
-      "id": 355,
+      "id": 357,
       "identifier": "sandstorm",
       "type": "Rock",
       "category": "status",
@@ -4629,7 +4655,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 356,
+      "id": 358,
       "identifier": "scald",
       "type": "Water",
       "category": "special",
@@ -4642,7 +4668,7 @@
       "classifications": []
     },
     {
-      "id": 357,
+      "id": 359,
       "identifier": "scale-shot",
       "type": "Dragon",
       "category": "physical",
@@ -4655,7 +4681,7 @@
       "classifications": []
     },
     {
-      "id": 358,
+      "id": 360,
       "identifier": "scary-face",
       "type": "Normal",
       "category": "status",
@@ -4668,7 +4694,7 @@
       "classifications": []
     },
     {
-      "id": 359,
+      "id": 361,
       "identifier": "scorching-sands",
       "type": "Ground",
       "category": "special",
@@ -4681,7 +4707,7 @@
       "classifications": []
     },
     {
-      "id": 360,
+      "id": 362,
       "identifier": "screech",
       "type": "Normal",
       "category": "status",
@@ -4694,7 +4720,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 361,
+      "id": 363,
       "identifier": "seed-bomb",
       "type": "Grass",
       "category": "physical",
@@ -4704,10 +4730,10 @@
       "pp": 16,
       "priority": 0,
       "effect": "",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 362,
+      "id": 364,
       "identifier": "seismic-toss",
       "type": "Fighting",
       "category": "physical",
@@ -4720,7 +4746,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 363,
+      "id": 365,
       "identifier": "self-destruct",
       "type": "Normal",
       "category": "physical",
@@ -4733,7 +4759,7 @@
       "classifications": []
     },
     {
-      "id": 364,
+      "id": 366,
       "identifier": "shadow-ball",
       "type": "Ghost",
       "category": "special",
@@ -4742,11 +4768,11 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "effect": "Has a 20% chance of lowering the target's Sp.Def stat by 1 stage.",
-      "classifications": ["bullet"]
+      "effect": "Has a 20% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 365,
+      "id": 367,
       "identifier": "shadow-claw",
       "type": "Ghost",
       "category": "physical",
@@ -4759,7 +4785,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 366,
+      "id": 368,
       "identifier": "shadow-punch",
       "type": "Ghost",
       "category": "physical",
@@ -4772,7 +4798,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 367,
+      "id": 369,
       "identifier": "shadow-sneak",
       "type": "Ghost",
       "category": "physical",
@@ -4785,7 +4811,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 368,
+      "id": 370,
       "identifier": "shed-tail",
       "type": "Normal",
       "category": "special",
@@ -4798,7 +4824,7 @@
       "classifications": []
     },
     {
-      "id": 369,
+      "id": 371,
       "identifier": "sheer-cold",
       "type": "Ice",
       "category": "status",
@@ -4811,7 +4837,7 @@
       "classifications": []
     },
     {
-      "id": 370,
+      "id": 372,
       "identifier": "shell-side-arm",
       "type": "Poison",
       "category": "special",
@@ -4824,7 +4850,7 @@
       "classifications": []
     },
     {
-      "id": 371,
+      "id": 373,
       "identifier": "shell-smash",
       "type": "Normal",
       "category": "status",
@@ -4833,11 +4859,11 @@
       "range": "self",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers the user's Defense and Sp.Def stats by 1 stage and boosts its Attack Sp.Atk and Speed stats by 2 stages.",
+      "effect": "Lowers the user's Defense and Sp. Def stats by 1 stage and boosts its Attack Sp. Atk and Speed stats by 2 stages.",
       "classifications": []
     },
     {
-      "id": 372,
+      "id": 374,
       "identifier": "shelter",
       "type": "Steel",
       "category": "special",
@@ -4850,7 +4876,7 @@
       "classifications": []
     },
     {
-      "id": 373,
+      "id": 375,
       "identifier": "simple-beam",
       "type": "Normal",
       "category": "status",
@@ -4863,7 +4889,7 @@
       "classifications": []
     },
     {
-      "id": 374,
+      "id": 376,
       "identifier": "sing",
       "type": "Normal",
       "category": "status",
@@ -4876,7 +4902,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 375,
+      "id": 377,
       "identifier": "skill-swap",
       "type": "Psychic",
       "category": "status",
@@ -4889,7 +4915,7 @@
       "classifications": []
     },
     {
-      "id": 376,
+      "id": 378,
       "identifier": "skitter-smack",
       "type": "Bug",
       "category": "physical",
@@ -4898,11 +4924,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Lowers the target's Sp.Atk stat by 1 stage.",
+      "effect": "Lowers the target's Sp. Atk stat by 1 stage.",
       "classifications": ["contact"]
     },
     {
-      "id": 377,
+      "id": 379,
       "identifier": "sky-attack",
       "type": "Flying",
       "category": "physical",
@@ -4915,7 +4941,7 @@
       "classifications": []
     },
     {
-      "id": 378,
+      "id": 380,
       "identifier": "slack-off",
       "type": "Normal",
       "category": "status",
@@ -4928,7 +4954,7 @@
       "classifications": []
     },
     {
-      "id": 379,
+      "id": 381,
       "identifier": "sleep-powder",
       "type": "Grass",
       "category": "status",
@@ -4941,7 +4967,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 380,
+      "id": 382,
       "identifier": "sleep-talk",
       "type": "Normal",
       "category": "status",
@@ -4954,7 +4980,7 @@
       "classifications": []
     },
     {
-      "id": 381,
+      "id": 383,
       "identifier": "sludge-bomb",
       "type": "Poison",
       "category": "special",
@@ -4964,10 +4990,10 @@
       "pp": 12,
       "priority": 0,
       "effect": "Has a 30% chance of poisoning the target.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 382,
+      "id": 384,
       "identifier": "sludge-wave",
       "type": "Poison",
       "category": "special",
@@ -4980,7 +5006,7 @@
       "classifications": []
     },
     {
-      "id": 383,
+      "id": 385,
       "identifier": "smack-down",
       "type": "Rock",
       "category": "physical",
@@ -4993,7 +5019,7 @@
       "classifications": []
     },
     {
-      "id": 384,
+      "id": 386,
       "identifier": "smart-strike",
       "type": "Steel",
       "category": "physical",
@@ -5006,7 +5032,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 385,
+      "id": 387,
       "identifier": "snap-trap",
       "type": "Steel",
       "category": "physical",
@@ -5019,20 +5045,20 @@
       "classifications": ["contact"]
     },
     {
-      "id": 386,
+      "id": 388,
       "identifier": "snarl",
       "type": "Dark",
       "category": "special",
       "power": 55,
       "accuracy": 95,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 16,
       "priority": 0,
-      "effect": "Lowers targets' Sp.Atk stats by 1 stage.",
+      "effect": "Lowers targets' Sp. Atk stats by 1 stage.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 387,
+      "id": 389,
       "identifier": "snore",
       "type": "Normal",
       "category": "special",
@@ -5045,7 +5071,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 388,
+      "id": 390,
       "identifier": "snowscape",
       "type": "Ice",
       "category": "special",
@@ -5058,7 +5084,7 @@
       "classifications": []
     },
     {
-      "id": 389,
+      "id": 391,
       "identifier": "soak",
       "type": "Water",
       "category": "status",
@@ -5071,7 +5097,7 @@
       "classifications": []
     },
     {
-      "id": 390,
+      "id": 392,
       "identifier": "soft-boiled",
       "type": "Normal",
       "category": "status",
@@ -5084,7 +5110,7 @@
       "classifications": []
     },
     {
-      "id": 391,
+      "id": 393,
       "identifier": "solar-beam",
       "type": "Grass",
       "category": "special",
@@ -5097,7 +5123,7 @@
       "classifications": []
     },
     {
-      "id": 392,
+      "id": 394,
       "identifier": "solar-blade",
       "type": "Grass",
       "category": "physical",
@@ -5110,7 +5136,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 393,
+      "id": 395,
       "identifier": "sparkling-aria",
       "type": "Water",
       "category": "special",
@@ -5123,7 +5149,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 394,
+      "id": 396,
       "identifier": "speed-swap",
       "type": "Psychic",
       "category": "status",
@@ -5136,7 +5162,7 @@
       "classifications": []
     },
     {
-      "id": 395,
+      "id": 397,
       "identifier": "spicy-extract",
       "type": "Grass",
       "category": "special",
@@ -5149,7 +5175,7 @@
       "classifications": []
     },
     {
-      "id": 396,
+      "id": 398,
       "identifier": "spikes",
       "type": "Ground",
       "category": "status",
@@ -5162,7 +5188,7 @@
       "classifications": []
     },
     {
-      "id": 397,
+      "id": 399,
       "identifier": "spiky-shield",
       "type": "Grass",
       "category": "status",
@@ -5175,7 +5201,7 @@
       "classifications": []
     },
     {
-      "id": 398,
+      "id": 400,
       "identifier": "spirit-shackle",
       "type": "Ghost",
       "category": "physical",
@@ -5188,7 +5214,7 @@
       "classifications": []
     },
     {
-      "id": 399,
+      "id": 401,
       "identifier": "spit-up",
       "type": "Normal",
       "category": "status",
@@ -5201,7 +5227,7 @@
       "classifications": []
     },
     {
-      "id": 400,
+      "id": 402,
       "identifier": "spite",
       "type": "Ghost",
       "category": "status",
@@ -5214,7 +5240,7 @@
       "classifications": []
     },
     {
-      "id": 401,
+      "id": 403,
       "identifier": "spore",
       "type": "Grass",
       "category": "status",
@@ -5227,7 +5253,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 402,
+      "id": 404,
       "identifier": "stealth-rock",
       "type": "Rock",
       "category": "status",
@@ -5240,7 +5266,7 @@
       "classifications": []
     },
     {
-      "id": 403,
+      "id": 405,
       "identifier": "steel-beam",
       "type": "Steel",
       "category": "special",
@@ -5253,7 +5279,7 @@
       "classifications": []
     },
     {
-      "id": 404,
+      "id": 406,
       "identifier": "steel-roller",
       "type": "Steel",
       "category": "physical",
@@ -5266,7 +5292,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 405,
+      "id": 407,
       "identifier": "steel-wing",
       "type": "Steel",
       "category": "physical",
@@ -5279,7 +5305,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 406,
+      "id": 408,
       "identifier": "sticky-web",
       "type": "Bug",
       "category": "status",
@@ -5292,7 +5318,7 @@
       "classifications": []
     },
     {
-      "id": 407,
+      "id": 409,
       "identifier": "stockpile",
       "type": "Normal",
       "category": "status",
@@ -5301,11 +5327,11 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "effect": "Boosts the user's Defense and Sp.Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times.",
+      "effect": "Boosts the user's Defense and Sp. Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times.",
       "classifications": []
     },
     {
-      "id": 408,
+      "id": 410,
       "identifier": "stomping-tantrum",
       "type": "Ground",
       "category": "physical",
@@ -5318,7 +5344,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 409,
+      "id": 411,
       "identifier": "stone-axe",
       "type": "Rock",
       "category": "physical",
@@ -5331,7 +5357,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 410,
+      "id": 412,
       "identifier": "stone-edge",
       "type": "Rock",
       "category": "physical",
@@ -5344,7 +5370,7 @@
       "classifications": []
     },
     {
-      "id": 411,
+      "id": 413,
       "identifier": "stored-power",
       "type": "Psychic",
       "category": "special",
@@ -5357,7 +5383,7 @@
       "classifications": []
     },
     {
-      "id": 412,
+      "id": 414,
       "identifier": "storm-throw",
       "type": "Fighting",
       "category": "physical",
@@ -5370,7 +5396,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 413,
+      "id": 415,
       "identifier": "strength-sap",
       "type": "Grass",
       "category": "status",
@@ -5383,20 +5409,20 @@
       "classifications": []
     },
     {
-      "id": 414,
+      "id": 416,
       "identifier": "string-shot",
       "type": "Bug",
       "category": "status",
       "power": null,
       "accuracy": 95,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' Speed stats by 2 stages.",
       "classifications": []
     },
     {
-      "id": 415,
+      "id": 417,
       "identifier": "struggle",
       "type": "Normal",
       "category": "physical",
@@ -5409,20 +5435,20 @@
       "classifications": ["contact"]
     },
     {
-      "id": 416,
+      "id": 418,
       "identifier": "struggle-bug",
       "type": "Bug",
       "category": "special",
       "power": 50,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers targets' Sp.Atk stats by 1 stage.",
+      "effect": "Lowers targets' Sp. Atk stats by 1 stage.",
       "classifications": []
     },
     {
-      "id": 417,
+      "id": 419,
       "identifier": "stuff-cheeks",
       "type": "Normal",
       "category": "status",
@@ -5435,7 +5461,7 @@
       "classifications": []
     },
     {
-      "id": 418,
+      "id": 420,
       "identifier": "stun-spore",
       "type": "Grass",
       "category": "status",
@@ -5448,7 +5474,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 419,
+      "id": 421,
       "identifier": "substitute",
       "type": "Normal",
       "category": "status",
@@ -5461,7 +5487,7 @@
       "classifications": []
     },
     {
-      "id": 420,
+      "id": 422,
       "identifier": "sucker-punch",
       "type": "Dark",
       "category": "physical",
@@ -5474,7 +5500,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 421,
+      "id": 423,
       "identifier": "sunny-day",
       "type": "Fire",
       "category": "status",
@@ -5487,7 +5513,7 @@
       "classifications": []
     },
     {
-      "id": 422,
+      "id": 424,
       "identifier": "super-fang",
       "type": "Normal",
       "category": "physical",
@@ -5500,7 +5526,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 423,
+      "id": 425,
       "identifier": "supercell-slam",
       "type": "Electric",
       "category": "physical",
@@ -5513,7 +5539,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 424,
+      "id": 426,
       "identifier": "superpower",
       "type": "Fighting",
       "category": "physical",
@@ -5526,7 +5552,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 425,
+      "id": 427,
       "identifier": "surf",
       "type": "Water",
       "category": "special",
@@ -5539,7 +5565,7 @@
       "classifications": []
     },
     {
-      "id": 426,
+      "id": 428,
       "identifier": "swagger",
       "type": "Normal",
       "category": "status",
@@ -5552,7 +5578,7 @@
       "classifications": []
     },
     {
-      "id": 427,
+      "id": 429,
       "identifier": "swallow",
       "type": "Normal",
       "category": "status",
@@ -5565,7 +5591,7 @@
       "classifications": []
     },
     {
-      "id": 428,
+      "id": 430,
       "identifier": "sweet-kiss",
       "type": "Fairy",
       "category": "status",
@@ -5578,20 +5604,20 @@
       "classifications": []
     },
     {
-      "id": 429,
+      "id": 431,
       "identifier": "sweet-scent",
       "type": "Normal",
       "category": "status",
       "power": null,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 20,
       "priority": 0,
       "effect": "Lowers targets' evasiveness by 2 stages.",
       "classifications": []
     },
     {
-      "id": 430,
+      "id": 432,
       "identifier": "switcheroo",
       "type": "Dark",
       "category": "status",
@@ -5604,7 +5630,7 @@
       "classifications": []
     },
     {
-      "id": 431,
+      "id": 433,
       "identifier": "swords-dance",
       "type": "Normal",
       "category": "status",
@@ -5617,7 +5643,7 @@
       "classifications": []
     },
     {
-      "id": 432,
+      "id": 434,
       "identifier": "synthesis",
       "type": "Grass",
       "category": "status",
@@ -5630,7 +5656,7 @@
       "classifications": []
     },
     {
-      "id": 433,
+      "id": 435,
       "identifier": "syrup-bomb",
       "type": "Grass",
       "category": "special",
@@ -5643,7 +5669,7 @@
       "classifications": []
     },
     {
-      "id": 434,
+      "id": 436,
       "identifier": "tail-slap",
       "type": "Normal",
       "category": "physical",
@@ -5656,7 +5682,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 435,
+      "id": 437,
       "identifier": "tailwind",
       "type": "Flying",
       "category": "status",
@@ -5669,7 +5695,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 436,
+      "id": 438,
       "identifier": "taunt",
       "type": "Dark",
       "category": "status",
@@ -5682,7 +5708,7 @@
       "classifications": []
     },
     {
-      "id": 437,
+      "id": 439,
       "identifier": "tearful-look",
       "type": "Normal",
       "category": "status",
@@ -5691,24 +5717,24 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "effect": "Lowers the target's Attack and Sp.Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect.",
+      "effect": "Lowers the target's Attack and Sp. Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect.",
       "classifications": []
     },
     {
-      "id": 438,
+      "id": 440,
       "identifier": "teatime",
       "type": "Normal",
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "All",
+      "range": "all-pokemon",
       "pp": 12,
       "priority": 0,
       "effect": "Causes all Pokemon on the field to eat their held Berries.",
       "classifications": []
     },
     {
-      "id": 439,
+      "id": 441,
       "identifier": "teeter-dance",
       "type": "Normal",
       "category": "status",
@@ -5721,7 +5747,7 @@
       "classifications": []
     },
     {
-      "id": 440,
+      "id": 442,
       "identifier": "temper-flare",
       "type": "Fire",
       "category": "physical",
@@ -5734,7 +5760,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 441,
+      "id": 443,
       "identifier": "terrain-pulse",
       "type": "Normal",
       "category": "special",
@@ -5747,7 +5773,7 @@
       "classifications": []
     },
     {
-      "id": 442,
+      "id": 444,
       "identifier": "thief",
       "type": "Dark",
       "category": "physical",
@@ -5760,7 +5786,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 443,
+      "id": 445,
       "identifier": "thrash",
       "type": "Normal",
       "category": "physical",
@@ -5773,7 +5799,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 444,
+      "id": 446,
       "identifier": "throat-chop",
       "type": "Dark",
       "category": "physical",
@@ -5786,7 +5812,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 445,
+      "id": 447,
       "identifier": "thunder",
       "type": "Electric",
       "category": "special",
@@ -5799,7 +5825,7 @@
       "classifications": []
     },
     {
-      "id": 446,
+      "id": 448,
       "identifier": "thunder-fang",
       "type": "Electric",
       "category": "physical",
@@ -5812,7 +5838,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 447,
+      "id": 449,
       "identifier": "thunder-punch",
       "type": "Electric",
       "category": "physical",
@@ -5825,7 +5851,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 448,
+      "id": 450,
       "identifier": "thunder-wave",
       "type": "Electric",
       "category": "status",
@@ -5838,7 +5864,7 @@
       "classifications": []
     },
     {
-      "id": 449,
+      "id": 451,
       "identifier": "thunderbolt",
       "type": "Electric",
       "category": "special",
@@ -5851,7 +5877,7 @@
       "classifications": []
     },
     {
-      "id": 450,
+      "id": 452,
       "identifier": "tickle",
       "type": "Normal",
       "category": "status",
@@ -5864,7 +5890,7 @@
       "classifications": []
     },
     {
-      "id": 451,
+      "id": 453,
       "identifier": "tidy-up",
       "type": "Normal",
       "category": "special",
@@ -5877,7 +5903,7 @@
       "classifications": []
     },
     {
-      "id": 452,
+      "id": 454,
       "identifier": "torch-song",
       "type": "Fire",
       "category": "special",
@@ -5886,11 +5912,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "Boosts the user's Sp.Atk stat by 1 stage.",
+      "effect": "Boosts the user's Sp. Atk stat by 1 stage.",
       "classifications": ["sound-based"]
     },
     {
-      "id": 453,
+      "id": 455,
       "identifier": "torment",
       "type": "Dark",
       "category": "status",
@@ -5903,7 +5929,7 @@
       "classifications": []
     },
     {
-      "id": 454,
+      "id": 456,
       "identifier": "toxic",
       "type": "Poison",
       "category": "status",
@@ -5916,7 +5942,7 @@
       "classifications": []
     },
     {
-      "id": 455,
+      "id": 457,
       "identifier": "toxic-spikes",
       "type": "Poison",
       "category": "status",
@@ -5929,7 +5955,7 @@
       "classifications": []
     },
     {
-      "id": 456,
+      "id": 458,
       "identifier": "toxic-thread",
       "type": "Poison",
       "category": "status",
@@ -5942,7 +5968,7 @@
       "classifications": []
     },
     {
-      "id": 457,
+      "id": 459,
       "identifier": "trailblaze",
       "type": "Grass",
       "category": "physical",
@@ -5955,7 +5981,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 458,
+      "id": 460,
       "identifier": "transform",
       "type": "Normal",
       "category": "status",
@@ -5968,7 +5994,7 @@
       "classifications": []
     },
     {
-      "id": 459,
+      "id": 461,
       "identifier": "tri-attack",
       "type": "Normal",
       "category": "special",
@@ -5981,7 +6007,7 @@
       "classifications": []
     },
     {
-      "id": 460,
+      "id": 462,
       "identifier": "trick",
       "type": "Psychic",
       "category": "status",
@@ -5994,7 +6020,7 @@
       "classifications": []
     },
     {
-      "id": 461,
+      "id": 463,
       "identifier": "trick-room",
       "type": "Psychic",
       "category": "status",
@@ -6007,7 +6033,7 @@
       "classifications": []
     },
     {
-      "id": 462,
+      "id": 464,
       "identifier": "trick-or-treat",
       "type": "Ghost",
       "category": "status",
@@ -6020,7 +6046,7 @@
       "classifications": []
     },
     {
-      "id": 463,
+      "id": 465,
       "identifier": "triple-arrows",
       "type": "Fighting",
       "category": "physical",
@@ -6033,7 +6059,7 @@
       "classifications": []
     },
     {
-      "id": 464,
+      "id": 466,
       "identifier": "triple-axel",
       "type": "Ice",
       "category": "physical",
@@ -6042,11 +6068,11 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "effect": "The user attacks 3 times in a row-first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
+      "effect": "The user attacks 3 times in a rowâ€”first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
       "classifications": ["contact"]
     },
     {
-      "id": 465,
+      "id": 467,
       "identifier": "trop-kick",
       "type": "Grass",
       "category": "physical",
@@ -6059,7 +6085,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 466,
+      "id": 468,
       "identifier": "twin-beam",
       "type": "Psychic",
       "category": "special",
@@ -6072,7 +6098,7 @@
       "classifications": []
     },
     {
-      "id": 467,
+      "id": 469,
       "identifier": "u-turn",
       "type": "Bug",
       "category": "physical",
@@ -6085,7 +6111,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 468,
+      "id": 470,
       "identifier": "upper-hand",
       "type": "Fighting",
       "category": "physical",
@@ -6098,7 +6124,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 469,
+      "id": 471,
       "identifier": "uproar",
       "type": "Normal",
       "category": "special",
@@ -6111,7 +6137,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 470,
+      "id": 472,
       "identifier": "vacuum-wave",
       "type": "Fighting",
       "category": "special",
@@ -6124,7 +6150,7 @@
       "classifications": []
     },
     {
-      "id": 471,
+      "id": 473,
       "identifier": "venoshock",
       "type": "Poison",
       "category": "special",
@@ -6137,7 +6163,7 @@
       "classifications": []
     },
     {
-      "id": 472,
+      "id": 474,
       "identifier": "volt-switch",
       "type": "Electric",
       "category": "special",
@@ -6150,7 +6176,7 @@
       "classifications": []
     },
     {
-      "id": 473,
+      "id": 475,
       "identifier": "volt-tackle",
       "type": "Electric",
       "category": "physical",
@@ -6163,7 +6189,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 474,
+      "id": 476,
       "identifier": "water-pulse",
       "type": "Water",
       "category": "special",
@@ -6176,7 +6202,7 @@
       "classifications": []
     },
     {
-      "id": 475,
+      "id": 477,
       "identifier": "water-shuriken",
       "type": "Water",
       "category": "special",
@@ -6189,20 +6215,20 @@
       "classifications": []
     },
     {
-      "id": 476,
+      "id": 478,
       "identifier": "water-spout",
       "type": "Water",
       "category": "special",
       "power": 150,
       "accuracy": 100,
-      "range": "all-opponents",
+      "range": "all-allies",
       "pp": 8,
       "priority": 0,
       "effect": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
       "classifications": []
     },
     {
-      "id": 477,
+      "id": 479,
       "identifier": "waterfall",
       "type": "Water",
       "category": "physical",
@@ -6215,7 +6241,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 478,
+      "id": 480,
       "identifier": "wave-crash",
       "type": "Water",
       "category": "physical",
@@ -6228,7 +6254,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 479,
+      "id": 481,
       "identifier": "weather-ball",
       "type": "Normal",
       "category": "special",
@@ -6238,10 +6264,10 @@
       "pp": 12,
       "priority": 0,
       "effect": "When a weather condition is present this move's power is doubled and its type changes. Harsh sunlight Fire type. Rain Water type. Snow Ice type. Sandstorm Rock type.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 480,
+      "id": 482,
       "identifier": "whirlpool",
       "type": "Water",
       "category": "special",
@@ -6254,7 +6280,7 @@
       "classifications": []
     },
     {
-      "id": 481,
+      "id": 483,
       "identifier": "whirlwind",
       "type": "Normal",
       "category": "status",
@@ -6267,7 +6293,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 482,
+      "id": 484,
       "identifier": "wide-guard",
       "type": "Rock",
       "category": "status",
@@ -6280,7 +6306,7 @@
       "classifications": []
     },
     {
-      "id": 483,
+      "id": 485,
       "identifier": "wild-charge",
       "type": "Electric",
       "category": "physical",
@@ -6293,7 +6319,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 484,
+      "id": 486,
       "identifier": "will-o-wisp",
       "type": "Fire",
       "category": "status",
@@ -6306,7 +6332,7 @@
       "classifications": []
     },
     {
-      "id": 485,
+      "id": 487,
       "identifier": "wish",
       "type": "Normal",
       "category": "status",
@@ -6319,7 +6345,7 @@
       "classifications": []
     },
     {
-      "id": 486,
+      "id": 488,
       "identifier": "wonder-room",
       "type": "Psychic",
       "category": "status",
@@ -6332,7 +6358,7 @@
       "classifications": []
     },
     {
-      "id": 487,
+      "id": 489,
       "identifier": "wood-hammer",
       "type": "Grass",
       "category": "physical",
@@ -6345,7 +6371,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 488,
+      "id": 490,
       "identifier": "worry-seed",
       "type": "Grass",
       "category": "status",
@@ -6358,7 +6384,7 @@
       "classifications": []
     },
     {
-      "id": 489,
+      "id": 491,
       "identifier": "wrap",
       "type": "Normal",
       "category": "physical",
@@ -6371,7 +6397,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 490,
+      "id": 492,
       "identifier": "x-scissor",
       "type": "Bug",
       "category": "physical",
@@ -6384,7 +6410,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 491,
+      "id": 493,
       "identifier": "yawn",
       "type": "Normal",
       "category": "status",
@@ -6397,7 +6423,7 @@
       "classifications": []
     },
     {
-      "id": 492,
+      "id": 494,
       "identifier": "zap-cannon",
       "type": "Electric",
       "category": "special",
@@ -6407,10 +6433,10 @@
       "pp": 8,
       "priority": 0,
       "effect": "Paralyzes the target.",
-      "classifications": ["bullet"]
+      "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 493,
+      "id": 495,
       "identifier": "zen-headbutt",
       "type": "Psychic",
       "category": "physical",

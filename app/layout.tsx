@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
 import "./globals.css";
-import theme from "../theme";
 import { AppLayout } from "@/components/client/layout";
 import { ReactNode } from "react";
 
@@ -21,10 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AppLayout>{children}</AppLayout>
-          </ThemeProvider>
+          <AppLayout>{children}</AppLayout>
         </AppRouterCacheProvider>
       </body>
     </html>
