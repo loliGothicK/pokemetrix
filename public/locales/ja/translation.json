@@ -66,7 +66,14 @@
     "shareTeam": "チームをシェア",
     "sharing": "リンク作成中…",
     "shareSuccess": "シェアリンクを作成しました！",
-    "shareError": "シェアリンクの作成に失敗しました。"
+    "shareError": "シェアリンクの作成に失敗しました。",
+    "dialogDescription": "シェアリンクに含める情報を選んでください。",
+    "showStatsLabel": "ステータスを含める",
+    "showStatsDescription": "実数値・努力値を公開します。オフにするとオープンチームシートになります。",
+    "createLink": "リンクを作成",
+    "abilityLabel": "特性",
+    "natureLabel": "性格",
+    "openInBuilder": "チームビルダーで開く"
   },
   "box": {
     "title": "マイBOX",

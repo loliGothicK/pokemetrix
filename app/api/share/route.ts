@@ -12,6 +12,7 @@ import type { SharedTeamSnapshot } from "@/lib/db/schema";
 const snapshotSchema = z.object({
   teamName: z.string().min(1).max(100),
   members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
+  showStats: z.boolean(),
 });
 
 export async function POST(request: Request) {

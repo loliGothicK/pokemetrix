@@ -68,7 +68,14 @@
     "shareTeam": "Share Team",
     "sharing": "Creating link…",
     "shareSuccess": "Share link created!",
-    "shareError": "Failed to create share link."
+    "shareError": "Failed to create share link.",
+    "dialogDescription": "Choose what to include in your share link.",
+    "showStatsLabel": "Include stats",
+    "showStatsDescription": "Share actual values and EVs. Leave off for an open team sheet.",
+    "createLink": "Create Link",
+    "abilityLabel": "Ability",
+    "natureLabel": "Nature",
+    "openInBuilder": "Open in Team Builder"
   },
   "box": {
     "title": "My BOX",

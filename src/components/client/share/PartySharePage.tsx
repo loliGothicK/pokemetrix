@@ -7,7 +7,6 @@ import {
   Chip,
   Grid,
   Paper,
-  Skeleton,
   Snackbar,
   Stack,
   Typography,
@@ -17,10 +16,15 @@ import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
-import ErrorOutlinedIcon from "@mui/icons-material/ErrorOutlined";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { getAppPalette } from "@/theme/palette";
 import { PokemonBuildCard } from "@/components/client/share/PokemonBuildCard";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
+import { useSetAtom } from "jotai";
+import { localTeamsAtom, activeTeamIdAtom } from "@/store/team/team";
+import { ulid } from "ulid";
+import { useRouter } from "next/navigation";
 
 // ── Props ────────────────────────────────────────────────────────────────────
 
@@ -60,59 +64,14 @@ function EmptySlotCard() {
   );
 }
 
-// ── ローディングスケルトン ────────────────────────────────────────────────────
-
-export function PartySharePageSkeleton() {
-  return (
-    <Box sx={{ maxWidth: 1200, mx: "auto", px: { xs: 2, sm: 3 }, py: { xs: 3, sm: 5 } }}>
-      <Skeleton variant="text" width={240} height={48} sx={{ mb: 1 }} />
-      <Skeleton variant="text" width={120} height={24} sx={{ mb: 3 }} />
-      <Grid container spacing={{ xs: 1.5, sm: 2, md: 2.5 }}>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <Grid component="div" size={{ xs: 12, sm: 6, lg: 4 }} key={i}>
-            <Skeleton variant="rounded" height={260} sx={{ borderRadius: 3 }} />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
-  );
-}
-
-// ── エラー表示 ────────────────────────────────────────────────────────────────
-
-export function PartySharePageError({ message }: { message: string }) {
-  const { t } = useTranslation();
-  return (
-    <Box
-      sx={{
-        maxWidth: 480,
-        mx: "auto",
-        px: 3,
-        py: 10,
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 2,
-      }}
-    >
-      <ErrorOutlinedIcon sx={{ fontSize: 64, color: "text.disabled", opacity: 0.5 }} />
-      <Typography variant="h5" sx={{ fontWeight: 700 }}>
-        {t("share.notFound")}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        {message}
-      </Typography>
-    </Box>
-  );
-}
-
 // ── メインコンポーネント ──────────────────────────────────────────────────────
-
 export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
+  const router = useRouter();
+  const setLocalTeams = useSetAtom(localTeamsAtom);
+  const setActiveTeamId = useSetAtom(activeTeamIdAtom);
 
   const [copied, setCopied] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
@@ -133,7 +92,20 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
     }
   }, [shareUrl]);
 
-  const nonNullCount = snapshot.members.filter(Boolean).length;
+  // スナップショットを新しいチームとして localTeams に追加し、チームビルダーへ遷移
+  const handleOpenInBuilder = useCallback(() => {
+    const newId = ulid();
+    setLocalTeams((prev) => [
+      ...prev,
+      {
+        id: newId,
+        name: snapshot.teamName,
+        members: snapshot.members,
+      },
+    ]);
+    setActiveTeamId(newId);
+    router.push("/team-builder");
+  }, [snapshot, setLocalTeams, setActiveTeamId, router]);
 
   // 日付フォーマット（ロケール対応）
   const formattedDate = new Date(createdAt).toLocaleDateString(undefined, {
@@ -184,71 +156,44 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           }}
         >
           <Stack direction="row" spacing={1} useFlexGap sx={{ alignItems: "center", flexWrap: "wrap" }}>
-            <Chip
-              label={t("share.memberCount", { count: nonNullCount })}
-              size="small"
-              sx={{
-                bgcolor: alpha(theme.palette.primary.main, 0.1),
-                color: theme.palette.primary.main,
-                fontWeight: 600,
-                fontSize: "0.7rem",
-              }}
-            />
             <Typography variant="caption" color="text.secondary">
               {t("share.createdAt", { date: formattedDate })}
             </Typography>
+            {snapshot.showStats && (
+              <Chip
+                label={t("share.showStatsLabel")}
+                size="small"
+                icon={<BarChartIcon sx={{ fontSize: "0.85rem !important" }} />}
+                sx={{ height: 20, fontSize: "0.65rem", fontWeight: 600 }}
+              />
+            )}
           </Stack>
 
-          {/* リンクコピーボタン */}
-          <Button
-            variant={copied ? "contained" : "outlined"}
-            size="small"
-            color={copied ? "success" : "primary"}
-            startIcon={copied ? <CheckIcon /> : <ContentCopyIcon />}
-            onClick={handleCopy}
-            disableElevation
-            sx={{
-              borderRadius: 2,
-              fontSize: "0.75rem",
-              px: 2,
-              minWidth: { xs: "auto", sm: 160 },
-              transition: "all 0.2s",
-            }}
-          >
-            {copied ? t("share.linkCopied") : t("share.copyLink")}
-          </Button>
+          {/* ボタン群 */}
+          <Stack direction="row" spacing={1} sx={{ flexShrink: 0 }}>
+            <Button
+              variant="outlined"
+              size="small"
+              color={copied ? "success" : "primary"}
+              startIcon={copied ? <CheckIcon /> : <ContentCopyIcon />}
+              onClick={handleCopy}
+              disableElevation
+              sx={{ borderRadius: 2, fontSize: "0.75rem", px: 2, transition: "all 0.2s" }}
+            >
+              {copied ? t("share.linkCopied") : t("share.copyLink")}
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<EditNoteIcon />}
+              onClick={handleOpenInBuilder}
+              disableElevation
+              sx={{ borderRadius: 2, fontSize: "0.75rem", px: 2 }}
+            >
+              {t("share.openInBuilder")}
+            </Button>
+          </Stack>
         </Stack>
-
-        {/* URLプレビュー */}
-        <Box
-          sx={{
-            mt: 1.5,
-            px: 1.5,
-            py: 0.75,
-            borderRadius: 1.5,
-            bgcolor: alpha(theme.palette.action.hover, 0.5),
-            border: "1px solid",
-            borderColor: palette.edge,
-            display: "inline-flex",
-            alignItems: "center",
-            maxWidth: "100%",
-            overflow: "hidden",
-          }}
-        >
-          <Typography
-            variant="caption"
-            sx={{
-              fontFamily: "monospace",
-              color: "text.secondary",
-              fontSize: "0.7rem",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {shareUrl}
-          </Typography>
-        </Box>
       </Box>
 
       {/* ── パーティグリッド ─────────────────────────────────────── */}
@@ -262,7 +207,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           >
             {member ? (
               <Box sx={{ width: "100%" }}>
-                <PokemonBuildCard pokemon={member} />
+                <PokemonBuildCard pokemon={member} showStats={snapshot.showStats} />
               </Box>
             ) : (
               <Box sx={{ width: "100%", minHeight: 260 }}>

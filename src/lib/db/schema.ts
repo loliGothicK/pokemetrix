@@ -8,6 +8,8 @@ import type { TrainedPokemon } from "@/store/team/team";
 export interface SharedTeamSnapshot {
   teamName: string;
   members: (TrainedPokemon | null)[];
+  /** true = 実数値・努力値を公開する。false = オープンチームシート（構成のみ公開） */
+  showStats: boolean;
 }
 
 export const boxPokemon = pgTable(
