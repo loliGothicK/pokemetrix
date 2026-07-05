@@ -22,6 +22,20 @@
     "lightMode": "Switch to light mode",
     "darkMode": "Switch to dark mode"
   },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "loginWithGoogle": "Sign in with Google",
+    "account": "Account",
+    "user": "User",
+    "mergeDialog": {
+      "title": "Organize your teams",
+      "description": "Merge your pre- and post-login teams. Drag to reorder, pick or drop each team.",
+      "empty": "No teams found",
+      "commit": "Commit",
+      "cancel": "Cancel"
+    }
+  },
   "navigation": {
     "openMenu": "Open menu",
     "groups": {
@@ -70,6 +84,10 @@
     "teamLabel": "Team {{index}}",
     "emptyMember": "Empty slot {{index}}",
     "memberLabel": "Member {{index}}",
+    "deleteTeamTitle": "Delete team",
+    "deleteTeamConfirm": "Delete \"{{name}}\"? This cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
     "forgetMove": "Forget this move.",
     "removeItem": "Remove Held Item",
     "import": "import from",

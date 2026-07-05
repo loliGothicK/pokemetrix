@@ -20,6 +20,20 @@
     "lightMode": "ライトモードに切り替え",
     "darkMode": "ダークモードに切り替え"
   },
+  "auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "loginWithGoogle": "Google でログイン",
+    "account": "アカウント",
+    "user": "ユーザー",
+    "mergeDialog": {
+      "title": "チームを整理する",
+      "description": "ログイン前後のチームをマージしてください。ドラッグで並び替え、pick / drop で選択できます。",
+      "empty": "チームがありません",
+      "commit": "Commit",
+      "cancel": "Cancel"
+    }
+  },
   "navigation": {
     "openMenu": "メニューを開く",
     "groups": {
@@ -69,6 +83,10 @@
     "teamLabel": "チーム {{index}}",
     "emptyMember": "空きスロット {{index}}",
     "memberLabel": "メンバー {{index}}",
+    "deleteTeamTitle": "チームを削除",
+    "deleteTeamConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
+    "cancel": "キャンセル",
+    "delete": "削除",
     "drawer": {
       "overview": "概要",
       "roster": "編成",

@@ -1,19 +1,38 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET(_request: Request) {
-  // 1. セッションの確認（ログインユーザーか？）
-  // 2. データベース（PrismaやSupabaseなど）からチーム一覧を取得
-  // const teams = await db.team.findMany(...);
+  const supabase = await createClient();
 
-  return NextResponse.json({
-    /* teams */
-  });
+  // セッション確認（getClaims()で検証）
+  const { data: claims, error: authError } = await supabase.auth.getClaims();
+  if (authError || !claims) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = claims.claims.sub;
+
+  // TODO: DBからユーザーのチーム一覧を取得
+  // const { data: teams } = await supabase.from("teams").select("*").eq("user_id", userId);
+  console.log(`Fetch teams for user: ${userId}`);
+
+  return NextResponse.json([]);
 }
 
-export async function POST(_request: Request) {
-  // 1. セッションの確認
-  // 2. リクエストボディのパース
-  // 3. データベースへの保存処理
+export async function POST(request: Request) {
+  const supabase = await createClient();
+
+  const { data: claims, error: authError } = await supabase.auth.getClaims();
+  if (authError || !claims) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = claims.claims.sub;
+  const teams = await request.json();
+
+  // TODO: DBへチームを保存
+  // await supabase.from("teams").upsert(teams.map(t => ({ ...t, user_id: userId })));
+  console.log(`Save teams for user: ${userId}`, teams);
 
   return NextResponse.json({ success: true });
 }

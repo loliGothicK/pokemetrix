@@ -41,6 +41,9 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { useAuthSync } from "@/hooks/useAuthSync";
+import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
+import { AuthButton } from "@/components/client/AuthButton";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
@@ -244,6 +247,7 @@ function AppControls({
           )}
         </IconButton>
       </Tooltip>
+      <AuthButton />
     </Stack>
   );
 }
@@ -376,6 +380,20 @@ function MobileNavigation({ open, onClose }: { open: boolean; onClose: () => voi
   );
 }
 
+function AuthSyncEffect() {
+  const { isMergeOpen, mergeEntries, setMergeEntries, onMergeCommit, onMergeCancel } =
+    useAuthSync();
+  return (
+    <TeamMergeDialog
+      open={isMergeOpen}
+      entries={mergeEntries}
+      setEntries={setMergeEntries}
+      onCommit={onMergeCommit}
+      onCancel={onMergeCancel}
+    />
+  );
+}
+
 export function AppLayout({
   children,
 }: Readonly<{
@@ -457,6 +475,7 @@ export function AppLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthSyncEffect />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box

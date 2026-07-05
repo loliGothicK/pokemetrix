@@ -31,6 +31,12 @@ import {
   Paper,
   FormControlLabel,
   Switch,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  IconButton as MuiIconButton,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -40,6 +46,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { exportPokepaste } from "@/lib/pokepaste";
 import { ulid } from "ulid";
 import ImportPokepasteDialog from "@/components/client/team-builder/importDialog";
@@ -320,8 +327,12 @@ export default function TeamBuilderPage({
   });
 
   const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
-  const { teams, isLoading, updateTeams } = useTeamsData();
+  const { teams, isLoading, updateTeams, removeTeam } = useTeamsData();
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
+
+  // 削除確認ダイアログ用
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const deleteTargetTeam = teams.find((t) => t.id === deleteTargetId) ?? null;
 
   // モバイルではチーム選択ドロワーを既定で閉じ、コンテンツ（戻るボタン/名前）に被らないようにする
   useEffect(() => {
@@ -349,6 +360,16 @@ export default function TeamBuilderPage({
     });
   };
 
+  const handleDeleteTeam = (teamId: string) => {
+    removeTeam(teamId);
+    // 削除したチームが選択中だった場合、残りの先頭チームへ切り替える
+    if (activeTeamId === teamId) {
+      const remaining = teams.filter((t) => t.id !== teamId);
+      setActiveTeamId(remaining.length > 0 ? remaining[0].id : null);
+    }
+    setDeleteTargetId(null);
+  };
+
   return (
     <Box
       sx={{
@@ -360,12 +381,32 @@ export default function TeamBuilderPage({
         height: { xs: "auto", md: "100vh" },
       }}
     >
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={5000}
-        open={snackbarOpen}
-        onClose={() => setSnackbarOpen(false)}
+      {/* ── チーム削除確認ダイアログ ── */}
+      <Dialog
+        open={deleteTargetId !== null}
+        onClose={() => setDeleteTargetId(null)}
+        aria-labelledby="delete-team-dialog-title"
       >
+        <DialogTitle id="delete-team-dialog-title">{t("teamBuilder.deleteTeamTitle")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t("teamBuilder.deleteTeamConfirm", { name: deleteTargetTeam?.name ?? "" })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteTargetId(null)}>{t("teamBuilder.cancel")}</Button>
+          <Button
+            color="error"
+            variant="contained"
+            disableElevation
+            onClick={() => deleteTargetId && handleDeleteTeam(deleteTargetId)}
+          >
+            {t("teamBuilder.delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar autoHideDuration={5000} open={snackbarOpen} onClose={() => setSnackbarOpen(false)}>
         <Alert severity={diagnostics.severity} sx={{ whiteSpace: "pre-wrap" }}>
           {match(diagnostics)
             .with({ severity: "error" }, ({ message }) => (
@@ -489,7 +530,27 @@ export default function TeamBuilderPage({
                 </ListItem>
               ) : (
                 teams.map((team) => (
-                  <ListItem key={team.id} disablePadding>
+                  <ListItem
+                    key={team.id}
+                    disablePadding
+                    secondaryAction={
+                      <MuiIconButton
+                        edge="end"
+                        size="small"
+                        aria-label={t("teamBuilder.deleteTeamTitle")}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeleteTargetId(team.id);
+                        }}
+                        sx={{
+                          color: "text.secondary",
+                          "&:hover": { color: "error.main" },
+                        }}
+                      >
+                        <DeleteOutlineIcon fontSize="small" />
+                      </MuiIconButton>
+                    }
+                  >
                     <ListItemButton
                       selected={team.id === activeTeamId}
                       onClick={() => setActiveTeamId(team.id)}
@@ -497,6 +558,7 @@ export default function TeamBuilderPage({
                         borderRadius: 2,
                         mx: 1,
                         mb: 0.5,
+                        pr: 6, // 削除ボタン分の余白
                         "&.Mui-selected": { bgcolor: palette.surfaceRaised },
                       }}
                     >
