@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Button, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
 import { getAppPalette } from "@/theme/palette";
 import { Training } from "@/components/client/team-builder/training";
@@ -13,6 +15,8 @@ import { activeSlotIndexAtom, TrainedPokemon } from "@/store/team/team";
 import { toDefault } from "@/data/utility/training";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
+import { useBoxData } from "@/hooks/useBoxData";
+import { isAuthenticatedAtom } from "@/store/auth";
 
 /**
  * URLのスロット（`/team-builder/[slot]`）に対応した単一スロットの育成画面。
@@ -30,8 +34,11 @@ export default function TeamSlotDetail({
   const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [savedSnackbar, setSavedSnackbar] = useState(false);
   const [team, updateSlot] = useActiveTeam();
   const setActiveSlotIndex = useSetAtom(activeSlotIndexAtom);
+  const { saveToBox } = useBoxData();
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
   // URL 由来のスロットを、Lint セレクタ（activeSlotLintIssueAtom）が参照する atom に同期する。
   useEffect(() => {
@@ -82,6 +89,20 @@ export default function TeamSlotDetail({
         <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
           {title}
         </Typography>
+        {member && isAuthenticated && (
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<SaveOutlinedIcon />}
+            onClick={() => {
+              saveToBox(member);
+              setSavedSnackbar(true);
+            }}
+            sx={{ ml: "auto", flexShrink: 0 }}
+          >
+            {t("box.saveToBox")}
+          </Button>
+        )}
       </Stack>
 
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
@@ -113,7 +134,22 @@ export default function TeamSlotDetail({
           updateSlot(slot, toDefault(identifier));
           setDialogOpen(false);
         }}
+        onSelectFromBox={(pokemon) => {
+          updateSlot(slot, pokemon);
+          setDialogOpen(false);
+        }}
       />
+
+      <Snackbar
+        open={savedSnackbar}
+        autoHideDuration={2000}
+        onClose={() => setSavedSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert severity="success" onClose={() => setSavedSnackbar(false)}>
+          {t("box.savedToBox")}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }

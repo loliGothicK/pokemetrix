@@ -203,7 +203,7 @@ function ImportMenu({
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setOpenPaste(false);
+            setOpenPaste(true);
             handleClose();
           }}
           disableRipple

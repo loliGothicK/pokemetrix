@@ -28,6 +28,7 @@ import { abilityById, abilityByIdentifier } from "@/data/abilities";
 import { outdent } from "outdent";
 import { invalidPokepasteFormat } from "@/errors/thiserror/thiserror";
 import { pokemonById } from "@/data/pokemon";
+import { ulid } from "ulid";
 
 const ap = getApplicativeValidation(getSemigroup<MitamaError>());
 
@@ -234,6 +235,7 @@ function convertToAppMember(block: string): ValidateResult<TrainedPokemon> {
     toValidated,
     either.flatMap((pokemon) =>
       sequenceS(ap)({
+        boxId: right(ulid()),
         identifier: right(pokemon.identifier),
         slug: pipe(
           pokemon.slug,

@@ -4,6 +4,7 @@ import { Gender, EV } from "@/types/pokemon";
 import { Lens } from "monocle-ts";
 
 export interface TrainedPokemon {
+  boxId: string; // box_pokemon.id (ULID) — individual instance identifier
   identifier: string;
   slug: string;
   item: number | null;
@@ -44,10 +45,10 @@ export interface Team {
 export const activeSlotIndexAtom = atom(0);
 
 // =====================================================================
-// 【いずれ捨てるAtom（サーバー状態のモック）】
-// 将来、これは TanStack Query の `useQuery(['teams'])` に完全に置き換わる。
+// 未ログイン時のオフラインデータ（localStorageに永続化）
+// ログイン時は TanStack Query の ["teams"] キャッシュがデータソースになる
 // =====================================================================
-export const localTeamsAtom = atomWithStorage<Team[]>("pokemon_teams", []);
+export const localTeamsAtom = atomWithStorage<Team[]>("pokemon_teams_v2", []);
 
 // =====================================================================
 // 【一生残るAtom（純粋なクライアント状態）】

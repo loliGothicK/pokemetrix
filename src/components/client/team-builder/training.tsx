@@ -24,6 +24,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { getAppPalette } from "@/theme/palette";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
@@ -41,8 +42,8 @@ import { useBattleData } from "@/hooks/useBattleData";
 import { itemSprite, typeIcon } from "@/lib/image";
 import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
 import { Add, Remove, ArrowDropDown, ChangeCircle } from "@mui/icons-material";
-import { activeSlotLintIssueAtom, MAX_EV_TOTAL } from "@/store/team/lint";
-import { useAtom } from "jotai";
+import { makeTeamLintIssuesAtom, activeSlotLintIssueAtom, MAX_EV_TOTAL } from "@/store/team/lint";
+import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
 import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
@@ -105,7 +106,11 @@ export function Training({
   );
   const [natureAnchorEl, setNatureAnchorEl] = useState<HTMLButtonElement | null>(null);
   const isNaturePopoverOpen = Boolean(natureAnchorEl);
-  const [issue] = useAtom(activeSlotLintIssueAtom);
+  const [activeTeam] = useActiveTeam();
+  const lintIssuesAtom = useMemo(() => makeTeamLintIssuesAtom(activeTeam), [activeTeam]);
+  const lintIssues = useAtomValue(lintIssuesAtom);
+  const slotLintIssueAtom = useMemo(() => activeSlotLintIssueAtom(lintIssues), [lintIssues]);
+  const issue = useAtomValue(slotLintIssueAtom);
   const items = useMemo(() => {
     return itemList.toSorted((a, b) => a.category.localeCompare(b.category));
   }, []);
@@ -200,7 +205,7 @@ export function Training({
     <Stack
       direction={"column"}
       className={"Training-root"}
-      sx={{ ml: { xs: 0, md: drawerOpen ? "400px" : 0 }, transition: "margin 0.3s", minWidth: 0 }}
+      sx={{ ml: { xs: 0, md: drawerOpen ? "560px" : 0, lg: drawerOpen ? "900px" : 0 }, transition: "margin 0.3s", minWidth: 0 }}
     >
       {/* メインコンテンツ（Basics, Items, Nature等） */}
       <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>

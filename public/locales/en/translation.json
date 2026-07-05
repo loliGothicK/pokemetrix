@@ -28,6 +28,7 @@
     "loginWithGoogle": "Sign in with Google",
     "account": "Account",
     "user": "User",
+    "loginRequired": "Please log in to use this feature.",
     "mergeDialog": {
       "title": "Organize your teams",
       "description": "Merge your pre- and post-login teams. Drag to reorder, pick or drop each team.",
@@ -45,6 +46,7 @@
     },
     "items": {
       "createTeam": "Create Team",
+      "myBox": "My BOX",
       "draftAssistant": "Draft Assistant",
       "coreFinder": "Core Finder",
       "battleRecord": "Battle Record",
@@ -54,6 +56,17 @@
       "metaTables": "Meta Tables",
       "winrateInsights": "Winrate Insights"
     }
+  },
+  "box": {
+    "title": "My BOX",
+    "searchPlaceholder": "Search Pokémon...",
+    "empty": "Your BOX is empty. Add Pokémon from the team builder.",
+    "noResults": "No Pokémon found.",
+    "noItem": "No Item",
+    "delete": "Remove from BOX",
+    "saveToBox": "Save to BOX",
+    "savedToBox": "Saved to BOX",
+    "addPokemon": "Add Pokémon"
   },
   "teamBuilder": {
     "title": "Team Builder",

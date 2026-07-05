@@ -78,12 +78,9 @@ const sideMenuGroups: SideMenuGroup[] = [
         route: "/team-builder",
       },
       {
-        labelKey: "navigation.items.draftAssistant",
-        icon: <PsychologyRoundedIcon fontSize="small" />,
-      },
-      {
-        labelKey: "navigation.items.coreFinder",
-        icon: <GroupWorkRoundedIcon fontSize="small" />,
+        labelKey: "navigation.items.myBox",
+        icon: <CatchingPokemonRoundedIcon fontSize="small" />,
+        route: "/box",
       },
     ],
   },
@@ -93,10 +90,6 @@ const sideMenuGroups: SideMenuGroup[] = [
       {
         labelKey: "navigation.items.battleRecord",
         icon: <SportsMmaRoundedIcon fontSize="small" />,
-      },
-      {
-        labelKey: "navigation.items.matchupPlanner",
-        icon: <ShieldRoundedIcon fontSize="small" />,
       },
       {
         labelKey: "navigation.items.damageCalc",

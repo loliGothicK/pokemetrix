@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { db } from "@/lib/db";
+import { teams } from "@/lib/db/schema";
+import { and, eq } from "drizzle-orm";
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -9,12 +12,11 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
   if (authError || !claims) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
   const userId = claims.claims.sub;
 
-  // TODO: DBから該当チームを削除
-  // await supabase.from("teams").delete().eq("id", id).eq("user_id", userId);
-  console.log(`Delete team: ${id} for user: ${userId}`);
+  await db
+    .delete(teams)
+    .where(and(eq(teams.id, id), eq(teams.userId, userId)));
 
   return NextResponse.json({ success: true });
 }

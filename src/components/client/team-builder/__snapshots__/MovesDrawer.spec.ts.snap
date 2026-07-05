@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MovesDrawer — move name display (usage rate 100% scenario) > longest EN move name does not exceed 32 characters (snapshot baseline for truncation risk) 1`] = `
+{
+  "length": 16,
+  "longestName": "Burning Jealousy",
+}
+`;
+
+exports[`MovesDrawer — move name display (usage rate 100% scenario) > longest JA move name does not exceed 16 characters (snapshot baseline for truncation risk) 1`] = `
+{
+  "length": 8,
+  "longestName": "アーマーキャノン",
+}
+`;

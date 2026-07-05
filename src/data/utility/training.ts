@@ -3,6 +3,7 @@ import { pokemonList } from "@/data/pokemon";
 import { TrainedPokemon } from "@/store/team/team";
 import { match } from "ts-pattern";
 import { Gender } from "@/types/pokemon";
+import { ulid } from "ulid";
 
 const MAP = (() => {
   const gender_rate = new Map(pokemonList.map((pokemon) => [pokemon.id, pokemon.gender_rate]));
@@ -45,6 +46,7 @@ export const toDefault = (identifier: string | null): TrainedPokemon | null => {
   }
   const basics = MAP.get(identifier)!;
   return {
+    boxId: ulid(),
     identifier,
     slug: basics.slug!,
     ability: basics.ability!,

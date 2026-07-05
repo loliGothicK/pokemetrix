@@ -1,28 +1,20 @@
 import { atom } from "jotai";
-import { activeSlotIndexAtom, activeTeamIdAtom, localTeamsAtom } from "./team";
+import { activeSlotIndexAtom } from "./team";
 import { linter, LintResult } from "@/lib/linter/linter";
+import type { Team } from "./team";
 
 export const MAX_EV_TOTAL = 32 * 2 + 2;
 
-export const activeTeamLintIssuesAtom = atom<LintResult[]>((get) => {
-  const teams = get(localTeamsAtom);
-  const teamId = get(activeTeamIdAtom);
-  if (!teamId) return [];
+// チームを受け取ってlint結果を返すatom factory
+export const makeTeamLintIssuesAtom = (team: Team | undefined) =>
+  atom<LintResult[]>(() => {
+    if (!team) return [];
+    return team.members.map(linter);
+  });
 
-  const targetTeam = teams.find((team) => team.id === teamId);
-  if (!targetTeam) return [];
-
-  // 無駄な無名関数やインデックス渡しが消滅し、純粋なマッピングになる
-  return targetTeam.members.map(linter);
-});
-
-export const activeSlotLintIssueAtom = atom<LintResult | undefined>((get) => {
-  const slotIdx = get(activeSlotIndexAtom);
-  const issues = get(activeTeamLintIssuesAtom);
-
-  if (issues.length === 0) {
-    return undefined;
-  }
-
-  return issues[slotIdx];
-});
+export const activeSlotLintIssueAtom = (lintIssues: LintResult[]) =>
+  atom<LintResult | undefined>((get) => {
+    const slotIdx = get(activeSlotIndexAtom);
+    if (lintIssues.length === 0) return undefined;
+    return lintIssues[slotIdx];
+  });

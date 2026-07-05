@@ -1,38 +1,108 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { db } from "@/lib/db";
+import { teams, teamMembers, boxPokemon } from "@/lib/db/schema";
+import { eq, inArray } from "drizzle-orm";
+import type { Team, TrainedPokemon } from "@/store/team/team";
 
 export async function GET(_request: Request) {
   const supabase = await createClient();
-
-  // セッション確認（getClaims()で検証）
   const { data: claims, error: authError } = await supabase.auth.getClaims();
   if (authError || !claims) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
   const userId = claims.claims.sub;
 
-  // TODO: DBからユーザーのチーム一覧を取得
-  // const { data: teams } = await supabase.from("teams").select("*").eq("user_id", userId);
-  console.log(`Fetch teams for user: ${userId}`);
+  const userTeams = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.userId, userId));
 
-  return NextResponse.json([]);
+  if (userTeams.length === 0) {
+    return NextResponse.json([]);
+  }
+
+  const teamIds = userTeams.map((t) => t.id);
+
+  const members = await db
+    .select({
+      teamId: teamMembers.teamId,
+      slotIndex: teamMembers.slotIndex,
+      boxId: boxPokemon.id,
+      slug: boxPokemon.slug,
+      data: boxPokemon.data,
+    })
+    .from(teamMembers)
+    .innerJoin(boxPokemon, eq(teamMembers.boxPokemonId, boxPokemon.id))
+    .where(inArray(teamMembers.teamId, teamIds));
+
+  const result: Team[] = userTeams.map((team) => {
+    const slots = Array<TrainedPokemon | null>(6).fill(null);
+    members
+      .filter((m) => m.teamId === team.id)
+      .forEach((m) => {
+        // data already contains identifier, slug, and all other fields
+        const data = m.data as Omit<TrainedPokemon, "boxId">;
+        slots[m.slotIndex] = { boxId: m.boxId, ...data };
+      });
+    return {
+      id: team.id,
+      name: team.name,
+      members: slots,  // always 6 slots, nulls included
+    };
+  });
+
+  return NextResponse.json(result);
 }
 
 export async function POST(request: Request) {
   const supabase = await createClient();
-
   const { data: claims, error: authError } = await supabase.auth.getClaims();
   if (authError || !claims) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
   const userId = claims.claims.sub;
-  const teams = await request.json();
 
-  // TODO: DBへチームを保存
-  // await supabase.from("teams").upsert(teams.map(t => ({ ...t, user_id: userId })));
-  console.log(`Save teams for user: ${userId}`, teams);
+  const incomingTeams = (await request.json()) as Team[];
+
+  for (const team of incomingTeams) {
+    await db.transaction(async (tx) => {
+      await tx
+        .insert(teams)
+        .values({ id: team.id, userId, name: team.name })
+        .onConflictDoUpdate({
+          target: teams.id,
+          set: { name: team.name },
+        });
+
+      const nonNullMembers = team.members
+        .map((m, i) => ({ member: m, slot: i }))
+        .filter((x): x is { member: TrainedPokemon; slot: number } => x.member !== null);
+
+      for (const { member } of nonNullMembers) {
+        const { boxId, identifier, slug, ...data } = member;
+        await tx
+          .insert(boxPokemon)
+          .values({ id: boxId, userId, slug: identifier, data: { identifier, slug, ...data } })
+          .onConflictDoUpdate({
+            target: boxPokemon.id,
+            set: { slug: identifier, data: { identifier, slug, ...data } },
+          });
+      }
+
+      await tx.delete(teamMembers).where(eq(teamMembers.teamId, team.id));
+
+      if (nonNullMembers.length > 0) {
+        await tx.insert(teamMembers).values(
+          nonNullMembers.map(({ member, slot }) => ({
+            teamId: team.id,
+            slotIndex: slot,
+            boxPokemonId: member.boxId,
+          })),
+        );
+      }
+    });
+  }
 
   return NextResponse.json({ success: true });
 }

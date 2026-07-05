@@ -26,6 +26,7 @@
     "loginWithGoogle": "Google でログイン",
     "account": "アカウント",
     "user": "ユーザー",
+    "loginRequired": "この機能を使用するにはログインが必要です。",
     "mergeDialog": {
       "title": "チームを整理する",
       "description": "ログイン前後のチームをマージしてください。ドラッグで並び替え、pick / drop で選択できます。",
@@ -43,6 +44,7 @@
     },
     "items": {
       "createTeam": "チーム作成",
+      "myBox": "マイBOX",
       "draftAssistant": "ドラフト支援",
       "coreFinder": "コア探索",
       "battleRecord": "対戦記録",
@@ -52,6 +54,17 @@
       "metaTables": "環境表",
       "winrateInsights": "勝率分析"
     }
+  },
+  "box": {
+    "title": "マイBOX",
+    "searchPlaceholder": "ポケモンを検索...",
+    "empty": "BOXは空です。チームビルダーからポケモンを追加してください。",
+    "noResults": "ポケモンが見つかりません。",
+    "noItem": "持ち物なし",
+    "delete": "BOXから削除",
+    "saveToBox": "BOXに保存",
+    "savedToBox": "BOXに保存しました",
+    "addPokemon": "ポケモンを追加"
   },
   "teamBuilder": {
     "title": "チームビルダー",
