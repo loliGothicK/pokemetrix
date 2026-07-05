@@ -5,10 +5,7 @@ import { boxPokemon } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
   const { data: claims, error: authError } = await supabase.auth.getClaims();
@@ -33,10 +30,7 @@ export async function PATCH(
   return NextResponse.json({ success: true });
 }
 
-export async function DELETE(
-  _request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
   const { data: claims, error: authError } = await supabase.auth.getClaims();
@@ -45,9 +39,7 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await db
-    .delete(boxPokemon)
-    .where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)));
+  await db.delete(boxPokemon).where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)));
 
   return NextResponse.json({ success: true });
 }

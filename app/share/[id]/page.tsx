@@ -1,0 +1,83 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
+import { sharedTeams } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { PartySharePage } from "@/components/client/share/PartySharePage";
+import enTranslation from "@locales/en/translation.json";
+
+// ── データフェッチ ────────────────────────────────────────────────────────────
+
+async function fetchSharedTeam(id: string) {
+  const rows = await db.select().from(sharedTeams).where(eq(sharedTeams.id, id)).limit(1);
+
+  return rows[0] ?? null;
+}
+
+// ── metadata ─────────────────────────────────────────────────────────────────
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const row = await fetchSharedTeam(id);
+
+  if (!row) {
+    return { title: "Not Found – Pokemetrix" };
+  }
+
+  const teamName = row.snapshot.teamName;
+  const memberNames = row.snapshot.members
+    .filter(Boolean)
+    .map((m) => {
+      const key = m!.identifier as keyof typeof enTranslation.pokemon;
+      return enTranslation.pokemon[key]?.name ?? m!.identifier;
+    })
+    .join(", ");
+
+  const title = `${teamName} – Pokemetrix`;
+  const description = memberNames ? `${teamName}: ${memberNames}` : teamName;
+
+  const ogImageUrl = `/share/${id}/opengraph-image`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
+    },
+  };
+}
+
+// ── ページ ────────────────────────────────────────────────────────────────────
+
+export default async function SharePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const row = await fetchSharedTeam(id);
+
+  if (!row) {
+    notFound();
+  }
+
+  return (
+    <PartySharePage shareId={id} snapshot={row.snapshot} createdAt={row.createdAt.toISOString()} />
+  );
+}

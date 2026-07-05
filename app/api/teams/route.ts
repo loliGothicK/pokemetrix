@@ -13,10 +13,7 @@ export async function GET(_request: Request) {
   }
   const userId = claims.claims.sub;
 
-  const userTeams = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.userId, userId));
+  const userTeams = await db.select().from(teams).where(eq(teams.userId, userId));
 
   if (userTeams.length === 0) {
     return NextResponse.json([]);
@@ -48,7 +45,7 @@ export async function GET(_request: Request) {
     return {
       id: team.id,
       name: team.name,
-      members: slots,  // always 6 slots, nulls included
+      members: slots, // always 6 slots, nulls included
     };
   });
 
@@ -83,9 +80,10 @@ export async function POST(request: Request) {
         const { boxId, identifier, slug, ...data } = member;
         await tx
           .insert(boxPokemon)
-          .values({ id: boxId, userId, slug: identifier, data: { identifier, slug, ...data } })
+          .values({ id: boxId, userId, slug: identifier, inBox: false, data: { identifier, slug, ...data } })
           .onConflictDoUpdate({
             target: boxPokemon.id,
+            // inBox は変更しない（BOXに明示的に保存済みのものは inBox: true のまま保持）
             set: { slug: identifier, data: { identifier, slug, ...data } },
           });
       }

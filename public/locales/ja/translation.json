@@ -55,6 +55,19 @@
       "winrateInsights": "勝率分析"
     }
   },
+  "share": {
+    "pageTitle": "チームシェア",
+    "copyLink": "リンクをコピー",
+    "linkCopied": "コピーしました！",
+    "notFound": "チームが見つかりません",
+    "notFoundDescription": "このシェアリンクは期限切れか削除された可能性があります。",
+    "memberCount": "{{count}} 匹",
+    "createdAt": "{{date}} にシェア",
+    "shareTeam": "チームをシェア",
+    "sharing": "リンク作成中…",
+    "shareSuccess": "シェアリンクを作成しました！",
+    "shareError": "シェアリンクの作成に失敗しました。"
+  },
   "box": {
     "title": "マイBOX",
     "searchPlaceholder": "ポケモンを検索...",

@@ -1,6 +1,6 @@
 {
-  "id": "3fe5457e-7916-40c2-b8f9-612f25ab58a3",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "da8f0cc1-8ff0-4b69-a1f5-2e4065a1f75a",
+  "prevId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -32,6 +32,13 @@
           "primaryKey": false,
           "notNull": true
         },
+        "in_box": {
+          "name": "in_box",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp with time zone",
@@ -54,8 +61,12 @@
           "tableFrom": "box_pokemon",
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -67,6 +78,64 @@
         "box_pokemon_data_is_object": {
           "name": "box_pokemon_data_is_object",
           "value": "jsonb_typeof(\"box_pokemon\".\"data\") = 'object'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shared_teams": {
+      "name": "shared_teams",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "snapshot": {
+          "name": "snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shared_teams_created_by_users_id_fk": {
+          "name": "shared_teams_created_by_users_id_fk",
+          "tableFrom": "shared_teams",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shared_teams_snapshot_is_object": {
+          "name": "shared_teams_snapshot_is_object",
+          "value": "jsonb_typeof(\"shared_teams\".\"snapshot\") = 'object'"
         }
       },
       "isRLSEnabled": false
@@ -100,8 +169,12 @@
           "name": "team_members_team_id_teams_id_fk",
           "tableFrom": "team_members",
           "tableTo": "teams",
-          "columnsFrom": ["team_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -109,8 +182,12 @@
           "name": "team_members_box_pokemon_id_box_pokemon_id_fk",
           "tableFrom": "team_members",
           "tableTo": "box_pokemon",
-          "columnsFrom": ["box_pokemon_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "box_pokemon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -170,8 +247,12 @@
           "tableFrom": "teams",
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }

@@ -21,7 +21,8 @@
     "paths": {
       "@data/*": ["./data/*"],
       "@services/*": ["./services/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@locales/*": ["./public/locales/*"]
     }
   },
   "include": [

@@ -20,7 +20,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { isAuthenticatedAtom } from "@/store/auth";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export function AuthButton() {
   const { t } = useTranslation();

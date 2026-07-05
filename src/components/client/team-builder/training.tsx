@@ -202,11 +202,7 @@ export function Training({
   };
 
   return (
-    <Stack
-      direction={"column"}
-      className={"Training-root"}
-      sx={{ minWidth: 0 }}
-    >
+    <Stack direction={"column"} className={"Training-root"} sx={{ minWidth: 0 }}>
       {/* メインコンテンツ（Basics, Items, Nature等） */}
       <Box sx={{ flexGrow: 1 }}>
         <Paper

@@ -1,12 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
-import {
-  fetchBoxFromServer,
-  saveToBox,
-  updateBoxPokemon,
-  deleteFromBox,
-} from "@services/box";
+import { fetchBoxFromServer, saveToBox, updateBoxPokemon, deleteFromBox } from "@services/box";
 import type { TrainedPokemon } from "@/store/team/team";
 
 export const useBoxData = () => {

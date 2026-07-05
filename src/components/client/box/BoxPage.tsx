@@ -31,7 +31,7 @@ import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPoke
 import { Training } from "@/components/client/team-builder/training";
 import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
-import {useHotkeys} from "react-hotkeys-hook";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export default function BoxPage() {
   const { t } = useTranslation();
@@ -59,7 +59,7 @@ export default function BoxPage() {
     setEditingPokemon(null);
   };
 
-  useHotkeys('ctrl+s', handleSaveToBox);
+  useHotkeys("ctrl+s", handleSaveToBox);
 
   if (!isAuthenticated) {
     return (
@@ -98,7 +98,11 @@ export default function BoxPage() {
             zIndex: 1,
           }}
         >
-          <IconButton edge="start" onClick={() => setEditingPokemon(null)} aria-label={t("teamBuilder.back")}>
+          <IconButton
+            edge="start"
+            onClick={() => setEditingPokemon(null)}
+            aria-label={t("teamBuilder.back")}
+          >
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="h6" sx={{ fontWeight: 700, flexGrow: 1, ml: 1 }} noWrap>
@@ -119,9 +123,7 @@ export default function BoxPage() {
   const filtered = search.trim()
     ? box.filter(
         (p) =>
-          t(`pokemon.${p.identifier}.name`)
-            .toLowerCase()
-            .includes(search.trim().toLowerCase()) ||
+          t(`pokemon.${p.identifier}.name`).toLowerCase().includes(search.trim().toLowerCase()) ||
           p.identifier.includes(search.trim().toLowerCase()),
       )
     : box;
@@ -133,11 +135,7 @@ export default function BoxPage() {
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {t("box.title")}
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<Add />}
-          onClick={() => setSelectOpen(true)}
-        >
+        <Button variant="contained" startIcon={<Add />} onClick={() => setSelectOpen(true)}>
           {t("box.addPokemon")}
         </Button>
       </Stack>
@@ -240,12 +238,22 @@ export default function BoxPage() {
                   <Typography variant="subtitle2" sx={{ fontWeight: 700 }} noWrap>
                     {t(`pokemon.${pokemon.identifier}.name`)}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" noWrap sx={{ display: "block" }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    noWrap
+                    sx={{ display: "block" }}
+                  >
                     {pokemon.item
                       ? `@ ${t(`items.${itemById.get(pokemon.item)?.identifier}.name`)}`
                       : t("box.noItem")}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" noWrap sx={{ display: "block" }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    noWrap
+                    sx={{ display: "block" }}
+                  >
                     {`EV: ${(Object.values(pokemon.evs) as number[]).reduce((a, b) => a + b, 0)} / 64`}
                   </Typography>
                 </Box>

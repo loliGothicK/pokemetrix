@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   alpha,
   Avatar,
@@ -14,7 +14,6 @@ import {
   Stack,
   TextField,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -51,7 +50,6 @@ export function MoveSelectionDrawer({
   const { t } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // 検索状態はドロワー内部に完全にカプセル化する
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,6 +58,17 @@ export function MoveSelectionDrawer({
   useEffect(() => {
     setSearchQuery("");
   }, [activeSlot]);
+
+  // Drawer が開いたとき / スロットが切り替わったときに検索 TextField にフォーカス
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    // Drawer のトランジション完了を待ってからフォーカス（MUI Drawer の transition は ~225ms）
+    const id = setTimeout(() => {
+      searchInputRef.current?.focus();
+    }, 250);
+    return () => clearTimeout(id);
+  }, [open, activeSlot]);
 
   // Drawerに表示する技リストのフィルタリング
   const availableMoves = useMemo(() => {
@@ -151,6 +160,7 @@ export function MoveSelectionDrawer({
               placeholder="Search moves..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              inputRef={searchInputRef}
               slotProps={{
                 input: {
                   startAdornment: (
@@ -197,96 +207,318 @@ export function MoveSelectionDrawer({
                   }}
                 >
                   {/* ── lg: 1行レイアウト ── */}
-                  <Box sx={{ display: { xs: "none", lg: "flex" }, alignItems: "center", px: 2, py: 1.5, gap: 1.5, minWidth: 0 }}>
+                  <Box
+                    sx={{
+                      display: { xs: "none", lg: "flex" },
+                      alignItems: "center",
+                      px: 2,
+                      py: 1.5,
+                      gap: 1.5,
+                      minWidth: 0,
+                    }}
+                  >
                     {/* 採用率% */}
                     {move.percentage && (
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.main", width: 48, flexShrink: 0 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 700, color: "primary.main", width: 48, flexShrink: 0 }}
+                      >
                         {move.percentage}%
                       </Typography>
                     )}
                     {/* 技名 */}
-                    <Typography sx={{ fontWeight: 800, fontSize: "1.1rem", flexGrow: 1, minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 800,
+                        fontSize: "1.1rem",
+                        flexGrow: 1,
+                        minWidth: 0,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       {t(`moves.${move.identifier}.name`)}
                     </Typography>
                     {/* 優先度 */}
                     {move.priority !== null && move.priority !== 0 && (
-                      <Chip size="small" label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`} color={move.priority > 0 ? "error" : "info"}
-                        sx={{ fontWeight: 900, fontSize: "0.8rem", height: 18, px: 0.5, borderRadius: 1, boxShadow: theme.shadows[1], flexShrink: 0 }} />
+                      <Chip
+                        size="small"
+                        label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
+                        color={move.priority > 0 ? "error" : "info"}
+                        sx={{
+                          fontWeight: 900,
+                          fontSize: "0.8rem",
+                          height: 18,
+                          px: 0.5,
+                          borderRadius: 1,
+                          boxShadow: theme.shadows[1],
+                          flexShrink: 0,
+                        }}
+                      />
                     )}
                     {/* 分類 */}
                     <Box sx={{ display: "flex", gap: 0.5, flexShrink: 0 }}>
                       {move.classifications?.map((clazz: string) => (
-                        <Chip key={clazz} size="small" label={clazz} sx={{ fontSize: "0.75rem", height: 18 }} />
+                        <Chip
+                          key={clazz}
+                          size="small"
+                          label={clazz}
+                          sx={{ fontSize: "0.75rem", height: 18 }}
+                        />
                       ))}
                     </Box>
                     {/* タイプ / カテゴリ / PWR / ACC / RANGE */}
-                    <Box sx={{ width: 90, display: "flex", justifyContent: "center", flexShrink: 0 }}>
-                      <Chip avatar={<Avatar src={typeIcon(move.type)} />} label={t(`types.${move.type}.name`)} size="small" sx={{ fontWeight: 600 }} />
+                    <Box
+                      sx={{ width: 90, display: "flex", justifyContent: "center", flexShrink: 0 }}
+                    >
+                      <Chip
+                        avatar={<Avatar src={typeIcon(move.type)} />}
+                        label={t(`types.${move.type}.name`)}
+                        size="small"
+                        sx={{ fontWeight: 600 }}
+                      />
                     </Box>
-                    <Box sx={{ width: 40, display: "flex", justifyContent: "center", flexShrink: 0 }}>
-                      <Avatar src={`/move-category/${move.category}.png`} sx={{ width: 24, height: 24, bgcolor: "transparent", filter: theme.palette.mode === "light" ? "invert(1)" : "none", opacity: theme.palette.mode === "light" ? 0.7 : 1 }} variant="square" />
+                    <Box
+                      sx={{ width: 40, display: "flex", justifyContent: "center", flexShrink: 0 }}
+                    >
+                      <Avatar
+                        src={`/move-category/${move.category}.png`}
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          bgcolor: "transparent",
+                          filter: theme.palette.mode === "light" ? "invert(1)" : "none",
+                          opacity: theme.palette.mode === "light" ? 0.7 : 1,
+                        }}
+                        variant="square"
+                      />
                     </Box>
                     <Box sx={{ width: 48, textAlign: "center", flexShrink: 0 }}>
-                      <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>PWR</Typography>
-                      <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: move.power && move.power > 0 ? "text.primary" : "text.disabled" }}>
+                      <Typography
+                        variant="overline"
+                        sx={{
+                          display: "block",
+                          fontSize: "0.55rem",
+                          lineHeight: 1,
+                          color: "text.disabled",
+                        }}
+                      >
+                        PWR
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "1rem",
+                          fontWeight: 800,
+                          color: move.power && move.power > 0 ? "text.primary" : "text.disabled",
+                        }}
+                      >
                         {move.power && move.power > 0 ? move.power : "—"}
                       </Typography>
                     </Box>
                     <Box sx={{ width: 48, textAlign: "center", flexShrink: 0 }}>
-                      <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>ACC</Typography>
-                      <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: move.accuracy ? "text.primary" : "text.disabled" }}>
+                      <Typography
+                        variant="overline"
+                        sx={{
+                          display: "block",
+                          fontSize: "0.55rem",
+                          lineHeight: 1,
+                          color: "text.disabled",
+                        }}
+                      >
+                        ACC
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "1rem",
+                          fontWeight: 800,
+                          color: move.accuracy ? "text.primary" : "text.disabled",
+                        }}
+                      >
                         {move.accuracy ?? "—"}
                       </Typography>
                     </Box>
-                    <Box sx={{ width: 80, pl: 1, textAlign: "center", borderLeft: `1px solid ${palette.edgeSoft}`, flexShrink: 0 }}>
-                      <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>RANGE</Typography>
-                      <Typography variant="caption" sx={{ fontWeight: 600, color: "text.primary", display: "block", whiteSpace: "nowrap" }}>
+                    <Box
+                      sx={{
+                        width: 80,
+                        pl: 1,
+                        textAlign: "center",
+                        borderLeft: `1px solid ${palette.edgeSoft}`,
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Typography
+                        variant="overline"
+                        sx={{
+                          display: "block",
+                          fontSize: "0.55rem",
+                          lineHeight: 1,
+                          color: "text.disabled",
+                        }}
+                      >
+                        RANGE
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontWeight: 600,
+                          color: "text.primary",
+                          display: "block",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         {t(`range.${move.range}.name`)}
                       </Typography>
                     </Box>
                   </Box>
 
                   {/* ── xs/sm/md: 2行レイアウト ── */}
-                  <Box sx={{ display: { xs: "flex", lg: "none" }, flexDirection: "column", width: "100%" }}>
+                  <Box
+                    sx={{
+                      display: { xs: "flex", lg: "none" },
+                      flexDirection: "column",
+                      width: "100%",
+                    }}
+                  >
                     {/* 行1: 採用率% + 技名 */}
-                    <Stack direction="row" sx={{ alignItems: "center", px: 2, pt: 2, pb: 0.5, gap: 1.5, minWidth: 0 }}>
+                    <Stack
+                      direction="row"
+                      sx={{ alignItems: "center", px: 2, pt: 2, pb: 0.5, gap: 1.5, minWidth: 0 }}
+                    >
                       {move.percentage && (
-                        <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.main", width: 48, flexShrink: 0 }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: 700, color: "primary.main", width: 48, flexShrink: 0 }}
+                        >
                           {move.percentage}%
                         </Typography>
                       )}
-                      <Typography sx={{ fontWeight: 800, fontSize: "1.1rem", flexGrow: 1, minWidth: 0 }}>
+                      <Typography
+                        sx={{ fontWeight: 800, fontSize: "1.1rem", flexGrow: 1, minWidth: 0 }}
+                      >
                         {t(`moves.${move.identifier}.name`)}
                       </Typography>
                     </Stack>
                     {/* 行2: 優先度 + 分類 + タイプ/カテゴリ/PWR/ACC/RANGE */}
-                    <Stack direction="row" sx={{ alignItems: "center", px: 2, pb: 2, pt: 0.5, gap: 1, flexWrap: "wrap" }}>
+                    <Stack
+                      direction="row"
+                      sx={{ alignItems: "center", px: 2, pb: 2, pt: 0.5, gap: 1, flexWrap: "wrap" }}
+                    >
                       {move.priority !== null && move.priority !== 0 && (
-                        <Chip size="small" label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`} color={move.priority > 0 ? "error" : "info"}
-                          sx={{ fontWeight: 900, fontSize: "0.8rem", height: 18, px: 0.5, borderRadius: 1, boxShadow: theme.shadows[1] }} />
+                        <Chip
+                          size="small"
+                          label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
+                          color={move.priority > 0 ? "error" : "info"}
+                          sx={{
+                            fontWeight: 900,
+                            fontSize: "0.8rem",
+                            height: 18,
+                            px: 0.5,
+                            borderRadius: 1,
+                            boxShadow: theme.shadows[1],
+                          }}
+                        />
                       )}
                       {move.classifications?.map((clazz: string) => (
-                        <Chip key={clazz} size="small" label={clazz} sx={{ fontSize: "0.75rem", height: 18 }} />
+                        <Chip
+                          key={clazz}
+                          size="small"
+                          label={clazz}
+                          sx={{ fontSize: "0.75rem", height: 18 }}
+                        />
                       ))}
                       <Box sx={{ flexGrow: 1 }} />
                       <Stack direction="row" sx={{ alignItems: "center", gap: 0.5, flexShrink: 0 }}>
-                        <Chip avatar={<Avatar src={typeIcon(move.type)} />} label={t(`types.${move.type}.name`)} size="small" sx={{ fontWeight: 600 }} />
-                        <Avatar src={`/move-category/${move.category}.png`} sx={{ width: 24, height: 24, bgcolor: "transparent", filter: theme.palette.mode === "light" ? "invert(1)" : "none", opacity: theme.palette.mode === "light" ? 0.7 : 1 }} variant="square" />
+                        <Chip
+                          avatar={<Avatar src={typeIcon(move.type)} />}
+                          label={t(`types.${move.type}.name`)}
+                          size="small"
+                          sx={{ fontWeight: 600 }}
+                        />
+                        <Avatar
+                          src={`/move-category/${move.category}.png`}
+                          sx={{
+                            width: 24,
+                            height: 24,
+                            bgcolor: "transparent",
+                            filter: theme.palette.mode === "light" ? "invert(1)" : "none",
+                            opacity: theme.palette.mode === "light" ? 0.7 : 1,
+                          }}
+                          variant="square"
+                        />
                         <Box sx={{ textAlign: "center", minWidth: 32 }}>
-                          <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>PWR</Typography>
-                          <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: move.power && move.power > 0 ? "text.primary" : "text.disabled" }}>
+                          <Typography
+                            variant="overline"
+                            sx={{
+                              display: "block",
+                              fontSize: "0.55rem",
+                              lineHeight: 1,
+                              color: "text.disabled",
+                            }}
+                          >
+                            PWR
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "0.9rem",
+                              fontWeight: 800,
+                              color:
+                                move.power && move.power > 0 ? "text.primary" : "text.disabled",
+                            }}
+                          >
                             {move.power && move.power > 0 ? move.power : "—"}
                           </Typography>
                         </Box>
                         <Box sx={{ textAlign: "center", minWidth: 32 }}>
-                          <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>ACC</Typography>
-                          <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: move.accuracy ? "text.primary" : "text.disabled" }}>
+                          <Typography
+                            variant="overline"
+                            sx={{
+                              display: "block",
+                              fontSize: "0.55rem",
+                              lineHeight: 1,
+                              color: "text.disabled",
+                            }}
+                          >
+                            ACC
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "0.9rem",
+                              fontWeight: 800,
+                              color: move.accuracy ? "text.primary" : "text.disabled",
+                            }}
+                          >
                             {move.accuracy ?? "—"}
                           </Typography>
                         </Box>
-                        <Box sx={{ textAlign: "center", minWidth: 56, pl: 1, borderLeft: `1px solid ${palette.edgeSoft}` }}>
-                          <Typography variant="overline" sx={{ display: "block", fontSize: "0.55rem", lineHeight: 1, color: "text.disabled" }}>RANGE</Typography>
-                          <Typography variant="caption" sx={{ fontWeight: 600, color: "text.primary", display: "block", whiteSpace: "nowrap" }}>
+                        <Box
+                          sx={{
+                            textAlign: "center",
+                            minWidth: 56,
+                            pl: 1,
+                            borderLeft: `1px solid ${palette.edgeSoft}`,
+                          }}
+                        >
+                          <Typography
+                            variant="overline"
+                            sx={{
+                              display: "block",
+                              fontSize: "0.55rem",
+                              lineHeight: 1,
+                              color: "text.disabled",
+                            }}
+                          >
+                            RANGE
+                          </Typography>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              fontWeight: 600,
+                              color: "text.primary",
+                              display: "block",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
                             {t(`range.${move.range}.name`)}
                           </Typography>
                         </Box>

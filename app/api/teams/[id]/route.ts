@@ -14,9 +14,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
   }
   const userId = claims.claims.sub;
 
-  await db
-    .delete(teams)
-    .where(and(eq(teams.id, id), eq(teams.userId, userId)));
+  await db.delete(teams).where(and(eq(teams.id, id), eq(teams.userId, userId)));
 
   return NextResponse.json({ success: true });
 }

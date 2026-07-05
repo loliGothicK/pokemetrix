@@ -5,12 +5,9 @@ import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRound
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
-import GroupWorkRoundedIcon from "@mui/icons-material/GroupWorkRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
-import PsychologyRoundedIcon from "@mui/icons-material/PsychologyRounded";
-import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
 import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";

@@ -62,5 +62,32 @@ export const useActiveTeam = () => {
     }
   };
 
-  return [team, updateSlot, updateTeamName] as const;
+  // スロットの並べ替え（DnD 用）
+  const reorderMembers = (fromIndex: number, toIndex: number) => {
+    if (!activeId || fromIndex === toIndex) return;
+
+    const applyReorder = (members: (TrainedPokemon | null)[]) => {
+      const next = [...members];
+      const [moved] = next.splice(fromIndex, 1);
+      next.splice(toIndex, 0, moved);
+      return next;
+    };
+
+    if (isAuthenticated) {
+      const currentServerTeams = queryClient.getQueryData<Team[]>(["teams"]) ?? [];
+      const newTeams = currentServerTeams.map((t) =>
+        t.id === activeId ? { ...t, members: applyReorder(t.members) } : t,
+      );
+      queryClient.setQueryData(["teams"], newTeams);
+      serverMutation.mutate(newTeams);
+    } else {
+      setLocalTeams((prev) =>
+        prev.map((t) =>
+          t.id === activeId ? { ...t, members: applyReorder(t.members) } : t,
+        ),
+      );
+    }
+  };
+
+  return [team, updateSlot, updateTeamName, reorderMembers] as const;
 };

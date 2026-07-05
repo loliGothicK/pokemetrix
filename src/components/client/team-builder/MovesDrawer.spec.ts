@@ -195,9 +195,7 @@ function availableWidthForName(
   const percentageWidth = hasPercentage ? 48 + gap : 0;
   const priorityWidth = hasPriority ? 90 + gap : 0;
   const classificationsWidth =
-    classificationCount > 0
-      ? classificationCount * 60 + (classificationCount - 1) * 4 + gap
-      : 0;
+    classificationCount > 0 ? classificationCount * 60 + (classificationCount - 1) * 4 + gap : 0;
   return innerStack - percentageWidth - priorityWidth - classificationsWidth;
 }
 
@@ -212,10 +210,7 @@ interface TruncatedMove {
   textWidth: number;
 }
 
-function findTruncatedMoves(
-  locale: "en" | "ja",
-  breakpoint: "sm" | "md" | "lg",
-): TruncatedMove[] {
+function findTruncatedMoves(locale: "en" | "ja", breakpoint: "sm" | "md" | "lg"): TruncatedMove[] {
   const moves = locale === "en" ? enMoves : jaMoves;
   const truncated: TruncatedMove[] = [];
 
@@ -232,7 +227,12 @@ function findTruncatedMoves(
 
     if (available <= 0) {
       // No space at all — definitely truncated, no need to measure text
-      truncated.push({ identifier: move.identifier, name, availableWidth: available, textWidth: -1 });
+      truncated.push({
+        identifier: move.identifier,
+        name,
+        availableWidth: available,
+        textWidth: -1,
+      });
       continue;
     }
 
@@ -255,7 +255,10 @@ describe("MovesDrawer — 採用率100%時に技名が省略されないこと (
     "EN: $identifier の技名が translation.json に存在し空でない",
     (move, { expect }) => {
       const name = enMoves[move.identifier]?.name;
-      expect(name, `moves.${move.identifier}.name が en/translation.json に存在しない`).toBeDefined();
+      expect(
+        name,
+        `moves.${move.identifier}.name が en/translation.json に存在しない`,
+      ).toBeDefined();
       expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
     },
   );
@@ -264,7 +267,10 @@ describe("MovesDrawer — 採用率100%時に技名が省略されないこと (
     "JA: $identifier の技名が translation.json に存在し空でない",
     (move, { expect }) => {
       const name = jaMoves[move.identifier]?.name;
-      expect(name, `moves.${move.identifier}.name が ja/translation.json に存在しない`).toBeDefined();
+      expect(
+        name,
+        `moves.${move.identifier}.name が ja/translation.json に存在しない`,
+      ).toBeDefined();
       expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
     },
   );

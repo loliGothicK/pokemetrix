@@ -56,6 +56,7 @@ import { match } from "ts-pattern";
 import { ParseError } from "@/errors/thiserror/thiserror";
 import LinkIcon from "@mui/icons-material/Link";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { ShareButton } from "@/components/client/share/ShareButton";
 
 const MAX_TEAM_SIZE = 6;
 const drawerWidth = 240;
@@ -408,8 +409,7 @@ function MobileTeamList({
               transition: "all 0.18s ease",
               "&:hover": {
                 borderColor: "primary.main",
-                boxShadow: (theme) =>
-                  `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
+                boxShadow: (theme) => `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
                 transform: "translateY(-2px)",
               },
             }}
@@ -644,6 +644,7 @@ export default function TeamBuilderPage({
                     }}
                   />
                   <ExportMenu />
+                  <ShareButton />
                 </Box>
               )}
             </Toolbar>

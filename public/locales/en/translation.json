@@ -57,6 +57,19 @@
       "winrateInsights": "Winrate Insights"
     }
   },
+  "share": {
+    "pageTitle": "Team Share",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied!",
+    "notFound": "Team not found",
+    "notFoundDescription": "This share link may have expired or been deleted.",
+    "memberCount": "{{count}} Pokémon",
+    "createdAt": "Shared on {{date}}",
+    "shareTeam": "Share Team",
+    "sharing": "Creating link…",
+    "shareSuccess": "Share link created!",
+    "shareError": "Failed to create share link."
+  },
   "box": {
     "title": "My BOX",
     "searchPlaceholder": "Search Pokémon...",
@@ -103,6 +116,7 @@
     "delete": "Delete",
     "forgetMove": "Forget this move.",
     "removeItem": "Remove Held Item",
+    "dragToReorder": "Drag to reorder",
     "import": "import from",
     "export": "export as pokepate format",
     "drawer": {

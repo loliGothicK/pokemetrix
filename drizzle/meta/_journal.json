@@ -15,6 +15,13 @@
       "when": 1783251910345,
       "tag": "0001_rls_and_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783284672028,
+      "tag": "0002_worried_purple_man",
+      "breakpoints": true
     }
   ]
 }

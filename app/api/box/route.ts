@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { boxPokemon } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
 export async function GET(_request: Request) {
@@ -13,10 +13,11 @@ export async function GET(_request: Request) {
   }
   const userId = claims.claims.sub;
 
+  // inBox = true のものだけ返す（チームスロット専用のレコードは除外）
   const rows = await db
     .select()
     .from(boxPokemon)
-    .where(eq(boxPokemon.userId, userId))
+    .where(and(eq(boxPokemon.userId, userId), eq(boxPokemon.inBox, true)))
     .orderBy(boxPokemon.createdAt);
 
   const result: TrainedPokemon[] = rows.map((row) => {
@@ -40,10 +41,10 @@ export async function POST(request: Request) {
 
   await db
     .insert(boxPokemon)
-    .values({ id: boxId, userId, slug: identifier, data: { identifier, slug, ...data } })
+    .values({ id: boxId, userId, slug: identifier, inBox: true, data: { identifier, slug, ...data } })
     .onConflictDoUpdate({
       target: boxPokemon.id,
-      set: { slug: identifier, data: { identifier, slug, ...data } },
+      set: { slug: identifier, inBox: true, data: { identifier, slug, ...data } },
     });
 
   return NextResponse.json({ success: true }, { status: 201 });

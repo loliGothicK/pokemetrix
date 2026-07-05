@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
-import { ComponentProps, useMemo, useState } from "react";
+import { ComponentProps, useRef, useMemo, useState } from "react";
 import { typeIcon } from "@/lib/image";
 import {
   matchesQueryTokens,
@@ -53,6 +53,18 @@ export function SelectPokemonDialog({
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const showBoxTab = isAuthenticated && Boolean(onSelectFromBox);
   const activeTab = showBoxTab ? tab : "master";
+
+  // オートフォーカス用: Dialog が完全に開いた後に input を focus する
+  const autocompleteInputRef = useRef<HTMLInputElement>(null);
+  const boxSearchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleDialogEntered = () => {
+    if (activeTab === "master") {
+      autocompleteInputRef.current?.focus();
+    } else {
+      boxSearchInputRef.current?.focus();
+    }
+  };
 
   const pokemonOptions = useMemo(() => {
     const forms = championsPokemonList
@@ -120,6 +132,9 @@ export function SelectPokemonDialog({
       onClose={onClose}
       maxWidth="sm"
       fullWidth
+      slotProps={{
+        transition: { onEntered: handleDialogEntered },
+      }}
       sx={{
         "& .MuiDialog-container": {
           alignItems: "flex-start",
@@ -129,11 +144,7 @@ export function SelectPokemonDialog({
     >
       <DialogTitle>{title}</DialogTitle>
       {showBoxTab && (
-        <Tabs
-          value={tab}
-          onChange={(_, v: "master" | "box") => setTab(v)}
-          sx={{ px: 2 }}
-        >
+        <Tabs value={tab} onChange={(_, v: "master" | "box") => setTab(v)} sx={{ px: 2 }}>
           <Tab value="master" label={translator("teamBuilder.selectPokemon")} />
           <Tab value="box" label={translator("box.title")} />
         </Tabs>
@@ -148,6 +159,7 @@ export function SelectPokemonDialog({
               label={translator("teamBuilder.query.label")}
               placeholder="pikachu, @type:fire..."
               helperText={translator("teamBuilder.query.helper")}
+              textFieldProps={{ inputRef: autocompleteInputRef }}
             />
 
             <Box
@@ -233,6 +245,7 @@ export function SelectPokemonDialog({
               placeholder={translator("box.searchPlaceholder")}
               value={boxSearch}
               onChange={(e) => setBoxSearch(e.target.value)}
+              inputRef={boxSearchInputRef}
               sx={{ mb: 2 }}
               slotProps={{
                 input: {
