@@ -62,7 +62,7 @@ function SortableSlotItem({
   onNavigate: () => void;
   onDelete: () => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
 
@@ -201,6 +201,11 @@ function SortableSlotItem({
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }} noWrap>
                   {t(`pokemon.${member.identifier}.name`)}
                 </Typography>
+                {i18n.exists(`pokemon.${member.identifier}.formName`) && (
+                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", fontWeight: 400, lineHeight: 1.2 }} noWrap>
+                    {t(`pokemon.${member.identifier}.formName`)}
+                  </Typography>
+                )}
                 <Typography variant="caption" sx={{ color: "text.secondary", display: "block" }} noWrap>
                   {member.item
                     ? `@ ${t(`items.${itemById.get(member.item)?.identifier}.name`)}`

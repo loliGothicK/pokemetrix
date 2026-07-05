@@ -29,7 +29,7 @@ export default function TeamSlotDetail({
   slot: number;
   showBackButton?: boolean;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
@@ -53,6 +53,9 @@ export default function TeamSlotDetail({
   const title = member
     ? t(`pokemon.${member.identifier}.name`)
     : t("teamBuilder.slotLabel", { index: slot + 1 });
+  const formName = member
+    ? (i18n.exists(`pokemon.${member.identifier}.formName`) ? t(`pokemon.${member.identifier}.formName`) : "")
+    : "";
 
   return (
     <Paper
@@ -86,9 +89,16 @@ export default function TeamSlotDetail({
             <ArrowBackIcon />
           </IconButton>
         )}
-        <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
-          {title}
-        </Typography>
+        <Stack direction="column" spacing={0}>
+          <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
+            {title}
+          </Typography>
+          {formName && (
+            <Typography variant="caption" noWrap sx={{ color: "text.secondary", fontWeight: 400 }}>
+              {formName}
+            </Typography>
+          )}
+        </Stack>
         {member && isAuthenticated && (
           <Button
             size="small"

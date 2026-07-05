@@ -2799,7 +2799,8 @@
   },
   "pokemon": {
     "venusaur-mega": {
-      "name": "Mega Venusaur"
+      "name": "Venusaur",
+      "formName": "Mega"
     },
     "venusaur": {
       "name": "Venusaur"
@@ -2808,25 +2809,30 @@
       "name": "Charizard"
     },
     "charizard-mega-x": {
-      "name": "Mega Charizard X"
+      "name": "Charizard",
+      "formName": "Mega X"
     },
     "charizard-mega-y": {
-      "name": "Mega Charizard Y"
+      "name": "Charizard",
+      "formName": "Mega Y"
     },
     "blastoise": {
       "name": "Blastoise"
     },
     "blastoise-mega": {
-      "name": "Mega Blastoise"
+      "name": "Blastoise",
+      "formName": "Mega"
     },
     "beedrill": {
       "name": "Beedrill"
     },
     "beedrill-mega": {
-      "name": "Mega Beedrill"
+      "name": "Beedrill",
+      "formName": "Mega"
     },
     "pidgeot-mega": {
-      "name": "Mega Pidgeot"
+      "name": "Pidgeot",
+      "formName": "Mega"
     },
     "pidgeot": {
       "name": "Pidgeot"
@@ -2838,7 +2844,8 @@
       "name": "Pikachu"
     },
     "alolan-raichu": {
-      "name": "Alolan Raichu"
+      "name": "Raichu",
+      "formName": "Alolan Form"
     },
     "raichu": {
       "name": "Raichu"
@@ -2847,10 +2854,12 @@
       "name": "Clefable"
     },
     "clefable-mega": {
-      "name": "Mega Clefable"
+      "name": "Clefable",
+      "formName": "Mega"
     },
     "alolan-ninetales": {
-      "name": "Alolan Ninetales"
+      "name": "Ninetales",
+      "formName": "Alolan Form"
     },
     "ninetales": {
       "name": "Ninetales"
@@ -2859,28 +2868,33 @@
       "name": "Arcanine"
     },
     "hisuian-arcanine": {
-      "name": "Hisuian Arcanine"
+      "name": "Arcanine",
+      "formName": "Hisuian Form"
     },
     "alakazam": {
       "name": "Alakazam"
     },
     "alakazam-mega": {
-      "name": "Mega Alakazam"
+      "name": "Alakazam",
+      "formName": "Mega"
     },
     "machamp": {
       "name": "Machamp"
     },
     "victreebel-mega": {
-      "name": "Mega Victreebel"
+      "name": "Victreebel",
+      "formName": "Mega"
     },
     "victreebel": {
       "name": "Victreebel"
     },
     "galarian-slowbro": {
-      "name": "Galarian Slowbro"
+      "name": "Slowbro",
+      "formName": "Galarian Form"
     },
     "slowbro-mega": {
-      "name": "Mega Slowbro"
+      "name": "Slowbro",
+      "formName": "Mega"
     },
     "slowbro": {
       "name": "Slowbro"
@@ -2889,43 +2903,51 @@
       "name": "Gengar"
     },
     "gengar-mega": {
-      "name": "Mega Gengar"
+      "name": "Gengar",
+      "formName": "Mega"
     },
     "kangaskhan": {
       "name": "Kangaskhan"
     },
     "kangaskhan-mega": {
-      "name": "Mega Kangaskhan"
+      "name": "Kangaskhan",
+      "formName": "Mega"
     },
     "starmie-mega": {
-      "name": "Mega Starmie"
+      "name": "Starmie",
+      "formName": "Mega"
     },
     "starmie": {
       "name": "Starmie"
     },
     "pinsir-mega": {
-      "name": "Mega Pinsir"
+      "name": "Pinsir",
+      "formName": "Mega"
     },
     "pinsir": {
       "name": "Pinsir"
     },
     "tauros-paldea-combat-breed": {
-      "name": "Paldean Tauros (Combat Breed)"
+      "name": "Tauros",
+      "formName": "Paldean Combat Breed"
     },
     "tauros": {
       "name": "Tauros"
     },
     "tauros-paldea-aqua-breed": {
-      "name": "Paldean Tauros (Aqua Breed)"
+      "name": "Tauros",
+      "formName": "Paldean Aqua Breed"
     },
     "tauros-paldea-blaze-breed": {
-      "name": "Paldean Tauros (Blaze Breed)"
+      "name": "Tauros",
+      "formName": "Paldean Blaze Breed"
     },
     "gyarados": {
       "name": "Gyarados"
     },
     "gyarados-mega": {
-      "name": "Mega Gyarados"
+      "name": "Gyarados",
+      "formName": "Mega"
     },
     "ditto": {
       "name": "Ditto"
@@ -2943,7 +2965,8 @@
       "name": "Aerodactyl"
     },
     "aerodactyl-mega": {
-      "name": "Mega Aerodactyl"
+      "name": "Aerodactyl",
+      "formName": "Mega"
     },
     "snorlax": {
       "name": "Snorlax"
@@ -2952,16 +2975,19 @@
       "name": "Dragonite"
     },
     "dragonite-mega": {
-      "name": "Mega Dragonite"
+      "name": "Dragonite",
+      "formName": "Mega"
     },
     "meganium-mega": {
-      "name": "Mega Meganium"
+      "name": "Meganium",
+      "formName": "Mega"
     },
     "meganium": {
       "name": "Meganium"
     },
     "hisuian-typhlosion": {
-      "name": "Hisuian Typhlosion"
+      "name": "Typhlosion",
+      "formName": "Hisuian Form"
     },
     "typhlosion": {
       "name": "Typhlosion"
@@ -2970,7 +2996,8 @@
       "name": "Feraligatr"
     },
     "feraligatr-mega": {
-      "name": "Mega Feraligatr"
+      "name": "Feraligatr",
+      "formName": "Mega"
     },
     "ariados": {
       "name": "Ariados"
@@ -2979,7 +3006,8 @@
       "name": "Ampharos"
     },
     "ampharos-mega": {
-      "name": "Mega Ampharos"
+      "name": "Ampharos",
+      "formName": "Mega"
     },
     "azumarill": {
       "name": "Azumarill"
@@ -2994,7 +3022,8 @@
       "name": "Umbreon"
     },
     "galarian-slowking": {
-      "name": "Galarian Slowking"
+      "name": "Slowking",
+      "formName": "Galarian Form"
     },
     "slowking": {
       "name": "Slowking"
@@ -3003,13 +3032,15 @@
       "name": "Forretress"
     },
     "steelix-mega": {
-      "name": "Mega Steelix"
+      "name": "Steelix",
+      "formName": "Mega"
     },
     "steelix": {
       "name": "Steelix"
     },
     "scizor-mega": {
-      "name": "Mega Scizor"
+      "name": "Scizor",
+      "formName": "Mega"
     },
     "scizor": {
       "name": "Scizor"
@@ -3018,10 +3049,12 @@
       "name": "Heracross"
     },
     "heracross-mega": {
-      "name": "Mega Heracross"
+      "name": "Heracross",
+      "formName": "Mega"
     },
     "skarmory-mega": {
-      "name": "Mega Skarmory"
+      "name": "Skarmory",
+      "formName": "Mega"
     },
     "skarmory": {
       "name": "Skarmory"
@@ -3030,10 +3063,12 @@
       "name": "Houndoom"
     },
     "houndoom-mega": {
-      "name": "Mega Houndoom"
+      "name": "Houndoom",
+      "formName": "Mega"
     },
     "tyranitar-mega": {
-      "name": "Mega Tyranitar"
+      "name": "Tyranitar",
+      "formName": "Mega"
     },
     "tyranitar": {
       "name": "Tyranitar"
@@ -3045,10 +3080,12 @@
       "name": "Gardevoir"
     },
     "gardevoir-mega": {
-      "name": "Mega Gardevoir"
+      "name": "Gardevoir",
+      "formName": "Mega"
     },
     "sableye-mega": {
-      "name": "Mega Sableye"
+      "name": "Sableye",
+      "formName": "Mega"
     },
     "sableye": {
       "name": "Sableye"
@@ -3057,22 +3094,26 @@
       "name": "Aggron"
     },
     "aggron-mega": {
-      "name": "Mega Aggron"
+      "name": "Aggron",
+      "formName": "Mega"
     },
     "medicham": {
       "name": "Medicham"
     },
     "medicham-mega": {
-      "name": "Mega Medicham"
+      "name": "Medicham",
+      "formName": "Mega"
     },
     "manectric": {
       "name": "Manectric"
     },
     "manectric-mega": {
-      "name": "Mega Manectric"
+      "name": "Manectric",
+      "formName": "Mega"
     },
     "sharpedo-mega": {
-      "name": "Mega Sharpedo"
+      "name": "Sharpedo",
+      "formName": "Mega"
     },
     "sharpedo": {
       "name": "Sharpedo"
@@ -3081,7 +3122,8 @@
       "name": "Camerupt"
     },
     "camerupt-mega": {
-      "name": "Mega Camerupt"
+      "name": "Camerupt",
+      "formName": "Mega"
     },
     "torkoal": {
       "name": "Torkoal"
@@ -3090,7 +3132,8 @@
       "name": "Altaria"
     },
     "altaria-mega": {
-      "name": "Mega Altaria"
+      "name": "Altaria",
+      "formName": "Mega"
     },
     "milotic": {
       "name": "Milotic"
@@ -3102,25 +3145,29 @@
       "name": "Banette"
     },
     "banette-mega": {
-      "name": "Mega Banette"
+      "name": "Banette",
+      "formName": "Mega"
     },
     "chimecho": {
       "name": "Chimecho"
     },
     "chimecho-mega": {
-      "name": "Mega Chimecho"
+      "name": "Chimecho",
+      "formName": "Mega"
     },
     "absol": {
       "name": "Absol"
     },
     "absol-mega": {
-      "name": "Mega Absol"
+      "name": "Absol",
+      "formName": "Mega"
     },
     "glalie": {
       "name": "Glalie"
     },
     "glalie-mega": {
-      "name": "Mega Glalie"
+      "name": "Glalie",
+      "formName": "Mega"
     },
     "torterra": {
       "name": "Torterra"
@@ -3147,7 +3194,8 @@
       "name": "Lopunny"
     },
     "lopunny-mega": {
-      "name": "Mega Lopunny"
+      "name": "Lopunny",
+      "formName": "Mega"
     },
     "spiritomb": {
       "name": "Spiritomb"
@@ -3156,13 +3204,15 @@
       "name": "Garchomp"
     },
     "garchomp-mega": {
-      "name": "Mega Garchomp"
+      "name": "Garchomp",
+      "formName": "Mega"
     },
     "lucario": {
       "name": "Lucario"
     },
     "lucario-mega": {
-      "name": "Mega Lucario"
+      "name": "Lucario",
+      "formName": "Mega"
     },
     "hippowdon": {
       "name": "Hippowdon"
@@ -3174,7 +3224,8 @@
       "name": "Abomasnow"
     },
     "abomasnow-mega": {
-      "name": "Mega Abomasnow"
+      "name": "Abomasnow",
+      "formName": "Mega"
     },
     "weavile": {
       "name": "Weavile"
@@ -3198,31 +3249,38 @@
       "name": "Gallade"
     },
     "gallade-mega": {
-      "name": "Mega Gallade"
+      "name": "Gallade",
+      "formName": "Mega"
     },
     "froslass": {
       "name": "Froslass"
     },
     "froslass-mega": {
-      "name": "Mega Froslass"
+      "name": "Froslass",
+      "formName": "Mega"
     },
     "rotom-fan": {
-      "name": "Fan Rotom"
+      "name": "Rotom",
+      "formName": "Fan"
     },
     "rotom-frost": {
-      "name": "Frost Rotom"
+      "name": "Rotom",
+      "formName": "Frost"
     },
     "rotom-heat": {
-      "name": "Heat Rotom"
+      "name": "Rotom",
+      "formName": "Heat"
     },
     "rotom-mow": {
-      "name": "Mow Rotom"
+      "name": "Rotom",
+      "formName": "Mow"
     },
     "rotom": {
       "name": "Rotom"
     },
     "rotom-wash": {
-      "name": "Wash Rotom"
+      "name": "Rotom",
+      "formName": "Wash"
     },
     "serperior": {
       "name": "Serperior"
@@ -3231,10 +3289,12 @@
       "name": "Emboar"
     },
     "emboar-mega": {
-      "name": "Mega Emboar"
+      "name": "Emboar",
+      "formName": "Mega"
     },
     "hisuian-samurott": {
-      "name": "Hisuian Samurott"
+      "name": "Samurott",
+      "formName": "Hisuian Form"
     },
     "samurott": {
       "name": "Samurott"
@@ -3258,13 +3318,15 @@
       "name": "Excadrill"
     },
     "excadrill-mega": {
-      "name": "Mega Excadrill"
+      "name": "Excadrill",
+      "formName": "Mega"
     },
     "audino": {
       "name": "Audino"
     },
     "audino-mega": {
-      "name": "Mega Audino"
+      "name": "Audino",
+      "formName": "Mega"
     },
     "conkeldurr": {
       "name": "Conkeldurr"
@@ -3282,7 +3344,8 @@
       "name": "Garbodor"
     },
     "hisuian-zoroark": {
-      "name": "Hisuian Zoroark"
+      "name": "Zoroark",
+      "formName": "Hisuian Form"
     },
     "zoroark": {
       "name": "Zoroark"
@@ -3300,13 +3363,15 @@
       "name": "Chandelure"
     },
     "chandelure-mega": {
-      "name": "Mega Chandelure"
+      "name": "Chandelure",
+      "formName": "Mega"
     },
     "beartic": {
       "name": "Beartic"
     },
     "galarian-stunfisk": {
-      "name": "Galarian Stunfisk"
+      "name": "Stunfisk",
+      "formName": "Galarian Form"
     },
     "stunfisk": {
       "name": "Stunfisk"
@@ -3315,7 +3380,8 @@
       "name": "Golurk"
     },
     "golurk-mega": {
-      "name": "Mega Golurk"
+      "name": "Golurk",
+      "formName": "Mega"
     },
     "hydreigon": {
       "name": "Hydreigon"
@@ -3327,19 +3393,22 @@
       "name": "Chesnaught"
     },
     "chesnaught-mega": {
-      "name": "Mega Chesnaught"
+      "name": "Chesnaught",
+      "formName": "Mega"
     },
     "delphox": {
       "name": "Delphox"
     },
     "delphox-mega": {
-      "name": "Mega Delphox"
+      "name": "Delphox",
+      "formName": "Mega"
     },
     "greninja": {
       "name": "Greninja"
     },
     "greninja-mega": {
-      "name": "Mega Greninja"
+      "name": "Greninja",
+      "formName": "Mega"
     },
     "diggersby": {
       "name": "Diggersby"
@@ -3354,10 +3423,12 @@
       "name": "Floette"
     },
     "floette-eternal": {
-      "name": "Floette (Eternal Flower)"
+      "name": "Floette",
+      "formName": "Eternal Flower"
     },
     "floette-mega": {
-      "name": "Mega Floette"
+      "name": "Floette",
+      "formName": "Mega"
     },
     "florges": {
       "name": "Florges"
@@ -3369,19 +3440,24 @@
       "name": "Furfrou"
     },
     "meowstic-mega": {
-      "name": "Mega Meowstic"
+      "name": "Meowstic",
+      "formName": "Mega"
     },
     "meowstic-male": {
-      "name": "Male Meowstic"
+      "name": "Meowstic",
+      "formName": "Male"
     },
     "meowstic-female": {
-      "name": "Female Meowstic"
+      "name": "Meowstic",
+      "formName": "Female"
     },
     "aegislash-shield": {
-      "name": "Aegislash"
+      "name": "Aegislash",
+      "formName": "Shield Forme"
     },
     "aegislash-blade": {
-      "name": "Aegislash"
+      "name": "Aegislash",
+      "formName": "Blade Forme"
     },
     "aromatisse": {
       "name": "Aromatisse"
@@ -3408,7 +3484,8 @@
       "name": "Hawlucha"
     },
     "hawlucha-mega": {
-      "name": "Mega Hawlucha"
+      "name": "Hawlucha",
+      "formName": "Mega"
     },
     "dedenne": {
       "name": "Dedenne"
@@ -3417,7 +3494,8 @@
       "name": "Goodra"
     },
     "hisuian-goodra": {
-      "name": "Hisuian Goodra"
+      "name": "Goodra",
+      "formName": "Hisuian Form"
     },
     "klefki": {
       "name": "Klefki"
@@ -3426,22 +3504,27 @@
       "name": "Trevenant"
     },
     "gourgeist-small": {
-      "name": "Small Gourgeist"
+      "name": "Gourgeist",
+      "formName": "Small Size"
     },
     "gourgeist-average": {
-      "name": "Average Gourgeist"
+      "name": "Gourgeist",
+      "formName": "Average Size"
     },
     "gourgeist-large": {
-      "name": "Large Gourgeist"
+      "name": "Gourgeist",
+      "formName": "Large Size"
     },
     "gourgeist-super": {
-      "name": "Super Gourgeist"
+      "name": "Gourgeist",
+      "formName": "Super Size"
     },
     "avalugg": {
       "name": "Avalugg"
     },
     "hisuian-avalugg": {
-      "name": "Hisuian Avalugg"
+      "name": "Avalugg",
+      "formName": "Hisuian Form"
     },
     "noivern": {
       "name": "Noivern"
@@ -3450,7 +3533,8 @@
       "name": "Decidueye"
     },
     "hisuian-decidueye": {
-      "name": "Hisuian Decidueye"
+      "name": "Decidueye",
+      "formName": "Hisuian Form"
     },
     "incineroar": {
       "name": "Incineroar"
@@ -3465,16 +3549,20 @@
       "name": "Crabominable"
     },
     "crabominable-mega": {
-      "name": "Mega Crabominable"
+      "name": "Crabominable",
+      "formName": "Mega"
     },
     "lycanroc-midday": {
-      "name": "Midday Lycanroc"
+      "name": "Lycanroc",
+      "formName": "Midday Form"
     },
     "lycanroc-midnight": {
-      "name": "Midnight Lycanroc"
+      "name": "Lycanroc",
+      "formName": "Midnight Form"
     },
     "lycanroc-dusk": {
-      "name": "Dusk Lycanroc"
+      "name": "Lycanroc",
+      "formName": "Dusk Form"
     },
     "toxapex": {
       "name": "Toxapex"
@@ -3498,13 +3586,15 @@
       "name": "Passimian"
     },
     "mimikyu-disguised": {
-      "name": "Mimikyu"
+      "name": "Mimikyu",
+      "formName": "Disguised Form"
     },
     "drampa": {
       "name": "Drampa"
     },
     "drampa-mega": {
-      "name": "Mega Drampa"
+      "name": "Drampa",
+      "formName": "Mega"
     },
     "kommo-o": {
       "name": "Kommo-o"
@@ -3537,7 +3627,8 @@
       "name": "Alcremie"
     },
     "morpeko-full-belly": {
-      "name": "Morpeko"
+      "name": "Morpeko",
+      "formName": "Full Belly Mode"
     },
     "dragapult": {
       "name": "Dragapult"
@@ -3549,10 +3640,12 @@
       "name": "Kleavor"
     },
     "basculegion-male": {
-      "name": "Male Basculegion"
+      "name": "Basculegion",
+      "formName": "Male"
     },
     "basculegion-female": {
-      "name": "Female Basculegion"
+      "name": "Basculegion",
+      "formName": "Female"
     },
     "sneasler": {
       "name": "Sneasler"
@@ -3567,7 +3660,8 @@
       "name": "Quaquaval"
     },
     "maushold-family-of-four": {
-      "name": "Maushold (Family of Four)"
+      "name": "Maushold",
+      "formName": "Family of Four"
     },
     "garganacl": {
       "name": "Garganacl"
@@ -3582,7 +3676,8 @@
       "name": "Bellibolt"
     },
     "scovillain-mega": {
-      "name": "Mega Scovillain"
+      "name": "Scovillain",
+      "formName": "Mega"
     },
     "scovillain": {
       "name": "Scovillain"
@@ -3594,10 +3689,12 @@
       "name": "Tinkaton"
     },
     "palafin-zero": {
-      "name": "Palafin"
+      "name": "Palafin",
+      "formName": "Zero Form"
     },
     "palafin-hero": {
-      "name": "Palafin"
+      "name": "Palafin",
+      "formName": "Hero Form"
     },
     "orthworm": {
       "name": "Orthworm"
@@ -3606,7 +3703,8 @@
       "name": "Glimmora"
     },
     "glimmora-mega": {
-      "name": "Mega Glimmora"
+      "name": "Glimmora",
+      "formName": "Mega"
     },
     "farigiraf": {
       "name": "Farigiraf"
@@ -3624,10 +3722,12 @@
       "name": "Hydrapple"
     },
     "raichu-mega-x": {
-      "name": "Mega Raichu X"
+      "name": "Raichu",
+      "formName": "Mega X"
     },
     "raichu-mega-y": {
-      "name": "Mega Raichu Y"
+      "name": "Raichu",
+      "formName": "Mega Y"
     },
     "vileplume": {
       "name": "Vileplume"
@@ -3639,37 +3739,43 @@
       "name": "Sceptile"
     },
     "sceptile-mega": {
-      "name": "Mega Sceptile"
+      "name": "Sceptile",
+      "formName": "Mega"
     },
     "blaziken": {
       "name": "Blaziken"
     },
     "blaziken-mega": {
-      "name": "Mega Blaziken"
+      "name": "Blaziken",
+      "formName": "Mega"
     },
     "swampert": {
       "name": "Swampert"
     },
     "swampert-mega": {
-      "name": "Mega Swampert"
+      "name": "Swampert",
+      "formName": "Mega"
     },
     "mawile": {
       "name": "Mawile"
     },
     "mawile-mega": {
-      "name": "Mega Mawile"
+      "name": "Mawile",
+      "formName": "Mega"
     },
     "metagross": {
       "name": "Metagross"
     },
     "metagross-mega": {
-      "name": "Mega Metagross"
+      "name": "Metagross",
+      "formName": "Mega"
     },
     "staraptor": {
       "name": "Staraptor"
     },
     "staraptor-mega": {
-      "name": "Mega Staraptor"
+      "name": "Staraptor",
+      "formName": "Mega"
     },
     "musharna": {
       "name": "Musharna"
@@ -3678,43 +3784,51 @@
       "name": "Scolipede"
     },
     "scolipede-mega": {
-      "name": "Mega Scolipede"
+      "name": "Scolipede",
+      "formName": "Mega"
     },
     "scrafty": {
       "name": "Scrafty"
     },
     "scrafty-mega": {
-      "name": "Mega Scrafty"
+      "name": "Scrafty",
+      "formName": "Mega"
     },
     "eelektross": {
       "name": "Eelektross"
     },
     "eelektross-mega": {
-      "name": "Mega Eelektross"
+      "name": "Eelektross",
+      "formName": "Mega"
     },
     "pyroar-male": {
-      "name": "Male Pyroar"
+      "name": "Pyroar",
+      "formName": "Male"
     },
     "pyroar-mega": {
-      "name": "Mega Pyroar"
+      "name": "Pyroar",
+      "formName": "Mega"
     },
     "malamar": {
       "name": "Malamar"
     },
     "malamar-mega": {
-      "name": "Mega Malamar"
+      "name": "Malamar",
+      "formName": "Mega"
     },
     "barbaracle": {
       "name": "Barbaracle"
     },
     "barbaracle-mega": {
-      "name": "Mega Barbaracle"
+      "name": "Barbaracle",
+      "formName": "Mega"
     },
     "dragalge": {
       "name": "Dragalge"
     },
     "dragalge-mega": {
-      "name": "Mega Dragalge"
+      "name": "Dragalge",
+      "formName": "Mega"
     },
     "grimmsnarl": {
       "name": "Grimmsnarl"
@@ -3723,7 +3837,8 @@
       "name": "Falinks"
     },
     "falinks-mega": {
-      "name": "Mega Falinks"
+      "name": "Falinks",
+      "formName": "Mega"
     },
     "overqwil": {
       "name": "Overqwil"
@@ -3736,6 +3851,54 @@
     },
     "gholdengo": {
       "name": "Gholdengo"
+    },
+    "raichu-alola": {
+      "name": "Raichu",
+      "formName": "Alolan Form"
+    },
+    "ninetales-alola": {
+      "name": "Ninetales",
+      "formName": "Alolan Form"
+    },
+    "arcanine-hisui": {
+      "name": "Arcanine",
+      "formName": "Hisuian Form"
+    },
+    "slowbro-galar": {
+      "name": "Slowbro",
+      "formName": "Galarian Form"
+    },
+    "typhlosion-hisui": {
+      "name": "Typhlosion",
+      "formName": "Hisuian Form"
+    },
+    "slowking-galar": {
+      "name": "Slowking",
+      "formName": "Galarian Form"
+    },
+    "samurott-hisui": {
+      "name": "Samurott",
+      "formName": "Hisuian Form"
+    },
+    "zoroark-hisui": {
+      "name": "Zoroark",
+      "formName": "Hisuian Form"
+    },
+    "stunfisk-galar": {
+      "name": "Stunfisk",
+      "formName": "Galarian Form"
+    },
+    "goodra-hisui": {
+      "name": "Goodra",
+      "formName": "Hisuian Form"
+    },
+    "avalugg-hisui": {
+      "name": "Avalugg",
+      "formName": "Hisuian Form"
+    },
+    "decidueye-hisui": {
+      "name": "Decidueye",
+      "formName": "Hisuian Form"
     }
   },
   "abilities": {

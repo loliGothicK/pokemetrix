@@ -1619,7 +1619,8 @@
   },
   "pokemon": {
     "venusaur-mega": {
-      "name": "メガフシギバナ"
+      "name": "フシギバナ",
+      "formName": "メガ"
     },
     "venusaur": {
       "name": "フシギバナ"
@@ -1628,25 +1629,30 @@
       "name": "リザードン"
     },
     "charizard-mega-x": {
-      "name": "メガXリザードン"
+      "name": "リザードン",
+      "formName": "メガX"
     },
     "charizard-mega-y": {
-      "name": "メガYリザードン"
+      "name": "リザードン",
+      "formName": "メガY"
     },
     "blastoise": {
       "name": "カメックス"
     },
     "blastoise-mega": {
-      "name": "メガカメックス"
+      "name": "カメックス",
+      "formName": "メガ"
     },
     "beedrill": {
       "name": "スピアー"
     },
     "beedrill-mega": {
-      "name": "メガスピアー"
+      "name": "スピアー",
+      "formName": "メガ"
     },
     "pidgeot-mega": {
-      "name": "メガピジョット"
+      "name": "ピジョット",
+      "formName": "メガ"
     },
     "pidgeot": {
       "name": "ピジョット"
@@ -1658,7 +1664,8 @@
       "name": "ピカチュウ"
     },
     "raichu-alola": {
-      "name": "アローラライチュウ"
+      "name": "ライチュウ",
+      "formName": "アローラのすがた"
     },
     "raichu": {
       "name": "ライチュウ"
@@ -1667,10 +1674,12 @@
       "name": "ピクシー"
     },
     "clefable-mega": {
-      "name": "メガピクシー"
+      "name": "ピクシー",
+      "formName": "メガ"
     },
     "ninetales-alola": {
-      "name": "アローラキュウコン"
+      "name": "キュウコン",
+      "formName": "アローラのすがた"
     },
     "ninetales": {
       "name": "キュウコン"
@@ -1679,28 +1688,33 @@
       "name": "ウインディ"
     },
     "arcanine-hisui": {
-      "name": "ヒスイウインディ"
+      "name": "ウインディ",
+      "formName": "ヒスイのすがた"
     },
     "alakazam": {
       "name": "フーディン"
     },
     "alakazam-mega": {
-      "name": "メガフーディン"
+      "name": "フーディン",
+      "formName": "メガ"
     },
     "machamp": {
       "name": "カイリキー"
     },
     "victreebel-mega": {
-      "name": "メガウツボット"
+      "name": "ウツボット",
+      "formName": "メガ"
     },
     "victreebel": {
       "name": "ウツボット"
     },
     "slowbro-galar": {
-      "name": "ガラルヤドラン"
+      "name": "ヤドラン",
+      "formName": "ガラルのすがた"
     },
     "slowbro-mega": {
-      "name": "メガヤドラン"
+      "name": "ヤドラン",
+      "formName": "メガ"
     },
     "slowbro": {
       "name": "ヤドラン"
@@ -1709,43 +1723,51 @@
       "name": "ゲンガー"
     },
     "gengar-mega": {
-      "name": "メガゲンガー"
+      "name": "ゲンガー",
+      "formName": "メガ"
     },
     "kangaskhan": {
       "name": "ガルーラ"
     },
     "kangaskhan-mega": {
-      "name": "メガガルーラ"
+      "name": "ガルーラ",
+      "formName": "メガ"
     },
     "starmie-mega": {
-      "name": "メガスターミー"
+      "name": "スターミー",
+      "formName": "メガ"
     },
     "starmie": {
       "name": "スターミー"
     },
     "pinsir-mega": {
-      "name": "メガカイロス"
+      "name": "カイロス",
+      "formName": "メガ"
     },
     "pinsir": {
       "name": "カイロス"
     },
     "tauros-paldea-combat-breed": {
-      "name": "パルデア(コンバット種)ケンタロス"
+      "name": "ケンタロス",
+      "formName": "パルデアのすがた(コンバット種)"
     },
     "tauros": {
       "name": "ケンタロス"
     },
     "tauros-paldea-aqua-breed": {
-      "name": "パルデア(ウォーター種)ケンタロス"
+      "name": "ケンタロス",
+      "formName": "パルデアのすがた(ウォーター種)"
     },
     "tauros-paldea-blaze-breed": {
-      "name": "パルデア(ブレイズ種)ケンタロス"
+      "name": "ケンタロス",
+      "formName": "パルデアのすがた(ブレイズ種)"
     },
     "gyarados": {
       "name": "ギャラドス"
     },
     "gyarados-mega": {
-      "name": "メガギャラドス"
+      "name": "ギャラドス",
+      "formName": "メガ"
     },
     "ditto": {
       "name": "メタモン"
@@ -1763,7 +1785,8 @@
       "name": "プテラ"
     },
     "aerodactyl-mega": {
-      "name": "メガプテラ"
+      "name": "プテラ",
+      "formName": "メガ"
     },
     "snorlax": {
       "name": "カビゴン"
@@ -1772,16 +1795,19 @@
       "name": "カイリュー"
     },
     "dragonite-mega": {
-      "name": "メガカイリュー"
+      "name": "カイリュー",
+      "formName": "メガ"
     },
     "meganium-mega": {
-      "name": "メガメガニウム"
+      "name": "メガニウム",
+      "formName": "メガ"
     },
     "meganium": {
       "name": "メガニウム"
     },
     "typhlosion-hisui": {
-      "name": "ヒスイバクフーン"
+      "name": "バクフーン",
+      "formName": "ヒスイのすがた"
     },
     "typhlosion": {
       "name": "バクフーン"
@@ -1790,7 +1816,8 @@
       "name": "オーダイル"
     },
     "feraligatr-mega": {
-      "name": "メガオーダイル"
+      "name": "オーダイル",
+      "formName": "メガ"
     },
     "ariados": {
       "name": "アリアドス"
@@ -1799,7 +1826,8 @@
       "name": "デンリュウ"
     },
     "ampharos-mega": {
-      "name": "メガデンリュウ"
+      "name": "デンリュウ",
+      "formName": "メガ"
     },
     "azumarill": {
       "name": "マリルリ"
@@ -1814,7 +1842,8 @@
       "name": "ブラッキー"
     },
     "slowking-galar": {
-      "name": "ガラルヤドキング"
+      "name": "ヤドキング",
+      "formName": "ガラルのすがた"
     },
     "slowking": {
       "name": "ヤドキング"
@@ -1823,13 +1852,15 @@
       "name": "フォレトス"
     },
     "steelix-mega": {
-      "name": "メガハガネール"
+      "name": "ハガネール",
+      "formName": "メガ"
     },
     "steelix": {
       "name": "ハガネール"
     },
     "scizor-mega": {
-      "name": "メガハッサム"
+      "name": "ハッサム",
+      "formName": "メガ"
     },
     "scizor": {
       "name": "ハッサム"
@@ -1838,10 +1869,12 @@
       "name": "ヘラクロス"
     },
     "heracross-mega": {
-      "name": "メガヘラクロス"
+      "name": "ヘラクロス",
+      "formName": "メガ"
     },
     "skarmory-mega": {
-      "name": "メガエアームド"
+      "name": "エアームド",
+      "formName": "メガ"
     },
     "skarmory": {
       "name": "エアームド"
@@ -1850,10 +1883,12 @@
       "name": "ヘルガー"
     },
     "houndoom-mega": {
-      "name": "メガヘルガー"
+      "name": "ヘルガー",
+      "formName": "メガ"
     },
     "tyranitar-mega": {
-      "name": "メガバンギラス"
+      "name": "バンギラス",
+      "formName": "メガ"
     },
     "tyranitar": {
       "name": "バンギラス"
@@ -1865,10 +1900,12 @@
       "name": "サーナイト"
     },
     "gardevoir-mega": {
-      "name": "メガサーナイト"
+      "name": "サーナイト",
+      "formName": "メガ"
     },
     "sableye-mega": {
-      "name": "メガヤミラミ"
+      "name": "ヤミラミ",
+      "formName": "メガ"
     },
     "sableye": {
       "name": "ヤミラミ"
@@ -1877,22 +1914,26 @@
       "name": "ボスゴドラ"
     },
     "aggron-mega": {
-      "name": "メガボスゴドラ"
+      "name": "ボスゴドラ",
+      "formName": "メガ"
     },
     "medicham": {
       "name": "チャーレム"
     },
     "medicham-mega": {
-      "name": "メガチャーレム"
+      "name": "チャーレム",
+      "formName": "メガ"
     },
     "manectric": {
       "name": "ライボルト"
     },
     "manectric-mega": {
-      "name": "メガライボルト"
+      "name": "ライボルト",
+      "formName": "メガ"
     },
     "sharpedo-mega": {
-      "name": "メガサメハダー"
+      "name": "サメハダー",
+      "formName": "メガ"
     },
     "sharpedo": {
       "name": "サメハダー"
@@ -1901,7 +1942,8 @@
       "name": "バクーダ"
     },
     "camerupt-mega": {
-      "name": "メガバクーダ"
+      "name": "バクーダ",
+      "formName": "メガ"
     },
     "torkoal": {
       "name": "コータス"
@@ -1910,7 +1952,8 @@
       "name": "チルタリス"
     },
     "altaria-mega": {
-      "name": "メガチルタリス"
+      "name": "チルタリス",
+      "formName": "メガ"
     },
     "milotic": {
       "name": "ミロカロス"
@@ -1922,25 +1965,29 @@
       "name": "ジュペッタ"
     },
     "banette-mega": {
-      "name": "メガジュペッタ"
+      "name": "ジュペッタ",
+      "formName": "メガ"
     },
     "chimecho": {
       "name": "チリーン"
     },
     "chimecho-mega": {
-      "name": "メガチリーン"
+      "name": "チリーン",
+      "formName": "メガ"
     },
     "absol": {
       "name": "アブソル"
     },
     "absol-mega": {
-      "name": "メガアブソル"
+      "name": "アブソル",
+      "formName": "メガ"
     },
     "glalie": {
       "name": "オニゴーリ"
     },
     "glalie-mega": {
-      "name": "メガオニゴーリ"
+      "name": "オニゴーリ",
+      "formName": "メガ"
     },
     "torterra": {
       "name": "ドダイトス"
@@ -1967,7 +2014,8 @@
       "name": "ミミロップ"
     },
     "lopunny-mega": {
-      "name": "メガミミロップ"
+      "name": "ミミロップ",
+      "formName": "メガ"
     },
     "spiritomb": {
       "name": "ミカルゲ"
@@ -1976,13 +2024,15 @@
       "name": "ガブリアス"
     },
     "garchomp-mega": {
-      "name": "メガガブリアス"
+      "name": "ガブリアス",
+      "formName": "メガ"
     },
     "lucario": {
       "name": "ルカリオ"
     },
     "lucario-mega": {
-      "name": "メガルカリオ"
+      "name": "ルカリオ",
+      "formName": "メガ"
     },
     "hippowdon": {
       "name": "カバルドン"
@@ -1994,7 +2044,8 @@
       "name": "ユキノオー"
     },
     "abomasnow-mega": {
-      "name": "メガユキノオー"
+      "name": "ユキノオー",
+      "formName": "メガ"
     },
     "weavile": {
       "name": "マニューラ"
@@ -2018,31 +2069,38 @@
       "name": "エルレイド"
     },
     "gallade-mega": {
-      "name": "メガエルレイド"
+      "name": "エルレイド",
+      "formName": "メガ"
     },
     "froslass": {
       "name": "ユキメノコ"
     },
     "froslass-mega": {
-      "name": "メガユキメノコ"
+      "name": "ユキメノコ",
+      "formName": "メガ"
     },
     "rotom-fan": {
-      "name": "ロトム スピン"
+      "name": "ロトム",
+      "formName": "スピン"
     },
     "rotom-frost": {
-      "name": "ロトム フロスト"
+      "name": "ロトム",
+      "formName": "フロスト"
     },
     "rotom-heat": {
-      "name": "ロトム ヒート"
+      "name": "ロトム",
+      "formName": "ヒート"
     },
     "rotom-mow": {
-      "name": "ロトム カット"
+      "name": "ロトム",
+      "formName": "カット"
     },
     "rotom": {
       "name": "ロトム"
     },
     "rotom-wash": {
-      "name": "ロトム ウォッシュ"
+      "name": "ロトム",
+      "formName": "ウォッシュ"
     },
     "serperior": {
       "name": "ジャローダ"
@@ -2051,10 +2109,12 @@
       "name": "エンブオー"
     },
     "emboar-mega": {
-      "name": "メガエンブオー"
+      "name": "エンブオー",
+      "formName": "メガ"
     },
     "samurott-hisui": {
-      "name": "ヒスイダイケンキ"
+      "name": "ダイケンキ",
+      "formName": "ヒスイのすがた"
     },
     "samurott": {
       "name": "ダイケンキ"
@@ -2078,13 +2138,15 @@
       "name": "ドリュウズ"
     },
     "excadrill-mega": {
-      "name": "メガドリュウズ"
+      "name": "ドリュウズ",
+      "formName": "メガ"
     },
     "audino": {
       "name": "タブンネ"
     },
     "audino-mega": {
-      "name": "メガタブンネ"
+      "name": "タブンネ",
+      "formName": "メガ"
     },
     "conkeldurr": {
       "name": "ローブシン"
@@ -2102,7 +2164,8 @@
       "name": "ダストダス"
     },
     "zoroark-hisui": {
-      "name": "ヒスイゾロアーク"
+      "name": "ゾロアーク",
+      "formName": "ヒスイのすがた"
     },
     "zoroark": {
       "name": "ゾロアーク"
@@ -2120,13 +2183,15 @@
       "name": "シャンデラ"
     },
     "chandelure-mega": {
-      "name": "メガシャンデラ"
+      "name": "シャンデラ",
+      "formName": "メガ"
     },
     "beartic": {
       "name": "ツンベアー"
     },
     "stunfisk-galar": {
-      "name": "ガラルマッギョ"
+      "name": "マッギョ",
+      "formName": "ガラルのすがた"
     },
     "stunfisk": {
       "name": "マッギョ"
@@ -2135,7 +2200,8 @@
       "name": "ゴルーグ"
     },
     "golurk-mega": {
-      "name": "メガゴルーグ"
+      "name": "ゴルーグ",
+      "formName": "メガ"
     },
     "hydreigon": {
       "name": "サザンドラ"
@@ -2147,19 +2213,22 @@
       "name": "ブリガロン"
     },
     "chesnaught-mega": {
-      "name": "メガブリガロン"
+      "name": "ブリガロン",
+      "formName": "メガ"
     },
     "delphox": {
       "name": "マフォクシー"
     },
     "delphox-mega": {
-      "name": "メガマフォクシー"
+      "name": "マフォクシー",
+      "formName": "メガ"
     },
     "greninja": {
       "name": "ゲッコウガ"
     },
     "greninja-mega": {
-      "name": "メガゲッコウガ"
+      "name": "ゲッコウガ",
+      "formName": "メガ"
     },
     "diggersby": {
       "name": "ホルード"
@@ -2174,7 +2243,8 @@
       "name": "フラエッテ"
     },
     "floette-mega": {
-      "name": "メガフラエッテ"
+      "name": "フラエッテ",
+      "formName": "メガ"
     },
     "florges": {
       "name": "フラージェス"
@@ -2186,19 +2256,24 @@
       "name": "トリミアン"
     },
     "meowstic-mega": {
-      "name": "メガニャオニクス"
+      "name": "ニャオニクス",
+      "formName": "メガ"
     },
     "meowstic-male": {
-      "name": "ニャオニクス オスのすがた"
+      "name": "ニャオニクス",
+      "formName": "オスのすがた"
     },
     "meowstic-female": {
-      "name": "ニャオニクス メスのすがた"
+      "name": "ニャオニクス",
+      "formName": "メスのすがた"
     },
     "aegislash-shield": {
-      "name": "ギルガルド シールドフォルム"
+      "name": "ギルガルド",
+      "formName": "シールドフォルム"
     },
     "aegislash-blade": {
-      "name": "ギルガルド ブレードフォルム"
+      "name": "ギルガルド",
+      "formName": "ブレードフォルム"
     },
     "aromatisse": {
       "name": "フレフワン"
@@ -2225,7 +2300,8 @@
       "name": "ルチャブル"
     },
     "hawlucha-mega": {
-      "name": "メガルチャブル"
+      "name": "ルチャブル",
+      "formName": "メガ"
     },
     "dedenne": {
       "name": "デデンネ"
@@ -2234,7 +2310,8 @@
       "name": "ヌメルゴン"
     },
     "goodra-hisui": {
-      "name": "ヒスイヌメルゴン"
+      "name": "ヌメルゴン",
+      "formName": "ヒスイのすがた"
     },
     "klefki": {
       "name": "クレッフィ"
@@ -2243,22 +2320,27 @@
       "name": "オーロット"
     },
     "gourgeist-small": {
-      "name": "パンプジン スモールサイズ"
+      "name": "パンプジン",
+      "formName": "スモールサイズ"
     },
     "gourgeist-average": {
-      "name": "パンプジン アベレージサイズ"
+      "name": "パンプジン",
+      "formName": "アベレージサイズ"
     },
     "gourgeist-large": {
-      "name": "パンプジン ラージサイズ"
+      "name": "パンプジン",
+      "formName": "ラージサイズ"
     },
     "gourgeist-super": {
-      "name": "パンプジン スーパーサイズ"
+      "name": "パンプジン",
+      "formName": "スーパーサイズ"
     },
     "avalugg": {
       "name": "クレベース"
     },
     "avalugg-hisui": {
-      "name": "ヒスイクレベース"
+      "name": "クレベース",
+      "formName": "ヒスイのすがた"
     },
     "noivern": {
       "name": "オンバーン"
@@ -2267,7 +2349,8 @@
       "name": "ジュナイパー"
     },
     "decidueye-hisui": {
-      "name": "ヒスイジュナイパー"
+      "name": "ジュナイパー",
+      "formName": "ヒスイのすがた"
     },
     "incineroar": {
       "name": "ガオガエン"
@@ -2282,16 +2365,20 @@
       "name": "ケケンカニ"
     },
     "crabominable-mega": {
-      "name": "メガケケンカニ"
+      "name": "ケケンカニ",
+      "formName": "メガ"
     },
     "lycanroc-midday": {
-      "name": "ルガルガン まひるのすがた"
+      "name": "ルガルガン",
+      "formName": "まひるのすがた"
     },
     "lycanroc-midnight": {
-      "name": "ルガルガン まよなかのすがた"
+      "name": "ルガルガン",
+      "formName": "まよなかのすがた"
     },
     "lycanroc-dusk": {
-      "name": "ルガルガン たそがれのすがた"
+      "name": "ルガルガン",
+      "formName": "たそがれのすがた"
     },
     "toxapex": {
       "name": "ドヒドイデ"
@@ -2315,13 +2402,15 @@
       "name": "ナゲツケサル"
     },
     "mimikyu-disguised": {
-      "name": "ミミッキュ ばけたすがた"
+      "name": "ミミッキュ",
+      "formName": "ばけたすがた"
     },
     "drampa": {
       "name": "ジジーロン"
     },
     "drampa-mega": {
-      "name": "メガジジーロン"
+      "name": "ジジーロン",
+      "formName": "メガ"
     },
     "kommo-o": {
       "name": "ジャラランガ"
@@ -2354,7 +2443,8 @@
       "name": "マホイップ"
     },
     "morpeko-full-belly": {
-      "name": "モルペコ まんぷくもよう"
+      "name": "モルペコ",
+      "formName": "まんぷくもよう"
     },
     "dragapult": {
       "name": "ドラパルト"
@@ -2366,10 +2456,12 @@
       "name": "バサギリ"
     },
     "basculegion-male": {
-      "name": "イダイトウ オスのすがた"
+      "name": "イダイトウ",
+      "formName": "オスのすがた"
     },
     "basculegion-female": {
-      "name": "イダイトウ メスのすがた"
+      "name": "イダイトウ",
+      "formName": "メスのすがた"
     },
     "sneasler": {
       "name": "オオニューラ"
@@ -2384,7 +2476,8 @@
       "name": "ウェーニバル"
     },
     "maushold-family-of-four": {
-      "name": "イッカネズミ 4ひきかぞく"
+      "name": "イッカネズミ",
+      "formName": "4ひきかぞく"
     },
     "garganacl": {
       "name": "キョジオーン"
@@ -2399,7 +2492,8 @@
       "name": "ハラバリー"
     },
     "scovillain-mega": {
-      "name": "メガスコヴィラン"
+      "name": "スコヴィラン",
+      "formName": "メガ"
     },
     "scovillain": {
       "name": "スコヴィラン"
@@ -2411,10 +2505,12 @@
       "name": "デカヌチャン"
     },
     "palafin-zero": {
-      "name": "イルカマン ナイーブフォルム"
+      "name": "イルカマン",
+      "formName": "ナイーブフォルム"
     },
     "palafin-hero": {
-      "name": "イルカマン マイティフォルム"
+      "name": "イルカマン",
+      "formName": "マイティフォルム"
     },
     "orthworm": {
       "name": "ミミズズ"
@@ -2423,7 +2519,8 @@
       "name": "キラフロル"
     },
     "glimmora-mega": {
-      "name": "メガキラフロル"
+      "name": "キラフロル",
+      "formName": "メガ"
     },
     "farigiraf": {
       "name": "リキキリン"
@@ -2441,10 +2538,12 @@
       "name": "カミツオロチ"
     },
     "raichu-mega-x": {
-      "name": "メガXライチュウ"
+      "name": "ライチュウ",
+      "formName": "メガX"
     },
     "raichu-mega-y": {
-      "name": "メガYライチュウ"
+      "name": "ライチュウ",
+      "formName": "メガY"
     },
     "vileplume": {
       "name": "ラフレシア"
@@ -2456,37 +2555,43 @@
       "name": "ジュカイン"
     },
     "sceptile-mega": {
-      "name": "メガジュカイン"
+      "name": "ジュカイン",
+      "formName": "メガ"
     },
     "blaziken": {
       "name": "バシャーモ"
     },
     "blaziken-mega": {
-      "name": "メガバシャーモ"
+      "name": "バシャーモ",
+      "formName": "メガ"
     },
     "swampert": {
       "name": "ラグラージ"
     },
     "swampert-mega": {
-      "name": "メガラグラージ"
+      "name": "ラグラージ",
+      "formName": "メガ"
     },
     "mawile": {
       "name": "クチート"
     },
     "mawile-mega": {
-      "name": "メガクチート"
+      "name": "クチート",
+      "formName": "メガ"
     },
     "metagross": {
       "name": "メタグロス"
     },
     "metagross-mega": {
-      "name": "メガメタグロス"
+      "name": "メタグロス",
+      "formName": "メガ"
     },
     "staraptor": {
       "name": "ムクホーク"
     },
     "staraptor-mega": {
-      "name": "メガムクホーク"
+      "name": "ムクホーク",
+      "formName": "メガ"
     },
     "musharna": {
       "name": "ムシャーナ"
@@ -2495,43 +2600,51 @@
       "name": "ペンドラー"
     },
     "scolipede-mega": {
-      "name": "メガペンドラー"
+      "name": "ペンドラー",
+      "formName": "メガ"
     },
     "scrafty": {
       "name": "ズルズキン"
     },
     "scrafty-mega": {
-      "name": "メガズルズキン"
+      "name": "ズルズキン",
+      "formName": "メガ"
     },
     "eelektross": {
       "name": "シビルドン"
     },
     "eelektross-mega": {
-      "name": "メガシビルドン"
+      "name": "シビルドン",
+      "formName": "メガ"
     },
     "pyroar-male": {
-      "name": "カエンジシ オスのすがた"
+      "name": "カエンジシ",
+      "formName": "オスのすがた"
     },
     "pyroar-mega": {
-      "name": "メガカエンジシ"
+      "name": "カエンジシ",
+      "formName": "メガ"
     },
     "malamar": {
       "name": "カラマネロ"
     },
     "malamar-mega": {
-      "name": "メガカラマネロ"
+      "name": "カラマネロ",
+      "formName": "メガ"
     },
     "barbaracle": {
       "name": "ガメノデス"
     },
     "barbaracle-mega": {
-      "name": "メガガメノデス"
+      "name": "ガメノデス",
+      "formName": "メガ"
     },
     "dragalge": {
       "name": "ドラミドロ"
     },
     "dragalge-mega": {
-      "name": "メガドラミドロ"
+      "name": "ドラミドロ",
+      "formName": "メガ"
     },
     "grimmsnarl": {
       "name": "オーロンゲ"
@@ -2540,7 +2653,8 @@
       "name": "タイレーツ"
     },
     "falinks-mega": {
-      "name": "メガタイレーツ"
+      "name": "タイレーツ",
+      "formName": "メガ"
     },
     "overqwil": {
       "name": "ハリーマン"
@@ -2553,6 +2667,58 @@
     },
     "gholdengo": {
       "name": "サーフゴー"
+    },
+    "alolan-raichu": {
+      "name": "ライチュウ",
+      "formName": "アローラのすがた"
+    },
+    "alolan-ninetales": {
+      "name": "キュウコン",
+      "formName": "アローラのすがた"
+    },
+    "hisuian-arcanine": {
+      "name": "ウインディ",
+      "formName": "ヒスイのすがた"
+    },
+    "galarian-slowbro": {
+      "name": "ヤドラン",
+      "formName": "ガラルのすがた"
+    },
+    "hisuian-typhlosion": {
+      "name": "バクフーン",
+      "formName": "ヒスイのすがた"
+    },
+    "galarian-slowking": {
+      "name": "ヤドキング",
+      "formName": "ガラルのすがた"
+    },
+    "hisuian-samurott": {
+      "name": "ダイケンキ",
+      "formName": "ヒスイのすがた"
+    },
+    "hisuian-zoroark": {
+      "name": "ゾロアーク",
+      "formName": "ヒスイのすがた"
+    },
+    "galarian-stunfisk": {
+      "name": "マッギョ",
+      "formName": "ガラルのすがた"
+    },
+    "hisuian-goodra": {
+      "name": "ヌメルゴン",
+      "formName": "ヒスイのすがた"
+    },
+    "hisuian-avalugg": {
+      "name": "クレベース",
+      "formName": "ヒスイのすがた"
+    },
+    "hisuian-decidueye": {
+      "name": "ジュナイパー",
+      "formName": "ヒスイのすがた"
+    },
+    "floette-eternal": {
+      "name": "フラエッテ",
+      "formName": "エターナルフラワー"
     }
   }
 }

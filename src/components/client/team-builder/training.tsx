@@ -95,7 +95,7 @@ export function Training({
   member: TrainedPokemon;
   onUpdate: (trained: TrainedPokemon) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
   const [ongoing, setOngoing] = useState<TrainedPokemon | null>(member);
@@ -341,13 +341,18 @@ export function Training({
               </Box>
 
               <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                <Box>
-                  <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack direction={"row"} sx={{ alignItems: "center" }}>
+                  <Stack direction="column" spacing={1} sx={{ alignItems: "flex-start", flexGrow: 0.5 }}>
                     <Typography variant="h4">
                       {t(`pokemon.${activePokemon.identifier}.name`)}
                     </Typography>
+                    {i18n.exists(`pokemon.${activePokemon.identifier}.formName`) && (
+                      <Typography variant="body2" sx={{ color: "text.secondary", fontWeight: 400 }}>
+                        {t(`pokemon.${activePokemon.identifier}.formName`)}
+                      </Typography>
+                    )}
                   </Stack>
-                  <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                  <Stack direction="row" spacing={1}>
                     {pokemon.types.map((type) => (
                       <Chip
                         avatar={<Avatar src={typeIcon(type)} />}
@@ -357,7 +362,7 @@ export function Training({
                       />
                     ))}
                   </Stack>
-                </Box>
+                </Stack>
 
                 <Stack
                   direction="row"

@@ -16,6 +16,7 @@ import {
 import Search from "@mui/icons-material/Search";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
 import { ComponentProps, useRef, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { typeIcon } from "@/lib/image";
 import {
   matchesQueryTokens,
@@ -27,11 +28,12 @@ import { useBoxData } from "@/hooks/useBoxData";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
 import type { TrainedPokemon } from "@/store/team/team";
+import type { TFunction } from "i18next";
 
 type SelectPokemonDialogProps = Pick<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
   title: string;
   onChange: (identifier: string | null) => void;
-  translator: (identifier: string) => string;
+  translator: TFunction;
   onSelectFromBox?: (pokemon: TrainedPokemon) => void;
 };
 
@@ -46,6 +48,7 @@ export function SelectPokemonDialog({
   translator,
   onSelectFromBox,
 }: SelectPokemonDialogProps) {
+  const { i18n } = useTranslation();
   const [tokens, setTokens] = useState<readonly QueryToken[]>([]);
   const [tab, setTab] = useState<"master" | "box">("master");
   const [boxSearch, setBoxSearch] = useState("");
@@ -102,7 +105,7 @@ export function SelectPokemonDialog({
     const matched = pokemonOptions.filter((pokemon) =>
       matchesQueryTokens(
         {
-          text: `${pokemon.identifier} ${translator(`pokemon.${pokemon.identifier}.name`)}`,
+          text: `${pokemon.identifier} ${translator(`pokemon.${pokemon.identifier}.name`)} ${i18n.exists(`pokemon.${pokemon.identifier}.formName`) ? translator(`pokemon.${pokemon.identifier}.formName`) : ""}`,
           fields: { type: pokemon.types },
         },
         tokens,
@@ -118,6 +121,7 @@ export function SelectPokemonDialog({
     return box.filter(
       (p) =>
         translator(`pokemon.${p.identifier}.name`).toLowerCase().includes(trimmed) ||
+        (i18n.exists(`pokemon.${p.identifier}.formName`) ? translator(`pokemon.${p.identifier}.formName`) : "").toLowerCase().includes(trimmed) ||
         p.identifier.includes(trimmed),
     );
   }, [box, boxSearch, translator]);
@@ -195,7 +199,16 @@ export function SelectPokemonDialog({
                     >
                       <Chip
                         avatar={<Avatar src={`/pokemon/${pokemon.identifier}.png`} />}
-                        label={translator(`pokemon.${pokemon.identifier}.name`)}
+                        label={
+                          <>
+                            {translator(`pokemon.${pokemon.identifier}.name`)}
+                            {i18n.exists(`pokemon.${pokemon.identifier}.formName`) && (
+                              <Typography component="span" sx={{ ml: 0.5, fontSize: "0.8em", color: "text.secondary", fontWeight: 400 }}>
+                                {translator(`pokemon.${pokemon.identifier}.formName`)}
+                              </Typography>
+                            )}
+                          </>
+                        }
                         sx={{
                           height: 48,
                           fontSize: "1.1rem",
@@ -290,7 +303,16 @@ export function SelectPokemonDialog({
                     >
                       <Chip
                         avatar={<Avatar src={`/pokemon/${pokemon.identifier}.png`} />}
-                        label={translator(`pokemon.${pokemon.identifier}.name`)}
+                        label={
+                          <>
+                            {translator(`pokemon.${pokemon.identifier}.name`)}
+                            {i18n.exists(`pokemon.${pokemon.identifier}.formName`) && (
+                              <Typography component="span" sx={{ ml: 0.5, fontSize: "0.8em", color: "text.secondary", fontWeight: 400 }}>
+                                {translator(`pokemon.${pokemon.identifier}.formName`)}
+                              </Typography>
+                            )}
+                          </>
+                        }
                         sx={{
                           height: 48,
                           fontSize: "1.1rem",

@@ -39,7 +39,11 @@ async function loadPokemonImage(identifier: string): Promise<string | null> {
 
 function getPokemonName(identifier: string): string {
   const key = identifier as keyof typeof enTranslation.pokemon;
-  return enTranslation.pokemon[key]?.name ?? identifier;
+  const entry = enTranslation.pokemon[key] as { name?: string; formName?: string } | undefined;
+  if (!entry) return identifier;
+  const name = entry.name ?? identifier;
+  // 表示順はアプリ内の慣習に合わせる: name 先頭 → formName（例: "Raichu Mega X"）
+  return entry.formName ? `${name} ${entry.formName}` : name;
 }
 
 // ── Image 生成 ────────────────────────────────────────────────────────────────

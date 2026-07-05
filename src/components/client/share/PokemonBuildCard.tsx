@@ -186,10 +186,14 @@ export interface PokemonBuildCardProps {
 }
 
 export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
 
+  // 既存の表示慣習に合わせる: name を主表示、formName は副次テキスト（無ければ空文字）
+  const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
+  const formNameKey = `pokemon.${pokemon.identifier}.formName` as const;
+  const formName    = i18n.exists(formNameKey) ? t(formNameKey) : "";
   const data    = championsPokemonByIdentifier.get(pokemon.identifier);
   const item    = pokemon.item != null ? itemById.get(pokemon.item) : null;
   const ability = abilityById.get(pokemon.ability);
@@ -254,7 +258,15 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
         borderColor: palette.edge,
       }}>
         <Typography sx={{ fontWeight: 800, fontSize: "0.9rem", lineHeight: 1, flexShrink: 0 }}>
-          {t(`pokemon.${pokemon.identifier}.name`)}
+          {pokemonName}
+          {formName && (
+            <Typography
+              component="span"
+              sx={{ ml: 0.5, fontSize: "0.75em", color: "text.secondary", fontWeight: 500 }}
+            >
+              {formName}
+            </Typography>
+          )}
         </Typography>
 
         <Typography sx={{ fontSize: "0.82rem", color: "text.disabled", flexShrink: 0 }}>@</Typography>
@@ -301,7 +313,7 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
         }}>
           <Image
             src={`/pokemon/${pokemon.identifier}.png`}
-            alt={t(`pokemon.${pokemon.identifier}.name`)}
+            alt={formName ? `${pokemonName} (${formName})` : pokemonName}
             fill
             style={{ objectFit: "contain" }}
             sizes="(max-width: 600px) 112px, 128px"

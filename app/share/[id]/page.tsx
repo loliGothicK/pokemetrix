@@ -33,7 +33,11 @@ export async function generateMetadata({
     .filter(Boolean)
     .map((m) => {
       const key = m!.identifier as keyof typeof enTranslation.pokemon;
-      return enTranslation.pokemon[key]?.name ?? m!.identifier;
+      const entry = enTranslation.pokemon[key] as { name?: string; formName?: string } | undefined;
+      if (!entry) return m!.identifier;
+      const name = entry.name ?? m!.identifier;
+      // 表示順はアプリ内の慣習に合わせる: name 先頭 → formName（例: "Raichu Mega X"）
+      return entry.formName ? `${name} ${entry.formName}` : name;
     })
     .join(", ");
 
