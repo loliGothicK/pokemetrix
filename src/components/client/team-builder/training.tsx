@@ -228,12 +228,15 @@ export function Training({
                 sx={{
                   width: 144,
                   height: 144,
+                  minWidth: 144,
                   borderRadius: 4,
                   bgcolor: palette.surface,
                   display: "grid",
                   placeItems: "center",
                   position: "relative",
                   boxShadow: 1,
+                  overflow: "hidden",
+                  flexShrink: 0,
                 }}
               >
                 <Image
@@ -241,6 +244,7 @@ export function Training({
                   alt={ongoing.identifier}
                   width={112}
                   height={112}
+                  style={{ display: "block" }}
                 />
                 {ongoing.item &&
                   (() => {

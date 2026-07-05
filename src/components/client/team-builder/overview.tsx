@@ -150,6 +150,9 @@ function SortableSlotItem({
                 sx={{
                   width: 64,
                   height: 64,
+                  minWidth: 64,
+                  minHeight: 64,
+                  maxHeight: 64,
                   borderRadius: 2,
                   overflow: "hidden",
                   bgcolor: alpha(theme.palette.primary.main, 0.1),
@@ -158,6 +161,7 @@ function SortableSlotItem({
                   justifyContent: "center",
                   position: "relative",
                   flexShrink: 0,
+                  alignSelf: "center",
                 }}
               >
                 <Image
@@ -165,6 +169,7 @@ function SortableSlotItem({
                   alt={member.identifier}
                   width={56}
                   height={56}
+                  style={{ display: "block" }}
                 />
                 {member.item &&
                   (() => {
