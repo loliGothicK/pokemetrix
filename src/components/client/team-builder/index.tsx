@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { activeTeamIdAtom, Team } from "@/store/team/team";
@@ -301,6 +302,157 @@ export type Diagnostics =
       message: MitamaError[];
     };
 
+function MobileTeamList({
+  teams,
+  onSelectTeam,
+  onCreateTeam,
+  onImportTeam,
+  onDeleteTeam,
+  onError,
+}: {
+  teams: Team[];
+  onSelectTeam: (id: string) => void;
+  onCreateTeam: () => void;
+  onImportTeam: (team: { members: Team["members"] }) => void;
+  onDeleteTeam: (id: string) => void;
+  onError: (d: Diagnostics) => void;
+}) {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const palette = getAppPalette(theme.palette.mode);
+
+  if (teams.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: 400,
+          px: 3,
+          gap: 2,
+        }}
+      >
+        <WorkspacesIcon sx={{ fontSize: 72, color: "text.disabled", opacity: 0.4 }} />
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            {t("teamBuilder.noTeamsTitle")}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            {t("teamBuilder.noTeamsDescription")}
+          </Typography>
+        </Box>
+        <Stack spacing={1.5} sx={{ width: "100%", maxWidth: 280 }}>
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<AddIcon />}
+            onClick={onCreateTeam}
+            fullWidth
+            sx={{ borderRadius: 3, py: 1.5 }}
+          >
+            {t("teamBuilder.createTeam")}
+          </Button>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <ImportMenu createTeamAction={onImportTeam} onError={onError} />
+          </Box>
+        </Stack>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 2,
+        }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          {t("teamBuilder.title")}
+        </Typography>
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <ImportMenu createTeamAction={onImportTeam} onError={onError} />
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<AddIcon />}
+            onClick={onCreateTeam}
+            disableElevation
+            sx={{ borderRadius: 2 }}
+          >
+            {t("teamBuilder.createTeam")}
+          </Button>
+        </Stack>
+      </Box>
+      <Stack spacing={1.5}>
+        {teams.map((team) => (
+          <Paper
+            key={team.id}
+            elevation={0}
+            onClick={() => onSelectTeam(team.id)}
+            sx={{
+              p: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              cursor: "pointer",
+              borderRadius: 3,
+              border: "1px solid",
+              borderColor: palette.edge,
+              bgcolor: palette.surface,
+              transition: "all 0.18s ease",
+              "&:hover": {
+                borderColor: "primary.main",
+                boxShadow: (theme) =>
+                  `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
+                transform: "translateY(-2px)",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: 2,
+                bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <WorkspacesIcon sx={{ color: "primary.main", fontSize: 22 }} />
+            </Box>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600, flexGrow: 1 }}>
+              {team.name}
+            </Typography>
+            <MuiIconButton
+              size="small"
+              aria-label={t("teamBuilder.deleteTeamTitle")}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteTeam(team.id);
+              }}
+              sx={{
+                color: "text.secondary",
+                flexShrink: 0,
+                "&:hover": { color: "error.main" },
+              }}
+            >
+              <DeleteOutlineIcon fontSize="small" />
+            </MuiIconButton>
+          </Paper>
+        ))}
+      </Stack>
+    </Box>
+  );
+}
+
 export default function TeamBuilderPage({
   regulation: _regulation,
   activeSlot,
@@ -320,6 +472,10 @@ export default function TeamBuilderPage({
     activeSlot >= 0 &&
     activeSlot < MAX_TEAM_SIZE;
   const [drawerOpen, setDrawerOpen] = useState(true);
+  // URL ?view=overview の有無でモバイルの画面状態を管理する（stateではなく URL で持つことでナビゲーション後も状態を維持）
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const mobileView = searchParams.get("view") === "overview" ? "overview" : "list";
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [diagnostics, setDiagnostics] = useState<Diagnostics>({
     severity: "info",
@@ -338,6 +494,13 @@ export default function TeamBuilderPage({
   useEffect(() => {
     setDrawerOpen(!isMobile);
   }, [isMobile]);
+
+  // activeTeamId が null になった（チーム削除など）ときはモバイル一覧に戻す
+  useEffect(() => {
+    if (isMobile && activeTeamId === null) {
+      router.push("/team-builder");
+    }
+  }, [isMobile, activeTeamId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) return <Box sx={{ p: 3 }}>{t("teamBuilder.loading")}</Box>;
 
@@ -581,7 +744,43 @@ export default function TeamBuilderPage({
       >
         {/* 絶対配置 AppBar 用のスペーサー。モバイルは AppBar が静的配置なので不要 */}
         {!isMobile && <DrawerHeader />}
-        {!activeTeam ? (
+
+        {isMobile ? (
+          // ── モバイル: 3段階フロー (list → overview → slot) ──
+          hasSelection && activeTeam ? (
+            // [3] スロット育成画面（URL遷移で到達）
+            <TeamSlotDetail slot={activeSlot!} showBackButton />
+          ) : mobileView === "list" ? (
+            // [1] チーム一覧
+            <MobileTeamList
+              teams={teams}
+              onSelectTeam={(id) => {
+                setActiveTeamId(id);
+                router.push("/team-builder?view=overview");
+              }}
+              onCreateTeam={() => {
+                handleCreateNewTeam();
+                router.push("/team-builder?view=overview");
+              }}
+              onImportTeam={(team) => {
+                handleCreateTeam(team);
+                router.push("/team-builder?view=overview");
+              }}
+              onDeleteTeam={(id) => setDeleteTargetId(id)}
+              onError={(d) => {
+                setDiagnostics(d);
+                setSnackbarOpen(true);
+              }}
+            />
+          ) : activeTeam ? (
+            // [2] 選択中チームの overview（戻るボタンでリストへ）
+            <TeamOverview
+              activeSlot={hasSelection ? activeSlot : undefined}
+              onBack={() => router.push("/team-builder")}
+            />
+          ) : null
+        ) : !activeTeam ? (
+          // ── デスクトップ: チーム未選択ヒント ──
           <Box
             sx={{
               display: "flex",
@@ -597,21 +796,8 @@ export default function TeamBuilderPage({
               </Typography>
             </Box>
           </Box>
-        ) : isMobile ? (
-          // モバイル: overview と育成画面を「別ページ（URL）」として出し分ける
-          hasSelection ? (
-            <TeamSlotDetail slot={activeSlot!} showBackButton />
-          ) : (
-            <TeamOverview
-              activeSlot={hasSelection ? activeSlot : undefined}
-              teams={teams}
-              activeTeamId={activeTeamId}
-              onSelectTeam={setActiveTeamId}
-              onCreateTeam={handleCreateNewTeam}
-            />
-          )
         ) : (
-          // デスクトップ: overview（一覧）＋ 選択中スロットの育成画面をマスター/ディテールで並べる
+          // ── デスクトップ: マスター/ディテール ──
           <Grid container spacing={3}>
             <Grid component={"div"} size={{ xs: 12, md: 3 }} sx={{ height: "100%" }}>
               <TeamOverview activeSlot={hasSelection ? activeSlot : undefined} />

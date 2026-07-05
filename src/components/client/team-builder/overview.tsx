@@ -1,14 +1,12 @@
 import {
   alpha,
   Box,
-  Button,
   Divider,
   Fab,
   Grid,
+  IconButton,
   InputAdornment,
-  MenuItem,
   Paper,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -17,26 +15,21 @@ import { useTranslation } from "react-i18next";
 import { getAppPalette } from "@/theme/palette";
 import Image from "next/image";
 import { itemById, itemList } from "@/data/items";
-import { Add, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
-import { Team } from "@/store/team/team";
 import { itemSprite } from "@/lib/image";
 import { match } from "ts-pattern";
 
 export default function TeamOverview({
   activeSlot,
-  teams,
-  activeTeamId,
-  onSelectTeam,
-  onCreateTeam,
+  onBack,
 }: {
   activeSlot?: number;
-  teams?: Team[];
-  activeTeamId?: string | null;
-  onSelectTeam?: (id: string) => void;
-  onCreateTeam?: () => void;
+  /** モバイル用: チーム一覧に戻るコールバック。渡されると戻るボタンを表示する */
+  onBack?: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -73,37 +66,21 @@ export default function TeamOverview({
         borderColor: palette.edge,
       }}
     >
-      {/* モバイル用チーム操作パネル（props が渡されたときだけ表示） */}
-      {teams !== undefined && onCreateTeam && onSelectTeam && (
+      {/* モバイル用: 戻るボタン + チーム名ヘッダー */}
+      {onBack && (
         <>
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 2 }}>
-            {teams.length > 1 ? (
-              <Select
-                size="small"
-                value={activeTeamId ?? ""}
-                onChange={(e) => onSelectTeam(e.target.value)}
-                sx={{ flexGrow: 1 }}
-              >
-                {teams.map((t) => (
-                  <MenuItem key={t.id} value={t.id}>
-                    {t.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            ) : (
-              <Typography variant="subtitle2" sx={{ flexGrow: 1, fontWeight: 700 }}>
-                {teams[0]?.name ?? ""}
-              </Typography>
-            )}
-            <Button
-              variant="contained"
+          <Box sx={{ display: "flex", alignItems: "center", mb: 1.5, mx: -1 }}>
+            <IconButton
+              onClick={onBack}
+              edge="start"
               size="small"
-              startIcon={<Add />}
-              onClick={onCreateTeam}
-              sx={{ whiteSpace: "nowrap", flexShrink: 0 }}
+              aria-label={t("teamBuilder.back")}
             >
-              {t("teamBuilder.createTeam")}
-            </Button>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, ml: 0.5 }}>
+              {name || t("teamBuilder.teamOverviewTitle")}
+            </Typography>
           </Box>
           <Divider sx={{ mb: 2 }} />
         </>
@@ -135,8 +112,8 @@ export default function TeamOverview({
             <Box
               onClick={() => router.push(`/team-builder/${index}`)}
               sx={{
-                width: "100%", // 横幅を最大化
-                cursor: "pointer", // クリック可能であることを明示
+                width: "100%",
+                cursor: "pointer",
                 p: 2,
                 borderRadius: 3,
                 border: "1px solid",
@@ -191,7 +168,7 @@ export default function TeamOverview({
                       height={56}
                     />
 
-                    {/* 追加: 選択中のアイテムを右下にオーバーレイ表示 */}
+                    {/* 選択中のアイテムを右下にオーバーレイ表示 */}
                     {member.item &&
                       (() => {
                         const item = itemList.find((i) => i.id === member.item);
@@ -240,7 +217,6 @@ export default function TeamOverview({
                   <Fab
                     size="small"
                     onClick={(e) => {
-                      // 親のBoxへクリックイベントが伝播し、タブが切り替わるのを防ぐ
                       e.stopPropagation();
                       updateSlot(index, null);
                     }}
@@ -255,7 +231,7 @@ export default function TeamOverview({
                   </Fab>
                 </>
               ) : (
-                /* 空スロット時の表示（クリックイベントは親のBoxで処理されるためUIのみ定義） */
+                /* 空スロット時の表示 */
                 <Box
                   sx={{
                     py: 1,

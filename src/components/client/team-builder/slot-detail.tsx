@@ -81,7 +81,7 @@ export default function TeamSlotDetail({
           <IconButton
             edge="start"
             aria-label={t("teamBuilder.back")}
-            onClick={() => router.push("/team-builder")}
+            onClick={() => router.push("/team-builder?view=overview")}
           >
             <ArrowBackIcon />
           </IconButton>

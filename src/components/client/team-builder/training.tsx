@@ -205,10 +205,10 @@ export function Training({
     <Stack
       direction={"column"}
       className={"Training-root"}
-      sx={{ ml: { xs: 0, md: drawerOpen ? "560px" : 0, lg: drawerOpen ? "900px" : 0 }, transition: "margin 0.3s", minWidth: 0 }}
+      sx={{ minWidth: 0 }}
     >
       {/* メインコンテンツ（Basics, Items, Nature等） */}
-      <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>
+      <Box sx={{ flexGrow: 1 }}>
         <Paper
           elevation={0}
           sx={{

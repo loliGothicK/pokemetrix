@@ -325,6 +325,7 @@ function ResponsiveAppBar({
           </Box>
         </Box>
 
+        {/* デスクトップ: フルコントロール */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <AppControls
             language={language}
@@ -333,12 +334,50 @@ function ResponsiveAppBar({
             onToggleMode={onToggleMode}
           />
         </Box>
+
+        {/* モバイル: ダークモード切り替え + Auth ボタンのみ */}
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
+        >
+          <Tooltip title={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}>
+            <IconButton
+              color="primary"
+              onClick={onToggleMode}
+              size="small"
+              aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
+              sx={{
+                border: "1px solid",
+                borderColor: palette.edge,
+                bgcolor: palette.surface,
+              }}
+            >
+              {mode === "dark" ? (
+                <LightModeRoundedIcon fontSize="small" />
+              ) : (
+                <DarkModeRoundedIcon fontSize="small" />
+              )}
+            </IconButton>
+          </Tooltip>
+          <AuthButton />
+        </Stack>
       </Toolbar>
     </AppBar>
   );
 }
 
-function MobileNavigation({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileNavigation({
+  open,
+  onClose,
+  language,
+  onLanguageChange,
+}: {
+  open: boolean;
+  onClose: () => void;
+  language: string;
+  onLanguageChange: (language: string) => void;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -350,6 +389,8 @@ function MobileNavigation({ open, onClose }: { open: boolean; onClose: () => voi
         "& .MuiDrawer-paper": {
           width: "min(92vw, 320px)",
           boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
         },
       }}
     >
@@ -368,7 +409,28 @@ function MobileNavigation({ open, onClose }: { open: boolean; onClose: () => voi
         </IconButton>
       </Box>
       <Divider />
-      <SideMenuContent onNavigate={onClose} />
+      <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <SideMenuContent onNavigate={onClose} />
+      </Box>
+      <Divider />
+      {/* 言語切り替え */}
+      <Box sx={{ px: 2, py: 2 }}>
+        <FormControl size="small" fullWidth>
+          <InputLabel id="mobile-language-select-label">{t("preferences.language")}</InputLabel>
+          <Select
+            labelId="mobile-language-select-label"
+            label={t("preferences.language")}
+            value={language}
+            onChange={(event) => onLanguageChange(event.target.value)}
+          >
+            {supportedLanguageOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
     </Drawer>
   );
 }
@@ -488,7 +550,12 @@ export function AppLayout({
             onToggleMode={handleToggleMode}
             onOpenNav={() => setMobileNavOpen(true)}
           />
-          <MobileNavigation open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+          <MobileNavigation
+            open={mobileNavOpen}
+            onClose={() => setMobileNavOpen(false)}
+            language={language}
+            onLanguageChange={handleLanguageChange}
+          />
           <Box
             sx={{
               display: "grid",

@@ -107,7 +107,7 @@ export function MoveSelectionDrawer({
       anchor="left"
       open={open}
       onClose={onClose}
-      variant={isMobile ? "temporary" : "persistent"}
+      variant="temporary"
       sx={{
         "& .MuiDrawer-paper": {
           width: { xs: "88vw", sm: 420, md: 560, lg: 900 },
