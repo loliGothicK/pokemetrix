@@ -66,14 +66,9 @@ function SortableSlotItem({
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id,
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -141,7 +136,13 @@ function SortableSlotItem({
         {/* スロット本体（クリックで育成ページへ） */}
         <Box
           onClick={onNavigate}
-          sx={{ display: "flex", alignItems: "center", flexGrow: 1, cursor: "pointer", minWidth: 0 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexGrow: 1,
+            cursor: "pointer",
+            minWidth: 0,
+          }}
         >
           {member ? (
             <>
@@ -207,11 +208,24 @@ function SortableSlotItem({
                   {t(`pokemon.${member.identifier}.name`)}
                 </Typography>
                 {i18n.exists(`pokemon.${member.identifier}.formName`) && (
-                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", fontWeight: 400, lineHeight: 1.2 }} noWrap>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "text.secondary",
+                      display: "block",
+                      fontWeight: 400,
+                      lineHeight: 1.2,
+                    }}
+                    noWrap
+                  >
                     {t(`pokemon.${member.identifier}.formName`)}
                   </Typography>
                 )}
-                <Typography variant="caption" sx={{ color: "text.secondary", display: "block" }} noWrap>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "text.secondary", display: "block" }}
+                  noWrap
+                >
                   {member.item
                     ? `@ ${t(`items.${itemById.get(member.item)?.identifier}.name`)}`
                     : "No Item"}
@@ -366,11 +380,7 @@ export default function TeamOverview({
 
       <Divider sx={{ my: 2 }} />
 
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
           <Grid container spacing={2}>
             {team.members.map((member, index) => (

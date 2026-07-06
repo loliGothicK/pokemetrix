@@ -8,4 +8,3 @@ inclusion: always
 - 作業を再開するときは git status で変更されているファイルを確認すること
 - grep したい場合は rg (ripgrep) を使うこと
 - コマンドは連結せずに単体で使うこと
-

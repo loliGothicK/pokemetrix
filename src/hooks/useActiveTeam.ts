@@ -82,9 +82,7 @@ export const useActiveTeam = () => {
       serverMutation.mutate(newTeams);
     } else {
       setLocalTeams((prev) =>
-        prev.map((t) =>
-          t.id === activeId ? { ...t, members: applyReorder(t.members) } : t,
-        ),
+        prev.map((t) => (t.id === activeId ? { ...t, members: applyReorder(t.members) } : t)),
       );
     }
   };

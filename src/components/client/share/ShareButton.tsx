@@ -120,15 +120,8 @@ export function ShareButton() {
       </Button>
 
       {/* シェアオプションダイアログ */}
-      <Dialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        maxWidth="xs"
-        fullWidth
-      >
-        <DialogTitle sx={{ fontWeight: 700 }}>
-          {t("share.shareTeam")}
-        </DialogTitle>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700 }}>{t("share.shareTeam")}</DialogTitle>
 
         <DialogContent>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -146,12 +139,8 @@ export function ShareButton() {
               p: 1.5,
               borderRadius: 2,
               border: "1px solid",
-              borderColor: showStats
-                ? alpha(theme.palette.primary.main, 0.35)
-                : palette.edge,
-              bgcolor: showStats
-                ? alpha(theme.palette.primary.main, 0.05)
-                : "transparent",
+              borderColor: showStats ? alpha(theme.palette.primary.main, 0.35) : palette.edge,
+              bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",
             }}

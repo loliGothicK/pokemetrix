@@ -8,14 +8,11 @@ import {
   Chip,
   Drawer,
   IconButton,
-  InputAdornment,
   List,
   ListItemButton,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
@@ -23,6 +20,25 @@ import { getAppPalette } from "@/theme/palette";
 import { moveById, moveByIdentifier } from "@/data/moves";
 import { typeIcon } from "@/lib/image";
 import { TrainedPokemon } from "@/store/team/team";
+import { types, moveCategories } from "@/types/pokemon";
+import {
+  QueryableAutocomplete,
+  matchesQueryTokens,
+  type QueryFieldDefinition,
+  type QueryToken,
+} from "@/components/common/queryable-autocomplete";
+import type { ChampionsPokemon } from "@/data/champions-pokemon";
+import type { FetchResponse } from "@services/battleData";
+import type { Result } from "neverthrow";
+
+// moveById の値型
+type Move = NonNullable<ReturnType<typeof moveById.get>>;
+
+// 使用率情報を付加した技エントリ
+type MoveEntry = Move & {
+  rank: number | null;
+  percentage: number | null;
+};
 
 interface MoveSelectionDrawerProps {
   open: boolean;
@@ -31,8 +47,8 @@ interface MoveSelectionDrawerProps {
   onChangeSlot: (slot: number) => void;
   onSelectMove: (moveId: number | null) => void;
   ongoing: TrainedPokemon;
-  pokemon: any; // 辞書から引いたベースのポケモンデータ
-  battleData: any;
+  pokemon: ChampionsPokemon;
+  battleData: Result<FetchResponse, Error> | undefined;
   isError: boolean;
 }
 
@@ -51,65 +67,100 @@ export function MoveSelectionDrawer({
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
 
-  // 検索状態はドロワー内部に完全にカプセル化する
-  const [searchQuery, setSearchQuery] = useState("");
+  // クエリトークン（QueryableAutocomplete が管理する）
+  const [tokens, setTokens] = useState<readonly QueryToken[]>([]);
 
-  // スロットが切り替わった時に検索窓をリセットする
+  // フィールド定義
+  const fields: readonly QueryFieldDefinition[] = useMemo(
+    () => [
+      {
+        key: "type",
+        label: t("teamBuilder.query.type"),
+        values: types.map((type) => ({
+          value: type,
+          label: t(`types.${type}.name`),
+        })),
+      },
+      {
+        key: "category",
+        label: "Category",
+        values: moveCategories.map((cat) => ({
+          value: cat,
+          label: cat.charAt(0).toUpperCase() + cat.slice(1),
+        })),
+      },
+    ],
+    [t],
+  );
+
+  // スロットが切り替わった時にクエリをリセットする
   useEffect(() => {
-    setSearchQuery("");
+    setTokens([]);
   }, [activeSlot]);
 
-  // Drawer が開いたとき / スロットが切り替わったときに検索 TextField にフォーカス
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  // Drawer が開いたとき / スロットが切り替わったときに検索入力にフォーカス
+  const autocompleteInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (!open) return;
-    // Drawer のトランジション完了を待ってからフォーカス（MUI Drawer の transition は ~225ms）
     const id = setTimeout(() => {
-      searchInputRef.current?.focus();
+      autocompleteInputRef.current?.focus();
     }, 250);
     return () => clearTimeout(id);
   }, [open, activeSlot]);
 
   // Drawerに表示する技リストのフィルタリング
-  const availableMoves = useMemo(() => {
+  const availableMoves = useMemo((): MoveEntry[] => {
     if (activeSlot === null) return [];
 
-    const available = pokemon.moves
-      .map((moveId: number) => {
-        return {
-          ...moveById.get(moveId)!,
-          rank: null,
-          percentage: null,
-        };
-      })
-      .filter((move: any) => {
-        const isAlreadySelectedInOtherSlot = ongoing.moves.some(
-          (m, index) => m === move.id && index !== activeSlot,
-        );
-        if (isAlreadySelectedInOtherSlot) return false;
-        if (!searchQuery) return true;
+    const available: MoveEntry[] = pokemon.moves
+      .map((moveId: number) => ({
+        ...moveById.get(moveId)!,
+        rank: null,
+        percentage: null,
+      }))
+      .filter((move: MoveEntry) => {
+        if (ongoing.moves.some((m, index) => m === move.id && index !== activeSlot)) return false;
+        if (tokens.length === 0) return true;
 
-        return t(`moves.${move.identifier}.name`).toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesQueryTokens(
+          {
+            text: `${move.identifier} ${t(`moves.${move.identifier}.name`)}`,
+            fields: {
+              type: [move.type],
+              category: [move.category],
+            },
+          },
+          tokens,
+        );
       });
 
     if (!isError && !!battleData && battleData.isOk()) {
-      const popularMoves = battleData.value.moves.map((info: any) => {
-        return {
+      const popularMoves: MoveEntry[] = battleData.value.moves
+        .map((info) => ({
           ...moveByIdentifier.get(info.name)!,
-          rank: info.rank as number | null,
-          percentage: info.percentage as number | null,
-        };
-      });
+          rank: info.rank,
+          percentage: info.percentage,
+        }))
+        .filter((move) => {
+          return matchesQueryTokens(
+            {
+              text: `${move.identifier} ${t(`moves.${move.identifier}.name`)}`,
+              fields: {
+                type: [move.type],
+                category: [move.category],
+              },
+            },
+            tokens,
+          );
+        });
 
       return popularMoves.concat(
-        available.filter(
-          (move: any) => !popularMoves.map(({ id }: { id: number }) => id).includes(move.id),
-        ),
+        available.filter((move) => !popularMoves.map(({ id }) => id).includes(move.id)),
       );
     }
 
     return available;
-  }, [activeSlot, pokemon.moves, ongoing.moves, searchQuery, t, battleData, isError]);
+  }, [activeSlot, pokemon.moves, ongoing.moves, tokens, t, battleData, isError]);
 
   return (
     <Drawer
@@ -154,22 +205,12 @@ export function MoveSelectionDrawer({
               ))}
             </ButtonGroup>
 
-            <TextField
-              fullWidth
-              size="small"
-              placeholder="Search moves..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              inputRef={searchInputRef}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon fontSize="small" />
-                    </InputAdornment>
-                  ),
-                },
-              }}
+            <QueryableAutocomplete
+              fields={fields}
+              onTokensChange={setTokens}
+              placeholder={t("teamBuilder.query.label")}
+              helperText={t("teamBuilder.query.helper")}
+              textFieldProps={{ inputRef: autocompleteInputRef, size: "small" }}
             />
           </Box>
 
@@ -190,7 +231,7 @@ export function MoveSelectionDrawer({
                 </Typography>
               </ListItemButton>
             )}
-            {availableMoves.map((move: any) => {
+            {availableMoves.map((move) => {
               const isSelected = ongoing.moves[activeSlot] === move.id;
 
               return (

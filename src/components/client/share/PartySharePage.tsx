@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  alpha,
-  Box,
-  Button,
-  Chip,
-  Grid,
-  Paper,
-  Snackbar,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { alpha, Box, Button, Chip, Grid, Paper, Snackbar, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
@@ -152,10 +142,15 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 1.5, sm: 2 }}
           sx={{
-            alignItems: { xs: "flex-start", sm: "center" }
+            alignItems: { xs: "flex-start", sm: "center" },
           }}
         >
-          <Stack direction="row" spacing={1} useFlexGap sx={{ alignItems: "center", flexWrap: "wrap" }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            sx={{ alignItems: "center", flexWrap: "wrap" }}
+          >
             <Typography variant="caption" color="text.secondary">
               {t("share.createdAt", { date: formattedDate })}
             </Typography>

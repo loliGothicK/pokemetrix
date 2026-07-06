@@ -80,7 +80,13 @@ export async function POST(request: Request) {
         const { boxId, identifier, slug, ...data } = member;
         await tx
           .insert(boxPokemon)
-          .values({ id: boxId, userId, slug: identifier, inBox: false, data: { identifier, slug, ...data } })
+          .values({
+            id: boxId,
+            userId,
+            slug: identifier,
+            inBox: false,
+            data: { identifier, slug, ...data },
+          })
           .onConflictDoUpdate({
             target: boxPokemon.id,
             // inBox は変更しない（BOXに明示的に保存済みのものは inBox: true のまま保持）

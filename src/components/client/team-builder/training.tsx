@@ -346,7 +346,11 @@ export function Training({
 
               <Stack spacing={2} sx={{ flexGrow: 1 }}>
                 <Stack direction={"row"} sx={{ alignItems: "center" }}>
-                  <Stack direction="column" spacing={1} sx={{ alignItems: "flex-start", flexGrow: 0.5 }}>
+                  <Stack
+                    direction="column"
+                    spacing={1}
+                    sx={{ alignItems: "flex-start", flexGrow: 0.5 }}
+                  >
                     <Typography variant="h4">
                       {t(`pokemon.${activePokemon.identifier}.name`)}
                     </Typography>

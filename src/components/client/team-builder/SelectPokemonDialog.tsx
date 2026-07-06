@@ -113,7 +113,7 @@ export function SelectPokemonDialog({
     );
 
     return { matched, visible: matched.slice(0, MAX_RESULTS) };
-  }, [pokemonOptions, tokens, translator]);
+  }, [pokemonOptions, tokens, translator, i18n]);
 
   const filteredBox = useMemo(() => {
     const trimmed = boxSearch.trim().toLowerCase();
@@ -121,10 +121,15 @@ export function SelectPokemonDialog({
     return box.filter(
       (p) =>
         translator(`pokemon.${p.identifier}.name`).toLowerCase().includes(trimmed) ||
-        (i18n.exists(`pokemon.${p.identifier}.formName`) ? translator(`pokemon.${p.identifier}.formName`) : "").toLowerCase().includes(trimmed) ||
+        (i18n.exists(`pokemon.${p.identifier}.formName`)
+          ? translator(`pokemon.${p.identifier}.formName`)
+          : ""
+        )
+          .toLowerCase()
+          .includes(trimmed) ||
         p.identifier.includes(trimmed),
     );
-  }, [box, boxSearch, translator]);
+  }, [box, boxSearch, translator, i18n]);
 
   const handleSelect = (pokemon: ChampionsPokemon) => {
     onChange(pokemon.identifier);
@@ -203,7 +208,15 @@ export function SelectPokemonDialog({
                           <>
                             {translator(`pokemon.${pokemon.identifier}.name`)}
                             {i18n.exists(`pokemon.${pokemon.identifier}.formName`) && (
-                              <Typography component="span" sx={{ ml: 0.5, fontSize: "0.8em", color: "text.secondary", fontWeight: 400 }}>
+                              <Typography
+                                component="span"
+                                sx={{
+                                  ml: 0.5,
+                                  fontSize: "0.8em",
+                                  color: "text.secondary",
+                                  fontWeight: 400,
+                                }}
+                              >
                                 {translator(`pokemon.${pokemon.identifier}.formName`)}
                               </Typography>
                             )}
@@ -307,7 +320,15 @@ export function SelectPokemonDialog({
                           <>
                             {translator(`pokemon.${pokemon.identifier}.name`)}
                             {i18n.exists(`pokemon.${pokemon.identifier}.formName`) && (
-                              <Typography component="span" sx={{ ml: 0.5, fontSize: "0.8em", color: "text.secondary", fontWeight: 400 }}>
+                              <Typography
+                                component="span"
+                                sx={{
+                                  ml: 0.5,
+                                  fontSize: "0.8em",
+                                  color: "text.secondary",
+                                  fontWeight: 400,
+                                }}
+                              >
                                 {translator(`pokemon.${pokemon.identifier}.formName`)}
                               </Typography>
                             )}

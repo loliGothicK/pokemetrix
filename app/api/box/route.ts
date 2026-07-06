@@ -41,7 +41,13 @@ export async function POST(request: Request) {
 
   await db
     .insert(boxPokemon)
-    .values({ id: boxId, userId, slug: identifier, inBox: true, data: { identifier, slug, ...data } })
+    .values({
+      id: boxId,
+      userId,
+      slug: identifier,
+      inBox: true,
+      data: { identifier, slug, ...data },
+    })
     .onConflictDoUpdate({
       target: boxPokemon.id,
       set: { slug: identifier, inBox: true, data: { identifier, slug, ...data } },

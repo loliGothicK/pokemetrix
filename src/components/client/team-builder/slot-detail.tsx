@@ -54,7 +54,9 @@ export default function TeamSlotDetail({
     ? t(`pokemon.${member.identifier}.name`)
     : t("teamBuilder.slotLabel", { index: slot + 1 });
   const formName = member
-    ? (i18n.exists(`pokemon.${member.identifier}.formName`) ? t(`pokemon.${member.identifier}.formName`) : "")
+    ? i18n.exists(`pokemon.${member.identifier}.formName`)
+      ? t(`pokemon.${member.identifier}.formName`)
+      : ""
     : "";
 
   return (

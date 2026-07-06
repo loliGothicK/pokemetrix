@@ -64,13 +64,13 @@ const fetchAndParseBattleData = unstable_cache(
   { revalidate: 3600 },
 );
 
-type Info = {
+export type Info = {
   name: string;
   rank: number;
   percentage: number;
 };
 
-type FetchResponse = {
+export type FetchResponse = {
   heldItems: Info[];
   moves: Info[];
 };
