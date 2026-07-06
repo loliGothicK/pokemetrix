@@ -11,7 +11,7 @@
  *   committed chip string (`@type:fire`) and a structured {@link QueryToken}.
  * - {@link matchesQueryTokens} applies committed tokens to a target as an AND filter.
  *
- * A key design rule: partial input never filters results. `@type:fi` only shows
+ * A key .design rule: partial input never filters results. `@type:fi` only shows
  * `fire`/`fighting` as *suggestions* to pick from; nothing is filtered until a
  * value is committed as a chip. Plain text is the one exception — it filters the
  * result set live, which is the expected behaviour for a name search.

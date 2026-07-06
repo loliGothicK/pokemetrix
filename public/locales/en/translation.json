@@ -1,5 +1,103 @@
 {
   "welcome": "Welcome to our app",
+  "common": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "battleRecord": {
+    "title": "Battle Record",
+    "viewAnalytics": "Analytics",
+    "recordBattle": "Record battle",
+    "party": "Party",
+    "noParty": "This team has no Pokémon yet.",
+    "team": "Team",
+    "noTeams": "No teams",
+    "needTeam": "Create a team first to start recording battles.",
+    "games": "{{count}} games",
+    "vs": "vs",
+    "empty": "No battles recorded yet.",
+    "deleteTitle": "Delete record",
+    "deleteConfirm": "Delete this battle record? This cannot be undone.",
+    "filter": {
+      "all": "All"
+    },
+    "selection": {
+      "lead": "Lead",
+      "brought": "Brought",
+      "leadShort": "lead",
+      "hint": "Tap once = Brought · Tap again = Lead · Tap again = Not used"
+    },
+    "result": {
+      "win": "Win",
+      "loss": "Loss",
+      "draw": "Draw"
+    },
+    "order": {
+      "first": "First",
+      "second": "Second",
+      "unknown": "Unknown"
+    },
+    "format": {
+      "singles": "Singles",
+      "doubles": "Doubles"
+    },
+    "role": {
+      "lead": "Lead",
+      "back": "Back"
+    },
+    "season": {
+      "label": "Season",
+      "none": "No seasons",
+      "new": "New season",
+      "newTitle": "New season",
+      "editTitle": "Edit season",
+      "name": "Season name",
+      "format": "Format",
+      "ruleMark": "Regulation (optional)",
+      "startedAt": "Start date",
+      "endedAt": "End date",
+      "emptyPrompt": "Create a season to start recording battles.",
+      "deleteTitle": "Delete season",
+      "deleteConfirm": "Delete \"{{name}}\" and all of its battle records? This cannot be undone."
+    },
+    "form": {
+      "newTitle": "Record Battle",
+      "editTitle": "Edit Battle",
+      "escHint": "Esc to cancel",
+      "result": "Result",
+      "myTeam": "Your team",
+      "noMembers": "This team has no Pokémon. Add some in the team builder.",
+      "opponents": "Opponent's team",
+      "addOpponent": "Add opponent",
+      "removeOpponent": "Remove opponent",
+      "editOpponent": "Edit details",
+      "noOpponents": "No opponents",
+      "item": "Item",
+      "ability": "Ability",
+      "moves": "Moves",
+      "roleHint": "Lead or back (leave empty if not brought).",
+      "opponentNotes": "Notes",
+      "season": "Format",
+      "rating": "Rating",
+      "playedAt": "Played at",
+      "notes": "Notes",
+      "notesPlaceholder": "Key plays, threats, reads...",
+      "selectResultFirst": "Select a result first"
+    },
+    "analytics": {
+      "title": "Winrate Insights",
+      "backToRecords": "Records",
+      "empty": "No data yet. Record some battles to see analytics.",
+      "winRate": "Win rate",
+      "total": "Battles",
+      "byOrder": "Win rate by order",
+      "topOpponents": "Most faced opponents",
+      "wldShort": "{{w}}W {{l}}L {{d}}D"
+    }
+  },
   "app": {
     "subtitle": "Analytics Console"
   },

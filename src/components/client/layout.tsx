@@ -87,6 +87,7 @@ const sideMenuGroups: SideMenuGroup[] = [
       {
         labelKey: "navigation.items.battleRecord",
         icon: <SportsMmaRoundedIcon fontSize="small" />,
+        route: "/battle-record",
       },
       {
         labelKey: "navigation.items.damageCalc",
@@ -108,6 +109,7 @@ const sideMenuGroups: SideMenuGroup[] = [
       {
         labelKey: "navigation.items.winrateInsights",
         icon: <InsightsRoundedIcon fontSize="small" />,
+        route: "/battle-analytics",
       },
     ],
   },

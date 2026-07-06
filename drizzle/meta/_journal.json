@@ -22,6 +22,27 @@
       "when": 1783284672028,
       "tag": "0002_worried_purple_man",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783364744787,
+      "tag": "0003_battle_records",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1783364744788,
+      "tag": "0004_battle_records_rls_and_triggers",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1783370100819,
+      "tag": "0005_battle_records_team_and_rating",
+      "breakpoints": true
     }
   ]
 }

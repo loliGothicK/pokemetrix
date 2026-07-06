@@ -1,0 +1,154 @@
+import { NextResponse } from "next/server";
+import { match } from "ts-pattern";
+import { and, eq, inArray, desc } from "drizzle-orm";
+import { createClient } from "@/lib/supabase/server";
+import { db } from "@/lib/db";
+import { battleRecords, battleRecordOpponents } from "@/lib/db/schema";
+import { genUlid } from "@/lib/db/ulid-type";
+import {
+  battleRecordInputSchema,
+  type BattleRecord,
+  type BattleRecordOpponent,
+} from "@/store/battle-record/battleRecord";
+import type { InferSelectModel } from "drizzle-orm";
+import type { TrainedPokemon } from "@/store/team/team";
+
+type RecordRow = InferSelectModel<typeof battleRecords>;
+type OpponentRow = InferSelectModel<typeof battleRecordOpponents>;
+
+const toOpponentDto = (row: OpponentRow): BattleRecordOpponent => ({
+  slotIndex: row.slotIndex,
+  pokemonSlug: row.pokemonSlug,
+  itemSlug: row.itemSlug,
+  abilitySlug: row.abilitySlug,
+  moves: row.moves,
+  selectionRole: row.selectionRole,
+  notes: row.notes,
+});
+
+const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord => ({
+  id: row.id,
+  seasonId: row.seasonId,
+  teamId: row.teamId,
+  result: row.result,
+  myTeam: row.myTeam,
+  mySelection: row.mySelection,
+  firstOrSecond: row.firstOrSecond,
+  rating: row.rating,
+  notes: row.notes,
+  playedAt: row.playedAt.toISOString(),
+  opponents: opponents
+    .filter((o) => o.battleRecordId === row.id)
+    .slice()
+    .sort((a, b) => a.slotIndex - b.slotIndex)
+    .map(toOpponentDto),
+  createdAt: row.createdAt.toISOString(),
+  updatedAt: row.updatedAt.toISOString(),
+});
+
+export async function GET(request: Request) {
+  const supabase = await createClient();
+  const { data: claims, error: authError } = await supabase.auth.getClaims();
+  if (authError || !claims) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = claims.claims.sub;
+
+  const params = new URL(request.url).searchParams;
+  const seasonId = params.get("seasonId");
+  const teamId = params.get("teamId");
+
+  const where = and(
+    eq(battleRecords.userId, userId),
+    seasonId ? eq(battleRecords.seasonId, seasonId) : undefined,
+    teamId ? eq(battleRecords.teamId, teamId) : undefined,
+  );
+
+  const records = await db
+    .select()
+    .from(battleRecords)
+    .where(where)
+    .orderBy(desc(battleRecords.playedAt));
+
+  if (records.length === 0) {
+    return NextResponse.json([]);
+  }
+
+  const opponents = await db
+    .select()
+    .from(battleRecordOpponents)
+    .where(
+      inArray(
+        battleRecordOpponents.battleRecordId,
+        records.map((r) => r.id),
+      ),
+    );
+
+  return NextResponse.json(records.map((r) => toDto(r, opponents)));
+}
+
+export async function POST(request: Request) {
+  const supabase = await createClient();
+  const { data: claims, error: authError } = await supabase.auth.getClaims();
+  if (authError || !claims) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = claims.claims.sub;
+
+  const body = await request.json().catch(() => null);
+  if (!body) {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  const parsed = battleRecordInputSchema.safeParse(body);
+  return match(parsed)
+    .with({ success: false }, ({ error }) =>
+      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+    )
+    .with({ success: true }, async ({ data: input }) => {
+      const id = input.id ?? genUlid();
+
+      const dto = await db.transaction(async (tx) => {
+        const [row] = await tx
+          .insert(battleRecords)
+          .values({
+            id,
+            userId,
+            seasonId: input.seasonId,
+            teamId: input.teamId ?? null,
+            result: input.result,
+            myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
+            mySelection: input.mySelection ?? null,
+            firstOrSecond: input.firstOrSecond ?? null,
+            rating: input.rating ?? null,
+            notes: input.notes ?? null,
+            ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
+          })
+          .returning();
+
+        const opponentRows =
+          input.opponents.length > 0
+            ? await tx
+                .insert(battleRecordOpponents)
+                .values(
+                  input.opponents.map((o) => ({
+                    battleRecordId: id,
+                    slotIndex: o.slotIndex,
+                    pokemonSlug: o.pokemonSlug,
+                    itemSlug: o.itemSlug ?? null,
+                    abilitySlug: o.abilitySlug ?? null,
+                    moves: o.moves ?? null,
+                    selectionRole: o.selectionRole ?? null,
+                    notes: o.notes ?? null,
+                  })),
+                )
+                .returning()
+            : [];
+
+        return toDto(row, opponentRows);
+      });
+
+      return NextResponse.json(dto, { status: 201 });
+    })
+    .exhaustive();
+}
