@@ -4,8 +4,9 @@ import { Autocomplete, TextField, createFilterOptions } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { itemList } from "@/data/items";
-import { abilityList } from "@/data/abilities";
-import { MoveList } from "@/data/moves";
+import { abilityById } from "@/data/abilities";
+import { moveById } from "@/data/moves";
+import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 
 /** slug と表示ラベルの組 */
 export interface SlugOption {
@@ -30,32 +31,41 @@ export const useItemOptions = (): readonly SlugOption[] => {
   );
 };
 
-/** 特性の選択肢 */
-export const useAbilityOptions = (): readonly SlugOption[] => {
+/**
+ * 指定ポケモンが持ちうる特性の選択肢。
+ * championsPokemon.abilities（そのポケモンの特性ID）を参照する。
+ */
+export const usePokemonAbilityOptions = (pokemonSlug: string): readonly SlugOption[] => {
   const { t } = useTranslation();
-  return useMemo(
-    () =>
-      abilityList
-        .map((ability) => ({
-          slug: ability.identifier,
-          label: t(`abilities.${ability.identifier}.name`),
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label)),
-    [t],
-  );
+  return useMemo(() => {
+    const pokemon = championsPokemonByIdentifier.get(pokemonSlug);
+    if (!pokemon) return [];
+    return pokemon.abilities
+      .map((id) => abilityById.get(id))
+      .filter((ability) => ability !== undefined)
+      .map((ability) => ({
+        slug: ability.identifier,
+        label: t(`abilities.${ability.identifier}.name`),
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }, [pokemonSlug, t]);
 };
 
-/** 技の選択肢 */
-export const useMoveOptions = (): readonly SlugOption[] => {
+/**
+ * 指定ポケモンが覚えられる技の選択肢。
+ * championsPokemon.moves（そのポケモンの技ID）を参照する。
+ */
+export const usePokemonMoveOptions = (pokemonSlug: string): readonly SlugOption[] => {
   const { t } = useTranslation();
-  return useMemo(
-    () =>
-      MoveList.map((move) => ({
-        slug: move.identifier,
-        label: t(`moves.${move.identifier}.name`),
-      })).sort((a, b) => a.label.localeCompare(b.label)),
-    [t],
-  );
+  return useMemo(() => {
+    const pokemon = championsPokemonByIdentifier.get(pokemonSlug);
+    if (!pokemon) return [];
+    return pokemon.moves
+      .map((id) => moveById.get(id))
+      .filter((move) => move !== undefined)
+      .map((move) => ({ slug: move.identifier, label: t(`moves.${move.identifier}.name`) }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }, [pokemonSlug, t]);
 };
 
 interface SlugAutocompleteProps {

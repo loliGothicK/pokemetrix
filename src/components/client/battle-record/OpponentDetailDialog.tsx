@@ -17,9 +17,9 @@ import type { OpponentDraft } from "./formState";
 import {
   MovesAutocomplete,
   SlugAutocomplete,
-  useAbilityOptions,
   useItemOptions,
-  useMoveOptions,
+  usePokemonAbilityOptions,
+  usePokemonMoveOptions,
 } from "./slugAutocomplete";
 
 interface OpponentDetailDialogProps {
@@ -37,9 +37,10 @@ export function OpponentDetailDialog({
   onSave,
 }: OpponentDetailDialogProps) {
   const { t, i18n } = useTranslation();
+  const pokemonSlug = opponent?.pokemonSlug ?? "";
   const itemOptions = useItemOptions();
-  const abilityOptions = useAbilityOptions();
-  const moveOptions = useMoveOptions();
+  const abilityOptions = usePokemonAbilityOptions(pokemonSlug);
+  const moveOptions = usePokemonMoveOptions(pokemonSlug);
   const [draft, setDraft] = useState<OpponentDraft | null>(opponent);
 
   useEffect(() => {
