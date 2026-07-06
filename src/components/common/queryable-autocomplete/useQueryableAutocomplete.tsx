@@ -20,11 +20,11 @@ import type {
 
 export interface UseQueryableAutocompleteOptions {
   /** The queryable fields (e.g. `type`) and their allowed values. */
-  readonly fields: QueryFieldDefinition[];
+  readonly fields: readonly QueryFieldDefinition[];
   /** Maximum number of dropdown suggestions to show. */
   readonly limit?: number;
   /** Initial committed chips. */
-  readonly defaultValue?: string[];
+  readonly defaultValue?: readonly string[];
   /**
    * Called whenever the effective filter changes — the committed chips plus the
    * current plain-text input (so name search is live). This is what a consumer
@@ -59,7 +59,7 @@ export interface QueryableAutocompleteBinding {
 
 export interface UseQueryableAutocompleteResult {
   /** The committed chip strings. */
-  readonly value: string[];
+  readonly value: readonly string[];
   /** The current, uncommitted input text. */
   readonly inputValue: string;
   /** The current input mode (text / field-key / field-value). */

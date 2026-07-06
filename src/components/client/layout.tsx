@@ -62,7 +62,7 @@ type SideMenuItem = {
 
 type SideMenuGroup = {
   readonly titleKey: string;
-  readonly items: SideMenuItem[];
+  readonly items: readonly SideMenuItem[];
 };
 
 const sideMenuGroups: SideMenuGroup[] = [
@@ -439,9 +439,9 @@ function AuthSyncEffect() {
     <TeamMergeDialog
       open={isMergeOpen}
       entries={mergeEntries}
-      setEntries={setMergeEntries}
-      onCommit={onMergeCommit}
-      onCancel={onMergeCancel}
+      setEntriesAction={setMergeEntries}
+      onCommitAction={onMergeCommit}
+      onCancelAction={onMergeCancel}
     />
   );
 }

@@ -71,25 +71,26 @@ export function MoveSelectionDrawer({
   const [tokens, setTokens] = useState<QueryToken[]>([]);
 
   // フィールド定義
-  const fields: QueryFieldDefinition[] = useMemo(
-    () => [
-      {
-        key: "type",
-        label: t("teamBuilder.query.type"),
-        values: types.map((type) => ({
-          value: type,
-          label: t(`types.${type}.name`),
-        })),
-      },
-      {
-        key: "category",
-        label: "Category",
-        values: moveCategories.map((cat) => ({
-          value: cat,
-          label: cat.charAt(0).toUpperCase() + cat.slice(1),
-        })),
-      },
-    ],
+  const fields: readonly QueryFieldDefinition[] = useMemo(
+    () =>
+      [
+        {
+          key: "type",
+          label: t("teamBuilder.query.type"),
+          values: types.map((type) => ({
+            value: type,
+            label: t(`types.${type}.name`),
+          })),
+        },
+        {
+          key: "category",
+          label: "Category",
+          values: moveCategories.map((cat) => ({
+            value: cat,
+            label: cat.charAt(0).toUpperCase() + cat.slice(1),
+          })),
+        },
+      ] as const,
     [t],
   );
 
@@ -109,10 +110,10 @@ export function MoveSelectionDrawer({
   }, [open, activeSlot]);
 
   // Drawerに表示する技リストのフィルタリング
-  const availableMoves = useMemo((): MoveEntry[] => {
+  const availableMoves = useMemo((): readonly MoveEntry[] => {
     if (activeSlot === null) return [];
 
-    const available: MoveEntry[] = pokemon.moves
+    const available: readonly MoveEntry[] = pokemon.moves
       .map((moveId: number) => ({
         ...moveById.get(moveId)!,
         rank: null,

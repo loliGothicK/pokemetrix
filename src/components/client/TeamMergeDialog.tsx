@@ -31,6 +31,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { MergeEntry } from "@/hooks/useAuthSync";
+import { Dispatch, SetStateAction } from "react";
 
 // ─────────────────────────────────────────────
 // 各チーム行
@@ -138,17 +139,17 @@ function MergeRow({
 type TeamMergeDialogProps = {
   readonly open: boolean;
   readonly entries: MergeEntry[];
-  readonly setEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
-  readonly onCommit: () => Promise<void>;
-  readonly onCancel: () => void;
+  readonly setEntriesAction: Dispatch<SetStateAction<MergeEntry[]>>;
+  readonly onCommitAction: () => Promise<void>;
+  readonly onCancelAction: () => void;
 };
 
 export function TeamMergeDialog({
   open,
   entries,
-  setEntries,
-  onCommit,
-  onCancel,
+  setEntriesAction,
+  onCommitAction,
+  onCancelAction,
 }: TeamMergeDialogProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -160,7 +161,7 @@ export function TeamMergeDialog({
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
-      setEntries((prev) => {
+      setEntriesAction((prev) => {
         const oldIndex = prev.findIndex((e) => e.id === active.id);
         const newIndex = prev.findIndex((e) => e.id === over.id);
         return arrayMove(prev, oldIndex, newIndex);
@@ -169,7 +170,7 @@ export function TeamMergeDialog({
   };
 
   const handleToggle = (id: string) => {
-    setEntries((prev) =>
+    setEntriesAction((prev) =>
       prev.map((e) => (e.id === id ? { ...e, action: e.action === "pick" ? "drop" : "pick" } : e)),
     );
   };
@@ -179,7 +180,7 @@ export function TeamMergeDialog({
   return (
     <Dialog
       open={open}
-      onClose={onCancel}
+      onClose={onCancelAction}
       maxWidth="sm"
       fullWidth
       sx={{ "& .MuiDialog-paper": { borderRadius: 3 } }}
@@ -213,12 +214,12 @@ export function TeamMergeDialog({
       </DialogContent>
 
       <DialogActions sx={{ px: 3, pb: 2.5, gap: 1 }}>
-        <Button variant="outlined" color="inherit" onClick={onCancel}>
+        <Button variant="outlined" color="inherit" onClick={onCancelAction}>
           Cancel
         </Button>
         <Button
           variant="contained"
-          onClick={onCommit}
+          onClick={onCommitAction}
           disabled={pickedCount === 0}
           sx={{ fontFamily: "monospace" }}
         >
