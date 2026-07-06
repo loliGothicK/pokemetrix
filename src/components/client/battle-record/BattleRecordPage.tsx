@@ -12,7 +12,6 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Paper,
@@ -22,10 +21,9 @@ import {
   Tabs,
   Tooltip,
   Typography,
+  Fab,
 } from "@mui/material";
 import Add from "@mui/icons-material/Add";
-import Edit from "@mui/icons-material/Edit";
-import Delete from "@mui/icons-material/Delete";
 import InsightsRounded from "@mui/icons-material/InsightsRounded";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,12 +46,15 @@ import type {
   SeasonInput,
 } from "@/store/battle-record/battleRecord";
 import type { Team, TrainedPokemon } from "@/store/team/team";
+import { SeasonSelect } from "./SeasonSelect";
 import { SeasonFormDialog } from "./SeasonFormDialog";
 import { BattleRecordFormDialog } from "./BattleRecordFormDialog";
 import { BattleRecordList } from "./BattleRecordList";
+import { useHotkeys } from "react-hotkeys-hook";
 
 type ResultFilter = "all" | BattleResult;
 
+// デスクトップ用：元の詳細なパーティ表示
 function PartyPanel({ team }: { readonly team: Team | null }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -135,6 +136,70 @@ function PartyPanel({ team }: { readonly team: Team | null }) {
   );
 }
 
+// モバイル用：アイコンのみの横並びパーティ表示
+function CompactPartyPanel({ team }: { readonly team: Team | null }) {
+  const { t, i18n } = useTranslation();
+  const members = (team?.members ?? []).filter((m): m is TrainedPokemon => m !== null);
+
+  if (members.length === 0) return null;
+
+  return (
+    <Stack direction="row" spacing={1} sx={{ mt: 1, flexWrap: "wrap" }}>
+      {members.map((member) => {
+        const formName = `pokemon.${member.identifier}.formName`;
+        const displayName = `${t(`pokemon.${member.identifier}.name`)} ${
+          i18n.exists(formName) ? `(${t(formName)})` : ""
+        }`;
+
+        return (
+          <Tooltip key={member.boxId} title={displayName} arrow>
+            <Box
+              sx={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                bgcolor: "background.paper",
+                boxShadow: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                src={`/pokemon/${member.identifier}.png`}
+                alt={member.identifier}
+                width={28}
+                height={28}
+              />
+            </Box>
+          </Tooltip>
+        );
+      })}
+    </Stack>
+  );
+}
+
+function Counter({
+  label,
+  value,
+  color,
+}: {
+  readonly label: string;
+  readonly value: number;
+  readonly color: string;
+}) {
+  return (
+    <Box sx={{ textAlign: "center" }}>
+      <Typography variant="caption" sx={{ fontWeight: 800, color }}>
+        {label}
+      </Typography>
+      <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
+        {value}
+      </Typography>
+    </Box>
+  );
+}
+
 function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -154,9 +219,17 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
         bgcolor: palette.surface,
       }}
     >
-      <Stack direction="row" spacing={3} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+      <Stack
+        direction="row"
+        spacing={{ xs: 2, md: 3 }}
+        sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between" }}
+      >
         <Box>
-          <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+          <Typography
+            variant="overline"
+            color="text.secondary"
+            sx={{ fontWeight: 700, display: "block", lineHeight: 1 }}
+          >
             {t("battleRecord.analytics.winRate")}
           </Typography>
           <Typography variant="h4" sx={{ fontWeight: 900, color: theme.palette.primary.main }}>
@@ -168,7 +241,7 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
           <Counter label="L" value={stats.losses} color={theme.palette.error.main} />
           <Counter label="D" value={stats.draws} color={theme.palette.text.secondary} />
         </Stack>
-        <Box sx={{ flexGrow: 1, minWidth: 160 }}>
+        <Box sx={{ flexGrow: 1, minWidth: { xs: "100%", sm: 160 }, mt: { xs: 1, sm: 0 } }}>
           <Box
             sx={{
               display: "flex",
@@ -201,27 +274,6 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
         </Box>
       </Stack>
     </Paper>
-  );
-}
-
-function Counter({
-  label,
-  value,
-  color,
-}: {
-  readonly label: string;
-  readonly value: number;
-  readonly color: string;
-}) {
-  return (
-    <Box sx={{ textAlign: "center" }}>
-      <Typography variant="caption" sx={{ fontWeight: 800, color }}>
-        {label}
-      </Typography>
-      <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
-        {value}
-      </Typography>
-    </Box>
   );
 }
 
@@ -287,12 +339,16 @@ export default function BattleRecordPage() {
     [activeTeam],
   );
 
+  useHotkeys("n", () => {
+    setRecordDialogOpen(true);
+  });
+
   const [seasonDialogOpen, setSeasonDialogOpen] = useState(false);
   const [seasonEditing, setSeasonEditing] = useState<Season | null>(null);
   const [recordDialogOpen, setRecordDialogOpen] = useState(false);
   const [recordEditing, setRecordEditing] = useState<BattleRecord | null>(null);
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
-  const [seasonDeleteOpen, setSeasonDeleteOpen] = useState(false);
+  const [seasonPendingDelete, setSeasonPendingDelete] = useState<Season | null>(null);
 
   if (!isAuthenticated) {
     return (
@@ -336,203 +392,240 @@ export default function BattleRecordPage() {
     !teamsLoading && !seasonsLoading && (teams.length === 0 || seasons.length === 0);
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "240px minmax(0, 1fr)" },
-        gap: { xs: 2, md: 3 },
-        p: { xs: 2, md: 3 },
-        alignItems: "start",
-      }}
-    >
-      {/* 左: チーム選択 + パーティ */}
-      <Paper
-        elevation={0}
+    <Box sx={{ position: "relative", pb: { xs: 10, md: 0 } }}>
+      {/* モバイル専用：Sticky固定ヘッダー (md以上で非表示) */}
+      <Box
         sx={{
-          p: 2,
-          borderRadius: 3,
-          border: "1px solid",
+          display: { xs: "block", md: "none" },
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          bgcolor: "background.default",
+          pt: 2,
+          pb: 1,
+          px: 2,
+          borderBottom: "1px solid",
           borderColor: palette.edge,
-          bgcolor: palette.surface,
-          position: { md: "sticky" },
-          top: { md: 16 },
         }}
       >
-        <FormControl size="small" fullWidth sx={{ mb: 2 }}>
-          <InputLabel id="team-select-label">{t("battleRecord.team")}</InputLabel>
-          <Select
-            labelId="team-select-label"
-            label={t("battleRecord.team")}
-            value={activeTeam?.id ?? ""}
-            onChange={(e) => setActiveTeamId(e.target.value || null)}
-            displayEmpty
-          >
-            {teams.length === 0 && (
-              <MenuItem value="" disabled>
-                {t("battleRecord.noTeams")}
-              </MenuItem>
-            )}
-            {teams.map((tm) => (
-              <MenuItem key={tm.id} value={tm.id}>
-                {tm.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <PartyPanel team={activeTeam} />
-      </Paper>
-
-      {/* 右: 統計 + 操作 + リスト */}
-      <Box>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          sx={{ alignItems: { sm: "center" }, mb: 2 }}
-        >
-          <FormControl size="small" sx={{ minWidth: { xs: "100%", sm: 220 } }}>
-            <InputLabel id="season-select-label">{t("battleRecord.season.label")}</InputLabel>
+        <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
+          <FormControl size="small" sx={{ flex: 1 }}>
             <Select
-              labelId="season-select-label"
-              label={t("battleRecord.season.label")}
-              value={activeSeason?.id ?? ""}
-              onChange={(e) => setActiveSeasonId(e.target.value || null)}
+              value={activeTeam?.id ?? ""}
+              onChange={(e) => setActiveTeamId(e.target.value || null)}
               displayEmpty
             >
-              {seasons.length === 0 && (
+              {teams.length === 0 && (
                 <MenuItem value="" disabled>
-                  {t("battleRecord.season.none")}
+                  {t("battleRecord.noTeams")}
                 </MenuItem>
               )}
-              {seasons.map((season) => (
-                <MenuItem key={season.id} value={season.id}>
-                  {season.name}
+              {teams.map((tm) => (
+                <MenuItem key={tm.id} value={tm.id}>
+                  {tm.name}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          <Tooltip title={t("battleRecord.season.new")}>
-            <IconButton
-              color="primary"
-              onClick={() => {
+          <SeasonSelect
+            seasons={seasons}
+            value={activeSeasonId}
+            onChange={setActiveSeasonId}
+            onNew={() => {
+              setSeasonEditing(null);
+              setSeasonDialogOpen(true);
+            }}
+            onEdit={(season) => {
+              setSeasonEditing(season);
+              setSeasonDialogOpen(true);
+            }}
+            onDelete={(season) => setSeasonPendingDelete(season)}
+            sx={{ flex: 1 }}
+          />
+        </Stack>
+        <CompactPartyPanel team={activeTeam} />
+      </Box>
+
+      {/* 全体レイアウト (デスクトップ時は2カラム) */}
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "240px minmax(0, 1fr)" },
+          gap: { xs: 2, md: 3 },
+          p: { xs: 2, md: 3 },
+          alignItems: "start",
+        }}
+      >
+        {/* 左カラム：デスクトップ専用サイドバー (md未満で非表示) */}
+        <Paper
+          elevation={0}
+          sx={{
+            display: { xs: "none", md: "block" },
+            p: 2,
+            borderRadius: 3,
+            border: "1px solid",
+            borderColor: palette.edge,
+            bgcolor: palette.surface,
+            position: "sticky",
+            top: 16,
+          }}
+        >
+          <FormControl size="small" fullWidth sx={{ mb: 2 }}>
+            <InputLabel id="team-select-label">{t("battleRecord.team")}</InputLabel>
+            <Select
+              labelId="team-select-label"
+              label={t("battleRecord.team")}
+              value={activeTeam?.id ?? ""}
+              onChange={(e) => setActiveTeamId(e.target.value || null)}
+              displayEmpty
+            >
+              {teams.length === 0 && (
+                <MenuItem value="" disabled>
+                  {t("battleRecord.noTeams")}
+                </MenuItem>
+              )}
+              {teams.map((tm) => (
+                <MenuItem key={tm.id} value={tm.id}>
+                  {tm.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <PartyPanel team={activeTeam} />
+        </Paper>
+
+        {/* 右カラム：メインコンテンツ */}
+        <Box>
+          {/* デスクトップ専用：操作バー (md未満で非表示) */}
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", mb: 2 }}
+          >
+            <SeasonSelect
+              seasons={seasons}
+              value={activeSeasonId}
+              onChange={setActiveSeasonId}
+              onNew={() => {
                 setSeasonEditing(null);
                 setSeasonDialogOpen(true);
               }}
-              aria-label={t("battleRecord.season.new")}
+              onEdit={(season) => {
+                setSeasonEditing(season);
+                setSeasonDialogOpen(true);
+              }}
+              onDelete={(season) => setSeasonPendingDelete(season)}
+              label={t("battleRecord.season.label")}
+              sx={{ minWidth: 220 }}
+            />
+            <Box sx={{ flexGrow: 1 }} />
+            <Button
+              component={Link}
+              href="/battle-analytics"
+              startIcon={<InsightsRounded />}
+              variant="outlined"
             >
-              <Add />
-            </IconButton>
-          </Tooltip>
-          {activeSeason && (
-            <>
-              <Tooltip title={t("common.edit")}>
-                <IconButton
+              {t("battleRecord.viewAnalytics")}
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<Add />}
+              disabled={!activeSeasonId}
+              onClick={() => {
+                setRecordEditing(null);
+                setRecordDialogOpen(true);
+              }}
+            >
+              {t("battleRecord.recordBattle")}
+            </Button>
+          </Stack>
+
+          {showEmptyState ? (
+            <Box sx={{ textAlign: "center", py: 8 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                {teams.length === 0
+                  ? t("battleRecord.needTeam")
+                  : t("battleRecord.season.emptyPrompt")}
+              </Typography>
+              {teams.length === 0 ? (
+                <Button component={Link} href="/team-builder" variant="contained">
+                  {t("navigation.items.createTeam")}
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  startIcon={<Add />}
                   onClick={() => {
-                    setSeasonEditing(activeSeason);
+                    setSeasonEditing(null);
                     setSeasonDialogOpen(true);
                   }}
-                  aria-label={t("common.edit")}
                 >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={t("common.delete")}>
-                <IconButton
-                  color="error"
-                  onClick={() => setSeasonDeleteOpen(true)}
-                  aria-label={t("common.delete")}
-                >
-                  <Delete />
-                </IconButton>
-              </Tooltip>
+                  {t("battleRecord.season.new")}
+                </Button>
+              )}
+            </Box>
+          ) : (
+            <>
+              <Box sx={{ mb: 2 }}>
+                <StatsBar records={records} />
+              </Box>
+
+              <Tabs
+                value={filter}
+                onChange={(_, value: ResultFilter) => setFilter(value)}
+                sx={{ mb: 2, minHeight: 36 }}
+                variant="scrollable"
+                scrollButtons="auto"
+              >
+                {filterTabs.map((tab) => (
+                  <Tab
+                    key={tab.value}
+                    value={tab.value}
+                    label={tab.label}
+                    sx={{ minHeight: 36, py: 0 }}
+                  />
+                ))}
+              </Tabs>
+
+              {recordsLoading ? (
+                <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <BattleRecordList
+                  records={filteredRecords}
+                  formatLabel={activeSeason?.name}
+                  onEdit={(record) => {
+                    setRecordEditing(record);
+                    setRecordDialogOpen(true);
+                  }}
+                  onDelete={(id) => setPendingDelete(id)}
+                />
+              )}
             </>
           )}
-          <Box sx={{ flexGrow: 1 }} />
-          <Button
-            component={Link}
-            href="/battle-analytics"
-            startIcon={<InsightsRounded />}
-            variant="outlined"
-          >
-            {t("battleRecord.viewAnalytics")}
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<Add />}
-            disabled={!activeSeasonId}
-            onClick={() => {
-              setRecordEditing(null);
-              setRecordDialogOpen(true);
-            }}
-          >
-            {t("battleRecord.recordBattle")}
-          </Button>
-        </Stack>
-
-        {showEmptyState ? (
-          <Box sx={{ textAlign: "center", py: 8 }}>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-              {teams.length === 0
-                ? t("battleRecord.needTeam")
-                : t("battleRecord.season.emptyPrompt")}
-            </Typography>
-            {teams.length === 0 ? (
-              <Button component={Link} href="/team-builder" variant="contained">
-                {t("navigation.items.createTeam")}
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                onClick={() => {
-                  setSeasonEditing(null);
-                  setSeasonDialogOpen(true);
-                }}
-              >
-                {t("battleRecord.season.new")}
-              </Button>
-            )}
-          </Box>
-        ) : (
-          <>
-            <Box sx={{ mb: 2 }}>
-              <StatsBar records={records} />
-            </Box>
-
-            <Tabs
-              value={filter}
-              onChange={(_, value: ResultFilter) => setFilter(value)}
-              sx={{ mb: 2, minHeight: 36 }}
-              variant="scrollable"
-              scrollButtons="auto"
-            >
-              {filterTabs.map((tab) => (
-                <Tab
-                  key={tab.value}
-                  value={tab.value}
-                  label={tab.label}
-                  sx={{ minHeight: 36, py: 0 }}
-                />
-              ))}
-            </Tabs>
-
-            {recordsLoading ? (
-              <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <BattleRecordList
-                records={filteredRecords}
-                formatLabel={activeSeason?.name}
-                onEdit={(record) => {
-                  setRecordEditing(record);
-                  setRecordDialogOpen(true);
-                }}
-                onDelete={(id) => setPendingDelete(id)}
-              />
-            )}
-          </>
-        )}
+        </Box>
       </Box>
+
+      {/* モバイル専用：記録追加用 Floating Action Button (FAB) (md以上で非表示) */}
+      <Fab
+        color="primary"
+        aria-label="add"
+        disabled={!activeSeasonId}
+        onClick={() => {
+          setRecordEditing(null);
+          setRecordDialogOpen(true);
+        }}
+        sx={{
+          display: { xs: "flex", md: "none" },
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
+        }}
+      >
+        <Add />
+      </Fab>
 
       {/* ダイアログ群 */}
       <SeasonFormDialog
@@ -542,7 +635,6 @@ export default function BattleRecordPage() {
         onSubmit={handleSeasonSubmit}
         submitting={seasonMutating}
       />
-
       <BattleRecordFormDialog
         open={recordDialogOpen}
         onClose={() => setRecordDialogOpen(false)}
@@ -555,7 +647,6 @@ export default function BattleRecordPage() {
         submitting={isMutating}
       />
 
-      {/* 記録削除の確認 */}
       <Dialog open={pendingDelete !== null} onClose={() => setPendingDelete(null)}>
         <DialogTitle>{t("battleRecord.deleteTitle")}</DialogTitle>
         <DialogContent>
@@ -576,22 +667,21 @@ export default function BattleRecordPage() {
         </DialogActions>
       </Dialog>
 
-      {/* シーズン削除の確認 */}
-      <Dialog open={seasonDeleteOpen} onClose={() => setSeasonDeleteOpen(false)}>
+      <Dialog open={seasonPendingDelete !== null} onClose={() => setSeasonPendingDelete(null)}>
         <DialogTitle>{t("battleRecord.season.deleteTitle")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t("battleRecord.season.deleteConfirm", { name: activeSeason?.name ?? "" })}
+            {t("battleRecord.season.deleteConfirm", { name: seasonPendingDelete?.name ?? "" })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setSeasonDeleteOpen(false)}>{t("common.cancel")}</Button>
+          <Button onClick={() => setSeasonPendingDelete(null)}>{t("common.cancel")}</Button>
           <Button
             color="error"
             variant="contained"
             onClick={async () => {
-              if (activeSeason) await removeSeason(activeSeason.id);
-              setSeasonDeleteOpen(false);
+              if (seasonPendingDelete) await removeSeason(seasonPendingDelete.id);
+              setSeasonPendingDelete(null);
             }}
           >
             {t("common.delete")}

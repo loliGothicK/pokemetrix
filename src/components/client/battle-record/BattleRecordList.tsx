@@ -80,10 +80,10 @@ export function BattleRecordList({
         const mySlugs = (
           myLead.length > 0 ? myLead.map((i) => record.myTeam[i]).filter(Boolean) : record.myTeam
         ).map((m) => m!.identifier);
-        const broughtOpp = record.opponents.filter((o) => o.selectionRole !== null);
+        const backOpp = record.opponents.filter((o) => o.selectionRole !== null);
         const oppSlugs = (
-          broughtOpp.length > 0
-            ? [...broughtOpp].sort(
+          backOpp.length > 0
+            ? [...backOpp].sort(
                 (a, b) =>
                   (a.selectionRole === "lead" ? 0 : 1) - (b.selectionRole === "lead" ? 0 : 1),
               )

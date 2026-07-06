@@ -8,7 +8,7 @@ import { getAppPalette } from "@/theme/palette";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { BattleFormat } from "@/store/battle-record/battleRecord";
 import {
-  broughtCount,
+  backCount,
   cycleMember,
   memberState,
   selectionLimits,
@@ -25,10 +25,10 @@ interface YourTeamSelectorProps {
 
 /** 選出状態の表示色（自チーム・相手で共通） */
 export const LEAD_COLOR = "#f5b400";
-export const BROUGHT_COLOR = "#3b82f6";
+export const BACK_COLOR = "#3b82f6";
 
 const stateColor = (state: MemberSelectionState): string | null =>
-  state === "lead" ? LEAD_COLOR : state === "back" ? BROUGHT_COLOR : null;
+  state === "lead" ? LEAD_COLOR : state === "back" ? BACK_COLOR : null;
 
 /**
  * 自チームメンバーの選出UI。カードをタップして
@@ -48,12 +48,12 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
         </Typography>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
           <Legend color={LEAD_COLOR} label={t("battleRecord.selection.lead")} />
-          <Legend color={BROUGHT_COLOR} label={t("battleRecord.selection.brought")} />
+          <Legend color={BACK_COLOR} label={t("battleRecord.selection.back")} />
         </Stack>
         <Box sx={{ flexGrow: 1 }} />
         <Typography variant="caption" color="text.secondary">
-          {broughtCount(selection)}/{limits.maxBrought} · {selection.leads.length}/
-          {limits.leadCount} {t("battleRecord.selection.leadShort")}
+          {backCount(selection)}/{limits.maxBack} · {selection.leads.length}/{limits.leadCount}{" "}
+          {t("battleRecord.selection.leadShort")}
         </Typography>
       </Stack>
 

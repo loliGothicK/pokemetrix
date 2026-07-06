@@ -26,9 +26,9 @@
     },
     "selection": {
       "lead": "Lead",
-      "brought": "Brought",
+      "back": "In the back",
       "leadShort": "lead",
-      "hint": "Tap once = Brought · Tap again = Lead · Tap again = Not used"
+      "hint": "Tap once = In the back · Tap again = Lead · Tap again = Not used"
     },
     "result": {
       "win": "Win",

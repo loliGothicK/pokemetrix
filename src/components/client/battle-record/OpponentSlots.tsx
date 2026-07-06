@@ -15,7 +15,7 @@ import type { OpponentDraft } from "./formState";
 import { nextOpponentKey } from "./formState";
 import { cycleOpponentRole, selectionLimits } from "./selection";
 import { OpponentDetailDialog } from "./OpponentDetailDialog";
-import { BROUGHT_COLOR, LEAD_COLOR, Legend } from "./YourTeamSelector";
+import { BACK_COLOR, LEAD_COLOR, Legend } from "./YourTeamSelector";
 
 const MAX_OPPONENTS = 6;
 
@@ -26,7 +26,7 @@ interface OpponentSlotsProps {
 }
 
 const roleColor = (role: OpponentSelectionRole | null): string | null =>
-  role === "lead" ? LEAD_COLOR : role === "back" ? BROUGHT_COLOR : null;
+  role === "lead" ? LEAD_COLOR : role === "back" ? BACK_COLOR : null;
 
 /**
  * 相手6枠。空きスロットは + で種族検索して追加。
@@ -41,7 +41,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
   const [detailIndex, setDetailIndex] = useState<number | null>(null);
   const limits = selectionLimits(format);
 
-  const broughtCount = opponents.filter((o) => o.selectionRole !== null).length;
+  const backCount = opponents.filter((o) => o.selectionRole !== null).length;
   const leadCount = opponents.filter((o) => o.selectionRole === "lead").length;
 
   const addSpecies = (identifier: string | null) => {
@@ -70,7 +70,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
     // この個体を除いた選出数
     const others = opponents.filter((_, i) => i !== index);
     const counts = {
-      brought: others.filter((o) => o.selectionRole !== null).length,
+      back: others.filter((o) => o.selectionRole !== null).length,
       leads: others.filter((o) => o.selectionRole === "lead").length,
     };
     const nextRole = cycleOpponentRole(current.selectionRole, counts, format);
@@ -87,11 +87,11 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
         </Typography>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
           <Legend color={LEAD_COLOR} label={t("battleRecord.selection.lead")} />
-          <Legend color={BROUGHT_COLOR} label={t("battleRecord.selection.brought")} />
+          <Legend color={BACK_COLOR} label={t("battleRecord.selection.back")} />
         </Stack>
         <Box sx={{ flexGrow: 1 }} />
         <Typography variant="caption" color="text.secondary">
-          {broughtCount}/{limits.maxBrought} · {leadCount}/{limits.leadCount}{" "}
+          {backCount}/{limits.maxBack} · {leadCount}/{limits.leadCount}{" "}
           {t("battleRecord.selection.leadShort")}
         </Typography>
       </Stack>

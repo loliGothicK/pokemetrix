@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  backCount,
   cycleMember,
   cycleOpponentRole,
   emptySelection,
@@ -11,11 +12,11 @@ import {
 } from "./selection";
 
 describe("selectionLimits", () => {
-  it("doubles brings 4 with 2 leads", () => {
-    expect(selectionLimits("doubles")).toEqual({ maxBrought: 4, leadCount: 2 });
+  it("doubles: maxBack=4, leadCount=2", () => {
+    expect(selectionLimits("doubles")).toEqual({ maxBack: 4, leadCount: 2 });
   });
-  it("singles brings 3 with 1 lead", () => {
-    expect(selectionLimits("singles")).toEqual({ maxBrought: 3, leadCount: 1 });
+  it("singles: maxBack=3, leadCount=1", () => {
+    expect(selectionLimits("singles")).toEqual({ maxBack: 3, leadCount: 1 });
   });
 });
 
@@ -30,7 +31,7 @@ describe("cycleMember", () => {
     expect(memberState(s3, 3)).toBe("unused");
   });
 
-  it("does not bring more than maxBrought", () => {
+  it("does not add more than maxBack", () => {
     let s: Selection = emptySelection;
     for (const i of [0, 1, 2, 3]) s = cycleMember(s, i, "doubles"); // 4 backs
     const before = s;
@@ -43,12 +44,20 @@ describe("cycleMember", () => {
     // singles: leadCount=1
     let s = cycleMember(emptySelection, 0, "singles"); // back
     s = cycleMember(s, 0, "singles"); // lead (leads now full)
-    let t = cycleMember(emptySelection, 1, "singles"); // separate
     // build: 0 is lead, 1 is back, tapping 1 -> leads full -> unused
     s = { leads: [0], backs: [1] };
-    t = cycleMember(s, 1, "singles");
+    const t = cycleMember(s, 1, "singles");
     expect(memberState(t, 1)).toBe("unused");
     expect(t.leads).toEqual([0]);
+  });
+});
+
+describe("backCount", () => {
+  it("counts leads and backs together", () => {
+    expect(backCount({ leads: [0, 1], backs: [3] })).toBe(3);
+  });
+  it("returns 0 for empty selection", () => {
+    expect(backCount(emptySelection)).toBe(0);
   });
 });
 
@@ -78,19 +87,19 @@ describe("selectionToIndices / selectionFromIndices", () => {
 
 describe("cycleOpponentRole", () => {
   it("cycles null -> back -> lead -> null", () => {
-    const counts = { brought: 0, leads: 0 };
+    const counts = { back: 0, leads: 0 };
     expect(cycleOpponentRole(null, counts, "doubles")).toBe("back");
     expect(cycleOpponentRole("back", counts, "doubles")).toBe("lead");
     expect(cycleOpponentRole("lead", counts, "doubles")).toBeNull();
   });
 
-  it("does not bring beyond maxBrought", () => {
-    // doubles maxBrought=4; 4 others already brought
-    expect(cycleOpponentRole(null, { brought: 4, leads: 2 }, "doubles")).toBeNull();
+  it("does not add beyond maxBack", () => {
+    // doubles maxBack=4; 4 others already in the back
+    expect(cycleOpponentRole(null, { back: 4, leads: 2 }, "doubles")).toBeNull();
   });
 
   it("removes from selection when leads are full instead of promoting", () => {
     // doubles leadCount=2; 2 others already lead
-    expect(cycleOpponentRole("back", { brought: 3, leads: 2 }, "doubles")).toBeNull();
+    expect(cycleOpponentRole("back", { back: 3, leads: 2 }, "doubles")).toBeNull();
   });
 });

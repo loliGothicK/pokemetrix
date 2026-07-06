@@ -6,16 +6,16 @@ export type MemberSelectionState = "unused" | "back" | "lead";
 
 /** フォーマット別の選出上限 */
 export interface SelectionLimits {
-  /** 選出できる最大数（ダブル=4, シングル=3） */
-  readonly maxBrought: number;
+  /** 後発として選出できる最大数（ダブル=4, シングル=3） */
+  readonly maxBack: number;
   /** 先発（active）数（ダブル=2, シングル=1） */
   readonly leadCount: number;
 }
 
 export const selectionLimits = (format: BattleFormat): SelectionLimits =>
   match(format)
-    .with("doubles", () => ({ maxBrought: 4, leadCount: 2 }))
-    .with("singles", () => ({ maxBrought: 3, leadCount: 1 }))
+    .with("doubles", () => ({ maxBack: 4, leadCount: 2 }))
+    .with("singles", () => ({ maxBack: 3, leadCount: 1 }))
     .exhaustive();
 
 /**
@@ -36,7 +36,7 @@ export const memberState = (selection: Selection, index: number): MemberSelectio
 };
 
 /** 選出済みの総数（先発+後発） */
-export const broughtCount = (selection: Selection): number =>
+export const backCount = (selection: Selection): number =>
   selection.leads.length + selection.backs.length;
 
 const without = (arr: readonly number[], index: number): number[] => arr.filter((i) => i !== index);
@@ -55,7 +55,7 @@ export const cycleMember = (
   const limits = selectionLimits(format);
   return match(memberState(selection, index))
     .with("unused", () =>
-      broughtCount(selection) >= limits.maxBrought
+      backCount(selection) >= limits.maxBack
         ? selection
         : { ...selection, backs: [...selection.backs, index] },
     )
@@ -87,7 +87,7 @@ export const selectionFromIndices = (
 /** 相手個体の選出状態（他個体の現在数を除いた集計） */
 export interface OpponentRoleCounts {
   /** 選出済み（先発+後発）の数 */
-  readonly brought: number;
+  readonly back: number;
   /** 先発の数 */
   readonly leads: number;
 }
@@ -95,7 +95,6 @@ export interface OpponentRoleCounts {
 /**
  * 相手個体の選出役割を null(選出外) → back(後発) → lead(先発) → null の順で進める。
  * counts は「この個体を除いた」現在の選出数。上限を超える遷移はスキップする。
- * 自チームと同じ操作感（タップで選出、もう一度で先発）。
  */
 export const cycleOpponentRole = (
   role: OpponentSelectionRole | null,
@@ -104,7 +103,7 @@ export const cycleOpponentRole = (
 ): OpponentSelectionRole | null => {
   const limits = selectionLimits(format);
   return match(role)
-    .with(null, () => (counts.brought < limits.maxBrought ? ("back" as const) : null))
+    .with(null, () => (counts.back < limits.maxBack ? ("back" as const) : null))
     .with("back", () => (counts.leads < limits.leadCount ? ("lead" as const) : null))
     .with("lead", () => null)
     .exhaustive();
