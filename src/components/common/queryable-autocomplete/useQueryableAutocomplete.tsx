@@ -20,36 +20,36 @@ import type {
 
 export interface UseQueryableAutocompleteOptions {
   /** The queryable fields (e.g. `type`) and their allowed values. */
-  fields: readonly QueryFieldDefinition[];
+  readonly fields: QueryFieldDefinition[];
   /** Maximum number of dropdown suggestions to show. */
-  limit?: number;
+  readonly limit?: number;
   /** Initial committed chips. */
-  defaultValue?: readonly string[];
+  readonly defaultValue?: string[];
   /**
    * Called whenever the effective filter changes — the committed chips plus the
    * current plain-text input (so name search is live). This is what a consumer
    * uses to filter its own data.
    */
-  onTokensChange?: (tokens: readonly QueryToken[]) => void;
+  readonly onTokensChange?: (tokens: QueryToken[]) => void;
 }
 
 export interface QueryableAutocompleteBinding {
-  multiple: true;
-  freeSolo: true;
-  clearOnBlur: false;
-  selectOnFocus: false;
-  handleHomeEndKeys: true;
-  autoHighlight: true;
-  options: string[];
-  value: string[];
-  inputValue: string;
-  filterOptions: (candidateOptions: string[]) => string[];
-  onInputChange: (
+  readonly multiple: true;
+  readonly freeSolo: true;
+  readonly clearOnBlur: false;
+  readonly selectOnFocus: false;
+  readonly handleHomeEndKeys: true;
+  readonly autoHighlight: true;
+  readonly options: string[];
+  readonly value: string[];
+  readonly inputValue: string;
+  readonly filterOptions: (candidateOptions: string[]) => string[];
+  readonly onInputChange: (
     event: SyntheticEvent,
     nextInputValue: string,
     reason: AutocompleteInputChangeReason,
   ) => void;
-  onChange: (
+  readonly onChange: (
     event: SyntheticEvent,
     nextValue: string[],
     reason: AutocompleteChangeReason,
@@ -59,19 +59,19 @@ export interface QueryableAutocompleteBinding {
 
 export interface UseQueryableAutocompleteResult {
   /** The committed chip strings. */
-  value: string[];
+  readonly value: string[];
   /** The current, uncommitted input text. */
-  inputValue: string;
+  readonly inputValue: string;
   /** The current input mode (text / field-key / field-value). */
-  mode: QueryInputMode;
+  readonly mode: QueryInputMode;
   /** Dropdown suggestions for the current input, keyed by their insert value. */
-  suggestions: QuerySuggestion[];
+  readonly suggestions: QuerySuggestion[];
   /** Look up the suggestion metadata for an option string (for rendering). */
-  getSuggestion: (insertValue: string) => QuerySuggestion | undefined;
+  readonly getSuggestion: (insertValue: string) => QuerySuggestion | undefined;
   /** Remove a committed chip by its string. */
-  removeToken: (token: string) => void;
+  readonly removeToken: (token: string) => void;
   /** Props to spread onto the MUI `<Autocomplete>`. */
-  getAutocompleteProps: () => QueryableAutocompleteBinding;
+  readonly getAutocompleteProps: () => QueryableAutocompleteBinding;
 }
 
 export function useQueryableAutocomplete({

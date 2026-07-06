@@ -55,12 +55,12 @@ function SortableSlotItem({
   onNavigate,
   onDelete,
 }: {
-  id: string;
-  index: number;
-  member: TrainedPokemon | null;
-  isActive: boolean;
-  onNavigate: () => void;
-  onDelete: () => void;
+  readonly id: string;
+  readonly index: number;
+  readonly member: TrainedPokemon | null;
+  readonly isActive: boolean;
+  readonly onNavigate: () => void;
+  readonly onDelete: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -283,8 +283,8 @@ export default function TeamOverview({
   activeSlot,
   onBack,
 }: {
-  activeSlot?: number;
-  onBack?: () => void;
+  readonly activeSlot?: number;
+  readonly onBack?: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();

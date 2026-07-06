@@ -23,31 +23,31 @@ export const QUERY_SEPARATOR = ":";
 /** A queryable field, e.g. `type`, with a fixed set of allowed values. */
 export interface QueryFieldDefinition {
   /** The key typed after `@`, e.g. `"type"` in `@type:fire`. */
-  key: string;
+  readonly key: string;
   /** Human-readable label for the key. Defaults to {@link key}. */
-  label?: string;
+  readonly label?: string;
   /** The allowed values for this field. */
-  values: readonly QueryFieldValueDefinition[];
+  readonly values: QueryFieldValueDefinition[];
 }
 
 /** A single allowed value for a {@link QueryFieldDefinition}. */
 export interface QueryFieldValueDefinition {
   /** The raw value, e.g. `"fire"`. */
-  value: string;
+  readonly value: string;
   /** Human-readable label. Defaults to {@link value}. */
-  label?: string;
+  readonly label?: string;
 }
 
 /** A committed filter, either free text or a structured field query. */
 export type QueryToken =
-  | { kind: "text"; text: string }
-  | { kind: "field"; key: string; value: string };
+  | { readonly kind: "text"; readonly text: string }
+  | { readonly kind: "field"; readonly key: string; readonly value: string };
 
 /** What the current (uncommitted) input value represents. */
 export type QueryInputMode =
-  | { kind: "text"; text: string }
-  | { kind: "field-key"; keyPrefix: string }
-  | { kind: "field-value"; field: QueryFieldDefinition; valuePrefix: string };
+  | { readonly kind: "text"; readonly text: string }
+  | { readonly kind: "field-key"; readonly keyPrefix: string }
+  | { readonly kind: "field-value"; readonly field: QueryFieldDefinition; readonly valuePrefix: string };
 
 /** A single dropdown suggestion for the current input. */
 export interface QuerySuggestion {
@@ -56,16 +56,16 @@ export interface QuerySuggestion {
    * this is also the committed chip string (e.g. `@type:fire`); for a partial
    * one it is the continuation to keep typing (e.g. `@type:`).
    */
-  insertValue: string;
+  readonly insertValue: string;
   /** Primary label shown in the dropdown. */
-  label: string;
+  readonly label: string;
   /** Secondary caption (e.g. the field key) shown alongside the label. */
-  caption?: string;
+  readonly caption?: string;
   /**
    * `true`  — picking it commits a chip (a complete `@type:fire`).
    * `false` — picking it only continues the input (a partial `@type:`).
    */
-  committable: boolean;
+  readonly committable: boolean;
 }
 
 const normalize = (value: string): string => value.trim().toLowerCase();
@@ -83,7 +83,7 @@ const fieldValueString = (key: string, value: string): string =>
  */
 export function parseQueryInput(
   inputValue: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): QueryInputMode {
   if (!inputValue.startsWith(QUERY_PREFIX)) {
     return { kind: "text", text: inputValue };
@@ -116,7 +116,7 @@ export function parseQueryInput(
  */
 export function buildQuerySuggestions(
   inputValue: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
   limit = 20,
 ): QuerySuggestion[] {
   const mode = parseQueryInput(inputValue, fields);
@@ -182,7 +182,7 @@ export function buildQuerySuggestions(
  */
 export function isCommittableInput(
   inputValue: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): boolean {
   return toQueryTokenString(inputValue, fields) !== null;
 }
@@ -194,7 +194,7 @@ export function isCommittableInput(
  */
 export function toQueryTokenString(
   inputValue: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): string | null {
   const mode = parseQueryInput(inputValue, fields);
 
@@ -216,7 +216,7 @@ export function toQueryTokenString(
 /** Parses a committed chip string back into a structured {@link QueryToken}. */
 export function parseQueryToken(
   token: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): QueryToken {
   const mode = parseQueryInput(token, fields);
 
@@ -235,7 +235,7 @@ export function parseQueryToken(
 /** The label shown on a committed chip (`type: fire`, or the raw text). */
 export function queryTokenLabel(
   token: QueryToken,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): string {
   if (token.kind === "text") {
     return token.text;
@@ -255,9 +255,9 @@ export function queryTokenLabel(
  * plain text, giving a responsive live name search without committing a chip.
  */
 export function resolveActiveQueryTokens(
-  committed: readonly string[],
+  committed: string[],
   inputValue: string,
-  fields: readonly QueryFieldDefinition[],
+  fields: QueryFieldDefinition[],
 ): QueryToken[] {
   const tokens = committed.map((token) => parseQueryToken(token, fields));
   const mode = parseQueryInput(inputValue, fields);
@@ -272,9 +272,9 @@ export function resolveActiveQueryTokens(
 /** The shape a consumer projects its items into so tokens can be matched. */
 export interface QueryMatchTarget {
   /** Text that plain-text tokens are matched against (e.g. name + aliases). */
-  text: string;
+  readonly text: string;
   /** Field values keyed by field key, e.g. `{ type: ["fire", "flying"] }`. */
-  fields: Record<string, readonly string[]>;
+  readonly fields: Record<string, string[]>;
 }
 
 /**
@@ -284,7 +284,7 @@ export interface QueryMatchTarget {
  */
 export function matchesQueryTokens(
   target: QueryMatchTarget,
-  tokens: readonly QueryToken[],
+  tokens: QueryToken[],
 ): boolean {
   return tokens.every((token) => {
     if (token.kind === "text") {

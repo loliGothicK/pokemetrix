@@ -65,14 +65,14 @@ const fetchAndParseBattleData = unstable_cache(
 );
 
 export type Info = {
-  name: string;
-  rank: number;
-  percentage: number;
+  readonly name: string;
+  readonly rank: number;
+  readonly percentage: number;
 };
 
 export type FetchResponse = {
-  heldItems: Info[];
-  moves: Info[];
+  readonly heldItems: readonly Info[];
+  readonly moves: readonly Info[];
 };
 
 // 3. サービス層（ここで初めてEither/Resultに変換し、UIに安全に渡す）

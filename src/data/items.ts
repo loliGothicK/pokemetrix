@@ -12,7 +12,7 @@ const ItemSchema = z.object({
 export type Item = z.infer<typeof ItemSchema>;
 export type ItemCategory = z.infer<typeof ItemCategorySchema>;
 
-export const itemList: Item[] = data.map((entry) => ItemSchema.parse(entry));
+export const itemList: readonly Item[] = data.map((entry) => ItemSchema.parse(entry));
 
 export const itemById = new Map(itemList.map((item) => [item.id, item]));
 export const itemByIdentifier = new Map(itemList.map((item) => [item.identifier, item]));

@@ -35,7 +35,7 @@ import type { MergeEntry } from "@/hooks/useAuthSync";
 // ─────────────────────────────────────────────
 // 各チーム行
 // ─────────────────────────────────────────────
-function MergeRow({ entry, onToggle }: { entry: MergeEntry; onToggle: (id: string) => void }) {
+function MergeRow({ entry, onToggle }: { readonly entry: MergeEntry; readonly onToggle: (id: string) => void }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: entry.id,
   });
@@ -130,11 +130,11 @@ function MergeRow({ entry, onToggle }: { entry: MergeEntry; onToggle: (id: strin
 // ダイアログ本体
 // ─────────────────────────────────────────────
 type TeamMergeDialogProps = {
-  open: boolean;
-  entries: MergeEntry[];
-  setEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
-  onCommit: () => Promise<void>;
-  onCancel: () => void;
+  readonly open: boolean;
+  readonly entries: MergeEntry[];
+  readonly setEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
+  readonly onCommit: () => Promise<void>;
+  readonly onCancel: () => void;
 };
 
 export function TeamMergeDialog({

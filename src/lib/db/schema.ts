@@ -15,10 +15,10 @@ import type { TrainedPokemon } from "@/store/team/team";
 
 /** チームシェアの公開スナップショット型 */
 export interface SharedTeamSnapshot {
-  teamName: string;
-  members: (TrainedPokemon | null)[];
+  readonly teamName: string;
+  readonly members: readonly (TrainedPokemon | null)[];
   /** true = 実数値・努力値を公開する。false = オープンチームシート（構成のみ公開） */
-  showStats: boolean;
+  readonly showStats: boolean;
 }
 
 export const boxPokemon = pgTable(

@@ -35,7 +35,7 @@ export const natures = [
 
 export type Nature = (typeof natures)[number];
 
-export const natureObjectToString = (nature: { plus?: Status | null; minus?: Status | null }) =>
+export const natureObjectToString = (nature: { readonly plus?: Status | null; readonly minus?: Status | null }) =>
   match(nature)
     .with({ plus: "atk", minus: "spa" }, () => "Adamant" as const)
     .with({ plus: "def", minus: "atk" }, () => "Bold" as const)
@@ -93,7 +93,7 @@ export const natureStringToObject = (nature: Nature | null) =>
 
 export const parseNature = (
   nature: string,
-): Result<{ plus: Status | null; minus: Status | null }> =>
+): Result<{ readonly plus: Status | null; readonly minus: Status | null }> =>
   match(nature)
     .with("Adamant", () => right({ plus: "atk" as const, minus: "spa" as const }))
     .with("Bashful", () => right({ plus: "spa" as const, minus: "spa" as const }))

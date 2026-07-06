@@ -5,7 +5,7 @@ import { boxPokemon } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
-export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(request: Request, { params }: { readonly params: Promise<{ readonly id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
   const { data: claims, error: authError } = await supabase.auth.getClaims();
@@ -30,7 +30,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   return NextResponse.json({ success: true });
 }
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(_request: Request, { params }: { readonly params: Promise<{ readonly id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
   const { data: claims, error: authError } = await supabase.auth.getClaims();

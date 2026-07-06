@@ -26,8 +26,8 @@ export default function TeamSlotDetail({
   slot,
   showBackButton = false,
 }: {
-  slot: number;
-  showBackButton?: boolean;
+  readonly slot: number;
+  readonly showBackButton?: boolean;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();

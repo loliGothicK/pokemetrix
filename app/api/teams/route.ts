@@ -33,7 +33,7 @@ export async function GET(_request: Request) {
     .innerJoin(boxPokemon, eq(teamMembers.boxPokemonId, boxPokemon.id))
     .where(inArray(teamMembers.teamId, teamIds));
 
-  const result: Team[] = userTeams.map((team) => {
+  const result: readonly Team[] = userTeams.map((team) => {
     const slots = Array<TrainedPokemon | null>(6).fill(null);
     members
       .filter((m) => m.teamId === team.id)
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   }
   const userId = claims.claims.sub;
 
-  const incomingTeams = (await request.json()) as Team[];
+  const incomingTeams = (await request.json()) as readonly Team[];
 
   for (const team of incomingTeams) {
     await db.transaction(async (tx) => {
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
       const nonNullMembers = team.members
         .map((m, i) => ({ member: m, slot: i }))
-        .filter((x): x is { member: TrainedPokemon; slot: number } => x.member !== null);
+        .filter((x): x is { readonly member: TrainedPokemon; readonly slot: number } => x.member !== null);
 
       for (const { member } of nonNullMembers) {
         const { boxId, identifier, slug, ...data } = member;

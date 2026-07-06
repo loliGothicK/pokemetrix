@@ -23,9 +23,9 @@ export default function NumberField({
   size = "medium",
   ...other
 }: BaseNumberField.Root.Props & {
-  label?: React.ReactNode;
-  size?: "small" | "medium";
-  error?: boolean;
+  readonly label?: React.ReactNode;
+  readonly size?: "small" | "medium";
+  readonly error?: boolean;
 }) {
   let id = React.useId();
   if (idProp) {

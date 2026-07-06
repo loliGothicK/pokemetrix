@@ -1,10 +1,10 @@
 // services/box.ts (フロントエンドで実行される)
 import type { TrainedPokemon } from "@/store/team/team";
 
-export const fetchBoxFromServer = async (): Promise<TrainedPokemon[]> => {
+export const fetchBoxFromServer = async (): Promise<readonly TrainedPokemon[]> => {
   const res = await fetch("/api/box");
   if (!res.ok) throw new Error("Failed to fetch box");
-  return res.json() as Promise<TrainedPokemon[]>;
+  return res.json() as Promise<readonly TrainedPokemon[]>;
 };
 
 export const saveToBox = async (pokemon: TrainedPokemon): Promise<void> => {

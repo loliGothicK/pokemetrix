@@ -31,10 +31,10 @@ import type { TrainedPokemon } from "@/store/team/team";
 import type { TFunction } from "i18next";
 
 type SelectPokemonDialogProps = Pick<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
-  title: string;
-  onChange: (identifier: string | null) => void;
-  translator: TFunction;
-  onSelectFromBox?: (pokemon: TrainedPokemon) => void;
+  readonly title: string;
+  readonly onChange: (identifier: string | null) => void;
+  readonly translator: TFunction;
+  readonly onSelectFromBox?: (pokemon: TrainedPokemon) => void;
 };
 
 /** Cap the rendered result rows so a broad filter can't tank the dialog. */
@@ -49,7 +49,7 @@ export function SelectPokemonDialog({
   onSelectFromBox,
 }: SelectPokemonDialogProps) {
   const { i18n } = useTranslation();
-  const [tokens, setTokens] = useState<readonly QueryToken[]>([]);
+  const [tokens, setTokens] = useState<QueryToken[]>([]);
   const [tab, setTab] = useState<"master" | "box">("master");
   const [boxSearch, setBoxSearch] = useState("");
   const { box } = useBoxData();
@@ -81,7 +81,7 @@ export function SelectPokemonDialog({
 
   // The only queryable field for now is `type`, populated with the types that
   // actually appear in the option set. Labels are localized via the translator.
-  const fields: readonly QueryFieldDefinition[] = useMemo(() => {
+  const fields: QueryFieldDefinition[] = useMemo(() => {
     const seen = new Set<string>();
     for (const pokemon of pokemonOptions) {
       for (const type of pokemon.types) {
@@ -106,7 +106,7 @@ export function SelectPokemonDialog({
       matchesQueryTokens(
         {
           text: `${pokemon.identifier} ${translator(`pokemon.${pokemon.identifier}.name`)} ${i18n.exists(`pokemon.${pokemon.identifier}.formName`) ? translator(`pokemon.${pokemon.identifier}.formName`) : ""}`,
-          fields: { type: pokemon.types },
+          fields: { type: [...pokemon.types] },
         },
         tokens,
       ),

@@ -254,7 +254,7 @@ export default function BoxPage() {
                     noWrap
                     sx={{ display: "block" }}
                   >
-                    {`EV: ${(Object.values(pokemon.evs) as number[]).reduce((a, b) => a + b, 0)} / 64`}
+                    {`EV: ${(Object.values(pokemon.evs) as readonly number[]).reduce((a, b) => a + b, 0)} / 64`}
                   </Typography>
                 </Box>
 

@@ -14,7 +14,7 @@ const PokemonSchema = z.object({
 
 type Pokemon = z.infer<typeof PokemonSchema>;
 
-export const pokemonList: Pokemon[] = data.map((memoria) => {
+export const pokemonList: readonly Pokemon[] = data.map((memoria) => {
   return PokemonSchema.parse(memoria);
 });
 

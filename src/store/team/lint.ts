@@ -7,12 +7,12 @@ export const MAX_EV_TOTAL = 32 * 2 + 2;
 
 // チームを受け取ってlint結果を返すatom factory
 export const makeTeamLintIssuesAtom = (team: Team | undefined) =>
-  atom<LintResult[]>(() => {
+  atom<readonly LintResult[]>(() => {
     if (!team) return [];
     return team.members.map(linter);
   });
 
-export const activeSlotLintIssueAtom = (lintIssues: LintResult[]) =>
+export const activeSlotLintIssueAtom = (lintIssues: readonly LintResult[]) =>
   atom<LintResult | undefined>((get) => {
     const slotIdx = get(activeSlotIndexAtom);
     if (lintIssues.length === 0) return undefined;

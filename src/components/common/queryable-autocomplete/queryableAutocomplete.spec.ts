@@ -11,7 +11,7 @@ import {
   type QueryFieldDefinition,
 } from "./queryableAutocomplete";
 
-const fields: readonly QueryFieldDefinition[] = [
+const fields: QueryFieldDefinition[] = [
   {
     key: "type",
     label: "Type",

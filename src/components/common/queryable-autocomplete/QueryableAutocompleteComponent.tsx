@@ -20,11 +20,11 @@ export interface QueryableAutocompleteProps extends Omit<
   "fields"
 > {
   /** The queryable fields (e.g. `type`) and their allowed values. */
-  fields: readonly QueryFieldDefinition[];
-  label?: ReactNode;
-  placeholder?: string;
-  helperText?: ReactNode;
-  textFieldProps?: Omit<TextFieldProps, "label" | "placeholder" | "helperText">;
+  readonly fields: QueryFieldDefinition[];
+  readonly label?: ReactNode;
+  readonly placeholder?: string;
+  readonly helperText?: ReactNode;
+  readonly textFieldProps?: Omit<TextFieldProps, "label" | "placeholder" | "helperText">;
 }
 
 export function QueryableAutocomplete({

@@ -3,7 +3,7 @@ import { ulid as genUlid, ulidToUUID, uuidToULID } from "ulid";
 
 export { genUlid };
 
-export const ulidType = customType<{ data: string; driverData: string }>({
+export const ulidType = customType<{ readonly data: string; readonly driverData: string }>({
   dataType() {
     return "uuid";
   },

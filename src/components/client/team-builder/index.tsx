@@ -61,7 +61,7 @@ import { ShareButton } from "@/components/client/share/ShareButton";
 const MAX_TEAM_SIZE = 6;
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{ open?: boolean }>(
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{ readonly open?: boolean }>(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -83,7 +83,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{ 
 );
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  readonly open?: boolean;
 }
 const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== "open" })<AppBarProps>(
   ({ theme, open }) => ({
@@ -168,8 +168,8 @@ function ImportMenu({
   createTeamAction,
   onError,
 }: {
-  createTeamAction: (team: { members: Team["members"] }) => void;
-  onError: (diagnostics: Diagnostics) => void;
+  readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
+  readonly onError: (diagnostics: Diagnostics) => void;
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openPaste, setOpenPaste] = useState(false);
@@ -295,12 +295,12 @@ function ExportMenu() {
 
 export type Diagnostics =
   | {
-      severity: "success" | "info" | "warning";
-      message: string;
+      readonly severity: "success" | "info" | "warning";
+      readonly message: string;
     }
   | {
-      severity: "error";
-      message: MitamaError[];
+      readonly severity: "error";
+      readonly message: readonly MitamaError[];
     };
 
 function MobileTeamList({
@@ -311,12 +311,12 @@ function MobileTeamList({
   onDeleteTeam,
   onError,
 }: {
-  teams: Team[];
-  onSelectTeam: (id: string) => void;
-  onCreateTeam: () => void;
-  onImportTeam: (team: { members: Team["members"] }) => void;
-  onDeleteTeam: (id: string) => void;
-  onError: (d: Diagnostics) => void;
+  readonly teams: readonly Team[];
+  readonly onSelectTeam: (id: string) => void;
+  readonly onCreateTeam: () => void;
+  readonly onImportTeam: (team: { readonly members: Team["members"] }) => void;
+  readonly onDeleteTeam: (id: string) => void;
+  readonly onError: (d: Diagnostics) => void;
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -457,8 +457,8 @@ export default function TeamBuilderPage({
   regulation: _regulation,
   activeSlot,
 }: {
-  regulation?: string;
-  activeSlot?: number;
+  readonly regulation?: string;
+  readonly activeSlot?: number;
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -506,7 +506,7 @@ export default function TeamBuilderPage({
 
   const activeTeam = teams.find((t) => t.id === activeTeamId) || null;
 
-  const handleCreateTeam = (team: { name?: string; members: Team["members"] }) => {
+  const handleCreateTeam = (team: { readonly name?: string; readonly members: Team["members"] }) => {
     const newTeam = {
       id: ulid(),
       name: team.name || t("teamBuilder.teamLabel", { index: teams.length + 1 }),

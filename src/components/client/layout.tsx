@@ -55,14 +55,14 @@ const STORAGE_KEYS = {
 } as const;
 
 type SideMenuItem = {
-  labelKey: string;
-  icon: ReactNode;
-  route?: string;
+  readonly labelKey: string;
+  readonly icon: ReactNode;
+  readonly route?: string;
 };
 
 type SideMenuGroup = {
-  titleKey: string;
-  items: SideMenuItem[];
+  readonly titleKey: string;
+  readonly items: SideMenuItem[];
 };
 
 const sideMenuGroups: SideMenuGroup[] = [
@@ -113,7 +113,7 @@ const sideMenuGroups: SideMenuGroup[] = [
   },
 ] as const;
 
-function SideMenuContent({ onNavigate }: { onNavigate?: () => void }) {
+function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
   const { t } = useTranslation();
 
   return (
@@ -193,10 +193,10 @@ function AppControls({
   onLanguageChange,
   onToggleMode,
 }: {
-  language: string;
-  mode: PaletteMode;
-  onLanguageChange: (language: string) => void;
-  onToggleMode: () => void;
+  readonly language: string;
+  readonly mode: PaletteMode;
+  readonly onLanguageChange: (language: string) => void;
+  readonly onToggleMode: () => void;
 }) {
   const { t } = useTranslation();
   const palette = getAppPalette(mode);
@@ -249,11 +249,11 @@ function ResponsiveAppBar({
   onToggleMode,
   onOpenNav,
 }: {
-  language: string;
-  mode: PaletteMode;
-  onLanguageChange: (language: string) => void;
-  onToggleMode: () => void;
-  onOpenNav: () => void;
+  readonly language: string;
+  readonly mode: PaletteMode;
+  readonly onLanguageChange: (language: string) => void;
+  readonly onToggleMode: () => void;
+  readonly onOpenNav: () => void;
 }) {
   const { t } = useTranslation();
   const palette = getAppPalette(mode);
@@ -370,10 +370,10 @@ function MobileNavigation({
   language,
   onLanguageChange,
 }: {
-  open: boolean;
-  onClose: () => void;
-  language: string;
-  onLanguageChange: (language: string) => void;
+  readonly open: boolean;
+  readonly onClose: () => void;
+  readonly language: string;
+  readonly onLanguageChange: (language: string) => void;
 }) {
   const { t } = useTranslation();
 
@@ -449,7 +449,7 @@ function AuthSyncEffect() {
 export function AppLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  readonly children: ReactNode;
 }>) {
   const [mode, setMode] = useState<PaletteMode>("light");
   const [language, setLanguage] = useState<string>(defaultLanguage);

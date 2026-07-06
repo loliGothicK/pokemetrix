@@ -39,7 +39,7 @@ async function loadPokemonImage(identifier: string): Promise<string | null> {
 
 function getPokemonName(identifier: string): string {
   const key = identifier as keyof typeof enTranslation.pokemon;
-  const entry = enTranslation.pokemon[key] as { name?: string; formName?: string } | undefined;
+  const entry = enTranslation.pokemon[key] as { readonly name?: string; readonly formName?: string } | undefined;
   if (!entry) return identifier;
   const name = entry.name ?? identifier;
   // 表示順はアプリ内の慣習に合わせる: name 先頭 → formName（例: "Raichu Mega X"）
@@ -48,7 +48,7 @@ function getPokemonName(identifier: string): string {
 
 // ── Image 生成 ────────────────────────────────────────────────────────────────
 
-export default async function Image({ params }: { params: Promise<{ id: string }> }) {
+export default async function Image({ params }: { readonly params: Promise<{ readonly id: string }> }) {
   const { id } = await params;
 
   const rows = await db.select().from(sharedTeams).where(eq(sharedTeams.id, id)).limit(1);

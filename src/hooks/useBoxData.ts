@@ -32,7 +32,7 @@ export const useBoxData = () => {
     mutationFn: deleteFromBox,
     onSuccess: async (_, boxId) => {
       // 楽観的UI更新: キャッシュからも即座に除去
-      queryClient.setQueryData<TrainedPokemon[]>(["box"], (prev) =>
+      queryClient.setQueryData<readonly TrainedPokemon[]>(["box"], (prev) =>
         prev ? prev.filter((p) => p.boxId !== boxId) : [],
       );
       // teams キャッシュも無効化（BOX削除でスロットが空になる可能性があるため）

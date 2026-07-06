@@ -78,7 +78,7 @@ function statColor(key: StatKey, plus?: StatKey | null, minus?: StatKey | null) 
 
 // ── Tooltip の共通スタイル ────────────────────────────────────────────────────
 
-const TooltipContent = ({ title, body, meta }: { title: string; body?: string; meta?: string }) => (
+const TooltipContent = ({ title, body, meta }: { readonly title: string; readonly body?: string; readonly meta?: string }) => (
   <Box sx={{ p: 0.25, maxWidth: 240 }}>
     <Typography sx={{ fontWeight: 700, fontSize: "0.78rem", mb: body ? 0.5 : 0 }}>
       {title}
@@ -104,10 +104,10 @@ function StatRow({
   actual,
   color,
 }: {
-  label: string;
-  ev: number;
-  actual: number;
-  color?: string;
+  readonly label: string;
+  readonly ev: number;
+  readonly actual: number;
+  readonly color?: string;
 }) {
   const theme = useTheme();
   return (
@@ -172,7 +172,7 @@ function StatRow({
 
 // ── MoveChip ──────────────────────────────────────────────────────────────────
 
-function MoveChip({ moveId }: { moveId: number | null }) {
+function MoveChip({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
@@ -266,8 +266,8 @@ function MoveChip({ moveId }: { moveId: number | null }) {
 // ── メインコンポーネント ──────────────────────────────────────────────────────
 
 export interface PokemonBuildCardProps {
-  pokemon: TrainedPokemon;
-  showStats: boolean;
+  readonly pokemon: TrainedPokemon;
+  readonly showStats: boolean;
 }
 
 export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) {

@@ -70,7 +70,7 @@ export function ShareButton() {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const { id } = (await res.json()) as { id: string };
+      const { id } = (await res.json()) as { readonly id: string };
       setShareState("success");
       setSnackMessage(t("share.shareSuccess"));
       setSnackSeverity("success");

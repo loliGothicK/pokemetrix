@@ -15,15 +15,15 @@ export type StatKey = "hp" | "atk" | "def" | "spa" | "spd" | "spe";
 export type Stats = Record<StatKey, number>;
 
 export type OptimizedResult = {
-  hasUpgrade: boolean;
-  bestCost: number;
-  currentCost: number;
+  readonly hasUpgrade: boolean;
+  readonly bestCost: number;
+  readonly currentCost: number;
   // ツール側でそのまま状態更新に使える形式で返す
-  alternatives: {
-    nature: TrainedPokemon["nature"];
-    evs: Record<StatKey, number>;
-    savedPoints: number; // どれだけ努力値が浮いたか
-  }[];
+  readonly alternatives: {
+      readonly nature: TrainedPokemon["nature"];
+      readonly evs: Record<StatKey, number>;
+      readonly savedPoints: number; // どれだけ努力値が浮いたか
+    }[];
 };
 
 const STAT_KEYS: StatKey[] = ["hp", "atk", "def", "spa", "spd", "spe"];
@@ -42,8 +42,8 @@ function getRequiredRawStat(target: number, multiplier: 1.1 | 1.0 | 0.9): number
 }
 
 function* generateNatures(): IterableIterator<{
-  plus: Exclude<StatKey, "hp">;
-  minus: Exclude<StatKey, "hp">;
+  readonly plus: Exclude<StatKey, "hp">;
+  readonly minus: Exclude<StatKey, "hp">;
 }> {
   const keys = ["atk", "def", "spa", "spd", "spe"] as const;
   for (const plus of keys) {

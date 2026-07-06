@@ -10,18 +10,18 @@ import { fetchTeamsFromServer, saveTeamsToServer } from "@services/teams";
 export type MergeAction = "pick" | "drop";
 
 export type MergeEntry = {
-  id: string; // team.id
-  team: Team;
-  source: "local" | "server";
-  action: MergeAction;
+  readonly id: string; // team.id
+  readonly team: Team;
+  readonly source: "local" | "server";
+  readonly action: MergeAction;
 };
 
 type AuthSyncResult = {
-  isMergeOpen: boolean;
-  mergeEntries: MergeEntry[];
-  setMergeEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
-  onMergeCommit: () => Promise<void>;
-  onMergeCancel: () => void;
+  readonly isMergeOpen: boolean;
+  readonly mergeEntries: MergeEntry[];
+  readonly setMergeEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
+  readonly onMergeCommit: () => Promise<void>;
+  readonly onMergeCancel: () => void;
 };
 
 export const useAuthSync = (): AuthSyncResult => {
@@ -40,7 +40,7 @@ export const useAuthSync = (): AuthSyncResult => {
     if (wasLoggedOut && isNowLoggedIn && localTeams.length > 0) {
       // ログイン直後：ローカルにチームがある場合のみ同期処理を開始
       void (async () => {
-        const serverTeams = await queryClient.fetchQuery<Team[]>({
+        const serverTeams = await queryClient.fetchQuery({
           queryKey: ["teams"],
           queryFn: fetchTeamsFromServer,
         });

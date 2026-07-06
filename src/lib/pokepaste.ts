@@ -39,7 +39,7 @@ export function importSet(block: string): ValidateResult<TrainedPokemon> {
 /**
  * Pokepasteのテキストをパースし、アプリケーション内部のTeamデータに変換する
  */
-export function importSets(text: string): ValidateResult<{ members: Team["members"] }> {
+export function importSets(text: string): ValidateResult<{ readonly members: Team["members"] }> {
   const sets = text.trim().split(/\n\s*\n/);
 
   if (sets.length === 0) {

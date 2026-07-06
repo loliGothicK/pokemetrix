@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { teams } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(_request: Request, { params }: { readonly params: Promise<{ readonly id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
 

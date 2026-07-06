@@ -20,7 +20,7 @@ export async function GET(_request: Request) {
     .where(and(eq(boxPokemon.userId, userId), eq(boxPokemon.inBox, true)))
     .orderBy(boxPokemon.createdAt);
 
-  const result: TrainedPokemon[] = rows.map((row) => {
+  const result: readonly TrainedPokemon[] = rows.map((row) => {
     const data = row.data as Omit<TrainedPokemon, "boxId">;
     return { boxId: row.id, ...data };
   });

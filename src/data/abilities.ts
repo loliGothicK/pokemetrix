@@ -9,7 +9,7 @@ const AbilitySchema = z.object({
 
 export type Ability = z.infer<typeof AbilitySchema>;
 
-export const abilityList: Ability[] = data.map((entry) => AbilitySchema.parse(entry));
+export const abilityList: readonly Ability[] = data.map((entry) => AbilitySchema.parse(entry));
 
 export const abilityById = new Map(abilityList.map((ability) => [ability.id, ability]));
 export const abilityByIdentifier = new Map(

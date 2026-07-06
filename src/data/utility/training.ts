@@ -15,7 +15,7 @@ const MAP = (() => {
         {
           slug: pokemon.slug,
           ability: pokemon.abilities[0]!,
-          gender: match<number, { fixed: boolean; specified?: Gender }>(
+          gender: match<number, { readonly fixed: boolean; readonly specified?: Gender }>(
             gender_rate.get(pokemon.id)!,
           )
             .with(-1, () => ({

@@ -4,27 +4,27 @@ import { Gender, EV } from "@/types/pokemon";
 import { Lens } from "monocle-ts";
 
 export interface TrainedPokemon {
-  boxId: string; // box_pokemon.id (ULID) — individual instance identifier
-  identifier: string;
-  slug: string;
-  item: number | null;
-  ability: number;
-  gender: {
-    fixed: boolean;
-    specified?: Gender;
+  readonly boxId: string; // box_pokemon.id (ULID) — individual instance identifier
+  readonly identifier: string;
+  readonly slug: string;
+  readonly item: number | null;
+  readonly ability: number;
+  readonly gender: {
+    readonly fixed: boolean;
+    readonly specified?: Gender;
   };
-  nature: {
-    plus?: "hp" | "atk" | "def" | "spa" | "spd" | "spe" | null;
-    minus?: "hp" | "atk" | "def" | "spa" | "spd" | "spe" | null;
+  readonly nature: {
+    readonly plus?: "hp" | "atk" | "def" | "spa" | "spd" | "spe" | null;
+    readonly minus?: "hp" | "atk" | "def" | "spa" | "spd" | "spe" | null;
   };
-  moves: [number | null, number | null, number | null, number | null];
-  evs: {
-    hp: EV;
-    atk: EV;
-    def: EV;
-    spa: EV;
-    spd: EV;
-    spe: EV;
+  readonly moves: [number | null, number | null, number | null, number | null];
+  readonly evs: {
+    readonly hp: EV;
+    readonly atk: EV;
+    readonly def: EV;
+    readonly spa: EV;
+    readonly spd: EV;
+    readonly spe: EV;
   };
 }
 
@@ -37,9 +37,9 @@ export const getStatLens = (stat: keyof TrainedPokemon["evs"]) =>
 
 // --- 型定義 ---
 export interface Team {
-  id: string;
-  name: string;
-  members: (TrainedPokemon | null)[];
+  readonly id: string;
+  readonly name: string;
+  readonly members: readonly (TrainedPokemon | null)[];
 }
 
 export const activeSlotIndexAtom = atom(0);
@@ -48,7 +48,7 @@ export const activeSlotIndexAtom = atom(0);
 // 未ログイン時のオフラインデータ（localStorageに永続化）
 // ログイン時は TanStack Query の ["teams"] キャッシュがデータソースになる
 // =====================================================================
-export const localTeamsAtom = atomWithStorage<Team[]>("pokemon_teams_v2", []);
+export const localTeamsAtom = atomWithStorage<readonly Team[]>("pokemon_teams_v2", []);
 
 // =====================================================================
 // 【一生残るAtom（純粋なクライアント状態）】

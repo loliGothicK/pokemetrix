@@ -6,8 +6,8 @@ export class ParseError extends MitamaError {
   constructor(
     message: string,
     public readonly meta: {
-      name: string;
-      raw: string;
+      readonly name: string;
+      readonly raw: string;
     },
     cause?: MitamaError,
   ) {
@@ -19,7 +19,7 @@ export class ParseError extends MitamaError {
 export const invalidPokepasteFormat = (
   text: string,
   meta: {
-    name: string;
-    raw: string;
+    readonly name: string;
+    readonly raw: string;
   },
 ) => new ParseError(text, meta);

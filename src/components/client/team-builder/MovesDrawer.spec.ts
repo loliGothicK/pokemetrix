@@ -3,8 +3,8 @@ import { MoveList } from "@/data/moves";
 import enTranslation from "../../../../public/locales/en/translation.json";
 import jaTranslation from "../../../../public/locales/ja/translation.json";
 
-const enMoves = (enTranslation as Record<string, any>).moves as Record<string, { name: string }>;
-const jaMoves = (jaTranslation as Record<string, any>).moves as Record<string, { name: string }>;
+const enMoves = (enTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
+const jaMoves = (jaTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
 
 // ---------------------------------------------------------------------------
 // Font-metrics-based text width estimation
@@ -204,10 +204,10 @@ function availableWidthForName(
 // ---------------------------------------------------------------------------
 
 interface TruncatedMove {
-  identifier: string;
-  name: string;
-  availableWidth: number;
-  textWidth: number;
+  readonly identifier: string;
+  readonly name: string;
+  readonly availableWidth: number;
+  readonly textWidth: number;
 }
 
 function findTruncatedMoves(locale: "en" | "ja", breakpoint: "sm" | "md" | "lg"): TruncatedMove[] {

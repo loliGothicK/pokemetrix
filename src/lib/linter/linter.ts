@@ -10,15 +10,15 @@ import { checkWrongMegaStone } from "@/lib/linter/rules/item/wrongMegaStone";
 import { checkNoItem } from "@/lib/linter/rules/item/noItem";
 
 export type LintIssue = {
-  target: "status" | "item" | "moves";
-  severity: "error" | "warning";
-  source: MitamaError;
+  readonly target: "status" | "item" | "moves";
+  readonly severity: "error" | "warning";
+  readonly source: MitamaError;
 };
 
 export type LintResult = {
-  status: LintIssue[];
-  item: LintIssue[];
-  moves: LintIssue[];
+  readonly status: readonly LintIssue[];
+  readonly item: readonly LintIssue[];
+  readonly moves: readonly LintIssue[];
 };
 
 const intoIssue =
@@ -33,10 +33,10 @@ const intoIssue =
 const lint =
   (target: "status" | "item" | "moves") =>
   (rules: {
-    warnings?: ((member: TrainedPokemon) => Option<MitamaError>)[];
-    errors?: ((member: TrainedPokemon) => Option<MitamaError>)[];
+    readonly warnings?: readonly ((member: TrainedPokemon) => Option<MitamaError>)[];
+    readonly errors?: readonly ((member: TrainedPokemon) => Option<MitamaError>)[];
   }) =>
-  (member: TrainedPokemon | null): LintIssue[] => {
+  (member: TrainedPokemon | null): readonly LintIssue[] => {
     if (!member) {
       return [];
     }
@@ -86,7 +86,7 @@ const lint =
     return pipe(
       transposeArray([warnings, errors]),
       option.map((issues) => issues.flat()),
-      option.getOrElse<LintIssue[]>(() => []),
+      option.getOrElse<readonly LintIssue[]>(() => []),
     );
   };
 

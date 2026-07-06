@@ -11,7 +11,7 @@ export const useActiveTeam = () => {
   const queryClient = useQueryClient();
 
   // ログイン時のソースはQueryキャッシュ、未ログイン時はlocalTeamsAtom
-  const teams = isAuthenticated ? (queryClient.getQueryData<Team[]>(["teams"]) ?? []) : localTeams;
+  const teams = isAuthenticated ? (queryClient.getQueryData<readonly Team[]>(["teams"]) ?? []) : localTeams;
 
   // サーバー保存用のMutation
   const serverMutation = useMutation({
@@ -29,7 +29,7 @@ export const useActiveTeam = () => {
 
     if (isAuthenticated) {
       // ログイン時：TanStack Queryのキャッシュを更新し、サーバーへMutation
-      const currentServerTeams = queryClient.getQueryData<Team[]>(["teams"]) ?? [];
+      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
       const newTeams = currentServerTeams.map((t) =>
         t.id === activeId
           ? { ...t, members: t.members.map((m, i) => (i === slotIndex ? trained : m)) }
@@ -53,7 +53,7 @@ export const useActiveTeam = () => {
     if (!activeId) return;
 
     if (isAuthenticated) {
-      const currentServerTeams = queryClient.getQueryData<Team[]>(["teams"]) ?? [];
+      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
       const newTeams = currentServerTeams.map((t) => (t.id === activeId ? { ...t, name } : t));
       queryClient.setQueryData(["teams"], newTeams);
       serverMutation.mutate(newTeams);
@@ -66,7 +66,7 @@ export const useActiveTeam = () => {
   const reorderMembers = (fromIndex: number, toIndex: number) => {
     if (!activeId || fromIndex === toIndex) return;
 
-    const applyReorder = (members: (TrainedPokemon | null)[]) => {
+    const applyReorder = (members: readonly (TrainedPokemon | null)[]) => {
       const next = [...members];
       const [moved] = next.splice(fromIndex, 1);
       next.splice(toIndex, 0, moved);
@@ -74,7 +74,7 @@ export const useActiveTeam = () => {
     };
 
     if (isAuthenticated) {
-      const currentServerTeams = queryClient.getQueryData<Team[]>(["teams"]) ?? [];
+      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
       const newTeams = currentServerTeams.map((t) =>
         t.id === activeId ? { ...t, members: applyReorder(t.members) } : t,
       );

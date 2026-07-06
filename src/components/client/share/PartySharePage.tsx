@@ -19,9 +19,9 @@ import { useRouter } from "next/navigation";
 // ── Props ────────────────────────────────────────────────────────────────────
 
 export interface PartySharePageProps {
-  shareId: string;
-  snapshot: SharedTeamSnapshot;
-  createdAt: string;
+  readonly shareId: string;
+  readonly snapshot: SharedTeamSnapshot;
+  readonly createdAt: string;
 }
 
 // ── 空スロットのプレースホルダー ──────────────────────────────────────────────

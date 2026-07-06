@@ -17,11 +17,11 @@ import { anyhow } from "@/errors/anyhow/error";
 import { match } from "ts-pattern";
 
 interface Props {
-  type: "paste" | "url";
-  open: boolean;
-  onClose: () => void;
-  onImport: (team: { members: Team["members"] }) => void;
-  onError: (diagnostics: Diagnostics) => void;
+  readonly type: "paste" | "url";
+  readonly open: boolean;
+  readonly onClose: () => void;
+  readonly onImport: (team: { readonly members: Team["members"] }) => void;
+  readonly onError: (diagnostics: Diagnostics) => void;
 }
 
 export default function ImportPokepasteDialog({ type, open, onClose, onImport, onError }: Props) {

@@ -36,7 +36,7 @@ export const useTeamsData = () => {
   const teams = isAuthenticated ? (teamsQuery.data ?? []) : localTeams;
 
   // 更新ロジックの切り替え
-  const updateTeams = (newTeams: Team[]) => {
+  const updateTeams = (newTeams: readonly Team[]) => {
     if (isAuthenticated) {
       // ログイン時：TanStack Queryのキャッシュを直接更新（楽観的UI更新）し、サーバーへMutation
       queryClient.setQueryData(["teams"], newTeams);

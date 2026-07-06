@@ -26,10 +26,10 @@ const ChampionsPokemonSchema = z.object({
 });
 
 export type ChampionsPokemon = z.infer<typeof ChampionsPokemonSchema> & {
-  types: Type[];
+  readonly types: readonly Type[];
 };
 
-export const championsPokemonList: ChampionsPokemon[] = data
+export const championsPokemonList: readonly ChampionsPokemon[] = data
   .map((entry) => ChampionsPokemonSchema.parse(entry))
   .map((entry) => ({
     ...entry,

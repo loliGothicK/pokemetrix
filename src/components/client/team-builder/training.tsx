@@ -92,8 +92,8 @@ export function Training({
   member,
   onUpdate,
 }: {
-  member: TrainedPokemon;
-  onUpdate: (trained: TrainedPokemon) => void;
+  readonly member: TrainedPokemon;
+  readonly onUpdate: (trained: TrainedPokemon) => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();

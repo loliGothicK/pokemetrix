@@ -34,7 +34,7 @@ const schema = zod
 
 type Move = zod.infer<typeof schema>;
 
-export const MoveList: Move[] = data.map((move) => {
+export const MoveList: readonly Move[] = data.map((move) => {
   return schema.parse({ ...move, type: move.type.toLocaleLowerCase() });
 });
 

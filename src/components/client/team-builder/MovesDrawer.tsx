@@ -36,20 +36,20 @@ type Move = NonNullable<ReturnType<typeof moveById.get>>;
 
 // 使用率情報を付加した技エントリ
 type MoveEntry = Move & {
-  rank: number | null;
-  percentage: number | null;
+  readonly rank: number | null;
+  readonly percentage: number | null;
 };
 
 interface MoveSelectionDrawerProps {
-  open: boolean;
-  activeSlot: number | null;
-  onClose: () => void;
-  onChangeSlot: (slot: number) => void;
-  onSelectMove: (moveId: number | null) => void;
-  ongoing: TrainedPokemon;
-  pokemon: ChampionsPokemon;
-  battleData: Result<FetchResponse, Error> | undefined;
-  isError: boolean;
+  readonly open: boolean;
+  readonly activeSlot: number | null;
+  readonly onClose: () => void;
+  readonly onChangeSlot: (slot: number) => void;
+  readonly onSelectMove: (moveId: number | null) => void;
+  readonly ongoing: TrainedPokemon;
+  readonly pokemon: ChampionsPokemon;
+  readonly battleData: Result<FetchResponse, Error> | undefined;
+  readonly isError: boolean;
 }
 
 export function MoveSelectionDrawer({
@@ -68,10 +68,10 @@ export function MoveSelectionDrawer({
   const palette = getAppPalette(theme.palette.mode);
 
   // クエリトークン（QueryableAutocomplete が管理する）
-  const [tokens, setTokens] = useState<readonly QueryToken[]>([]);
+  const [tokens, setTokens] = useState<QueryToken[]>([]);
 
   // フィールド定義
-  const fields: readonly QueryFieldDefinition[] = useMemo(
+  const fields: QueryFieldDefinition[] = useMemo(
     () => [
       {
         key: "type",
