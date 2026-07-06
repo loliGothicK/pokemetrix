@@ -3,7 +3,10 @@ import { db } from "@/lib/db";
 import { sharedTeams } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
-export async function GET(_request: Request, { params }: { readonly params: Promise<{ readonly id: string }> }) {
+export async function GET(
+  _request: Request,
+  { params }: { readonly params: Promise<{ readonly id: string }> },
+) {
   const { id } = await params;
 
   const rows = await db.select().from(sharedTeams).where(eq(sharedTeams.id, id)).limit(1);

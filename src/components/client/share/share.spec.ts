@@ -15,10 +15,12 @@ import jaTranslation from "@locales/ja/translation.json";
 
 // ── 1. スナップショット Zod スキーマ (API と同定義) ──────────────────────────
 
-const snapshotSchema = z.object({
-  teamName: z.string().min(1).max(100),
-  members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
-});
+const snapshotSchema = z
+  .object({
+    teamName: z.string().min(1).max(100),
+    members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
+  })
+  .readonly();
 
 const validSnapshot = {
   teamName: "My Team",

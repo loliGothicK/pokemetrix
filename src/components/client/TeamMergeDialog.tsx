@@ -35,7 +35,13 @@ import type { MergeEntry } from "@/hooks/useAuthSync";
 // ─────────────────────────────────────────────
 // 各チーム行
 // ─────────────────────────────────────────────
-function MergeRow({ entry, onToggle }: { readonly entry: MergeEntry; readonly onToggle: (id: string) => void }) {
+function MergeRow({
+  entry,
+  onToggle,
+}: {
+  readonly entry: MergeEntry;
+  readonly onToggle: (id: string) => void;
+}) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: entry.id,
   });

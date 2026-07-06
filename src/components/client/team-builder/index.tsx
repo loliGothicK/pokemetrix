@@ -61,26 +61,26 @@ import { ShareButton } from "@/components/client/share/ShareButton";
 const MAX_TEAM_SIZE = 6;
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{ readonly open?: boolean }>(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    height: "100%",
-    overflowY: "auto",
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+  readonly open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  height: "100%",
+  overflowY: "auto",
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
   }),
-);
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+}));
 
 interface AppBarProps extends MuiAppBarProps {
   readonly open?: boolean;
@@ -506,7 +506,10 @@ export default function TeamBuilderPage({
 
   const activeTeam = teams.find((t) => t.id === activeTeamId) || null;
 
-  const handleCreateTeam = (team: { readonly name?: string; readonly members: Team["members"] }) => {
+  const handleCreateTeam = (team: {
+    readonly name?: string;
+    readonly members: Team["members"];
+  }) => {
     const newTeam = {
       id: ulid(),
       name: team.name || t("teamBuilder.teamLabel", { index: teams.length + 1 }),

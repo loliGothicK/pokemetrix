@@ -3,16 +3,16 @@ import { either, option } from "fp-ts";
 import { isSome, type Option } from "fp-ts/Option";
 import { match } from "ts-pattern";
 import { pipe } from "fp-ts/function";
-import { of } from "fp-ts/Array";
+import { of } from "fp-ts/ReadonlyArray";
 
 export const iter = <T>(a: Option<T>) =>
   pipe(
     a,
     option.map(of),
-    option.getOrElse((): T[] => []),
+    option.getOrElse((): readonly T[] => []),
   );
 
-export type Flatten<T> = T extends unknown[] ? T : T[];
+export type Flatten<T> = T extends readonly unknown[] ? T : readonly T[];
 
 export const separator = <E, T>(seq: readonly Either<E, T>[]): Either<Flatten<E>, Flatten<T>> => {
   const left = seq.filter(isLeft).map((l) => l.left);
@@ -22,7 +22,7 @@ export const separator = <E, T>(seq: readonly Either<E, T>[]): Either<Flatten<E>
     : either.left(left.flat() as Flatten<E>);
 };
 
-export function transposeArray<T>(seq: Option<T>[]): Option<T[]> {
+export function transposeArray<T>(seq: readonly Option<T>[]): Option<readonly T[]> {
   const some = seq.filter(isSome);
   return some.length === 0 ? option.none : option.of(some.map((s) => s.value));
 }

@@ -1,16 +1,18 @@
 import { data } from "@data/master/pokemon.json";
 import { z } from "zod";
 
-const PokemonSchema = z.object({
-  id: z.number(),
-  identifier: z.string(),
-  species_id: z.number(),
-  height: z.number(),
-  weight: z.number(),
-  gender_rate: z.number(),
-  order: z.number().nullable(),
-  is_default: z.boolean(),
-});
+const PokemonSchema = z
+  .object({
+    id: z.number(),
+    identifier: z.string(),
+    species_id: z.number(),
+    height: z.number(),
+    weight: z.number(),
+    gender_rate: z.number(),
+    order: z.number().nullable(),
+    is_default: z.boolean(),
+  })
+  .readonly();
 
 type Pokemon = z.infer<typeof PokemonSchema>;
 

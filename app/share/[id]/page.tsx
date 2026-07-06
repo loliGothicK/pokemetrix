@@ -33,7 +33,9 @@ export async function generateMetadata({
     .filter(Boolean)
     .map((m) => {
       const key = m!.identifier as keyof typeof enTranslation.pokemon;
-      const entry = enTranslation.pokemon[key] as { readonly name?: string; readonly formName?: string } | undefined;
+      const entry = enTranslation.pokemon[key] as
+        | { readonly name?: string; readonly formName?: string }
+        | undefined;
       if (!entry) return m!.identifier;
       const name = entry.name ?? m!.identifier;
       // 表示順はアプリ内の慣習に合わせる: name 先頭 → formName（例: "Raichu Mega X"）
@@ -73,7 +75,11 @@ export async function generateMetadata({
 
 // ── ページ ────────────────────────────────────────────────────────────────────
 
-export default async function SharePage({ params }: { readonly params: Promise<{ readonly id: string }> }) {
+export default async function SharePage({
+  params,
+}: {
+  readonly params: Promise<{ readonly id: string }>;
+}) {
   const { id } = await params;
   const row = await fetchSharedTeam(id);
 

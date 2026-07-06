@@ -4,30 +4,34 @@ import { ok, err, Result } from "neverthrow";
 import { Lens } from "monocle-ts";
 
 // 1. 厳格なZodスキーマ（未知のプロパティは無視、カテゴリは実データに基づくこと）
-const rowSchema = z.object({
-  category: z.enum(["move", "held_item", "teammate", "stat_alignment", "stat_points", "ability"]),
-  rank: z.number(),
-  name: z.string(),
-  percentage_value: z.number().nullable(),
-});
+const rowSchema = z
+  .object({
+    category: z.enum(["move", "held_item", "teammate", "stat_alignment", "stat_points", "ability"]),
+    rank: z.number(),
+    name: z.string(),
+    percentage_value: z.number().nullable(),
+  })
+  .readonly();
 
-const pokemonSchema = z.object({
-  name: z.string(),
-  battleName: z.string(),
-  slug: z.string(),
-  summary: z.object({
-    battleSummary: z.object({
-      Current: z.object({
-        Doubles: z.object({
-          rows: z.array(rowSchema),
-        }),
-        Singles: z.object({
-          rows: z.array(rowSchema),
+const pokemonSchema = z
+  .object({
+    name: z.string(),
+    battleName: z.string(),
+    slug: z.string(),
+    summary: z.object({
+      battleSummary: z.object({
+        Current: z.object({
+          Doubles: z.object({
+            rows: z.array(rowSchema),
+          }),
+          Singles: z.object({
+            rows: z.array(rowSchema),
+          }),
         }),
       }),
     }),
-  }),
-});
+  })
+  .readonly();
 
 const rowsLenz = (format: "Singles" | "Doubles") => {
   return Lens.fromPath<z.infer<typeof pokemonSchema>>()([

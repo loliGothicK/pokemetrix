@@ -9,11 +9,13 @@ import type { SharedTeamSnapshot } from "@/lib/db/schema";
 
 // members の中身は実行時に TrainedPokemon 形式であることをクライアントが保証するが、
 // Zod 側では passthrough() で受け付け、DB 挿入時に型キャストする。
-const snapshotSchema = z.object({
-  teamName: z.string().min(1).max(100),
-  members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
-  showStats: z.boolean(),
-});
+const snapshotSchema = z
+  .object({
+    teamName: z.string().min(1).max(100),
+    members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
+    showStats: z.boolean(),
+  })
+  .readonly();
 
 export async function POST(request: Request) {
   // 認証は任意（ゲストシェアも許可）

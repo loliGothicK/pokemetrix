@@ -11,7 +11,9 @@ export const useActiveTeam = () => {
   const queryClient = useQueryClient();
 
   // ログイン時のソースはQueryキャッシュ、未ログイン時はlocalTeamsAtom
-  const teams = isAuthenticated ? (queryClient.getQueryData<readonly Team[]>(["teams"]) ?? []) : localTeams;
+  const teams = isAuthenticated
+    ? (queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [])
+    : localTeams;
 
   // サーバー保存用のMutation
   const serverMutation = useMutation({

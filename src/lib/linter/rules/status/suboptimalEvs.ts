@@ -19,14 +19,14 @@ export type OptimizedResult = {
   readonly bestCost: number;
   readonly currentCost: number;
   // ツール側でそのまま状態更新に使える形式で返す
-  readonly alternatives: {
-      readonly nature: TrainedPokemon["nature"];
-      readonly evs: Record<StatKey, number>;
-      readonly savedPoints: number; // どれだけ努力値が浮いたか
-    }[];
+  readonly alternatives: readonly {
+    readonly nature: TrainedPokemon["nature"];
+    readonly evs: Record<StatKey, number>;
+    readonly savedPoints: number; // どれだけ努力値が浮いたか
+  }[];
 };
 
-const STAT_KEYS: StatKey[] = ["hp", "atk", "def", "spa", "spd", "spe"];
+const STAT_KEYS: readonly StatKey[] = ["hp", "atk", "def", "spa", "spd", "spe"];
 
 // ---------------------------------------------------------
 // 2. 基礎計算ロジック
@@ -85,7 +85,11 @@ function analyseEvSpreadsOptimization(pokemon: TrainedPokemon): OptimizedResult 
   }
 
   // C. 最適化エンジンの実行
-  const alternatives: OptimizedResult["alternatives"] = [];
+  const alternatives: {
+    readonly nature: TrainedPokemon["nature"];
+    readonly evs: Record<StatKey, number>;
+    readonly savedPoints: number;
+  }[] = [];
   let minCost = Infinity;
 
   const hpRequiredEV = targetStats.hp - (baseStats.hp + 75);

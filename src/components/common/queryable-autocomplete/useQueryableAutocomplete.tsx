@@ -65,7 +65,7 @@ export interface UseQueryableAutocompleteResult {
   /** The current input mode (text / field-key / field-value). */
   readonly mode: QueryInputMode;
   /** Dropdown suggestions for the current input, keyed by their insert value. */
-  readonly suggestions: QuerySuggestion[];
+  readonly suggestions: readonly QuerySuggestion[];
   /** Look up the suggestion metadata for an option string (for rendering). */
   readonly getSuggestion: (insertValue: string) => QuerySuggestion | undefined;
   /** Remove a committed chip by its string. */

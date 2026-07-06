@@ -15,7 +15,7 @@ import { ChampionsPokemon, championsPokemonByIdentifier } from "@/data/champions
 import { pipe } from "fp-ts/function";
 import { either } from "fp-ts";
 import { getApplicativeValidation } from "fp-ts/lib/Either";
-import { getSemigroup } from "fp-ts/lib/Array";
+import { getSemigroup } from "fp-ts/lib/ReadonlyArray";
 import { sequenceS } from "fp-ts/lib/Apply.js";
 import { itemById, itemByIdentifier } from "@/data/items";
 import { natureObjectToString, parseNature } from "@/data/nature";
@@ -159,7 +159,10 @@ const lookupAbility = (set: Partial<PokemonSet>): Result<number> => {
   );
 };
 
-const lookupMoves = (set: Partial<PokemonSet>, setRaw: string): ValidateResult<number[]> => {
+const lookupMoves = (
+  set: Partial<PokemonSet>,
+  setRaw: string,
+): ValidateResult<readonly number[]> => {
   if (!set.moves) {
     return toValidated(
       left(

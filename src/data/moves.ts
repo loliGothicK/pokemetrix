@@ -30,6 +30,7 @@ const schema = zod
       }),
     ),
   })
+  .readonly()
   .brand<"Move">();
 
 type Move = zod.infer<typeof schema>;

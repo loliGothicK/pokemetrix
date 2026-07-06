@@ -4,26 +4,28 @@ import { data as typeData } from "@data/master/types.json";
 import { z } from "zod";
 import { Type } from "@/types/pokemon";
 
-const ChampionsPokemonSchema = z.object({
-  id: z.number(),
-  identifier: z.string(),
-  slug: z.string().nullable(),
-  abilities: z.array(z.number()),
-  status: z.tuple([z.number(), z.number(), z.number(), z.number(), z.number(), z.number()]),
-  moves: z.array(z.number()),
-  mega: z
-    .array(
-      z.object({
-        mega_id: z.number(),
-        stone_id: z.number(),
-      }),
-      {
-        error: (iss) => `${iss.input}" is invalid`,
-      },
-    )
-    .optional(),
-  form: z.number().optional(),
-});
+const ChampionsPokemonSchema = z
+  .object({
+    id: z.number(),
+    identifier: z.string(),
+    slug: z.string().nullable(),
+    abilities: z.array(z.number()),
+    status: z.tuple([z.number(), z.number(), z.number(), z.number(), z.number(), z.number()]),
+    moves: z.array(z.number()),
+    mega: z
+      .array(
+        z.object({
+          mega_id: z.number(),
+          stone_id: z.number(),
+        }),
+        {
+          error: (iss) => `${iss.input}" is invalid`,
+        },
+      )
+      .optional(),
+    form: z.number().optional(),
+  })
+  .readonly();
 
 export type ChampionsPokemon = z.infer<typeof ChampionsPokemonSchema> & {
   readonly types: readonly Type[];

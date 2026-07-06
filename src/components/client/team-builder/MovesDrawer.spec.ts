@@ -3,8 +3,14 @@ import { MoveList } from "@/data/moves";
 import enTranslation from "../../../../public/locales/en/translation.json";
 import jaTranslation from "../../../../public/locales/ja/translation.json";
 
-const enMoves = (enTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
-const jaMoves = (jaTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
+const enMoves = (enTranslation as Record<string, any>).moves as Record<
+  string,
+  { readonly name: string }
+>;
+const jaMoves = (jaTranslation as Record<string, any>).moves as Record<
+  string,
+  { readonly name: string }
+>;
 
 // ---------------------------------------------------------------------------
 // Font-metrics-based text width estimation

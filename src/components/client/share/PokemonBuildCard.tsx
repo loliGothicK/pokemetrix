@@ -78,7 +78,15 @@ function statColor(key: StatKey, plus?: StatKey | null, minus?: StatKey | null) 
 
 // ── Tooltip の共通スタイル ────────────────────────────────────────────────────
 
-const TooltipContent = ({ title, body, meta }: { readonly title: string; readonly body?: string; readonly meta?: string }) => (
+const TooltipContent = ({
+  title,
+  body,
+  meta,
+}: {
+  readonly title: string;
+  readonly body?: string;
+  readonly meta?: string;
+}) => (
   <Box sx={{ p: 0.25, maxWidth: 240 }}>
     <Typography sx={{ fontWeight: 700, fontSize: "0.78rem", mb: body ? 0.5 : 0 }}>
       {title}

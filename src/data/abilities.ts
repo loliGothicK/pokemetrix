@@ -1,11 +1,13 @@
 import { data } from "@data/master/abilities.json";
 import { z } from "zod";
 
-const AbilitySchema = z.object({
-  id: z.number(),
-  identifier: z.string(),
-  description: z.string(),
-});
+const AbilitySchema = z
+  .object({
+    id: z.number(),
+    identifier: z.string(),
+    description: z.string(),
+  })
+  .readonly();
 
 export type Ability = z.infer<typeof AbilitySchema>;
 

@@ -74,7 +74,9 @@ export async function POST(request: Request) {
 
       const nonNullMembers = team.members
         .map((m, i) => ({ member: m, slot: i }))
-        .filter((x): x is { readonly member: TrainedPokemon; readonly slot: number } => x.member !== null);
+        .filter(
+          (x): x is { readonly member: TrainedPokemon; readonly slot: number } => x.member !== null,
+        );
 
       for (const { member } of nonNullMembers) {
         const { boxId, identifier, slug, ...data } = member;

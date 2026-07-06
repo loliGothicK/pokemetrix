@@ -3,11 +3,13 @@ import { z } from "zod";
 
 const ItemCategorySchema = z.enum(["berry", "held-item", "mega-evolution"]);
 
-const ItemSchema = z.object({
-  id: z.number(),
-  identifier: z.string(),
-  category: ItemCategorySchema,
-});
+const ItemSchema = z
+  .object({
+    id: z.number(),
+    identifier: z.string(),
+    category: ItemCategorySchema,
+  })
+  .readonly();
 
 export type Item = z.infer<typeof ItemSchema>;
 export type ItemCategory = z.infer<typeof ItemCategorySchema>;
