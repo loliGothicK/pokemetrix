@@ -10,6 +10,7 @@ import {
   type BattleRecord,
   type BattleRecordOpponent,
 } from "@/store/battle-record/battleRecord";
+import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
@@ -64,11 +65,19 @@ export async function GET(request: Request) {
     teamId ? eq(battleRecords.teamId, teamId) : undefined,
   );
 
-  const records = await db
-    .select()
-    .from(battleRecords)
-    .where(where)
-    .orderBy(desc(battleRecords.playedAt));
+  const records = await withChildSpan(
+    "db.battle-records.list",
+    async (span) => {
+      if (seasonId) span.setAttribute("db.season_id", seasonId);
+      if (teamId) span.setAttribute("db.team_id", teamId);
+      return db
+        .select()
+        .from(battleRecords)
+        .where(where)
+        .orderBy(desc(battleRecords.playedAt));
+    },
+    { op: "db.query" },
+  );
 
   if (records.length === 0) {
     return NextResponse.json([]);
@@ -108,45 +117,51 @@ export async function POST(request: Request) {
     .with({ success: true }, async ({ data: input }) => {
       const id = input.id ?? genUlid();
 
-      const dto = await db.transaction(async (tx) => {
-        const [row] = await tx
-          .insert(battleRecords)
-          .values({
-            id,
-            userId,
-            seasonId: input.seasonId,
-            teamId: input.teamId ?? null,
-            result: input.result,
-            myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
-            mySelection: input.mySelection ?? null,
-            firstOrSecond: input.firstOrSecond ?? null,
-            rating: input.rating ?? null,
-            notes: input.notes ?? null,
-            ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
-          })
-          .returning();
+      const dto = await withChildSpan(
+        "db.battle-records.create",
+        async (_span) => {
+          return db.transaction(async (tx) => {
+            const [row] = await tx
+              .insert(battleRecords)
+              .values({
+                id,
+                userId,
+                seasonId: input.seasonId,
+                teamId: input.teamId ?? null,
+                result: input.result,
+                myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
+                mySelection: input.mySelection ?? null,
+                firstOrSecond: input.firstOrSecond ?? null,
+                rating: input.rating ?? null,
+                notes: input.notes ?? null,
+                ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
+              })
+              .returning();
 
-        const opponentRows =
-          input.opponents.length > 0
-            ? await tx
-                .insert(battleRecordOpponents)
-                .values(
-                  input.opponents.map((o) => ({
-                    battleRecordId: id,
-                    slotIndex: o.slotIndex,
-                    pokemonSlug: o.pokemonSlug,
-                    itemSlug: o.itemSlug ?? null,
-                    abilitySlug: o.abilitySlug ?? null,
-                    moves: o.moves ?? null,
-                    selectionRole: o.selectionRole ?? null,
-                    notes: o.notes ?? null,
-                  })),
-                )
-                .returning()
-            : [];
+            const opponentRows =
+              input.opponents.length > 0
+                ? await tx
+                    .insert(battleRecordOpponents)
+                    .values(
+                      input.opponents.map((o) => ({
+                        battleRecordId: id,
+                        slotIndex: o.slotIndex,
+                        pokemonSlug: o.pokemonSlug,
+                        itemSlug: o.itemSlug ?? null,
+                        abilitySlug: o.abilitySlug ?? null,
+                        moves: o.moves ?? null,
+                        selectionRole: o.selectionRole ?? null,
+                        notes: o.notes ?? null,
+                      })),
+                    )
+                    .returning()
+                : [];
 
-        return toDto(row, opponentRows);
-      });
+            return toDto(row, opponentRows);
+          });
+        },
+        { op: "db.query" },
+      );
 
       return NextResponse.json(dto, { status: 201 });
     })

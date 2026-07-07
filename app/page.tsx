@@ -71,7 +71,12 @@ export default function Home() {
         {/* Hero Section */}
         <Stack spacing={6} sx={{ alignItems: "center" }}>
           <Stack direction={"row"} sx={{ alignItems: "center" }}>
-            <PokemetrixIcon />
+            <PokemetrixIcon
+              sx={{
+                width: { xs: 120, md: 200 },
+                height: { xs: 120, md: 200 },
+              }}
+            />
             <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
               <Typography
                 variant="overline"

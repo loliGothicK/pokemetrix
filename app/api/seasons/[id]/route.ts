@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { seasons } from "@/lib/db/schema";
 import { seasonUpdateSchema, type Season } from "@/store/battle-record/battleRecord";
+import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
 
 const toDto = (row: InferSelectModel<typeof seasons>): Season => ({
@@ -41,17 +42,24 @@ export async function PATCH(
       NextResponse.json({ error: error.flatten() }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
-      const updated = await db
-        .update(seasons)
-        .set({
-          ...(input.name !== undefined && { name: input.name }),
-          ...(input.format !== undefined && { format: input.format }),
-          ...(input.ruleMark !== undefined && { ruleMark: input.ruleMark ?? null }),
-          ...(input.startedAt !== undefined && { startedAt: input.startedAt ?? null }),
-          ...(input.endedAt !== undefined && { endedAt: input.endedAt ?? null }),
-        })
-        .where(and(eq(seasons.id, id), eq(seasons.userId, userId)))
-        .returning();
+      const updated = await withChildSpan(
+        "db.seasons.update",
+        async (span) => {
+          span.setAttribute("db.season_id", id);
+          return db
+            .update(seasons)
+            .set({
+              ...(input.name !== undefined && { name: input.name }),
+              ...(input.format !== undefined && { format: input.format }),
+              ...(input.ruleMark !== undefined && { ruleMark: input.ruleMark ?? null }),
+              ...(input.startedAt !== undefined && { startedAt: input.startedAt ?? null }),
+              ...(input.endedAt !== undefined && { endedAt: input.endedAt ?? null }),
+            })
+            .where(and(eq(seasons.id, id), eq(seasons.userId, userId)))
+            .returning();
+        },
+        { op: "db.query" },
+      );
 
       if (updated.length === 0) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -73,7 +81,14 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await db.delete(seasons).where(and(eq(seasons.id, id), eq(seasons.userId, userId)));
+  await withChildSpan(
+    "db.seasons.delete",
+    async (span) => {
+      span.setAttribute("db.season_id", id);
+      return db.delete(seasons).where(and(eq(seasons.id, id), eq(seasons.userId, userId)));
+    },
+    { op: "db.query" },
+  );
 
   return NextResponse.json({ success: true });
 }

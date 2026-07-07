@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { teams } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
+import { withChildSpan } from "@/lib/otel";
 
 export async function DELETE(
   _request: Request,
@@ -17,7 +18,14 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await db.delete(teams).where(and(eq(teams.id, id), eq(teams.userId, userId)));
+  await withChildSpan(
+    "db.teams.delete",
+    async (span) => {
+      span.setAttribute("db.team_id", id);
+      return db.delete(teams).where(and(eq(teams.id, id), eq(teams.userId, userId)));
+    },
+    { op: "db.query" },
+  );
 
   return NextResponse.json({ success: true });
 }

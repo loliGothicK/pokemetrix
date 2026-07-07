@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { boxPokemon } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
+import { withChildSpan } from "@/lib/otel";
 import type { TrainedPokemon } from "@/store/team/team";
 
 export async function PATCH(
@@ -20,11 +21,18 @@ export async function PATCH(
   const pokemon = (await request.json()) as TrainedPokemon;
   const { identifier, slug, ...data } = pokemon;
 
-  const updated = await db
-    .update(boxPokemon)
-    .set({ slug: identifier, data: { identifier, slug, ...data } })
-    .where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)))
-    .returning({ id: boxPokemon.id });
+  const updated = await withChildSpan(
+    "db.box.update",
+    async (span) => {
+      span.setAttribute("db.box_id", id);
+      return db
+        .update(boxPokemon)
+        .set({ slug: identifier, data: { identifier, slug, ...data } })
+        .where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)))
+        .returning({ id: boxPokemon.id });
+    },
+    { op: "db.query" },
+  );
 
   if (updated.length === 0) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -45,7 +53,14 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await db.delete(boxPokemon).where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)));
+  await withChildSpan(
+    "db.box.delete",
+    async (span) => {
+      span.setAttribute("db.box_id", id);
+      return db.delete(boxPokemon).where(and(eq(boxPokemon.id, id), eq(boxPokemon.userId, userId)));
+    },
+    { op: "db.query" },
+  );
 
   return NextResponse.json({ success: true });
 }

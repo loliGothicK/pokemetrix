@@ -9,6 +9,7 @@ import {
   type BattleRecord,
   type BattleRecordOpponent,
 } from "@/store/battle-record/battleRecord";
+import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
@@ -56,19 +57,30 @@ export async function GET(
   }
   const userId = claims.claims.sub;
 
-  const [row] = await db
-    .select()
-    .from(battleRecords)
-    .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)));
+  const [row, opponents] = await withChildSpan(
+    "db.battle-records.get",
+    async (span) => {
+      span.setAttribute("db.record_id", id);
+      const [record] = await db
+        .select()
+        .from(battleRecords)
+        .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)));
+
+      if (!record) return [undefined, []] as const;
+
+      const opponentRows = await db
+        .select()
+        .from(battleRecordOpponents)
+        .where(eq(battleRecordOpponents.battleRecordId, id));
+
+      return [record, opponentRows] as const;
+    },
+    { op: "db.query" },
+  );
 
   if (!row) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-
-  const opponents = await db
-    .select()
-    .from(battleRecordOpponents)
-    .where(eq(battleRecordOpponents.battleRecordId, id));
 
   return NextResponse.json(toDto(row, opponents));
 }
@@ -96,60 +108,67 @@ export async function PATCH(
       NextResponse.json({ error: error.flatten() }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
-      const result = await db.transaction(async (tx) => {
-        const updated = await tx
-          .update(battleRecords)
-          .set({
-            ...(input.teamId !== undefined && { teamId: input.teamId ?? null }),
-            ...(input.result !== undefined && { result: input.result }),
-            ...(input.myTeam !== undefined && {
-              myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
-            }),
-            ...(input.mySelection !== undefined && { mySelection: input.mySelection ?? null }),
-            ...(input.firstOrSecond !== undefined && {
-              firstOrSecond: input.firstOrSecond ?? null,
-            }),
-            ...(input.rating !== undefined && { rating: input.rating ?? null }),
-            ...(input.notes !== undefined && { notes: input.notes ?? null }),
-            ...(input.playedAt !== undefined &&
-              input.playedAt !== null && { playedAt: new Date(input.playedAt) }),
-          })
-          .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)))
-          .returning();
+      const result = await withChildSpan(
+        "db.battle-records.update",
+        async (span) => {
+          span.setAttribute("db.record_id", id);
+          return db.transaction(async (tx) => {
+            const updated = await tx
+              .update(battleRecords)
+              .set({
+                ...(input.teamId !== undefined && { teamId: input.teamId ?? null }),
+                ...(input.result !== undefined && { result: input.result }),
+                ...(input.myTeam !== undefined && {
+                  myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
+                }),
+                ...(input.mySelection !== undefined && { mySelection: input.mySelection ?? null }),
+                ...(input.firstOrSecond !== undefined && {
+                  firstOrSecond: input.firstOrSecond ?? null,
+                }),
+                ...(input.rating !== undefined && { rating: input.rating ?? null }),
+                ...(input.notes !== undefined && { notes: input.notes ?? null }),
+                ...(input.playedAt !== undefined &&
+                  input.playedAt !== null && { playedAt: new Date(input.playedAt) }),
+              })
+              .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)))
+              .returning();
 
-        if (updated.length === 0) {
-          return { notFound: true as const };
-        }
+            if (updated.length === 0) {
+              return { notFound: true as const };
+            }
 
-        // opponents が指定された場合は全置換
-        if (input.opponents !== undefined) {
-          await tx
-            .delete(battleRecordOpponents)
-            .where(eq(battleRecordOpponents.battleRecordId, id));
+            // opponents が指定された場合は全置換
+            if (input.opponents !== undefined) {
+              await tx
+                .delete(battleRecordOpponents)
+                .where(eq(battleRecordOpponents.battleRecordId, id));
 
-          if (input.opponents.length > 0) {
-            await tx.insert(battleRecordOpponents).values(
-              input.opponents.map((o) => ({
-                battleRecordId: id,
-                slotIndex: o.slotIndex,
-                pokemonSlug: o.pokemonSlug,
-                itemSlug: o.itemSlug ?? null,
-                abilitySlug: o.abilitySlug ?? null,
-                moves: o.moves ?? null,
-                selectionRole: o.selectionRole ?? null,
-                notes: o.notes ?? null,
-              })),
-            );
-          }
-        }
+              if (input.opponents.length > 0) {
+                await tx.insert(battleRecordOpponents).values(
+                  input.opponents.map((o) => ({
+                    battleRecordId: id,
+                    slotIndex: o.slotIndex,
+                    pokemonSlug: o.pokemonSlug,
+                    itemSlug: o.itemSlug ?? null,
+                    abilitySlug: o.abilitySlug ?? null,
+                    moves: o.moves ?? null,
+                    selectionRole: o.selectionRole ?? null,
+                    notes: o.notes ?? null,
+                  })),
+                );
+              }
+            }
 
-        const opponents = await tx
-          .select()
-          .from(battleRecordOpponents)
-          .where(eq(battleRecordOpponents.battleRecordId, id));
+            const opponents = await tx
+              .select()
+              .from(battleRecordOpponents)
+              .where(eq(battleRecordOpponents.battleRecordId, id));
 
-        return { notFound: false as const, dto: toDto(updated[0], opponents) };
-      });
+            return { notFound: false as const, dto: toDto(updated[0], opponents) };
+          });
+        },
+        { op: "db.query" },
+      );
 
       return result.notFound
         ? NextResponse.json({ error: "Not found" }, { status: 404 })
@@ -170,9 +189,16 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await db
-    .delete(battleRecords)
-    .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)));
+  await withChildSpan(
+    "db.battle-records.delete",
+    async (span) => {
+      span.setAttribute("db.record_id", id);
+      return db
+        .delete(battleRecords)
+        .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)));
+    },
+    { op: "db.query" },
+  );
 
   return NextResponse.json({ success: true });
 }

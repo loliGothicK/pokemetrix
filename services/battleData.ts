@@ -2,6 +2,7 @@ import { z } from "zod";
 import { unstable_cache } from "next/cache";
 import { ok, err, Result } from "neverthrow";
 import { Lens } from "monocle-ts";
+import { withChildSpan } from "@/lib/otel";
 
 // 1. 厳格なZodスキーマ（未知のプロパティは無視、カテゴリは実データに基づくこと）
 const rowSchema = z
@@ -51,9 +52,20 @@ const fetchAndParseBattleData = unstable_cache(
       season,
     });
 
-    const res = await fetch(`https://championsbattledata.com/api/pokemon/${slug}?${params}`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await withChildSpan(
+      "battle.fetch-external-data",
+      async (span) => {
+        span.setAttribute("battle.slug", slug);
+        span.setAttribute("battle.format", format);
+        const response = await fetch(
+          `https://championsbattledata.com/api/pokemon/${slug}?${params}`,
+          { next: { revalidate: 3600 } },
+        );
+        span.setAttribute("http.response_status_code", response.status);
+        return response;
+      },
+      { op: "http.client" },
+    );
 
     if (!res.ok) {
       // 意図的にthrowすることで、Next.jsのキャッシュ更新を失敗させ、古いキャッシュを維持させる

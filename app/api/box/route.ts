@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { boxPokemon } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
+import { withChildSpan } from "@/lib/otel";
 import type { TrainedPokemon } from "@/store/team/team";
 
 export async function GET(_request: Request) {
@@ -14,11 +15,16 @@ export async function GET(_request: Request) {
   const userId = claims.claims.sub;
 
   // inBox = true のものだけ返す（チームスロット専用のレコードは除外）
-  const rows = await db
-    .select()
-    .from(boxPokemon)
-    .where(and(eq(boxPokemon.userId, userId), eq(boxPokemon.inBox, true)))
-    .orderBy(boxPokemon.createdAt);
+  const rows = await withChildSpan(
+    "db.box.list",
+    async (_span) =>
+      db
+        .select()
+        .from(boxPokemon)
+        .where(and(eq(boxPokemon.userId, userId), eq(boxPokemon.inBox, true)))
+        .orderBy(boxPokemon.createdAt),
+    { op: "db.query" },
+  );
 
   const result: readonly TrainedPokemon[] = rows.map((row) => {
     const data = row.data as Omit<TrainedPokemon, "boxId">;
@@ -39,19 +45,24 @@ export async function POST(request: Request) {
   const pokemon = (await request.json()) as TrainedPokemon;
   const { boxId, identifier, slug, ...data } = pokemon;
 
-  await db
-    .insert(boxPokemon)
-    .values({
-      id: boxId,
-      userId,
-      slug: identifier,
-      inBox: true,
-      data: { identifier, slug, ...data },
-    })
-    .onConflictDoUpdate({
-      target: boxPokemon.id,
-      set: { slug: identifier, inBox: true, data: { identifier, slug, ...data } },
-    });
+  await withChildSpan(
+    "db.box.save",
+    async (_span) =>
+      db
+        .insert(boxPokemon)
+        .values({
+          id: boxId,
+          userId,
+          slug: identifier,
+          inBox: true,
+          data: { identifier, slug, ...data },
+        })
+        .onConflictDoUpdate({
+          target: boxPokemon.id,
+          set: { slug: identifier, inBox: true, data: { identifier, slug, ...data } },
+        }),
+    { op: "db.query" },
+  );
 
   return NextResponse.json({ success: true }, { status: 201 });
 }

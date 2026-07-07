@@ -13,6 +13,12 @@ Sentry.init({
   // Enable logs to be sent to Sentry
   enableLogs: true,
 
+  // Provide additional OpenTelemetry instrumentations here.
+  // Sentry automatically sets up OpenTelemetry under the hood, so only add instrumentations
+  // that are not yet supported by the Sentry SDK.
+  // See: https://docs.sentry.io/platforms/javascript/guides/nextjs/opentelemetry/using-opentelemetry-apis/
+  openTelemetryInstrumentations: [],
+
   dataCollection: {
     // To disable sending user data and HTTP bodies, uncomment the lines below. For more info visit:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#dataCollection

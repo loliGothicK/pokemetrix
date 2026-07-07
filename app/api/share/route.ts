@@ -5,6 +5,7 @@ import { sharedTeams } from "@/lib/db/schema";
 import { genUlid } from "@/lib/db/ulid-type";
 import { z } from "zod";
 import { match } from "ts-pattern";
+import { withChildSpan } from "@/lib/otel";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
 
 // members の中身は実行時に TrainedPokemon 形式であることをクライアントが保証するが、
@@ -35,11 +36,16 @@ export async function POST(request: Request) {
     )
     .with({ success: true }, async ({ data: snapshot }) => {
       const id = genUlid();
-      await db.insert(sharedTeams).values({
-        id,
-        createdBy,
-        snapshot: snapshot as unknown as SharedTeamSnapshot,
-      });
+      await withChildSpan(
+        "db.share.create",
+        async (_span) =>
+          db.insert(sharedTeams).values({
+            id,
+            createdBy,
+            snapshot: snapshot as unknown as SharedTeamSnapshot,
+          }),
+        { op: "db.query" },
+      );
       return NextResponse.json({ id }, { status: 201 });
     })
     .exhaustive();
