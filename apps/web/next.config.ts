@@ -1,5 +1,8 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
+import { access, symlink } from "node:fs/promises";
+import { join } from "node:path";
+import type { Compiler, Compilation, Configuration, WebpackPluginInstance } from "webpack";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
@@ -20,6 +23,45 @@ const nextConfig: NextConfig = {
         search: "",
       },
     ],
+  },
+  webpack(config: Configuration, { isServer }) {
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+      layers: true,
+    }
+
+    // define plugin
+    class SymlinkWebpackPlugin implements WebpackPluginInstance {
+      apply(comp: Compiler) {
+        comp.hooks.afterEmit.tapPromise(
+          "SymlinkWebpackPlugin",
+          async (compilation: Compilation) => {
+            if (isServer) {
+              const from = join(compilation.options.output.path || "", "../static")
+              const to = join(compilation.options.output.path || "", "static")
+
+              try {
+                await access(from)
+                return
+              } catch (error: any) {
+                if (error?.code !== "ENOENT") {
+                  throw error
+                }
+              }
+
+              await symlink(to, from, "junction")
+              console.log(`created symlink ${from} -> ${to}`)
+            }
+          }
+        )
+      }
+    }
+
+    // add plugin
+    if (!config.plugins) config.plugins = []
+    config.plugins.push(new SymlinkWebpackPlugin())
+    return config
   },
 };
 

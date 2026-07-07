@@ -1,5 +1,7 @@
 import { defineConfig } from "vitest/config";
 import { fileURLToPath } from "node:url";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 export default defineConfig({
   resolve: {
@@ -15,4 +17,5 @@ export default defineConfig({
       reporter: ["text", "html", "json-summary"],
     },
   },
+  plugins: [wasm(), topLevelAwait()],
 });
