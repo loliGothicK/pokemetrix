@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+apps/*/node_modules
+packages/*/node_modules
 .pnpm-store
 /.pnp
 .pnp.*
@@ -13,13 +15,15 @@
 
 # testing
 /coverage
+apps/*/coverage
 
 # next.js
-/.next/
-/out/
+apps/web/.next/
+apps/web/out/
 
 # production
 /build
+apps/*/build
 
 # misc
 .DS_Store
@@ -39,9 +43,14 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+apps/web/next-env.d.ts
 
-/scripts/
+apps/web/scripts/
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# wasm-pack output
+packages/damage-calc/pkg/
+packages/damage-calc/pkg-node/
+packages/damage-calc/target/

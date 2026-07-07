@@ -70,11 +70,7 @@ export async function GET(request: Request) {
     async (span) => {
       if (seasonId) span.setAttribute("db.season_id", seasonId);
       if (teamId) span.setAttribute("db.team_id", teamId);
-      return db
-        .select()
-        .from(battleRecords)
-        .where(where)
-        .orderBy(desc(battleRecords.playedAt));
+      return db.select().from(battleRecords).where(where).orderBy(desc(battleRecords.playedAt));
     },
     { op: "db.query" },
   );

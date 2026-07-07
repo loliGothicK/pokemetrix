@@ -1,5 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
 allowBuilds:
-  '@sentry/cli': set this to true or false
+  '@sentry/cli': true
   esbuild: true
   sharp: false
 ignoredBuiltDependencies:

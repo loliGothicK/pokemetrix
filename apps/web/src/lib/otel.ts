@@ -9,7 +9,8 @@
  */
 
 import * as Sentry from "@sentry/nextjs";
-import type { Span, SpanAttributes } from "@sentry/nextjs";
+import type { Span, SpanAttributes } from "@sentry/core";
+import { trace } from "@opentelemetry/api";
 
 /** スパン名の命名規則: "<domain>.<operation>" */
 export type SpanName = `${string}.${string}`;
@@ -30,11 +31,7 @@ export interface SpanOptions {
  *   return fetchRecords(name);
  * });
  */
-export function withSpan<T>(
-  name: SpanName,
-  callback: (span: Span) => T,
-  options?: SpanOptions,
-): T {
+export function withSpan<T>(name: SpanName, callback: (span: Span) => T, options?: SpanOptions): T {
   return Sentry.startSpan(
     {
       name,
@@ -77,8 +74,8 @@ export function withChildSpan<T>(
  *
  * @example
  * const tracer = getTracer();
- * tracer?.startActiveSpan("my.span", (span) => { ... });
+ * tracer.startActiveSpan("my.span", (span) => { ... });
  */
 export function getTracer() {
-  return Sentry.getClient()?.tracer;
+  return trace.getTracer("pokemetrix");
 }

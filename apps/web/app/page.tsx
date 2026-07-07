@@ -94,7 +94,10 @@ export default function Home() {
               >
                 {t("home.title")}
               </Typography>
-              <Typography color="text.secondary" sx={{ fontSize: "1.1rem", display: { xs: "none", md: "block" } }}>
+              <Typography
+                color="text.secondary"
+                sx={{ fontSize: "1.1rem", display: { xs: "none", md: "block" } }}
+              >
                 {t("home.description")}
               </Typography>
             </Stack>
@@ -103,10 +106,7 @@ export default function Home() {
           {/* Bento Grid Tools Section */}
           <Grid container spacing={3}>
             {tools.map((tool) => (
-              <Grid
-                size={{ ...tool.gridSpan }}
-                key={tool.id}
-              >
+              <Grid size={{ ...tool.gridSpan }} key={tool.id}>
                 <Paper
                   component="a"
                   href={tool.href}
