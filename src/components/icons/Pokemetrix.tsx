@@ -1,10 +1,15 @@
 import { useTheme } from "@mui/material/styles";
+import { SvgIcon } from "@mui/material";
+import {ComponentProps} from "react";
 
 type PokemetrixIconProps = {
-  readonly size?: number;
+  readonly sx?: NonNullable<ComponentProps<typeof SvgIcon>["sx"]>;
 };
 
-export default function PokemetrixIcon({ size = 200 }: PokemetrixIconProps) {
+export default function PokemetrixIcon({ sx = {
+  width: 200,
+  height: 200,
+} }: PokemetrixIconProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
@@ -14,10 +19,11 @@ export default function PokemetrixIcon({ size = 200 }: PokemetrixIconProps) {
   const accentColor = isDark ? "#7dd8e0" : "#66C5D0";
 
   return (
+    <SvgIcon
+      sx={sx}
+    >
     <svg
       viewBox="0 0 200 200"
-      width={size}
-      height={size}
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
@@ -95,5 +101,6 @@ export default function PokemetrixIcon({ size = 200 }: PokemetrixIconProps) {
       <circle cx="100" cy="100" r="24" fill="none" stroke={inkColor} strokeWidth="12" />
       <circle cx="100" cy="100" r="8" fill={inkColor} />
     </svg>
+    </SvgIcon>
   );
 }

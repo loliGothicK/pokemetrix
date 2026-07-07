@@ -32,6 +32,7 @@
     "@mui/material": "9.1.2",
     "@mui/material-nextjs": "9.1.1",
     "@pkmn/sets": "5.2.0",
+    "@sentry/nextjs": "^10.63.0",
     "@supabase/ssr": "0.12.0",
     "@supabase/supabase-js": "2.110.0",
     "@tanstack/react-query": "5.101.2",

@@ -89,7 +89,7 @@ export default function Home() {
               >
                 {t("home.title")}
               </Typography>
-              <Typography color="text.secondary" sx={{ maxWidth: 600, fontSize: "1.1rem" }}>
+              <Typography color="text.secondary" sx={{ fontSize: "1.1rem", display: { xs: "none", md: "block" } }}>
                 {t("home.description")}
               </Typography>
             </Stack>
@@ -99,7 +99,7 @@ export default function Home() {
           <Grid container spacing={3}>
             {tools.map((tool) => (
               <Grid
-                size={{ xs: tool.gridSpan.xs, sm: tool.gridSpan.sm, md: tool.gridSpan.md }}
+                size={{ ...tool.gridSpan }}
                 key={tool.id}
               >
                 <Paper

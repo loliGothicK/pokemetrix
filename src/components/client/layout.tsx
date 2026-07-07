@@ -333,7 +333,7 @@ function ResponsiveAppBar({
                 flexShrink: 0,
               }}
             >
-              <PokemetrixIcon size={38} />
+              <PokemetrixIcon sx={{ width: 38, height: 38 }} />
             </Box>
 
             {/* ブランド名 — md以上で表示 */}
