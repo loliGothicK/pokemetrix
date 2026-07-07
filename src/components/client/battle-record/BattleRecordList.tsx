@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { match } from "ts-pattern";
 import { getAppPalette } from "@/theme/palette";
 import type { BattleRecord, BattleResult } from "@/store/battle-record/battleRecord";
+import { resolveMyTeamDisplay, resolveOpponentDisplay } from "./battleRecordList.logic";
 
 interface BattleRecordListProps {
   /** playedAt 降順で並んだ記録 */
@@ -26,27 +27,40 @@ const resultAccent = (result: BattleResult, theme: Theme): string =>
     .with("draw", () => theme.palette.text.disabled)
     .exhaustive();
 
-function SpriteRow({ slugs }: { readonly slugs: readonly string[] }) {
+function SpriteRow({
+  slugs,
+  selectedIndices,
+}: {
+  readonly slugs: readonly string[];
+  /** 選出されているインデックスのセット。null の場合は全て選出扱い */
+  readonly selectedIndices: ReadonlySet<number> | null;
+}) {
   return (
     <Stack direction="row" spacing={-0.5} sx={{ alignItems: "center" }}>
-      {slugs.map((slug, i) => (
-        <Box
-          key={`${slug}-${i}`}
-          sx={{ width: 26, height: 26, position: "relative", flexShrink: 0 }}
-        >
-          <Image src={`/pokemon/${slug}.png`} alt={slug} width={26} height={26} />
-        </Box>
-      ))}
+      {slugs.map((slug, i) => {
+        const isSelected = selectedIndices === null || selectedIndices.has(i);
+        return (
+          <Box
+            key={`${slug}-${i}`}
+            sx={{
+              width: 26,
+              height: 26,
+              position: "relative",
+              flexShrink: 0,
+              opacity: isSelected ? 1 : 0.35,
+              filter: isSelected ? "none" : "grayscale(1)",
+              transition: "opacity 0.15s, filter 0.15s",
+            }}
+          >
+            <Image src={`/pokemon/${slug}.png`} alt={slug} width={26} height={26} />
+          </Box>
+        );
+      })}
     </Stack>
   );
 }
 
-export function BattleRecordList({
-  records,
-  formatLabel,
-  onEdit,
-  onDelete,
-}: BattleRecordListProps) {
+export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordListProps) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
@@ -76,19 +90,11 @@ export function BattleRecordList({
     <Stack spacing={1}>
       {records.map((record, index) => {
         const accent = resultAccent(record.result, theme);
-        const myLead = record.mySelection ?? [];
-        const mySlugs = (
-          myLead.length > 0 ? myLead.map((i) => record.myTeam[i]).filter(Boolean) : record.myTeam
-        ).map((m) => m!.identifier);
-        const backOpp = record.opponents.filter((o) => o.selectionRole !== null);
-        const oppSlugs = (
-          backOpp.length > 0
-            ? [...backOpp].sort(
-                (a, b) =>
-                  (a.selectionRole === "lead" ? 0 : 1) - (b.selectionRole === "lead" ? 0 : 1),
-              )
-            : record.opponents
-        ).map((o) => o.pokemonSlug);
+
+        const { slugs: myAllSlugs, selectedIndices: mySelectedSet } = resolveMyTeamDisplay(record);
+        const { slugs: oppAllSlugs, selectedIndices: oppSelectedSet } =
+          resolveOpponentDisplay(record);
+
         const delta = deltas[index];
 
         return (
@@ -98,7 +104,6 @@ export function BattleRecordList({
             sx={{
               position: "relative",
               overflow: "hidden",
-              borderRadius: 2,
               border: "1px solid",
               borderColor: palette.edge,
               bgcolor: alpha(accent, 0.06),
@@ -118,42 +123,35 @@ export function BattleRecordList({
             }}
           >
             <Stack
-              direction={{ xs: "column", md: "row" }}
-              spacing={1.5}
-              sx={{ alignItems: { md: "center" } }}
+              direction="row"
+              spacing={1}
+              sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}
             >
-              {/* 結果 + 日時/フォーマット */}
-              <Box sx={{ minWidth: { md: 150 } }}>
-                <Typography
-                  variant="caption"
-                  sx={{ fontWeight: 800, letterSpacing: "0.08em", color: accent }}
-                >
-                  {t(`battleRecord.result.${record.result}`).toUpperCase()}
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
-                  {new Date(record.playedAt).toLocaleString(i18n.language, {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  {formatLabel ? ` · ${formatLabel}` : ""}
-                </Typography>
-              </Box>
+              {/* 結果 */}
+              <Typography
+                variant="caption"
+                sx={{
+                  fontWeight: 800,
+                  letterSpacing: "0.08em",
+                  color: accent,
+                  minWidth: 36,
+                }}
+              >
+                {t(`battleRecord.result.${record.result}`).toUpperCase()}
+              </Typography>
 
               {/* 自軍 vs 相手 */}
               <Stack
                 direction="row"
-                spacing={1}
-                sx={{ alignItems: "center", flexGrow: 1, minWidth: 0, flexWrap: "wrap" }}
+                spacing={0.5}
+                sx={{ alignItems: "center", flexGrow: 1, minWidth: 0 }}
               >
-                <SpriteRow slugs={mySlugs} />
-                <Typography variant="caption" color="text.secondary" sx={{ px: 0.5 }}>
+                <SpriteRow slugs={myAllSlugs} selectedIndices={mySelectedSet} />
+                <Typography variant="caption" color="text.secondary" sx={{ px: 0.25 }}>
                   {t("battleRecord.vs")}
                 </Typography>
-                {oppSlugs.length > 0 ? (
-                  <SpriteRow slugs={oppSlugs} />
+                {oppAllSlugs.length > 0 ? (
+                  <SpriteRow slugs={oppAllSlugs} selectedIndices={oppSelectedSet} />
                 ) : (
                   <Typography variant="caption" color="text.disabled">
                     {t("battleRecord.form.noOpponents")}
@@ -162,44 +160,37 @@ export function BattleRecordList({
               </Stack>
 
               {/* レート変動 / 記録レート */}
-              <Box sx={{ textAlign: { md: "right" }, minWidth: { md: 90 } }}>
-                {delta !== null ? (
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontWeight: 800,
-                      color:
-                        delta > 0
-                          ? theme.palette.success.main
-                          : delta < 0
-                            ? theme.palette.error.main
-                            : "text.secondary",
-                    }}
-                  >
-                    {delta > 0 ? `+${delta}` : delta}
-                  </Typography>
-                ) : record.rating !== null ? (
-                  <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                    {record.rating}
-                  </Typography>
-                ) : null}
-                {record.notes && (
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    noWrap
-                    sx={{ display: "block", maxWidth: { md: 220 } }}
-                  >
-                    {record.notes}
-                  </Typography>
-                )}
-              </Box>
+              {delta !== null ? (
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 800,
+                    color:
+                      delta > 0
+                        ? theme.palette.success.main
+                        : delta < 0
+                          ? theme.palette.error.main
+                          : "text.secondary",
+                    minWidth: 40,
+                    textAlign: "right",
+                  }}
+                >
+                  {delta > 0 ? `+${delta}` : delta}
+                </Typography>
+              ) : record.rating !== null ? (
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 700, minWidth: 40, textAlign: "right" }}
+                >
+                  {record.rating}
+                </Typography>
+              ) : null}
 
               {/* アクション */}
               <Stack
                 direction="row"
                 className="row-actions"
-                sx={{ opacity: { xs: 1, md: 0 }, transition: "opacity 0.15s" }}
+                sx={{ opacity: { xs: 1, md: 0 }, transition: "opacity 0.15s", ml: "auto" }}
               >
                 <IconButton
                   size="small"
@@ -217,6 +208,30 @@ export function BattleRecordList({
                   <Delete fontSize="small" />
                 </IconButton>
               </Stack>
+            </Stack>
+
+            {/* 日時 + メモ（2行目） */}
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 0.25 }}>
+              <Typography variant="caption" color="text.secondary">
+                {new Date(record.playedAt).toLocaleString(i18n.language, {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </Typography>
+              {record.notes && (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  noWrap
+                  sx={{ maxWidth: { xs: 160, md: 320 } }}
+                >
+                  {record.notes}
+                </Typography>
+              )}
             </Stack>
           </Paper>
         );

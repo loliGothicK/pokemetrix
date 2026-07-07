@@ -6,7 +6,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import MenuIcon from "@mui/icons-material/Menu";
+import PokemetrixIcon from "@/components/icons/Pokemetrix";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
@@ -46,6 +46,7 @@ import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
 import { createAppTheme } from "../../../theme";
 import { getAppPalette } from "@/theme/palette";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const SIDE_MENU_WIDTH = 240;
 
@@ -230,6 +231,7 @@ function AppControls({
             border: "1px solid",
             borderColor: palette.edge,
             bgcolor: palette.surface,
+            borderRadius: 2.5,
           }}
         >
           {mode === "dark" ? (
@@ -260,6 +262,18 @@ function ResponsiveAppBar({
   const { t } = useTranslation();
   const palette = getAppPalette(mode);
 
+  // モードに応じたグラデーション背景
+  const appBarBg =
+    mode === "dark"
+      ? "linear-gradient(135deg, rgba(13,20,39,0.92) 0%, rgba(11,18,32,0.88) 100%)"
+      : "linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(243,246,251,0.86) 100%)";
+
+  // ロゴエリアの輝きアクセント
+  const logoGlow =
+    mode === "dark"
+      ? `drop-shadow(0 0 10px ${palette.glowPrimary})`
+      : `drop-shadow(0 2px 6px ${palette.glowPrimary})`;
+
   return (
     <AppBar
       color="transparent"
@@ -269,62 +283,105 @@ function ResponsiveAppBar({
         top: 0,
         borderBottom: "1px solid",
         borderColor: palette.edge,
-        bgcolor: palette.surfaceTint,
-        backdropFilter: "blur(18px)",
+        background: appBarBg,
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
       }}
     >
       <Toolbar
         disableGutters
         sx={{
-          minHeight: 72,
-          px: { xs: 2, md: 3 },
-          gap: 2,
+          minHeight: { xs: 60, md: 68 },
+          px: { xs: 1.5, sm: 2, md: 3 },
+          gap: { xs: 1, md: 2 },
         }}
       >
-        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: 1.5 }}>
+        {/* ===== 左: ハンバーガー（モバイル）+ ロゴ ===== */}
+        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: { xs: 1, md: 1.5 } }}>
           <IconButton
-            size="large"
+            size="medium"
             aria-label={t("navigation.openMenu")}
             onClick={onOpenNav}
             color="primary"
             sx={{
               display: { xs: "inline-flex", md: "none" },
-              border: "1px solid",
-              borderColor: palette.edge,
-              bgcolor: palette.surface,
             }}
           >
-            <MenuIcon />
+            <MenuIcon fontSize="small" />
           </IconButton>
+
+          {/* ロゴ + ブランド名 */}
           <Box
+            component={Link}
+            href="/"
             sx={{
-              display: "grid",
-              placeItems: "center",
-              width: 40,
-              height: 40,
-              borderRadius: 3,
-              bgcolor: "primary.main",
-              color: "primary.contrastText",
-              boxShadow: palette.iconShadow,
+              display: "flex",
+              alignItems: "center",
+              gap: 1.25,
+              textDecoration: "none",
+              "&:hover .logo-icon": { filter: logoGlow, transform: "scale(1.06)" },
+              "&:hover .brand-text": { opacity: 1 },
             }}
           >
-            <Link href="/">
-              <CatchingPokemonRoundedIcon fontSize="small" />
-            </Link>
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography
-              sx={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "primary.main" }}
+            {/* アイコン */}
+            <Box
+              className="logo-icon"
+              sx={{
+                width: { xs: 34, md: 38 },
+                height: { xs: 34, md: 38 },
+                transition: "filter 0.25s ease, transform 0.25s ease",
+                flexShrink: 0,
+              }}
             >
-              POKEMETRIX
-            </Typography>
-            <Typography sx={{ fontSize: 15, fontWeight: 600, color: "text.primary" }}>
-              {t("app.subtitle")}
-            </Typography>
+              <PokemetrixIcon size={38} />
+            </Box>
+
+            {/* ブランド名 — md以上で表示 */}
+            <Box
+              className="brand-text"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                opacity: 0.9,
+                transition: "opacity 0.2s ease",
+              }}
+            >
+              <Typography
+                component="span"
+                sx={{
+                  fontSize: { sm: 13, md: 14 },
+                  fontWeight: 800,
+                  letterSpacing: "0.16em",
+                  lineHeight: 1,
+                  background:
+                    mode === "dark"
+                      ? "linear-gradient(90deg, #60a5fa 0%, #7dd8e0 100%)"
+                      : "linear-gradient(90deg, #1565c0 0%, #00897b 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                POKEMETRIX
+              </Typography>
+              <Typography
+                component="span"
+                sx={{
+                  fontSize: 9,
+                  fontWeight: 600,
+                  letterSpacing: "0.18em",
+                  color: "text.secondary",
+                  lineHeight: 1.4,
+                  mt: 0.25,
+                }}
+              >
+                {t("appBar.tagline", "ANALYTICS WORKSPACE")}
+              </Typography>
+            </Box>
           </Box>
         </Box>
 
-        {/* デスクトップ: フルコントロール */}
+        {/* ===== 右: デスクトップ フルコントロール ===== */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
           <AppControls
             language={language}
@@ -334,10 +391,10 @@ function ResponsiveAppBar({
           />
         </Box>
 
-        {/* モバイル: ダークモード切り替え + Auth ボタンのみ */}
+        {/* ===== 右: モバイル — テーマ切り替え + Auth ===== */}
         <Stack
           direction="row"
-          spacing={1}
+          spacing={0.75}
           sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
         >
           <Tooltip title={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}>
@@ -350,6 +407,7 @@ function ResponsiveAppBar({
                 border: "1px solid",
                 borderColor: palette.edge,
                 bgcolor: palette.surface,
+                borderRadius: 2.5,
               }}
             >
               {mode === "dark" ? (
