@@ -99,7 +99,7 @@
     }
   },
   "app": {
-    "subtitle": "Analytics Console"
+    "subtitle": "Analytics Workspace"
   },
   "home": {
     "title": "POKÉMETRIX",
@@ -107,11 +107,19 @@
     "tools": {
       "teamBuilder": {
         "title": "Team Builder",
-        "desc": "Build Teams"
+        "desc": "Build and manage your Pokémon teams"
       },
-      "damageSimulator": {
-        "title": "Damage Simulator",
-        "desc": "Simulate Damage fast"
+      "box": {
+        "title": "My BOX",
+        "desc": "Manage and organize your Pokémon"
+      },
+      "battleRecord": {
+        "title": "Battle Record",
+        "desc": "Log your battles and track your performance"
+      },
+      "battleAnalytics": {
+        "title": "Battle Analytics",
+        "desc": "Analyze your win rates and matchups"
       }
     }
   },

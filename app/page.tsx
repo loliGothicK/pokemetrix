@@ -1,11 +1,14 @@
 "use client";
 
-import CalculateRoundedIcon from "@mui/icons-material/CalculateRounded";
 import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import InventoryRoundedIcon from "@mui/icons-material/InventoryRounded";
+import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
+import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import { alpha, Box, Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getAppPalette } from "@/theme/palette";
+import PokemetrixIcon from "@/components/icons/Pokemetrix";
 
 export default function Home() {
   const theme = useTheme();
@@ -23,12 +26,30 @@ export default function Home() {
       primary: true,
     },
     {
-      id: "damage-calc",
-      icon: <CalculateRoundedIcon sx={{ fontSize: 32 }} color="secondary" />,
-      title: t("home.tools.damageSimulator.title"),
-      desc: t("home.tools.damageSimulator.desc"),
-      href: "/damage-calc",
+      id: "box",
+      icon: <InventoryRoundedIcon sx={{ fontSize: 32 }} color="secondary" />,
+      title: t("home.tools.box.title"),
+      desc: t("home.tools.box.desc"),
+      href: "/box",
       gridSpan: { xs: 12, sm: 6, md: 4 },
+      primary: false,
+    },
+    {
+      id: "battle-record",
+      icon: <HistoryRoundedIcon sx={{ fontSize: 32 }} color="info" />,
+      title: t("home.tools.battleRecord.title"),
+      desc: t("home.tools.battleRecord.desc"),
+      href: "/battle-record",
+      gridSpan: { xs: 12, sm: 6, md: 6 },
+      primary: false,
+    },
+    {
+      id: "battle-analytics",
+      icon: <QueryStatsRoundedIcon sx={{ fontSize: 32 }} color="success" />,
+      title: t("home.tools.battleAnalytics.title"),
+      desc: t("home.tools.battleAnalytics.desc"),
+      href: "/battle-analytics",
+      gridSpan: { xs: 12, sm: 6, md: 6 },
       primary: false,
     },
   ];
@@ -47,28 +68,31 @@ export default function Home() {
       }}
     >
       <Container maxWidth="lg">
-        <Stack spacing={6}>
-          {/* Hero Section */}
-          <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
-            <Typography
-              variant="overline"
-              sx={{ color: "primary.main", fontWeight: 800, letterSpacing: "0.2em" }}
-            >
-              {t("app.subtitle", "POKÉMON BATTLE SUPPORT HUB")}
-            </Typography>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: "2.5rem", md: "4rem" },
-                fontWeight: 900,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {t("home.title")}
-            </Typography>
-            <Typography color="text.secondary" sx={{ maxWidth: 600, fontSize: "1.1rem" }}>
-              {t("home.description")}
-            </Typography>
+        {/* Hero Section */}
+        <Stack spacing={6} sx={{ alignItems: "center" }}>
+          <Stack direction={"row"} sx={{ alignItems: "center" }}>
+            <PokemetrixIcon />
+            <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
+              <Typography
+                variant="overline"
+                sx={{ color: "primary.main", fontWeight: 800, letterSpacing: "0.2em" }}
+              >
+                {t("app.subtitle")}
+              </Typography>
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: { xs: "2.5rem", md: "4rem" },
+                  fontWeight: 900,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {t("home.title")}
+              </Typography>
+              <Typography color="text.secondary" sx={{ maxWidth: 600, fontSize: "1.1rem" }}>
+                {t("home.description")}
+              </Typography>
+            </Stack>
           </Stack>
 
           {/* Bento Grid Tools Section */}

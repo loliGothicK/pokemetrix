@@ -99,19 +99,29 @@
     }
   },
   "app": {
-    "subtitle": "分析コンソール"
+    "subtitle": "Analytics Workspace"
   },
   "home": {
-    "title": "ホーム",
-    "description": "ヘッダーから表示言語とカラーモードを切り替えて、チーム作成や統計分析にすぐ移れます。",
-    "quickSwitchTitle": "言語とテーマ",
-    "quickSwitchDescription": "英語と日本語を選び、ライト / ダークをページ遷移なしで切り替えられます。",
-    "primaryAction": "チームビルダーを開く",
-    "secondaryAction": "MUI の Next.js ガイド",
-    "featureOneTitle": "コンポーネント中心の UI",
-    "featureOneBody": "レイアウトとスタイルを MUI のプリミティブで組んでいるので、どちらの配色でも自然に馴染みます。",
-    "featureTwoTitle": "サーバー安全な翻訳",
-    "featureTwoBody": "翻訳はローカルにバンドルされ、言語変更にすぐ追従します。"
+    "title": "POKÉMETRIX",
+    "description": "ポケモン対戦をサポートするツールのコレクションです。",
+    "tools": {
+      "teamBuilder": {
+        "title": "チームビルダー",
+        "desc": "ポケモンのチームを作成・管理します"
+      },
+      "box": {
+        "title": "マイBOX",
+        "desc": "育成したポケモンを管理・整理します"
+      },
+      "battleRecord": {
+        "title": "対戦記録",
+        "desc": "対戦結果を記録して戦績を管理します"
+      },
+      "battleAnalytics": {
+        "title": "勝率インサイト",
+        "desc": "勝率や対面を分析してチームを改善します"
+      }
+    }
   },
   "preferences": {
     "language": "言語",
