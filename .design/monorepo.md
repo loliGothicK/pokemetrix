@@ -65,18 +65,31 @@ wasm-pack build --target bundler --out-dir pkg --out-name damage_calc
 "@pokemetrix/damage-calc": "workspace:*"
 ```
 
-wasm-pack でビルド後、Next.js 側からは通常の npm パッケージとして import できる：
+wasm-pack でビルド後、Next.js 側からは通常の npm パッケージとして import できる。
+エンジンは「解決済みモディファイア値を受け取り、丸めと順序だけを厳密に再現する数式実行器」で、
+JSON in / JSON out の `calculate` を公開する（詳細は `.design/damage-calc.md`）：
 
 ```typescript
-import init, { calculate_damage, Stats, Move, Type, MoveCategory } from "@pokemetrix/damage-calc";
+import { calculate } from "@pokemetrix/damage-calc";
 
-await init();
-const atk = new Stats(100, 150, 80, 130, 90, 110);
-const def = new Stats(100, 80, 120, 90, 120, 70);
-const mv  = new Move(90, MoveCategory.Special, Type.Fire);
-const result = calculate_damage(50, atk, Type.Fire, def, Type.Grass, undefined, mv);
-console.log(result.min, result.max);
+const result = calculate({
+  level: 50,
+  basePower: 150,
+  attack: 255,
+  defense: 145,
+  isPhysical: false,
+  moveType: "water",
+  defenderType1: "grass",
+  defenderType2: "poison",
+  spreadModifier: 3072, // 全体技
+  weatherModifier: 6144, // 雨×水
+  stabModifier: 6144, // タイプ一致
+});
+console.log(result.min, result.max); // 84 99
 ```
+
+apps/web からは `@/lib/damage`（遅延ロード + モディファイア解決 + 分析）と
+`useDamageCalc` フック経由で利用する。
 
 ## バージョン管理 (changeset)
 
