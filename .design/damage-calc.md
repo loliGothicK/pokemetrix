@@ -18,7 +18,7 @@ Rust/WebAssembly クレート。実装は DaWoblefet's Damage Dissertation（第
 本プロジェクト（pokemetrix）が対象とするのは Pokémon Champions（最新の対戦特化タイトル）であり、
 本編 SV とはメカニクスが異なる。実装はコードベースの事実に基づいて以下を前提とする。
 
-### レベル50・個体値31固定（コードから導出）
+### レベル50・個体値31固定
 
 Champions のデータモデルに `level` や個体値（IV）は存在しない。ステータスは種族値
 （`champions-pokemon.ts` の `status`）と EV・性格から算出され、その式（`data/utility/training.ts`）は
@@ -80,22 +80,22 @@ for m in modifiers:
 
 ```
 ┌─────────────────────────────────────────────┐
-│ TypeScript (apps/web)                        │
-│  データ駆動の「モディファイア解決」層         │
-│  - 特性/道具/技/場の状態 → モディファイア値   │
-│  - 既存の pokemon/moves/items/abilities data  │
-│  - タイプ相性は原則 Rust に委譲               │
+│ TypeScript (apps/web)                       │
+│  データ駆動の「モディファイア解決」層         　　 │
+│  - 特性/道具/技/場の状態 → モディファイア値   　　 │
+│  - 既存の pokemon/moves/items/abilities data │
+│  - タイプ相性は原則 Rust に委譲               　│
 └───────────────┬─────────────────────────────┘
                 │ DamageInput (JSON)
                 ▼
 ┌─────────────────────────────────────────────┐
-│ Rust/WASM (packages/damage-calc)             │
-│  「数式実行器」= 難しく間違えやすい部分         │
-│  - 3種の丸め / 連鎖 / モディファイア適用順序   │
-│  - 基礎ダメージ / 16通りの乱数ロール           │
-│  - 32bit・16bit オーバーフロー / 各種チェック  │
-│  - タイプ相性表                                │
-│  → DamageOutput (16 rolls, min, max)          │
+│ Rust/WASM (packages/damage-calc)            │
+│  「数式実行器」= 難しく間違えやすい部分           │
+│  - 3種の丸め / 連鎖 / モディファイア適用順序      │
+│  - 基礎ダメージ / 16通りの乱数ロール             │
+│  - 32bit・16bit オーバーフロー / 各種チェック    │
+│  - タイプ相性表                               │
+│  → DamageOutput (16 rolls, min, max)        │
 └─────────────────────────────────────────────┘
 ```
 
@@ -258,8 +258,193 @@ HP に対する割合・確定/乱数Nの判定は TS 側（`rolls` と防御側
 差し替えている。本番（Next.js）では bundler ビルド（`pkg/`）がそのまま使われる。
 そのため CI/ローカルで `pnpm build:wasm` と `pnpm build:wasm:node` の両方が必要。
 
+## ダメージ計算ページ UI 設計
+
+### ルート
+
+- `/damage-calc` — `apps/web/app/damage-calc/page.tsx`
+- クライアントコンポーネント: `src/components/client/damage-calc/DamageCalcPage.tsx`
+
+### レイアウト概要
+
+```
+┌───────────────────────────────────────────────────────┐
+│ タイトル: "Damage Calculator" / "ダメージ計算"           │
+├──────────────────────┬────────────────────────────────┤
+│ 攻撃側パネル          │ 防御側パネル                    │
+│ ・ポケモン選択         │ ・ポケモン選択                  │
+│ ・技選択              │ ・HP 表示                      │
+│ ・攻撃ランク          │ ・防御ランク                    │
+│ ・特性               │ ・特性                         │
+│ ・持ち物             │ ・持ち物                        │
+├──────────────────────┴────────────────────────────────┤
+│ フィールド設定                                          │
+│ ・天候 / 壁 / ダブル(全体技) / 急所                     │
+├──────────────────────────────────────────────────────┤
+│ 計算結果                                               │
+│ ・ダメージ範囲 (min–max)                               │
+│ ・HP割合 (min%–max%)                                  │
+│ ・確定N発 / 乱数N発                                    │
+│ ・16ロール表示                                         │
+└───────────────────────────────────────────────────────┘
+```
+
+### レスポンシブ
+
+- **sm (モバイル)**: 攻撃側パネル → 防御側パネル → フィールド → 結果 を縦積み
+- **md (タブレット)**: 攻撃側と防御側を横並び、フィールドと結果は下に縦積み
+- **lg (デスクトップ)**: md と同じだがパネル幅にゆとりを持たせる
+
+### 状態管理
+
+- ローカル useState のみ（DB保存は初期実装で不要）
+- ポケモン選択 → 種族値・タイプ・特性候補・技候補を自動解決
+- EV/性格は入力があれば実数値を再計算、なければデフォルト（無振り無補正）
+- 計算は `useDamageCalc` フックに DamageInput を渡す
+
+### 使用する既存モジュール
+
+- `src/lib/damage/` — エンジン、モディファイア解決、分析
+- `src/hooks/useDamageCalc.ts` — React Query 経由の WASM 呼び出し
+- `src/data/champions-pokemon.ts` — 種族値・タイプ・技リスト
+- `src/data/moves.ts` — 技データ（威力・分類・タイプ・範囲）
+- `src/data/items.ts` — 持ち物データ
+- `src/data/abilities.ts` — 特性データ
+- `src/data/utility/training.ts` — `calcHp`, `calcStatus`
+- `src/components/client/battle-record/slugAutocomplete.tsx` — ポケモン/技/特性/持ち物の選択 UI
+
+### 翻訳キー
+
+`damageCalc.*` セクションとして `public/locales/{en,ja}/translation.json` に追加。
+
+## UI 改修仕様（2026-07-09）
+
+以下の変更を実施した。
+
+### シングル / ダブル切り替え
+
+- `isDoubles` フラグのチェックボックスを廃止し、ページ上部の `ButtonGroup` トグル（シングル / ダブル）に変更。
+- ダブル選択時は `spreadModifier: 3072`（0.75x）が引き続き適用される。
+
+### 天候
+
+- `none / sun / rain / snow / sandstorm / harsh-sun / heavy-rain` の 7 択に拡張。
+- 従来「あられ」に相当する選択肢は「雪（snow）」のみとした（あられは削除）。
+- UI は `ToggleButtonGroup` で横一列表示。
+
+### フィールド
+
+- `Terrain` 型（`none / electric / grassy / misty / psychic`）を `modifiers.ts` に追加。
+- `terrainModifier` 関数を実装。エレキ×でんき / グラス×くさ / サイコ×エスパーを 1.5x。
+- `useDamageCalcPage` に `terrain` state を追加し、`bpModifiers` に組み込む。
+- UI は `ToggleButtonGroup` で天候の下に表示。
+
+### アイテム絞り込み
+
+- `useDamageCalcItemOptions` フックを `slugAutocomplete.tsx` に追加。
+- ダメージ計算で意味のある道具（タイプ強化系 19 種・こだわり系・いのちのたま・たつじんのおび・マッスルバンド・かしこいめがね・きあいのタスキ・たべのこし・ひかりだま）のみを選択肢に表示。
+- `PokemonPanel` では `useItemOptions` の代わりに `useDamageCalcItemOptions` を使用。
+
+### 実数値表示
+
+- `PokemonPanel` でポケモン選択後、EV 入力欄の横に実数値を `calcHp` / `calcStatus` で計算して表示。
+- 攻撃側は HP・攻撃・特攻、防御側は HP・防御・特防を表示。EV を変更すると即時更新される。
+
+### ダメージバー
+
+- `ResultPanel` のバーを min% ～ max% の**範囲バー**に変更。
+  - 左端 = `minPercent`、右端 = `maxPercent`（ただし 100% でクランプ）
+  - バー上にホバーするとパーセント範囲のツールチップを表示
+  - 0% / 50% / 100% のスケールラベルを下部に表示
+- ロール一覧は最小・最大を `filled` Chip で強調。
+
+### 翻訳キー追加
+
+`damageCalc.*` に追加したキー:
+
+| キー                | EN               | JA         |
+| ------------------- | ---------------- | ---------- |
+| `singles`           | Singles          | シングル   |
+| `doubles`           | Doubles          | ダブル     |
+| `weatherSnow`       | Snow             | 雪         |
+| `weatherSandstorm`  | Sandstorm        | 砂嵐       |
+| `terrain`           | Terrain          | フィールド |
+| `terrainElectric`   | Electric         | エレキ     |
+| `terrainGrassy`     | Grassy           | グラス     |
+| `terrainMisty`      | Misty            | ミスト     |
+| `terrainPsychic`    | Psychic          | サイコ     |
+
+## PokemonPanel 再構築仕様（2026-07-10）
+
+エッジケース（可変威力技・ステータス参照変更・条件付き威力）に対応するため、
+`PokemonPanel` を「技選択に応じて必要な入力のみを開示する（Progressive Disclosure）」
+リアクティブな設計に作り直した。設計方針は `.design/damage-calc/pokemonPanel.md` および
+`.design/damage-calc/ポケモン技威力変動条件のUI設計.md` に基づく。
+
+### 技メカニクス分類モジュール `lib/damage/moveMechanics.ts`
+
+技 1 件を `getMoveMechanics(identifier, category)` に渡すと、その技の計算特性を返す。
+
+| フィールド            | 意味                                                              |
+| --------------------- | ----------------------------------------------------------------- |
+| `offensiveStat`       | 攻撃側が使う攻撃ステータス（既定: 物理=atk / 特殊=spa、ボディプレス=def）|
+| `defensiveStat`       | 防御側で参照するステータス（既定: 物理=def / 特殊=spd、サイコショック=def）|
+| `useTargetAttack`     | イカサマ: 防御側の攻撃実数値＋防御側のランクを使う                 |
+| `attackerExtraStats`  | 攻撃側パネルで追加表示するステータス（ジャイロボール/エレキボール=spe）|
+| `defenderExtraStats`  | 防御側パネルで追加表示（spe、イカサマ時の atk）                    |
+| `usesAttackerHp`      | 攻撃側の現在 HP% が必要（ふんか/しおふき/きしかいせい/じたばた）   |
+| `computeBasePower`    | 動的入力（HP%・素早さ・条件）から実効威力を算出。無ければ静的威力  |
+| `conditions`          | 技の下に出す条件付き威力チェックボックス（たたりめ/からげんき/ベノムショック）|
+| `freezeDry`           | フリーズドライ相性上書きフラグ（相性表未実装のため現状は未配線）   |
+
+対応済みの可変威力/参照変更:
+
+- **攻撃側 HP 比例**: ふんか・しおふき（`150 * hp% / 100`, 最低 1）
+- **攻撃側 HP 反比例**: きしかいせい・じたばた（HP 割合閾値テーブル、最大 200）
+- **素早さ依存**: ジャイロボール（`min(150, floor(25*相手S/自S)+1)`）、エレキボール（S 比の閾値）
+- **防御側 HP 依存**: ハードプレス（`100 * hp%`）、にぎりつぶす/しぼりとる（`120 * hp%`）
+- **ステータス参照変更**: ボディプレス（自分の Def）、イカサマ（相手の Atk）、サイコショック系（相手の Def）
+- **条件付き 2 倍**: たたりめ・からげんき・ベノムショック（チェックボックス）。からげんきは
+  さらにやけどの物理半減を無効化（`isBurned` を渡さない）。
+- **天候技のタイプ変化**: ウェザーボール／だいちのはどう（`resolveFieldReactiveMove` で
+  天候・フィールドからタイプと威力 2 倍を解決）
+- **体重依存**: けたぐり（`low-kick`）は相手の体重（`master/pokemon.json` の `weight`、
+  ヘクトグラム→kg）で威力（20〜120）を決定。ヘビーボンバー（`heavy-slam`）・ヒートスタンプ
+  （`heat-crash`）は自分／相手の体重比で威力（40〜120）を決定。体重は種族データから自動導出し、
+  `PowerContext.attackerWeight` / `defenderWeight`（kg）に渡す。
+  ※くさむすび（`grass-knot`）は本データセットで `category: status` のため計算パイプラインを
+  通らず未対応（データ側の分類が修正されれば同じ体重ロジックで動く）。かるいし・ライトメタル・
+  ヘヴィメタルによる体重補正は未対応。
+
+### Progressive Disclosure（PokemonPanel）
+
+- `role`（`attacker` / `defender`）と `activeMove`（攻撃側が選択中の技 ID）を受け取り、
+  攻守どちらのパネルも「その技に必要なステータスのみ」を表示する。
+- 攻撃側: 使用する攻撃ステータス（Atk/SpA/Def）＋必要なら Spe、HP% を開示。
+  イカサマ時は攻撃側の攻撃欄を隠し「相手の攻撃を参照」と表示。
+- 防御側: 常に HP（EV）＋ HP%、参照される防御ステータス（Def/SpD）を開示。
+  必要なら Spe、イカサマ時は Atk を追加。
+- ランク（`boost`）は各パネルの主ステータス（攻撃側=攻撃系 / 防御側=防御系）に紐づけて 1 つ表示。
+
+### HP は % 指定（スライダー廃止）
+
+- HP はスライダーではなく **現在 HP を % で入力する `NumberField`**（`hpPercent`, 1–100, 既定 100）。
+- 防御側は常時表示（ハードプレス等の威力・確定数の基準）。攻撃側は HP 依存技選択時のみ表示。
+
+### 状態拡張 `PokemonPanelState`
+
+`evSpe` / `hpPercent` / `isBurned`（攻撃側やけど）/ `moveConditions`（技条件チェックボックス）を追加。
+
+### 追加翻訳キー
+
+`status` / `conditions` / `rank` / `hpPercent` / `burn` / `usesTargetAttack` /
+`condTargetStatus` / `condUserStatus` / `condTargetPoisoned` を en/ja に追加。
+
 ## 変更履歴
 
-| 日付       | 内容                                                       |
-| ---------- | ---------------------------------------------------------- |
-| 2026-07-08 | 初版。忠実な数式実行器（Rust）+ データ駆動解決（TS）の設計 |
+| 日付       | 内容                                                                        |
+| ---------- | --------------------------------------------------------------------------- |
+| 2026-07-10 | PokemonPanel 再構築: 技メカニクス分類・Progressive Disclosure・可変威力/参照変更・HP% 入力 |
+| 2026-07-09 | UI 改修: シングル/ダブルトグル・フィールド追加・雪・アイテム絞り込み・実数値表示・範囲バー |
+| 2026-07-09 | ダメージ計算ページ UI 設計を追加                                              |
+| 2026-07-08 | 初版。忠実な数式実行器（Rust）+ データ駆動解決（TS）の設計                    |

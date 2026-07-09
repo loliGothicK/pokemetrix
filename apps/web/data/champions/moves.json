@@ -2357,7 +2357,7 @@
       "id": 181,
       "identifier": "grass-knot",
       "type": "Grass",
-      "category": "status",
+      "category": "special",
       "power": null,
       "accuracy": 100,
       "range": "single-target",

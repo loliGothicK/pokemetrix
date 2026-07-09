@@ -58,13 +58,13 @@ fn clamp_stat(value: u64) -> u64 {
 // Stat stage multipliers
 // ---------------------------------------------------------------------------
 
-/// Numerator/denominator for an Attack/Defense/Speed stat stage (-6..=6).
+/// Numerator/denominator for an Attack/Defence/Speed stat stage (-6..=6).
 fn stage_fraction(stage: i8) -> (u64, u64) {
     let s = stage.clamp(-6, 6);
     if s >= 0 {
-        ((2 + s as u64), 2)
+        (2 + s as u64, 2)
     } else {
-        (2, (2 + (-s) as u64))
+        (2, 2 + (-s) as u64)
     }
 }
 
@@ -208,7 +208,7 @@ fn resolve_attack(input: &DamageInput) -> u64 {
 }
 
 fn resolve_defense(input: &DamageInput) -> u64 {
-    // On a critical hit, positive defense boosts are ignored.
+    // On a critical hit, positive defence boosts are ignored.
     let stage = if input.is_crit && input.defense_boost > 0 {
         0
     } else {

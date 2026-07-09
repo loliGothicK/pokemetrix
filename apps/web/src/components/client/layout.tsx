@@ -93,6 +93,7 @@ const sideMenuGroups: SideMenuGroup[] = [
       {
         labelKey: "navigation.items.damageCalc",
         icon: <FlashOnRoundedIcon fontSize="small" />,
+        route: "/damage-calc",
       },
     ],
   },

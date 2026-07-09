@@ -26,7 +26,7 @@ export const useDamageCalc = (
   enabled = true,
 ): UseDamageCalcResult => {
   const query = useQuery({
-    queryKey: [DAMAGE_QUERY_KEY, input],
+    queryKey: [DAMAGE_QUERY_KEY, JSON.stringify(input)],
     queryFn: () => calculate(input as DamageInput),
     enabled: enabled && input !== null,
     staleTime: Infinity,
@@ -38,7 +38,7 @@ export const useDamageCalc = (
   return {
     output,
     analysis,
-    isLoading: input !== null && enabled ? query.isLoading : false,
+    isLoading: query.isPending && query.fetchStatus !== "idle",
     isError: query.isError,
   };
 };

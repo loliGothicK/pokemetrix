@@ -2,15 +2,18 @@ import type { Type } from "@/types/pokemon";
 import { M } from "./types";
 
 /** Weather states relevant to damage. */
-export type Weather = "none" | "sun" | "rain" | "harsh-sun" | "heavy-rain";
+export type Weather = "none" | "sun" | "rain" | "snow" | "sandstorm";
+
+/** Field terrain states relevant to damage. */
+export type Terrain = "none" | "electric" | "grassy" | "misty" | "psychic";
 
 /**
  * Weather modifier for a move of the given type.
  * Sun boosts Fire / weakens Water; Rain boosts Water / weakens Fire.
  */
 export function weatherModifier(weather: Weather, moveType: Type): number {
-  const sunny = weather === "sun" || weather === "harsh-sun";
-  const rainy = weather === "rain" || weather === "heavy-rain";
+  const sunny = weather === "sun";
+  const rainy = weather === "rain";
   if (sunny) {
     if (moveType === "fire") return M.WEATHER_BOOST;
     if (moveType === "water") return M.WEATHER_PENALTY;
@@ -19,6 +22,18 @@ export function weatherModifier(weather: Weather, moveType: Type): number {
     if (moveType === "water") return M.WEATHER_BOOST;
     if (moveType === "fire") return M.WEATHER_PENALTY;
   }
+  return M.NEUTRAL;
+}
+
+/**
+ * Terrain offensive modifier for a move.
+ * Electric Terrain boosts Electric; Grassy Terrain boosts Grass;
+ * Psychic Terrain boosts Psychic.
+ */
+export function terrainModifier(terrain: Terrain, moveType: Type): number {
+  if (terrain === "electric" && moveType === "electric") return M.TERRAIN_OFFENSIVE;
+  if (terrain === "grassy" && moveType === "grass") return M.TERRAIN_OFFENSIVE;
+  if (terrain === "psychic" && moveType === "psychic") return M.TERRAIN_OFFENSIVE;
   return M.NEUTRAL;
 }
 

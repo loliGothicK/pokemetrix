@@ -24,7 +24,22 @@ async function load(): Promise<DamageCalcModule> {
 /** Run a full damage calculation, returning all 16 rolls plus min/max. */
 export async function calculate(input: DamageInput): Promise<DamageOutput> {
   const mod = await load();
-  return mod.calculate(input) as DamageOutput;
+  try {
+    // serde_wasm_bindgen expects a plain JS value reconstructed from JSON,
+    // not a TypeScript object reference. Passing through JSON ensures correct
+    // JsValue deserialization on the Rust side.
+    const jsValue = JSON.parse(JSON.stringify(input));
+    const result = mod.calculate(jsValue) as DamageOutput;
+    return result;
+  } catch (e) {
+    console.error(
+      "[damage-calc] WASM calculate threw:",
+      e,
+      "\nInput:",
+      JSON.stringify(input, null, 2),
+    );
+    throw e;
+  }
 }
 
 /**

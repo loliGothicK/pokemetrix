@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
       ...config.experiments,
       asyncWebAssembly: true,
       layers: true,
-    }
+    };
 
     // define plugin
     class SymlinkWebpackPlugin implements WebpackPluginInstance {
@@ -38,30 +38,30 @@ const nextConfig: NextConfig = {
           "SymlinkWebpackPlugin",
           async (compilation: Compilation) => {
             if (isServer) {
-              const from = join(compilation.options.output.path || "", "../static")
-              const to = join(compilation.options.output.path || "", "static")
+              const from = join(compilation.options.output.path || "", "../static");
+              const to = join(compilation.options.output.path || "", "static");
 
               try {
-                await access(from)
-                return
+                await access(from);
+                return;
               } catch (error: any) {
                 if (error?.code !== "ENOENT") {
-                  throw error
+                  throw error;
                 }
               }
 
-              await symlink(to, from, "junction")
-              console.log(`created symlink ${from} -> ${to}`)
+              await symlink(to, from, "junction");
+              console.log(`created symlink ${from} -> ${to}`);
             }
-          }
-        )
+          },
+        );
       }
     }
 
     // add plugin
-    if (!config.plugins) config.plugins = []
-    config.plugins.push(new SymlinkWebpackPlugin())
-    return config
+    if (!config.plugins) config.plugins = [];
+    config.plugins.push(new SymlinkWebpackPlugin());
+    return config;
   },
 };
 
