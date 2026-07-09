@@ -9,12 +9,16 @@ import {
   isPhysicalCategory,
   getMoveMechanics,
   resolveFieldReactiveMove,
+  resolveAbilityTypeChange,
+  freezeDryOverride,
+  tarShotFireOverride,
   type Weather,
   type Terrain,
   type DamageInput,
   type PowerContext,
   M,
 } from "@/lib/damage";
+import type { Type } from "@/types/pokemon";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { moveByIdentifier } from "@/data/moves";
 import { pokemonById } from "@/data/pokemon";
@@ -34,8 +38,8 @@ export type PokemonPanelState = {
   readonly evSpe: number;
   /** Current HP as a percentage (0–100). Defaults to 100. */
   readonly hpPercent: number;
-  /** Attacker only: whether the attacker is burned. */
-  readonly isBurned: boolean;
+  /** General condition toggles (burn / helpingHand / tailwind / paralysis / ...). */
+  readonly conditions: Readonly<Record<string, boolean>>;
   /** Attacker only: conditional-power toggles keyed by move-condition id. */
   readonly moveConditions: Readonly<Record<string, boolean>>;
 };
@@ -47,6 +51,14 @@ export type DamageCalcResult = {
   readonly isError: boolean;
   readonly error: unknown;
   readonly missingReason: "attacker" | "move" | "defender" | null;
+  /** Multi-hit count for the selected move. undefined or {min:1,max:1} = single hit. */
+  readonly hitCount: { readonly min: number; readonly max: number } | undefined;
+  /**
+   * When true the engine base power already accounts for all hits
+   * (Triple Axel), so the UI shows "× N hits" as a label only without
+   * multiplying the roll numbers.
+   */
+  readonly hitCountAlreadyMerged: boolean;
 };
 
 const defaultPanel: PokemonPanelState = {
@@ -62,15 +74,32 @@ const defaultPanel: PokemonPanelState = {
   evSpd: 0,
   evSpe: 0,
   hpPercent: 100,
-  isBurned: false,
+  conditions: {},
   moveConditions: {},
 };
+
+/** Speed after Tailwind (×2) / Paralysis (÷2). */
+function effectiveSpeed(base: number, conditions: Readonly<Record<string, boolean>>): number {
+  let s = base;
+  if (conditions.tailwind) s *= 2;
+  if (conditions.paralysis) s = Math.floor(s / 2);
+  return s;
+}
+
+/** Whether a Pokémon is grounded (affected by Terrain). Levitate / Flying float. */
+function isGrounded(types: readonly Type[], ability: string | null): boolean {
+  if (ability === "levitate") return false;
+  if (types.includes("flying")) return false;
+  return true;
+}
 
 export function useDamageCalcPage() {
   const [attacker, setAttacker] = useState<PokemonPanelState>(defaultPanel);
   const [defender, setDefender] = useState<PokemonPanelState>(defaultPanel);
   const [weather, setWeather] = useState<Weather>("none");
   const [terrain, setTerrain] = useState<Terrain>("none");
+  const [fairyAura, setFairyAura] = useState(false);
+  const [wonderRoom, setWonderRoom] = useState(false);
   const [screens, setScreens] = useState<{
     reflect: boolean;
     lightScreen: boolean;
@@ -93,10 +122,14 @@ export function useDamageCalcPage() {
 
     const mechanics = getMoveMechanics(move.identifier, move.category);
     const isPhysical = isPhysicalCategory(move.category);
+    const ac = attacker.conditions;
+    const dc = defender.conditions;
 
-    // --- Resolve move type & static base power (weather-ball / terrain-pulse) ---
+    // --- Resolve move type & static base power ---
     let moveType = move.type;
     let staticPower = move.power ?? 0;
+
+    // 1) weather-ball / terrain-pulse
     const fieldResolved = resolveFieldReactiveMove(
       move.identifier,
       weather,
@@ -109,14 +142,24 @@ export function useDamageCalcPage() {
       staticPower = fieldResolved.power;
     }
 
-    // --- Actual stat helpers ---
+    // 2) ability-driven type change (-ate / Normalize)
+    let ateBoost = false;
+    const abilityType = resolveAbilityTypeChange(attacker.ability, moveType);
+    if (abilityType) {
+      moveType = abilityType.type;
+      ateBoost = abilityType.boosted;
+    }
+
+    // 3) Electrify overrides the type to Electric
+    if (ac.electrify) moveType = "electric";
+
+    // --- Stat helpers ---
     const stat = (pokemon: typeof atkPokemon, idx: number, ev: number) =>
       calcStatus(pokemon.status[idx], ev);
 
-    const atkSpe = stat(atkPokemon, 5, attacker.evSpe);
-    const defSpe = stat(defPokemon, 5, defender.evSpe);
+    const atkSpe = effectiveSpeed(stat(atkPokemon, 5, attacker.evSpe), ac);
+    const defSpe = effectiveSpeed(stat(defPokemon, 5, defender.evSpe), dc);
 
-    // Weight (kg): master data stores it in hectograms.
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
     const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
 
@@ -129,6 +172,8 @@ export function useDamageCalcPage() {
       defenderSpe: defSpe,
       attackerWeight: atkWeight,
       defenderWeight: defWeight,
+      terrain,
+      defenderHasItem: defender.item !== null,
       conditions: attacker.moveConditions,
     };
     const basePower = mechanics.computeBasePower
@@ -137,58 +182,133 @@ export function useDamageCalcPage() {
 
     if (basePower <= 0) return null;
 
+    // Terrain only boosts a grounded attacker.
+    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability);
+
+    // --- Base-power modifiers ---
+    const bpModifiers: number[] = [];
+    if (attackerGrounded && terrainModifier(terrain, moveType) !== M.NEUTRAL) {
+      bpModifiers.push(terrainModifier(terrain, moveType));
+    }
+    if (attacker.item === "type-boost") bpModifiers.push(M.TYPE_ITEM);
+    if (ateBoost) bpModifiers.push(M.ATE_BOOST);
+    if (ac.helpingHand) bpModifiers.push(M.HELPING_HAND);
+    if (ac.charge && moveType === "electric") bpModifiers.push(M.CHARGE);
+    if (ac.steelySpirit && moveType === "steel") bpModifiers.push(M.STEELY_SPIRIT);
+    if (ac.powerSpot) bpModifiers.push(M.POWER_SPOT);
+    if (ac.battery && !isPhysical) bpModifiers.push(M.BATTERY);
+    if (fairyAura && moveType === "fairy") bpModifiers.push(M.FAIRY_AURA);
+    // Move-specific conditional modifiers (Hex, Knock Off, Rising Voltage, ...)
+    for (const m of mechanics.bpModifiers?.(powerCtx) ?? []) bpModifiers.push(m);
+
+    // Technician: ×1.5 when base power ≤ 60 (judged after computeBasePower,
+    // i.e. on the fully-resolved single-hit BP, not the chain of modifiers).
+    if (attacker.ability === "technician" && basePower <= 60) {
+      bpModifiers.push(M.TECHNICIAN);
+    }
+
+    // --- Attacker stat values (Power Trick swaps Atk ⇄ Def) ---
+    const atkAtkVal = stat(atkPokemon, 1, attacker.evAtk);
+    const atkDefVal = stat(atkPokemon, 2, attacker.evDef);
+    const atkSpaVal = stat(atkPokemon, 3, attacker.evSpa);
+    const effAtkAtk = ac.powerTrick ? atkDefVal : atkAtkVal;
+    const effAtkDef = ac.powerTrick ? atkAtkVal : atkDefVal;
+
+    // --- Defender stat values (Power Trick swaps Atk ⇄ Def, then Wonder Room swaps Def ⇄ Sp.Def) ---
+    const defAtkVal = stat(defPokemon, 1, defender.evAtk);
+    const defDefRaw = stat(defPokemon, 2, defender.evDef);
+    const defSpdRaw = stat(defPokemon, 4, defender.evSpd);
+    let effDefDef = dc.powerTrick ? defAtkVal : defDefRaw;
+    let effDefSpd = defSpdRaw;
+    if (wonderRoom) {
+      const tmp = effDefDef;
+      effDefDef = effDefSpd;
+      effDefSpd = tmp;
+    }
+    const effDefAtk = dc.powerTrick ? defDefRaw : defAtkVal;
+
     // --- Offensive stat resolution ---
     let atkStat: number;
     let attackBoost: number;
     if (mechanics.useTargetAttack) {
-      // Foul Play: uses the defender's Attack stat + the defender's attack boost.
-      atkStat = stat(defPokemon, 1, defender.evAtk);
+      // Foul Play: uses the defender's (post-Power-Trick) Attack stat + rank.
+      atkStat = effDefAtk;
       attackBoost = defender.boost;
     } else if (mechanics.offensiveStat === "def") {
-      // Body Press: uses the user's Defense stat + the user's defense boost.
-      atkStat = stat(atkPokemon, 2, attacker.evDef);
+      // Body Press: uses the user's Defense stat.
+      atkStat = effAtkDef;
       attackBoost = attacker.boost;
     } else if (mechanics.offensiveStat === "spa") {
-      atkStat = stat(atkPokemon, 3, attacker.evSpa);
+      atkStat = atkSpaVal;
       attackBoost = attacker.boost;
     } else {
-      atkStat = stat(atkPokemon, 1, attacker.evAtk);
+      atkStat = effAtkAtk;
       attackBoost = attacker.boost;
     }
 
     // --- Defensive stat resolution ---
-    const defStat =
-      mechanics.defensiveStat === "spd"
-        ? stat(defPokemon, 4, defender.evSpd)
-        : stat(defPokemon, 2, defender.evDef);
+    const defStat = mechanics.defensiveStat === "spd" ? effDefSpd : effDefDef;
 
-    // --- Modifiers ---
-    const isSpreadMove =
-      isDoubles && (move.range === "all-opponents" || move.range === "all-pokemon");
-
-    const stab = stabModifier(atkPokemon.types, moveType);
-    const weatherMod = weatherModifier(weather, moveType);
-    const terrainMod = terrainModifier(terrain, moveType);
-    const screenMod = screenModifier(screens, isPhysical, isDoubles, { isCrit });
-    const spreadMod = spreadModifier(isSpreadMove);
-
-    const bpModifiers: number[] = [];
-    if (terrainMod !== M.NEUTRAL) bpModifiers.push(terrainMod);
-
-    const finalModifiers: number[] = [];
-    if (screenMod !== M.NEUTRAL) finalModifiers.push(screenMod);
-    if (attacker.item === "life-orb") finalModifiers.push(M.LIFE_ORB);
-
-    if (attacker.item === "type-boost") bpModifiers.push(M.TYPE_ITEM);
-
+    // --- Attack / Defense stat modifiers ---
     const attackModifiers: number[] = [];
     if (attacker.item === "choice-band" && isPhysical) attackModifiers.push(M.CHOICE);
     if (attacker.item === "choice-specs" && !isPhysical) attackModifiers.push(M.CHOICE);
     if (attacker.item === "muscle-band" && isPhysical) attackModifiers.push(4505);
     if (attacker.item === "wise-glasses" && !isPhysical) attackModifiers.push(4505);
+    // Flower Gift (in sun): boosts the user's Atk on physical moves.
+    if (ac.flowerGift && isPhysical) attackModifiers.push(M.FLOWER_GIFT);
+
+    const defenseModifiers: number[] = [];
+    // Flower Gift (in sun): boosts the target's Sp.Def on special moves.
+    if (dc.flowerGift && !isPhysical) defenseModifiers.push(M.FLOWER_GIFT);
+
+    // --- Final modifiers ---
+    const finalModifiers: number[] = [];
+    const screenMod = screenModifier(screens, isPhysical, isDoubles, { isCrit });
+    if (screenMod !== M.NEUTRAL) finalModifiers.push(screenMod);
+    if (attacker.item === "life-orb") finalModifiers.push(M.LIFE_ORB);
+
+    // --- Other modifiers ---
+    const isSpreadMove =
+      isDoubles && (move.range === "all-opponents" || move.range === "all-pokemon");
+    const stab = stabModifier(atkPokemon.types, moveType);
+    const weatherMod = weatherModifier(weather, moveType);
+    const spreadMod = spreadModifier(isSpreadMove);
 
     // Burn halves physical damage, EXCEPT for Facade.
-    const isBurned = attacker.isBurned && move.identifier !== "facade";
+    const isBurned = (ac.burn ?? false) && move.identifier !== "facade";
+
+    // --- Type-effectiveness override (Freeze-Dry / Tar Shot) ---
+    const defType1 = defPokemon.types[0];
+    const defType2 = defPokemon.types[1] ?? null;
+    let effectivenessOverride: number | null = null;
+    if (mechanics.freezeDry && moveType === "ice") {
+      effectivenessOverride = freezeDryOverride(defType1, defType2);
+    } else if (dc.tarShot && moveType === "fire") {
+      effectivenessOverride = tarShotFireOverride(defType1, defType2);
+    }
+
+    // --- Immunity override (Levitate vs Ground) ---
+    let immuneOverride: boolean | null = null;
+    if (defender.ability === "levitate" && moveType === "ground") {
+      immuneOverride = true;
+    }
+
+    // --- Protect ---
+    // Piercing Drill / Unseen Fist pierce Protect with CONTACT moves for 1/4
+    // damage (Champions). Any other case behind Protect is fully blocked.
+    let protectModifier: number | undefined;
+    if (dc.protect) {
+      const isContact = move.classifications.includes("contact");
+      const canPierce =
+        isContact &&
+        (attacker.ability === "unseen-fist" || attacker.ability === "piercing-drill");
+      if (canPierce) {
+        protectModifier = M.Z_INTO_PROTECT; // 1024 = 0.25x
+      } else {
+        immuneOverride = true; // fully blocked
+      }
+    }
 
     return {
       level: 50,
@@ -199,19 +319,23 @@ export function useDamageCalcPage() {
       attackModifiers: attackModifiers.length > 0 ? attackModifiers : undefined,
       defense: defStat,
       defenseBoost: defender.boost,
+      defenseModifiers: defenseModifiers.length > 0 ? defenseModifiers : undefined,
       isPhysical,
       moveType,
-      defenderType1: defPokemon.types[0],
-      defenderType2: defPokemon.types[1] ?? null,
+      defenderType1: defType1,
+      defenderType2: defType2,
+      effectivenessOverride,
+      immuneOverride,
       spreadModifier: spreadMod,
       weatherModifier: weatherMod,
       isCrit,
       critModifier: M.CRIT,
       stabModifier: stab,
       finalModifiers: finalModifiers.length > 0 ? finalModifiers : undefined,
+      protectModifier,
       isBurned,
     };
-  }, [attacker, defender, weather, terrain, screens, isDoubles, isCrit]);
+  }, [attacker, defender, weather, terrain, fairyAura, wonderRoom, screens, isDoubles, isCrit]);
 
   const defenderMaxHp = useMemo(() => {
     if (!defender.identifier) return undefined;
@@ -228,6 +352,21 @@ export function useDamageCalcPage() {
     return null;
   }, [damageInput, attacker.identifier, attacker.move, defender.identifier]);
 
+  // hitCount for the currently selected move (used by ResultPanel).
+  const activeMoveHitCount = useMemo(() => {
+    if (!attacker.move) return undefined;
+    const move = moveByIdentifier.get(attacker.move);
+    if (!move || move.category === "status") return undefined;
+    return getMoveMechanics(move.identifier, move.category).hitCount;
+  }, [attacker.move]);
+
+  const activeMoveHitCountAlreadyMerged = useMemo(() => {
+    if (!attacker.move) return false;
+    const move = moveByIdentifier.get(attacker.move);
+    if (!move || move.category === "status") return false;
+    return getMoveMechanics(move.identifier, move.category).hitCountAlreadyMerged ?? false;
+  }, [attacker.move]);
+
   const { output, analysis, isLoading, isError } = useDamageCalc(
     damageInput,
     defenderMaxHp,
@@ -241,6 +380,8 @@ export function useDamageCalcPage() {
     isError,
     error: null,
     missingReason,
+    hitCount: activeMoveHitCount,
+    hitCountAlreadyMerged: activeMoveHitCountAlreadyMerged,
   };
 
   return {
@@ -252,6 +393,10 @@ export function useDamageCalcPage() {
     setWeather,
     terrain,
     setTerrain,
+    fairyAura,
+    setFairyAura,
+    wonderRoom,
+    setWonderRoom,
     screens,
     setScreens,
     isDoubles,

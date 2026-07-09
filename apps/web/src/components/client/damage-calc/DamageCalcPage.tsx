@@ -4,6 +4,8 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Checkbox,
+  FormControlLabel,
   Paper,
   Stack,
   ToggleButton,
@@ -20,10 +22,35 @@ import { PokemonPanel } from "./PokemonPanel";
 import { ResultPanel } from "./ResultPanel";
 import { useDamageCalcPage } from "./useDamageCalcPage";
 
+// ----------------------------------------------------------------
+// Weather & terrain: active-button colours
+// ----------------------------------------------------------------
+const WEATHER_COLORS: Record<Weather, string | null> = {
+  none: null,
+  sun: "#f57c00",       // orange
+  rain: "#1565c0",      // blue
+  snow: "#4fc3f7",      // light-blue
+  sandstorm: "#8d6e63", // brown
+};
+
+const TERRAIN_COLORS: Record<Terrain, string | null> = {
+  none: null,
+  electric: "#f9a825",  // yellow
+  grassy: "#388e3c",    // green
+  misty: "#e91e63",     // pink
+  psychic: "#7b1fa2",   // purple
+};
+
+const FIELD_EFFECT_COLORS: Record<string, string> = {
+  fairyAura: "#e91e63",  // pink
+  wonderRoom: "#7b1fa2", // purple
+};
+
 export default function DamageCalcPage() {
   const { t } = useTranslation();
   const theme = useTheme();
   const palette = getAppPalette(theme.palette.mode);
+  const isDark = theme.palette.mode === "dark";
 
   useEffect(() => {
     preloadDamageEngine();
@@ -38,6 +65,10 @@ export default function DamageCalcPage() {
     setWeather,
     terrain,
     setTerrain,
+    fairyAura,
+    setFairyAura,
+    wonderRoom,
+    setWonderRoom,
     screens,
     setScreens,
     isDoubles,
@@ -63,6 +94,55 @@ export default function DamageCalcPage() {
     { value: "psychic", label: t("damageCalc.terrainPsychic") },
   ];
 
+  const fieldEffectOptions = [
+    { key: "fairyAura", label: t("damageCalc.fairyAura"), active: fairyAura, onToggle: () => setFairyAura(!fairyAura) },
+    { key: "wonderRoom", label: t("damageCalc.wonderRoom"), active: wonderRoom, onToggle: () => setWonderRoom(!wonderRoom) },
+  ];
+
+  // Helper: per-button sx that applies a colour when active
+  const activeColorSx = (color: string | null, active: boolean) =>
+    color && active
+      ? {
+          px: 1.5, py: 0.5, fontSize: 12, lineHeight: 1.4,
+          color: "#fff",
+          bgcolor: color,
+          borderColor: `${color} !important`,
+          "&:hover": { bgcolor: color, opacity: 0.85 },
+          "&.Mui-selected": { bgcolor: color, color: "#fff", borderColor: `${color} !important` },
+        }
+      : { px: 1.5, py: 0.5, fontSize: 12, lineHeight: 1.4 };
+
+  // Panel tint colours
+  const attackerBorder = isDark ? "rgba(96,165,250,0.45)" : "rgba(21,101,192,0.35)";
+  const defenderBorder = isDark ? "rgba(251,146,60,0.45)" : "rgba(194,65,12,0.35)";
+  const attackerBg = isDark ? "rgba(59,130,246,0.04)" : "rgba(21,101,192,0.03)";
+  const defenderBg = isDark ? "rgba(251,146,60,0.04)" : "rgba(194,65,12,0.03)";
+
+  // Summary props for ResultPanel
+  const summary = {
+    attackerName: attacker.identifier,
+    defenderName: defender.identifier,
+    moveName: attacker.move,
+    attackerEvs: {
+      hp: attacker.evHp, atk: attacker.evAtk, def: attacker.evDef,
+      spa: attacker.evSpa, spd: attacker.evSpd, spe: attacker.evSpe,
+    },
+    defenderEvs: {
+      hp: defender.evHp, atk: defender.evAtk, def: defender.evDef,
+      spa: defender.evSpa, spd: defender.evSpd, spe: defender.evSpe,
+    },
+    weather: weather !== "none" ? weather : null,
+    terrain: terrain !== "none" ? terrain : null,
+    fairyAura,
+    wonderRoom,
+    isDoubles,
+    isCrit,
+    screens,
+    attackerItem: attacker.item,
+    attackerConditions: attacker.conditions,
+    defenderConditions: defender.conditions,
+  };
+
   return (
     <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
       {/* Title + Singles/Doubles toggle */}
@@ -71,10 +151,7 @@ export default function DamageCalcPage() {
           {t("damageCalc.title")}
         </Typography>
         <ButtonGroup variant="outlined" size="small" disableElevation>
-          <Button
-            variant={!isDoubles ? "contained" : "outlined"}
-            onClick={() => setIsDoubles(false)}
-          >
+          <Button variant={!isDoubles ? "contained" : "outlined"} onClick={() => setIsDoubles(false)}>
             {t("damageCalc.singles")}
           </Button>
           <Button variant={isDoubles ? "contained" : "outlined"} onClick={() => setIsDoubles(true)}>
@@ -84,20 +161,15 @@ export default function DamageCalcPage() {
       </Stack>
 
       {/* Attacker / Defender panels */}
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-          gap: 3,
-          mb: 3,
-        }}
-      >
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3, mb: 3 }}>
         <PokemonPanel
           label={t("damageCalc.attacker")}
           role="attacker"
           value={attacker}
           onChange={setAttacker}
           activeMove={attacker.move}
+          isDoubles={isDoubles}
+          sx={{ borderColor: attackerBorder, bgcolor: attackerBg }}
         />
         <PokemonPanel
           label={t("damageCalc.defender")}
@@ -105,42 +177,29 @@ export default function DamageCalcPage() {
           value={defender}
           onChange={setDefender}
           activeMove={attacker.move}
+          isDoubles={isDoubles}
           screens={screens}
           onScreensChange={setScreens}
+          sx={{ borderColor: defenderBorder, bgcolor: defenderBg }}
         />
       </Box>
 
       {/* Field Conditions */}
-      <Paper
-        elevation={0}
-        sx={{
-          px: 6,
-          py: 3,
-          mb: 3,
-          border: "1px solid",
-          borderColor: palette.edge,
-          borderRadius: 3,
-        }}
-      >
+      <Paper elevation={0} sx={{ px: 6, py: 3, mb: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
           {t("damageCalc.field")}
         </Typography>
 
-        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          {/* Weather row */}
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+          {/* Weather */}
           <Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
-            >
+            <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}>
               {t("damageCalc.weather")}
             </Typography>
             <ToggleButtonGroup
               value={weather}
               exclusive
-              onChange={(_, v) => {
-                if (v !== null) setWeather(v as Weather);
-              }}
+              onChange={(_, v) => { if (v !== null) setWeather(v as Weather); }}
               size="small"
               sx={{ flexWrap: "wrap", gap: 0.5 }}
             >
@@ -148,7 +207,7 @@ export default function DamageCalcPage() {
                 <ToggleButton
                   key={opt.value}
                   value={opt.value}
-                  sx={{ px: 1.5, py: 0.5, fontSize: 12, lineHeight: 1.4 }}
+                  sx={activeColorSx(WEATHER_COLORS[opt.value], weather === opt.value)}
                 >
                   {opt.label}
                 </ToggleButton>
@@ -156,20 +215,15 @@ export default function DamageCalcPage() {
             </ToggleButtonGroup>
           </Box>
 
-          {/* Terrain row */}
+          {/* Terrain */}
           <Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
-            >
+            <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}>
               {t("damageCalc.terrain")}
             </Typography>
             <ToggleButtonGroup
               value={terrain}
               exclusive
-              onChange={(_, v) => {
-                if (v !== null) setTerrain(v as Terrain);
-              }}
+              onChange={(_, v) => { if (v !== null) setTerrain(v as Terrain); }}
               size="small"
               sx={{ flexWrap: "wrap", gap: 0.5 }}
             >
@@ -177,18 +231,42 @@ export default function DamageCalcPage() {
                 <ToggleButton
                   key={opt.value}
                   value={opt.value}
-                  sx={{ px: 1.5, py: 0.5, fontSize: 12, lineHeight: 1.4 }}
+                  sx={activeColorSx(TERRAIN_COLORS[opt.value], terrain === opt.value)}
                 >
                   {opt.label}
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>
           </Box>
+
+          {/* Field Effects — same height as weather/terrain via ToggleButton rows */}
+          <Box>
+            <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}>
+              {t("damageCalc.fieldEffects")}
+            </Typography>
+            <Stack direction="row" sx={{ gap: 0.5, flexWrap: "wrap" }}>
+              {fieldEffectOptions.map((opt) => {
+                const color = FIELD_EFFECT_COLORS[opt.key];
+                return (
+                  <ToggleButton
+                    key={opt.key}
+                    value={opt.key}
+                    selected={opt.active}
+                    onChange={opt.onToggle}
+                    size="small"
+                    sx={activeColorSx(color, opt.active)}
+                  >
+                    {opt.label}
+                  </ToggleButton>
+                );
+              })}
+            </Stack>
+          </Box>
         </Stack>
       </Paper>
 
       {/* Result */}
-      <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} />
+      <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
     </Box>
   );
 }

@@ -34,10 +34,21 @@ export const M = {
   // Attack modifiers
   CHOICE: 6144, // 1.5x — Choice Band / Specs
   HUGE_POWER: 8192, // 2x
+  FLOWER_GIFT: 6144, // 1.5x — Atk (attacker) / Sp.Def (defender) in sun
   // Base-power modifiers
   TYPE_ITEM: 4915, // ~1.2x — Plate / type gem-ish items
   TERRAIN_OFFENSIVE: 6144, // 1.5x — matching terrain
   HELPING_HAND: 6144, // 1.5x
+  CHARGE: 8192, // 2x — Electric move after Charge
+  STEELY_SPIRIT: 6144, // 1.5x — Steel move
+  POWER_SPOT: 5325, // ~1.3x — Power Spot / Battery
+  BATTERY: 5325, // ~1.3x — special move
+  FAIRY_AURA: 5448, // ~1.33x — Fairy move under Fairy Aura
+  KNOCK_OFF: 6144, // 1.5x — target holds a removable item
+  ATE_BOOST: 4915, // ~1.2x — Pixilate / Aerilate / Refrigerate / Galvanize / Normalize
+  DOUBLE: 8192, // 2x — generic conditional base-power doubler
+  EXPANDING_FORCE: 6144, // 1.5x — Expanding Force on Psychic Terrain
+  TECHNICIAN: 6144, // 1.5x — Technician ability (base power ≤ 60)
 } as const;
 
 /** Input to the WASM damage engine (mirrors the Rust `DamageInput`). */

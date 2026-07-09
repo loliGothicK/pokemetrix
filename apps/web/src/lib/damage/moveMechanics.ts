@@ -1,19 +1,24 @@
 import type { MoveCategory, Type } from "@/types/pokemon";
+import type { Terrain } from "./modifiers";
+import { M } from "./types";
 
 /**
  * Move mechanics classification for the damage calculator UI.
  *
  * The damage engine (Rust/WASM) receives a *resolved* base power and *resolved*
- * attack/defense values. Everything about "which stat feeds the formula" and
- * "how the base power varies with the battle state" is decided here, in the TS
- * layer, so the UI can:
+ * attack/defense values. Everything about "which stat feeds the formula",
+ * "how the base power varies with the battle state", and "which conditional
+ * base-power modifiers apply" is decided here, in the TS layer, so the UI can:
  *   1. Show only the stats a move actually needs (progressive disclosure).
- *   2. Compute the effective base power from dynamic inputs (HP%, speed, ...).
- *   3. Offer conditional-power toggles (Hex, Facade, Venoshock, ...).
+ *   2. Compute the effective base power from dynamic inputs (HP%, speed, weight).
+ *   3. Offer conditional-power toggles (Hex, Facade, Round, Dragon Rush, ...).
  *
- * Only well-defined, data-available mechanics are modelled. Weight-based moves
- * (Grass Knot, Low Kick, Heavy Slam) are intentionally omitted because weight
- * is not present in the move data.
+ * Two distinct hooks exist:
+ *   - `computeBasePower(ctx)` SETS the raw base power for formula moves
+ *     (Eruption, Gyro Ball, Low Kick, ...).
+ *   - `bpModifiers(ctx)` returns extra `x/4096` base-power modifiers to chain
+ *     (conditional doublers, Knock Off, Rising Voltage, ...), which is the
+ *     game-accurate way to apply "×2 when ..." effects.
  */
 
 export type StatKey = "hp" | "atk" | "def" | "spa" | "spd" | "spe";
@@ -24,7 +29,7 @@ export type MoveConditionDef = {
   readonly labelKey: string; // i18n key
 };
 
-/** Context passed to a variable-power resolver. */
+/** Context passed to variable-power / bp-modifier resolvers. */
 export type PowerContext = {
   /** Static base power from move data (may be 0 / low for variable moves). */
   readonly basePower: number;
@@ -32,14 +37,18 @@ export type PowerContext = {
   readonly attackerHpPercent: number;
   /** Defender current HP as a percentage (0–100). */
   readonly defenderHpPercent: number;
-  /** Attacker Speed actual value. */
+  /** Attacker Speed actual value (after Tailwind / Paralysis). */
   readonly attackerSpe: number;
-  /** Defender Speed actual value. */
+  /** Defender Speed actual value (after Tailwind / Paralysis). */
   readonly defenderSpe: number;
   /** Attacker weight in kilograms. */
   readonly attackerWeight: number;
   /** Defender weight in kilograms. */
   readonly defenderWeight: number;
+  /** Active field terrain. */
+  readonly terrain: Terrain;
+  /** Whether the defender is holding a (removable) item — for Knock Off. */
+  readonly defenderHasItem: boolean;
   /** Move-condition checkbox states (keyed by MoveConditionDef.key). */
   readonly conditions: Readonly<Record<string, boolean>>;
 };
@@ -57,18 +66,37 @@ export type MoveMechanics = {
   readonly defenderExtraStats: readonly StatKey[];
   /** Whether the attacker's current HP% is needed. */
   readonly usesAttackerHp: boolean;
-  /** Whether the move's power derives from Pokémon weight (Low Kick, Heavy Slam, ...). */
+  /** Whether the move's power derives from Pokémon weight. */
   readonly usesWeight: boolean;
-  /** Compute effective base power. undefined ⇒ use the static move power as-is. */
+  /** Compute effective (raw) base power. undefined ⇒ use the static move power. */
   readonly computeBasePower?: (ctx: PowerContext) => number;
+  /** Conditional base-power modifiers (`x/4096`) to chain. */
+  readonly bpModifiers?: (ctx: PowerContext) => number[];
   /** Conditional-power toggles shown under the move. */
   readonly conditions: readonly MoveConditionDef[];
-  /** Type effectiveness override shift (e.g. Freeze-Dry hits Water super-effectively). */
+  /** Freeze-Dry: hits Water super-effectively. */
   readonly freezeDry?: boolean;
+  /**
+   * Multi-hit count. min === max means a fixed number of hits.
+   * For moves that hit 2–5 times, min=2, max=5.
+   * undefined (or {min:1,max:1}) means a single-hit move.
+   *
+   * Triple Axel is treated as fixed 3 hits with the engine receiving the
+   * *sum* base-power (20+40+60 = 120) so the displayed damage is already
+   * the full 3-hit total. Its hitCount is therefore {min:3,max:3} for the
+   * UI label only — no multiplication is applied on top.
+   */
+  readonly hitCount?: { readonly min: number; readonly max: number };
+  /**
+   * When true, the engine's basePower already represents the full multi-hit
+   * total (e.g. Triple Axel = 120). The UI shows "× N hits" as a label
+   * without multiplying the raw roll numbers again.
+   */
+  readonly hitCountAlreadyMerged?: boolean;
 };
 
 // ---------------------------------------------------------------------------
-// Base-power formulas
+// Base-power formulas (SET the raw base power)
 // ---------------------------------------------------------------------------
 
 /** Eruption / Water Spout: 150 × currentHP/maxHP, min 1. */
@@ -114,12 +142,6 @@ function crushGrip(ctx: PowerContext): number {
   return Math.max(1, Math.floor((120 * ctx.defenderHpPercent) / 100));
 }
 
-/** Generic conditional doubler (Hex / Facade / Venoshock). */
-function conditionalDouble(conditionKey: string) {
-  return (ctx: PowerContext): number =>
-    ctx.conditions[conditionKey] ? ctx.basePower * 2 : ctx.basePower;
-}
-
 /** Low Kick / Grass Knot: power scales with the TARGET's weight (kg). */
 function targetWeightPower(ctx: PowerContext): number {
   const w = ctx.defenderWeight;
@@ -143,6 +165,23 @@ function weightRatioPower(ctx: PowerContext): number {
 }
 
 // ---------------------------------------------------------------------------
+// Base-power modifier helpers (CHAINED, game-accurate)
+// ---------------------------------------------------------------------------
+
+/** ×2 base-power modifier gated on a checkbox condition. */
+function condDouble(conditionKey: string) {
+  return (ctx: PowerContext): number[] => (ctx.conditions[conditionKey] ? [M.DOUBLE] : []);
+}
+
+// ---------------------------------------------------------------------------
+// Hit-count shorthands
+// ---------------------------------------------------------------------------
+
+const HIT2: Pick<MoveMechanics, "hitCount"> = { hitCount: { min: 2, max: 2 } };
+const HIT3: Pick<MoveMechanics, "hitCount"> = { hitCount: { min: 3, max: 3 } };
+const HIT_2_5: Pick<MoveMechanics, "hitCount"> = { hitCount: { min: 2, max: 5 } };
+
+// ---------------------------------------------------------------------------
 // Move classification
 // ---------------------------------------------------------------------------
 
@@ -161,6 +200,7 @@ export const VARIABLE_POWER_MOVES: ReadonlySet<string> = new Set([
   "grass-knot",
   "heavy-slam",
   "heat-crash",
+  "triple-axel",
 ]);
 
 const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
@@ -219,49 +259,153 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
     // --- Weight based ---
     case "low-kick":
     case "grass-knot":
-      // Scales with the target's weight.
       return { ...base, usesWeight: true, computeBasePower: targetWeightPower };
     case "heavy-slam":
     case "heat-crash":
-      // Scales with the user/target weight ratio.
       return { ...base, usesWeight: true, computeBasePower: weightRatioPower };
 
     // --- Stat reference morphing ---
     case "body-press":
-      // Physical move that uses the user's Defense as the offensive stat.
       return { ...base, offensiveStat: "def" };
     case "foul-play":
-      // Uses the defender's Attack stat.
       return { ...base, useTargetAttack: true, defenderExtraStats: ["atk"] };
     case "psyshock":
     case "psystrike":
     case "secret-sword":
-      // Special move that targets the defender's Defense.
       return { ...base, defensiveStat: "def" };
 
-    // --- Conditional doublers ---
+    // --- Conditional doublers (checkbox) ---
     case "hex":
       return {
         ...base,
         conditions: [{ key: "targetStatus", labelKey: "damageCalc.condTargetStatus" }],
-        computeBasePower: conditionalDouble("targetStatus"),
+        bpModifiers: condDouble("targetStatus"),
       };
     case "facade":
       return {
         ...base,
         conditions: [{ key: "userStatus", labelKey: "damageCalc.condUserStatus" }],
-        computeBasePower: conditionalDouble("userStatus"),
+        bpModifiers: condDouble("userStatus"),
       };
     case "venoshock":
       return {
         ...base,
         conditions: [{ key: "targetPoisoned", labelKey: "damageCalc.condTargetPoisoned" }],
-        computeBasePower: conditionalDouble("targetPoisoned"),
+        bpModifiers: condDouble("targetPoisoned"),
+      };
+    case "round":
+      return {
+        ...base,
+        conditions: [{ key: "allyRound", labelKey: "damageCalc.condAllyRound" }],
+        bpModifiers: condDouble("allyRound"),
+      };
+    case "dragon-rush":
+    case "steamroller":
+    case "stomp":
+    case "body-slam":
+      return {
+        ...base,
+        conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
+        bpModifiers: condDouble("targetMinimized"),
+      };
+    case "stomping-tantrum":
+    case "temper-flare":
+      return {
+        ...base,
+        conditions: [{ key: "prevMoveFailed", labelKey: "damageCalc.condPrevMoveFailed" }],
+        bpModifiers: condDouble("prevMoveFailed"),
+      };
+    case "assurance":
+      return {
+        ...base,
+        conditions: [{ key: "targetDamaged", labelKey: "damageCalc.condTargetDamaged" }],
+        bpModifiers: condDouble("targetDamaged"),
+      };
+    case "payback":
+      return {
+        ...base,
+        conditions: [{ key: "movesAfterTarget", labelKey: "damageCalc.condMovesAfterTarget" }],
+        bpModifiers: condDouble("movesAfterTarget"),
+      };
+    case "earthquake":
+    case "magnitude":
+      return {
+        ...base,
+        conditions: [{ key: "targetUnderground", labelKey: "damageCalc.condTargetUnderground" }],
+        bpModifiers: condDouble("targetUnderground"),
+      };
+
+    // --- Conditional doublers / boosters (auto from field & item) ---
+    case "knock-off":
+      return {
+        ...base,
+        bpModifiers: (ctx) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
+      };
+    case "rising-voltage":
+      return {
+        ...base,
+        bpModifiers: (ctx) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
+      };
+    case "expanding-force":
+      return {
+        ...base,
+        bpModifiers: (ctx) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
       };
 
     // --- Type effectiveness override ---
     case "freeze-dry":
       return { ...base, freezeDry: true };
+
+    // ---------------------------------------------------------------------------
+    // Multi-hit moves
+    // ---------------------------------------------------------------------------
+
+    // Fixed 2 hits
+    case "double-hit":
+    case "dual-wingbeat":
+    case "dual-chop":
+    case "dragon-darts":
+    case "gear-grind":
+    case "bonemerang":
+    case "double-kick":
+    case "twineedle":
+      return { ...base, ...HIT2 };
+
+    // Fixed 3 hits
+    case "triple-kick":
+      return { ...base, ...HIT3 };
+
+    // Triple Axel: 3 hits with escalating BP (20/40/60 = 120 total).
+    // We pass the summed BP (120) to the engine for a realistic single-calc
+    // result, and mark hitCountAlreadyMerged so the UI doesn't multiply again.
+    case "triple-axel":
+      return {
+        ...base,
+        computeBasePower: () => 120,
+        hitCount: { min: 3, max: 3 },
+        hitCountAlreadyMerged: true,
+      };
+
+    // 2–5 random hits
+    case "bone-rush":
+    case "bullet-seed":
+    case "icicle-spear":
+    case "pin-missile":
+    case "rock-blast":
+    case "scale-shot":
+    case "tail-slap":
+    case "water-shuriken":
+    case "arm-thrust":
+    case "fury-attack":
+    case "fury-swipes":
+    case "comet-punch":
+    case "spike-cannon":
+    case "barrage":
+      return { ...base, ...HIT_2_5 };
+
+    // Population Bomb: 1–10 hits (skill-link makes it always 10)
+    case "population-bomb":
+      return { ...base, hitCount: { min: 1, max: 10 } };
 
     default:
       return base;
@@ -276,7 +420,7 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
 export function resolveFieldReactiveMove(
   identifier: string,
   weather: "none" | "sun" | "rain" | "snow" | "sandstorm",
-  terrain: "none" | "electric" | "grassy" | "misty" | "psychic",
+  terrain: Terrain,
   fallbackType: Type,
   fallbackPower: number,
 ): { type: Type; power: number } | null {
@@ -307,6 +451,34 @@ export function resolveFieldReactiveMove(
       default:
         return { type: fallbackType, power: fallbackPower };
     }
+  }
+  return null;
+}
+
+/** Normal→X "-ate" abilities and Normalize. */
+const ATE_TYPES: Readonly<Record<string, Type>> = {
+  pixilate: "fairy",
+  aerilate: "flying",
+  refrigerate: "ice",
+  galvanize: "electric",
+};
+
+/**
+ * Ability-driven move-type change (Pixilate / Aerilate / Refrigerate /
+ * Galvanize / Normalize). Returns the new type + whether the ~1.2x boost
+ * applies, or null when the ability doesn't change the move's type.
+ */
+export function resolveAbilityTypeChange(
+  ability: string | null,
+  moveType: Type,
+): { type: Type; boosted: boolean } | null {
+  if (!ability) return null;
+  const ateType = ATE_TYPES[ability];
+  if (ateType && moveType === "normal") {
+    return { type: ateType, boosted: true };
+  }
+  if (ability === "normalize" && moveType !== "normal") {
+    return { type: "normal", boosted: true };
   }
   return null;
 }

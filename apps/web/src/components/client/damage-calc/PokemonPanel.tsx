@@ -24,8 +24,14 @@ import {
   SlugAutocomplete,
 } from "@/components/client/battle-record/slugAutocomplete";
 import { calcHp, calcStatus } from "@/data/utility/training";
-import { getMoveMechanics, VARIABLE_POWER_MOVES, type StatKey } from "@/lib/damage";
+import {
+  getMoveMechanics,
+  resolveAbilityTypeChange,
+  VARIABLE_POWER_MOVES,
+  type StatKey,
+} from "@/lib/damage";
 import NumberField from "@/components/client/input/NumberField";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { PokemonPanelState } from "./useDamageCalcPage";
 
 type PokemonOption = {
@@ -53,10 +59,45 @@ type PokemonPanelProps = {
   ) => void;
   /** The attacker's currently-selected move identifier — drives progressive disclosure. */
   readonly activeMove: string | null;
+  /** Whether the battle is doubles (gates doubles-only conditions). */
+  readonly isDoubles: boolean;
   /** Defender only: wall checkboxes */
   readonly screens?: ScreenState;
   readonly onScreensChange?: (updater: ScreenState | ((prev: ScreenState) => ScreenState)) => void;
+  /** Optional sx overrides — used to tint the panel border/bg for attacker vs defender. */
+  readonly sx?: SxProps<Theme>;
 };
+
+/** A general condition toggle in the Conditions section. */
+type ConditionDef = {
+  readonly key: string;
+  readonly labelKey: string;
+  /** Only shown in doubles battles. */
+  readonly doublesOnly?: boolean;
+};
+
+const ATTACKER_CONDITIONS: readonly ConditionDef[] = [
+  { key: "burn", labelKey: "damageCalc.burn" },
+  { key: "helpingHand", labelKey: "damageCalc.helpingHand", doublesOnly: true },
+  { key: "charge", labelKey: "damageCalc.charge" },
+  { key: "steelySpirit", labelKey: "damageCalc.steelySpirit" },
+  { key: "powerSpot", labelKey: "damageCalc.powerSpot", doublesOnly: true },
+  { key: "battery", labelKey: "damageCalc.battery", doublesOnly: true },
+  { key: "flowerGift", labelKey: "damageCalc.flowerGift" },
+  { key: "electrify", labelKey: "damageCalc.electrify" },
+  { key: "tailwind", labelKey: "damageCalc.tailwind" },
+  { key: "paralysis", labelKey: "damageCalc.paralysis" },
+  { key: "powerTrick", labelKey: "damageCalc.powerTrick" },
+];
+
+const DEFENDER_CONDITIONS: readonly ConditionDef[] = [
+  { key: "protect", labelKey: "damageCalc.protect" },
+  { key: "tarShot", labelKey: "damageCalc.tarShot" },
+  { key: "flowerGift", labelKey: "damageCalc.flowerGift" },
+  { key: "tailwind", labelKey: "damageCalc.tailwind" },
+  { key: "paralysis", labelKey: "damageCalc.paralysis" },
+  { key: "powerTrick", labelKey: "damageCalc.powerTrick" },
+];
 
 /** Stat metadata: EV field key, status[] index, i18n label key. */
 const STAT_META: Record<StatKey, { evKey: keyof PokemonPanelState; index: number; labelKey: string }> = {
@@ -74,8 +115,10 @@ export function PokemonPanel({
   value,
   onChange,
   activeMove,
+  isDoubles,
   screens,
   onScreensChange,
+  sx,
 }: PokemonPanelProps) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -158,13 +201,25 @@ export function PokemonPanel({
   const showAttackerHp = isAttacker && mechanics?.usesAttackerHp === true;
   const showHpPercent = !isAttacker || showAttackerHp;
 
+  // Ability-driven move-type change indicator (attacker panel only).
+  const abilityTypeChange = useMemo(() => {
+    if (!isAttacker || !activeMoveData || activeMoveData.category === "status") return null;
+    return resolveAbilityTypeChange(value.ability, activeMoveData.type);
+  }, [isAttacker, activeMoveData, value.ability]);
+
+  const conditionDefs = isAttacker ? ATTACKER_CONDITIONS : DEFENDER_CONDITIONS;
+  const visibleConditions = conditionDefs.filter((c) => !c.doublesOnly || isDoubles);
+
   const setEv = (evKey: keyof PokemonPanelState, v: number) =>
     onChange((prev) => ({ ...prev, [evKey]: v }));
+
+  const setCondition = (key: string, checked: boolean) =>
+    onChange((prev) => ({ ...prev, conditions: { ...prev.conditions, [key]: checked } }));
 
   return (
     <Paper
       elevation={0}
-      sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
+      sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3, ...sx }}
     >
       <Stack spacing={2}>
         {/* Header */}
@@ -246,12 +301,21 @@ export function PokemonPanel({
           </Stack>
         )}
 
-        <SlugAutocomplete
-          options={abilityOptions}
-          value={value.ability}
-          onChange={(slug) => onChange((prev) => ({ ...prev, ability: slug }))}
-          label={t("damageCalc.ability")}
-        />
+        <Stack spacing={0.5}>
+          <SlugAutocomplete
+            options={abilityOptions}
+            value={value.ability}
+            onChange={(slug) => onChange((prev) => ({ ...prev, ability: slug }))}
+            label={t("damageCalc.ability")}
+          />
+          {abilityTypeChange && (
+            <Typography variant="caption" color="text.secondary">
+              {t("damageCalc.abilityTypeChanged", {
+                type: t(`types.${abilityTypeChange.type}.name`, abilityTypeChange.type),
+              })}
+            </Typography>
+          )}
+        </Stack>
 
         <SlugAutocomplete
           options={itemOptions}
@@ -327,20 +391,6 @@ export function PokemonPanel({
         <Divider textAlign="left">{t("damageCalc.conditions")}</Divider>
 
         <Stack direction="row" sx={{ flexWrap: "wrap", ml: -0.5 }}>
-          {/* Attacker: burn */}
-          {isAttacker && (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  size="small"
-                  checked={value.isBurned}
-                  onChange={(e) => onChange((prev) => ({ ...prev, isBurned: e.target.checked }))}
-                />
-              }
-              label={t("damageCalc.burn")}
-            />
-          )}
-
           {/* Defender: screens */}
           {!isAttacker && screens && onScreensChange && (
             <>
@@ -380,6 +430,21 @@ export function PokemonPanel({
               />
             </>
           )}
+
+          {/* Role-specific general conditions */}
+          {visibleConditions.map((cond) => (
+            <FormControlLabel
+              key={cond.key}
+              control={
+                <Checkbox
+                  size="small"
+                  checked={value.conditions[cond.key] ?? false}
+                  onChange={(e) => setCondition(cond.key, e.target.checked)}
+                />
+              }
+              label={t(cond.labelKey)}
+            />
+          ))}
         </Stack>
       </Stack>
     </Paper>

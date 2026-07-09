@@ -15,6 +15,13 @@ export type { DamageAnalysis } from "./analysis";
 export {
   getMoveMechanics,
   resolveFieldReactiveMove,
+  resolveAbilityTypeChange,
   VARIABLE_POWER_MOVES,
 } from "./moveMechanics";
+export {
+  isImmune,
+  effectivenessShift,
+  freezeDryOverride,
+  tarShotFireOverride,
+} from "./typeChart";
 export type { MoveMechanics, MoveConditionDef, PowerContext, StatKey } from "./moveMechanics";
