@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @pokemetrix/web dev",
-    "build": "pnpm --filter @pokemetrix/web build",
+    "build": "pnpm build:wasm && pnpm build:app",
+    "build:app": "pnpm --filter @pokemetrix/web build",
     "build:wasm": "pnpm --filter @pokemetrix/damage-calc build",
     "build:wasm:node": "pnpm --filter @pokemetrix/damage-calc build:node",
     "test": "pnpm --filter @pokemetrix/web test",
