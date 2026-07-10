@@ -474,7 +474,7 @@
     },
     "black-glasses": {
       "name": "Black Glasses",
-      "description": "An item to be held by a Pokémon. It’s a pair of shady-looking glasses that boost the power of Dark-type moves."
+      "description": "An item to be held by a Pokémon. It's a pair of shady-looking glasses that boost the power of Dark-type moves."
     },
     "blastoisinite": {
       "name": "Blastoisinite",
@@ -669,7 +669,7 @@
       "description": "Halves the damage taken when the holder is hit with a supereffective Poison-type move. Disappears for the duration of the battle after a single use."
     },
     "kings-rock": {
-      "name": "King’s Rock",
+      "name": "King's Rock",
       "description": "When the holder deals damage with its moves, there is a 10% chance that targets will flinch."
     },
     "leftovers": {
@@ -722,7 +722,7 @@
     },
     "metal-coat": {
       "name": "Metal Coat",
-      "description": "An item to be held by a Pokémon. It’s a special metallic film that can boost the power of Steel-type moves."
+      "description": "An item to be held by a Pokémon. It's a special metallic film that can boost the power of Steel-type moves."
     },
     "miracle-seed": {
       "name": "Miracle Seed",
@@ -826,7 +826,7 @@
     },
     "silver-powder": {
       "name": "Silver Powder",
-      "description": "An item to be held by a Pokémon. It’s a shiny silver powder that will boost the power of Bug-type moves."
+      "description": "An item to be held by a Pokémon. It's a shiny silver powder that will boost the power of Bug-type moves."
     },
     "sitrus-berry": {
       "name": "Sitrus Berry",
@@ -1699,7 +1699,7 @@
       "effect": "The user redirects opponents' moves toward itself. This effect works only on single-target moves."
     },
     "forests-curse": {
-      "name": "Forest’s Curse",
+      "name": "Forest's Curse",
       "effect": "Gives the target the Forest Cursed status."
     },
     "foul-play": {
@@ -1959,7 +1959,7 @@
       "effect": ""
     },
     "kings-shield": {
-      "name": "King’s Shield",
+      "name": "King's Shield",
       "effect": "The user protects itself from incoming attacks for the turn and changes into its Shield Forme. Any attackers that use contact moves against the user during this turn will have their Attack stats lowered by 1 stage. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
     "knock-off": {
@@ -3008,7 +3008,7 @@
     },
     "autotomize": {
       "name": "Autotomize",
-      "effect": "Raises the user’s Speed by two stages and halves the user’s weight."
+      "effect": "Raises the user's Speed by two stages and halves the user's weight."
     },
     "barb-barrage": {
       "name": "Barb Barrage",
@@ -3016,7 +3016,7 @@
     },
     "confide": {
       "name": "Confide",
-      "effect": "Lowers the target’s Special Attack by one stage."
+      "effect": "Lowers the target's Special Attack by one stage."
     },
     "cut": {
       "name": "Cut",
@@ -3032,11 +3032,11 @@
     },
     "false-swipe": {
       "name": "False Swipe",
-      "effect": "Cannot lower the target’s HP below 1."
+      "effect": "Cannot lower the target's HP below 1."
     },
     "flash": {
       "name": "Flash",
-      "effect": "Lowers the target’s accuracy by one stage."
+      "effect": "Lowers the target's accuracy by one stage."
     },
     "frustration": {
       "name": "Frustration",
@@ -3048,15 +3048,15 @@
     },
     "hidden-power": {
       "name": "Hidden Power",
-      "effect": "Power and type depend upon user’s IVs.  Power can range from 30 to 70."
+      "effect": "Power and type depend upon user's IVs.  Power can range from 30 to 70."
     },
     "laser-focus": {
       "name": "Laser Focus",
-      "effect": "Guarantees a critical hit with the user’s next move."
+      "effect": "Guarantees a critical hit with the user's next move."
     },
     "mist": {
       "name": "Mist",
-      "effect": "Protects the user’s stats from being changed by enemy moves."
+      "effect": "Protects the user's stats from being changed by enemy moves."
     },
     "natural-gift": {
       "name": "Natural Gift",
@@ -3068,7 +3068,7 @@
     },
     "ominous-wind": {
       "name": "Ominous Wind",
-      "effect": "Has a chance to raise all of the user’s stats by one stage."
+      "effect": "Has a chance to raise all of the user's stats by one stage."
     },
     "pound": {
       "name": "Pound",
@@ -3088,7 +3088,7 @@
     },
     "rock-smash": {
       "name": "Rock Smash",
-      "effect": "Has a chance to lower the target’s Defense by one stage."
+      "effect": "Has a chance to lower the target's Defense by one stage."
     },
     "secret-power": {
       "name": "Secret Power",
@@ -3108,11 +3108,11 @@
     },
     "snatch": {
       "name": "Snatch",
-      "effect": "Steals the target’s move, if it’s self-targeted."
+      "effect": "Steals the target's move, if it's self-targeted."
     },
     "spirit-break": {
       "name": "Spirit Break",
-      "effect": "Has a chance to lower the target’s Special Attack by one stage."
+      "effect": "Has a chance to lower the target's Special Attack by one stage."
     },
     "supersonic": {
       "name": "Supersonic",
@@ -3144,7 +3144,7 @@
     },
     "topsy-turvy": {
       "name": "Topsy-Turvy",
-      "effect": "Inverts the target’s stat modifiers."
+      "effect": "Inverts the target's stat modifiers."
     },
     "water-gun": {
       "name": "Water Gun",
@@ -4318,7 +4318,7 @@
     },
     "color-change": {
       "name": "Color Change",
-      "description": "The Pokémon’s type becomes the type of the move used on it."
+      "description": "The Pokémon's type becomes the type of the move used on it."
     },
     "immunity": {
       "name": "Immunity",
@@ -4398,7 +4398,7 @@
     },
     "trace": {
       "name": "Trace",
-      "description": "Ability becomes the same as that of the opponent. Switching this Pokémon out of battle restores its original ability. In a Double Battle, a random opponent’s ability will be copied."
+      "description": "Ability becomes the same as that of the opponent. Switching this Pokémon out of battle restores its original ability. In a Double Battle, a random opponent's ability will be copied."
     },
     "huge-power": {
       "name": "Huge Power",
@@ -4414,7 +4414,7 @@
     },
     "magma-armor": {
       "name": "Magma Armor",
-      "description": "The Pokémon’s hot magma coating prevents it from being frozen."
+      "description": "The Pokémon's hot magma coating prevents it from being frozen."
     },
     "water-veil": {
       "name": "Water Veil",
@@ -4638,7 +4638,7 @@
     },
     "normalize": {
       "name": "Normalize",
-      "description": "All the Pokémon’s moves become Normal type. The power of those moves is boosted a little."
+      "description": "All the Pokémon's moves become Normal type. The power of those moves is boosted a little."
     },
     "sniper": {
       "name": "Sniper",
@@ -4670,7 +4670,7 @@
     },
     "mold-breaker": {
       "name": "Mold Breaker",
-      "description": "The Pokémon's moves are not affected by foe’s abilities during battle"
+      "description": "The Pokémon's moves are not affected by foe's abilities during battle"
     },
     "super-luck": {
       "name": "Super Luck",
@@ -4770,7 +4770,7 @@
     },
     "defeatist": {
       "name": "Defeatist",
-      "description": "Halves the Pokémon’s Attack and Sp. Atk stats when its HP becomes half or less."
+      "description": "Halves the Pokémon's Attack and Sp. Atk stats when its HP becomes half or less."
     },
     "cursed-body": {
       "name": "Cursed Body",
@@ -4862,7 +4862,7 @@
     },
     "mummy": {
       "name": "Mummy",
-      "description": "Contact with the Pokémon changes the attacker’s Ability to Mummy."
+      "description": "Contact with the Pokémon changes the attacker's Ability to Mummy."
     },
     "moxie": {
       "name": "Moxie",
@@ -4898,7 +4898,7 @@
     },
     "zen-mode": {
       "name": "Zen Mode",
-      "description": "Changes the Pokémon’s shape when HP is half or less."
+      "description": "Changes the Pokémon's shape when HP is half or less."
     },
     "victory-star": {
       "name": "Victory Star",
@@ -4958,7 +4958,7 @@
     },
     "stance-change": {
       "name": "Stance Change",
-      "description": "The Pokémon changes its form to Blade Forme when it uses an attack move and changes to Shield Forme when it uses King’s Shield."
+      "description": "The Pokémon changes its form to Blade Forme when it uses an attack move and changes to Shield Forme when it uses King's Shield."
     },
     "gale-wings": {
       "name": "Gale Wings",
@@ -4998,7 +4998,7 @@
     },
     "dark-aura": {
       "name": "Dark Aura",
-      "description": "Powers up each Pokémon’s Dark-type moves."
+      "description": "Powers up each Pokémon's Dark-type moves."
     },
     "fairy-aura": {
       "name": "Fairy Aura",
@@ -5018,7 +5018,7 @@
     },
     "delta-stream": {
       "name": "Delta Stream",
-      "description": "The Pokémon changes the weather to eliminate all of the Flying type’s weaknesses."
+      "description": "The Pokémon changes the weather to eliminate all of the Flying type's weaknesses."
     },
     "stamina": {
       "name": "Stamina",
@@ -5154,7 +5154,7 @@
     },
     "rks-system": {
       "name": "Rks System",
-      "description": "Changes the Pokémon’s type to match the memory disc it holds."
+      "description": "Changes the Pokémon's type to match the memory disc it holds."
     },
     "electric-surge": {
       "name": "Electric Surge",
@@ -5174,7 +5174,7 @@
     },
     "full-metal-body": {
       "name": "Full Metal Body",
-      "description": "Prevents other Pokémon’s moves or Abilities from lowering the Pokémon’s stats."
+      "description": "Prevents other Pokémon's moves or Abilities from lowering the Pokémon's stats."
     },
     "shadow-shield": {
       "name": "Shadow Shield",
@@ -5190,11 +5190,11 @@
     },
     "intrepid-sword": {
       "name": "Intrepid Sword",
-      "description": "Boosts the Pokémon’s Attack stat the first time the Pokémon enters a battle."
+      "description": "Boosts the Pokémon's Attack stat the first time the Pokémon enters a battle."
     },
     "dauntless-shield": {
       "name": "Dauntless Shield",
-      "description": "Boosts the Pokémon’s Defense stat the first time the Pokémon enters a battle."
+      "description": "Boosts the Pokémon's Defense stat the first time the Pokémon enters a battle."
     },
     "libero": {
       "name": "Libero",
@@ -5254,7 +5254,7 @@
     },
     "mimicry": {
       "name": "Mimicry",
-      "description": "Changes the Pokémon’s type depending on the terrain."
+      "description": "Changes the Pokémon's type depending on the terrain."
     },
     "screen-cleaner": {
       "name": "Screen Cleaner",
@@ -5274,7 +5274,7 @@
     },
     "gorilla-tactics": {
       "name": "Gorilla Tactics",
-      "description": "Boosts the Pokémon’s Attack stat but only allows the use of the first selected move."
+      "description": "Boosts the Pokémon's Attack stat but only allows the use of the first selected move."
     },
     "neutralizing-gas": {
       "name": "Neutralizing Gas",
@@ -5354,7 +5354,7 @@
     },
     "guard-dog": {
       "name": "Guard Dog",
-      "description": "Boosts the Pokémon’s Attack stat if intimidated. Moves and items that would force the Pokémon to switch out also fail to work."
+      "description": "Boosts the Pokémon's Attack stat if intimidated. Moves and items that would force the Pokémon to switch out also fail to work."
     },
     "rocky-payload": {
       "name": "Rocky Payload",
