@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 import { access, symlink } from "node:fs/promises";
 import { join } from "node:path";
 import type { Compiler, Compilation, Configuration, WebpackPluginInstance } from "webpack";
+import { withContentCollections } from "@content-collections/next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
@@ -65,7 +66,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+export default withContentCollections(withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
@@ -101,4 +102,4 @@ export default withSentryConfig(nextConfig, {
       removeDebugLogging: true,
     },
   },
-});
+}));

@@ -22,7 +22,8 @@
       "@data/*": ["./data/*"],
       "@services/*": ["./services/*"],
       "@/*": ["./src/*"],
-      "@locales/*": ["./public/locales/*"]
+      "@locales/*": ["./public/locales/*"],
+      "content-collections": ["./.content-collections/generated"]
     }
   },
   "include": [

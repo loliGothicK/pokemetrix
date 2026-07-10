@@ -54,3 +54,6 @@ apps/web/scripts/
 packages/damage-calc/pkg/
 packages/damage-calc/pkg-node/
 packages/damage-calc/target/
+
+# content-collections
+.content-collections

@@ -160,7 +160,11 @@
       "damageCalc": "Damage Calc",
       "usageTrends": "Usage Trends",
       "metaTables": "Meta Tables",
-      "winrateInsights": "Winrate Insights"
+      "winrateInsights": "Winrate Insights",
+      "docs": "Docs",
+      "blog": "Blog",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
     }
   },
   "damageCalc": {

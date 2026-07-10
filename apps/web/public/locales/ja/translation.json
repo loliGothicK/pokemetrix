@@ -160,7 +160,11 @@
       "damageCalc": "ダメージ計算",
       "usageTrends": "使用率推移",
       "metaTables": "環境表",
-      "winrateInsights": "勝率分析"
+      "winrateInsights": "勝率分析",
+      "docs": "ドキュメント",
+      "blog": "ブログ",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約"
     }
   },
   "damageCalc": {

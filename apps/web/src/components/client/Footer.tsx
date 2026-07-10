@@ -2,10 +2,12 @@
 
 import { Box, Container, Link, Stack, Typography, useTheme } from "@mui/material";
 import NextLink from "next/link";
+import { useTranslation } from "react-i18next";
 import { getAppPalette } from "@/theme/palette";
 
 export function Footer() {
   const theme = useTheme();
+  const { t } = useTranslation();
   const palette = getAppPalette(theme.palette.mode);
 
   return (
@@ -25,34 +27,43 @@ export function Footer() {
           <Stack direction="row" spacing={4} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
             <Link
               component={NextLink}
-              href="#"
+              href="/docs"
               color="text.secondary"
               variant="body2"
               underline="hover"
             >
-              About
+              {t("navigation.items.docs")}
             </Link>
             <Link
               component={NextLink}
-              href="#"
+              href="/blog"
               color="text.secondary"
               variant="body2"
               underline="hover"
             >
-              Privacy Policy
+              {t("navigation.items.blog")}
             </Link>
             <Link
               component={NextLink}
-              href="#"
+              href="/privacy"
               color="text.secondary"
               variant="body2"
               underline="hover"
             >
-              Terms of Service
+              {t("navigation.items.privacy")}
             </Link>
             <Link
               component={NextLink}
-              href="#"
+              href="/terms"
+              color="text.secondary"
+              variant="body2"
+              underline="hover"
+            >
+              {t("navigation.items.terms")}
+            </Link>
+            <Link
+              component={NextLink}
+              href="mailto:loligothick+pokemetrix@gmail.com"
               color="text.secondary"
               variant="body2"
               underline="hover"
