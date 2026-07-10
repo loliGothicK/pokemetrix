@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
-import {activeTeamIdAtom, drawerOpenAtom, Team} from "@/store/team/team";
+import { activeTeamIdAtom, drawerOpenAtom, Team } from "@/store/team/team";
 import { useTeamsData } from "@/hooks/useTeamsData";
 import { getAppPalette } from "@/theme/palette";
 

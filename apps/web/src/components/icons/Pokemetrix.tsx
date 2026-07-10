@@ -52,33 +52,25 @@ export default function PokemetrixIcon({
           transform="rotate(-90 100 100)"
         />
 
-        <defs>
-          {/* ユニーク ID でページ内の衝突を防ぐ */}
-          <mask id="pokemetrix-bar-mask">
-            <circle cx="100" cy="100" r="100" fill="white" />
-            <circle cx="100" cy="100" r="36" fill="black" />
-          </mask>
-        </defs>
-
         {/* 棒グラフバー */}
-        <rect x="47" y="55" width="16" height="33" fill={accentColor} />
+        <rect x="47" y="55" width="16" height="33" rx="6" fill={accentColor} />
         <rect
           x="77"
           y="35"
           width="16"
           height="48"
+          rx="6"
           fill={accentColor}
-          mask="url(#pokemetrix-bar-mask)"
         />
         <rect
           x="107"
           y="45"
           width="16"
           height="38"
+          rx="6"
           fill={accentColor}
-          mask="url(#pokemetrix-bar-mask)"
         />
-        <rect x="137" y="65" width="16" height="23" fill={accentColor} />
+        <rect x="137" y="65" width="16" height="23" rx="6" fill={accentColor} />
 
         {/* 水平の基準線 */}
         <line

@@ -32,6 +32,7 @@ import { Training } from "@/components/client/team-builder/training";
 import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
 import { useHotkeys } from "react-hotkeys-hook";
+import {moveById} from "@/data/moves";
 
 export default function BoxPage() {
   const { t } = useTranslation();
@@ -135,7 +136,12 @@ export default function BoxPage() {
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {t("box.title")}
         </Typography>
-        <Button variant="contained" startIcon={<Add />} onClick={() => setSelectOpen(true)}>
+        <Button
+          variant="contained"
+          startIcon={<Add />}
+          onClick={() => setSelectOpen(true)}
+          sx={{ display: { xs: "none", md: "block" } }}
+        >
           {t("box.addPokemon")}
         </Button>
       </Stack>
@@ -237,25 +243,25 @@ export default function BoxPage() {
                 <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700 }} noWrap>
                     {t(`pokemon.${pokemon.identifier}.name`)}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    noWrap
-                    sx={{ display: "block" }}
-                  >
                     {pokemon.item
-                      ? `@ ${t(`items.${itemById.get(pokemon.item)?.identifier}.name`)}`
+                      ? ` @ ${t(`items.${itemById.get(pokemon.item)?.identifier}.name`)}`
                       : t("box.noItem")}
                   </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    noWrap
-                    sx={{ display: "block" }}
-                  >
-                    {`EV: ${(Object.values(pokemon.evs) as readonly number[]).reduce((a, b) => a + b, 0)} / 64`}
-                  </Typography>
+                  {pokemon.moves
+                    .filter((move) => move !== null)
+                    .map((move) => {
+                      return (
+                        <Typography
+                          key={move}
+                          variant="caption"
+                          color="text.secondary"
+                          noWrap
+                          sx={{ display: "block" }}
+                        >
+                          {t(`moves.${moveById.get(move)!.identifier}`)}
+                        </Typography>
+                      );
+                    })}
                 </Box>
 
                 <Fab

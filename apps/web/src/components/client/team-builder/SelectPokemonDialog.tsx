@@ -11,7 +11,7 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography,
+  Typography, useMediaQuery,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
@@ -29,6 +29,7 @@ import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { TFunction } from "i18next";
+import {useTheme} from "@mui/material/styles";
 
 type SelectPokemonDialogProps = Pick<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
   readonly title: string;
@@ -48,7 +49,7 @@ export function SelectPokemonDialog({
   translator,
   onSelectFromBox,
 }: SelectPokemonDialogProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [tokens, setTokens] = useState<QueryToken[]>([]);
   const [tab, setTab] = useState<"master" | "box">("master");
   const [boxSearch, setBoxSearch] = useState("");
@@ -56,6 +57,8 @@ export function SelectPokemonDialog({
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const showBoxTab = isAuthenticated && Boolean(onSelectFromBox);
   const activeTab = showBoxTab ? tab : "master";
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // オートフォーカス用: Dialog が完全に開いた後に input を focus する
   const autocompleteInputRef = useRef<HTMLInputElement>(null);
@@ -76,8 +79,10 @@ export function SelectPokemonDialog({
 
     return championsPokemonList
       .filter(({ id, identifier }) => !identifier.includes("-mega") && !forms.includes(id))
-      .toSorted((a, b) => a.identifier.localeCompare(b.identifier));
-  }, []);
+      .toSorted((a, b) =>
+        t(`pokemon.${a.identifier}.name`).localeCompare(t(`pokemon.${b.identifier}.name`)),
+      );
+  }, [t]);
 
   // The only queryable field for now is `type`, populated with the types that
   // actually appear in the option set. Labels are localized via the translator.
@@ -233,20 +238,23 @@ export function SelectPokemonDialog({
                         }}
                       />
                       <Box sx={{ flexGrow: 1 }} />
-                      {pokemon.types.map((type) => (
-                        <Chip
-                          key={type}
-                          avatar={<Avatar src={typeIcon(type)} />}
-                          label={translator(type)}
-                          sx={{
-                            height: 40,
-                            fontSize: "1rem",
-                            "& .MuiChip-avatar": {
-                              width: 32,
-                              height: 32,
-                            },
-                          }}
-                        />
+                      {pokemon.types.map((type) =>
+                        isMobile ? (
+                          <Avatar src={typeIcon(type)} />
+                        ) : (
+                          <Chip
+                            key={type}
+                            avatar={<Avatar src={typeIcon(type)} />}
+                            label={translator(type)}
+                            sx={{
+                              height: 40,
+                              fontSize: "1rem",
+                              "& .MuiChip-avatar": {
+                                width: 32,
+                                height: 32,
+                              },
+                            }}
+                          />
                       ))}
                     </Stack>
                   ))}
