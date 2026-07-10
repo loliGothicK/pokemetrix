@@ -653,9 +653,7 @@ export function AppLayout({
                 overflowY: "auto",
               }}
             >
-              <Box sx={{ flexGrow: 1 }}>
-                {children}
-              </Box>
+              <Box sx={{ flexGrow: 1 }}>{children}</Box>
             </Box>
           </Box>
         </Box>

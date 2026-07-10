@@ -22,7 +22,7 @@ export function Footer() {
     >
       <Container maxWidth="lg">
         <Stack spacing={3} sx={{ alignItems: "center" }}>
-          <Stack direction="row" spacing={4} sx={{  flexWrap: "wrap", justifyContent: "center"}}>
+          <Stack direction="row" spacing={4} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
             <Link
               component={NextLink}
               href="#"
