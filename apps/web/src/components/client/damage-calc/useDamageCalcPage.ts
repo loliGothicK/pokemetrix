@@ -142,7 +142,7 @@ export function useDamageCalcPage() {
       staticPower = fieldResolved.power;
     }
 
-    // 2) ability-driven type change (-ate / Normalize)
+    // 2) ability-driven type change (-ate / Normalise)
     let ateBoost = false;
     const abilityType = resolveAbilityTypeChange(attacker.ability, moveType);
     if (abilityType) {

@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "id": 0,
+      "id": 709,
       "identifier": "accelerock",
       "type": "Rock",
       "category": "physical",
@@ -14,7 +14,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 1,
+      "id": 151,
       "identifier": "acid-armor",
       "type": "Poison",
       "category": "status",
@@ -27,7 +27,7 @@
       "classifications": []
     },
     {
-      "id": 2,
+      "id": 491,
       "identifier": "acid-spray",
       "type": "Poison",
       "category": "special",
@@ -40,7 +40,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 3,
+      "id": 512,
       "identifier": "acrobatics",
       "type": "Flying",
       "category": "physical",
@@ -53,7 +53,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 4,
+      "id": 367,
       "identifier": "acupressure",
       "type": "Normal",
       "category": "status",
@@ -66,7 +66,7 @@
       "classifications": []
     },
     {
-      "id": 5,
+      "id": 332,
       "identifier": "aerial-ace",
       "type": "Flying",
       "category": "physical",
@@ -79,7 +79,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 6,
+      "id": 495,
       "identifier": "after-you",
       "type": "Normal",
       "category": "status",
@@ -92,7 +92,7 @@
       "classifications": []
     },
     {
-      "id": 7,
+      "id": 97,
       "identifier": "agility",
       "type": "Psychic",
       "category": "status",
@@ -105,7 +105,7 @@
       "classifications": []
     },
     {
-      "id": 8,
+      "id": 314,
       "identifier": "air-cutter",
       "type": "Flying",
       "category": "special",
@@ -118,7 +118,7 @@
       "classifications": ["slicing", "wind"]
     },
     {
-      "id": 9,
+      "id": 403,
       "identifier": "air-slash",
       "type": "Flying",
       "category": "special",
@@ -131,7 +131,7 @@
       "classifications": ["slicing"]
     },
     {
-      "id": 10,
+      "id": 914,
       "identifier": "alluring-voice",
       "type": "Fairy",
       "category": "special",
@@ -144,7 +144,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 11,
+      "id": 502,
       "identifier": "ally-switch",
       "type": "Psychic",
       "category": "status",
@@ -157,7 +157,7 @@
       "classifications": []
     },
     {
-      "id": 12,
+      "id": 133,
       "identifier": "amnesia",
       "type": "Psychic",
       "category": "status",
@@ -170,7 +170,7 @@
       "classifications": []
     },
     {
-      "id": 13,
+      "id": 246,
       "identifier": "ancient-power",
       "type": "Rock",
       "category": "special",
@@ -183,7 +183,7 @@
       "classifications": []
     },
     {
-      "id": 14,
+      "id": 787,
       "identifier": "apple-acid",
       "type": "Grass",
       "category": "special",
@@ -196,7 +196,7 @@
       "classifications": []
     },
     {
-      "id": 15,
+      "id": 895,
       "identifier": "aqua-cutter",
       "type": "Water",
       "category": "physical",
@@ -209,7 +209,7 @@
       "classifications": ["slicing"]
     },
     {
-      "id": 16,
+      "id": 453,
       "identifier": "aqua-jet",
       "type": "Water",
       "category": "physical",
@@ -222,7 +222,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 17,
+      "id": 392,
       "identifier": "aqua-ring",
       "type": "Water",
       "category": "status",
@@ -235,7 +235,7 @@
       "classifications": []
     },
     {
-      "id": 18,
+      "id": 872,
       "identifier": "aqua-step",
       "type": "Water",
       "category": "physical",
@@ -248,7 +248,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 19,
+      "id": 401,
       "identifier": "aqua-tail",
       "type": "Water",
       "category": "physical",
@@ -261,7 +261,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 20,
+      "id": 890,
       "identifier": "armor-cannon",
       "type": "Fire",
       "category": "special",
@@ -274,7 +274,7 @@
       "classifications": []
     },
     {
-      "id": 21,
+      "id": 597,
       "identifier": "aromatic-mist",
       "type": "Fairy",
       "category": "status",
@@ -287,7 +287,7 @@
       "classifications": []
     },
     {
-      "id": 22,
+      "id": 372,
       "identifier": "assurance",
       "type": "Dark",
       "category": "physical",
@@ -300,7 +300,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 23,
+      "id": 213,
       "identifier": "attract",
       "type": "Normal",
       "category": "status",
@@ -313,7 +313,7 @@
       "classifications": []
     },
     {
-      "id": 24,
+      "id": 396,
       "identifier": "aura-sphere",
       "type": "Fighting",
       "category": "special",
@@ -326,7 +326,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 25,
+      "id": 783,
       "identifier": "aura-wheel",
       "type": "Electric",
       "category": "physical",
@@ -339,7 +339,7 @@
       "classifications": []
     },
     {
-      "id": 26,
+      "id": 694,
       "identifier": "aurora-veil",
       "type": "Ice",
       "category": "status",
@@ -352,7 +352,7 @@
       "classifications": []
     },
     {
-      "id": 27,
+      "id": 419,
       "identifier": "avalanche",
       "type": "Ice",
       "category": "physical",
@@ -365,7 +365,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 28,
+      "id": 853,
       "identifier": "axe-kick",
       "type": "Fighting",
       "category": "physical",
@@ -378,7 +378,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 29,
+      "id": 608,
       "identifier": "baby-doll-eyes",
       "type": "Fairy",
       "category": "status",
@@ -391,7 +391,7 @@
       "classifications": []
     },
     {
-      "id": 30,
+      "id": 661,
       "identifier": "baneful-bunker",
       "type": "Poison",
       "category": "status",
@@ -404,7 +404,7 @@
       "classifications": []
     },
     {
-      "id": 31,
+      "id": 226,
       "identifier": "baton-pass",
       "type": "Normal",
       "category": "status",
@@ -417,7 +417,7 @@
       "classifications": []
     },
     {
-      "id": 32,
+      "id": 690,
       "identifier": "beak-blast",
       "type": "Flying",
       "category": "physical",
@@ -430,7 +430,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 33,
+      "id": 251,
       "identifier": "beat-up",
       "type": "Dark",
       "category": "physical",
@@ -443,7 +443,7 @@
       "classifications": []
     },
     {
-      "id": 34,
+      "id": 562,
       "identifier": "belch",
       "type": "Poison",
       "category": "special",
@@ -456,7 +456,7 @@
       "classifications": []
     },
     {
-      "id": 35,
+      "id": 187,
       "identifier": "belly-drum",
       "type": "Normal",
       "category": "status",
@@ -469,7 +469,7 @@
       "classifications": []
     },
     {
-      "id": 36,
+      "id": 20,
       "identifier": "bind",
       "type": "Normal",
       "category": "physical",
@@ -482,7 +482,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 37,
+      "id": 44,
       "identifier": "bite",
       "type": "Dark",
       "category": "physical",
@@ -495,7 +495,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 38,
+      "id": 891,
       "identifier": "bitter-blade",
       "type": "Fire",
       "category": "physical",
@@ -508,7 +508,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 39,
+      "id": 841,
       "identifier": "bitter-malice",
       "type": "Ghost",
       "category": "special",
@@ -521,7 +521,7 @@
       "classifications": []
     },
     {
-      "id": 40,
+      "id": 307,
       "identifier": "blast-burn",
       "type": "Fire",
       "category": "special",
@@ -534,7 +534,7 @@
       "classifications": []
     },
     {
-      "id": 41,
+      "id": 299,
       "identifier": "blaze-kick",
       "type": "Fire",
       "category": "physical",
@@ -547,7 +547,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 42,
+      "id": 59,
       "identifier": "blizzard",
       "type": "Ice",
       "category": "special",
@@ -560,7 +560,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 43,
+      "id": 335,
       "identifier": "block",
       "type": "Normal",
       "category": "status",
@@ -573,7 +573,7 @@
       "classifications": []
     },
     {
-      "id": 44,
+      "id": 776,
       "identifier": "body-press",
       "type": "Fighting",
       "category": "physical",
@@ -586,7 +586,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 45,
+      "id": 34,
       "identifier": "body-slam",
       "type": "Normal",
       "category": "physical",
@@ -599,7 +599,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 46,
+      "id": 198,
       "identifier": "bone-rush",
       "type": "Ground",
       "category": "physical",
@@ -612,7 +612,7 @@
       "classifications": []
     },
     {
-      "id": 47,
+      "id": 586,
       "identifier": "boomburst",
       "type": "Normal",
       "category": "special",
@@ -625,7 +625,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 48,
+      "id": 340,
       "identifier": "bounce",
       "type": "Flying",
       "category": "physical",
@@ -638,7 +638,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 49,
+      "id": 413,
       "identifier": "brave-bird",
       "type": "Flying",
       "category": "physical",
@@ -651,7 +651,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 50,
+      "id": 784,
       "identifier": "breaking-swipe",
       "type": "Dragon",
       "category": "physical",
@@ -664,7 +664,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 51,
+      "id": 280,
       "identifier": "brick-break",
       "type": "Fighting",
       "category": "physical",
@@ -677,7 +677,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 52,
+      "id": 693,
       "identifier": "brutal-swing",
       "type": "Dark",
       "category": "physical",
@@ -690,7 +690,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 53,
+      "id": 450,
       "identifier": "bug-bite",
       "type": "Bug",
       "category": "physical",
@@ -703,7 +703,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 54,
+      "id": 405,
       "identifier": "bug-buzz",
       "type": "Bug",
       "category": "special",
@@ -716,7 +716,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 55,
+      "id": 339,
       "identifier": "bulk-up",
       "type": "Fighting",
       "category": "status",
@@ -729,7 +729,7 @@
       "classifications": []
     },
     {
-      "id": 56,
+      "id": 523,
       "identifier": "bulldoze",
       "type": "Ground",
       "category": "physical",
@@ -742,7 +742,7 @@
       "classifications": []
     },
     {
-      "id": 57,
+      "id": 418,
       "identifier": "bullet-punch",
       "type": "Steel",
       "category": "physical",
@@ -755,7 +755,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 58,
+      "id": 331,
       "identifier": "bullet-seed",
       "type": "Grass",
       "category": "physical",
@@ -768,7 +768,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 59,
+      "id": 682,
       "identifier": "burn-up",
       "type": "Fire",
       "category": "special",
@@ -781,7 +781,7 @@
       "classifications": []
     },
     {
-      "id": 60,
+      "id": 807,
       "identifier": "burning-jealousy",
       "type": "Fire",
       "category": "special",
@@ -794,7 +794,7 @@
       "classifications": []
     },
     {
-      "id": 61,
+      "id": 347,
       "identifier": "calm-mind",
       "type": "Psychic",
       "category": "status",
@@ -807,7 +807,7 @@
       "classifications": []
     },
     {
-      "id": 62,
+      "id": 845,
       "identifier": "ceaseless-edge",
       "type": "Dark",
       "category": "physical",
@@ -820,7 +820,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 63,
+      "id": 268,
       "identifier": "charge",
       "type": "Electric",
       "category": "status",
@@ -833,7 +833,7 @@
       "classifications": []
     },
     {
-      "id": 64,
+      "id": 451,
       "identifier": "charge-beam",
       "type": "Electric",
       "category": "special",
@@ -846,7 +846,7 @@
       "classifications": []
     },
     {
-      "id": 65,
+      "id": 204,
       "identifier": "charm",
       "type": "Fairy",
       "category": "status",
@@ -859,7 +859,7 @@
       "classifications": []
     },
     {
-      "id": 66,
+      "id": 886,
       "identifier": "chilling-water",
       "type": "Water",
       "category": "special",
@@ -872,7 +872,7 @@
       "classifications": []
     },
     {
-      "id": 67,
+      "id": 881,
       "identifier": "chilly-reception",
       "type": "Ice",
       "category": "special",
@@ -885,7 +885,7 @@
       "classifications": []
     },
     {
-      "id": 68,
+      "id": 509,
       "identifier": "circle-throw",
       "type": "Fighting",
       "category": "physical",
@@ -898,7 +898,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 69,
+      "id": 691,
       "identifier": "clanging-scales",
       "type": "Dragon",
       "category": "special",
@@ -911,7 +911,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 70,
+      "id": 775,
       "identifier": "clangorous-soul",
       "type": "Dragon",
       "category": "status",
@@ -924,7 +924,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 71,
+      "id": 499,
       "identifier": "clear-smog",
       "type": "Poison",
       "category": "special",
@@ -937,7 +937,7 @@
       "classifications": []
     },
     {
-      "id": 72,
+      "id": 370,
       "identifier": "close-combat",
       "type": "Fighting",
       "category": "physical",
@@ -950,7 +950,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 73,
+      "id": 811,
       "identifier": "coaching",
       "type": "Fighting",
       "category": "status",
@@ -963,7 +963,7 @@
       "classifications": []
     },
     {
-      "id": 74,
+      "id": 489,
       "identifier": "coil",
       "type": "Poison",
       "category": "status",
@@ -976,7 +976,7 @@
       "classifications": []
     },
     {
-      "id": 75,
+      "id": 894,
       "identifier": "comeuppance",
       "type": "Dark",
       "category": "physical",
@@ -989,7 +989,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 76,
+      "id": 109,
       "identifier": "confuse-ray",
       "type": "Ghost",
       "category": "status",
@@ -1002,7 +1002,7 @@
       "classifications": []
     },
     {
-      "id": 77,
+      "id": 383,
       "identifier": "copycat",
       "type": "Normal",
       "category": "status",
@@ -1015,7 +1015,7 @@
       "classifications": []
     },
     {
-      "id": 78,
+      "id": 810,
       "identifier": "corrosive-gas",
       "type": "Poison",
       "category": "status",
@@ -1028,7 +1028,7 @@
       "classifications": []
     },
     {
-      "id": 79,
+      "id": 322,
       "identifier": "cosmic-power",
       "type": "Psychic",
       "category": "status",
@@ -1041,7 +1041,7 @@
       "classifications": []
     },
     {
-      "id": 80,
+      "id": 538,
       "identifier": "cotton-guard",
       "type": "Grass",
       "category": "status",
@@ -1054,7 +1054,7 @@
       "classifications": []
     },
     {
-      "id": 81,
+      "id": 178,
       "identifier": "cotton-spore",
       "type": "Grass",
       "category": "status",
@@ -1067,7 +1067,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 82,
+      "id": 68,
       "identifier": "counter",
       "type": "Fighting",
       "category": "physical",
@@ -1080,7 +1080,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 83,
+      "id": 343,
       "identifier": "covet",
       "type": "Normal",
       "category": "physical",
@@ -1093,7 +1093,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 84,
+      "id": 152,
       "identifier": "crabhammer",
       "type": "Water",
       "category": "physical",
@@ -1106,7 +1106,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 85,
+      "id": 238,
       "identifier": "cross-chop",
       "type": "Fighting",
       "category": "physical",
@@ -1119,7 +1119,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 86,
+      "id": 440,
       "identifier": "cross-poison",
       "type": "Poison",
       "category": "physical",
@@ -1132,7 +1132,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 87,
+      "id": 242,
       "identifier": "crunch",
       "type": "Dark",
       "category": "physical",
@@ -1145,7 +1145,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 88,
+      "id": 306,
       "identifier": "crush-claw",
       "type": "Normal",
       "category": "physical",
@@ -1158,7 +1158,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 89,
+      "id": 174,
       "identifier": "curse",
       "type": "Ghost",
       "category": "status",
@@ -1171,7 +1171,7 @@
       "classifications": []
     },
     {
-      "id": 90,
+      "id": 399,
       "identifier": "dark-pulse",
       "type": "Dark",
       "category": "special",
@@ -1184,7 +1184,7 @@
       "classifications": []
     },
     {
-      "id": 91,
+      "id": 663,
       "identifier": "darkest-lariat",
       "type": "Dark",
       "category": "physical",
@@ -1197,7 +1197,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 92,
+      "id": 605,
       "identifier": "dazzling-gleam",
       "type": "Fairy",
       "category": "special",
@@ -1210,7 +1210,7 @@
       "classifications": []
     },
     {
-      "id": 93,
+      "id": 777,
       "identifier": "decorate",
       "type": "Fairy",
       "category": "status",
@@ -1223,7 +1223,7 @@
       "classifications": []
     },
     {
-      "id": 94,
+      "id": 432,
       "identifier": "defog",
       "type": "Flying",
       "category": "status",
@@ -1236,7 +1236,7 @@
       "classifications": []
     },
     {
-      "id": 95,
+      "id": 194,
       "identifier": "destiny-bond",
       "type": "Ghost",
       "category": "status",
@@ -1249,7 +1249,7 @@
       "classifications": []
     },
     {
-      "id": 96,
+      "id": 197,
       "identifier": "detect",
       "type": "Fighting",
       "category": "status",
@@ -1262,7 +1262,7 @@
       "classifications": []
     },
     {
-      "id": 97,
+      "id": 91,
       "identifier": "dig",
       "type": "Ground",
       "category": "physical",
@@ -1275,7 +1275,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 98,
+      "id": 827,
       "identifier": "dire-claw",
       "type": "Poison",
       "category": "physical",
@@ -1288,7 +1288,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 99,
+      "id": 50,
       "identifier": "disable",
       "type": "Normal",
       "category": "status",
@@ -1301,7 +1301,7 @@
       "classifications": []
     },
     {
-      "id": 100,
+      "id": 435,
       "identifier": "discharge",
       "type": "Electric",
       "category": "special",
@@ -1314,7 +1314,7 @@
       "classifications": []
     },
     {
-      "id": 101,
+      "id": 291,
       "identifier": "dive",
       "type": "Water",
       "category": "physical",
@@ -1327,7 +1327,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 102,
+      "id": 458,
       "identifier": "double-hit",
       "type": "Normal",
       "category": "physical",
@@ -1340,7 +1340,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 103,
+      "id": 104,
       "identifier": "double-team",
       "type": "Normal",
       "category": "status",
@@ -1353,7 +1353,7 @@
       "classifications": []
     },
     {
-      "id": 104,
+      "id": 38,
       "identifier": "double-edge",
       "type": "Normal",
       "category": "physical",
@@ -1366,7 +1366,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 105,
+      "id": 434,
       "identifier": "draco-meteor",
       "type": "Dragon",
       "category": "special",
@@ -1379,7 +1379,7 @@
       "classifications": []
     },
     {
-      "id": 106,
+      "id": 913,
       "identifier": "dragon-cheer",
       "type": "Dragon",
       "category": "special",
@@ -1392,7 +1392,7 @@
       "classifications": []
     },
     {
-      "id": 107,
+      "id": 337,
       "identifier": "dragon-claw",
       "type": "Dragon",
       "category": "physical",
@@ -1405,7 +1405,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 108,
+      "id": 349,
       "identifier": "dragon-dance",
       "type": "Dragon",
       "category": "status",
@@ -1418,7 +1418,7 @@
       "classifications": []
     },
     {
-      "id": 109,
+      "id": 751,
       "identifier": "dragon-darts",
       "type": "Dragon",
       "category": "physical",
@@ -1431,7 +1431,7 @@
       "classifications": []
     },
     {
-      "id": 110,
+      "id": 406,
       "identifier": "dragon-pulse",
       "type": "Dragon",
       "category": "special",
@@ -1444,7 +1444,7 @@
       "classifications": []
     },
     {
-      "id": 111,
+      "id": 407,
       "identifier": "dragon-rush",
       "type": "Dragon",
       "category": "physical",
@@ -1457,7 +1457,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 112,
+      "id": 525,
       "identifier": "dragon-tail",
       "type": "Dragon",
       "category": "physical",
@@ -1470,7 +1470,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 113,
+      "id": 409,
       "identifier": "drain-punch",
       "type": "Fighting",
       "category": "physical",
@@ -1483,7 +1483,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 114,
+      "id": 577,
       "identifier": "draining-kiss",
       "type": "Fairy",
       "category": "special",
@@ -1496,7 +1496,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 115,
+      "id": 65,
       "identifier": "drill-peck",
       "type": "Flying",
       "category": "physical",
@@ -1509,7 +1509,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 116,
+      "id": 529,
       "identifier": "drill-run",
       "type": "Ground",
       "category": "physical",
@@ -1522,7 +1522,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 117,
+      "id": 814,
       "identifier": "dual-wingbeat",
       "type": "Flying",
       "category": "physical",
@@ -1535,7 +1535,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 118,
+      "id": 223,
       "identifier": "dynamic-punch",
       "type": "Fighting",
       "category": "physical",
@@ -1548,7 +1548,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 119,
+      "id": 414,
       "identifier": "earth-power",
       "type": "Ground",
       "category": "special",
@@ -1561,7 +1561,7 @@
       "classifications": []
     },
     {
-      "id": 120,
+      "id": 89,
       "identifier": "earthquake",
       "type": "Ground",
       "category": "physical",
@@ -1574,7 +1574,7 @@
       "classifications": []
     },
     {
-      "id": 121,
+      "id": 598,
       "identifier": "eerie-impulse",
       "type": "Electric",
       "category": "status",
@@ -1587,7 +1587,7 @@
       "classifications": []
     },
     {
-      "id": 122,
+      "id": 826,
       "identifier": "eerie-spell",
       "type": "Psychic",
       "category": "special",
@@ -1600,7 +1600,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 123,
+      "id": 604,
       "identifier": "electric-terrain",
       "type": "Electric",
       "category": "status",
@@ -1613,7 +1613,7 @@
       "classifications": []
     },
     {
-      "id": 124,
+      "id": 582,
       "identifier": "electrify",
       "type": "Electric",
       "category": "status",
@@ -1626,7 +1626,7 @@
       "classifications": []
     },
     {
-      "id": 125,
+      "id": 486,
       "identifier": "electro-ball",
       "type": "Electric",
       "category": "status",
@@ -1639,7 +1639,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 126,
+      "id": 905,
       "identifier": "electro-shot",
       "type": "Electric",
       "category": "special",
@@ -1652,7 +1652,7 @@
       "classifications": []
     },
     {
-      "id": 127,
+      "id": 527,
       "identifier": "electroweb",
       "type": "Electric",
       "category": "special",
@@ -1665,7 +1665,7 @@
       "classifications": []
     },
     {
-      "id": 128,
+      "id": 227,
       "identifier": "encore",
       "type": "Normal",
       "category": "status",
@@ -1678,7 +1678,7 @@
       "classifications": []
     },
     {
-      "id": 129,
+      "id": 283,
       "identifier": "endeavor",
       "type": "Normal",
       "category": "physical",
@@ -1691,7 +1691,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 130,
+      "id": 203,
       "identifier": "endure",
       "type": "Normal",
       "category": "status",
@@ -1704,7 +1704,7 @@
       "classifications": []
     },
     {
-      "id": 131,
+      "id": 412,
       "identifier": "energy-ball",
       "type": "Grass",
       "category": "special",
@@ -1717,7 +1717,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 132,
+      "id": 494,
       "identifier": "entrainment",
       "type": "Normal",
       "category": "status",
@@ -1730,7 +1730,7 @@
       "classifications": []
     },
     {
-      "id": 133,
+      "id": 284,
       "identifier": "eruption",
       "type": "Fire",
       "category": "special",
@@ -1743,7 +1743,7 @@
       "classifications": []
     },
     {
-      "id": 134,
+      "id": 797,
       "identifier": "expanding-force",
       "type": "Psychic",
       "category": "special",
@@ -1756,7 +1756,7 @@
       "classifications": []
     },
     {
-      "id": 135,
+      "id": 153,
       "identifier": "explosion",
       "type": "Normal",
       "category": "physical",
@@ -1769,7 +1769,7 @@
       "classifications": []
     },
     {
-      "id": 136,
+      "id": 326,
       "identifier": "extrasensory",
       "type": "Psychic",
       "category": "special",
@@ -1782,7 +1782,7 @@
       "classifications": []
     },
     {
-      "id": 137,
+      "id": 245,
       "identifier": "extreme-speed",
       "type": "Normal",
       "category": "physical",
@@ -1795,7 +1795,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 138,
+      "id": 263,
       "identifier": "facade",
       "type": "Normal",
       "category": "physical",
@@ -1808,7 +1808,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 139,
+      "id": 587,
       "identifier": "fairy-lock",
       "type": "Fairy",
       "category": "status",
@@ -1821,7 +1821,7 @@
       "classifications": []
     },
     {
-      "id": 140,
+      "id": 252,
       "identifier": "fake-out",
       "type": "Normal",
       "category": "physical",
@@ -1834,7 +1834,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 141,
+      "id": 313,
       "identifier": "fake-tears",
       "type": "Dark",
       "category": "status",
@@ -1847,7 +1847,7 @@
       "classifications": []
     },
     {
-      "id": 142,
+      "id": 297,
       "identifier": "feather-dance",
       "type": "Flying",
       "category": "status",
@@ -1860,7 +1860,7 @@
       "classifications": []
     },
     {
-      "id": 143,
+      "id": 364,
       "identifier": "feint",
       "type": "Normal",
       "category": "physical",
@@ -1873,7 +1873,7 @@
       "classifications": []
     },
     {
-      "id": 144,
+      "id": 565,
       "identifier": "fell-stinger",
       "type": "Bug",
       "category": "physical",
@@ -1886,7 +1886,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 145,
+      "id": 907,
       "identifier": "fickle-beam",
       "type": "Dragon",
       "category": "special",
@@ -1899,7 +1899,7 @@
       "classifications": []
     },
     {
-      "id": 146,
+      "id": 552,
       "identifier": "fiery-dance",
       "type": "Fire",
       "category": "special",
@@ -1912,7 +1912,7 @@
       "classifications": []
     },
     {
-      "id": 147,
+      "id": 515,
       "identifier": "final-gambit",
       "type": "Fighting",
       "category": "status",
@@ -1925,7 +1925,7 @@
       "classifications": []
     },
     {
-      "id": 148,
+      "id": 126,
       "identifier": "fire-blast",
       "type": "Fire",
       "category": "special",
@@ -1938,7 +1938,7 @@
       "classifications": []
     },
     {
-      "id": 149,
+      "id": 424,
       "identifier": "fire-fang",
       "type": "Fire",
       "category": "physical",
@@ -1951,7 +1951,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 150,
+      "id": 680,
       "identifier": "fire-lash",
       "type": "Fire",
       "category": "physical",
@@ -1964,7 +1964,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 151,
+      "id": 7,
       "identifier": "fire-punch",
       "type": "Fire",
       "category": "physical",
@@ -1977,7 +1977,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 152,
+      "id": 83,
       "identifier": "fire-spin",
       "type": "Fire",
       "category": "special",
@@ -1990,7 +1990,7 @@
       "classifications": []
     },
     {
-      "id": 153,
+      "id": 660,
       "identifier": "first-impression",
       "type": "Bug",
       "category": "physical",
@@ -2003,7 +2003,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 154,
+      "id": 90,
       "identifier": "fissure",
       "type": "Ground",
       "category": "physical",
@@ -2016,7 +2016,7 @@
       "classifications": []
     },
     {
-      "id": 155,
+      "id": 175,
       "identifier": "flail",
       "type": "Normal",
       "category": "physical",
@@ -2029,7 +2029,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 156,
+      "id": 488,
       "identifier": "flame-charge",
       "type": "Fire",
       "category": "physical",
@@ -2042,7 +2042,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 157,
+      "id": 53,
       "identifier": "flamethrower",
       "type": "Fire",
       "category": "special",
@@ -2055,7 +2055,7 @@
       "classifications": []
     },
     {
-      "id": 158,
+      "id": 394,
       "identifier": "flare-blitz",
       "type": "Fire",
       "category": "physical",
@@ -2068,7 +2068,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 159,
+      "id": 430,
       "identifier": "flash-cannon",
       "type": "Steel",
       "category": "special",
@@ -2081,7 +2081,7 @@
       "classifications": []
     },
     {
-      "id": 160,
+      "id": 260,
       "identifier": "flatter",
       "type": "Dark",
       "category": "status",
@@ -2094,7 +2094,7 @@
       "classifications": []
     },
     {
-      "id": 161,
+      "id": 374,
       "identifier": "fling",
       "type": "Dark",
       "category": "physical",
@@ -2107,7 +2107,7 @@
       "classifications": []
     },
     {
-      "id": 162,
+      "id": 812,
       "identifier": "flip-turn",
       "type": "Water",
       "category": "physical",
@@ -2120,7 +2120,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 163,
+      "id": 870,
       "identifier": "flower-trick",
       "type": "Grass",
       "category": "physical",
@@ -2133,7 +2133,7 @@
       "classifications": []
     },
     {
-      "id": 164,
+      "id": 19,
       "identifier": "fly",
       "type": "Flying",
       "category": "physical",
@@ -2146,7 +2146,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 165,
+      "id": 560,
       "identifier": "flying-press",
       "type": "Fighting",
       "category": "physical",
@@ -2159,7 +2159,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 166,
+      "id": 411,
       "identifier": "focus-blast",
       "type": "Fighting",
       "category": "special",
@@ -2172,7 +2172,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 167,
+      "id": 116,
       "identifier": "focus-energy",
       "type": "Normal",
       "category": "status",
@@ -2185,7 +2185,7 @@
       "classifications": []
     },
     {
-      "id": 168,
+      "id": 264,
       "identifier": "focus-punch",
       "type": "Fighting",
       "category": "physical",
@@ -2198,7 +2198,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 169,
+      "id": 266,
       "identifier": "follow-me",
       "type": "Normal",
       "category": "status",
@@ -2211,7 +2211,6 @@
       "classifications": []
     },
     {
-      "id": 170,
       "identifier": "forest's-curse",
       "type": "Grass",
       "category": "status",
@@ -2224,7 +2223,7 @@
       "classifications": []
     },
     {
-      "id": 171,
+      "id": 492,
       "identifier": "foul-play",
       "type": "Dark",
       "category": "physical",
@@ -2237,7 +2236,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 172,
+      "id": 573,
       "identifier": "freeze-dry",
       "type": "Ice",
       "category": "special",
@@ -2250,7 +2249,7 @@
       "classifications": []
     },
     {
-      "id": 173,
+      "id": 338,
       "identifier": "frenzy-plant",
       "type": "Grass",
       "category": "special",
@@ -2263,7 +2262,7 @@
       "classifications": []
     },
     {
-      "id": 174,
+      "id": 524,
       "identifier": "frost-breath",
       "type": "Ice",
       "category": "special",
@@ -2276,7 +2275,7 @@
       "classifications": []
     },
     {
-      "id": 175,
+      "id": 248,
       "identifier": "future-sight",
       "type": "Psychic",
       "category": "special",
@@ -2289,7 +2288,7 @@
       "classifications": []
     },
     {
-      "id": 176,
+      "id": 380,
       "identifier": "gastro-acid",
       "type": "Poison",
       "category": "status",
@@ -2302,7 +2301,7 @@
       "classifications": []
     },
     {
-      "id": 177,
+      "id": 202,
       "identifier": "giga-drain",
       "type": "Grass",
       "category": "special",
@@ -2315,7 +2314,7 @@
       "classifications": []
     },
     {
-      "id": 178,
+      "id": 416,
       "identifier": "giga-impact",
       "type": "Normal",
       "category": "physical",
@@ -2328,7 +2327,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 179,
+      "id": 893,
       "identifier": "gigaton-hammer",
       "type": "Steel",
       "category": "physical",
@@ -2341,7 +2340,7 @@
       "classifications": []
     },
     {
-      "id": 180,
+      "id": 137,
       "identifier": "glare",
       "type": "Normal",
       "category": "status",
@@ -2354,7 +2353,7 @@
       "classifications": []
     },
     {
-      "id": 181,
+      "id": 447,
       "identifier": "grass-knot",
       "type": "Grass",
       "category": "special",
@@ -2367,7 +2366,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 182,
+      "id": 803,
       "identifier": "grassy-glide",
       "type": "Grass",
       "category": "physical",
@@ -2380,7 +2379,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 183,
+      "id": 580,
       "identifier": "grassy-terrain",
       "type": "Grass",
       "category": "status",
@@ -2393,7 +2392,7 @@
       "classifications": []
     },
     {
-      "id": 184,
+      "id": 788,
       "identifier": "grav-apple",
       "type": "Grass",
       "category": "physical",
@@ -2406,7 +2405,7 @@
       "classifications": []
     },
     {
-      "id": 185,
+      "id": 356,
       "identifier": "gravity",
       "type": "Psychic",
       "category": "status",
@@ -2419,7 +2418,7 @@
       "classifications": []
     },
     {
-      "id": 186,
+      "id": 74,
       "identifier": "growth",
       "type": "Grass",
       "category": "status",
@@ -2432,7 +2431,7 @@
       "classifications": []
     },
     {
-      "id": 187,
+      "id": 470,
       "identifier": "guard-split",
       "type": "Psychic",
       "category": "status",
@@ -2445,7 +2444,7 @@
       "classifications": []
     },
     {
-      "id": 188,
+      "id": 385,
       "identifier": "guard-swap",
       "type": "Psychic",
       "category": "status",
@@ -2458,7 +2457,7 @@
       "classifications": []
     },
     {
-      "id": 189,
+      "id": 12,
       "identifier": "guillotine",
       "type": "Normal",
       "category": "physical",
@@ -2471,7 +2470,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 190,
+      "id": 441,
       "identifier": "gunk-shot",
       "type": "Poison",
       "category": "physical",
@@ -2484,7 +2483,7 @@
       "classifications": []
     },
     {
-      "id": 191,
+      "id": 360,
       "identifier": "gyro-ball",
       "type": "Steel",
       "category": "physical",
@@ -2497,7 +2496,7 @@
       "classifications": ["contact", "ball-and-bomb"]
     },
     {
-      "id": 192,
+      "id": 359,
       "identifier": "hammer-arm",
       "type": "Fighting",
       "category": "physical",
@@ -2510,7 +2509,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 193,
+      "id": 912,
       "identifier": "hard-press",
       "type": "Steel",
       "category": "physical",
@@ -2523,7 +2522,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 194,
+      "id": 114,
       "identifier": "haze",
       "type": "Ice",
       "category": "status",
@@ -2536,7 +2535,7 @@
       "classifications": []
     },
     {
-      "id": 195,
+      "id": 457,
       "identifier": "head-smash",
       "type": "Rock",
       "category": "physical",
@@ -2549,7 +2548,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 196,
+      "id": 838,
       "identifier": "headlong-rush",
       "type": "Ground",
       "category": "physical",
@@ -2562,7 +2561,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 197,
+      "id": 215,
       "identifier": "heal-bell",
       "type": "Normal",
       "category": "status",
@@ -2575,7 +2574,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 198,
+      "id": 505,
       "identifier": "heal-pulse",
       "type": "Psychic",
       "category": "status",
@@ -2588,7 +2587,7 @@
       "classifications": []
     },
     {
-      "id": 199,
+      "id": 361,
       "identifier": "healing-wish",
       "type": "Psychic",
       "category": "status",
@@ -2601,7 +2600,7 @@
       "classifications": []
     },
     {
-      "id": 200,
+      "id": 535,
       "identifier": "heat-crash",
       "type": "Fire",
       "category": "physical",
@@ -2614,7 +2613,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 201,
+      "id": 257,
       "identifier": "heat-wave",
       "type": "Fire",
       "category": "special",
@@ -2627,7 +2626,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 202,
+      "id": 484,
       "identifier": "heavy-slam",
       "type": "Steel",
       "category": "physical",
@@ -2640,7 +2639,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 203,
+      "id": 270,
       "identifier": "helping-hand",
       "type": "Normal",
       "category": "status",
@@ -2653,7 +2652,7 @@
       "classifications": []
     },
     {
-      "id": 204,
+      "id": 506,
       "identifier": "hex",
       "type": "Ghost",
       "category": "special",
@@ -2666,7 +2665,7 @@
       "classifications": []
     },
     {
-      "id": 205,
+      "id": 667,
       "identifier": "high-horsepower",
       "type": "Ground",
       "category": "physical",
@@ -2679,7 +2678,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 206,
+      "id": 136,
       "identifier": "high-jump-kick",
       "type": "Fighting",
       "category": "physical",
@@ -2692,7 +2691,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 207,
+      "id": 32,
       "identifier": "horn-drill",
       "type": "Normal",
       "category": "physical",
@@ -2705,7 +2704,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 208,
+      "id": 532,
       "identifier": "horn-leech",
       "type": "Grass",
       "category": "physical",
@@ -2718,7 +2717,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 209,
+      "id": 336,
       "identifier": "howl",
       "type": "Normal",
       "category": "status",
@@ -2731,7 +2730,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 210,
+      "id": 542,
       "identifier": "hurricane",
       "type": "Flying",
       "category": "special",
@@ -2744,7 +2743,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 211,
+      "id": 308,
       "identifier": "hydro-cannon",
       "type": "Water",
       "category": "special",
@@ -2757,7 +2756,7 @@
       "classifications": []
     },
     {
-      "id": 212,
+      "id": 56,
       "identifier": "hydro-pump",
       "type": "Water",
       "category": "special",
@@ -2770,7 +2769,7 @@
       "classifications": []
     },
     {
-      "id": 213,
+      "id": 63,
       "identifier": "hyper-beam",
       "type": "Normal",
       "category": "special",
@@ -2783,7 +2782,7 @@
       "classifications": []
     },
     {
-      "id": 214,
+      "id": 304,
       "identifier": "hyper-voice",
       "type": "Normal",
       "category": "special",
@@ -2796,7 +2795,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 215,
+      "id": 95,
       "identifier": "hypnosis",
       "type": "Psychic",
       "category": "status",
@@ -2809,7 +2808,7 @@
       "classifications": []
     },
     {
-      "id": 216,
+      "id": 58,
       "identifier": "ice-beam",
       "type": "Ice",
       "category": "special",
@@ -2822,7 +2821,7 @@
       "classifications": []
     },
     {
-      "id": 217,
+      "id": 423,
       "identifier": "ice-fang",
       "type": "Ice",
       "category": "physical",
@@ -2835,7 +2834,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 218,
+      "id": 665,
       "identifier": "ice-hammer",
       "type": "Ice",
       "category": "physical",
@@ -2848,7 +2847,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 219,
+      "id": 8,
       "identifier": "ice-punch",
       "type": "Ice",
       "category": "physical",
@@ -2861,7 +2860,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 220,
+      "id": 420,
       "identifier": "ice-shard",
       "type": "Ice",
       "category": "physical",
@@ -2874,7 +2873,7 @@
       "classifications": []
     },
     {
-      "id": 221,
+      "id": 861,
       "identifier": "ice-spinner",
       "type": "Ice",
       "category": "physical",
@@ -2887,7 +2886,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 222,
+      "id": 556,
       "identifier": "icicle-crash",
       "type": "Ice",
       "category": "physical",
@@ -2900,7 +2899,7 @@
       "classifications": []
     },
     {
-      "id": 223,
+      "id": 333,
       "identifier": "icicle-spear",
       "type": "Ice",
       "category": "physical",
@@ -2913,7 +2912,7 @@
       "classifications": []
     },
     {
-      "id": 224,
+      "id": 196,
       "identifier": "icy-wind",
       "type": "Ice",
       "category": "special",
@@ -2926,7 +2925,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 225,
+      "id": 286,
       "identifier": "imprison",
       "type": "Psychic",
       "category": "status",
@@ -2939,7 +2938,7 @@
       "classifications": []
     },
     {
-      "id": 226,
+      "id": 844,
       "identifier": "infernal-parade",
       "type": "Ghost",
       "category": "special",
@@ -2952,7 +2951,7 @@
       "classifications": []
     },
     {
-      "id": 227,
+      "id": 517,
       "identifier": "inferno",
       "type": "Fire",
       "category": "special",
@@ -2965,7 +2964,7 @@
       "classifications": []
     },
     {
-      "id": 228,
+      "id": 611,
       "identifier": "infestation",
       "type": "Bug",
       "category": "special",
@@ -2978,7 +2977,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 229,
+      "id": 275,
       "identifier": "ingrain",
       "type": "Grass",
       "category": "status",
@@ -2991,7 +2990,7 @@
       "classifications": []
     },
     {
-      "id": 230,
+      "id": 689,
       "identifier": "instruct",
       "type": "Psychic",
       "category": "status",
@@ -3004,7 +3003,7 @@
       "classifications": []
     },
     {
-      "id": 231,
+      "id": 334,
       "identifier": "iron-defense",
       "type": "Steel",
       "category": "status",
@@ -3017,7 +3016,7 @@
       "classifications": []
     },
     {
-      "id": 232,
+      "id": 442,
       "identifier": "iron-head",
       "type": "Steel",
       "category": "physical",
@@ -3030,7 +3029,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 233,
+      "id": 231,
       "identifier": "iron-tail",
       "type": "Steel",
       "category": "physical",
@@ -3043,7 +3042,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 234,
+      "id": 857,
       "identifier": "jet-punch",
       "type": "Water",
       "category": "physical",
@@ -3056,7 +3055,6 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 235,
       "identifier": "king's-shield",
       "type": "Steel",
       "category": "status",
@@ -3069,7 +3067,7 @@
       "classifications": []
     },
     {
-      "id": 236,
+      "id": 282,
       "identifier": "knock-off",
       "type": "Dark",
       "category": "physical",
@@ -3082,7 +3080,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 237,
+      "id": 869,
       "identifier": "kowtow-cleave",
       "type": "Dark",
       "category": "physical",
@@ -3095,7 +3093,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 238,
+      "id": 808,
       "identifier": "lash-out",
       "type": "Dark",
       "category": "physical",
@@ -3108,7 +3106,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 239,
+      "id": 387,
       "identifier": "last-resort",
       "type": "Normal",
       "category": "physical",
@@ -3121,7 +3119,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 240,
+      "id": 854,
       "identifier": "last-respects",
       "type": "Ghost",
       "category": "physical",
@@ -3134,7 +3132,7 @@
       "classifications": []
     },
     {
-      "id": 241,
+      "id": 436,
       "identifier": "lava-plume",
       "type": "Fire",
       "category": "special",
@@ -3147,7 +3145,7 @@
       "classifications": []
     },
     {
-      "id": 242,
+      "id": 348,
       "identifier": "leaf-blade",
       "type": "Grass",
       "category": "physical",
@@ -3160,7 +3158,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 243,
+      "id": 437,
       "identifier": "leaf-storm",
       "type": "Grass",
       "category": "special",
@@ -3173,7 +3171,7 @@
       "classifications": []
     },
     {
-      "id": 244,
+      "id": 141,
       "identifier": "leech-life",
       "type": "Bug",
       "category": "physical",
@@ -3186,7 +3184,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 245,
+      "id": 73,
       "identifier": "leech-seed",
       "type": "Grass",
       "category": "status",
@@ -3199,7 +3197,7 @@
       "classifications": []
     },
     {
-      "id": 246,
+      "id": 791,
       "identifier": "life-dew",
       "type": "Water",
       "category": "status",
@@ -3212,7 +3210,7 @@
       "classifications": []
     },
     {
-      "id": 247,
+      "id": 113,
       "identifier": "light-screen",
       "type": "Psychic",
       "category": "status",
@@ -3225,7 +3223,7 @@
       "classifications": []
     },
     {
-      "id": 248,
+      "id": 617,
       "identifier": "light-of-ruin",
       "type": "Fairy",
       "category": "special",
@@ -3238,7 +3236,7 @@
       "classifications": []
     },
     {
-      "id": 249,
+      "id": 710,
       "identifier": "liquidation",
       "type": "Water",
       "category": "physical",
@@ -3251,7 +3249,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 250,
+      "id": 199,
       "identifier": "lock-on",
       "type": "Normal",
       "category": "status",
@@ -3264,7 +3262,7 @@
       "classifications": []
     },
     {
-      "id": 251,
+      "id": 67,
       "identifier": "low-kick",
       "type": "Fighting",
       "category": "physical",
@@ -3277,7 +3275,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 252,
+      "id": 490,
       "identifier": "low-sweep",
       "type": "Fighting",
       "category": "physical",
@@ -3290,7 +3288,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 253,
+      "id": 855,
       "identifier": "lumina-crash",
       "type": "Psychic",
       "category": "special",
@@ -3303,7 +3301,7 @@
       "classifications": []
     },
     {
-      "id": 254,
+      "id": 679,
       "identifier": "lunge",
       "type": "Bug",
       "category": "physical",
@@ -3316,7 +3314,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 255,
+      "id": 183,
       "identifier": "mach-punch",
       "type": "Fighting",
       "category": "physical",
@@ -3329,7 +3327,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 256,
+      "id": 750,
       "identifier": "magic-powder",
       "type": "Psychic",
       "category": "status",
@@ -3342,7 +3340,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 257,
+      "id": 478,
       "identifier": "magic-room",
       "type": "Psychic",
       "category": "status",
@@ -3355,7 +3353,7 @@
       "classifications": []
     },
     {
-      "id": 258,
+      "id": 393,
       "identifier": "magnet-rise",
       "type": "Electric",
       "category": "status",
@@ -3368,7 +3366,7 @@
       "classifications": []
     },
     {
-      "id": 259,
+      "id": 602,
       "identifier": "magnetic-flux",
       "type": "Electric",
       "category": "status",
@@ -3381,7 +3379,7 @@
       "classifications": []
     },
     {
-      "id": 260,
+      "id": 874,
       "identifier": "make-it-rain",
       "type": "Steel",
       "category": "special",
@@ -3394,7 +3392,7 @@
       "classifications": []
     },
     {
-      "id": 261,
+      "id": 902,
       "identifier": "matcha-gotcha",
       "type": "Grass",
       "category": "special",
@@ -3407,7 +3405,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 262,
+      "id": 212,
       "identifier": "mean-look",
       "type": "Normal",
       "category": "status",
@@ -3420,7 +3418,7 @@
       "classifications": []
     },
     {
-      "id": 263,
+      "id": 25,
       "identifier": "mega-kick",
       "type": "Normal",
       "category": "physical",
@@ -3433,7 +3431,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 264,
+      "id": 224,
       "identifier": "megahorn",
       "type": "Bug",
       "category": "physical",
@@ -3446,7 +3444,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 265,
+      "id": 262,
       "identifier": "memento",
       "type": "Dark",
       "category": "status",
@@ -3459,7 +3457,7 @@
       "classifications": []
     },
     {
-      "id": 266,
+      "id": 368,
       "identifier": "metal-burst",
       "type": "Steel",
       "category": "physical",
@@ -3472,7 +3470,7 @@
       "classifications": []
     },
     {
-      "id": 267,
+      "id": 319,
       "identifier": "metal-sound",
       "type": "Steel",
       "category": "status",
@@ -3485,7 +3483,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 268,
+      "id": 800,
       "identifier": "meteor-beam",
       "type": "Rock",
       "category": "special",
@@ -3498,7 +3496,7 @@
       "classifications": []
     },
     {
-      "id": 269,
+      "id": 309,
       "identifier": "meteor-mash",
       "type": "Steel",
       "category": "physical",
@@ -3511,7 +3509,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 270,
+      "id": 208,
       "identifier": "milk-drink",
       "type": "Normal",
       "category": "status",
@@ -3524,7 +3522,7 @@
       "classifications": []
     },
     {
-      "id": 271,
+      "id": 107,
       "identifier": "minimize",
       "type": "Normal",
       "category": "status",
@@ -3537,7 +3535,7 @@
       "classifications": []
     },
     {
-      "id": 272,
+      "id": 243,
       "identifier": "mirror-coat",
       "type": "Psychic",
       "category": "status",
@@ -3550,7 +3548,7 @@
       "classifications": []
     },
     {
-      "id": 273,
+      "id": 802,
       "identifier": "misty-explosion",
       "type": "Fairy",
       "category": "special",
@@ -3563,7 +3561,7 @@
       "classifications": []
     },
     {
-      "id": 274,
+      "id": 581,
       "identifier": "misty-terrain",
       "type": "Fairy",
       "category": "status",
@@ -3576,7 +3574,7 @@
       "classifications": []
     },
     {
-      "id": 275,
+      "id": 585,
       "identifier": "moonblast",
       "type": "Fairy",
       "category": "special",
@@ -3589,7 +3587,7 @@
       "classifications": []
     },
     {
-      "id": 276,
+      "id": 236,
       "identifier": "moonlight",
       "type": "Fairy",
       "category": "status",
@@ -3602,7 +3600,7 @@
       "classifications": []
     },
     {
-      "id": 277,
+      "id": 234,
       "identifier": "morning-sun",
       "type": "Normal",
       "category": "status",
@@ -3615,7 +3613,7 @@
       "classifications": []
     },
     {
-      "id": 278,
+      "id": 866,
       "identifier": "mortal-spin",
       "type": "Poison",
       "category": "physical",
@@ -3628,7 +3626,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 279,
+      "id": 836,
       "identifier": "mountain-gale",
       "type": "Ice",
       "category": "physical",
@@ -3641,7 +3639,7 @@
       "classifications": []
     },
     {
-      "id": 280,
+      "id": 341,
       "identifier": "mud-shot",
       "type": "Ground",
       "category": "special",
@@ -3654,7 +3652,7 @@
       "classifications": []
     },
     {
-      "id": 281,
+      "id": 189,
       "identifier": "mud-slap",
       "type": "Ground",
       "category": "special",
@@ -3667,7 +3665,7 @@
       "classifications": []
     },
     {
-      "id": 282,
+      "id": 330,
       "identifier": "muddy-water",
       "type": "Water",
       "category": "special",
@@ -3680,7 +3678,7 @@
       "classifications": []
     },
     {
-      "id": 283,
+      "id": 595,
       "identifier": "mystical-fire",
       "type": "Fire",
       "category": "special",
@@ -3693,7 +3691,7 @@
       "classifications": []
     },
     {
-      "id": 284,
+      "id": 417,
       "identifier": "nasty-plot",
       "type": "Dark",
       "category": "status",
@@ -3706,7 +3704,7 @@
       "classifications": []
     },
     {
-      "id": 285,
+      "id": 539,
       "identifier": "night-daze",
       "type": "Dark",
       "category": "special",
@@ -3719,7 +3717,7 @@
       "classifications": []
     },
     {
-      "id": 286,
+      "id": 101,
       "identifier": "night-shade",
       "type": "Ghost",
       "category": "status",
@@ -3732,7 +3730,7 @@
       "classifications": []
     },
     {
-      "id": 287,
+      "id": 400,
       "identifier": "night-slash",
       "type": "Dark",
       "category": "physical",
@@ -3745,7 +3743,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 288,
+      "id": 568,
       "identifier": "noble-roar",
       "type": "Normal",
       "category": "status",
@@ -3758,7 +3756,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 289,
+      "id": 609,
       "identifier": "nuzzle",
       "type": "Electric",
       "category": "physical",
@@ -3771,7 +3769,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 290,
+      "id": 200,
       "identifier": "outrage",
       "type": "Dragon",
       "category": "physical",
@@ -3784,7 +3782,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 291,
+      "id": 315,
       "identifier": "overheat",
       "type": "Fire",
       "category": "special",
@@ -3797,7 +3795,7 @@
       "classifications": []
     },
     {
-      "id": 292,
+      "id": 220,
       "identifier": "pain-split",
       "type": "Normal",
       "category": "status",
@@ -3810,7 +3808,7 @@
       "classifications": []
     },
     {
-      "id": 293,
+      "id": 570,
       "identifier": "parabolic-charge",
       "type": "Electric",
       "category": "special",
@@ -3823,7 +3821,7 @@
       "classifications": []
     },
     {
-      "id": 294,
+      "id": 575,
       "identifier": "parting-shot",
       "type": "Dark",
       "category": "status",
@@ -3836,7 +3834,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 295,
+      "id": 371,
       "identifier": "payback",
       "type": "Dark",
       "category": "physical",
@@ -3849,7 +3847,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 296,
+      "id": 195,
       "identifier": "perish-song",
       "type": "Normal",
       "category": "status",
@@ -3862,7 +3860,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 297,
+      "id": 572,
       "identifier": "petal-blizzard",
       "type": "Grass",
       "category": "physical",
@@ -3875,7 +3873,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 298,
+      "id": 80,
       "identifier": "petal-dance",
       "type": "Grass",
       "category": "special",
@@ -3888,7 +3886,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 299,
+      "id": 566,
       "identifier": "phantom-force",
       "type": "Ghost",
       "category": "physical",
@@ -3901,7 +3899,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 300,
+      "id": 42,
       "identifier": "pin-missile",
       "type": "Bug",
       "category": "physical",
@@ -3914,7 +3912,7 @@
       "classifications": []
     },
     {
-      "id": 301,
+      "id": 583,
       "identifier": "play-rough",
       "type": "Fairy",
       "category": "physical",
@@ -3927,7 +3925,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 302,
+      "id": 365,
       "identifier": "pluck",
       "type": "Flying",
       "category": "physical",
@@ -3940,7 +3938,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 303,
+      "id": 305,
       "identifier": "poison-fang",
       "type": "Poison",
       "category": "physical",
@@ -3953,7 +3951,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 304,
+      "id": 398,
       "identifier": "poison-jab",
       "type": "Poison",
       "category": "physical",
@@ -3966,7 +3964,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 305,
+      "id": 77,
       "identifier": "poison-powder",
       "type": "Poison",
       "category": "status",
@@ -3979,7 +3977,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 306,
+      "id": 676,
       "identifier": "pollen-puff",
       "type": "Bug",
       "category": "special",
@@ -3992,7 +3990,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 307,
+      "id": 809,
       "identifier": "poltergeist",
       "type": "Ghost",
       "category": "physical",
@@ -4005,7 +4003,7 @@
       "classifications": []
     },
     {
-      "id": 308,
+      "id": 860,
       "identifier": "population-bomb",
       "type": "Normal",
       "category": "physical",
@@ -4018,7 +4016,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 309,
+      "id": 884,
       "identifier": "pounce",
       "type": "Bug",
       "category": "physical",
@@ -4031,7 +4029,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 310,
+      "id": 408,
       "identifier": "power-gem",
       "type": "Rock",
       "category": "special",
@@ -4044,7 +4042,7 @@
       "classifications": []
     },
     {
-      "id": 311,
+      "id": 829,
       "identifier": "power-shift",
       "type": "Normal",
       "category": "special",
@@ -4057,7 +4055,7 @@
       "classifications": []
     },
     {
-      "id": 312,
+      "id": 471,
       "identifier": "power-split",
       "type": "Psychic",
       "category": "status",
@@ -4070,7 +4068,7 @@
       "classifications": []
     },
     {
-      "id": 313,
+      "id": 384,
       "identifier": "power-swap",
       "type": "Psychic",
       "category": "status",
@@ -4083,7 +4081,7 @@
       "classifications": []
     },
     {
-      "id": 314,
+      "id": 379,
       "identifier": "power-trick",
       "type": "Psychic",
       "category": "status",
@@ -4096,7 +4094,7 @@
       "classifications": []
     },
     {
-      "id": 315,
+      "id": 681,
       "identifier": "power-trip",
       "type": "Dark",
       "category": "physical",
@@ -4109,7 +4107,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 316,
+      "id": 438,
       "identifier": "power-whip",
       "type": "Grass",
       "category": "physical",
@@ -4122,7 +4120,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 317,
+      "id": 182,
       "identifier": "protect",
       "type": "Normal",
       "category": "status",
@@ -4135,7 +4133,7 @@
       "classifications": []
     },
     {
-      "id": 318,
+      "id": 244,
       "identifier": "psych-up",
       "type": "Normal",
       "category": "status",
@@ -4148,7 +4146,7 @@
       "classifications": []
     },
     {
-      "id": 319,
+      "id": 94,
       "identifier": "psychic",
       "type": "Psychic",
       "category": "special",
@@ -4161,7 +4159,7 @@
       "classifications": []
     },
     {
-      "id": 320,
+      "id": 706,
       "identifier": "psychic-fangs",
       "type": "Psychic",
       "category": "physical",
@@ -4174,7 +4172,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 321,
+      "id": 917,
       "identifier": "psychic-noise",
       "type": "Psychic",
       "category": "special",
@@ -4187,7 +4185,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 322,
+      "id": 678,
       "identifier": "psychic-terrain",
       "type": "Psychic",
       "category": "status",
@@ -4200,7 +4198,7 @@
       "classifications": []
     },
     {
-      "id": 323,
+      "id": 427,
       "identifier": "psycho-cut",
       "type": "Psychic",
       "category": "physical",
@@ -4213,7 +4211,7 @@
       "classifications": ["slicing"]
     },
     {
-      "id": 324,
+      "id": 828,
       "identifier": "psyshield-bash",
       "type": "Psychic",
       "category": "physical",
@@ -4226,7 +4224,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 325,
+      "id": 473,
       "identifier": "psyshock",
       "type": "Psychic",
       "category": "special",
@@ -4239,7 +4237,7 @@
       "classifications": []
     },
     {
-      "id": 326,
+      "id": 511,
       "identifier": "quash",
       "type": "Dark",
       "category": "status",
@@ -4252,7 +4250,7 @@
       "classifications": []
     },
     {
-      "id": 327,
+      "id": 98,
       "identifier": "quick-attack",
       "type": "Normal",
       "category": "physical",
@@ -4265,7 +4263,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 328,
+      "id": 501,
       "identifier": "quick-guard",
       "type": "Fighting",
       "category": "status",
@@ -4278,7 +4276,7 @@
       "classifications": []
     },
     {
-      "id": 329,
+      "id": 483,
       "identifier": "quiver-dance",
       "type": "Bug",
       "category": "status",
@@ -4291,7 +4289,7 @@
       "classifications": []
     },
     {
-      "id": 330,
+      "id": 889,
       "identifier": "rage-fist",
       "type": "Ghost",
       "category": "physical",
@@ -4304,7 +4302,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 331,
+      "id": 476,
       "identifier": "rage-powder",
       "type": "Bug",
       "category": "status",
@@ -4317,7 +4315,7 @@
       "classifications": []
     },
     {
-      "id": 332,
+      "id": 873,
       "identifier": "raging-bull",
       "type": "Normal",
       "category": "physical",
@@ -4330,7 +4328,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 333,
+      "id": 833,
       "identifier": "raging-fury",
       "type": "Fire",
       "category": "physical",
@@ -4343,7 +4341,7 @@
       "classifications": []
     },
     {
-      "id": 334,
+      "id": 240,
       "identifier": "rain-dance",
       "type": "Water",
       "category": "status",
@@ -4356,7 +4354,7 @@
       "classifications": []
     },
     {
-      "id": 335,
+      "id": 229,
       "identifier": "rapid-spin",
       "type": "Normal",
       "category": "physical",
@@ -4369,7 +4367,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 336,
+      "id": 534,
       "identifier": "razor-shell",
       "type": "Water",
       "category": "physical",
@@ -4382,7 +4380,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 337,
+      "id": 105,
       "identifier": "recover",
       "type": "Normal",
       "category": "status",
@@ -4395,7 +4393,7 @@
       "classifications": []
     },
     {
-      "id": 338,
+      "id": 278,
       "identifier": "recycle",
       "type": "Normal",
       "category": "status",
@@ -4408,7 +4406,7 @@
       "classifications": []
     },
     {
-      "id": 339,
+      "id": 115,
       "identifier": "reflect",
       "type": "Psychic",
       "category": "status",
@@ -4421,7 +4419,7 @@
       "classifications": []
     },
     {
-      "id": 340,
+      "id": 513,
       "identifier": "reflect-type",
       "type": "Normal",
       "category": "status",
@@ -4434,7 +4432,7 @@
       "classifications": []
     },
     {
-      "id": 341,
+      "id": 156,
       "identifier": "rest",
       "type": "Psychic",
       "category": "status",
@@ -4447,7 +4445,7 @@
       "classifications": []
     },
     {
-      "id": 342,
+      "id": 179,
       "identifier": "reversal",
       "type": "Fighting",
       "category": "physical",
@@ -4460,7 +4458,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 343,
+      "id": 804,
       "identifier": "rising-voltage",
       "type": "Electric",
       "category": "special",
@@ -4473,7 +4471,7 @@
       "classifications": []
     },
     {
-      "id": 344,
+      "id": 46,
       "identifier": "roar",
       "type": "Normal",
       "category": "status",
@@ -4486,7 +4484,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 345,
+      "id": 350,
       "identifier": "rock-blast",
       "type": "Rock",
       "category": "physical",
@@ -4499,7 +4497,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 346,
+      "id": 397,
       "identifier": "rock-polish",
       "type": "Rock",
       "category": "status",
@@ -4512,7 +4510,7 @@
       "classifications": []
     },
     {
-      "id": 347,
+      "id": 157,
       "identifier": "rock-slide",
       "type": "Rock",
       "category": "physical",
@@ -4525,7 +4523,7 @@
       "classifications": []
     },
     {
-      "id": 348,
+      "id": 317,
       "identifier": "rock-tomb",
       "type": "Rock",
       "category": "physical",
@@ -4538,7 +4536,7 @@
       "classifications": []
     },
     {
-      "id": 349,
+      "id": 439,
       "identifier": "rock-wrecker",
       "type": "Rock",
       "category": "physical",
@@ -4551,7 +4549,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 350,
+      "id": 272,
       "identifier": "role-play",
       "type": "Psychic",
       "category": "status",
@@ -4564,7 +4562,7 @@
       "classifications": []
     },
     {
-      "id": 351,
+      "id": 355,
       "identifier": "roost",
       "type": "Flying",
       "category": "status",
@@ -4577,7 +4575,7 @@
       "classifications": []
     },
     {
-      "id": 352,
+      "id": 496,
       "identifier": "round",
       "type": "Normal",
       "category": "special",
@@ -4590,7 +4588,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 353,
+      "id": 533,
       "identifier": "sacred-sword",
       "type": "Fighting",
       "category": "physical",
@@ -4603,7 +4601,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 354,
+      "id": 219,
       "identifier": "safeguard",
       "type": "Normal",
       "category": "status",
@@ -4616,7 +4614,7 @@
       "classifications": []
     },
     {
-      "id": 355,
+      "id": 864,
       "identifier": "salt-cure",
       "type": "Rock",
       "category": "physical",
@@ -4629,7 +4627,7 @@
       "classifications": []
     },
     {
-      "id": 356,
+      "id": 328,
       "identifier": "sand-tomb",
       "type": "Ground",
       "category": "physical",
@@ -4642,7 +4640,7 @@
       "classifications": []
     },
     {
-      "id": 357,
+      "id": 201,
       "identifier": "sandstorm",
       "type": "Rock",
       "category": "status",
@@ -4655,7 +4653,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 358,
+      "id": 503,
       "identifier": "scald",
       "type": "Water",
       "category": "special",
@@ -4668,7 +4666,7 @@
       "classifications": []
     },
     {
-      "id": 359,
+      "id": 799,
       "identifier": "scale-shot",
       "type": "Dragon",
       "category": "physical",
@@ -4681,7 +4679,7 @@
       "classifications": []
     },
     {
-      "id": 360,
+      "id": 184,
       "identifier": "scary-face",
       "type": "Normal",
       "category": "status",
@@ -4694,7 +4692,7 @@
       "classifications": []
     },
     {
-      "id": 361,
+      "id": 815,
       "identifier": "scorching-sands",
       "type": "Ground",
       "category": "special",
@@ -4707,7 +4705,7 @@
       "classifications": []
     },
     {
-      "id": 362,
+      "id": 103,
       "identifier": "screech",
       "type": "Normal",
       "category": "status",
@@ -4720,7 +4718,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 363,
+      "id": 402,
       "identifier": "seed-bomb",
       "type": "Grass",
       "category": "physical",
@@ -4733,7 +4731,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 364,
+      "id": 69,
       "identifier": "seismic-toss",
       "type": "Fighting",
       "category": "physical",
@@ -4746,7 +4744,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 365,
+      "id": 120,
       "identifier": "self-destruct",
       "type": "Normal",
       "category": "physical",
@@ -4759,7 +4757,7 @@
       "classifications": []
     },
     {
-      "id": 366,
+      "id": 247,
       "identifier": "shadow-ball",
       "type": "Ghost",
       "category": "special",
@@ -4772,7 +4770,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 367,
+      "id": 421,
       "identifier": "shadow-claw",
       "type": "Ghost",
       "category": "physical",
@@ -4785,7 +4783,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 368,
+      "id": 325,
       "identifier": "shadow-punch",
       "type": "Ghost",
       "category": "physical",
@@ -4798,7 +4796,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 369,
+      "id": 425,
       "identifier": "shadow-sneak",
       "type": "Ghost",
       "category": "physical",
@@ -4811,7 +4809,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 370,
+      "id": 880,
       "identifier": "shed-tail",
       "type": "Normal",
       "category": "special",
@@ -4824,7 +4822,7 @@
       "classifications": []
     },
     {
-      "id": 371,
+      "id": 329,
       "identifier": "sheer-cold",
       "type": "Ice",
       "category": "status",
@@ -4837,7 +4835,7 @@
       "classifications": []
     },
     {
-      "id": 372,
+      "id": 801,
       "identifier": "shell-side-arm",
       "type": "Poison",
       "category": "special",
@@ -4850,7 +4848,7 @@
       "classifications": []
     },
     {
-      "id": 373,
+      "id": 504,
       "identifier": "shell-smash",
       "type": "Normal",
       "category": "status",
@@ -4863,7 +4861,7 @@
       "classifications": []
     },
     {
-      "id": 374,
+      "id": 842,
       "identifier": "shelter",
       "type": "Steel",
       "category": "special",
@@ -4876,7 +4874,7 @@
       "classifications": []
     },
     {
-      "id": 375,
+      "id": 493,
       "identifier": "simple-beam",
       "type": "Normal",
       "category": "status",
@@ -4889,7 +4887,7 @@
       "classifications": []
     },
     {
-      "id": 376,
+      "id": 47,
       "identifier": "sing",
       "type": "Normal",
       "category": "status",
@@ -4902,7 +4900,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 377,
+      "id": 285,
       "identifier": "skill-swap",
       "type": "Psychic",
       "category": "status",
@@ -4915,7 +4913,7 @@
       "classifications": []
     },
     {
-      "id": 378,
+      "id": 806,
       "identifier": "skitter-smack",
       "type": "Bug",
       "category": "physical",
@@ -4928,7 +4926,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 379,
+      "id": 143,
       "identifier": "sky-attack",
       "type": "Flying",
       "category": "physical",
@@ -4941,7 +4939,7 @@
       "classifications": []
     },
     {
-      "id": 380,
+      "id": 303,
       "identifier": "slack-off",
       "type": "Normal",
       "category": "status",
@@ -4954,7 +4952,7 @@
       "classifications": []
     },
     {
-      "id": 381,
+      "id": 79,
       "identifier": "sleep-powder",
       "type": "Grass",
       "category": "status",
@@ -4967,7 +4965,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 382,
+      "id": 214,
       "identifier": "sleep-talk",
       "type": "Normal",
       "category": "status",
@@ -4980,7 +4978,7 @@
       "classifications": []
     },
     {
-      "id": 383,
+      "id": 188,
       "identifier": "sludge-bomb",
       "type": "Poison",
       "category": "special",
@@ -4993,7 +4991,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 384,
+      "id": 482,
       "identifier": "sludge-wave",
       "type": "Poison",
       "category": "special",
@@ -5006,7 +5004,7 @@
       "classifications": []
     },
     {
-      "id": 385,
+      "id": 479,
       "identifier": "smack-down",
       "type": "Rock",
       "category": "physical",
@@ -5019,7 +5017,7 @@
       "classifications": []
     },
     {
-      "id": 386,
+      "id": 684,
       "identifier": "smart-strike",
       "type": "Steel",
       "category": "physical",
@@ -5032,7 +5030,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 387,
+      "id": 779,
       "identifier": "snap-trap",
       "type": "Steel",
       "category": "physical",
@@ -5045,7 +5043,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 388,
+      "id": 555,
       "identifier": "snarl",
       "type": "Dark",
       "category": "special",
@@ -5058,7 +5056,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 389,
+      "id": 173,
       "identifier": "snore",
       "type": "Normal",
       "category": "special",
@@ -5071,7 +5069,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 390,
+      "id": 883,
       "identifier": "snowscape",
       "type": "Ice",
       "category": "special",
@@ -5084,7 +5082,7 @@
       "classifications": []
     },
     {
-      "id": 391,
+      "id": 487,
       "identifier": "soak",
       "type": "Water",
       "category": "status",
@@ -5097,7 +5095,7 @@
       "classifications": []
     },
     {
-      "id": 392,
+      "id": 135,
       "identifier": "soft-boiled",
       "type": "Normal",
       "category": "status",
@@ -5110,7 +5108,7 @@
       "classifications": []
     },
     {
-      "id": 393,
+      "id": 76,
       "identifier": "solar-beam",
       "type": "Grass",
       "category": "special",
@@ -5123,7 +5121,7 @@
       "classifications": []
     },
     {
-      "id": 394,
+      "id": 669,
       "identifier": "solar-blade",
       "type": "Grass",
       "category": "physical",
@@ -5136,7 +5134,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 395,
+      "id": 664,
       "identifier": "sparkling-aria",
       "type": "Water",
       "category": "special",
@@ -5149,7 +5147,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 396,
+      "id": 683,
       "identifier": "speed-swap",
       "type": "Psychic",
       "category": "status",
@@ -5162,7 +5160,7 @@
       "classifications": []
     },
     {
-      "id": 397,
+      "id": 858,
       "identifier": "spicy-extract",
       "type": "Grass",
       "category": "special",
@@ -5175,7 +5173,7 @@
       "classifications": []
     },
     {
-      "id": 398,
+      "id": 191,
       "identifier": "spikes",
       "type": "Ground",
       "category": "status",
@@ -5188,7 +5186,7 @@
       "classifications": []
     },
     {
-      "id": 399,
+      "id": 596,
       "identifier": "spiky-shield",
       "type": "Grass",
       "category": "status",
@@ -5201,7 +5199,7 @@
       "classifications": []
     },
     {
-      "id": 400,
+      "id": 662,
       "identifier": "spirit-shackle",
       "type": "Ghost",
       "category": "physical",
@@ -5214,7 +5212,7 @@
       "classifications": []
     },
     {
-      "id": 401,
+      "id": 255,
       "identifier": "spit-up",
       "type": "Normal",
       "category": "status",
@@ -5227,7 +5225,7 @@
       "classifications": []
     },
     {
-      "id": 402,
+      "id": 180,
       "identifier": "spite",
       "type": "Ghost",
       "category": "status",
@@ -5240,7 +5238,7 @@
       "classifications": []
     },
     {
-      "id": 403,
+      "id": 147,
       "identifier": "spore",
       "type": "Grass",
       "category": "status",
@@ -5253,7 +5251,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 404,
+      "id": 446,
       "identifier": "stealth-rock",
       "type": "Rock",
       "category": "status",
@@ -5266,7 +5264,7 @@
       "classifications": []
     },
     {
-      "id": 405,
+      "id": 796,
       "identifier": "steel-beam",
       "type": "Steel",
       "category": "special",
@@ -5279,7 +5277,7 @@
       "classifications": []
     },
     {
-      "id": 406,
+      "id": 798,
       "identifier": "steel-roller",
       "type": "Steel",
       "category": "physical",
@@ -5292,7 +5290,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 407,
+      "id": 211,
       "identifier": "steel-wing",
       "type": "Steel",
       "category": "physical",
@@ -5305,7 +5303,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 408,
+      "id": 564,
       "identifier": "sticky-web",
       "type": "Bug",
       "category": "status",
@@ -5318,7 +5316,7 @@
       "classifications": []
     },
     {
-      "id": 409,
+      "id": 254,
       "identifier": "stockpile",
       "type": "Normal",
       "category": "status",
@@ -5331,7 +5329,7 @@
       "classifications": []
     },
     {
-      "id": 410,
+      "id": 707,
       "identifier": "stomping-tantrum",
       "type": "Ground",
       "category": "physical",
@@ -5344,7 +5342,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 411,
+      "id": 830,
       "identifier": "stone-axe",
       "type": "Rock",
       "category": "physical",
@@ -5357,7 +5355,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 412,
+      "id": 444,
       "identifier": "stone-edge",
       "type": "Rock",
       "category": "physical",
@@ -5370,7 +5368,7 @@
       "classifications": []
     },
     {
-      "id": 413,
+      "id": 500,
       "identifier": "stored-power",
       "type": "Psychic",
       "category": "special",
@@ -5383,7 +5381,7 @@
       "classifications": []
     },
     {
-      "id": 414,
+      "id": 480,
       "identifier": "storm-throw",
       "type": "Fighting",
       "category": "physical",
@@ -5396,7 +5394,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 415,
+      "id": 668,
       "identifier": "strength-sap",
       "type": "Grass",
       "category": "status",
@@ -5409,7 +5407,7 @@
       "classifications": []
     },
     {
-      "id": 416,
+      "id": 81,
       "identifier": "string-shot",
       "type": "Bug",
       "category": "status",
@@ -5422,7 +5420,7 @@
       "classifications": []
     },
     {
-      "id": 417,
+      "id": 165,
       "identifier": "struggle",
       "type": "Normal",
       "category": "physical",
@@ -5435,7 +5433,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 418,
+      "id": 522,
       "identifier": "struggle-bug",
       "type": "Bug",
       "category": "special",
@@ -5448,7 +5446,7 @@
       "classifications": []
     },
     {
-      "id": 419,
+      "id": 747,
       "identifier": "stuff-cheeks",
       "type": "Normal",
       "category": "status",
@@ -5461,7 +5459,7 @@
       "classifications": []
     },
     {
-      "id": 420,
+      "id": 78,
       "identifier": "stun-spore",
       "type": "Grass",
       "category": "status",
@@ -5474,7 +5472,7 @@
       "classifications": ["powder"]
     },
     {
-      "id": 421,
+      "id": 164,
       "identifier": "substitute",
       "type": "Normal",
       "category": "status",
@@ -5487,7 +5485,7 @@
       "classifications": []
     },
     {
-      "id": 422,
+      "id": 389,
       "identifier": "sucker-punch",
       "type": "Dark",
       "category": "physical",
@@ -5500,7 +5498,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 423,
+      "id": 241,
       "identifier": "sunny-day",
       "type": "Fire",
       "category": "status",
@@ -5513,7 +5511,7 @@
       "classifications": []
     },
     {
-      "id": 424,
+      "id": 162,
       "identifier": "super-fang",
       "type": "Normal",
       "category": "physical",
@@ -5526,7 +5524,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 425,
+      "id": 916,
       "identifier": "supercell-slam",
       "type": "Electric",
       "category": "physical",
@@ -5539,7 +5537,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 426,
+      "id": 276,
       "identifier": "superpower",
       "type": "Fighting",
       "category": "physical",
@@ -5552,7 +5550,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 427,
+      "id": 57,
       "identifier": "surf",
       "type": "Water",
       "category": "special",
@@ -5565,7 +5563,7 @@
       "classifications": []
     },
     {
-      "id": 428,
+      "id": 207,
       "identifier": "swagger",
       "type": "Normal",
       "category": "status",
@@ -5578,7 +5576,7 @@
       "classifications": []
     },
     {
-      "id": 429,
+      "id": 256,
       "identifier": "swallow",
       "type": "Normal",
       "category": "status",
@@ -5591,7 +5589,7 @@
       "classifications": []
     },
     {
-      "id": 430,
+      "id": 186,
       "identifier": "sweet-kiss",
       "type": "Fairy",
       "category": "status",
@@ -5604,7 +5602,7 @@
       "classifications": []
     },
     {
-      "id": 431,
+      "id": 230,
       "identifier": "sweet-scent",
       "type": "Normal",
       "category": "status",
@@ -5617,7 +5615,7 @@
       "classifications": []
     },
     {
-      "id": 432,
+      "id": 415,
       "identifier": "switcheroo",
       "type": "Dark",
       "category": "status",
@@ -5630,7 +5628,7 @@
       "classifications": []
     },
     {
-      "id": 433,
+      "id": 14,
       "identifier": "swords-dance",
       "type": "Normal",
       "category": "status",
@@ -5643,7 +5641,7 @@
       "classifications": []
     },
     {
-      "id": 434,
+      "id": 235,
       "identifier": "synthesis",
       "type": "Grass",
       "category": "status",
@@ -5656,7 +5654,7 @@
       "classifications": []
     },
     {
-      "id": 435,
+      "id": 903,
       "identifier": "syrup-bomb",
       "type": "Grass",
       "category": "special",
@@ -5669,7 +5667,7 @@
       "classifications": []
     },
     {
-      "id": 436,
+      "id": 541,
       "identifier": "tail-slap",
       "type": "Normal",
       "category": "physical",
@@ -5682,7 +5680,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 437,
+      "id": 366,
       "identifier": "tailwind",
       "type": "Flying",
       "category": "status",
@@ -5695,7 +5693,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 438,
+      "id": 269,
       "identifier": "taunt",
       "type": "Dark",
       "category": "status",
@@ -5708,7 +5706,7 @@
       "classifications": []
     },
     {
-      "id": 439,
+      "id": 715,
       "identifier": "tearful-look",
       "type": "Normal",
       "category": "status",
@@ -5721,7 +5719,7 @@
       "classifications": []
     },
     {
-      "id": 440,
+      "id": 752,
       "identifier": "teatime",
       "type": "Normal",
       "category": "status",
@@ -5734,7 +5732,7 @@
       "classifications": []
     },
     {
-      "id": 441,
+      "id": 298,
       "identifier": "teeter-dance",
       "type": "Normal",
       "category": "status",
@@ -5747,7 +5745,7 @@
       "classifications": []
     },
     {
-      "id": 442,
+      "id": 915,
       "identifier": "temper-flare",
       "type": "Fire",
       "category": "physical",
@@ -5760,7 +5758,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 443,
+      "id": 805,
       "identifier": "terrain-pulse",
       "type": "Normal",
       "category": "special",
@@ -5773,7 +5771,7 @@
       "classifications": []
     },
     {
-      "id": 444,
+      "id": 168,
       "identifier": "thief",
       "type": "Dark",
       "category": "physical",
@@ -5786,7 +5784,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 445,
+      "id": 37,
       "identifier": "thrash",
       "type": "Normal",
       "category": "physical",
@@ -5799,7 +5797,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 446,
+      "id": 675,
       "identifier": "throat-chop",
       "type": "Dark",
       "category": "physical",
@@ -5812,7 +5810,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 447,
+      "id": 87,
       "identifier": "thunder",
       "type": "Electric",
       "category": "special",
@@ -5825,7 +5823,7 @@
       "classifications": []
     },
     {
-      "id": 448,
+      "id": 422,
       "identifier": "thunder-fang",
       "type": "Electric",
       "category": "physical",
@@ -5838,7 +5836,7 @@
       "classifications": ["contact", "biting"]
     },
     {
-      "id": 449,
+      "id": 9,
       "identifier": "thunder-punch",
       "type": "Electric",
       "category": "physical",
@@ -5851,7 +5849,7 @@
       "classifications": ["contact", "punch"]
     },
     {
-      "id": 450,
+      "id": 86,
       "identifier": "thunder-wave",
       "type": "Electric",
       "category": "status",
@@ -5864,7 +5862,7 @@
       "classifications": []
     },
     {
-      "id": 451,
+      "id": 85,
       "identifier": "thunderbolt",
       "type": "Electric",
       "category": "special",
@@ -5877,7 +5875,7 @@
       "classifications": []
     },
     {
-      "id": 452,
+      "id": 321,
       "identifier": "tickle",
       "type": "Normal",
       "category": "status",
@@ -5890,7 +5888,7 @@
       "classifications": []
     },
     {
-      "id": 453,
+      "id": 882,
       "identifier": "tidy-up",
       "type": "Normal",
       "category": "special",
@@ -5903,7 +5901,7 @@
       "classifications": []
     },
     {
-      "id": 454,
+      "id": 871,
       "identifier": "torch-song",
       "type": "Fire",
       "category": "special",
@@ -5916,7 +5914,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 455,
+      "id": 259,
       "identifier": "torment",
       "type": "Dark",
       "category": "status",
@@ -5929,7 +5927,7 @@
       "classifications": []
     },
     {
-      "id": 456,
+      "id": 92,
       "identifier": "toxic",
       "type": "Poison",
       "category": "status",
@@ -5942,7 +5940,7 @@
       "classifications": []
     },
     {
-      "id": 457,
+      "id": 390,
       "identifier": "toxic-spikes",
       "type": "Poison",
       "category": "status",
@@ -5955,7 +5953,7 @@
       "classifications": []
     },
     {
-      "id": 458,
+      "id": 672,
       "identifier": "toxic-thread",
       "type": "Poison",
       "category": "status",
@@ -5968,7 +5966,7 @@
       "classifications": []
     },
     {
-      "id": 459,
+      "id": 885,
       "identifier": "trailblaze",
       "type": "Grass",
       "category": "physical",
@@ -5981,7 +5979,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 460,
+      "id": 144,
       "identifier": "transform",
       "type": "Normal",
       "category": "status",
@@ -5994,7 +5992,7 @@
       "classifications": []
     },
     {
-      "id": 461,
+      "id": 161,
       "identifier": "tri-attack",
       "type": "Normal",
       "category": "special",
@@ -6007,7 +6005,7 @@
       "classifications": []
     },
     {
-      "id": 462,
+      "id": 271,
       "identifier": "trick",
       "type": "Psychic",
       "category": "status",
@@ -6020,7 +6018,7 @@
       "classifications": []
     },
     {
-      "id": 463,
+      "id": 433,
       "identifier": "trick-room",
       "type": "Psychic",
       "category": "status",
@@ -6033,7 +6031,7 @@
       "classifications": []
     },
     {
-      "id": 464,
+      "id": 567,
       "identifier": "trick-or-treat",
       "type": "Ghost",
       "category": "status",
@@ -6046,7 +6044,7 @@
       "classifications": []
     },
     {
-      "id": 465,
+      "id": 843,
       "identifier": "triple-arrows",
       "type": "Fighting",
       "category": "physical",
@@ -6059,7 +6057,7 @@
       "classifications": []
     },
     {
-      "id": 466,
+      "id": 813,
       "identifier": "triple-axel",
       "type": "Ice",
       "category": "physical",
@@ -6072,7 +6070,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 467,
+      "id": 688,
       "identifier": "trop-kick",
       "type": "Grass",
       "category": "physical",
@@ -6085,7 +6083,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 468,
+      "id": 888,
       "identifier": "twin-beam",
       "type": "Psychic",
       "category": "special",
@@ -6098,7 +6096,7 @@
       "classifications": []
     },
     {
-      "id": 469,
+      "id": 369,
       "identifier": "u-turn",
       "type": "Bug",
       "category": "physical",
@@ -6111,7 +6109,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 470,
+      "id": 918,
       "identifier": "upper-hand",
       "type": "Fighting",
       "category": "physical",
@@ -6124,7 +6122,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 471,
+      "id": 253,
       "identifier": "uproar",
       "type": "Normal",
       "category": "special",
@@ -6137,7 +6135,7 @@
       "classifications": ["sound-based"]
     },
     {
-      "id": 472,
+      "id": 410,
       "identifier": "vacuum-wave",
       "type": "Fighting",
       "category": "special",
@@ -6150,7 +6148,7 @@
       "classifications": []
     },
     {
-      "id": 473,
+      "id": 474,
       "identifier": "venoshock",
       "type": "Poison",
       "category": "special",
@@ -6163,7 +6161,7 @@
       "classifications": []
     },
     {
-      "id": 474,
+      "id": 521,
       "identifier": "volt-switch",
       "type": "Electric",
       "category": "special",
@@ -6176,7 +6174,7 @@
       "classifications": []
     },
     {
-      "id": 475,
+      "id": 344,
       "identifier": "volt-tackle",
       "type": "Electric",
       "category": "physical",
@@ -6189,7 +6187,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 476,
+      "id": 352,
       "identifier": "water-pulse",
       "type": "Water",
       "category": "special",
@@ -6202,7 +6200,7 @@
       "classifications": []
     },
     {
-      "id": 477,
+      "id": 594,
       "identifier": "water-shuriken",
       "type": "Water",
       "category": "special",
@@ -6215,7 +6213,7 @@
       "classifications": []
     },
     {
-      "id": 478,
+      "id": 323,
       "identifier": "water-spout",
       "type": "Water",
       "category": "special",
@@ -6228,7 +6226,7 @@
       "classifications": []
     },
     {
-      "id": 479,
+      "id": 127,
       "identifier": "waterfall",
       "type": "Water",
       "category": "physical",
@@ -6241,7 +6239,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 480,
+      "id": 834,
       "identifier": "wave-crash",
       "type": "Water",
       "category": "physical",
@@ -6254,7 +6252,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 481,
+      "id": 311,
       "identifier": "weather-ball",
       "type": "Normal",
       "category": "special",
@@ -6267,7 +6265,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 482,
+      "id": 250,
       "identifier": "whirlpool",
       "type": "Water",
       "category": "special",
@@ -6280,7 +6278,7 @@
       "classifications": []
     },
     {
-      "id": 483,
+      "id": 18,
       "identifier": "whirlwind",
       "type": "Normal",
       "category": "status",
@@ -6293,7 +6291,7 @@
       "classifications": ["wind"]
     },
     {
-      "id": 484,
+      "id": 469,
       "identifier": "wide-guard",
       "type": "Rock",
       "category": "status",
@@ -6306,7 +6304,7 @@
       "classifications": []
     },
     {
-      "id": 485,
+      "id": 528,
       "identifier": "wild-charge",
       "type": "Electric",
       "category": "physical",
@@ -6319,7 +6317,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 486,
+      "id": 261,
       "identifier": "will-o-wisp",
       "type": "Fire",
       "category": "status",
@@ -6332,7 +6330,7 @@
       "classifications": []
     },
     {
-      "id": 487,
+      "id": 273,
       "identifier": "wish",
       "type": "Normal",
       "category": "status",
@@ -6345,7 +6343,7 @@
       "classifications": []
     },
     {
-      "id": 488,
+      "id": 472,
       "identifier": "wonder-room",
       "type": "Psychic",
       "category": "status",
@@ -6358,7 +6356,7 @@
       "classifications": []
     },
     {
-      "id": 489,
+      "id": 452,
       "identifier": "wood-hammer",
       "type": "Grass",
       "category": "physical",
@@ -6371,7 +6369,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 490,
+      "id": 388,
       "identifier": "worry-seed",
       "type": "Grass",
       "category": "status",
@@ -6384,7 +6382,7 @@
       "classifications": []
     },
     {
-      "id": 491,
+      "id": 35,
       "identifier": "wrap",
       "type": "Normal",
       "category": "physical",
@@ -6397,7 +6395,7 @@
       "classifications": ["contact"]
     },
     {
-      "id": 492,
+      "id": 404,
       "identifier": "x-scissor",
       "type": "Bug",
       "category": "physical",
@@ -6410,7 +6408,7 @@
       "classifications": ["contact", "slicing"]
     },
     {
-      "id": 493,
+      "id": 281,
       "identifier": "yawn",
       "type": "Normal",
       "category": "status",
@@ -6423,7 +6421,7 @@
       "classifications": []
     },
     {
-      "id": 494,
+      "id": 192,
       "identifier": "zap-cannon",
       "type": "Electric",
       "category": "special",
@@ -6436,7 +6434,7 @@
       "classifications": ["ball-and-bomb"]
     },
     {
-      "id": 495,
+      "id": 428,
       "identifier": "zen-headbutt",
       "type": "Psychic",
       "category": "physical",
