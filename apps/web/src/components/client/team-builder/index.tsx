@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
-import { activeTeamIdAtom, Team } from "@/store/team/team";
+import {activeTeamIdAtom, drawerOpenAtom, Team} from "@/store/team/team";
 import { useTeamsData } from "@/hooks/useTeamsData";
 import { getAppPalette } from "@/theme/palette";
 
@@ -37,7 +37,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  IconButton as MuiIconButton, Fab,
+  IconButton as MuiIconButton,
+  Fab,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -168,9 +169,11 @@ const StyledMenu = styled((props: MenuProps) => (
 function ImportMenu({
   createTeamAction,
   onError,
+  isMobile,
 }: {
   readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
   readonly onError: (diagnostics: Diagnostics) => void;
+  readonly isMobile: boolean;
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openPaste, setOpenPaste] = useState(false);
@@ -190,7 +193,7 @@ function ImportMenu({
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
-        size={"small"}
+        size={isMobile ? "small" : "medium"}
       >
         Import
       </Button>
@@ -251,7 +254,6 @@ function ExportMenu() {
       if (type === "clipboard") {
         await navigator.clipboard.writeText(paste);
       } else {
-        // 動的にformを生成して別タブでPOST送信
         const form = document.createElement("form");
         form.method = "POST";
         form.action = "https://pokepast.es/create";
@@ -358,7 +360,7 @@ function MobileTeamList({
             {t("teamBuilder.createTeam")}
           </Button>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <ImportMenu createTeamAction={onImportTeam} onError={onError} />
+            <ImportMenu createTeamAction={onImportTeam} onError={onError} isMobile={true} />
           </Box>
         </Stack>
       </Box>
@@ -378,8 +380,12 @@ function MobileTeamList({
         <Typography variant="h6" sx={{ fontWeight: 700 }}>
           {t("teamBuilder.title")}
         </Typography>
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center", display: { xs: "none", md: "flex" }} }>
-          <ImportMenu createTeamAction={onImportTeam} onError={onError} />
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ alignItems: "center", display: { xs: "none", md: "flex" } }}
+        >
+          <ImportMenu createTeamAction={onImportTeam} onError={onError} isMobile={false} />
           <Button
             variant="contained"
             size="small"
@@ -451,7 +457,6 @@ function MobileTeamList({
           </Paper>
         ))}
       </Stack>
-      {/* モバイル専用：記録追加用 Floating Action Button (FAB) (md以上で非表示) */}
       <Fab
         color="primary"
         aria-label="add"
@@ -482,16 +487,13 @@ export default function TeamBuilderPage({
   const theme = useTheme();
   const { t } = useTranslation();
   const palette = getAppPalette(theme.palette.mode);
-  // noSsr は付けない: サーバーとクライアント初回は false（デスクトップ）で一致させ、
-  // マウント後に再評価してモバイルへ切り替える。これで hydration mismatch を防ぐ。
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const hasSelection =
     typeof activeSlot === "number" &&
     Number.isInteger(activeSlot) &&
     activeSlot >= 0 &&
     activeSlot < MAX_TEAM_SIZE;
-  const [drawerOpen, setDrawerOpen] = useState(true);
-  // URL ?view=overview の有無でモバイルの画面状態を管理する（stateではなく URL で持つことでナビゲーション後も状態を維持）
+  const [drawerOpen, setDrawerOpen] = useAtom(drawerOpenAtom);
   const searchParams = useSearchParams();
   const router = useRouter();
   const mobileView = searchParams.get("view") === "overview" ? "overview" : "list";
@@ -505,16 +507,9 @@ export default function TeamBuilderPage({
   const { teams, isLoading, updateTeams, removeTeam } = useTeamsData();
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
 
-  // 削除確認ダイアログ用
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const deleteTargetTeam = teams.find((t) => t.id === deleteTargetId) ?? null;
 
-  // モバイルではチーム選択ドロワーを既定で閉じ、コンテンツ（戻るボタン/名前）に被らないようにする
-  useEffect(() => {
-    setDrawerOpen(!isMobile);
-  }, [isMobile]);
-
-  // activeTeamId が null になった（チーム削除など）ときはモバイル一覧に戻す
   useEffect(() => {
     if (isMobile && activeTeamId === null) {
       router.push("/team-builder");
@@ -547,7 +542,6 @@ export default function TeamBuilderPage({
 
   const handleDeleteTeam = (teamId: string) => {
     removeTeam(teamId);
-    // 削除したチームが選択中だった場合、残りの先頭チームへ切り替える
     if (activeTeamId === teamId) {
       const remaining = teams.filter((t) => t.id !== teamId);
       setActiveTeamId(remaining.length > 0 ? remaining[0].id : null);
@@ -559,14 +553,12 @@ export default function TeamBuilderPage({
     <Box
       sx={{
         display: "flex",
-        // モバイルは AppLayout のスクロール内で自然に縦積みする（内側で二重に 100vh を持たない）
         flexDirection: { xs: "column", md: "row" },
         position: "relative",
         overflow: { xs: "visible", md: "hidden" },
         height: { xs: "auto", md: "100vh" },
       }}
     >
-      {/* ── チーム削除確認ダイアログ ── */}
       <Dialog
         open={deleteTargetId !== null}
         onClose={() => setDeleteTargetId(null)}
@@ -599,8 +591,6 @@ export default function TeamBuilderPage({
                 <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
                   {message.length} errors occurred：
                 </Typography>
-
-                {/* エラーの数だけコンポーネントを縦に並べる */}
                 <Stack spacing={1.5}>
                   {message.map((err, index) => (
                     <Box
@@ -610,8 +600,6 @@ export default function TeamBuilderPage({
                       <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                         {err.message}
                       </Typography>
-
-                      {/* 前述の構造化データがあるなら、エラーごとにPaperを出す */}
                       {err instanceof ParseError && (
                         <Paper
                           variant="outlined"
@@ -636,7 +624,6 @@ export default function TeamBuilderPage({
         </Alert>
       </Snackbar>
 
-      {/* ── デスクトップ: inner AppBar + persistent Drawer ── */}
       {!isMobile && (
         <>
           <AppBar open={drawerOpen}>
@@ -664,6 +651,7 @@ export default function TeamBuilderPage({
                       setDiagnostics(diagnostics);
                       setSnackbarOpen(true);
                     }}
+                    isMobile={false}
                   />
                   <ExportMenu />
                   <ShareButton />
@@ -744,7 +732,7 @@ export default function TeamBuilderPage({
                         borderRadius: 2,
                         mx: 1,
                         mb: 0.5,
-                        pr: 6, // 削除ボタン分の余白
+                        pr: 6,
                         "&.Mui-selected": { bgcolor: palette.surfaceRaised },
                       }}
                     >
@@ -765,16 +753,12 @@ export default function TeamBuilderPage({
         open={isMobile ? false : drawerOpen}
         sx={isMobile ? { ml: 0, height: "auto", overflowY: "visible" } : undefined}
       >
-        {/* 絶対配置 AppBar 用のスペーサー。モバイルは AppBar が静的配置なので不要 */}
         {!isMobile && <DrawerHeader />}
 
         {isMobile ? (
-          // ── モバイル: 3段階フロー (list → overview → slot) ──
           hasSelection && activeTeam ? (
-            // [3] スロット育成画面（URL遷移で到達）
             <TeamSlotDetail slot={activeSlot!} showBackButton />
           ) : mobileView === "list" ? (
-            // [1] チーム一覧
             <MobileTeamList
               teams={teams}
               onSelectTeam={(id) => {
@@ -796,14 +780,12 @@ export default function TeamBuilderPage({
               }}
             />
           ) : activeTeam ? (
-            // [2] 選択中チームの overview（戻るボタンでリストへ）
             <TeamOverview
               activeSlot={hasSelection ? activeSlot : undefined}
               onBack={() => router.push("/team-builder")}
             />
           ) : null
         ) : !activeTeam ? (
-          // ── デスクトップ: チーム未選択ヒント ──
           <Box
             sx={{
               display: "flex",
@@ -820,7 +802,6 @@ export default function TeamBuilderPage({
             </Box>
           </Box>
         ) : (
-          // ── デスクトップ: マスター/ディテール ──
           <Grid container spacing={3}>
             <Grid component={"div"} size={{ xs: 12, md: 3 }} sx={{ height: "100%" }}>
               <TeamOverview activeSlot={hasSelection ? activeSlot : undefined} />

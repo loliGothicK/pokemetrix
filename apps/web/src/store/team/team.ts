@@ -56,3 +56,5 @@ export const localTeamsAtom = atomWithStorage<readonly Team[]>("pokemon_teams_v2
 // したがって、これは将来も Jotai が担当し続ける。
 // =====================================================================
 export const activeTeamIdAtom = atom<string | null>(null);
+
+export const drawerOpenAtom = atomWithStorage("team-drawer", true);
