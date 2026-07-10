@@ -4981,7 +4981,7 @@
     },
     {
       "id": 571,
-      "identifier": "forest's-curse",
+      "identifier": "forests-curse",
       "type": "Grass",
       "category": "status",
       "power": null,
@@ -5163,7 +5163,7 @@
     },
     {
       "id": 588,
-      "identifier": "king's-shield",
+      "identifier": "kings-shield",
       "type": "Steel",
       "category": "status",
       "power": null,

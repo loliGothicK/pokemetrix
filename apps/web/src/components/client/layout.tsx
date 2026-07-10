@@ -632,10 +632,10 @@ export function AppLayout({
               sx={{
                 display: { xs: "none", md: "flex" },
                 flexDirection: "row",
-                borderRight: "1px solid",
                 borderColor: palette.edge,
                 bgcolor: palette.surface,
                 overflow: "hidden",
+                borderRadius: 0,
               }}
             >
               <Box sx={{ width: SIDE_MENU_WIDTH }}>

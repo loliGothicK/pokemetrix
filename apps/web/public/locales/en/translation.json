@@ -291,8 +291,7 @@
     "noItem": "No Item",
     "delete": "Remove from BOX",
     "saveToBox": "Save to BOX",
-    "savedToBox": "Saved to BOX",
-    "addPokemon": "Add Pokémon"
+    "savedToBox": "Saved to BOX"
   },
   "teamBuilder": {
     "title": "Team Builder",

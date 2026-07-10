@@ -4,7 +4,7 @@ import {
   alpha,
   Box,
   Button,
-  CircularProgress,
+  CircularProgress, Divider,
   Fab,
   Grid,
   IconButton,
@@ -136,14 +136,16 @@ export default function BoxPage() {
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {t("box.title")}
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<Add />}
+        <Fab
           onClick={() => setSelectOpen(true)}
-          sx={{ display: { xs: "none", md: "block" } }}
+          color="primary"
+          aria-label="add"
+          sx={{
+            display: { xs: "none", md: "flex" }
+          }}
         >
-          {t("box.addPokemon")}
-        </Button>
+          <Add />
+        </Fab>
       </Stack>
 
       {/* 検索バー */}
@@ -247,21 +249,25 @@ export default function BoxPage() {
                       ? ` @ ${t(`items.${itemById.get(pokemon.item)?.identifier}.name`)}`
                       : t("box.noItem")}
                   </Typography>
-                  {pokemon.moves
-                    .filter((move) => move !== null)
-                    .map((move) => {
-                      return (
-                        <Typography
-                          key={move}
-                          variant="caption"
-                          color="text.secondary"
-                          noWrap
-                          sx={{ display: "block" }}
-                        >
-                          {t(`moves.${moveById.get(move)!.identifier}`)}
-                        </Typography>
-                      );
-                    })}
+                  <Divider sx={{ my: 1 }} />
+                  <Grid container>
+                    {pokemon.moves
+                      .filter((move) => move !== null)
+                      .map((move) => {
+                        return (
+                          <Grid size={6} key={move}>
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                              noWrap
+                              sx={{ display: "block" }}
+                            >
+                              {t(`moves.${moveById.get(move)!.identifier}.name`)}
+                            </Typography>
+                          </Grid>
+                        );
+                      })}
+                  </Grid>
                 </Box>
 
                 <Fab
