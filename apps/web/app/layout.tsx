@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <AppRouterCacheProvider>
           <AppLayout>{children}</AppLayout>
         </AppRouterCacheProvider>

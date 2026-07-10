@@ -100,7 +100,10 @@ const DEFENDER_CONDITIONS: readonly ConditionDef[] = [
 ];
 
 /** Stat metadata: EV field key, status[] index, i18n label key. */
-const STAT_META: Record<StatKey, { evKey: keyof PokemonPanelState; index: number; labelKey: string }> = {
+const STAT_META: Record<
+  StatKey,
+  { evKey: keyof PokemonPanelState; index: number; labelKey: string }
+> = {
   hp: { evKey: "evHp", index: 0, labelKey: "damageCalc.hp" },
   atk: { evKey: "evAtk", index: 1, labelKey: "damageCalc.attack" },
   def: { evKey: "evDef", index: 2, labelKey: "damageCalc.defense" },
@@ -145,9 +148,7 @@ export function PokemonPanel({
     [pokemonOptions, value.identifier],
   );
 
-  const pokemon = value.identifier
-    ? championsPokemonByIdentifier.get(value.identifier)
-    : undefined;
+  const pokemon = value.identifier ? championsPokemonByIdentifier.get(value.identifier) : undefined;
 
   // Move mechanics of the active (attacker's) move — drives disclosure for both panels.
   const activeMoveData = activeMove ? moveByIdentifier.get(activeMove) : undefined;
@@ -269,9 +270,7 @@ export function PokemonPanel({
             <SlugAutocomplete
               options={filteredMoveOptions}
               value={value.move}
-              onChange={(slug) =>
-                onChange((prev) => ({ ...prev, move: slug, moveConditions: {} }))
-              }
+              onChange={(slug) => onChange((prev) => ({ ...prev, move: slug, moveConditions: {} }))}
               label={t("damageCalc.move")}
               placeholder={t("damageCalc.selectMove")}
             />
@@ -288,7 +287,10 @@ export function PokemonPanel({
                         onChange={(e) =>
                           onChange((prev) => ({
                             ...prev,
-                            moveConditions: { ...prev.moveConditions, [cond.key]: e.target.checked },
+                            moveConditions: {
+                              ...prev.moveConditions,
+                              [cond.key]: e.target.checked,
+                            },
                           }))
                         }
                       />
@@ -351,8 +353,22 @@ export function PokemonPanel({
                   value={ev}
                   statValue={actual}
                   onChange={(v) => setEv(meta.evKey, v)}
-                  grow={showRank}
+                  grow={showRank || (showHpPercent && statKey === "hp")}
                 />
+                {showHpPercent && statKey === "hp" && (
+                  <NumberField
+                    value={value.hpPercent}
+                    label={t("damageCalc.hpPercent")}
+                    min={1}
+                    max={100}
+                    step={1}
+                    size="small"
+                    width={140}
+                    onValueChange={(v) =>
+                      onChange((prev) => ({ ...prev, hpPercent: v == null ? 100 : v }))
+                    }
+                  />
+                )}
                 {showRank && (
                   <NumberField
                     value={value.boost}
@@ -369,22 +385,6 @@ export function PokemonPanel({
               </Stack>
             );
           })}
-
-          {/* Current HP % */}
-          {showHpPercent && (
-            <NumberField
-              value={value.hpPercent}
-              label={t("damageCalc.hpPercent")}
-              min={1}
-              max={100}
-              step={1}
-              size="small"
-              width={140}
-              onValueChange={(v) =>
-                onChange((prev) => ({ ...prev, hpPercent: v == null ? 100 : v }))
-              }
-            />
-          )}
         </Stack>
 
         {/* Conditions */}

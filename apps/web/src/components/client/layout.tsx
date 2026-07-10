@@ -41,6 +41,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuthSync } from "@/hooks/useAuthSync";
 import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
+import { Footer } from "@/components/client/Footer";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
@@ -644,16 +645,21 @@ export function AppLayout({
             <Box
               component="main"
               sx={{
-                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100%",
                 minWidth: "100%",
                 margin: "0 auto",
                 overflowY: "auto",
               }}
             >
-              {children}
+              <Box sx={{ flexGrow: 1 }}>
+                {children}
+              </Box>
             </Box>
           </Box>
         </Box>
+        <Footer />
       </ThemeProvider>
     </QueryClientProvider>
   );

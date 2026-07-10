@@ -1,6 +1,16 @@
 "use client";
 
-import { Box, Chip, LinearProgress, Paper, Stack, ToggleButton, ToggleButtonGroup, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  LinearProgress,
+  Paper,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -46,7 +56,9 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
   const hitMin = hitCount?.min ?? 1;
   const hitMax = hitCount?.max ?? 1;
   const [selectedHits, setSelectedHits] = useState<number>(hitMax);
-  useEffect(() => { setSelectedHits(hitMax); }, [hitMax]);
+  useEffect(() => {
+    setSelectedHits(hitMax);
+  }, [hitMax]);
 
   const critToggle = (
     <CritToggle isCrit={isCrit} onChange={onCritChange} label={t("damageCalc.isCrit")} />
@@ -54,7 +66,10 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
   if (isLoading) {
     return (
-      <Paper elevation={0} sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}>
+      <Paper
+        elevation={0}
+        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
+      >
         <LinearProgress />
       </Paper>
     );
@@ -62,9 +77,14 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
   if (isError) {
     return (
-      <Paper elevation={0} sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}>
+      <Paper
+        elevation={0}
+        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
+      >
         <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Typography color="error" variant="body2">{t("damageCalc.calcError")}</Typography>
+          <Typography color="error" variant="body2">
+            {t("damageCalc.calcError")}
+          </Typography>
           {critToggle}
         </Stack>
       </Paper>
@@ -73,15 +93,23 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
   if (!output) {
     const hint =
-      missingReason === "attacker" ? t("damageCalc.hintSelectAttacker")
-      : missingReason === "move" ? t("damageCalc.hintSelectMove")
-      : missingReason === "defender" ? t("damageCalc.hintSelectDefender")
-      : t("damageCalc.noResult");
+      missingReason === "attacker"
+        ? t("damageCalc.hintSelectAttacker")
+        : missingReason === "move"
+          ? t("damageCalc.hintSelectMove")
+          : missingReason === "defender"
+            ? t("damageCalc.hintSelectDefender")
+            : t("damageCalc.noResult");
 
     return (
-      <Paper elevation={0} sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}>
+      <Paper
+        elevation={0}
+        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
+      >
         <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Typography color="text.secondary" variant="body2">{hint}</Typography>
+          <Typography color="text.secondary" variant="body2">
+            {hint}
+          </Typography>
           {critToggle}
         </Stack>
       </Paper>
@@ -91,40 +119,65 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
   const hasAnalysis = analysis !== undefined;
 
   const effectiveHits = hitCountAlreadyMerged ? hitMax : selectedHits;
-  const defHp = hasAnalysis && analysis.minPercent > 0
-    ? Math.round((output.min / analysis.minPercent) * 100)
-    : undefined;
+  const defHp =
+    hasAnalysis && analysis.minPercent > 0
+      ? Math.round((output.min / analysis.minPercent) * 100)
+      : undefined;
 
   const totalMin = hitCountAlreadyMerged ? output.min : output.min * effectiveHits;
   const totalMax = hitCountAlreadyMerged ? output.max : output.max * effectiveHits;
   const totalMinPercent = defHp ? parseFloat(((totalMin / defHp) * 100).toFixed(1)) : undefined;
   const totalMaxPercent = defHp ? parseFloat(((totalMax / defHp) * 100).toFixed(1)) : undefined;
 
-  const koLabel = hasAnalysis ? (() => {
-    const safeHp = defHp ?? 1;
-    const minKO = totalMax > 0 ? Math.ceil(safeHp / totalMax) : Infinity;
-    const maxKO = totalMin > 0 ? Math.ceil(safeHp / totalMin) : Infinity;
-    const ohkoRolls = output.rolls.filter((r) => {
-      const total = hitCountAlreadyMerged ? r : r * effectiveHits;
-      return total >= safeHp;
-    }).length;
-    return getKOLabel(minKO, maxKO, ohkoRolls / output.rolls.length, t);
-  })() : null;
+  const koLabel = hasAnalysis
+    ? (() => {
+        const safeHp = defHp ?? 1;
+        const minKO = totalMax > 0 ? Math.ceil(safeHp / totalMax) : Infinity;
+        const maxKO = totalMin > 0 ? Math.ceil(safeHp / totalMin) : Infinity;
+        const ohkoRolls = output.rolls.filter((r) => {
+          const total = hitCountAlreadyMerged ? r : r * effectiveHits;
+          return total >= safeHp;
+        }).length;
+        return getKOLabel(minKO, maxKO, ohkoRolls / output.rolls.length, t);
+      })()
+    : null;
 
   const koColor = (() => {
     if (!hasAnalysis || !koLabel) return "default" as const;
     const safeHp = defHp ?? 1;
     const minKO = totalMax > 0 ? Math.ceil(safeHp / totalMax) : Infinity;
-    return minKO === 1 ? "error" as const : minKO === 2 ? "warning" as const : "default" as const;
+    return minKO === 1
+      ? ("error" as const)
+      : minKO === 2
+        ? ("warning" as const)
+        : ("default" as const);
   })();
 
-  const barMin = isMultiHit && totalMinPercent !== undefined ? totalMinPercent : (hasAnalysis ? analysis.minPercent : 0);
-  const barMax = isMultiHit && totalMaxPercent !== undefined ? totalMaxPercent : (hasAnalysis ? analysis.maxPercent : 0);
+  const barMin =
+    isMultiHit && totalMinPercent !== undefined
+      ? totalMinPercent
+      : hasAnalysis
+        ? analysis.minPercent
+        : 0;
+  const barMax =
+    isMultiHit && totalMaxPercent !== undefined
+      ? totalMaxPercent
+      : hasAnalysis
+        ? analysis.maxPercent
+        : 0;
 
   return (
-    <Paper elevation={0} sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}>
-      <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center", mb: summary ? 1 : 1.5 }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{t("damageCalc.result")}</Typography>
+    <Paper
+      elevation={0}
+      sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
+    >
+      <Stack
+        direction="row"
+        sx={{ justifyContent: "space-between", alignItems: "center", mb: summary ? 1 : 1.5 }}
+      >
+        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+          {t("damageCalc.result")}
+        </Typography>
         {critToggle}
       </Stack>
 
@@ -133,35 +186,57 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
       <Stack spacing={2} sx={{ mt: 1.5 }}>
         {/* Per-hit damage */}
-        <Stack direction="row" spacing={2} sx={{ alignItems: "baseline", flexWrap: "wrap", gap: 1 }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ alignItems: "baseline", flexWrap: "wrap", gap: 1 }}
+        >
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
             {t("damageCalc.damageRange", { min: output.min, max: output.max })}
           </Typography>
           {hasAnalysis && !isMultiHit && (
             <Typography variant="body2" color="text.secondary">
-              {t("damageCalc.percentRange", { minPercent: analysis.minPercent, maxPercent: analysis.maxPercent })}
+              {t("damageCalc.percentRange", {
+                minPercent: analysis.minPercent,
+                maxPercent: analysis.maxPercent,
+              })}
             </Typography>
           )}
           {isMultiHit && (
-            <Typography variant="body2" color="text.secondary">{t("damageCalc.perHit")}</Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t("damageCalc.perHit")}
+            </Typography>
           )}
         </Stack>
 
         {/* Hit count selector */}
         {isMultiHit && !hitCountAlreadyMerged && (
-          <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
-            <Typography variant="caption" sx={{ fontWeight: 600, color: "text.secondary", minWidth: 40 }}>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}
+          >
+            <Typography
+              variant="caption"
+              sx={{ fontWeight: 600, color: "text.secondary", minWidth: 40 }}
+            >
               {t("damageCalc.hitCount")}
             </Typography>
             <ToggleButtonGroup
               value={selectedHits}
               exclusive
               size="small"
-              onChange={(_, v) => { if (v !== null) setSelectedHits(v as number); }}
+              onChange={(_, v) => {
+                if (v !== null) setSelectedHits(v as number);
+              }}
               sx={{ flexWrap: "wrap", gap: 0.5 }}
             >
               {Array.from({ length: hitMax - hitMin + 1 }, (_, i) => hitMin + i).map((n) => (
-                <ToggleButton key={n} value={n} sx={{ px: 1.2, py: 0.3, fontSize: 12, minWidth: 32 }}>
+                <ToggleButton
+                  key={n}
+                  value={n}
+                  sx={{ px: 1.2, py: 0.3, fontSize: 12, minWidth: 32 }}
+                >
                   {n}
                 </ToggleButton>
               ))}
@@ -171,15 +246,26 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
         {/* Total damage */}
         {isMultiHit && (
-          <Stack direction="row" spacing={1} sx={{ alignItems: "baseline", flexWrap: "wrap", gap: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ alignItems: "baseline", flexWrap: "wrap", gap: 1 }}
+          >
             <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
               {hitCountAlreadyMerged
                 ? t("damageCalc.totalDamageMerged", { min: totalMin, max: totalMax, hits: hitMin })
-                : t("damageCalc.totalDamageFixed", { min: totalMin, max: totalMax, hits: effectiveHits })}
+                : t("damageCalc.totalDamageFixed", {
+                    min: totalMin,
+                    max: totalMax,
+                    hits: effectiveHits,
+                  })}
             </Typography>
             {hasAnalysis && totalMinPercent !== undefined && totalMaxPercent !== undefined && (
               <Typography variant="body2" color="text.secondary">
-                {t("damageCalc.percentRange", { minPercent: totalMinPercent, maxPercent: totalMaxPercent })}
+                {t("damageCalc.percentRange", {
+                  minPercent: totalMinPercent,
+                  maxPercent: totalMaxPercent,
+                })}
               </Typography>
             )}
           </Stack>
@@ -196,7 +282,7 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
         {hasAnalysis && <HpBar minPercent={barMin} maxPercent={barMax} />}
 
         {/* Rolls */}
-        <Box>
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
           <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
             {isMultiHit ? t("damageCalc.rollsPerHit") : t("damageCalc.rolls")}
           </Typography>
@@ -207,7 +293,11 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
                 label={roll}
                 size="small"
                 variant={i === 0 || i === output.rolls.length - 1 ? "filled" : "outlined"}
-                color={hasAnalysis && i === output.rolls.length - 1 && barMax >= 100 ? "error" : "default"}
+                color={
+                  hasAnalysis && i === output.rolls.length - 1 && barMax >= 100
+                    ? "error"
+                    : "default"
+                }
                 sx={{ fontSize: 11, height: 22 }}
               />
             ))}
@@ -235,9 +325,9 @@ const EV_ORDER: readonly (keyof EvSet)[] = ["hp", "atk", "def", "spa", "spd", "s
 
 /** Compact "HP252 / Atk4 / ..." string — only non-zero EVs shown. */
 function formatEvs(evs: EvSet, t: (key: string) => string): string | null {
-  const parts = EV_ORDER
-    .filter((k) => evs[k] > 0)
-    .map((k) => `${t(EV_KEY_TO_LABEL_KEY[k])}${evs[k]}`);
+  const parts = EV_ORDER.filter((k) => evs[k] > 0).map(
+    (k) => `${t(EV_KEY_TO_LABEL_KEY[k])}${evs[k]}`,
+  );
   return parts.length > 0 ? parts.join(" / ") : null;
 }
 
@@ -245,8 +335,12 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
   const { t } = useTranslation();
 
   // --- Primary: Pokémon / move / EVs (highest priority, shown prominently) ---
-  const attackerLabel = summary.attackerName ? t(`pokemon.${summary.attackerName}.name`, summary.attackerName) : null;
-  const defenderLabel = summary.defenderName ? t(`pokemon.${summary.defenderName}.name`, summary.defenderName) : null;
+  const attackerLabel = summary.attackerName
+    ? t(`pokemon.${summary.attackerName}.name`, summary.attackerName)
+    : null;
+  const defenderLabel = summary.defenderName
+    ? t(`pokemon.${summary.defenderName}.name`, summary.defenderName)
+    : null;
   const moveLabel = summary.moveName ? t(`moves.${summary.moveName}.name`, summary.moveName) : null;
   const attackerEvsLabel = formatEvs(summary.attackerEvs, t);
   const defenderEvsLabel = formatEvs(summary.defenderEvs, t);
@@ -258,7 +352,10 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
   if (summary.attackerItem && summary.attackerItem !== "none") {
     tags.push(t(`items.${summary.attackerItem}.name`, summary.attackerItem));
   }
-  if (summary.weather) tags.push(t(`damageCalc.weather${summary.weather.charAt(0).toUpperCase()}${summary.weather.slice(1)}`));
+  if (summary.weather)
+    tags.push(
+      t(`damageCalc.weather${summary.weather.charAt(0).toUpperCase()}${summary.weather.slice(1)}`),
+    );
   if (summary.terrain) {
     const key = summary.terrain.charAt(0).toUpperCase() + summary.terrain.slice(1);
     tags.push(t(`damageCalc.terrain${key}`));
@@ -293,12 +390,20 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
     <Stack spacing={0.75} sx={{ mb: 1 }}>
       {/* Primary: Pokémon / move / EVs — emphasized */}
       {hasPrimary && (
-        <Stack direction="row" spacing={1.5} sx={{ flexWrap: "wrap", alignItems: "baseline", gap: 0.5 }}>
+        <Stack
+          direction="row"
+          spacing={1.5}
+          sx={{ flexWrap: "wrap", alignItems: "baseline", gap: 0.5 }}
+        >
           {attackerLabel && (
             <Typography variant="body2" sx={{ fontWeight: 700 }}>
               {attackerLabel}
               {attackerEvsLabel && (
-                <Typography component="span" variant="caption" sx={{ fontWeight: 500, color: "text.secondary", ml: 0.5 }}>
+                <Typography
+                  component="span"
+                  variant="caption"
+                  sx={{ fontWeight: 500, color: "text.secondary", ml: 0.5 }}
+                >
                   ({attackerEvsLabel})
                 </Typography>
               )}
@@ -309,12 +414,18 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
               {moveLabel}
             </Typography>
           )}
-          <Typography variant="body2" color="text.secondary">→</Typography>
+          <Typography variant="body2" color="text.secondary">
+            →
+          </Typography>
           {defenderLabel && (
             <Typography variant="body2" sx={{ fontWeight: 700 }}>
               {defenderLabel}
               {defenderEvsLabel && (
-                <Typography component="span" variant="caption" sx={{ fontWeight: 500, color: "text.secondary", ml: 0.5 }}>
+                <Typography
+                  component="span"
+                  variant="caption"
+                  sx={{ fontWeight: 500, color: "text.secondary", ml: 0.5 }}
+                >
                   ({defenderEvsLabel})
                 </Typography>
               )}
@@ -327,12 +438,19 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
       {tags.length > 0 && (
         <Stack direction="row" sx={{ flexWrap: "wrap", gap: 0.5, opacity: 0.65 }}>
           {tags.map((tag, i) => (
-            <Typography key={i} variant="caption" sx={{
-              px: 0.75, py: 0.2, borderRadius: 1,
-              bgcolor: "action.selected",
-              fontSize: 10, lineHeight: 1.5,
-              whiteSpace: "nowrap",
-            }}>
+            <Typography
+              key={i}
+              variant="caption"
+              sx={{
+                px: 0.75,
+                py: 0.2,
+                borderRadius: 1,
+                bgcolor: "action.selected",
+                fontSize: 10,
+                lineHeight: 1.5,
+                whiteSpace: "nowrap",
+              }}
+            >
               {tag}
             </Typography>
           ))}
@@ -365,7 +483,13 @@ function hpColor(remainingPct: number, isDark: boolean): string {
   return isDark ? "#f44336" : "#c62828";
 }
 
-function HpBar({ minPercent, maxPercent }: { readonly minPercent: number; readonly maxPercent: number }) {
+function HpBar({
+  minPercent,
+  maxPercent,
+}: {
+  readonly minPercent: number;
+  readonly maxPercent: number;
+}) {
   const theme = useTheme();
   const { t } = useTranslation();
   const isDark = theme.palette.mode === "dark";
@@ -374,69 +498,125 @@ function HpBar({ minPercent, maxPercent }: { readonly minPercent: number; readon
   const maxDmg = Math.min(100, Math.max(0, maxPercent));
 
   // CSS left % positions
-  const remainingEnd = 100 - maxDmg;   // right edge of remaining HP section
-  const stripeEnd    = 100 - minDmg;   // right edge of random range (stripe) section
+  const remainingEnd = 100 - maxDmg; // right edge of remaining HP section
+  const stripeEnd = 100 - minDmg; // right edge of random range (stripe) section
 
   const remainingWidth = remainingEnd;
-  const stripeWidth    = stripeEnd - remainingEnd;   // = maxDmg - minDmg
-  const grayWidth      = 100 - stripeEnd;             // = minDmg
+  const stripeWidth = stripeEnd - remainingEnd; // = maxDmg - minDmg
+  const grayWidth = 100 - stripeEnd; // = minDmg
 
   const remainingColor = hpColor(remainingWidth, isDark);
-  const gray   = isDark ? "rgba(255,255,255,0.22)" : "rgba(0,0,0,0.22)";
-  const barBg  = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
-  const stripe = isDark ? "rgba(0,0,0,0.45)"       : "rgba(0,0,0,0.25)";
+  const gray = isDark ? "rgba(255,255,255,0.22)" : "rgba(0,0,0,0.22)";
+  const barBg = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
+  const stripe = isDark ? "rgba(0,0,0,0.45)" : "rgba(0,0,0,0.25)";
 
   return (
     <Box>
       <Tooltip title={`${minPercent.toFixed(1)}%〜${maxPercent.toFixed(1)}%`} placement="top" arrow>
-        <Box sx={{ position: "relative", height: 20, borderRadius: 10, bgcolor: barBg, overflow: "hidden", cursor: "default" }}>
-
+        <Box
+          sx={{
+            position: "relative",
+            height: 20,
+            borderRadius: 10,
+            bgcolor: barBg,
+            overflow: "hidden",
+            cursor: "default",
+          }}
+        >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}
-          {stripeWidth > 0 && (() => {
-            const thresholds = [50, 80].filter(d => d > minDmg && d < maxDmg);
-            const splits = [minDmg, ...thresholds, maxDmg];
-            return splits.slice(0, -1).map((dStart, i) => {
-              const dEnd = splits[i + 1];
-              const x = 100 - dEnd;
-              const w = dEnd - dStart;
-              const midHp = 100 - (dStart + dEnd) / 2;
-              return (
-                <Box key={i}>
-                  <Box sx={{ position: "absolute", top: 0, bottom: 0, left: `${x}%`, width: `${w}%`, bgcolor: hpColor(midHp, isDark), opacity: 0.35 }} />
-                  <Box sx={{ position: "absolute", top: 0, bottom: 0, left: `${x}%`, width: `${w}%`, background: `repeating-linear-gradient(-45deg, ${stripe}, ${stripe} 3px, transparent 3px, transparent 7px)` }} />
-                </Box>
-              );
-            });
-          })()}
+          {stripeWidth > 0 &&
+            (() => {
+              const thresholds = [50, 80].filter((d) => d > minDmg && d < maxDmg);
+              const splits = [minDmg, ...thresholds, maxDmg];
+              return splits.slice(0, -1).map((dStart, i) => {
+                const dEnd = splits[i + 1];
+                const x = 100 - dEnd;
+                const w = dEnd - dStart;
+                const midHp = 100 - (dStart + dEnd) / 2;
+                return (
+                  <Box key={i}>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        bottom: 0,
+                        left: `${x}%`,
+                        width: `${w}%`,
+                        bgcolor: hpColor(midHp, isDark),
+                        opacity: 0.35,
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        bottom: 0,
+                        left: `${x}%`,
+                        width: `${w}%`,
+                        background: `repeating-linear-gradient(-45deg, ${stripe}, ${stripe} 3px, transparent 3px, transparent 7px)`,
+                      }}
+                    />
+                  </Box>
+                );
+              });
+            })()}
 
           {/* Confirmed damage — gray */}
           {grayWidth > 0 && (
-            <Box sx={{ position: "absolute", top: 0, bottom: 0, left: `${stripeEnd}%`, width: `${grayWidth}%`, bgcolor: gray }} />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: `${stripeEnd}%`,
+                width: `${grayWidth}%`,
+                bgcolor: gray,
+              }}
+            />
           )}
 
           {/* Remaining HP — color by remaining % — rendered last so it sits on top */}
           {remainingWidth > 0 && (
-            <Box sx={{ position: "absolute", top: 0, bottom: 0, left: 0, width: `${remainingWidth}%`, bgcolor: remainingColor }} />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                width: `${remainingWidth}%`,
+                bgcolor: remainingColor,
+              }}
+            />
           )}
 
           {/* Max damage marker */}
           {remainingEnd > 0 && remainingEnd < 100 && (
-            <Box sx={{
-              position: "absolute", top: 0, bottom: 0,
-              left: `${remainingEnd}%`, width: 2,
-              bgcolor: isDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.55)",
-              transform: "translateX(-1px)",
-            }} />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: `${remainingEnd}%`,
+                width: 2,
+                bgcolor: isDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.55)",
+                transform: "translateX(-1px)",
+              }}
+            />
           )}
 
           {/* Min damage marker */}
           {stripeEnd > 0 && stripeEnd < 100 && stripeWidth > 0 && (
-            <Box sx={{
-              position: "absolute", top: 0, bottom: 0,
-              left: `${stripeEnd}%`, width: 2,
-              bgcolor: isDark ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.38)",
-              transform: "translateX(-1px)",
-            }} />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: `${stripeEnd}%`,
+                width: 2,
+                bgcolor: isDark ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.38)",
+                transform: "translateX(-1px)",
+              }}
+            />
           )}
         </Box>
       </Tooltip>
@@ -457,7 +637,11 @@ function HpBar({ minPercent, maxPercent }: { readonly minPercent: number; readon
 
 // ---------------------------------------------------------------------------
 
-function CritToggle({ isCrit, onChange, label }: {
+function CritToggle({
+  isCrit,
+  onChange,
+  label,
+}: {
   readonly isCrit: boolean;
   readonly onChange: (v: boolean) => void;
   readonly label: string;
@@ -483,7 +667,8 @@ function getKOLabel(
   t: (key: string, opts?: Record<string, unknown>) => string,
 ): string {
   if (minHits === 1 && ohkoChance === 1) return t("damageCalc.ohko");
-  if (minHits === 1 && ohkoChance > 0)   return t("damageCalc.ohkoChance", { chance: Math.round(ohkoChance * 100) });
-  if (minHits === maxHits)               return t("damageCalc.guaranteedKO", { n: minHits });
+  if (minHits === 1 && ohkoChance > 0)
+    return t("damageCalc.ohkoChance", { chance: Math.round(ohkoChance * 100) });
+  if (minHits === maxHits) return t("damageCalc.guaranteedKO", { n: minHits });
   return t("damageCalc.possibleKO", { n: minHits });
 }

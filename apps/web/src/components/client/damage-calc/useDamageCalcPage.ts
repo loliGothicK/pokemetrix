@@ -105,7 +105,7 @@ export function useDamageCalcPage() {
     lightScreen: boolean;
     auroraVeil: boolean;
   }>({ reflect: false, lightScreen: false, auroraVeil: false });
-  const [isDoubles, setIsDoubles] = useState(false);
+  const [isDoubles, setIsDoubles] = useState(true);
   const [isCrit, setIsCrit] = useState(false);
 
   const damageInput = useMemo((): DamageInput | null => {
@@ -301,8 +301,7 @@ export function useDamageCalcPage() {
     if (dc.protect) {
       const isContact = move.classifications.includes("contact");
       const canPierce =
-        isContact &&
-        (attacker.ability === "unseen-fist" || attacker.ability === "piercing-drill");
+        isContact && (attacker.ability === "unseen-fist" || attacker.ability === "piercing-drill");
       if (canPierce) {
         protectModifier = M.Z_INTO_PROTECT; // 1024 = 0.25x
       } else {
