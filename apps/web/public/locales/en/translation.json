@@ -1698,7 +1698,7 @@
       "name": "Follow Me",
       "effect": "The user redirects opponents' moves toward itself. This effect works only on single-target moves."
     },
-    "forest's-curse": {
+    "forests-curse": {
       "name": "Forest’s Curse",
       "effect": "Gives the target the Forest Cursed status."
     },
@@ -1958,7 +1958,7 @@
       "name": "Jet Punch",
       "effect": ""
     },
-    "king's-shield": {
+    "kings-shield": {
       "name": "King’s Shield",
       "effect": "The user protects itself from incoming attacks for the turn and changes into its Shield Forme. Any attackers that use contact moves against the user during this turn will have their Attack stats lowered by 1 stage. With each consecutive use this move's chance of success becomes 1/3 of what it was before."
     },
@@ -3001,6 +3001,154 @@
     "zen-headbutt": {
       "name": "Zen Headbutt",
       "effect": "Has a 20% chance of making the target flinch."
+    },
+    "astonish": {
+      "name": "Astonish",
+      "effect": "Has a chance to make the target flinch."
+    },
+    "autotomize": {
+      "name": "Autotomize",
+      "effect": "Raises the user’s Speed by two stages and halves the user’s weight."
+    },
+    "barb-barrage": {
+      "name": "Barb Barrage",
+      "effect": ""
+    },
+    "confide": {
+      "name": "Confide",
+      "effect": "Lowers the target’s Special Attack by one stage."
+    },
+    "cut": {
+      "name": "Cut",
+      "effect": "Inflicts regular damage with no additional effect."
+    },
+    "disarming-voice": {
+      "name": "Disarming Voice",
+      "effect": "Never misses."
+    },
+    "dream-eater": {
+      "name": "Dream Eater",
+      "effect": "Only works on sleeping Pokémon.  Drains half the damage inflicted to heal the user."
+    },
+    "false-swipe": {
+      "name": "False Swipe",
+      "effect": "Cannot lower the target’s HP below 1."
+    },
+    "flash": {
+      "name": "Flash",
+      "effect": "Lowers the target’s accuracy by one stage."
+    },
+    "frustration": {
+      "name": "Frustration",
+      "effect": "Power increases as happiness decreases, up to a maximum of 102."
+    },
+    "fury-cutter": {
+      "name": "Fury Cutter",
+      "effect": "Power doubles every turn this move is used in succession after the first, maxing out after five turns."
+    },
+    "hidden-power": {
+      "name": "Hidden Power",
+      "effect": "Power and type depend upon user’s IVs.  Power can range from 30 to 70."
+    },
+    "laser-focus": {
+      "name": "Laser Focus",
+      "effect": "Guarantees a critical hit with the user’s next move."
+    },
+    "mist": {
+      "name": "Mist",
+      "effect": "Protects the user’s stats from being changed by enemy moves."
+    },
+    "natural-gift": {
+      "name": "Natural Gift",
+      "effect": "Power and type depend on the held berry."
+    },
+    "no-retreat": {
+      "name": "No Retreat",
+      "effect": "Hits twice in one turn, with a chance to make the target flinch."
+    },
+    "ominous-wind": {
+      "name": "Ominous Wind",
+      "effect": "Has a chance to raise all of the user’s stats by one stage."
+    },
+    "pound": {
+      "name": "Pound",
+      "effect": "Inflicts regular damage with no additional effect."
+    },
+    "pursuit": {
+      "name": "Pursuit",
+      "effect": "Has double power against, and can hit, Pokémon attempting to switch out."
+    },
+    "retaliate": {
+      "name": "Retaliate",
+      "effect": "Has double power if a friendly Pokémon fainted last turn."
+    },
+    "return": {
+      "name": "Return",
+      "effect": "Power increases with happiness, up to a maximum of 102."
+    },
+    "rock-smash": {
+      "name": "Rock Smash",
+      "effect": "Has a chance to lower the target’s Defense by one stage."
+    },
+    "secret-power": {
+      "name": "Secret Power",
+      "effect": "Has a chance to inflict a status effect which depends upon the terrain."
+    },
+    "shock-wave": {
+      "name": "Shock Wave",
+      "effect": "Never misses."
+    },
+    "signal-beam": {
+      "name": "Signal Beam",
+      "effect": "Has a chance to confuse the target."
+    },
+    "slash": {
+      "name": "Slash",
+      "effect": "Has an increased chance for a critical hit."
+    },
+    "snatch": {
+      "name": "Snatch",
+      "effect": "Steals the target’s move, if it’s self-targeted."
+    },
+    "spirit-break": {
+      "name": "Spirit Break",
+      "effect": "Has a chance to lower the target’s Special Attack by one stage."
+    },
+    "supersonic": {
+      "name": "Supersonic",
+      "effect": "Confuses the target."
+    },
+    "swift": {
+      "name": "Swift",
+      "effect": "Never misses."
+    },
+    "tackle": {
+      "name": "Tackle",
+      "effect": "Inflicts regular damage with no additional effect."
+    },
+    "take-down": {
+      "name": "Take Down",
+      "effect": "User receives 1/4 the damage it inflicts in recoil."
+    },
+    "telekinesis": {
+      "name": "Telekinesis",
+      "effect": "Moves have 100% accuracy against the target for three turns."
+    },
+    "tera-blast": {
+      "name": "Tera Blast",
+      "effect": ""
+    },
+    "thunder-shock": {
+      "name": "Thunder Shock",
+      "effect": "Has a chance to paralyze the target."
+    },
+    "topsy-turvy": {
+      "name": "Topsy-Turvy",
+      "effect": "Inverts the target’s stat modifiers."
+    },
+    "water-gun": {
+      "name": "Water Gun",
+      "effect": "Inflicts regular damage with no additional effect."
     }
   },
   "pokemon": {

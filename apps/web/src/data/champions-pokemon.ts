@@ -11,7 +11,7 @@ const ChampionsPokemonSchema = z
     slug: z.string().nullable(),
     abilities: z.array(z.number()),
     status: z.tuple([z.number(), z.number(), z.number(), z.number(), z.number(), z.number()]),
-    moves: z.array(z.number()),
+    moves: z.array(z.number()).readonly(),
     mega: z
       .array(
         z.object({

@@ -846,7 +846,7 @@
     "follow-me": {
       "name": "このゆびとまれ"
     },
-    "forest's-curse": {
+    "forests-curse": {
       "name": "もりののろい"
     },
     "foul-play": {
@@ -1041,7 +1041,7 @@
     "jet-punch": {
       "name": "ジェットパンチ"
     },
-    "king's-shield": {
+    "kings-shield": {
       "name": "キングシールド"
     },
     "knock-off": {
@@ -1823,6 +1823,117 @@
     },
     "zen-headbutt": {
       "name": "しねんのずつき"
+    },
+    "astonish": {
+      "name": "おどろかす"
+    },
+    "autotomize": {
+      "name": "ボディパージ"
+    },
+    "barb-barrage": {
+      "name": "どくばりセンボン"
+    },
+    "confide": {
+      "name": "ないしょばなし"
+    },
+    "cut": {
+      "name": "いあいぎり"
+    },
+    "disarming-voice": {
+      "name": "チャームボイス"
+    },
+    "dream-eater": {
+      "name": "ゆめくい"
+    },
+    "false-swipe": {
+      "name": "みねうち"
+    },
+    "flash": {
+      "name": "フラッシュ"
+    },
+    "frustration": {
+      "name": "やつあたり"
+    },
+    "fury-cutter": {
+      "name": "れんぞくぎり"
+    },
+    "hidden-power": {
+      "name": "めざめるパワー"
+    },
+    "laser-focus": {
+      "name": "とぎすます"
+    },
+    "mist": {
+      "name": "しろいきり"
+    },
+    "natural-gift": {
+      "name": "しぜんのめぐみ"
+    },
+    "no-retreat": {
+      "name": "はいすいのじん"
+    },
+    "ominous-wind": {
+      "name": "あやしいかぜ"
+    },
+    "pound": {
+      "name": "はたく"
+    },
+    "pursuit": {
+      "name": "おいうち"
+    },
+    "retaliate": {
+      "name": "かたきうち"
+    },
+    "return": {
+      "name": "おんがえし"
+    },
+    "rock-smash": {
+      "name": "いわくだき"
+    },
+    "secret-power": {
+      "name": "ひみつのちから"
+    },
+    "shock-wave": {
+      "name": "でんげきは"
+    },
+    "signal-beam": {
+      "name": "シグナルビーム"
+    },
+    "slash": {
+      "name": "きりさく"
+    },
+    "snatch": {
+      "name": "よこどり"
+    },
+    "spirit-break": {
+      "name": "ソウルクラッシュ"
+    },
+    "supersonic": {
+      "name": "ちょうおんぱ"
+    },
+    "swift": {
+      "name": "スピードスター"
+    },
+    "tackle": {
+      "name": "たいあたり"
+    },
+    "take-down": {
+      "name": "とっしん"
+    },
+    "telekinesis": {
+      "name": "テレキネシス"
+    },
+    "tera-blast": {
+      "name": "テラバースト"
+    },
+    "thunder-shock": {
+      "name": "でんきショック"
+    },
+    "topsy-turvy": {
+      "name": "ひっくりかえす"
+    },
+    "water-gun": {
+      "name": "みずでっぽう"
     }
   },
   "pokemon": {

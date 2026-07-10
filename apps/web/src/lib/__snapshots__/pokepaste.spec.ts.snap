@@ -5,10 +5,10 @@ exports[`exportSet for All Pokémon > exportSet( 'abomasnow' ) 1`] = `
 Ability: Snow Warning  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aurora Veil  
-- Avalanche  
-- Blizzard  
-- Body Press  
+- Ice Punch  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
 
 "
 `;
@@ -18,10 +18,10 @@ exports[`exportSet for All Pokémon > exportSet( 'absol' ) 1`] = `
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Air Slash  
-- Assurance  
-- Attract  
+- Swords Dance  
+- Body Slam  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -31,10 +31,10 @@ exports[`exportSet for All Pokémon > exportSet( 'aegislash-shield' ) 1`] = `
 Ability: Stance Change  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- After You  
-- Air Slash  
-- Attract  
+- Swords Dance  
+- Cut  
+- Tackle  
+- Hyper Beam  
 
 "
 `;
@@ -44,10 +44,10 @@ exports[`exportSet for All Pokémon > exportSet( 'aerodactyl' ) 1`] = `
 Ability: Rock Head  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Ancient Power  
-- Assurance  
+- Whirlwind  
+- Fly  
+- Bite  
+- Roar  
 
 "
 `;
@@ -57,10 +57,10 @@ exports[`exportSet for All Pokémon > exportSet( 'aggron' ) 1`] = `
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Attract  
-- Avalanche  
-- Blizzard  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -70,10 +70,10 @@ exports[`exportSet for All Pokémon > exportSet( 'alakazam' ) 1`] = `
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Body Slam  
-- Calm Mind  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -83,10 +83,10 @@ exports[`exportSet for All Pokémon > exportSet( 'alcremie' ) 1`] = `
 Ability: Sweet Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Alluring Voice  
-- Aromatic Mist  
-- Attract  
+- Hyper Beam  
+- Solar Beam  
+- Psychic  
+- Recover  
 
 "
 `;
@@ -96,10 +96,10 @@ exports[`exportSet for All Pokémon > exportSet( 'alolan-ninetales' ) 1`] = `
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Attract  
-- Aurora Veil  
-- Avalanche  
+- Body Slam  
+- Double Edge  
+- Roar  
+- Disable  
 
 "
 `;
@@ -109,10 +109,10 @@ exports[`exportSet for All Pokémon > exportSet( 'alolan-raichu' ) 1`] = `
 Ability: Surge Surfer  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Alluring Voice  
+- Thunder Punch  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
+- Surf  
 
 "
 `;
@@ -122,10 +122,10 @@ exports[`exportSet for All Pokémon > exportSet( 'altaria' ) 1`] = `
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Alluring Voice  
+- Fly  
+- Body Slam  
+- Double Edge  
+- Roar  
 
 "
 `;
@@ -135,10 +135,10 @@ exports[`exportSet for All Pokémon > exportSet( 'ampharos' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Agility  
-- Body Slam  
-- Breaking Swipe  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -148,9 +148,9 @@ exports[`exportSet for All Pokémon > exportSet( 'annihilape' ) 1`] = `
 Ability: Vital Spirit  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Assurance  
-- Beat Up  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
 - Body Slam  
 
 "
@@ -161,10 +161,10 @@ exports[`exportSet for All Pokémon > exportSet( 'appletun' ) 1`] = `
 Ability: Ripen  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Apple Acid  
-- Body Press  
 - Body Slam  
+- Hyper Beam  
+- Leech Seed  
+- Growth  
 
 "
 `;
@@ -174,10 +174,10 @@ exports[`exportSet for All Pokémon > exportSet( 'araquanid' ) 1`] = `
 Ability: Water Bubble  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Ring  
-- Attract  
+- Body Slam  
 - Bite  
-- Blizzard  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -187,9 +187,9 @@ exports[`exportSet for All Pokémon > exportSet( 'arbok' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Beat Up  
-- Belch  
+- Body Slam  
+- Wrap  
+- Double Edge  
 - Bite  
 
 "
@@ -200,10 +200,10 @@ exports[`exportSet for All Pokémon > exportSet( 'arcanine' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Bite  
 - Body Slam  
+- Thrash  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -213,10 +213,10 @@ exports[`exportSet for All Pokémon > exportSet( 'archaludon' ) 1`] = `
 Ability: Stamina  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aura Sphere  
+- Swords Dance  
 - Body Slam  
-- Breaking Swipe  
-- Brick Break  
+- Double Edge  
+- Roar  
 
 "
 `;
@@ -226,10 +226,10 @@ exports[`exportSet for All Pokémon > exportSet( 'ariados' ) 1`] = `
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Agility  
-- Assurance  
-- Baton Pass  
+- Swords Dance  
+- Body Slam  
+- Pin Missile  
+- Disable  
 
 "
 `;
@@ -239,10 +239,10 @@ exports[`exportSet for All Pokémon > exportSet( 'armarouge' ) 1`] = `
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Ally Switch  
-- Armor Cannon  
-- Aura Sphere  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
+- Solar Beam  
 
 "
 `;
@@ -252,10 +252,10 @@ exports[`exportSet for All Pokémon > exportSet( 'aromatisse' ) 1`] = `
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Alluring Voice  
-- Ally Switch  
-- Aromatic Mist  
+- Disable  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder  
 
 "
 `;
@@ -265,10 +265,10 @@ exports[`exportSet for All Pokémon > exportSet( 'audino' ) 1`] = `
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Ally Switch  
-- Amnesia  
-- Attract  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -278,10 +278,10 @@ exports[`exportSet for All Pokémon > exportSet( 'aurorus' ) 1`] = `
 Ability: Refrigerate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Attract  
-- Aurora Veil  
-- Avalanche  
+- Body Slam  
+- Ice Beam  
+- Blizzard  
+- Hyper Beam  
 
 "
 `;
@@ -291,10 +291,10 @@ exports[`exportSet for All Pokémon > exportSet( 'avalugg' ) 1`] = `
 Ability: Own Tempo  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Aurora Veil  
-- Avalanche  
+- Body Slam  
+- Double Edge  
 - Bite  
+- Hydro Pump  
 
 "
 `;
@@ -304,10 +304,10 @@ exports[`exportSet for All Pokémon > exportSet( 'azumarill' ) 1`] = `
 Ability: Thick Fat  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Amnesia  
-- Aqua Jet  
-- Aqua Ring  
+- Ice Punch  
+- Body Slam  
+- Double Edge  
+- Sing  
 
 "
 `;
@@ -317,10 +317,10 @@ exports[`exportSet for All Pokémon > exportSet( 'banette' ) 1`] = `
 Ability: Insomnia  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Burning Jealousy  
-- Calm Mind  
-- Charge Beam  
-- Confuse Ray  
+- Swords Dance  
+- Disable  
+- Hyper Beam  
+- Thunderbolt  
 
 "
 `;
@@ -330,10 +330,10 @@ exports[`exportSet for All Pokémon > exportSet( 'barbaracle' ) 1`] = `
 Ability: Tough Claws  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Aqua Cutter  
-- Assurance  
-- Attract  
+- Swords Dance  
+- Surf  
+- Ice Beam  
+- Blizzard  
 
 "
 `;
@@ -343,10 +343,10 @@ exports[`exportSet for All Pokémon > exportSet( 'basculegion-female' ) 1`] = `
 Ability: Swift Swim  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Aqua Jet  
+- Thrash  
+- Double Edge  
 - Bite  
-- Blizzard  
+- Hydro Pump  
 
 "
 `;
@@ -356,10 +356,10 @@ exports[`exportSet for All Pokémon > exportSet( 'basculegion-male' ) 1`] = `
 Ability: Swift Swim  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Aqua Jet  
+- Thrash  
+- Double Edge  
 - Bite  
-- Blizzard  
+- Hydro Pump  
 
 "
 `;
@@ -369,10 +369,10 @@ exports[`exportSet for All Pokémon > exportSet( 'bastiodon' ) 1`] = `
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Attract  
-- Avalanche  
-- Blizzard  
+- Body Slam  
+- Double Edge  
+- Roar  
+- Flamethrower  
 
 "
 `;
@@ -382,10 +382,10 @@ exports[`exportSet for All Pokémon > exportSet( 'beartic' ) 1`] = `
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Aqua Jet  
-- Assurance  
-- Avalanche  
+- Ice Punch  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
 
 "
 `;
@@ -395,10 +395,10 @@ exports[`exportSet for All Pokémon > exportSet( 'beedrill' ) 1`] = `
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Swords Dance  
+- Double Edge  
+- Pin Missile  
+- Hyper Beam  
 
 "
 `;
@@ -408,10 +408,10 @@ exports[`exportSet for All Pokémon > exportSet( 'bellibolt' ) 1`] = `
 Ability: Electromorphosis  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Charge  
-- Charge Beam  
-- Chilling Water  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder Wave  
+- Thunder  
 
 "
 `;
@@ -421,10 +421,10 @@ exports[`exportSet for All Pokémon > exportSet( 'blastoise' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Jet  
-- Aqua Ring  
-- Aqua Tail  
-- Aura Sphere  
+- Ice Punch  
+- Mega Kick  
+- Body Slam  
+- Double Edge  
 
 "
 `;
@@ -434,10 +434,10 @@ exports[`exportSet for All Pokémon > exportSet( 'blaziken' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Assurance  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -447,10 +447,10 @@ exports[`exportSet for All Pokémon > exportSet( 'camerupt' ) 1`] = `
 Ability: Magma Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Ancient Power  
-- Body Press  
 - Body Slam  
+- Double Edge  
+- Roar  
+- Flamethrower  
 
 "
 `;
@@ -460,10 +460,10 @@ exports[`exportSet for All Pokémon > exportSet( 'castform' ) 1`] = `
 Ability: Forecast  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Attract  
-- Avalanche  
-- Blizzard  
+- Body Slam  
+- Flamethrower  
+- Hydro Pump  
+- Ice Beam  
 
 "
 `;
@@ -473,10 +473,10 @@ exports[`exportSet for All Pokémon > exportSet( 'ceruledge' ) 1`] = `
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Bitter Blade  
-- Brick Break  
-- Bulk Up  
+- Swords Dance  
+- Disable  
+- Flamethrower  
+- Fire Spin  
 
 "
 `;
@@ -486,10 +486,10 @@ exports[`exportSet for All Pokémon > exportSet( 'chandelure' ) 1`] = `
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Burning Jealousy  
-- Calm Mind  
-- Clear Smog  
+- Flamethrower  
+- Hyper Beam  
+- Solar Beam  
+- Fire Spin  
 
 "
 `;
@@ -499,10 +499,10 @@ exports[`exportSet for All Pokémon > exportSet( 'charizard' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Air Cutter  
-- Air Slash  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Fly  
 
 "
 `;
@@ -512,10 +512,10 @@ exports[`exportSet for All Pokémon > exportSet( 'chesnaught' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Belly Drum  
-- Bite  
-- Body Press  
+- Thunder Punch  
+- Swords Dance  
+- Body Slam  
+- Double Edge  
 
 "
 `;
@@ -525,10 +525,10 @@ exports[`exportSet for All Pokémon > exportSet( 'chimecho' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Baton Pass  
-- Boomburst  
-- Calm Mind  
+- Wrap  
+- Double Edge  
+- Disable  
+- Thunder Wave  
 
 "
 `;
@@ -538,10 +538,10 @@ exports[`exportSet for All Pokémon > exportSet( 'clawitzer' ) 1`] = `
 Ability: Mega Launcher  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Jet  
-- Aqua Tail  
-- Aura Sphere  
-- Blizzard  
+- Swords Dance  
+- Body Slam  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -551,10 +551,10 @@ exports[`exportSet for All Pokémon > exportSet( 'clefable' ) 1`] = `
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Air Slash  
-- Alluring Voice  
-- Amnesia  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
 
 "
 `;
@@ -564,10 +564,10 @@ exports[`exportSet for All Pokémon > exportSet( 'cofagrigus' ) 1`] = `
 Ability: Mummy  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Body Press  
-- Calm Mind  
+- Disable  
+- Hyper Beam  
+- Psychic  
+- Night Shade  
 
 "
 `;
@@ -577,10 +577,10 @@ exports[`exportSet for All Pokémon > exportSet( 'conkeldurr' ) 1`] = `
 Ability: Guts  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
-- Body Slam  
-- Brick Break  
-- Brutal Swing  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -590,10 +590,10 @@ exports[`exportSet for All Pokémon > exportSet( 'corviknight' ) 1`] = `
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
-- Air Slash  
+- Fly  
+- Body Slam  
+- Double Edge  
+- Hyper Beam  
 
 "
 `;
@@ -603,10 +603,10 @@ exports[`exportSet for All Pokémon > exportSet( 'crabominable' ) 1`] = `
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Avalanche  
-- Blizzard  
-- Body Press  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
+- Ice Beam  
 
 "
 `;
@@ -616,10 +616,10 @@ exports[`exportSet for All Pokémon > exportSet( 'decidueye' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Air Cutter  
-- Air Slash  
+- Swords Dance  
+- Hyper Beam  
+- Low Kick  
+- Solar Beam  
 
 "
 `;
@@ -629,10 +629,10 @@ exports[`exportSet for All Pokémon > exportSet( 'dedenne' ) 1`] = `
 Ability: Cheek Pouch  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Charge  
-- Charge Beam  
-- Charm  
+- Thunder Punch  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder Wave  
 
 "
 `;
@@ -642,10 +642,10 @@ exports[`exportSet for All Pokémon > exportSet( 'delphox' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Blast Burn  
-- Burning Jealousy  
-- Calm Mind  
+- Fire Punch  
+- Thunder Punch  
+- Flamethrower  
+- Hyper Beam  
 
 "
 `;
@@ -655,10 +655,10 @@ exports[`exportSet for All Pokémon > exportSet( 'diggersby' ) 1`] = `
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Attract  
-- Body Slam  
-- Bounce  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -678,10 +678,10 @@ exports[`exportSet for All Pokémon > exportSet( 'dragalge' ) 1`] = `
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Acid Spray  
-- Aqua Tail  
-- Chilling Water  
+- Hydro Pump  
+- Surf  
+- Hyper Beam  
+- Thunderbolt  
 
 "
 `;
@@ -691,10 +691,10 @@ exports[`exportSet for All Pokémon > exportSet( 'dragapult' ) 1`] = `
 Ability: Clear Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Agility  
-- Assurance  
-- Baton Pass  
+- Fly  
+- Body Slam  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -704,10 +704,10 @@ exports[`exportSet for All Pokémon > exportSet( 'dragonite' ) 1`] = `
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
-- Air Slash  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Whirlwind  
 
 "
 `;
@@ -717,10 +717,10 @@ exports[`exportSet for All Pokémon > exportSet( 'drampa' ) 1`] = `
 Ability: Berserk  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Attract  
-- Blizzard  
+- Whirlwind  
+- Fly  
 - Body Slam  
+- Flamethrower  
 
 "
 `;
@@ -730,10 +730,10 @@ exports[`exportSet for All Pokémon > exportSet( 'eelektross' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acrobatics  
-- Body Press  
+- Fire Punch  
+- Thunder Punch  
 - Body Slam  
+- Thrash  
 
 "
 `;
@@ -743,10 +743,10 @@ exports[`exportSet for All Pokémon > exportSet( 'emboar' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Blast Burn  
-- Body Press  
+- Fire Punch  
+- Thunder Punch  
 - Body Slam  
+- Thrash  
 
 "
 `;
@@ -756,10 +756,10 @@ exports[`exportSet for All Pokémon > exportSet( 'emolga' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Agility  
-- Air Slash  
-- Attract  
+- Solar Beam  
+- Thunderbolt  
+- Thunder Wave  
+- Thunder  
 
 "
 `;
@@ -769,10 +769,10 @@ exports[`exportSet for All Pokémon > exportSet( 'empoleon' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
-- Air Slash  
+- Swords Dance  
+- Body Slam  
+- Double Edge  
+- Roar  
 
 "
 `;
@@ -782,10 +782,10 @@ exports[`exportSet for All Pokémon > exportSet( 'espathra' ) 1`] = `
 Ability: Opportunist  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Ally Switch  
-- Baby Doll Eyes  
+- Body Slam  
+- Double Edge  
+- Hyper Beam  
+- Drill Peck  
 
 "
 `;
@@ -795,10 +795,10 @@ exports[`exportSet for All Pokémon > exportSet( 'espeon' ) 1`] = `
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
 - Bite  
+- Roar  
 
 "
 `;
@@ -808,10 +808,10 @@ exports[`exportSet for All Pokémon > exportSet( 'excadrill' ) 1`] = `
 Ability: Sand Rush  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
+- Swords Dance  
+- Horn Drill  
 - Body Slam  
-- Brick Break  
-- Brutal Swing  
+- Double Edge  
 
 "
 `;
@@ -821,10 +821,10 @@ exports[`exportSet for All Pokémon > exportSet( 'falinks' ) 1`] = `
 Ability: Battle Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Assurance  
-- Beat Up  
-- Body Press  
+- Swords Dance  
+- Body Slam  
+- Hyper Beam  
+- Counter  
 
 "
 `;
@@ -834,10 +834,10 @@ exports[`exportSet for All Pokémon > exportSet( 'farigiraf' ) 1`] = `
 Ability: Cud Chew  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Ally Switch  
-- Amnesia  
-- Assurance  
+- Body Slam  
+- Double Edge  
+- Roar  
+- Hyper Beam  
 
 "
 `;
@@ -847,10 +847,10 @@ exports[`exportSet for All Pokémon > exportSet( 'feraligatr' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Ancient Power  
-- Aqua Jet  
+- Ice Punch  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
 
 "
 `;
@@ -860,10 +860,10 @@ exports[`exportSet for All Pokémon > exportSet( 'flapple' ) 1`] = `
 Ability: Ripen  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acrobatics  
-- Aerial Ace  
-- Air Slash  
+- Fly  
+- Hyper Beam  
+- Leech Seed  
+- Growth  
 
 "
 `;
@@ -873,10 +873,10 @@ exports[`exportSet for All Pokémon > exportSet( 'flareon' ) 1`] = `
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
 - Bite  
+- Roar  
 
 "
 `;
@@ -886,10 +886,10 @@ exports[`exportSet for All Pokémon > exportSet( 'floette' ) 1`] = `
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baton Pass  
-- Calm Mind  
-- Charm  
+- Hyper Beam  
+- Solar Beam  
+- Petal Dance  
+- Psychic  
 
 "
 `;
@@ -899,10 +899,10 @@ exports[`exportSet for All Pokémon > exportSet( 'floette-eternal' ) 1`] = `
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baton Pass  
-- Calm Mind  
-- Charm  
+- Hyper Beam  
+- Solar Beam  
+- Petal Dance  
+- Psychic  
 
 "
 `;
@@ -912,10 +912,10 @@ exports[`exportSet for All Pokémon > exportSet( 'florges' ) 1`] = `
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baton Pass  
-- Calm Mind  
-- Charm  
+- Hyper Beam  
+- Solar Beam  
+- Petal Dance  
+- Psychic  
 
 "
 `;
@@ -925,10 +925,10 @@ exports[`exportSet for All Pokémon > exportSet( 'forretress' ) 1`] = `
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
 - Body Slam  
-- Bug Bite  
-- Bug Buzz  
+- Double Edge  
+- Pin Missile  
+- Hyper Beam  
 
 "
 `;
@@ -938,10 +938,10 @@ exports[`exportSet for All Pokémon > exportSet( 'froslass' ) 1`] = `
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aurora Veil  
-- Avalanche  
+- Ice Punch  
+- Body Slam  
 - Bite  
-- Blizzard  
+- Disable  
 
 "
 `;
@@ -951,10 +951,10 @@ exports[`exportSet for All Pokémon > exportSet( 'furfrou' ) 1`] = `
 Ability: Fur Coat  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
-- Baby Doll Eyes  
+- Double Edge  
 - Bite  
-- Charm  
+- Roar  
+- Surf  
 
 "
 `;
@@ -964,10 +964,10 @@ exports[`exportSet for All Pokémon > exportSet( 'galarian-slowbro' ) 1`] = `
 Ability: Quick Draw  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Avalanche  
-- Belch  
+- Ice Punch  
+- Body Slam  
+- Double Edge  
+- Disable  
 
 "
 `;
@@ -977,10 +977,10 @@ exports[`exportSet for All Pokémon > exportSet( 'galarian-slowking' ) 1`] = `
 Ability: Curious Medicine  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Avalanche  
-- Belch  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
 
 "
 `;
@@ -990,10 +990,10 @@ exports[`exportSet for All Pokémon > exportSet( 'galarian-stunfisk' ) 1`] = `
 Ability: Mimicry  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
 - Bind  
-- Bounce  
-- Bulldoze  
+- Surf  
+- Counter  
+- Thunder Wave  
 
 "
 `;
@@ -1003,10 +1003,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gallade' ) 1`] = `
 Ability: Steadfast  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Air Slash  
-- Alluring Voice  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -1016,10 +1016,10 @@ exports[`exportSet for All Pokémon > exportSet( 'garbodor' ) 1`] = `
 Ability: Stench  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Ancient Power  
-- Attract  
+- Body Slam  
+- Hyper Beam  
+- Solar Beam  
+- Thunderbolt  
 
 "
 `;
@@ -1029,10 +1029,10 @@ exports[`exportSet for All Pokémon > exportSet( 'garchomp' ) 1`] = `
 Ability: Sand Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Bite  
+- Swords Dance  
 - Body Slam  
-- Breaking Swipe  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -1042,10 +1042,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gardevoir' ) 1`] = `
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Aura Sphere  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
 - Body Slam  
-- Calm Mind  
 
 "
 `;
@@ -1055,10 +1055,10 @@ exports[`exportSet for All Pokémon > exportSet( 'garganacl' ) 1`] = `
 Ability: Purifying Salt  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Avalanche  
-- Block  
-- Body Press  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
 
 "
 `;
@@ -1068,10 +1068,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gengar' ) 1`] = `
 Ability: Cursed Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
 - Body Slam  
-- Brick Break  
-- Clear Smog  
 
 "
 `;
@@ -1081,10 +1081,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gholdengo' ) 1`] = `
 Ability: Good As Gold  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Charge Beam  
-- Confuse Ray  
-- Dazzling Gleam  
-- Electro Ball  
+- Thunder Punch  
+- Surf  
+- Hyper Beam  
+- Low Kick  
 
 "
 `;
@@ -1094,10 +1094,10 @@ exports[`exportSet for All Pokémon > exportSet( 'glaceon' ) 1`] = `
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Avalanche  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
+- Bite  
+- Roar  
 
 "
 `;
@@ -1107,10 +1107,10 @@ exports[`exportSet for All Pokémon > exportSet( 'glalie' ) 1`] = `
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Avalanche  
+- Body Slam  
 - Bite  
-- Blizzard  
-- Block  
+- Disable  
+- Ice Beam  
 
 "
 `;
@@ -1120,9 +1120,9 @@ exports[`exportSet for All Pokémon > exportSet( 'glimmora' ) 1`] = `
 Ability: Toxic Debris  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Acid Spray  
-- Ancient Power  
+- Hyper Beam  
+- Solar Beam  
+- Toxic  
 - Confuse Ray  
 
 "
@@ -1133,10 +1133,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gliscor' ) 1`] = `
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Assurance  
+- Swords Dance  
+- Double Edge  
+- Pin Missile  
+- Hyper Beam  
 
 "
 `;
@@ -1146,10 +1146,10 @@ exports[`exportSet for All Pokémon > exportSet( 'golurk' ) 1`] = `
 Ability: Iron Fist  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
-- Body Slam  
-- Brick Break  
-- Bulldoze  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Fly  
 
 "
 `;
@@ -1159,10 +1159,10 @@ exports[`exportSet for All Pokémon > exportSet( 'goodra' ) 1`] = `
 Ability: Sap Sipper  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Acid Spray  
-- Ancient Power  
-- Aqua Tail  
+- Fire Punch  
+- Thunder Punch  
+- Mega Kick  
+- Body Slam  
 
 "
 `;
@@ -1172,10 +1172,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gourgeist-average' ) 1`] = `
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Brutal Swing  
-- Bullet Seed  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -1185,10 +1185,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gourgeist-large' ) 1`] = `
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Brutal Swing  
-- Bullet Seed  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -1198,10 +1198,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gourgeist-small' ) 1`] = `
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Brutal Swing  
-- Bullet Seed  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -1211,10 +1211,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gourgeist-super' ) 1`] = `
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Attract  
-- Brutal Swing  
-- Bullet Seed  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -1224,10 +1224,10 @@ exports[`exportSet for All Pokémon > exportSet( 'greninja' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Blizzard  
-- Bounce  
+- Ice Punch  
+- Swords Dance  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -1237,10 +1237,10 @@ exports[`exportSet for All Pokémon > exportSet( 'grimmsnarl' ) 1`] = `
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Bite  
-- Body Press  
-- Body Slam  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -1250,10 +1250,10 @@ exports[`exportSet for All Pokémon > exportSet( 'gyarados' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Tail  
-- Avalanche  
+- Body Slam  
+- Thrash  
+- Double Edge  
 - Bite  
-- Blizzard  
 
 "
 `;
@@ -1263,10 +1263,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hatterene' ) 1`] = `
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Agility  
-- Aromatic Mist  
-- Baton Pass  
+- Swords Dance  
+- Hyper Beam  
+- Thunder Wave  
+- Psychic  
 
 "
 `;
@@ -1276,10 +1276,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hawlucha' ) 1`] = `
 Ability: Limber  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Slash  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Fly  
 
 "
 `;
@@ -1289,10 +1289,10 @@ exports[`exportSet for All Pokémon > exportSet( 'heliolisk' ) 1`] = `
 Ability: Dry Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Ally Switch  
-- Attract  
-- Breaking Swipe  
+- Fire Punch  
+- Thunder Punch  
+- Mega Kick  
+- Surf  
 
 "
 `;
@@ -1302,10 +1302,10 @@ exports[`exportSet for All Pokémon > exportSet( 'heracross' ) 1`] = `
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Assurance  
+- Swords Dance  
 - Body Slam  
-- Brick Break  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -1315,10 +1315,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hippowdon' ) 1`] = `
 Ability: Sand Stream  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Bite  
-- Body Press  
+- Whirlwind  
 - Body Slam  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -1328,10 +1328,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-arcanine' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Bite  
 - Body Slam  
+- Thrash  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -1341,10 +1341,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-avalugg' ) 1`] = `
 Ability: Strong Jaw  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Aurora Veil  
-- Avalanche  
+- Body Slam  
+- Double Edge  
 - Bite  
+- Ice Beam  
 
 "
 `;
@@ -1354,10 +1354,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-decidueye' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Air Cutter  
-- Air Slash  
-- Aura Sphere  
+- Swords Dance  
+- Hyper Beam  
+- Low Kick  
+- Solar Beam  
 
 "
 `;
@@ -1367,10 +1367,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-goodra' ) 1`] = `
 Ability: Sap Sipper  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Ancient Power  
-- Blizzard  
-- Body Press  
+- Fire Punch  
+- Thunder Punch  
+- Body Slam  
+- Flamethrower  
 
 "
 `;
@@ -1380,10 +1380,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-samurott' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Air Slash  
-- Aqua Cutter  
-- Aqua Jet  
+- Swords Dance  
+- Body Slam  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -1393,10 +1393,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-typhlosion' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Blast Burn  
+- Fire Punch  
+- Thunder Punch  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
 
 "
 `;
@@ -1406,10 +1406,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hisuian-zoroark' ) 1`] = `
 Ability: Illusion  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Assurance  
-- Bitter Malice  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
+- Roar  
 
 "
 `;
@@ -1419,10 +1419,10 @@ exports[`exportSet for All Pokémon > exportSet( 'houndoom' ) 1`] = `
 Ability: Early Bird  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Beat Up  
-- Bite  
 - Body Slam  
-- Burning Jealousy  
+- Double Edge  
+- Bite  
+- Roar  
 
 "
 `;
@@ -1432,10 +1432,10 @@ exports[`exportSet for All Pokémon > exportSet( 'houndstone' ) 1`] = `
 Ability: Sand Rush  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
+- Double Edge  
 - Bite  
-- Body Press  
-- Bulldoze  
+- Roar  
+- Disable  
 
 "
 `;
@@ -1445,10 +1445,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hydrapple' ) 1`] = `
 Ability: Supersweet Syrup  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
 - Body Slam  
-- Breaking Swipe  
-- Bug Bite  
+- Double Edge  
+- Hydro Pump  
+- Hyper Beam  
 
 "
 `;
@@ -1458,10 +1458,10 @@ exports[`exportSet for All Pokémon > exportSet( 'hydreigon' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Assurance  
-- Beat Up  
-- Belch  
+- Fly  
+- Body Slam  
+- Bite  
+- Roar  
 
 "
 `;
@@ -1471,10 +1471,10 @@ exports[`exportSet for All Pokémon > exportSet( 'incineroar' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Assurance  
-- Attract  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -1484,10 +1484,10 @@ exports[`exportSet for All Pokémon > exportSet( 'infernape' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Attract  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Body Slam  
 
 "
 `;
@@ -1497,10 +1497,10 @@ exports[`exportSet for All Pokémon > exportSet( 'jolteon' ) 1`] = `
 Ability: Volt Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Alluring Voice  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
+- Pin Missile  
+- Bite  
 
 "
 `;
@@ -1510,10 +1510,10 @@ exports[`exportSet for All Pokémon > exportSet( 'kangaskhan' ) 1`] = `
 Ability: Early Bird  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Attract  
-- Avalanche  
-- Beat Up  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -1523,10 +1523,10 @@ exports[`exportSet for All Pokémon > exportSet( 'kingambit' ) 1`] = `
 Ability: Defiant  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Air Slash  
-- Assurance  
-- Brick Break  
+- Guillotine  
+- Swords Dance  
+- Hyper Beam  
+- Low Kick  
 
 "
 `;
@@ -1536,10 +1536,10 @@ exports[`exportSet for All Pokémon > exportSet( 'kleavor' ) 1`] = `
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Swords Dance  
+- Double Edge  
+- Hyper Beam  
+- Counter  
 
 "
 `;
@@ -1549,10 +1549,10 @@ exports[`exportSet for All Pokémon > exportSet( 'klefki' ) 1`] = `
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Calm Mind  
-- Dazzling Gleam  
-- Draining Kiss  
-- Endure  
+- Hyper Beam  
+- Thunder Wave  
+- Psychic  
+- Light Screen  
 
 "
 `;
@@ -1562,10 +1562,10 @@ exports[`exportSet for All Pokémon > exportSet( 'kommo-o' ) 1`] = `
 Ability: Bulletproof  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Attract  
-- Aura Sphere  
-- Belly Drum  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -1575,10 +1575,10 @@ exports[`exportSet for All Pokémon > exportSet( 'krookodile' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Aqua Tail  
-- Assurance  
-- Beat Up  
+- Mega Kick  
+- Body Slam  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -1588,10 +1588,10 @@ exports[`exportSet for All Pokémon > exportSet( 'leafeon' ) 1`] = `
 Ability: Leaf Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Alluring Voice  
-- Baby Doll Eyes  
-- Baton Pass  
+- Swords Dance  
+- Body Slam  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -1601,10 +1601,10 @@ exports[`exportSet for All Pokémon > exportSet( 'liepard' ) 1`] = `
 Ability: Limber  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Attract  
-- Baton Pass  
 - Bite  
+- Hyper Beam  
+- Thunder Wave  
+- Quick Attack  
 
 "
 `;
@@ -1614,10 +1614,10 @@ exports[`exportSet for All Pokémon > exportSet( 'lopunny' ) 1`] = `
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- After You  
-- Agility  
-- Assurance  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -1627,10 +1627,10 @@ exports[`exportSet for All Pokémon > exportSet( 'lucario' ) 1`] = `
 Ability: Steadfast  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Aura Sphere  
-- Bite  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -1640,10 +1640,10 @@ exports[`exportSet for All Pokémon > exportSet( 'luxray' ) 1`] = `
 Ability: Rivalry  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Baby Doll Eyes  
-- Bite  
 - Body Slam  
+- Double Edge  
+- Bite  
+- Roar  
 
 "
 `;
@@ -1653,10 +1653,10 @@ exports[`exportSet for All Pokémon > exportSet( 'lycanroc-dusk' ) 1`] = `
 Ability: Tough Claws  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Accelerock  
-- Bite  
+- Swords Dance  
 - Body Slam  
-- Brick Break  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -1666,10 +1666,10 @@ exports[`exportSet for All Pokémon > exportSet( 'lycanroc-midday' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Accelerock  
-- Agility  
-- Assurance  
-- Bite  
+- Swords Dance  
+- Body Slam  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -1679,10 +1679,10 @@ exports[`exportSet for All Pokémon > exportSet( 'lycanroc-midnight' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Bite  
-- Body Slam  
-- Brick Break  
-- Bulk Up  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -1692,10 +1692,10 @@ exports[`exportSet for All Pokémon > exportSet( 'machamp' ) 1`] = `
 Ability: Guts  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Attract  
-- Body Slam  
-- Brick Break  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -1705,10 +1705,10 @@ exports[`exportSet for All Pokémon > exportSet( 'malamar' ) 1`] = `
 Ability: Contrary  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acupressure  
-- Aerial Ace  
-- Baton Pass  
-- Brutal Swing  
+- Wrap  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
 
 "
 `;
@@ -1718,10 +1718,10 @@ exports[`exportSet for All Pokémon > exportSet( 'mamoswine' ) 1`] = `
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Ancient Power  
-- Attract  
-- Avalanche  
+- Body Slam  
+- Thrash  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -1731,10 +1731,10 @@ exports[`exportSet for All Pokémon > exportSet( 'manectric' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Attract  
-- Bite  
 - Body Slam  
+- Bite  
+- Roar  
+- Flamethrower  
 
 "
 `;
@@ -1744,10 +1744,10 @@ exports[`exportSet for All Pokémon > exportSet( 'maushold-family-of-four' ) 1`]
 Ability: Friend Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Baby Doll Eyes  
-- Beat Up  
+- Double Edge  
+- Bite  
+- Hyper Beam  
+- Low Kick  
 
 "
 `;
@@ -1757,10 +1757,10 @@ exports[`exportSet for All Pokémon > exportSet( 'mawile' ) 1`] = `
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Assurance  
-- Attract  
-- Baton Pass  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -1770,10 +1770,10 @@ exports[`exportSet for All Pokémon > exportSet( 'medicham' ) 1`] = `
 Ability: Pure Power  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acupressure  
-- Aerial Ace  
-- Agility  
-- Aura Sphere  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -1783,10 +1783,10 @@ exports[`exportSet for All Pokémon > exportSet( 'meowscarada' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Ally Switch  
+- Thunder Punch  
+- Bite  
+- Hyper Beam  
+- Low Kick  
 
 "
 `;
@@ -1796,10 +1796,10 @@ exports[`exportSet for All Pokémon > exportSet( 'meowstic-female' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baton Pass  
-- Calm Mind  
-- Charge Beam  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder Wave  
+- Dig  
 
 "
 `;
@@ -1809,10 +1809,10 @@ exports[`exportSet for All Pokémon > exportSet( 'meowstic-male' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baton Pass  
-- Calm Mind  
-- Charge Beam  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder Wave  
+- Dig  
 
 "
 `;
@@ -1822,10 +1822,10 @@ exports[`exportSet for All Pokémon > exportSet( 'metagross' ) 1`] = `
 Ability: Clear Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Body Press  
+- Ice Punch  
+- Thunder Punch  
 - Body Slam  
+- Double Edge  
 
 "
 `;
@@ -1835,10 +1835,10 @@ exports[`exportSet for All Pokémon > exportSet( 'milotic' ) 1`] = `
 Ability: Marvel Scale  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Aqua Ring  
-- Aqua Tail  
-- Attract  
+- Body Slam  
+- Wrap  
+- Double Edge  
+- Hydro Pump  
 
 "
 `;
@@ -1848,10 +1848,10 @@ exports[`exportSet for All Pokémon > exportSet( 'mimikyu-disguised' ) 1`] = `
 Ability: Disguise  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Attract  
-- Baby Doll Eyes  
-- Beat Up  
+- Swords Dance  
+- Hyper Beam  
+- Thunderbolt  
+- Thunder Wave  
 
 "
 `;
@@ -1861,10 +1861,10 @@ exports[`exportSet for All Pokémon > exportSet( 'morpeko-full-belly' ) 1`] = `
 Ability: Hunger Switch  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Assurance  
-- Attract  
-- Aura Wheel  
+- Thunder Punch  
+- Thrash  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -1874,10 +1874,10 @@ exports[`exportSet for All Pokémon > exportSet( 'mr-rime' ) 1`] = `
 Ability: Tangled Feet  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Ally Switch  
-- Attract  
-- Avalanche  
+- Ice Punch  
+- Mega Kick  
+- Body Slam  
+- Ice Beam  
 
 "
 `;
@@ -1887,10 +1887,10 @@ exports[`exportSet for All Pokémon > exportSet( 'mudsdale' ) 1`] = `
 Ability: Own Tempo  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
+- Mega Kick  
 - Body Slam  
-- Bulldoze  
-- Close Combat  
+- Double Edge  
+- Roar  
 
 "
 `;
@@ -1900,10 +1900,10 @@ exports[`exportSet for All Pokémon > exportSet( 'musharna' ) 1`] = `
 Ability: Forewarn  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Amnesia  
-- Attract  
-- Calm Mind  
+- Hyper Beam  
+- Thunder Wave  
+- Psychic  
+- Hypnosis  
 
 "
 `;
@@ -1913,10 +1913,10 @@ exports[`exportSet for All Pokémon > exportSet( 'ninetales' ) 1`] = `
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Attract  
-- Aurora Veil  
-- Avalanche  
+- Body Slam  
+- Double Edge  
+- Roar  
+- Disable  
 
 "
 `;
@@ -1926,10 +1926,10 @@ exports[`exportSet for All Pokémon > exportSet( 'noivern' ) 1`] = `
 Ability: Frisk  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Whirlwind  
+- Fly  
+- Body Slam  
+- Double Edge  
 
 "
 `;
@@ -1939,10 +1939,10 @@ exports[`exportSet for All Pokémon > exportSet( 'oranguru' ) 1`] = `
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
-- Bulldoze  
+- Hyper Beam  
+- Thunderbolt  
 
 "
 `;
@@ -1952,10 +1952,10 @@ exports[`exportSet for All Pokémon > exportSet( 'orthworm' ) 1`] = `
 Ability: Earth Eater  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
 - Body Slam  
-- Bulldoze  
-- Coil  
+- Wrap  
+- Double Edge  
+- Hyper Beam  
 
 "
 `;
@@ -1965,10 +1965,10 @@ exports[`exportSet for All Pokémon > exportSet( 'overqwil' ) 1`] = `
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acupressure  
-- Agility  
-- Aqua Jet  
+- Swords Dance  
+- Double Edge  
+- Pin Missile  
+- Bite  
 
 "
 `;
@@ -1978,10 +1978,10 @@ exports[`exportSet for All Pokémon > exportSet( 'palafin-zero' ) 1`] = `
 Ability: Zero To Hero  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Agility  
-- Aqua Jet  
-- Aqua Tail  
+- Ice Punch  
+- Body Slam  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -1991,10 +1991,10 @@ exports[`exportSet for All Pokémon > exportSet( 'pangoro' ) 1`] = `
 Ability: Iron Fist  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
-- Beat Up  
-- Body Slam  
-- Brick Break  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -2004,10 +2004,10 @@ exports[`exportSet for All Pokémon > exportSet( 'passimian' ) 1`] = `
 Ability: Receiver  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Assurance  
-- Baton Pass  
-- Beat Up  
+- Mega Kick  
+- Body Slam  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -2017,10 +2017,10 @@ exports[`exportSet for All Pokémon > exportSet( 'pelipper' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Fly  
+- Body Slam  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -2030,10 +2030,10 @@ exports[`exportSet for All Pokémon > exportSet( 'pidgeot' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
+- Whirlwind  
+- Fly  
+- Hyper Beam  
 - Agility  
-- Air Slash  
-- Attract  
 
 "
 `;
@@ -2043,10 +2043,10 @@ exports[`exportSet for All Pokémon > exportSet( 'pikachu' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Alluring Voice  
+- Thunder Punch  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
+- Surf  
 
 "
 `;
@@ -2056,8 +2056,8 @@ exports[`exportSet for All Pokémon > exportSet( 'pinsir' ) 1`] = `
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Attract  
+- Guillotine  
+- Swords Dance  
 - Bind  
 - Body Slam  
 
@@ -2069,10 +2069,10 @@ exports[`exportSet for All Pokémon > exportSet( 'politoed' ) 1`] = `
 Ability: Water Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Attract  
-- Belly Drum  
-- Blizzard  
+- Pound  
+- Ice Punch  
+- Body Slam  
+- Double Edge  
 
 "
 `;
@@ -2082,10 +2082,10 @@ exports[`exportSet for All Pokémon > exportSet( 'polteageist' ) 1`] = `
 Ability: Weak Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Aromatic Mist  
-- Baton Pass  
-- Calm Mind  
+- Hyper Beam  
+- Psychic  
+- Night Shade  
+- Confuse Ray  
 
 "
 `;
@@ -2095,10 +2095,10 @@ exports[`exportSet for All Pokémon > exportSet( 'primarina' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Alluring Voice  
-- Amnesia  
-- Aqua Jet  
+- Body Slam  
+- Sing  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -2108,10 +2108,10 @@ exports[`exportSet for All Pokémon > exportSet( 'pyroar-male' ) 1`] = `
 Ability: Rivalry  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Attract  
 - Body Slam  
-- Bounce  
+- Double Edge  
+- Roar  
+- Flamethrower  
 
 "
 `;
@@ -2121,10 +2121,10 @@ exports[`exportSet for All Pokémon > exportSet( 'quaquaval' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Swords Dance  
+- Mega Kick  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -2134,10 +2134,10 @@ exports[`exportSet for All Pokémon > exportSet( 'qwilfish' ) 1`] = `
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acupressure  
-- Agility  
-- Aqua Jet  
+- Swords Dance  
+- Double Edge  
+- Pin Missile  
+- Hydro Pump  
 
 "
 `;
@@ -2147,10 +2147,10 @@ exports[`exportSet for All Pokémon > exportSet( 'raichu' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Alluring Voice  
+- Thunder Punch  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
+- Surf  
 
 "
 `;
@@ -2160,10 +2160,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rampardos' ) 1`] = `
 Ability: Mold Breaker  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Assurance  
-- Attract  
-- Avalanche  
+- Fire Punch  
+- Thunder Punch  
+- Swords Dance  
+- Whirlwind  
 
 "
 `;
@@ -2173,9 +2173,9 @@ exports[`exportSet for All Pokémon > exportSet( 'reuniclus' ) 1`] = `
 Ability: Overcoat  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Ally Switch  
-- Attract  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
 - Body Slam  
 
 "
@@ -2186,10 +2186,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rhyperior' ) 1`] = `
 Ability: Lightning Rod  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Avalanche  
-- Blizzard  
-- Body Press  
-- Body Slam  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -2199,10 +2199,10 @@ exports[`exportSet for All Pokémon > exportSet( 'roserade' ) 1`] = `
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
+- Swords Dance  
 - Body Slam  
-- Bullet Seed  
-- Charm  
+- Pin Missile  
+- Hyper Beam  
 
 "
 `;
@@ -2212,10 +2212,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Air Slash  
+- Hydro Pump  
 - Blizzard  
-- Charge  
-- Charge Beam  
+- Thunderbolt  
+- Thunder Wave  
 
 "
 `;
@@ -2225,10 +2225,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-fan' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Air Slash  
-- Charge  
-- Charge Beam  
-- Confuse Ray  
+- Thunder Shock  
+- Thunderbolt  
+- Thunder Wave  
+- Thunder  
 
 "
 `;
@@ -2239,9 +2239,9 @@ Ability: Levitate
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
 - Blizzard  
-- Charge  
-- Charge Beam  
-- Confuse Ray  
+- Thunder Shock  
+- Thunderbolt  
+- Thunder Wave  
 
 "
 `;
@@ -2251,10 +2251,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-heat' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Charge  
-- Charge Beam  
-- Confuse Ray  
-- Dark Pulse  
+- Thunder Shock  
+- Thunderbolt  
+- Thunder Wave  
+- Thunder  
 
 "
 `;
@@ -2264,10 +2264,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-mow' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Charge  
-- Charge Beam  
-- Confuse Ray  
-- Dark Pulse  
+- Thunder Shock  
+- Thunderbolt  
+- Thunder Wave  
+- Thunder  
 
 "
 `;
@@ -2277,10 +2277,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-wash' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Charge  
-- Charge Beam  
-- Confuse Ray  
-- Dark Pulse  
+- Hydro Pump  
+- Thunder Shock  
+- Thunderbolt  
+- Thunder Wave  
 
 "
 `;
@@ -2290,10 +2290,10 @@ exports[`exportSet for All Pokémon > exportSet( 'runerigus' ) 1`] = `
 Ability: Wandering Spirit  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Amnesia  
-- Attract  
-- Body Press  
+- Disable  
+- Hyper Beam  
+- Earthquake  
+- Psychic  
 
 "
 `;
@@ -2303,10 +2303,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sableye' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Body Slam  
-- Brick Break  
-- Bulk Up  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -2316,10 +2316,10 @@ exports[`exportSet for All Pokémon > exportSet( 'salazzle' ) 1`] = `
 Ability: Corrosion  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acrobatics  
-- Agility  
-- Beat Up  
+- Body Slam  
+- Disable  
+- Flamethrower  
+- Hyper Beam  
 
 "
 `;
@@ -2329,10 +2329,10 @@ exports[`exportSet for All Pokémon > exportSet( 'samurott' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Air Slash  
-- Aqua Cutter  
-- Aqua Jet  
+- Swords Dance  
+- Body Slam  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -2342,10 +2342,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sandaconda' ) 1`] = `
 Ability: Sand Spit  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Belch  
-- Body Press  
 - Body Slam  
-- Brutal Swing  
+- Wrap  
+- Hyper Beam  
+- Earthquake  
 
 "
 `;
@@ -2355,10 +2355,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sceptile' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Assurance  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
 
 "
 `;
@@ -2368,10 +2368,10 @@ exports[`exportSet for All Pokémon > exportSet( 'scizor' ) 1`] = `
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Swords Dance  
+- Double Edge  
+- Hyper Beam  
+- Counter  
 
 "
 `;
@@ -2381,10 +2381,10 @@ exports[`exportSet for All Pokémon > exportSet( 'scolipede' ) 1`] = `
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Agility  
-- Assurance  
-- Attract  
+- Swords Dance  
+- Double Edge  
+- Pin Missile  
+- Bite  
 
 "
 `;
@@ -2395,9 +2395,9 @@ Ability: Chlorophyll
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
 - Bite  
-- Bullet Seed  
-- Burning Jealousy  
-- Crunch  
+- Flamethrower  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -2407,10 +2407,10 @@ exports[`exportSet for All Pokémon > exportSet( 'scrafty' ) 1`] = `
 Ability: Shed Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Assurance  
-- Beat Up  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -2420,10 +2420,10 @@ exports[`exportSet for All Pokémon > exportSet( 'serperior' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Attract  
+- Swords Dance  
 - Body Slam  
-- Breaking Swipe  
+- Wrap  
+- Double Edge  
 
 "
 `;
@@ -2433,10 +2433,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sharpedo' ) 1`] = `
 Ability: Rough Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Ancient Power  
-- Aqua Jet  
-- Assurance  
+- Thrash  
+- Double Edge  
+- Bite  
+- Hydro Pump  
 
 "
 `;
@@ -2446,10 +2446,10 @@ exports[`exportSet for All Pokémon > exportSet( 'simipour' ) 1`] = `
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aqua Ring  
-- Attract  
-- Belch  
+- Ice Punch  
+- Bite  
+- Hydro Pump  
+- Surf  
 
 "
 `;
@@ -2459,10 +2459,10 @@ exports[`exportSet for All Pokémon > exportSet( 'simisage' ) 1`] = `
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Attract  
-- Belch  
 - Bite  
+- Hyper Beam  
+- Low Kick  
+- Leech Seed  
 
 "
 `;
@@ -2472,10 +2472,10 @@ exports[`exportSet for All Pokémon > exportSet( 'simisear' ) 1`] = `
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Amnesia  
-- Attract  
-- Belch  
+- Fire Punch  
+- Bite  
+- Flamethrower  
+- Hyper Beam  
 
 "
 `;
@@ -2485,10 +2485,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sinistcha' ) 1`] = `
 Ability: Hospitality  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Calm Mind  
-- Curse  
-- Endure  
-- Energy Ball  
+- Hyper Beam  
+- Solar Beam  
+- Stun Spore  
+- Night Shade  
 
 "
 `;
@@ -2498,10 +2498,10 @@ exports[`exportSet for All Pokémon > exportSet( 'skarmory' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
-- Air Slash  
+- Swords Dance  
+- Whirlwind  
+- Fly  
+- Roar  
 
 "
 `;
@@ -2511,10 +2511,10 @@ exports[`exportSet for All Pokémon > exportSet( 'skeledirge' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Belch  
+- Body Slam  
 - Bite  
-- Blast Burn  
+- Roar  
+- Sing  
 
 "
 `;
@@ -2524,10 +2524,10 @@ exports[`exportSet for All Pokémon > exportSet( 'slowbro' ) 1`] = `
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Avalanche  
-- Belch  
+- Ice Punch  
+- Body Slam  
+- Double Edge  
+- Disable  
 
 "
 `;
@@ -2537,10 +2537,10 @@ exports[`exportSet for All Pokémon > exportSet( 'slowking' ) 1`] = `
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
-- Avalanche  
-- Belch  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
 
 "
 `;
@@ -2550,10 +2550,10 @@ exports[`exportSet for All Pokémon > exportSet( 'slurpuff' ) 1`] = `
 Ability: Sweet Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Amnesia  
-- Attract  
-- Calm Mind  
+- Flamethrower  
+- Surf  
+- Hyper Beam  
+- String Shot  
 
 "
 `;
@@ -2563,10 +2563,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sneasler' ) 1`] = `
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
+- Fire Punch  
+- Swords Dance  
+- Hyper Beam  
+- Low Kick  
 
 "
 `;
@@ -2576,10 +2576,10 @@ exports[`exportSet for All Pokémon > exportSet( 'snorlax' ) 1`] = `
 Ability: Immunity  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Attract  
-- Belch  
-- Belly Drum  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Body Slam  
 
 "
 `;
@@ -2589,10 +2589,10 @@ exports[`exportSet for All Pokémon > exportSet( 'spiritomb' ) 1`] = `
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
 - Body Slam  
-- Burning Jealousy  
-- Calm Mind  
+- Disable  
+- Hyper Beam  
+- Toxic  
 
 "
 `;
@@ -2602,10 +2602,10 @@ exports[`exportSet for All Pokémon > exportSet( 'staraptor' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Whirlwind  
+- Fly  
+- Double Edge  
+- Hyper Beam  
 
 "
 `;
@@ -2615,10 +2615,10 @@ exports[`exportSet for All Pokémon > exportSet( 'starmie' ) 1`] = `
 Ability: Illuminate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Ally Switch  
-- Ancient Power  
-- Aqua Jet  
+- Double Edge  
+- Hydro Pump  
+- Surf  
+- Ice Beam  
 
 "
 `;
@@ -2628,10 +2628,10 @@ exports[`exportSet for All Pokémon > exportSet( 'steelix' ) 1`] = `
 Ability: Rock Head  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Attract  
 - Bind  
-- Block  
+- Body Slam  
+- Double Edge  
+- Hyper Beam  
 
 "
 `;
@@ -2641,10 +2641,10 @@ exports[`exportSet for All Pokémon > exportSet( 'stunfisk' ) 1`] = `
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
 - Bind  
-- Bounce  
-- Bulldoze  
+- Surf  
+- Counter  
+- Thunderbolt  
 
 "
 `;
@@ -2654,10 +2654,10 @@ exports[`exportSet for All Pokémon > exportSet( 'swampert' ) 1`] = `
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Ancient Power  
-- Aqua Ring  
-- Avalanche  
+- Ice Punch  
+- Mega Kick  
+- Body Slam  
+- Double Edge  
 
 "
 `;
@@ -2667,10 +2667,10 @@ exports[`exportSet for All Pokémon > exportSet( 'sylveon' ) 1`] = `
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
 - Bite  
+- Roar  
 
 "
 `;
@@ -2680,10 +2680,10 @@ exports[`exportSet for All Pokémon > exportSet( 'talonflame' ) 1`] = `
 Ability: Flame Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Agility  
-- Air Cutter  
+- Swords Dance  
+- Whirlwind  
+- Fly  
+- Double Edge  
 
 "
 `;
@@ -2693,10 +2693,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tauros' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Jet  
-- Assurance  
-- Blizzard  
-- Body Press  
+- Body Slam  
+- Thrash  
+- Double Edge  
+- Flamethrower  
 
 "
 `;
@@ -2706,10 +2706,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-aqua-breed' ) 1`
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aqua Jet  
-- Body Press  
 - Body Slam  
-- Bulk Up  
+- Thrash  
+- Double Edge  
+- Hydro Pump  
 
 "
 `;
@@ -2719,10 +2719,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-blaze-breed' ) 1
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Body Press  
 - Body Slam  
-- Bulk Up  
-- Bulldoze  
+- Thrash  
+- Double Edge  
+- Flamethrower  
 
 "
 `;
@@ -2732,10 +2732,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-combat-breed' ) 
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Assurance  
-- Body Press  
 - Body Slam  
-- Bulk Up  
+- Thrash  
+- Double Edge  
+- Surf  
 
 "
 `;
@@ -2745,10 +2745,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tinkaton' ) 1`] = `
 Ability: Mold Breaker  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Baby Doll Eyes  
-- Brick Break  
-- Brutal Swing  
-- Bulldoze  
+- Swords Dance  
+- Thunder Wave  
+- Screech  
+- Light Screen  
 
 "
 `;
@@ -2758,10 +2758,10 @@ exports[`exportSet for All Pokémon > exportSet( 'torkoal' ) 1`] = `
 Ability: White Smoke  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Ancient Power  
-- Body Press  
 - Body Slam  
+- Double Edge  
+- Flamethrower  
+- Hyper Beam  
 
 "
 `;
@@ -2771,10 +2771,10 @@ exports[`exportSet for All Pokémon > exportSet( 'torterra' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Amnesia  
-- Attract  
-- Bite  
-- Body Press  
+- Swords Dance  
+- Body Slam  
+- Thrash  
+- Double Edge  
 
 "
 `;
@@ -2784,10 +2784,10 @@ exports[`exportSet for All Pokémon > exportSet( 'toucannon' ) 1`] = `
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Aerial Ace  
-- Air Cutter  
-- Air Slash  
+- Swords Dance  
+- Fly  
+- Hyper Beam  
+- Drill Peck  
 
 "
 `;
@@ -2797,10 +2797,10 @@ exports[`exportSet for All Pokémon > exportSet( 'toxapex' ) 1`] = `
 Ability: Merciless  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Baneful Bunker  
+- Body Slam  
+- Pin Missile  
 - Bite  
-- Blizzard  
+- Hydro Pump  
 
 "
 `;
@@ -2810,10 +2810,10 @@ exports[`exportSet for All Pokémon > exportSet( 'toxicroak' ) 1`] = `
 Ability: Anticipation  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Aerial Ace  
-- Assurance  
-- Baton Pass  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
+- Mega Kick  
 
 "
 `;
@@ -2823,10 +2823,10 @@ exports[`exportSet for All Pokémon > exportSet( 'trevenant' ) 1`] = `
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ally Switch  
-- Brutal Swing  
-- Bulldoze  
-- Burning Jealousy  
+- Disable  
+- Hyper Beam  
+- Leech Seed  
+- Growth  
 
 "
 `;
@@ -2836,10 +2836,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tsareena' ) 1`] = `
 Ability: Leaf Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Acupressure  
-- Aromatic Mist  
-- Bounce  
+- Mega Kick  
+- Hyper Beam  
+- Low Kick  
+- Solar Beam  
 
 "
 `;
@@ -2849,10 +2849,10 @@ exports[`exportSet for All Pokémon > exportSet( 'typhlosion' ) 1`] = `
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Blast Burn  
+- Fire Punch  
+- Thunder Punch  
+- Mega Kick  
 - Body Slam  
-- Brick Break  
 
 "
 `;
@@ -2862,10 +2862,10 @@ exports[`exportSet for All Pokémon > exportSet( 'tyranitar' ) 1`] = `
 Ability: Sand Stream  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Ancient Power  
-- Assurance  
-- Avalanche  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Mega Kick  
 
 "
 `;
@@ -2875,9 +2875,9 @@ exports[`exportSet for All Pokémon > exportSet( 'tyrantrum' ) 1`] = `
 Ability: Strong Jaw  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Ancient Power  
-- Assurance  
-- Attract  
+- Horn Drill  
+- Body Slam  
+- Thrash  
 - Bite  
 
 "
@@ -2888,10 +2888,10 @@ exports[`exportSet for All Pokémon > exportSet( 'umbreon' ) 1`] = `
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Alluring Voice  
-- Assurance  
-- Baby Doll Eyes  
-- Baton Pass  
+- Body Slam  
+- Double Edge  
+- Bite  
+- Roar  
 
 "
 `;
@@ -2901,10 +2901,10 @@ exports[`exportSet for All Pokémon > exportSet( 'vanilluxe' ) 1`] = `
 Ability: Ice Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Ally Switch  
-- Attract  
-- Aurora Veil  
+- Ice Beam  
+- Blizzard  
+- Hyper Beam  
+- Light Screen  
 
 "
 `;
@@ -2914,10 +2914,10 @@ exports[`exportSet for All Pokémon > exportSet( 'vaporeon' ) 1`] = `
 Ability: Water Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Armor  
-- Alluring Voice  
-- Aqua Ring  
-- Baby Doll Eyes  
+- Body Slam  
+- Double Edge  
+- Bite  
+- Roar  
 
 "
 `;
@@ -2927,10 +2927,10 @@ exports[`exportSet for All Pokémon > exportSet( 'venusaur' ) 1`] = `
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- Amnesia  
+- Swords Dance  
 - Body Slam  
-- Bulldoze  
+- Double Edge  
+- Roar  
 
 "
 `;
@@ -2940,10 +2940,10 @@ exports[`exportSet for All Pokémon > exportSet( 'victreebel' ) 1`] = `
 Ability: Chlorophyll  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
+- Swords Dance  
 - Body Slam  
-- Bug Bite  
-- Bullet Seed  
+- Wrap  
+- Hyper Beam  
 
 "
 `;
@@ -2953,10 +2953,10 @@ exports[`exportSet for All Pokémon > exportSet( 'vileplume' ) 1`] = `
 Ability: Chlorophyll  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acid Spray  
-- After You  
-- Attract  
+- Swords Dance  
 - Body Slam  
+- Hyper Beam  
+- Leech Seed  
 
 "
 `;
@@ -2966,10 +2966,10 @@ exports[`exportSet for All Pokémon > exportSet( 'vivillon' ) 1`] = `
 Ability: Shield Dust  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Air Cutter  
-- Air Slash  
-- Bug Bite  
+- Whirlwind  
+- Hyper Beam  
+- Solar Beam  
+- Poison Powder  
 
 "
 `;
@@ -2979,10 +2979,10 @@ exports[`exportSet for All Pokémon > exportSet( 'volcarona' ) 1`] = `
 Ability: Flame Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Acrobatics  
-- Air Cutter  
-- Air Slash  
-- Amnesia  
+- Whirlwind  
+- Fly  
+- Body Slam  
+- Thrash  
 
 "
 `;
@@ -2992,10 +2992,10 @@ exports[`exportSet for All Pokémon > exportSet( 'watchog' ) 1`] = `
 Ability: Illuminate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- After You  
-- Assurance  
-- Attract  
-- Baton Pass  
+- Fire Punch  
+- Ice Punch  
+- Thunder Punch  
+- Swords Dance  
 
 "
 `;
@@ -3005,10 +3005,10 @@ exports[`exportSet for All Pokémon > exportSet( 'weavile' ) 1`] = `
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Assurance  
-- Avalanche  
+- Ice Punch  
+- Swords Dance  
+- Mega Kick  
+- Bite  
 
 "
 `;
@@ -3018,10 +3018,10 @@ exports[`exportSet for All Pokémon > exportSet( 'whimsicott' ) 1`] = `
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Attract  
-- Beat Up  
-- Charm  
-- Cotton Guard  
+- Hyper Beam  
+- Leech Seed  
+- Growth  
+- Solar Beam  
 
 "
 `;
@@ -3031,10 +3031,10 @@ exports[`exportSet for All Pokémon > exportSet( 'wyrdeer' ) 1`] = `
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Agility  
-- Bite  
 - Body Slam  
-- Bulldoze  
+- Thrash  
+- Double Edge  
+- Bite  
 
 "
 `;
@@ -3044,10 +3044,10 @@ exports[`exportSet for All Pokémon > exportSet( 'zoroark' ) 1`] = `
 Ability: Illusion  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Aerial Ace  
-- Agility  
-- Assurance  
-- Bitter Malice  
+- Swords Dance  
+- Mega Kick  
+- Body Slam  
+- Roar  
 
 "
 `;
