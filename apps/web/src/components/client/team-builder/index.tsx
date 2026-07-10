@@ -37,7 +37,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  IconButton as MuiIconButton,
+  IconButton as MuiIconButton, Fab,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -120,6 +120,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { activeTeamLintAtom } from "@/store/team/options";
+import Add from "@mui/icons-material/Add";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -189,6 +190,7 @@ function ImportMenu({
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        size={"small"}
       >
         Import
       </Button>
@@ -376,7 +378,7 @@ function MobileTeamList({
         <Typography variant="h6" sx={{ fontWeight: 700 }}>
           {t("teamBuilder.title")}
         </Typography>
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center", display: { xs: "none", md: "flex" }} }>
           <ImportMenu createTeamAction={onImportTeam} onError={onError} />
           <Button
             variant="contained"
@@ -449,6 +451,23 @@ function MobileTeamList({
           </Paper>
         ))}
       </Stack>
+      {/* モバイル専用：記録追加用 Floating Action Button (FAB) (md以上で非表示) */}
+      <Fab
+        color="primary"
+        aria-label="add"
+        onClick={() => {
+          onCreateTeam();
+        }}
+        sx={{
+          display: { xs: "flex", md: "none" },
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
+        }}
+      >
+        <Add />
+      </Fab>
     </Box>
   );
 }

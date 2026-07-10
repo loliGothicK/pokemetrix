@@ -151,7 +151,7 @@
       "statistics": "統計"
     },
     "items": {
-      "createTeam": "チーム作成",
+      "createTeam": "チーム管理",
       "myBox": "マイBOX",
       "draftAssistant": "ドラフト支援",
       "coreFinder": "コア探索",
@@ -316,7 +316,7 @@
       "more": "絞り込むと他の候補も表示されます。"
     },
     "loading": "チームデータを読み込み中...",
-    "createTeam": "チームを作成",
+    "createTeam": "新規",
     "noTeamsTitle": "チームがありません",
     "noTeamsDescription": "新しくチームを作成してください。",
     "selectTeamHint": "左のドロワーからチームを選択するか、新しく作成してください。",

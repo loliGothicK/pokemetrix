@@ -151,7 +151,7 @@
       "statistics": "Statistics"
     },
     "items": {
-      "createTeam": "Create Team",
+      "createTeam": "Team Builder",
       "myBox": "My BOX",
       "draftAssistant": "Draft Assistant",
       "coreFinder": "Core Finder",
@@ -315,7 +315,7 @@
       "more": "Refine your filters to see more results."
     },
     "loading": "Loading team data...",
-    "createTeam": "Create team",
+    "createTeam": "New",
     "noTeamsTitle": "No teams yet",
     "noTeamsDescription": "Create a new team to start building.",
     "selectTeamHint": "Pick a team from the drawer or create a new one.",
