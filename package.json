@@ -12,9 +12,8 @@
     "fmt": "pnpm -r fmt",
     "pretty": "pnpm -r pretty",
     "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "changeset publish",
-    "ci:publish": "pnpm publish --filter @pokemetrix/damage-calc --access=public"
+    "version": "changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version",
+    "publish": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.31.0",

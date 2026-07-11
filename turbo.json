@@ -11,6 +11,13 @@
     "test": {
       "dependsOn": ["^test"]
     },
+    "//#version": {
+      "cache": false
+    },
+    "//#publish": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true
