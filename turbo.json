@@ -27,7 +27,7 @@
       "cache": true
     },
     "packaging": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "cache": false
     },
     "publish": {
