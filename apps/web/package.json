@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "supabase start && pnpm db:setup:local && next dev",
+    "prebuild": "echo 'Build apps/web...'",
     "build": "next build",
     "start": "next start",
     "test": "vitest --run",
