@@ -2,10 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "prebuild": {
-      "cache": false
+      "cache": true
     },
     "build:vercel": {
-      "dependsOn": ["^build", "prebuild"],
+      "dependsOn": ["prebuild", "^build"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "!**/*.md",

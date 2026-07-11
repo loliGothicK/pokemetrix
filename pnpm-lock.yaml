@@ -54,7 +54,7 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       '@pokemetrix/damage-calc':
-        specifier: workspace:^
+        specifier: 'workspace: *'
         version: link:../../packages/damage-calc/pkg
       '@sentry/nextjs':
         specifier: 10.65.0
