@@ -1,6 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -27,13 +26,12 @@
     "//#version": {
       "cache": true
     },
-    "publish": {
+    "packaging": {
       "dependsOn": ["^build"],
-      "cache": false,
-      "interactive": true
+      "cache": false
     },
-    "publish:ci": {
-      "dependsOn": ["^build"],
+    "publish": {
+      "dependsOn": ["packaging"],
       "cache": false
     },
     "dev": {

@@ -4,9 +4,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "build:app": "turbo run build --filter @pokemetrix/web",
-    "build:wasm": "turbo run build --filter @pokemetrix/damage-calc",
-    "build:wasm:node": "turbo run build:node --filter @pokemetrix/damage-calc",
+    "build:app": "pnpm build --filter @pokemetrix/web",
+    "build:wasm": "pnpm build --filter @pokemetrix/damage-calc",
+    "packaging": "pnpm build --filter @pokemetrix/damage-calc && pnpm pack --filter @pokemetrix/damage-calc",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "fmt": "pnpm -r fmt",
