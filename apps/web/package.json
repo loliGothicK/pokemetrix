@@ -52,7 +52,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-hotkeys-hook": "5.3.3",
-    "react-i18next": "17.0.8",
+    "react-i18next": "17.0.9",
     "ts-pattern": "5.9.0",
     "ulid": "3.0.2",
     "zod-validation-error": "5.0.0"
