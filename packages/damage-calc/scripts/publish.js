@@ -6,6 +6,14 @@ const packageDir = path.join(__dirname, '..');
 const pkgDir = path.join(packageDir, 'pkg');
 
 try {
+  console.log('📦 Running wasm-pack build...');
+  execSync('wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name damage_calc', { cwd: packageDir, stdio: 'inherit' });
+
+  if (!pkgDir) {
+    console.error('❌ Error: No pkg directory.');
+    process.exit(1);
+  }
+
   // 1. Run wasm-pack pack
   console.log('📦 Running wasm-pack pack...');
   execSync('wasm-pack pack pkg', { cwd: packageDir, stdio: 'inherit' });
