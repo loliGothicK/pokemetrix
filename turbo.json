@@ -1,23 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "prebuild": {
-      "cache": true
-    },
-    "build:vercel": {
-      "dependsOn": ["prebuild", "^build"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "!**/*.md",
-        "src/**",
-        "app/**",
-        "public/**",
-        "Cargo.toml",
-        "Cargo.lock"
-      ],
-      "outputs": [".next/**", "!.next/cache/**", "pkg/**"],
-      "env": ["NODE_ENV"]
-    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": [
@@ -43,8 +26,9 @@
     "//#version": {
       "cache": true
     },
-    "//#publish": {
-      "cache": true
+    "publish": {
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "dev": {
       "dependsOn": ["^build"],
