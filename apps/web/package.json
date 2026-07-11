@@ -1,6 +1,6 @@
 {
   "name": "@pokemetrix/app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "supabase start && pnpm db:setup:local && next dev",
@@ -33,7 +33,7 @@
     "@mui/material-nextjs": "9.1.1",
     "@mui/system": "9.2.0",
     "@pkmn/sets": "5.2.0",
-    "@pokemetrix/damage-calc": "0.1.0",
+    "@pokemetrix/damage-calc": "0.1.1",
     "@sentry/nextjs": "10.64.0",
     "@supabase/ssr": "0.12.0",
     "@supabase/supabase-js": "2.110.1",
