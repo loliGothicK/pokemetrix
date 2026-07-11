@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
+    "prebuild": "bash scripts/install-deps.sh",
     "build": "turbo run build",
     "build:app": "turbo run build --filter @pokemetrix/web",
     "build:wasm": "turbo run build --filter @pokemetrix/damage-calc",
