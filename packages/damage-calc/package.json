@@ -11,7 +11,7 @@
     "sync-version": "node scripts/sync-version.js",
     "prebuild": "pnpm run sync-version",
     "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name damage_calc",
-    "packaging": "wasm-pack pack pkg",
+    "pack": "wasm-pack pack pkg",
     "test": "wasm-pack test --node",
     "prepublishOnly": "pnpm build",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts"

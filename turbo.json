@@ -26,12 +26,12 @@
     "//#version": {
       "cache": true
     },
-    "packaging": {
+    "pack": {
       "dependsOn": ["build"],
       "cache": false
     },
     "publish": {
-      "dependsOn": ["packaging"],
+      "dependsOn": ["pack"],
       "cache": false
     },
     "dev": {
