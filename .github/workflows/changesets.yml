@@ -44,6 +44,11 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "packages/damage-calc"
+
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
