@@ -14,7 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mitama-org/pokemetrix"
+    "url": "https://github.com/loliGothicK/pokemetrix"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
