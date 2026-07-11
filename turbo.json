@@ -38,18 +38,15 @@
       "outputs": []
     },
     "//#version": {
-      "cache": false
+      "cache": true
     },
     "//#publish": {
-      "cache": false
+      "cache": true
     },
     "dev": {
       "dependsOn": ["^build"],
-      "cache": false,
+      "cache": true,
       "persistent": true
     }
-  },
-  "remoteCache": {
-    "signature": true
   }
 }
