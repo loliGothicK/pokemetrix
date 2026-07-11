@@ -106,12 +106,15 @@ pnpm release          # publish
 | 日付 | 内容 |
 |---|---|
 | 2026-07-08 | 初期モノレポ構成。既存 Next.js アプリを `apps/web` に移動、`packages/damage-calc` を新規作成 |
+| 2026-07-11 | `build:vercel` の `dependsOn` が参照する `prebuild` タスクが未定義で実行されない不具合を修正。`turbo.json` に `prebuild` タスク（`cache: false`）を定義し、`apps/web` に `build:vercel`（`next build`）スクリプトを追加。これで `turbo run build:vercel` 実行時に prebuild が依存グラフに入り前段で走る（Turbo は npm の prebuild ライフサイクルを自動実行しないため明示定義が必要） |
 | 2026-07-11 | `turbo.json` を整備。`outputs` を Turbo 2.x のパッケージ相対パスに修正（`apps/web/.next/**` → `.next/**`、`packages/damage-calc/pkg/**` → `pkg/**`）。`build:node`（`pkg-node/**`）タスクを追加。`test`/`dev` に `^build` 依存を付与し、`lint`/`test` の不要な `^lint`/`^test` 依存を削除。`inputs` を定義してキャッシュ判定を厳密化。`version`/`publish` はルートスクリプト（`changeset version`＋Cargo.toml 同期 / `changeset publish`）を実行させるため **ルートタスク `//#version` / `//#publish`** に変更（`changesets.yml` が `pnpm turbo run version` / `publish` を呼ぶ） |
 
 ## turbo.json タスク定義
 
 | タスク | dependsOn | cache | outputs | 備考 |
 |---|---|---|---|---|
+| `prebuild` | なし | ✗ | なし | 各パッケージの `prebuild` スクリプトを実行するための turbo タスク。**Turbo は npm の `prebuild` ライフサイクルを自動実行しない**ため、`build` / `build:vercel` の `dependsOn` から参照する前提で明示定義が必須。`cache: false` で毎回実行 |
+| `build:vercel` | `^build`, `prebuild` | ✓ | `.next/**`（`.next/cache` 除く）, `pkg/**` | Vercel 向け Web ビルド（`@pokemetrix/app#build:vercel` = `next build`）。`^build` で先に damage-calc の `pkg/` を生成、`prebuild` で自パッケージの前処理を実行。Vercel の Build Command から `turbo run build:vercel --filter=@pokemetrix/app` で呼ぶ想定 |
 | `build` | `^build` | ✓ | `.next/**`（`.next/cache` 除く）, `pkg/**` | web/damage-calc 共通。存在しない output は無視される |
 | `build:node` | `^build` | ✓ | `pkg-node/**` | damage-calc の nodejs ターゲット |
 | `lint` | なし | ✓ | なし | oxlint。上流ビルド不要 |

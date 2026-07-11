@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
+    "prebuild": {
+      "cache": false
+    },
     "build:vercel": {
       "dependsOn": ["^build", "prebuild"],
       "inputs": [
