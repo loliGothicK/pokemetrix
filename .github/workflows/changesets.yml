@@ -40,8 +40,6 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - run: wasm-pack build && wasm-pack pack
-
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
