@@ -39,3 +39,4 @@ minimumReleaseAgeExclude:
   - '@supabase/storage-js@2.110.1'
   - '@supabase/supabase-js@2.110.1'
   - supabase@2.109.1
+  - '@pokemetrix/damage-calc@0.1.0'
