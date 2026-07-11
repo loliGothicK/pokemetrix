@@ -46,11 +46,7 @@ jobs:
           commit: "chore: update versions"
           title: "chore: update versions"
           version: pnpm turbo run version
-          publish: |
-            cd packages/damage-calc
-            && pnpm build
-            && pnpm pack
-            && pnpm publish
+          publish: cd packages/damage-calc && pnpm build && pnpm pack && pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
