@@ -106,3 +106,27 @@ pnpm release          # publish
 | 日付 | 内容 |
 |---|---|
 | 2026-07-08 | 初期モノレポ構成。既存 Next.js アプリを `apps/web` に移動、`packages/damage-calc` を新規作成 |
+| 2026-07-11 | `turbo.json` を整備。`outputs` を Turbo 2.x のパッケージ相対パスに修正（`apps/web/.next/**` → `.next/**`、`packages/damage-calc/pkg/**` → `pkg/**`）。`build:node`（`pkg-node/**`）タスクを追加。`test`/`dev` に `^build` 依存を付与し、`lint`/`test` の不要な `^lint`/`^test` 依存を削除。`inputs` を定義してキャッシュ判定を厳密化。`version`/`publish` はルートスクリプト（`changeset version`＋Cargo.toml 同期 / `changeset publish`）を実行させるため **ルートタスク `//#version` / `//#publish`** に変更（`changesets.yml` が `pnpm turbo run version` / `publish` を呼ぶ） |
+
+## turbo.json タスク定義
+
+| タスク | dependsOn | cache | outputs | 備考 |
+|---|---|---|---|---|
+| `build` | `^build` | ✓ | `.next/**`（`.next/cache` 除く）, `pkg/**` | web/damage-calc 共通。存在しない output は無視される |
+| `build:node` | `^build` | ✓ | `pkg-node/**` | damage-calc の nodejs ターゲット |
+| `lint` | なし | ✓ | なし | oxlint。上流ビルド不要 |
+| `test` | `^build` | ✓ | なし | web の vitest は damage-calc の `pkg/` を要する |
+| `//#version` | なし | ✗ | - | ルートスクリプト `changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version` を実行。sync-version が Cargo.toml の version を package.json に合わせる |
+| `//#publish` | なし | ✗ | - | ルートスクリプト `changeset publish` を実行。damage-calc は `prepublishOnly` で自身をビルドするため build 依存は不要 |
+| `dev` | `^build` | ✗ | - | persistent。damage-calc を先にビルド |
+
+### バージョン同期フロー（`pnpm turbo run version`）
+
+`changesets.yml` の GitHub Action が `pnpm turbo run version` を呼ぶ。ルートタスク `//#version` がルート `package.json` の `version` スクリプトを実行し、次の順で処理される：
+
+1. `changeset version` — `.changeset/*.md` を消費して各 `package.json` の version をバンプ
+2. `pnpm --filter @pokemetrix/damage-calc run sync-version` — `scripts/sync-version.js` が `package.json` の version を読み、`Cargo.toml` の `version = "..."` を書き換え
+
+> 重要: `version` を通常のタスク（`//#` なし）にすると、turbo はワークスペース各パッケージの `version` スクリプトを探すが存在せず（`Command = <NONEXISTENT>`）、Cargo.toml 同期が走らない。ルートスクリプトを実行するには `//#version` が必須。
+
+> 注: ルート `package.json` の `build:app` / `build:wasm` のフィルタは `@pokemetrix/web` を指しているが、実際の Web パッケージ名は `@pokemetrix/app`。フィルタが一致しないため要修正（turbo.json とは別問題）。

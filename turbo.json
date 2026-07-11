@@ -3,22 +3,39 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!-out/**", "pkg/**", "pkg-node/**"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!**/*.md",
+        "src/**",
+        "app/**",
+        "public/**",
+        "Cargo.toml",
+        "Cargo.lock"
+      ],
+      "outputs": [".next/**", "!.next/cache/**", "pkg/**"],
+      "env": ["NODE_ENV"]
+    },
+    "build:node": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "Cargo.toml", "Cargo.lock"],
+      "outputs": ["pkg-node/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "outputs": []
     },
     "test": {
-      "dependsOn": ["^test"]
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**", "app/**"],
+      "outputs": []
     },
     "//#version": {
       "cache": false
     },
     "//#publish": {
-      "dependsOn": ["build"],
       "cache": false
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     }
