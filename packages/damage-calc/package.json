@@ -1,7 +1,7 @@
 {
   "name": "@pokemetrix/damage-calc",
   "version": "0.1.0",
-  "description": "Pokémon damage calculator — Rust/WebAssembly",
+  "description": "Pokémon damage calculator — powered by Rust/WebAssembly",
   "main": "pkg/damage_calc.js",
   "types": "pkg/damage_calc.d.ts",
   "files": [

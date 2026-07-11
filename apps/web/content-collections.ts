@@ -1,16 +1,6 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
-import type { Context, Meta } from "@content-collections/core";
 import {compileMDX} from "@content-collections/mdx";
 import {z} from "zod";
-
-const transform = async (document: { _meta: Meta; content: string; }, context: Pick<Context, "cache">) => {
-  const mdx = await compileMDX(context, document);
-  return {
-    ...document,
-    slug: document._meta.path,
-    mdx,
-  };
-};
 
 const posts = defineCollection({
   name: "posts",
@@ -24,7 +14,14 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     content: z.string(),
   }),
-  transform,
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document);
+    return {
+      ...document,
+      slug: document._meta.path,
+      mdx,
+    };
+  },
 });
 
 const docs = defineCollection({
@@ -37,7 +34,14 @@ const docs = defineCollection({
     order: z.number().default(0),
     content: z.string(),
   }),
-  transform,
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document);
+    return {
+      ...document,
+      slug: document._meta.path,
+      mdx,
+    };
+  },
 });
 
 export default defineConfig({

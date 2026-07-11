@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
   return (
     <Box sx={{ py: 8 }}>
       <Container maxWidth="md">
-        <Typography variant="h3" component="h1" gutterBottom fontWeight={700}>
+        <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
           {isJa ? "プライバシーポリシー" : "Privacy Policy"}
         </Typography>
 
