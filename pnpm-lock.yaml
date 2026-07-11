@@ -54,8 +54,8 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       '@pokemetrix/damage-calc':
-        specifier: 'workspace: *'
-        version: link:../../packages/damage-calc/pkg
+        specifier: 0.1.1
+        version: 0.1.1
       '@sentry/nextjs':
         specifier: 10.65.0
         version: 10.65.0(@opentelemetry/core@2.9.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.9.0(@opentelemetry/api@1.9.1))(next@16.2.10(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(webpack@5.108.4(esbuild@0.25.12))
@@ -1771,6 +1771,9 @@ packages:
 
   '@pkmn/types@4.0.0':
     resolution: {integrity: sha512-gR2s/pxJYEegek1TtsYCQupNR3d5hMlcJFsiD+2LyfKr4tc+gETTql47tWLX5mFSbPcbXh7f4+7txlMIDoZx/g==}
+
+  '@pokemetrix/damage-calc@0.1.1':
+    resolution: {integrity: sha512-2y6iyw1ZTh0Z4rN2DokmGdpjt/F4IcbV++jHwOlzNfznS2GWpJTSoYtbTyHs/l1qiLyv/vAHD276A3djg12YvQ==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -5944,6 +5947,8 @@ snapshots:
       '@pkmn/types': 4.0.0
 
   '@pkmn/types@4.0.0': {}
+
+  '@pokemetrix/damage-calc@0.1.1': {}
 
   '@popperjs/core@2.11.8': {}
 
