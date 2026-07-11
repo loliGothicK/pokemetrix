@@ -54,4 +54,4 @@ jobs:
           version: 'latest'
 
       - name: Turbo Build
-        run: pnpm build
+        run: pnpm turbo run build
