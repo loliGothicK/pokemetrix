@@ -5,15 +5,15 @@ on:
     branches:
       - main
 
-env:
-  CI: true
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
 jobs:
   version:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    environment: Release
+    env:
+      CI: true
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v6
