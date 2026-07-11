@@ -4,6 +4,7 @@ version = "0.1.1"
 edition = "2021"
 description = "Pokémon damage calculator compiled to WebAssembly"
 license = "MIT"
+repository = "https://github.com/loliGothicK/pokemetrix"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
