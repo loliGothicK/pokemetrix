@@ -23,7 +23,6 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public",
-    "directory": "pkg",
-    "provenance": true
+    "directory": "pkg"
   }
 }
