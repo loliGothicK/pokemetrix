@@ -32,6 +32,10 @@
       "cache": false,
       "interactive": true
     },
+    "publish:ci": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": true,

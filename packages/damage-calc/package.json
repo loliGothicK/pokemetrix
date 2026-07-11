@@ -13,7 +13,8 @@
     "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name damage_calc",
     "test": "wasm-pack test --node",
     "prepublishOnly": "pnpm build",
-    "publish": "node scripts/publish.js"
+    "publish": "node scripts/publish.js",
+    "publish:ci": "node scripts/publish.js"
   },
   "repository": {
     "type": "git",
