@@ -10,7 +10,8 @@
   "scripts": {
     "build": "wasm-pack build --target bundler --out-dir pkg --out-name damage_calc",
     "build:node": "wasm-pack build --target nodejs --out-dir pkg-node --out-name damage_calc",
-    "test": "wasm-pack test --node"
+    "test": "wasm-pack test --node",
+    "prepublishOnly": "pnpm build"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "pkg"
   }
 }
