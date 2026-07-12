@@ -189,3 +189,56 @@ export const battleRecordOpponents = pgTable(
     ),
   ],
 );
+
+// =====================================================================
+// Dashboards（カスタマイズ可能ダッシュボード）
+// 設計: .design/dashboard.md
+// =====================================================================
+
+/** ダッシュボード上のウィジェット種別 */
+export type WidgetType =
+  | "winRateSummary"
+  | "winRateTrend"
+  | "orderSplit"
+  | "topOpponents"
+  | "recentRecords"
+  | "ratingTrend"
+  | "note";
+
+/** ダッシュボードの1ウィジェット（layout jsonb の要素） */
+export interface DashboardWidget {
+  readonly id: string;
+  readonly type: WidgetType;
+  readonly title: string;
+  readonly seasonId: string | null;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
+  readonly options?: Record<string, unknown>;
+}
+
+/**
+ * ユーザーがカスタマイズ可能なダッシュボード。
+ * ウィジェットの配置・種別・パラメータを layout に jsonb で保持する。
+ */
+export const dashboards = pgTable(
+  "dashboards",
+  {
+    id: ulidType("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => authUsers.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    /** ユーザーごとに1件のみ true（アプリ側で保証） */
+    isDefault: boolean("is_default").notNull().default(false),
+    /** DashboardWidget[] */
+    layout: jsonb("layout").notNull().default([]).$type<readonly DashboardWidget[]>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    check("dashboards_name_len", sql`char_length(${t.name}) between 1 and 100`),
+    check("dashboards_layout_is_array", sql`jsonb_typeof(${t.layout}) = 'array'`),
+  ],
+);

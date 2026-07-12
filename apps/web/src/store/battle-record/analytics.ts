@@ -93,3 +93,69 @@ export const opponentStats = (records: readonly BattleRecord[]): readonly Oppone
 /** パーセント表記（整数）。total===0 のときは null（"—"表示用） */
 export const winRatePercent = (t: RecordTally): number | null =>
   t.total === 0 ? null : Math.round(t.winRate * 100);
+
+/** 時系列上の1試合分の累積勝率ポイント */
+export interface WinRateTrendPoint {
+  readonly recordId: string;
+  readonly playedAt: string;
+  readonly result: BattleRecord["result"];
+  /** その試合までの累積勝率（%、整数）。0試合目は null */
+  readonly cumulativeWinRate: number | null;
+  readonly gameNumber: number;
+}
+
+/**
+ * 対戦記録を playedAt 昇順に並べ、試合ごとの累積勝率を計算する。
+ * ダッシュボードの推移ウィジェット（winRateTrend）向け。
+ */
+export const winRateTrend = (records: readonly BattleRecord[]): readonly WinRateTrendPoint[] => {
+  const sorted = records
+    .slice()
+    .sort((a, b) => new Date(a.playedAt).getTime() - new Date(b.playedAt).getTime());
+
+  let wins = 0;
+  let total = 0;
+
+  return sorted.map((record, index) => {
+    match(record.result)
+      .with("win", () => {
+        wins += 1;
+      })
+      .with("loss", () => {})
+      .with("draw", () => {})
+      .exhaustive();
+    total += 1;
+
+    return {
+      recordId: record.id,
+      playedAt: record.playedAt,
+      result: record.result,
+      cumulativeWinRate: total === 0 ? null : Math.round((wins / total) * 100),
+      gameNumber: index + 1,
+    };
+  });
+};
+
+/** レート推移の1点 */
+export interface RatingTrendPoint {
+  readonly recordId: string;
+  readonly playedAt: string;
+  readonly rating: number;
+  readonly gameNumber: number;
+}
+
+/**
+ * rating が記録されている試合だけを playedAt 昇順で抽出する。
+ * ダッシュボードのレート推移ウィジェット（ratingTrend）向け。
+ */
+export const ratingTrend = (records: readonly BattleRecord[]): readonly RatingTrendPoint[] =>
+  records
+    .filter((r) => r.rating !== null)
+    .slice()
+    .sort((a, b) => new Date(a.playedAt).getTime() - new Date(b.playedAt).getTime())
+    .map((record, index) => ({
+      recordId: record.id,
+      playedAt: record.playedAt,
+      rating: record.rating as number,
+      gameNumber: index + 1,
+    }));

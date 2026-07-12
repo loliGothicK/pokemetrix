@@ -7,6 +7,39 @@
     "edit": "編集",
     "delete": "削除"
   },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "selectLabel": "ダッシュボード",
+    "newDashboard": "新規ダッシュボード",
+    "untitled": "無題のダッシュボード",
+    "noDashboards": "ダッシュボードがまだありません。作成してみましょう。",
+    "empty": "このダッシュボードにはウィジェットがありません。「編集」→「ウィジェットを追加」から追加してください。",
+    "deleteConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
+    "setDefault": "既定に設定",
+    "unsetDefault": "既定を解除",
+    "addWidget": "ウィジェットを追加",
+    "dragToReorder": "ドラッグで並び替え",
+    "widthIncrease": "幅を広げる",
+    "widthDecrease": "幅を狭める",
+    "heightIncrease": "高さを広げる",
+    "heightDecrease": "高さを狭める",
+    "widget": {
+      "typeLabel": "ウィジェットの種類",
+      "allSeasons": "すべてのシーズン",
+      "type": {
+        "winRateSummary": "勝率サマリー",
+        "winRateTrend": "勝率の推移",
+        "orderSplit": "先後別勝率",
+        "topOpponents": "対面の多い相手",
+        "recentRecords": "直近の対戦",
+        "ratingTrend": "レートの推移",
+        "note": "メモ"
+      },
+      "note": {
+        "placeholder": "メモを入力..."
+      }
+    }
+  },
   "battleRecord": {
     "title": "対戦記録",
     "viewAnalytics": "分析",
@@ -161,6 +194,7 @@
       "usageTrends": "使用率推移",
       "metaTables": "環境表",
       "winrateInsights": "勝率分析",
+      "dashboard": "ダッシュボード",
       "docs": "ドキュメント",
       "blog": "ブログ",
       "privacy": "プライバシーポリシー",

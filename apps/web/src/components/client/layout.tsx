@@ -6,6 +6,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import PokemetrixIcon from "@/components/icons/Pokemetrix";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
@@ -114,6 +115,11 @@ const sideMenuGroups: SideMenuGroup[] = [
         labelKey: "navigation.items.winrateInsights",
         icon: <InsightsRoundedIcon fontSize="small" />,
         route: "/battle-analytics",
+      },
+      {
+        labelKey: "navigation.items.dashboard",
+        icon: <DashboardCustomizeRoundedIcon fontSize="small" />,
+        route: "/dashboard",
       },
     ],
   },

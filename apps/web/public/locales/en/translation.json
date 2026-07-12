@@ -7,6 +7,39 @@
     "edit": "Edit",
     "delete": "Delete"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "selectLabel": "Dashboard",
+    "newDashboard": "New dashboard",
+    "untitled": "Untitled dashboard",
+    "noDashboards": "No dashboards yet. Create one to get started.",
+    "empty": "This dashboard has no widgets yet. Click Edit, then Add Widget.",
+    "deleteConfirm": "Delete \"{{name}}\"? This cannot be undone.",
+    "setDefault": "Set as default",
+    "unsetDefault": "Unset as default",
+    "addWidget": "Add widget",
+    "dragToReorder": "Drag to reorder",
+    "widthIncrease": "Increase width",
+    "widthDecrease": "Decrease width",
+    "heightIncrease": "Increase height",
+    "heightDecrease": "Decrease height",
+    "widget": {
+      "typeLabel": "Widget type",
+      "allSeasons": "All seasons",
+      "type": {
+        "winRateSummary": "Win Rate Summary",
+        "winRateTrend": "Win Rate Trend",
+        "orderSplit": "Win Rate by Order",
+        "topOpponents": "Most Faced Opponents",
+        "recentRecords": "Recent Battles",
+        "ratingTrend": "Rating Trend",
+        "note": "Note"
+      },
+      "note": {
+        "placeholder": "Write a note..."
+      }
+    }
+  },
   "battleRecord": {
     "title": "Battle Record",
     "viewAnalytics": "Analytics",
@@ -161,6 +194,7 @@
       "usageTrends": "Usage Trends",
       "metaTables": "Meta Tables",
       "winrateInsights": "Winrate Insights",
+      "dashboard": "Dashboard",
       "docs": "Docs",
       "blog": "Blog",
       "privacy": "Privacy Policy",
