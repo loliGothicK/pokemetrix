@@ -206,8 +206,8 @@ function AppControls({
   const theme = useTheme();
 
   return (
-    <Stack direction="row" spacing={1.25} sx={flexRowCenter}>
-      <FormControl size="small" sx={{ minWidth: 150 }}>
+    <Stack direction="row" spacing={{ xs: 0.75, md: 1.25 }} sx={flexRowCenter}>
+      <FormControl size="small" sx={{ minWidth: 150, display: { xs: "none", md: "inline-flex" } }}>
         <InputLabel id="language-select-label">{t("preferences.language")}</InputLabel>
         <Select
           labelId="language-select-label"
@@ -227,6 +227,7 @@ function AppControls({
         <IconButton
           color="primary"
           onClick={onToggleMode}
+          size="small"
           aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
           sx={iconButtonBordered(theme)}
         >
@@ -290,6 +291,7 @@ function ResponsiveAppBar({
           minHeight: { xs: 60, md: 68 },
           px: { xs: 1.5, sm: 2, md: 3 },
           gap: { xs: 1, md: 2 },
+          justifyContent: "space-between",
         }}
       >
         {/* ===== 左: ハンバーガー（モバイル）+ ロゴ ===== */}
@@ -370,57 +372,29 @@ function ResponsiveAppBar({
                   mt: 0.25,
                 }}
               >
-                {t("appBar.tagline", "ANALYTICS WORKSPACE")}
+                {"ANALYTICS WORKSPACE"}
               </Typography>
             </Box>
           </Box>
         </Box>
 
-        {/* ===== 右: デスクトップ フルコントロール ===== */}
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <AppControls
-            language={language}
-            mode={mode}
-            onLanguageChange={onLanguageChange}
-            onToggleMode={onToggleMode}
-          />
-        </Box>
-
-        {/* ===== 右: モバイル — テーマ切り替え + Auth ===== */}
-        <Stack
-          direction="row"
-          spacing={0.75}
-          sx={{ display: { xs: "flex", md: "none" }, ...flexRowCenter }}
-        >
-          <Tooltip title={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}>
-            <IconButton
-              color="primary"
-              onClick={onToggleMode}
-              size="small"
-              aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
-              sx={iconButtonBordered(theme)}
-            >
-              {mode === "dark" ? (
-                <LightModeRoundedIcon fontSize="small" />
-              ) : (
-                <DarkModeRoundedIcon fontSize="small" />
-              )}
-            </IconButton>
-          </Tooltip>
-          <AuthButton />
-        </Stack>
+        {/* ===== 右: コントロール ===== */}
+        <AppControls
+          language={language}
+          mode={mode}
+          onLanguageChange={onLanguageChange}
+          onToggleMode={onToggleMode}
+        />
       </Toolbar>
     </AppBar>
   );
 }
 
-function MobileNavigation({
-  open,
+function MobileDrawerContent({
   onClose,
   language,
   onLanguageChange,
 }: {
-  readonly open: boolean;
   readonly onClose: () => void;
   readonly language: string;
   readonly onLanguageChange: (language: string) => void;
@@ -428,19 +402,7 @@ function MobileNavigation({
   const { t } = useTranslation();
 
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      sx={{
-        display: { xs: "block", md: "none" },
-        "& .MuiDrawer-paper": {
-          width: "min(92vw, 320px)",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
-    >
+    <>
       <Box
         sx={{
           ...flexRowCenter,
@@ -477,7 +439,7 @@ function MobileNavigation({
           </Select>
         </FormControl>
       </Box>
-    </Drawer>
+    </>
   );
 }
 
@@ -595,12 +557,6 @@ export function AppLayout({
             onToggleMode={handleToggleMode}
             onOpenNav={() => setMobileNavOpen(true)}
           />
-          <MobileNavigation
-            open={mobileNavOpen}
-            onClose={() => setMobileNavOpen(false)}
-            language={language}
-            onLanguageChange={handleLanguageChange}
-          />
           <Box
             sx={{
               display: "grid",
@@ -613,6 +569,7 @@ export function AppLayout({
               overflow: "hidden",
             }}
           >
+            {/* デスクトップ用サイドバー（md以上で表示） */}
             <SurfaceCard
               borderRadius={0}
               sx={{
@@ -625,6 +582,28 @@ export function AppLayout({
                 <SideMenuContent />
               </Box>
             </SurfaceCard>
+
+            {/* モバイル用サイドバー（md以上ではDrawerごと非表示） */}
+            <Drawer
+              open={mobileNavOpen}
+              onClose={() => setMobileNavOpen(false)}
+              sx={{
+                display: { xs: "block", md: "none" },
+                "& .MuiDrawer-paper": {
+                  width: "min(92vw, 320px)",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "column",
+                },
+              }}
+            >
+              <MobileDrawerContent
+                onClose={() => setMobileNavOpen(false)}
+                language={language}
+                onLanguageChange={handleLanguageChange}
+              />
+            </Drawer>
+
             <Box
               component="main"
               sx={{
