@@ -22,7 +22,6 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
-import { getAppPalette } from "@/theme/palette";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
 
@@ -32,7 +31,6 @@ export function ShareButton() {
   const { t } = useTranslation();
   const router = useRouter();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const [activeTeam] = useActiveTeam();
 
   // ダイアログの開閉
@@ -139,7 +137,9 @@ export function ShareButton() {
               p: 1.5,
               borderRadius: 2,
               border: "1px solid",
-              borderColor: showStats ? alpha(theme.palette.primary.main, 0.35) : palette.edge,
+              borderColor: showStats
+                ? alpha(theme.palette.primary.main, 0.35)
+                : theme.palette.divider,
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",

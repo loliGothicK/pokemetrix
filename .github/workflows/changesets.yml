@@ -46,6 +46,6 @@ jobs:
           commit: "chore: update versions"
           title: "chore: update versions"
           version: pnpm turbo run version
-          publish: pnpm --filter @pokemetrix/damage-calc run release
+          publish: bash -c 'LOCAL=$(node -p "require(\"./packages/damage-calc/package.json\").version"); REMOTE=$(npm view @pokemetrix/damage-calc version 2>/dev/null || echo ""); if [ "$LOCAL" != "$REMOTE" ]; then pnpm --filter @pokemetrix/damage-calc run release; else echo "Version unchanged"; fi'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

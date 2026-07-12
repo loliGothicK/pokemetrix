@@ -7,13 +7,11 @@ import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import { alpha, Box, Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
 import PokemetrixIcon from "@/components/icons/Pokemetrix";
 
 export default function Home() {
   const theme = useTheme();
   const { t } = useTranslation();
-  const palette = getAppPalette(theme.palette.mode);
 
   const tools = [
     {
@@ -60,9 +58,9 @@ export default function Home() {
       sx={{
         minHeight: "100vh",
         background: [
-          `radial-gradient(circle at 15% 10%, ${palette.glowPrimary}, transparent 40%)`,
-          `radial-gradient(circle at 85% 90%, ${palette.glowSecondary}, transparent 40%)`,
-          `linear-gradient(180deg, ${palette.canvas} 0%, ${palette.canvasAlt} 100%)`,
+          `radial-gradient(circle at 15% 10%, ${alpha(theme.palette.primary.main, 0.22)}, transparent 40%)`,
+          `radial-gradient(circle at 85% 90%, ${alpha(theme.palette.secondary.main, 0.16)}, transparent 40%)`,
+          `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.defaultAlt} 100%)`,
         ].join(", "),
         py: { xs: 4, md: 8 },
       }}
@@ -120,16 +118,18 @@ export default function Home() {
                     textDecoration: "none",
                     borderRadius: 4,
                     p: 5,
-                    bgcolor: alpha(palette.surfaceTint, tool.primary ? 0.8 : 0.4),
+                    bgcolor: alpha(theme.palette.background.paperTint, tool.primary ? 0.8 : 0.4),
                     backdropFilter: "blur(12px)",
                     border: "1px solid",
                     borderColor: tool.primary
                       ? alpha(theme.palette.primary.main, 0.3)
-                      : palette.edgeSoft,
+                      : theme.palette.dividerSoft,
                     transition: "all 0.2s ease-in-out",
                     "&:hover": {
                       transform: "translateY(-4px)",
-                      borderColor: tool.primary ? theme.palette.primary.main : palette.edge,
+                      borderColor: tool.primary
+                        ? theme.palette.primary.main
+                        : theme.palette.divider,
                       boxShadow: `0 8px 24px ${alpha(theme.palette.primary.main, 0.1)}`,
                       "& .arrow-icon": { transform: "translateX(4px)", color: "primary.main" },
                     },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
-import { getAppPalette } from "@/theme/palette";
 import { Training } from "@/components/client/team-builder/training";
 import { activeSlotIndexAtom, TrainedPokemon } from "@/store/team/team";
 import { toDefault } from "@/data/utility/training";
@@ -17,6 +16,8 @@ import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import { useBoxData } from "@/hooks/useBoxData";
 import { isAuthenticatedAtom } from "@/store/auth";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { emptyStateCenter, flexRowCenter } from "@/theme/sx";
 
 /**
  * URLのスロット（`/team-builder/[slot]`）に対応した単一スロットの育成画面。
@@ -31,7 +32,6 @@ export default function TeamSlotDetail({
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [savedSnackbar, setSavedSnackbar] = useState(false);
@@ -60,26 +60,24 @@ export default function TeamSlotDetail({
     : "";
 
   return (
-    <Paper
+    <SurfaceCard
+      raised
       sx={{
         width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        bgcolor: palette.surfaceRaised,
-        border: "1px solid",
-        borderColor: palette.edge,
       }}
     >
       <Stack
         direction="row"
         spacing={1}
         sx={{
-          alignItems: "center",
+          ...flexRowCenter,
           px: 2,
           py: 1.5,
           borderBottom: "1px solid",
-          borderColor: palette.edge,
+          borderColor: theme.palette.divider,
         }}
       >
         {showBackButton && (
@@ -126,7 +124,7 @@ export default function TeamSlotDetail({
             />
           </Box>
         ) : (
-          <Box sx={{ textAlign: "center", py: 6, px: 3 }}>
+          <Box sx={{ ...emptyStateCenter, py: 6, px: 3 }}>
             <Typography variant="body1" color="text.secondary" gutterBottom>
               {t("teamBuilder.emptySlot")}
             </Typography>
@@ -162,6 +160,6 @@ export default function TeamSlotDetail({
           {t("box.savedToBox")}
         </Alert>
       </Snackbar>
-    </Paper>
+    </SurfaceCard>
   );
 }

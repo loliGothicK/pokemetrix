@@ -5,16 +5,13 @@ import {
   createFilterOptions,
   Divider,
   FormControlLabel,
-  Paper,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { getAppPalette } from "@/theme/palette";
 import { championsPokemonList, championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { moveByIdentifier } from "@/data/moves";
 import {
@@ -31,6 +28,8 @@ import {
   type StatKey,
 } from "@/lib/damage";
 import NumberField from "@/components/client/input/NumberField";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { PokemonPanelState } from "./useDamageCalcPage";
 
@@ -124,8 +123,6 @@ export function PokemonPanel({
   sx,
 }: PokemonPanelProps) {
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   const isAttacker = role === "attacker";
 
@@ -218,13 +215,10 @@ export function PokemonPanel({
     onChange((prev) => ({ ...prev, conditions: { ...prev.conditions, [key]: checked } }));
 
   return (
-    <Paper
-      elevation={0}
-      sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3, ...sx }}
-    >
+    <SurfaceCard sx={[{ px: 6, py: 3 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}>
       <Stack spacing={2}>
         {/* Header */}
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <Stack direction="row" spacing={1} sx={flexRowCenter}>
           {value.identifier && (
             <Image
               src={`/pokemon/${value.identifier}.png`}
@@ -347,7 +341,7 @@ export function PokemonPanel({
               : undefined;
             const showRank = rankStat === statKey;
             return (
-              <Stack key={statKey} direction="row" spacing={1} sx={{ alignItems: "center" }}>
+              <Stack key={statKey} direction="row" spacing={1} sx={flexRowCenter}>
                 <EvField
                   label={t(meta.labelKey)}
                   value={ev}
@@ -447,7 +441,7 @@ export function PokemonPanel({
           ))}
         </Stack>
       </Stack>
-    </Paper>
+    </SurfaceCard>
   );
 }
 
@@ -465,7 +459,7 @@ function EvField({
   readonly grow?: boolean;
 }) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexGrow: grow ? 1 : 0 }}>
+    <Box sx={{ ...flexRowCenter, gap: 1, flexGrow: grow ? 1 : 0 }}>
       <TextField
         label={label}
         type="number"

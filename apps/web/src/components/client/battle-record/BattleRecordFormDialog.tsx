@@ -22,7 +22,6 @@ import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useHotkeys } from "react-hotkeys-hook";
 import { match } from "ts-pattern";
-import { getAppPalette } from "@/theme/palette";
 import type { TrainedPokemon } from "@/store/team/team";
 import type {
   BattleFormat,
@@ -33,6 +32,7 @@ import type {
 import { emptyDraft, draftFromRecord, type BattleRecordDraft } from "./formState";
 import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
+import { flexRowCenter, sectionLabel } from "@/theme/sx";
 
 interface BattleRecordFormDialogProps {
   readonly open: boolean;
@@ -62,7 +62,6 @@ export function BattleRecordFormDialog({
 }: BattleRecordFormDialogProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   const [seasonId, setSeasonId] = useState<string | null>(defaultSeasonId);
   const [draft, setDraft] = useState<BattleRecordDraft>(emptyDraft);
@@ -122,7 +121,7 @@ export function BattleRecordFormDialog({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth scroll="paper">
       {/* ヘッダー */}
-      <Stack direction="row" sx={{ alignItems: "center", px: 3, py: 2, gap: 1 }}>
+      <Stack direction="row" sx={{ ...flexRowCenter, px: 3, py: 2, gap: 1 }}>
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.06em", flexGrow: 1 }}>
           {editing ? t("battleRecord.form.editTitle") : t("battleRecord.form.newTitle")}
         </Typography>
@@ -139,8 +138,8 @@ export function BattleRecordFormDialog({
         <Stack spacing={3}>
           {/* 勝敗（大きいボタン + W/L/D キー） */}
           <Box>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
-              <Typography variant="overline" sx={{ fontWeight: 700, letterSpacing: "0.08em" }}>
+            <Stack direction="row" spacing={1} sx={{ ...flexRowCenter, mb: 1 }}>
+              <Typography variant="overline" sx={{ ...sectionLabel, fontWeight: 700 }}>
                 {t("battleRecord.form.result")}
               </Typography>
               <Stack direction="row" spacing={0.5}>
@@ -154,7 +153,7 @@ export function BattleRecordFormDialog({
                       fontWeight: 700,
                       borderRadius: 0.75,
                       border: "1px solid",
-                      borderColor: palette.edge,
+                      borderColor: theme.palette.divider,
                       color: "text.secondary",
                     }}
                   >
@@ -179,7 +178,7 @@ export function BattleRecordFormDialog({
                       textAlign: "center",
                       borderRadius: 3,
                       border: "2px solid",
-                      borderColor: active ? color : palette.edge,
+                      borderColor: active ? color : theme.palette.divider,
                       bgcolor: active ? alpha(color, 0.14) : "transparent",
                       color: active ? color : "text.secondary",
                       fontWeight: 800,

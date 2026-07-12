@@ -25,9 +25,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
-import { getAppPalette } from "@/theme/palette";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 import { pokemonById, pokemonList } from "@/data/pokemon";
 import { championsPokemonList } from "@/data/champions-pokemon";
 import { itemList } from "@/data/items";
@@ -97,7 +98,6 @@ export function Training({
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const [ongoing, setOngoing] = useState<TrainedPokemon | null>(member);
   const [isLintOn] = useAtom(activeTeamLintAtom);
   const { battleData, isError } = useBattleData(member.slug, "Doubles");
@@ -132,12 +132,9 @@ export function Training({
 
   if (!ongoing) {
     return (
-      <Paper
-        elevation={0}
-        sx={{ p: 4, borderRadius: 4, border: "1px solid", borderColor: palette.edge }}
-      >
+      <SurfaceCard borderRadius={4} sx={{ p: 4 }}>
         <Typography variant="h6">{t("teamBuilder.emptySlot")}</Typography>
-      </Paper>
+      </SurfaceCard>
     );
   }
 
@@ -205,16 +202,13 @@ export function Training({
     <Stack direction={"column"} className={"Training-root"} sx={{ minWidth: 0 }}>
       {/* メインコンテンツ（Basics, Items, Nature等） */}
       <Box sx={{ flexGrow: 1 }}>
-        <Paper
-          elevation={0}
+        <SurfaceCard
+          raised
           sx={{
             m: { xs: 0, md: 2 },
             px: { xs: 0, md: 4 },
             overflow: "hidden",
             borderRadius: { xs: 3, md: 5 },
-            border: "1px solid",
-            borderColor: palette.edge,
-            bgcolor: palette.surfaceRaised,
           }}
         >
           <Box sx={{ p: { xs: 3, md: 4 } }}>
@@ -230,7 +224,7 @@ export function Training({
                   height: 144,
                   minWidth: 144,
                   borderRadius: 4,
-                  bgcolor: palette.surface,
+                  bgcolor: theme.palette.background.paper,
                   display: "grid",
                   placeItems: "center",
                   position: "relative",
@@ -258,10 +252,9 @@ export function Training({
                           width: 50,
                           height: 50,
                           borderRadius: "50%",
-                          bgcolor: alpha(palette.surfaceRaised, 0.7),
+                          bgcolor: alpha(theme.palette.background.paperRaised, 0.7),
                           boxShadow: 2,
-                          display: "flex",
-                          alignItems: "center",
+                          ...flexRowCenter,
                           justifyContent: "center",
                           backdropFilter: "blur(2px)",
                         }}
@@ -299,13 +292,14 @@ export function Training({
                         height: 48,
                         borderRadius: 2,
                         cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
+                        ...flexRowCenter,
                         justifyContent: "center",
                         bgcolor: useForm
                           ? alpha(theme.palette.primary.main, 0.1)
-                          : alpha(palette.surfaceRaised, 0.7),
-                        borderColor: useForm ? theme.palette.primary.main : palette.edgeSoft,
+                          : alpha(theme.palette.background.paperRaised, 0.7),
+                        borderColor: useForm
+                          ? theme.palette.primary.main
+                          : theme.palette.dividerSoft,
                         transition: "all 0.2s",
                         backdropFilter: "blur(2px)",
                         "&:hover": {
@@ -345,7 +339,7 @@ export function Training({
               </Box>
 
               <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                <Stack direction={"row"} sx={{ alignItems: "center" }}>
+                <Stack direction={"row"} sx={flexRowCenter}>
                   <Stack
                     direction="column"
                     spacing={1}
@@ -520,9 +514,9 @@ export function Training({
                             mt: 0.5,
                             maxWidth: "95vw",
                             overflowX: "auto",
-                            bgcolor: palette.surfaceRaised,
+                            bgcolor: theme.palette.background.paperRaised,
                             border: "1px solid",
-                            borderColor: palette.edge,
+                            borderColor: theme.palette.divider,
                             boxShadow: theme.shadows[4],
                           },
                         },
@@ -541,14 +535,17 @@ export function Training({
                               textAlign: "center",
                               minWidth: 80,
                               fontSize: "0.8rem",
-                              border: `1px solid ${palette.edgeSoft}`,
+                              border: `1px solid ${theme.palette.dividerSoft}`,
                             },
                           }}
                         >
                           <TableHead>
                             <TableRow>
                               <TableCell
-                                sx={{ fontWeight: "bold", bgcolor: alpha(palette.surface, 0.5) }}
+                                sx={{
+                                  fontWeight: "bold",
+                                  bgcolor: alpha(theme.palette.background.paper, 0.5),
+                                }}
                               >
                                 <Typography
                                   variant="caption"
@@ -672,7 +669,9 @@ export function Training({
                         sx={{
                           p: 1.5,
                           cursor: "pointer",
-                          borderColor: isActive ? theme.palette.primary.main : palette.edgeSoft,
+                          borderColor: isActive
+                            ? theme.palette.primary.main
+                            : theme.palette.dividerSoft,
                           bgcolor: isActive
                             ? alpha(theme.palette.primary.main, 0.05)
                             : "transparent",
@@ -683,9 +682,9 @@ export function Training({
                         {moveInfo ? (
                           <Stack
                             direction="row"
-                            sx={{ justifyContent: "space-between", alignItems: "center" }}
+                            sx={{ ...flexRowCenter, justifyContent: "space-between" }}
                           >
-                            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                            <Stack direction="row" spacing={1} sx={flexRowCenter}>
                               <Avatar
                                 src={typeIcon(moveInfo.type)}
                                 sx={{ width: 20, height: 20 }}
@@ -699,7 +698,7 @@ export function Training({
                                 size="small"
                                 onClick={(e) => handleClearMove(e, index)}
                                 sx={{
-                                  color: palette.edge,
+                                  color: theme.palette.divider,
                                   "&:hover": {
                                     color: "error.main",
                                     bgcolor: alpha(theme.palette.error.main, 0.1),
@@ -722,9 +721,8 @@ export function Training({
               </Stack>
             </Stack>
           </Box>
-        </Paper>
+        </SurfaceCard>
       </Box>
-
       {/* --- 技選択 Drawer --- */}
       <MoveSelectionDrawer
         open={drawerOpen}
@@ -740,16 +738,13 @@ export function Training({
 
       {/* EV Spreads */}
       <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>
-        <Paper
-          elevation={0}
+        <SurfaceCard
+          raised
           sx={{
             m: { xs: 0, md: 2 },
             py: { xs: 3, md: 4 },
             px: { xs: 2, md: 8 },
             borderRadius: { xs: 3, md: 5 },
-            border: "1px solid",
-            borderColor: palette.edge,
-            bgcolor: palette.surfaceRaised,
           }}
         >
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
@@ -871,8 +866,8 @@ export function Training({
                             ? alpha(theme.palette.error.main, 0.2)
                             : isMinus
                               ? alpha(theme.palette.info.main, 0.2)
-                              : palette.edgeSoft,
-                          bgcolor: alpha(palette.surface, 0.4),
+                              : theme.palette.dividerSoft,
+                          bgcolor: alpha(theme.palette.background.paper, 0.4),
                           transition: "border-color 0.2s, background-color 0.2s",
                         }}
                       >
@@ -1047,7 +1042,7 @@ export function Training({
               );
             })()}
           </Stack>
-        </Paper>
+        </SurfaceCard>
       </Box>
     </Stack>
   );

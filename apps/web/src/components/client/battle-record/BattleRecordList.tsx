@@ -1,15 +1,17 @@
 "use client";
 
 import { useMemo } from "react";
-import { alpha, Box, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { alpha, Box, IconButton, Stack, Typography } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { useTheme, type Theme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { match } from "ts-pattern";
-import { getAppPalette } from "@/theme/palette";
 import type { BattleRecord, BattleResult } from "@/store/battle-record/battleRecord";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { EmptyState } from "@/components/common/EmptyState";
+import { flexRowCenter } from "@/theme/sx";
 import { resolveMyTeamDisplay, resolveOpponentDisplay } from "./battleRecordList.logic";
 
 interface BattleRecordListProps {
@@ -36,7 +38,7 @@ function SpriteRow({
   readonly selectedIndices: ReadonlySet<number> | null;
 }) {
   return (
-    <Stack direction="row" spacing={-0.5} sx={{ alignItems: "center" }}>
+    <Stack direction="row" spacing={-0.5} sx={flexRowCenter}>
       {slugs.map((slug, i) => {
         const isSelected = selectedIndices === null || selectedIndices.has(i);
         return (
@@ -63,7 +65,6 @@ function SpriteRow({
 export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordListProps) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   // 直前（1つ古い）記録とのレート差分
   const deltas = useMemo(
@@ -77,13 +78,7 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
   );
 
   if (records.length === 0) {
-    return (
-      <Box sx={{ textAlign: "center", py: 8 }}>
-        <Typography variant="body1" color="text.secondary">
-          {t("battleRecord.empty")}
-        </Typography>
-      </Box>
-    );
+    return <EmptyState message={t("battleRecord.empty")} />;
   }
 
   return (
@@ -98,14 +93,11 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
         const delta = deltas[index];
 
         return (
-          <Paper
+          <SurfaceCard
             key={record.id}
-            elevation={0}
             sx={{
               position: "relative",
               overflow: "hidden",
-              border: "1px solid",
-              borderColor: palette.edge,
               bgcolor: alpha(accent, 0.06),
               pl: 2,
               pr: 1.5,
@@ -233,7 +225,7 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
                 </Typography>
               )}
             </Stack>
-          </Paper>
+          </SurfaceCard>
         );
       })}
     </Stack>

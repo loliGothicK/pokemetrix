@@ -4,9 +4,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Checkbox,
-  FormControlLabel,
-  Paper,
   Stack,
   ToggleButton,
   ToggleButtonGroup,
@@ -15,9 +12,10 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { getAppPalette } from "@/theme/palette";
 import { preloadDamageEngine } from "@/lib/damage";
 import type { Weather, Terrain } from "@/lib/damage";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 import { PokemonPanel } from "./PokemonPanel";
 import { ResultPanel } from "./ResultPanel";
 import { useDamageCalcPage } from "./useDamageCalcPage";
@@ -49,7 +47,6 @@ const FIELD_EFFECT_COLORS: Record<string, string> = {
 export default function DamageCalcPage() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const isDark = theme.palette.mode === "dark";
 
   useEffect(() => {
@@ -167,7 +164,7 @@ export default function DamageCalcPage() {
   return (
     <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
       {/* Title + Singles/Doubles toggle */}
-      <Stack direction="row" sx={{ alignItems: "center", mb: 3, gap: 2, flexWrap: "wrap" }}>
+      <Stack direction="row" sx={{ ...flexRowCenter, mb: 3, gap: 2, flexWrap: "wrap" }}>
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {t("damageCalc.title")}
         </Typography>
@@ -211,17 +208,7 @@ export default function DamageCalcPage() {
       </Box>
 
       {/* Field Conditions */}
-      <Paper
-        elevation={0}
-        sx={{
-          px: 6,
-          py: 3,
-          mb: 3,
-          border: "1px solid",
-          borderColor: palette.edge,
-          borderRadius: 3,
-        }}
-      >
+      <SurfaceCard sx={{ px: 6, py: 3, mb: 3 }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
           {t("damageCalc.field")}
         </Typography>
@@ -316,7 +303,7 @@ export default function DamageCalcPage() {
             </Stack>
           </Box>
         </Stack>
-      </Paper>
+      </SurfaceCard>
 
       {/* Result */}
       <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />

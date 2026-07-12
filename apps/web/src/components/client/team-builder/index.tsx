@@ -6,7 +6,6 @@ import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { activeTeamIdAtom, drawerOpenAtom, Team } from "@/store/team/team";
 import { useTeamsData } from "@/hooks/useTeamsData";
-import { getAppPalette } from "@/theme/palette";
 
 import TeamOverview from "@/components/client/team-builder/overview";
 import TeamSlotDetail from "@/components/client/team-builder/slot-detail";
@@ -58,6 +57,8 @@ import { ParseError } from "@/errors/thiserror/thiserror";
 import LinkIcon from "@mui/icons-material/Link";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { ShareButton } from "@/components/client/share/ShareButton";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 
 const MAX_TEAM_SIZE = 6;
 const drawerWidth = 240;
@@ -323,8 +324,6 @@ function MobileTeamList({
   readonly onError: (d: Diagnostics) => void;
 }) {
   const { t } = useTranslation();
-  const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   if (teams.length === 0) {
     return (
@@ -371,8 +370,7 @@ function MobileTeamList({
     <Box sx={{ p: 2 }}>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
+          ...flexRowCenter,
           justifyContent: "space-between",
           mb: 2,
         }}
@@ -383,7 +381,7 @@ function MobileTeamList({
         <Stack
           direction="row"
           spacing={1}
-          sx={{ alignItems: "center", display: { xs: "none", md: "flex" } }}
+          sx={{ ...flexRowCenter, display: { xs: "none", md: "flex" } }}
         >
           <ImportMenu createTeamAction={onImportTeam} onError={onError} isMobile={false} />
           <Button
@@ -400,9 +398,8 @@ function MobileTeamList({
       </Box>
       <Stack spacing={1.5}>
         {teams.map((team) => (
-          <Paper
+          <SurfaceCard
             key={team.id}
-            elevation={0}
             onClick={() => onSelectTeam(team.id)}
             sx={{
               p: 2,
@@ -410,10 +407,6 @@ function MobileTeamList({
               alignItems: "center",
               gap: 2,
               cursor: "pointer",
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: palette.edge,
-              bgcolor: palette.surface,
               transition: "all 0.18s ease",
               "&:hover": {
                 borderColor: "primary.main",
@@ -454,7 +447,7 @@ function MobileTeamList({
             >
               <DeleteOutlineIcon fontSize="small" />
             </MuiIconButton>
-          </Paper>
+          </SurfaceCard>
         ))}
       </Stack>
       <Fab
@@ -486,7 +479,6 @@ export default function TeamBuilderPage({
 }) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const palette = getAppPalette(theme.palette.mode);
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const hasSelection =
     typeof activeSlot === "number" &&
@@ -668,9 +660,9 @@ export default function TeamBuilderPage({
                 width: drawerWidth,
                 boxSizing: "border-box",
                 position: "absolute",
-                bgcolor: palette.surface,
+                bgcolor: theme.palette.background.paper,
                 borderRight: "1px solid",
-                borderColor: palette.edge,
+                borderColor: theme.palette.divider,
               },
             }}
             variant="persistent"
@@ -682,7 +674,7 @@ export default function TeamBuilderPage({
                 {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
             </DrawerHeader>
-            <Divider sx={{ borderColor: palette.edge }} />
+            <Divider sx={{ borderColor: theme.palette.divider }} />
             <Box sx={{ p: 2 }}>
               <Button
                 variant="contained"
@@ -693,7 +685,7 @@ export default function TeamBuilderPage({
                 {t("teamBuilder.createTeam")}
               </Button>
             </Box>
-            <Divider sx={{ borderColor: palette.edge }} />
+            <Divider sx={{ borderColor: theme.palette.divider }} />
             <List>
               {teams.length === 0 ? (
                 <ListItem>
@@ -733,7 +725,7 @@ export default function TeamBuilderPage({
                         mx: 1,
                         mb: 0.5,
                         pr: 6,
-                        "&.Mui-selected": { bgcolor: palette.surfaceRaised },
+                        "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
                       }}
                     >
                       <ListItemIcon>

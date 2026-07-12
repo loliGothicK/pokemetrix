@@ -4,7 +4,8 @@ import {
   alpha,
   Box,
   Button,
-  CircularProgress, Divider,
+  CircularProgress,
+  Divider,
   Fab,
   Grid,
   IconButton,
@@ -25,19 +26,17 @@ import { isAuthenticatedAtom } from "@/store/auth";
 import { useBoxData } from "@/hooks/useBoxData";
 import { itemById } from "@/data/items";
 import { itemSprite } from "@/lib/image";
-import { getAppPalette } from "@/theme/palette";
 import { useState } from "react";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import { Training } from "@/components/client/team-builder/training";
 import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
 import { useHotkeys } from "react-hotkeys-hook";
-import {moveById} from "@/data/moves";
+import { moveById } from "@/data/moves";
 
 export default function BoxPage() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const { box, isLoading, saveToBox, removeFromBox } = useBoxData();
   const [search, setSearch] = useState("");
@@ -92,8 +91,8 @@ export default function BoxPage() {
             px: 2,
             py: 1.5,
             borderBottom: "1px solid",
-            borderColor: palette.edge,
-            bgcolor: palette.surface,
+            borderColor: theme.palette.divider,
+            bgcolor: theme.palette.background.paper,
             position: "sticky",
             top: 0,
             zIndex: 1,
@@ -141,7 +140,7 @@ export default function BoxPage() {
           color="primary"
           aria-label="add"
           sx={{
-            display: { xs: "none", md: "flex" }
+            display: { xs: "none", md: "flex" },
           }}
         >
           <Add />
@@ -182,9 +181,9 @@ export default function BoxPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 2,
-                  bgcolor: palette.surfaceRaised,
+                  bgcolor: theme.palette.background.paperRaised,
                   border: "1px solid",
-                  borderColor: palette.edge,
+                  borderColor: theme.palette.divider,
                   borderRadius: 3,
                   transition: "all 0.2s ease-in-out",
                   "&:hover": {
@@ -225,7 +224,7 @@ export default function BoxPage() {
                             width: 24,
                             height: 24,
                             borderRadius: "50%",
-                            bgcolor: alpha(palette.surfaceRaised, 0.8),
+                            bgcolor: alpha(theme.palette.background.paperRaised, 0.8),
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",

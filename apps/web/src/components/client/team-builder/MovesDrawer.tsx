@@ -16,11 +16,11 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
-import { getAppPalette } from "@/theme/palette";
 import { moveById, moveByIdentifier } from "@/data/moves";
 import { typeIcon } from "@/lib/image";
 import { TrainedPokemon } from "@/store/team/team";
 import { types, moveCategories } from "@/types/pokemon";
+import { flexRowCenter, truncateText } from "@/theme/sx";
 import {
   QueryableAutocomplete,
   matchesQueryTokens,
@@ -65,7 +65,6 @@ export function MoveSelectionDrawer({
 }: MoveSelectionDrawerProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   // クエリトークン（QueryableAutocomplete が管理する）
   const [tokens, setTokens] = useState<QueryToken[]>([]);
@@ -180,10 +179,10 @@ export function MoveSelectionDrawer({
       {activeSlot !== null && (
         <Stack direction={"column"} sx={{ height: "100%", width: "100%" }}>
           {/* Drawer ヘッダー */}
-          <Box sx={{ p: 2, borderBottom: `1px solid ${palette.edgeSoft}` }}>
+          <Box sx={{ p: 2, borderBottom: `1px solid ${theme.palette.dividerSoft}` }}>
             <Stack
               direction="row"
-              sx={{ mb: 2, justifyContent: "space-between", alignItems: "center" }}
+              sx={{ ...flexRowCenter, mb: 2, justifyContent: "space-between" }}
             >
               <Typography variant="h6">Select Move</Typography>
               <IconButton onClick={onClose} size="small">
@@ -222,7 +221,7 @@ export function MoveSelectionDrawer({
               <ListItemButton
                 onClick={() => onSelectMove(null)}
                 sx={{
-                  borderBottom: `2px solid ${palette.edge}`,
+                  borderBottom: `2px solid ${theme.palette.divider}`,
                   bgcolor: alpha(theme.palette.error.main, 0.05),
                   "&:hover": { bgcolor: alpha(theme.palette.error.main, 0.1) },
                 }}
@@ -241,7 +240,7 @@ export function MoveSelectionDrawer({
                   selected={isSelected}
                   onClick={() => onSelectMove(move.id)}
                   sx={{
-                    borderBottom: `1px solid ${palette.edgeSoft}`,
+                    borderBottom: `1px solid ${theme.palette.dividerSoft}`,
                     p: 0,
                     flexDirection: "column",
                     alignItems: "stretch",
@@ -271,13 +270,11 @@ export function MoveSelectionDrawer({
                     {/* 技名 */}
                     <Typography
                       sx={{
+                        ...truncateText,
                         fontWeight: 800,
                         fontSize: "1.1rem",
                         flexGrow: 1,
                         minWidth: 0,
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
                       }}
                     >
                       {t(`moves.${move.identifier}.name`)}
@@ -385,7 +382,7 @@ export function MoveSelectionDrawer({
                         width: 80,
                         pl: 1,
                         textAlign: "center",
-                        borderLeft: `1px solid ${palette.edgeSoft}`,
+                        borderLeft: `1px solid ${theme.palette.dividerSoft}`,
                         flexShrink: 0,
                       }}
                     >
@@ -425,7 +422,7 @@ export function MoveSelectionDrawer({
                     {/* 行1: 採用率% + 技名 */}
                     <Stack
                       direction="row"
-                      sx={{ alignItems: "center", px: 2, pt: 2, pb: 0.5, gap: 1.5, minWidth: 0 }}
+                      sx={{ ...flexRowCenter, px: 2, pt: 2, pb: 0.5, gap: 1.5, minWidth: 0 }}
                     >
                       {move.percentage && (
                         <Typography
@@ -444,7 +441,7 @@ export function MoveSelectionDrawer({
                     {/* 行2: 優先度 + 分類 + タイプ/カテゴリ/PWR/ACC/RANGE */}
                     <Stack
                       direction="row"
-                      sx={{ alignItems: "center", px: 2, pb: 2, pt: 0.5, gap: 1, flexWrap: "wrap" }}
+                      sx={{ ...flexRowCenter, px: 2, pb: 2, pt: 0.5, gap: 1, flexWrap: "wrap" }}
                     >
                       {move.priority !== null && move.priority !== 0 && (
                         <Chip
@@ -470,7 +467,7 @@ export function MoveSelectionDrawer({
                         />
                       ))}
                       <Box sx={{ flexGrow: 1 }} />
-                      <Stack direction="row" sx={{ alignItems: "center", gap: 0.5, flexShrink: 0 }}>
+                      <Stack direction="row" sx={{ ...flexRowCenter, gap: 0.5, flexShrink: 0 }}>
                         <Chip
                           avatar={<Avatar src={typeIcon(move.type)} />}
                           label={t(`types.${move.type}.name`)}
@@ -538,7 +535,7 @@ export function MoveSelectionDrawer({
                             textAlign: "center",
                             minWidth: 56,
                             pl: 1,
-                            borderLeft: `1px solid ${palette.edgeSoft}`,
+                            borderLeft: `1px solid ${theme.palette.dividerSoft}`,
                           }}
                         >
                           <Typography

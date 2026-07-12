@@ -3,12 +3,11 @@
 import { Box, Container, Link, Stack, Typography, useTheme } from "@mui/material";
 import NextLink from "next/link";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
+import { flexRowCenter } from "@/theme/sx";
 
 export function Footer() {
   const theme = useTheme();
   const { t } = useTranslation();
-  const palette = getAppPalette(theme.palette.mode);
 
   return (
     <Box
@@ -18,12 +17,12 @@ export function Footer() {
         px: 2,
         mt: "auto",
         borderTop: "1px solid",
-        borderColor: palette.edge,
-        bgcolor: palette.surface,
+        borderColor: theme.palette.divider,
+        bgcolor: theme.palette.background.paper,
       }}
     >
       <Container maxWidth="lg">
-        <Stack spacing={3} sx={{ alignItems: "center" }}>
+        <Stack spacing={3} sx={flexRowCenter}>
           <Stack direction="row" spacing={4} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
             <Link
               component={NextLink}

@@ -11,7 +11,8 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography, useMediaQuery,
+  Typography,
+  useMediaQuery,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
@@ -29,7 +30,7 @@ import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { TFunction } from "i18next";
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 
 type SelectPokemonDialogProps = Pick<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
   readonly title: string;
@@ -240,7 +241,7 @@ export function SelectPokemonDialog({
                       <Box sx={{ flexGrow: 1 }} />
                       {pokemon.types.map((type) =>
                         isMobile ? (
-                          <Avatar src={typeIcon(type)} />
+                          <Avatar key={type} src={typeIcon(type)} />
                         ) : (
                           <Chip
                             key={type}
@@ -255,7 +256,8 @@ export function SelectPokemonDialog({
                               },
                             }}
                           />
-                      ))}
+                        ),
+                      )}
                     </Stack>
                   ))}
                 </Stack>

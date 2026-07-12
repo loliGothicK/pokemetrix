@@ -1,6 +1,6 @@
 "use client";
 
-import { alpha, Box, Button, Chip, Grid, Paper, Snackbar, Stack, Typography } from "@mui/material";
+import { alpha, Box, Button, Chip, Grid, Snackbar, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
@@ -8,8 +8,8 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import { getAppPalette } from "@/theme/palette";
 import { PokemonBuildCard } from "@/components/client/share/PokemonBuildCard";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
 import { useSetAtom } from "jotai";
 import { localTeamsAtom, activeTeamIdAtom } from "@/store/team/team";
@@ -28,15 +28,11 @@ export interface PartySharePageProps {
 
 function EmptySlotCard() {
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   return (
-    <Paper
-      elevation={0}
+    <SurfaceCard
       sx={{
-        bgcolor: palette.surface,
-        border: "1px dashed",
-        borderColor: alpha(palette.edge, 0.5),
-        borderRadius: 3,
+        borderStyle: "dashed",
+        borderColor: alpha(theme.palette.divider, 0.5),
         height: "100%",
         minHeight: 260,
         display: "flex",
@@ -50,7 +46,7 @@ function EmptySlotCard() {
       >
         —
       </Typography>
-    </Paper>
+    </SurfaceCard>
   );
 }
 
@@ -58,7 +54,6 @@ function EmptySlotCard() {
 export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
   const setLocalTeams = useSetAtom(localTeamsAtom);
   const setActiveTeamId = useSetAtom(activeTeamIdAtom);
@@ -119,7 +114,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           mb: { xs: 3, sm: 4 },
           pb: 2,
           borderBottom: "1px solid",
-          borderColor: palette.edge,
+          borderColor: theme.palette.divider,
         }}
       >
         {/* チーム名 */}

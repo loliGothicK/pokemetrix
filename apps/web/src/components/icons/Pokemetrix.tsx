@@ -54,22 +54,8 @@ export default function PokemetrixIcon({
 
         {/* 棒グラフバー */}
         <rect x="47" y="55" width="16" height="33" rx="6" fill={accentColor} />
-        <rect
-          x="77"
-          y="35"
-          width="16"
-          height="48"
-          rx="6"
-          fill={accentColor}
-        />
-        <rect
-          x="107"
-          y="45"
-          width="16"
-          height="38"
-          rx="6"
-          fill={accentColor}
-        />
+        <rect x="77" y="35" width="16" height="48" rx="6" fill={accentColor} />
+        <rect x="107" y="45" width="16" height="38" rx="6" fill={accentColor} />
         <rect x="137" y="65" width="16" height="23" rx="6" fill={accentColor} />
 
         {/* 水平の基準線 */}

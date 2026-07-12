@@ -8,13 +8,11 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
 import Image from "next/image";
 import { itemById, itemList } from "@/data/items";
 import { Delete } from "@mui/icons-material";
@@ -27,6 +25,8 @@ import { itemSprite } from "@/lib/image";
 import { match } from "ts-pattern";
 import { ShareButton } from "@/components/client/share/ShareButton";
 import type { TrainedPokemon } from "@/store/team/team";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 
 import {
   DndContext,
@@ -64,7 +64,6 @@ function SortableSlotItem({
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
@@ -86,16 +85,15 @@ function SortableSlotItem({
           borderColor: isActive
             ? theme.palette.primary.main
             : member
-              ? palette.edge
+              ? theme.palette.divider
               : "transparent",
           bgcolor: isActive
             ? alpha(theme.palette.primary.main, 0.08)
             : member
-              ? palette.surface
+              ? theme.palette.background.paper
               : "transparent",
           position: "relative",
-          display: "flex",
-          alignItems: "center",
+          ...flexRowCenter,
           transition: "all 0.2s ease-in-out",
           opacity: isDragging ? 0.4 : 1,
           boxShadow: isDragging
@@ -137,8 +135,7 @@ function SortableSlotItem({
         <Box
           onClick={onNavigate}
           sx={{
-            display: "flex",
-            alignItems: "center",
+            ...flexRowCenter,
             flexGrow: 1,
             cursor: "pointer",
             minWidth: 0,
@@ -157,8 +154,7 @@ function SortableSlotItem({
                   borderRadius: 2,
                   overflow: "hidden",
                   bgcolor: alpha(theme.palette.primary.main, 0.1),
-                  display: "flex",
-                  alignItems: "center",
+                  ...flexRowCenter,
                   justifyContent: "center",
                   position: "relative",
                   flexShrink: 0,
@@ -184,10 +180,9 @@ function SortableSlotItem({
                           width: 28,
                           height: 28,
                           borderRadius: "50%",
-                          bgcolor: alpha(palette.surfaceRaised, 0.5),
+                          bgcolor: alpha(theme.palette.background.paperRaised, 0.5),
                           boxShadow: 2,
-                          display: "flex",
-                          alignItems: "center",
+                          ...flexRowCenter,
                           justifyContent: "center",
                         }}
                       >
@@ -239,7 +234,7 @@ function SortableSlotItem({
                 py: 1,
                 px: 2,
                 border: "1px dashed",
-                borderColor: palette.edgeSoft,
+                borderColor: theme.palette.dividerSoft,
                 borderRadius: 2,
                 width: "100%",
                 textAlign: "center",
@@ -287,8 +282,6 @@ export default function TeamOverview({
   readonly onBack?: () => void;
 }) {
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
   const [team, updateSlot, updateTeamName, reorderMembers] = useActiveTeam();
 
@@ -328,21 +321,19 @@ export default function TeamOverview({
   };
 
   return (
-    <Paper
+    <SurfaceCard
+      raised
       sx={{
         p: 3,
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        bgcolor: palette.surfaceRaised,
-        border: "1px solid",
-        borderColor: palette.edge,
       }}
     >
       {/* モバイル用ヘッダー */}
       {onBack && (
         <>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 1.5, mx: -1 }}>
+          <Box sx={{ ...flexRowCenter, mb: 1.5, mx: -1 }}>
             <IconButton
               onClick={onBack}
               edge="start"
@@ -397,6 +388,6 @@ export default function TeamOverview({
           </Grid>
         </SortableContext>
       </DndContext>
-    </Paper>
+    </SurfaceCard>
   );
 }

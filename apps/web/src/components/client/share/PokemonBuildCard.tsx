@@ -1,10 +1,9 @@
 "use client";
 
-import { alpha, Box, Divider, Grid, Paper, Stack, Tooltip, Typography } from "@mui/material";
+import { alpha, Box, Divider, Grid, Stack, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { getAppPalette } from "@/theme/palette";
 import { itemById } from "@/data/items";
 import { abilityById } from "@/data/abilities";
 import { moveById } from "@/data/moves";
@@ -15,6 +14,8 @@ import { natureObjectToString } from "@/data/nature";
 import { match } from "ts-pattern";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { Type } from "@/types/pokemon";
+import { flexRowCenter, truncateText } from "@/theme/sx";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
 
 // ── タイプカラー ──────────────────────────────────────────────────────────────
 
@@ -119,7 +120,7 @@ function StatRow({
 }) {
   const theme = useTheme();
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+    <Box sx={{ ...flexRowCenter, gap: 1 }}>
       <Typography
         sx={{
           width: 28,
@@ -183,7 +184,6 @@ function StatRow({
 function MoveChip({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const move = moveId != null ? moveById.get(moveId) : null;
 
   if (!move) {
@@ -196,7 +196,7 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
           px: 1.5,
           borderRadius: "6px",
           border: "1px dashed",
-          borderColor: alpha(palette.edge, 0.4),
+          borderColor: alpha(theme.palette.divider, 0.4),
         }}
       >
         <Typography
@@ -258,10 +258,8 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
             fontSize: "0.72rem",
             fontWeight: 600,
             lineHeight: 1,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
             color: "text.primary",
+            ...truncateText,
           }}
         >
           {t(`moves.${move.identifier}.name`)}
@@ -281,7 +279,6 @@ export interface PokemonBuildCardProps {
 export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   // 既存の表示慣習に合わせる: name を主表示、formName は副次テキスト（無ければ空文字）
   const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
@@ -324,13 +321,10 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
   };
 
   return (
-    <Paper
-      elevation={0}
+    <SurfaceCard
+      raised
+      borderRadius={12}
       sx={{
-        bgcolor: palette.surfaceRaised,
-        border: "1px solid",
-        borderColor: palette.edge,
-        borderRadius: "12px",
         overflow: "hidden",
         height: "100%",
         display: "flex",
@@ -346,7 +340,7 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
           alignItems: "center",
           gap: 0.75,
           borderBottom: "1px solid",
-          borderColor: palette.edge,
+          borderColor: theme.palette.divider,
         }}
       >
         <Typography sx={{ fontWeight: 800, fontSize: "0.9rem", lineHeight: 1, flexShrink: 0 }}>
@@ -379,11 +373,9 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
                 fontSize: "0.82rem",
                 fontWeight: 500,
                 color: "text.secondary",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
                 minWidth: 0,
                 cursor: "default",
+                ...truncateText,
               }}
             >
               {t(`items.${item.identifier}.name`)}
@@ -461,9 +453,9 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
                 width: 32,
                 height: 32,
                 borderRadius: "8px",
-                bgcolor: alpha(palette.surface, 0.85),
+                bgcolor: alpha(theme.palette.background.paper, 0.85),
                 border: "1px solid",
-                borderColor: palette.edge,
+                borderColor: theme.palette.divider,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -569,7 +561,7 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
         {/* ステータス */}
         {showStats && (
           <>
-            <Divider sx={{ borderColor: palette.edge }} />
+            <Divider sx={{ borderColor: theme.palette.divider }} />
             <Stack spacing={0.3}>
               {STAT_KEYS.map((key, i) => {
                 const base = baseStat[i] ?? 45;
@@ -590,6 +582,6 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
           </>
         )}
       </Box>
-    </Paper>
+    </SurfaceCard>
   );
 }
