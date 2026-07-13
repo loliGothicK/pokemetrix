@@ -83,7 +83,6 @@ export const dashboardInputSchema = dashboardInputObject.readonly();
 
 export type DashboardInput = z.infer<typeof dashboardInputSchema>;
 
-/** PATCH 用: id 以外を部分更新 */
 export const dashboardUpdateSchema = dashboardInputObject.omit({ id: true }).partial().readonly();
 
-export type DashboardUpdate = z.infer<typeof dashboardUpdateSchema>;
+export type DashboardUpdate = Partial<Omit<DashboardInput, "id">>;

@@ -14,6 +14,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  alpha,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useAtomValue } from "jotai";
@@ -46,6 +47,7 @@ import { ulid } from "ulid";
 import type { Dashboard, DashboardWidget, WidgetType } from "@/store/dashboard/dashboard";
 import { WidgetCard } from "./WidgetCard";
 import { AddWidgetDialog } from "./AddWidgetDialog";
+import "react-resizable/css/styles.css";
 
 const GRID_COLUMNS = { xs: 2, sm: 4, md: 6, lg: 8 } as const;
 
@@ -317,30 +319,76 @@ export default function DashboardPage() {
       ) : (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={layout.map((w) => w.id)} strategy={rectSortingStrategy}>
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: `repeat(${GRID_COLUMNS.xs}, minmax(0, 1fr))`,
-                  sm: `repeat(${GRID_COLUMNS.sm}, minmax(0, 1fr))`,
-                  md: `repeat(${GRID_COLUMNS.md}, minmax(0, 1fr))`,
-                  lg: `repeat(${GRID_COLUMNS.lg}, minmax(0, 1fr))`,
-                },
-                gridAutoRows: "120px",
-                gap: 2,
-              }}
-            >
-              {layout.map((widget) => (
-                <WidgetCard
-                  key={widget.id}
-                  widget={widget}
-                  editing={editing}
-                  onDelete={() => handleDeleteWidget(widget.id)}
-                  onTitleChange={(title) => handleWidgetTitleChange(widget.id, title)}
-                  onOptionsChange={(options) => handleWidgetOptionsChange(widget.id, options)}
-                  onResize={(dw, dh) => handleWidgetResize(widget.id, dw, dh)}
-                />
-              ))}
+            <Box sx={{ position: "relative" }}>
+              {/* Background grid visible only during editing */}
+              {editing && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 0,
+                    pointerEvents: "none",
+                    overflow: "hidden", // clip extra borders extending from edges
+                    display: "grid",
+                    gridTemplateColumns: {
+                      xs: `repeat(${GRID_COLUMNS.xs}, minmax(0, 1fr))`,
+                      sm: `repeat(${GRID_COLUMNS.sm}, minmax(0, 1fr))`,
+                      md: `repeat(${GRID_COLUMNS.md}, minmax(0, 1fr))`,
+                      lg: `repeat(${GRID_COLUMNS.lg}, minmax(0, 1fr))`,
+                    },
+                    gridAutoRows: "120px",
+                    // Use a pseudo-element to guarantee the outer bounding box is perfectly drawn
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      inset: 0,
+                      border: "1px dashed",
+                      borderColor: (theme) => alpha(theme.palette.divider, 0.4),
+                      pointerEvents: "none",
+                    },
+                  }}
+                >
+                  {Array.from({ length: 150 }).map((_, i) => (
+                    <Box
+                      key={`bg-grid-${i}`}
+                      sx={{
+                        // The inner boundaries of each cell
+                        borderRight: "1px dashed",
+                        borderBottom: "1px dashed",
+                        borderColor: (theme) => alpha(theme.palette.divider, 0.4),
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
+
+              {/* Actual widgets container */}
+              <Box
+                sx={{
+                  position: "relative",
+                  zIndex: 1,
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: `repeat(${GRID_COLUMNS.xs}, minmax(0, 1fr))`,
+                    sm: `repeat(${GRID_COLUMNS.sm}, minmax(0, 1fr))`,
+                    md: `repeat(${GRID_COLUMNS.md}, minmax(0, 1fr))`,
+                    lg: `repeat(${GRID_COLUMNS.lg}, minmax(0, 1fr))`,
+                  },
+                  gridAutoRows: "120px",
+                }}
+              >
+                {layout.map((widget) => (
+                  <WidgetCard
+                    key={widget.id}
+                    widget={widget}
+                    editing={editing}
+                    onDelete={() => handleDeleteWidget(widget.id)}
+                    onTitleChange={(title) => handleWidgetTitleChange(widget.id, title)}
+                    onOptionsChange={(options) => handleWidgetOptionsChange(widget.id, options)}
+                    onResize={(dw, dh) => handleWidgetResize(widget.id, dw, dh)}
+                  />
+                ))}
+              </Box>
             </Box>
           </SortableContext>
         </DndContext>
