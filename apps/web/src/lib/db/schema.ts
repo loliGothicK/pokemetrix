@@ -195,22 +195,32 @@ export const battleRecordOpponents = pgTable(
 // 設計: .design/dashboard.md
 // =====================================================================
 
-/** ダッシュボード上のウィジェット種別 */
-export type WidgetType =
-  | "winRateSummary"
-  | "winRateTrend"
-  | "orderSplit"
-  | "topOpponents"
-  | "recentRecords"
-  | "ratingTrend"
-  | "note";
+/** ウィジェットのデータソース（直指定 or ダッシュボード変数参照） */
+export type DataSource =
+  | { readonly type: "season"; readonly seasonId: string | null }
+  | { readonly type: "variable"; readonly variableId: string };
+
+/**
+ * ダッシュボード変数。
+ * グリッド上部の Variable バーに表示され、複数ウィジェットが同一変数を参照できる。
+ */
+export interface DashboardVariable {
+  readonly id: string;
+  readonly name: string;
+  readonly label: string;
+  readonly type: "season";
+  /** null = 全シーズン統合 */
+  readonly defaultSeasonId: string | null;
+}
 
 /** ダッシュボードの1ウィジェット（layout jsonb の要素） */
 export interface DashboardWidget {
   readonly id: string;
-  readonly type: WidgetType;
+  /** 描画テンプレート（旧 type） */
+  readonly templateId?: string;
   readonly title: string;
-  readonly seasonId: string | null;
+  /** データソース（シーズン直指定 or Variable 参照） */
+  readonly dataSource: DataSource;
   readonly x: number;
   readonly y: number;
   readonly w: number;
@@ -221,6 +231,7 @@ export interface DashboardWidget {
 /**
  * ユーザーがカスタマイズ可能なダッシュボード。
  * ウィジェットの配置・種別・パラメータを layout に jsonb で保持する。
+ * 変数の定義を variables に jsonb で保持する。
  */
 export const dashboards = pgTable(
   "dashboards",
@@ -234,11 +245,14 @@ export const dashboards = pgTable(
     isDefault: boolean("is_default").notNull().default(false),
     /** DashboardWidget[] */
     layout: jsonb("layout").notNull().default([]).$type<readonly DashboardWidget[]>(),
+    /** DashboardVariable[] */
+    variables: jsonb("variables").notNull().default([]).$type<readonly DashboardVariable[]>(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
     check("dashboards_name_len", sql`char_length(${t.name}) between 1 and 100`),
     check("dashboards_layout_is_array", sql`jsonb_typeof(${t.layout}) = 'array'`),
+    check("dashboards_variables_is_array", sql`jsonb_typeof(${t.variables}) = 'array'`),
   ],
 );

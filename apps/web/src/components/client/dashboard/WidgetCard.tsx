@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { alpha, Box, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { alpha, Box, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Resizable, type ResizeCallbackData } from "react-resizable";
@@ -16,11 +17,11 @@ import { WidgetRenderer } from "./WidgetRenderer";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
 
 /** ウィジェット種別ごとの既定タイトル（i18n キー） */
-export const widgetTypeLabelKey = (type: DashboardWidget["type"]) =>
-  `dashboard.widget.type.${type}` as const;
+export const widgetTypeLabelKey = (type?: string) =>
+  type ? (`dashboard.widget.type.${type}` as const) : null;
 
 const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { style, className, children, isResizing, ...rest } = props;
+  const { style, className, children, isResizing, handleAxis, ...rest } = props;
   return (
     <Box
       ref={ref}
@@ -47,6 +48,37 @@ const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
 });
 ResizableWrapper.displayName = "ResizableWrapper";
 
+const ResizeHandle = React.forwardRef<HTMLDivElement, any>((props, ref) => {
+  const { handleAxis, ...rest } = props;
+  return (
+    <Box
+      ref={ref}
+      sx={{
+        position: "absolute",
+        bottom: 0,
+        right: 0,
+        width: 24,
+        height: 24,
+        cursor: "se-resize",
+        zIndex: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "text.disabled",
+        "&:hover": {
+          color: "primary.main",
+        },
+      }}
+      {...rest}
+    >
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <path d="M22 22H10v-2h10v-10h2v12z M18 22H6v-2h10v-10h2v12z" />
+      </svg>
+    </Box>
+  );
+});
+ResizeHandle.displayName = "ResizeHandle";
+
 function LocalResizer({
   editing,
   widgetW,
@@ -61,7 +93,7 @@ function LocalResizer({
   const [isResizing, setIsResizing] = useState(false);
   const [baseSize, setBaseSize] = useState({ width: 0, height: 0 });
   const [pixelSize, setPixelSize] = useState({ width: 0, height: 0 });
-  
+
   const isResizingRef = useRef(false);
   const initialSize = useRef({ width: 0, height: 0 });
   const initialWidgetW = useRef(1);
@@ -71,7 +103,6 @@ function LocalResizer({
   useEffect(() => {
     if (!boxRef.current || !editing) return;
     const observer = new ResizeObserver((entries) => {
-      // Ignore updates during drag so we don't fight with the resizer or trigger re-renders
       if (isResizingRef.current) return;
       const rect = entries[0].contentRect;
       if (rect.width > 0 && rect.height > 0) {
@@ -98,9 +129,8 @@ function LocalResizer({
     const dwPixels = data.size.width - initialSize.current.width;
     const dhPixels = data.size.height - initialSize.current.height;
 
-    // Calculate 1 grid unit size based on the width AT THE START of the drag
     const unitW = initialSize.current.width / initialWidgetW.current;
-    const unitH = 120; // 120px (gridAutoRows, gap removed)
+    const unitH = 120;
 
     const currentDw = Math.round(dwPixels / unitW);
     const currentDh = Math.round(dhPixels / unitH);
@@ -158,30 +188,7 @@ function LocalResizer({
           onResizeStart={handleResizeStart}
           onResize={handleResize}
           onResizeStop={handleResizeStop}
-          handle={
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                width: 24,
-                height: 24,
-                cursor: "se-resize",
-                zIndex: 10,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "text.disabled",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
-            >
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                <path d="M22 22H10v-2h10v-10h2v12z M18 22H6v-2h10v-10h2v12z" />
-              </svg>
-            </Box>
-          }
+          handle={<ResizeHandle />}
         >
           <ResizableWrapper isResizing={isResizing}>{children}</ResizableWrapper>
         </Resizable>
@@ -195,16 +202,17 @@ function LocalResizer({
 export function WidgetCard({
   widget,
   editing,
+  variableValues = {},
   onDelete,
-  onTitleChange,
-  onOptionsChange,
+  onEditClick,
   onResize,
 }: {
   readonly widget: DashboardWidget;
   readonly editing: boolean;
+  readonly variableValues?: Readonly<Record<string, string | null>>;
   readonly onDelete: () => void;
-  readonly onTitleChange: (title: string) => void;
-  readonly onOptionsChange: (options: Record<string, unknown>) => void;
+  /** 編集モード時にウィジェットの編集ボタンをクリックした際のコールバック */
+  readonly onEditClick: () => void;
   readonly onResize: (dw: number, dh: number) => void;
 }) {
   const { t } = useTranslation();
@@ -222,7 +230,10 @@ export function WidgetCard({
     gridRow: `span ${widget.h}`,
   };
 
-  const title = widget.title || t(widgetTypeLabelKey(widget.type));
+  const defaultTitleKey = widgetTypeLabelKey(widget.templateId);
+  const title =
+    widget.title ||
+    (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled", "New Widget"));
 
   const cardContent = (
     <SurfaceCard
@@ -236,9 +247,19 @@ export function WidgetCard({
         minHeight: 0,
         overflow: "hidden",
         opacity: isDragging ? 0.5 : 1,
-        boxShadow: isDragging
-          ? `0 8px 24px ${alpha(theme.palette.common.black, 0.18)}`
-          : undefined,
+        boxShadow: isDragging ? `0 8px 24px ${alpha(theme.palette.common.black, 0.18)}` : undefined,
+        ...(editing && {
+          cursor: "pointer",
+          "&:hover": {
+            outline: `2px solid ${theme.palette.primary.main}`,
+          },
+        }),
+      }}
+      onClick={(e) => {
+        if (editing) {
+          e.stopPropagation();
+          onEditClick();
+        }
       }}
     >
       <Stack direction="row" spacing={0.5} sx={{ ...flexRowCenter, mb: 1.5 }}>
@@ -253,40 +274,18 @@ export function WidgetCard({
             <DragIndicatorRoundedIcon fontSize="small" />
           </IconButton>
         )}
-        {editing ? (
-          <TextField
-            variant="standard"
-            value={widget.title}
-            placeholder={title}
-            onChange={(e) => onTitleChange(e.target.value)}
-            slotProps={{ htmlInput: { maxLength: 100 } }}
-            sx={{ flexGrow: 1 }}
-          />
-        ) : (
-          <Typography variant="subtitle2" sx={{ fontWeight: 700, flexGrow: 1 }} noWrap>
-            {title}
-          </Typography>
-        )}
-        {editing && (
-          <Stack direction="row" spacing={0.25}>
-            <Tooltip title={t("common.delete")}>
-              <IconButton
-                size="small"
-                onClick={onDelete}
-                aria-label={t("common.delete")}
-                sx={{
-                  color: theme.palette.error.main,
-                  "&:hover": { bgcolor: alpha(theme.palette.error.main, 0.1) },
-                }}
-              >
-                <DeleteRoundedIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-        )}
+
+        <Typography variant="subtitle2" sx={{ fontWeight: 700, flexGrow: 1 }} noWrap>
+          {title}
+        </Typography>
       </Stack>
       <Box sx={{ flexGrow: 1, overflow: "auto", minHeight: 0 }}>
-        <WidgetRenderer widget={widget} editing={editing} onOptionsChange={onOptionsChange} />
+        <WidgetRenderer
+          widget={widget}
+          editing={editing}
+          variableValues={variableValues}
+          onEditClick={onEditClick}
+        />
       </Box>
     </SurfaceCard>
   );

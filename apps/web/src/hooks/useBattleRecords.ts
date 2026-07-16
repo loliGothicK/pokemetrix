@@ -14,12 +14,16 @@ import type {
 } from "@/store/battle-record/battleRecord";
 
 export interface BattleRecordsFilter {
-  readonly seasonId: string | null;
+  readonly seasonId?: string | null;
   readonly teamId?: string | null;
 }
 
 export const battleRecordsQueryKey = (filter: BattleRecordsFilter) =>
-  ["battle-records", filter.seasonId ?? "all", filter.teamId ?? "all"] as const;
+  [
+    "battle-records",
+    filter.seasonId === undefined ? "all" : (filter.seasonId ?? "disabled"),
+    filter.teamId ?? "all",
+  ] as const;
 
 /**
  * 指定シーズン（および任意でチーム）の対戦記録を取得・操作する。

@@ -16,6 +16,8 @@ const toDto = (row: DashboardRow): Dashboard => ({
   name: row.name,
   isDefault: row.isDefault,
   layout: row.layout,
+  variables: (row.variables ??
+    []) as readonly import("@/store/dashboard/dashboard").DashboardVariable[],
   createdAt: row.createdAt.toISOString(),
   updatedAt: row.updatedAt.toISOString(),
 });
@@ -83,6 +85,7 @@ export async function POST(request: Request) {
                 name: input.name,
                 isDefault,
                 layout: input.layout ?? [],
+                variables: input.variables ?? [],
               })
               .returning();
 

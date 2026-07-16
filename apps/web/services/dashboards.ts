@@ -19,7 +19,12 @@ export const createDashboardOnServer = async (input: DashboardInput): Promise<Da
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input),
   });
-  if (!res.ok) throw new Error("Failed to create dashboard");
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Dashboard create failed:", text);
+    throw new Error(`Failed to create dashboard: ${text}`);
+  }
+
   return res.json() as Promise<Dashboard>;
 };
 

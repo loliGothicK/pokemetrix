@@ -4,8 +4,16 @@
     "close": "Close",
     "cancel": "Cancel",
     "save": "Save",
+    "exit": "Exit",
+    "saveAndExit": "Save & Exit",
+    "discardAndExit": "Discard Changes",
+    "discardConfirm": "Are you sure you want to discard your changes? Unsaved changes will be lost.",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "add": "Add",
+    "done": "Done",
+    "back": "Back",
+    "or": "or"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -25,7 +33,15 @@
     "heightDecrease": "Decrease height",
     "widget": {
       "typeLabel": "Widget type",
+      "titleLabel": "Title",
       "allSeasons": "All seasons",
+      "edit": "Edit widget",
+      "deleteConfirm": "Delete this widget?",
+      "tab": {
+        "general": "General",
+        "dataSource": "Data Source",
+        "visualize": "Visualize"
+      },
       "type": {
         "winRateSummary": "Win Rate Summary",
         "winRateTrend": "Win Rate Trend",
@@ -36,8 +52,40 @@
         "note": "Note"
       },
       "note": {
-        "placeholder": "Write a note..."
+        "placeholder": "Write a note...",
+        "content": "Note content"
+      },
+      "options": {
+        "displayCount": "Display count",
+        "displayCountHelper": "Show top {{count}} opponents"
       }
+    },
+    "variable": {
+      "add": "Add variable",
+      "addTitle": "Add Variable",
+      "editTitle": "Edit Variable",
+      "nameLabel": "Internal name",
+      "nameHelper": "Used internally (e.g. season)",
+      "displayLabel": "Display label",
+      "defaultSeason": "Default season",
+      "deleteConfirm": "Delete variable \"{{label}}\"?"
+    },
+    "datasource": {
+      "type": "Data source type",
+      "season": "Direct season",
+      "variable": "Variable reference",
+      "variableLabel": "Variable",
+      "noVariables": "No variables defined"
+    },
+    "visualize": {
+      "title": "Visualize Editor",
+      "openFullscreen": "Open in full screen",
+      "exitFullscreen": "Exit full screen",
+      "preview": "Preview",
+      "options": "Options",
+      "noOptions": "No options available for this widget type.",
+      "applyAndClose": "Apply & Close",
+      "drawerHint": "Open in full screen for a live preview alongside the options panel."
     }
   },
   "battleRecord": {

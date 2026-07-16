@@ -4,8 +4,16 @@
     "close": "閉じる",
     "cancel": "キャンセル",
     "save": "保存",
+    "exit": "終了",
+    "saveAndExit": "保存して終了",
+    "discardAndExit": "変更を破棄",
+    "discardConfirm": "変更を破棄しますか？保存されていない変更は失われます。",
     "edit": "編集",
-    "delete": "削除"
+    "delete": "削除",
+    "add": "追加",
+    "done": "完了",
+    "back": "戻る",
+    "or": "または"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -25,7 +33,15 @@
     "heightDecrease": "高さを狭める",
     "widget": {
       "typeLabel": "ウィジェットの種類",
+      "titleLabel": "タイトル",
       "allSeasons": "すべてのシーズン",
+      "edit": "ウィジェットを編集",
+      "deleteConfirm": "このウィジェットを削除しますか？",
+      "tab": {
+        "general": "一般",
+        "dataSource": "データソース",
+        "visualize": "Visualize"
+      },
       "type": {
         "winRateSummary": "勝率サマリー",
         "winRateTrend": "勝率の推移",
@@ -36,8 +52,40 @@
         "note": "メモ"
       },
       "note": {
-        "placeholder": "メモを入力..."
+        "placeholder": "メモを入力...",
+        "content": "メモ内容"
+      },
+      "options": {
+        "displayCount": "表示件数",
+        "displayCountHelper": "上位 {{count}} 件を表示"
       }
+    },
+    "variable": {
+      "add": "変数を追加",
+      "addTitle": "変数を追加",
+      "editTitle": "変数を編集",
+      "nameLabel": "内部名",
+      "nameHelper": "内部識別子（例: season）",
+      "displayLabel": "表示ラベル",
+      "defaultSeason": "デフォルトシーズン",
+      "deleteConfirm": "変数「{{label}}」を削除しますか？"
+    },
+    "datasource": {
+      "type": "データソースの種類",
+      "season": "シーズン直指定",
+      "variable": "変数参照",
+      "variableLabel": "変数",
+      "noVariables": "変数が定義されていません"
+    },
+    "visualize": {
+      "title": "Visualize エディタ",
+      "openFullscreen": "全画面で開く",
+      "exitFullscreen": "全画面を終了",
+      "preview": "プレビュー",
+      "options": "オプション",
+      "noOptions": "このウィジェットタイプに設定可能なオプションはありません。",
+      "applyAndClose": "適用して閉じる",
+      "drawerHint": "全画面で開くと、ライブプレビューとオプション設定を並べて確認できます。"
     }
   },
   "battleRecord": {

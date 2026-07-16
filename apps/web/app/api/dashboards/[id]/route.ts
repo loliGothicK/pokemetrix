@@ -15,6 +15,8 @@ const toDto = (row: DashboardRow): Dashboard => ({
   name: row.name,
   isDefault: row.isDefault,
   layout: row.layout,
+  variables: (row.variables ??
+    []) as readonly import("@/store/dashboard/dashboard").DashboardVariable[],
   createdAt: row.createdAt.toISOString(),
   updatedAt: row.updatedAt.toISOString(),
 });
@@ -91,6 +93,7 @@ export async function PATCH(
                 ...(input.name !== undefined && { name: input.name }),
                 ...(input.isDefault !== undefined && { isDefault: input.isDefault }),
                 ...(input.layout !== undefined && { layout: input.layout }),
+                ...(input.variables !== undefined && { variables: input.variables }),
               })
               .where(and(eq(dashboards.id, id), eq(dashboards.userId, userId)))
               .returning();

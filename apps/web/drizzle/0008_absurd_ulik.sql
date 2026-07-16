@@ -1,0 +1,2 @@
+ALTER TABLE "dashboards" ADD COLUMN "variables" jsonb DEFAULT '[]'::jsonb NOT NULL;--> statement-breakpoint
+ALTER TABLE "dashboards" ADD CONSTRAINT "dashboards_variables_is_array" CHECK (jsonb_typeof("dashboards"."variables") = 'array');
