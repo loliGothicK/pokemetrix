@@ -9,6 +9,7 @@
     "start": "next start",
     "test": "vitest --run",
     "test:watch": "vitest",
+    "test:ci": "vitest --run --reporter=junit --outputFile=../../test-results/vitest.xml",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix-dangerously .",
     "fmt": "oxfmt .",
