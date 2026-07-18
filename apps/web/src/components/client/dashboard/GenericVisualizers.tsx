@@ -4,17 +4,10 @@ import { useMemo } from "react";
 import {
   Box,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { rounded } from "@/utils/styles";
-
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 export function TableVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
   const { t } = useTranslation();
 
@@ -26,36 +19,43 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
     );
   }
 
-  const columns = Object.keys(data[0] ?? {});
+  const firstRow = data[0] ?? {};
+  const columns: GridColDef[] = Object.keys(firstRow).map((col) => ({
+    field: col,
+    headerName: t(`dashboard.dataKeys.${col}`, { defaultValue: col }) as string,
+    flex: 1,
+    minWidth: 100,
+  }));
+
+  // DataGrid requires a unique 'id' for each row
+  const rows = useMemo(() => {
+    return data.map((row, index) => {
+      const hasValidId = 'id' in row && (typeof row.id === 'string' || typeof row.id === 'number');
+      return hasValidId ? row : { ...row, id: index };
+    });
+  }, [data]);
 
   return (
-    <TableContainer
-      component={Paper}
-      elevation={0}
-      variant="outlined"
-      sx={{ height: "100%", overflow: "auto", ...rounded(2) }}
-    >
-      <Table size="small" stickyHeader>
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <TableCell key={col} sx={{ fontWeight: 600 }}>
-                {t(`dashboard.dataKeys.${col}`, { defaultValue: col })}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row, i) => (
-            <TableRow key={i}>
-              {columns.map((col) => (
-                <TableCell key={col}>{String(row[col] ?? "")}</TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box sx={{ height: "100%", width: "100%", overflow: "hidden" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        density="compact"
+        disableRowSelectionOnClick
+        hideFooter
+        sx={{
+          border: "none",
+          "& .MuiDataGrid-cell": {
+            borderColor: "divider",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            bgcolor: "background.paper",
+            borderColor: "divider",
+          },
+          ...rounded(2),
+        }}
+      />
+    </Box>
   );
 }
 

@@ -37,6 +37,7 @@
     "@mui/material": "9.2.0",
     "@mui/material-nextjs": "9.1.1",
     "@mui/system": "9.2.0",
+    "@mui/x-data-grid": "^9.9.0",
     "@pkmn/sets": "5.2.0",
     "@pokemetrix/damage-calc": "0.1.1",
     "@sentry/nextjs": "10.65.0",
