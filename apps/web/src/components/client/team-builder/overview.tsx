@@ -27,6 +27,7 @@ import { ShareButton } from "@/components/client/share/ShareButton";
 import type { TrainedPokemon } from "@/store/team/team";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter } from "@/theme/sx";
+import { rounded } from "@/utils/styles";
 
 import {
   DndContext,
@@ -79,8 +80,7 @@ function SortableSlotItem({
       <Box
         sx={{
           width: "100%",
-          p: 2,
-          borderRadius: 3,
+          ...rounded(3),
           border: "1px solid",
           borderColor: isActive
             ? theme.palette.primary.main

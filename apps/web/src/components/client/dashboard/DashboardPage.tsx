@@ -416,7 +416,7 @@ export default function DashboardPage() {
         </Box>
       ) : (
         <Box sx={{ flexGrow: 1, display: "flex", overflow: "hidden" }}>
-          <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 }, pt: { xs: 1, md: 1.5 }, overflowY: "auto" }}>
+          <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 }, pt: { xs: 1, md: 1.5 }, overflowY: "auto", display: "flex", flexDirection: "column" }}>
             {!activeDashboard ? (
               <EmptyState message={t("dashboard.noDashboards")} />
             ) : layout.length === 0 ? (
@@ -428,7 +428,7 @@ export default function DashboardPage() {
                 onDragEnd={handleDragEnd}
               >
                 <SortableContext items={layout.map((w) => w.id)} strategy={rectSortingStrategy}>
-                  <Box sx={{ position: "relative" }}>
+                  <Box sx={{ position: "relative", flexGrow: 1 }}>
                     {/* 編集中の背景グリッド */}
                     {editing && (
                       <Box
@@ -450,13 +450,15 @@ export default function DashboardPage() {
                             content: '""',
                             position: "absolute",
                             inset: 0,
-                            border: "1px dashed",
+                            borderTop: "1px dashed",
+                            borderLeft: "1px dashed",
+                            borderRight: "1px dashed",
                             borderColor: (theme) => alpha(theme.palette.divider, 0.4),
                             pointerEvents: "none",
                           },
                         }}
                       >
-                        {Array.from({ length: 150 }).map((_, i) => (
+                        {Array.from({ length: 400 }).map((_, i) => (
                           <Box
                             key={`bg-grid-${i}`}
                             sx={{

@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
+import { rounded } from "@/utils/styles";
 
 type ShareState = "idle" | "loading" | "success" | "error";
 
@@ -131,11 +132,9 @@ export function ShareButton() {
           {/* showStats トグル */}
           <Box
             sx={{
-              display: "flex",
+                display: "flex",
               alignItems: "center",
               gap: 1.5,
-              p: 1.5,
-              borderRadius: 2,
               border: "1px solid",
               borderColor: showStats
                 ? alpha(theme.palette.primary.main, 0.35)
@@ -143,6 +142,7 @@ export function ShareButton() {
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",
+                ...rounded(2)
             }}
             onClick={() => setShowStats((v) => !v)}
           >

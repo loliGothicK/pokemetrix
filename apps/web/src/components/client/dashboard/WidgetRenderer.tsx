@@ -3,20 +3,15 @@
 import { useMemo } from "react";
 import {
   alpha,
-  Avatar,
   Box,
   CircularProgress,
-  LinearProgress,
   Stack,
   Typography,
   Skeleton,
   Button,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { useTranslation } from "react-i18next";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
-import { flexRowCenter } from "@/theme/sx";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
 import { executeSql } from "@/lib/sql/engine";
 import {
@@ -25,6 +20,9 @@ import {
   GaugeVisualizer,
   HistogramVisualizer,
 } from "./GenericVisualizers";
+import { applyTransformer } from "./transformers";
+import { rounded } from "@/utils/styles";
+import { useTranslation } from "react-i18next";
 
 /** DataSource を seasonId に解決するヘルパー */
 function resolveSeasonId(
@@ -81,25 +79,33 @@ function CustomQueryWidget({
   seasonId,
   query,
   visualization,
+  transformer,
+  transformerCode,
 }: {
   readonly seasonId?: string;
   readonly query: string;
   readonly visualization: string;
+  readonly transformer?: string;
+  readonly transformerCode?: string;
 }) {
-  const { t } = useTranslation();
   const { records, isLoading } = useBattleRecords({ seasonId });
 
-  const resultData = useMemo(() => {
-    if (!records || records.length === 0) return [];
+  const { resultData, error } = useMemo(() => {
+    if (!records || records.length === 0) return { resultData: [], error: null };
     try {
-      return executeSql(query, records as unknown as Record<string, unknown>[]);
+      const raw = executeSql(query, records as unknown as Record<string, unknown>[]);
+      return { resultData: applyTransformer(transformer, transformerCode, raw), error: null };
     } catch (e) {
       console.error("Custom SQL Query Error:", e);
-      return [];
+      return { resultData: [], error: e instanceof Error ? e.message : String(e) };
     }
-  }, [query, records]);
+  }, [query, transformer, transformerCode, records]);
 
   if (isLoading) return <WidgetLoading />;
+  
+  if (error) {
+    return <WidgetEmpty message={`Error: ${error}`} />;
+  }
 
   switch (visualization) {
     case "table":
@@ -123,17 +129,14 @@ export function WidgetRenderer({
   widget,
   editing,
   variableValues = {},
-  onOptionsChange,
   onEditClick,
 }: {
   readonly widget: DashboardWidget;
   readonly editing?: boolean;
   /** Variable 参照の解決用: { variableId -> seasonId | null } */
   readonly variableValues?: Readonly<Record<string, string | null>>;
-  readonly onOptionsChange?: (options: Record<string, unknown>) => void;
   readonly onEditClick?: () => void;
 }) {
-  const { t } = useTranslation();
   const seasonId = resolveSeasonId(widget, variableValues);
 
   if (widget.templateId === "note") {
@@ -155,7 +158,9 @@ export function WidgetRenderer({
           flexDirection: "column",
         }}
       >
-        <Skeleton variant="rectangular" width="100%" height="100%" sx={{ borderRadius: 1 }} />
+        <Skeleton variant="rectangular" width="100%" height="100%" sx={{
+            ...rounded(1)
+        }} />
         <Stack
           spacing={2}
           sx={{
@@ -168,14 +173,13 @@ export function WidgetRenderer({
             alignItems: "center",
             bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
             backdropFilter: "blur(4px)",
-            borderRadius: 1,
-            p: 2,
+            ...rounded(1)
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>
             Visualize が設定されていません
           </Typography>
-          {onEditClick && (
+          {editing && onEditClick && (
             <Button
               variant="contained"
               size="small"
@@ -198,6 +202,8 @@ export function WidgetRenderer({
       seasonId={seasonId}
       query={queryStr ?? "SELECT * FROM ? LIMIT 10"}
       visualization={vis}
+      transformer={widget.transformer}
+      transformerCode={widget.transformerCode}
     />
   );
 }

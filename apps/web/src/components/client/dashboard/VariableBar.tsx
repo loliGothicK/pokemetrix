@@ -105,7 +105,7 @@ export function VariableBar({
             )}
 
             <FormControl size="small" sx={{ minWidth: 130 }}>
-              <InputLabel id={`var-${variable.id}-label`} sx={{ fontSize: 12 }}>
+              <InputLabel id={`var-${variable.id}-label`} shrink sx={{ fontSize: 12 }}>
                 {variable.label}
               </InputLabel>
               <Select

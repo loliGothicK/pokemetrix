@@ -4,10 +4,11 @@ import { eq } from "drizzle-orm";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { seasons } from "@/lib/db/schema";
-import { genUlid } from "@/lib/db/ulid-type";
 import { seasonInputSchema, type Season } from "@/store/battle-record/battleRecord";
-import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
+import { SeasonFactory } from "@/lib/db/factories/seasonFactory";
+import { createSeason, listSeasons } from "@/lib/db/repositories/seasonRepository";
+import { isLeft } from "fp-ts/Either";
 
 const toDto = (row: InferSelectModel<typeof seasons>): Season => ({
   id: row.id,
@@ -28,14 +29,14 @@ export async function GET(_request: Request) {
   }
   const userId = claims.claims.sub;
 
-  const rows = await withChildSpan(
-    "db.seasons.list",
-    async (_span) =>
-      db.select().from(seasons).where(eq(seasons.userId, userId)).orderBy(seasons.createdAt),
-    { op: "db.query" },
-  );
+  const resultTask = listSeasons(userId);
+  const result = await resultTask();
 
-  return NextResponse.json(rows.map(toDto));
+  if (isLeft(result)) {
+    return NextResponse.json({ error: result.left.toString() }, { status: 500 });
+  }
+
+  return NextResponse.json(result.right.map(toDto));
 }
 
 export async function POST(request: Request) {
@@ -57,27 +58,24 @@ export async function POST(request: Request) {
       NextResponse.json({ error: error.flatten() }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
-      const id = input.id ?? genUlid();
-      const row = await withChildSpan(
-        "db.seasons.create",
-        async (_span) => {
-          const [inserted] = await db
-            .insert(seasons)
-            .values({
-              id,
-              userId,
-              name: input.name,
-              format: input.format,
-              ruleMark: input.ruleMark ?? null,
-              startedAt: input.startedAt ?? null,
-              endedAt: input.endedAt ?? null,
-            })
-            .returning();
-          return inserted;
-        },
-        { op: "db.query" },
-      );
-      return NextResponse.json(toDto(row), { status: 201 });
+      const factory = new SeasonFactory()
+        .withUserId(userId)
+        .withName(input.name)
+        .withFormat(input.format)
+        .withRuleMark(input.ruleMark ?? null)
+        .withStartedAt(input.startedAt ?? null)
+        .withEndedAt(input.endedAt ?? null);
+        
+      if (input.id) factory.withId(input.id);
+
+      const resultTask = createSeason(factory.build());
+      const result = await resultTask();
+
+      if (isLeft(result)) {
+        return NextResponse.json({ error: result.left.toString() }, { status: 500 });
+      }
+
+      return NextResponse.json(toDto(result.right), { status: 201 });
     })
     .exhaustive();
 }

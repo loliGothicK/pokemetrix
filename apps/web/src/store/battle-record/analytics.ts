@@ -37,18 +37,7 @@ export const tally = (records: readonly BattleRecord[]): RecordTally => {
   return withWinRate(wins, losses, draws);
 };
 
-/** 先攻/後攻/不明で分けた集計 */
-export interface OrderSplit {
-  readonly first: RecordTally;
-  readonly second: RecordTally;
-  readonly unknown: RecordTally;
-}
 
-export const tallyByOrder = (records: readonly BattleRecord[]): OrderSplit => ({
-  first: tally(records.filter((r) => r.firstOrSecond === "first")),
-  second: tally(records.filter((r) => r.firstOrSecond === "second")),
-  unknown: tally(records.filter((r) => r.firstOrSecond === null)),
-});
 
 /** 対面したポケモン1種ごとの成績 */
 export interface OpponentStat extends RecordTally {

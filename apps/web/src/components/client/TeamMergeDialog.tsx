@@ -32,6 +32,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import type { MergeEntry } from "@/hooks/useAuthSync";
 import { Dispatch, SetStateAction } from "react";
+import { rounded } from "@/utils/styles";
 
 // ─────────────────────────────────────────────
 // 各チーム行
@@ -61,19 +62,17 @@ function MergeRow({
       ref={setNodeRef}
       style={style}
       sx={{
-        display: "flex",
+          display: "flex",
         alignItems: "center",
         gap: 1.5,
-        px: 1.5,
-        py: 1.25,
-        borderRadius: 2,
         border: "1px solid",
         borderColor: isPicked ? "primary.main" : "divider",
         bgcolor: isPicked ? "action.selected" : "action.disabledBackground",
         opacity: isPicked ? 1 : 0.5,
         transition: "all 0.15s ease",
         cursor: isDragging ? "grabbing" : "default",
-      }}
+          ...rounded(2)
+    }}
     >
       {/* ドラッグハンドル */}
       <IconButton
@@ -183,7 +182,9 @@ export function TeamMergeDialog({
       onClose={onCancelAction}
       maxWidth="sm"
       fullWidth
-      sx={{ "& .MuiDialog-paper": { borderRadius: 3 } }}
+      sx={{ "& .MuiDialog-paper": {
+          ...rounded(3)
+    } }}
     >
       <DialogTitle sx={{ pb: 0.5 }}>
         <Typography variant="h6" sx={{ fontWeight: 700 }}>

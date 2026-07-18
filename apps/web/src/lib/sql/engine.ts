@@ -40,8 +40,9 @@ function parseSelect(selectStr: string): SelectItem[] {
 
   for (const part of parts) {
     // Match aggregate: SUM(col) AS alias
+    // Use [\s\S]+ for alias to support Japanese/Unicode characters like 最高レート
     const aggMatch = part.match(
-      /^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([a-zA-Z0-9_*]+)\s*\)(?:\s+(?:AS\s+)?([a-zA-Z0-9_]+))?$/i,
+      /^(COUNT|SUM|AVG|MAX|MIN)\s*\(\s*([a-zA-Z0-9_*]+)\s*\)(?:\s+(?:AS\s+)?([^\s]+))?$/i,
     );
     if (aggMatch) {
       items.push({
@@ -54,7 +55,7 @@ function parseSelect(selectStr: string): SelectItem[] {
     }
 
     // Match column: col AS alias
-    const colMatch = part.match(/^([a-zA-Z0-9_.]+)(?:\s+(?:AS\s+)?([a-zA-Z0-9_]+))?$/i);
+    const colMatch = part.match(/^([a-zA-Z0-9_.]+)(?:\s+(?:AS\s+)?([^\s]+))?$/i);
     if (colMatch) {
       items.push({
         type: "column",
@@ -207,16 +208,31 @@ export function executeSql(
   // 1. Filter
   let filtered = records.filter((r) => evaluateWhereNode(r, ast.where));
 
+  // 1.5 Sort before projection if NOT aggregating/grouping, so we can sort by unselected columns
+  const isAggregating = ast.select.some((s) => s.type === "aggregate");
+  const hasGroupBy = ast.groupBy && ast.groupBy.length > 0;
+  
+  if (!isAggregating && !hasGroupBy && ast.orderBy && ast.orderBy.length > 0) {
+    const ob = ast.orderBy;
+    filtered = [...filtered].sort((a, b) => {
+      for (const order of ob) {
+        const valA = a[order.column] as any;
+        const valB = b[order.column] as any;
+        if (valA < valB) return order.desc ? 1 : -1;
+        if (valA > valB) return order.desc ? -1 : 1;
+      }
+      return 0;
+    });
+  }
+
   let results: Record<string, unknown>[] = [];
 
   // 2. Group By & Aggregate (or simple projection if no Group By)
-  const isAggregating = ast.select.some((s) => s.type === "aggregate");
-
-  if (ast.groupBy && ast.groupBy.length > 0) {
+  if (hasGroupBy) {
     // Grouping
     const groups = new Map<string, any[]>();
     for (const row of filtered) {
-      const key = ast.groupBy.map((col) => String(row[col])).join("|||");
+      const key = ast.groupBy!.map((col) => String(row[col])).join("|||");
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key)!.push(row);
     }
@@ -226,7 +242,7 @@ export function executeSql(
 
       // Populate grouping columns first to ensure they are available
       const keyParts = key.split("|||");
-      ast.groupBy.forEach((col, idx) => {
+      ast.groupBy!.forEach((col, idx) => {
         outRow[col] = keyParts[idx]; // Note: types become string here, a more robust engine would preserve types
       });
 
@@ -302,8 +318,8 @@ export function executeSql(
     }
   }
 
-  // 3. Sort
-  if (ast.orderBy && ast.orderBy.length > 0) {
+  // 3. Sort (if aggregated/grouped, because we didn't sort beforehand)
+  if ((isAggregating || hasGroupBy) && ast.orderBy && ast.orderBy.length > 0) {
     const ob = ast.orderBy;
     results.sort((a, b) => {
       for (const order of ob) {

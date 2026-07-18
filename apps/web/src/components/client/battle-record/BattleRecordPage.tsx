@@ -51,6 +51,7 @@ import { SeasonFormDialog } from "./SeasonFormDialog";
 import { BattleRecordFormDialog } from "./BattleRecordFormDialog";
 import { BattleRecordList } from "./BattleRecordList";
 import { useHotkeys } from "react-hotkeys-hook";
+import { rounded } from "@/utils/styles";
 
 type ResultFilter = "all" | BattleResult;
 
@@ -80,10 +81,9 @@ function PartyPanel({ team }: { readonly team: Team | null }) {
                 direction="row"
                 spacing={1}
                 sx={{
-                  ...flexRowCenter,
-                  p: 0.75,
-                  borderRadius: 2,
+                    ...flexRowCenter,
                   bgcolor: theme.palette.background.paperRaised,
+                    ...rounded(2)
                 }}
               >
                 <Image
@@ -230,11 +230,11 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
         <Box sx={{ flexGrow: 1, minWidth: { xs: "100%", sm: 160 }, mt: { xs: 1, sm: 0 } }}>
           <Box
             sx={{
-              display: "flex",
+                display: "flex",
               height: 8,
-              borderRadius: 4,
               overflow: "hidden",
               bgcolor: theme.palette.divider,
+                ...rounded(4)
             }}
           >
             {decided > 0 && (
@@ -451,7 +451,7 @@ export default function BattleRecordPage() {
           }}
         >
           <FormControl size="small" fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="team-select-label">{t("battleRecord.team")}</InputLabel>
+            <InputLabel id="team-select-label" shrink={teams.length === 0 ? true : undefined}>{t("battleRecord.team")}</InputLabel>
             <Select
               labelId="team-select-label"
               label={t("battleRecord.team")}

@@ -3,11 +3,10 @@ import type { TrainedPokemon } from "@/store/team/team";
 import type {
   BattleFormat,
   BattleResult,
-  FirstOrSecond,
   OpponentSelectionRole,
 } from "@/lib/db/schema";
 
-export type { BattleFormat, BattleResult, FirstOrSecond, OpponentSelectionRole };
+export type { BattleFormat, BattleResult, OpponentSelectionRole };
 
 // =====================================================================
 // DTO（クライアント⇔サーバ間でやり取りするシリアライズ済みの形）
@@ -50,7 +49,6 @@ export interface BattleRecord {
   readonly result: BattleResult;
   readonly myTeam: readonly TrainedPokemon[];
   readonly mySelection: readonly number[] | null;
-  readonly firstOrSecond: FirstOrSecond | null;
   /** その試合終了時点のレート */
   readonly rating: number | null;
   readonly notes: string | null;
@@ -108,7 +106,6 @@ const battleRecordInputObject = z.object({
   // 中身は TrainedPokemon をクライアントが保証。ここでは構造のみ検証。
   myTeam: z.array(z.object({}).passthrough()).max(6),
   mySelection: z.array(z.number().int().min(0).max(5)).nullish(),
-  firstOrSecond: z.enum(["first", "second"]).nullish(),
   rating: z.number().int().min(0).max(100000).nullish(),
   notes: z.string().nullish(),
   /** ISO 8601。省略時はサーバ側で now() */

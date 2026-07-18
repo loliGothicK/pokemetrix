@@ -33,6 +33,7 @@ import { emptyDraft, draftFromRecord, type BattleRecordDraft } from "./formState
 import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
 import { flexRowCenter, sectionLabel } from "@/theme/sx";
+import { rounded } from "@/utils/styles";
 
 interface BattleRecordFormDialogProps {
   readonly open: boolean;
@@ -147,14 +148,12 @@ export function BattleRecordFormDialog({
                   <Box
                     key={k}
                     sx={{
-                      px: 0.75,
-                      py: 0.1,
-                      fontSize: "0.65rem",
+                        fontSize: "0.65rem",
                       fontWeight: 700,
-                      borderRadius: 0.75,
                       border: "1px solid",
                       borderColor: theme.palette.divider,
                       color: "text.secondary",
+                        ...rounded(0.75)
                     }}
                   >
                     {k}
@@ -173,10 +172,8 @@ export function BattleRecordFormDialog({
                     role="button"
                     aria-pressed={active}
                     sx={{
-                      flex: 1,
-                      py: { xs: 2, sm: 3 },
+                        flex: 1,
                       textAlign: "center",
-                      borderRadius: 3,
                       border: "2px solid",
                       borderColor: active ? color : theme.palette.divider,
                       bgcolor: active ? alpha(color, 0.14) : "transparent",
@@ -186,6 +183,7 @@ export function BattleRecordFormDialog({
                       cursor: "pointer",
                       transition: "all 0.15s",
                       "&:hover": { borderColor: color, bgcolor: alpha(color, 0.08) },
+                        ...rounded(3)
                     }}
                   >
                     {t(`battleRecord.result.${result}`).toUpperCase()}

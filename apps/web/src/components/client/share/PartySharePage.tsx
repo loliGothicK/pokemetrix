@@ -15,6 +15,7 @@ import { useSetAtom } from "jotai";
 import { localTeamsAtom, activeTeamIdAtom } from "@/store/team/team";
 import { ulid } from "ulid";
 import { useRouter } from "next/navigation";
+import { rounded } from "@/utils/styles";
 
 // ── Props ────────────────────────────────────────────────────────────────────
 
@@ -168,7 +169,10 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
               startIcon={copied ? <CheckIcon /> : <ContentCopyIcon />}
               onClick={handleCopy}
               disableElevation
-              sx={{ borderRadius: 2, fontSize: "0.75rem", px: 2, transition: "all 0.2s" }}
+              sx={{
+                  fontSize: "0.75rem", transition: "all 0.2s",
+                  ...rounded(2)
+            }}
             >
               {copied ? t("share.linkCopied") : t("share.copyLink")}
             </Button>
@@ -178,7 +182,10 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
               startIcon={<EditNoteIcon />}
               onClick={handleOpenInBuilder}
               disableElevation
-              sx={{ borderRadius: 2, fontSize: "0.75rem", px: 2 }}
+              sx={{
+                  fontSize: "0.75rem",
+                  ...rounded(2)
+            }}
             >
               {t("share.openInBuilder")}
             </Button>

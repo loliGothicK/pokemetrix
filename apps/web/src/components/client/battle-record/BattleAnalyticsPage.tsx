@@ -30,10 +30,10 @@ import { flexRowCenter } from "@/theme/sx";
 import {
   opponentStats,
   tally,
-  tallyByOrder,
   winRatePercent,
   type RecordTally,
 } from "@/store/battle-record/analytics";
+import { rounded } from "@/utils/styles";
 
 function StatCard({
   label,
@@ -85,7 +85,10 @@ function WinRateBar({ label, tally: t }: { readonly label: string; readonly tall
       <LinearProgress
         variant="determinate"
         value={percent ?? 0}
-        sx={{ height: 8, borderRadius: 4 }}
+        sx={{
+            height: 8,
+            ...rounded(4)
+        }}
       />
     </Box>
   );
@@ -112,7 +115,6 @@ export default function BattleAnalyticsPage() {
   const { records, isLoading: recordsLoading } = useBattleRecords({ seasonId: activeSeasonId });
 
   const overall = useMemo(() => tally(records), [records]);
-  const byOrder = useMemo(() => tallyByOrder(records), [records]);
   const opponents = useMemo(() => opponentStats(records), [records]);
   const overallPercent = winRatePercent(overall);
 
@@ -147,7 +149,7 @@ export default function BattleAnalyticsPage() {
       </Stack>
 
       <FormControl size="small" sx={{ minWidth: { xs: "100%", sm: 260 }, mb: 3 }}>
-        <InputLabel id="analytics-season-label">{t("battleRecord.season.label")}</InputLabel>
+        <InputLabel id="analytics-season-label" shrink={seasons.length === 0 ? true : undefined}>{t("battleRecord.season.label")}</InputLabel>
         <Select
           labelId="analytics-season-label"
           label={t("battleRecord.season.label")}
@@ -205,22 +207,8 @@ export default function BattleAnalyticsPage() {
           </Grid>
 
           <Grid container spacing={3}>
-            {/* 先後別勝率 */}
-            <Grid size={{ xs: 12, md: 5 }}>
-              <SurfaceCard sx={{ p: 2.5, height: "100%" }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
-                  {t("battleRecord.analytics.byOrder")}
-                </Typography>
-                <WinRateBar label={t("battleRecord.order.first")} tally={byOrder.first} />
-                <WinRateBar label={t("battleRecord.order.second")} tally={byOrder.second} />
-                {byOrder.unknown.total > 0 && (
-                  <WinRateBar label={t("battleRecord.order.unknown")} tally={byOrder.unknown} />
-                )}
-              </SurfaceCard>
-            </Grid>
-
             {/* 対面ポケモン別成績 */}
-            <Grid size={{ xs: 12, md: 7 }}>
+            <Grid size={{ xs: 12, md: 12 }}>
               <SurfaceCard sx={{ p: 2.5, height: "100%" }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
                   {t("battleRecord.analytics.topOpponents")}
@@ -253,7 +241,10 @@ export default function BattleAnalyticsPage() {
                           <LinearProgress
                             variant="determinate"
                             value={percent ?? 0}
-                            sx={{ height: 6, borderRadius: 3, mt: 0.25 }}
+                            sx={{
+                                height: 6, mt: 0.25,
+                                ...rounded(3)
+                            }}
                           />
                         </Box>
                         <Typography

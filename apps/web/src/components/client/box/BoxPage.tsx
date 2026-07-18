@@ -33,6 +33,7 @@ import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
 import { useHotkeys } from "react-hotkeys-hook";
 import { moveById } from "@/data/moves";
+import { rounded } from "@/utils/styles";
 
 export default function BoxPage() {
   const { t } = useTranslation();
@@ -177,26 +178,24 @@ export default function BoxPage() {
             <Grid component="div" size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={pokemon.boxId}>
               <Paper
                 sx={{
-                  p: 2,
-                  display: "flex",
+                    display: "flex",
                   alignItems: "center",
                   gap: 2,
                   bgcolor: theme.palette.background.paperRaised,
                   border: "1px solid",
                   borderColor: theme.palette.divider,
-                  borderRadius: 3,
                   transition: "all 0.2s ease-in-out",
                   "&:hover": {
                     borderColor: theme.palette.primary.main,
                     boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
                   },
+                    ...rounded(3)
                 }}
               >
                 <Box
                   sx={{
-                    width: 64,
+                      width: 64,
                     height: 64,
-                    borderRadius: 2,
                     overflow: "hidden",
                     bgcolor: alpha(theme.palette.primary.main, 0.08),
                     display: "flex",
@@ -204,7 +203,8 @@ export default function BoxPage() {
                     justifyContent: "center",
                     position: "relative",
                     flexShrink: 0,
-                  }}
+                      ...rounded(2)
+                }}
                 >
                   <Image
                     src={`/pokemon/${pokemon.identifier}.png`}

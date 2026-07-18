@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material/styles";
 import { SvgIcon } from "@mui/material";
-import { ComponentProps } from "react";
+import { SystemCssProperties } from "@mui/system";
 
 type PokemetrixIconProps = {
-  readonly sx?: NonNullable<ComponentProps<typeof SvgIcon>["sx"]>;
+  readonly sx?: SystemCssProperties;
 };
 
 export default function PokemetrixIcon({

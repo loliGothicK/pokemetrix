@@ -123,6 +123,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { activeTeamLintAtom } from "@/store/team/options";
 import Add from "@mui/icons-material/Add";
+import { rounded } from "@/utils/styles";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -139,8 +140,7 @@ const StyledMenu = styled((props: MenuProps) => (
   />
 ))(({ theme }) => ({
   "& .MuiPaper-root": {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
+      marginTop: theme.spacing(1),
     minWidth: 180,
     color: "rgb(55, 65, 81)",
     boxShadow:
@@ -164,7 +164,8 @@ const StyledMenu = styled((props: MenuProps) => (
     ...theme.applyStyles("dark", {
       color: theme.palette.grey[300],
     }),
-  },
+      ...rounded(6)
+},
 }));
 
 function ImportMenu({
@@ -354,7 +355,9 @@ function MobileTeamList({
             startIcon={<AddIcon />}
             onClick={onCreateTeam}
             fullWidth
-            sx={{ borderRadius: 3, py: 1.5 }}
+            sx={{
+                ...rounded(3)
+            }}
           >
             {t("teamBuilder.createTeam")}
           </Button>
@@ -390,7 +393,9 @@ function MobileTeamList({
             startIcon={<AddIcon />}
             onClick={onCreateTeam}
             disableElevation
-            sx={{ borderRadius: 2 }}
+            sx={{
+                ...rounded(2)
+            }}
           >
             {t("teamBuilder.createTeam")}
           </Button>
@@ -417,15 +422,15 @@ function MobileTeamList({
           >
             <Box
               sx={{
-                width: 44,
+                  width: 44,
                 height: 44,
-                borderRadius: 2,
                 bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
-              }}
+                  ...rounded(2)
+            }}
             >
               <WorkspacesIcon sx={{ color: "primary.main", fontSize: 22 }} />
             </Box>
@@ -721,12 +726,11 @@ export default function TeamBuilderPage({
                       selected={team.id === activeTeamId}
                       onClick={() => setActiveTeamId(team.id)}
                       sx={{
-                        borderRadius: 2,
-                        mx: 1,
+                          mx: 1,
                         mb: 0.5,
-                        pr: 6,
                         "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
-                      }}
+                          ...rounded(2)
+                    }}
                     >
                       <ListItemIcon>
                         <WorkspacesIcon />

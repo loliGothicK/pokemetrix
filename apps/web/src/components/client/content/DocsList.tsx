@@ -2,6 +2,7 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { rounded } from "@/utils/styles";
 
 export type DocsListItem = {
   readonly slug: string;
@@ -18,16 +19,15 @@ export function DocsList({ docs }: { readonly docs: readonly DocsListItem[] }) {
           component={Link}
           href={`/docs/${doc.slug}`}
           sx={{
-            display: "block",
+              display: "block",
             textDecoration: "none",
             color: "inherit",
-            p: 3,
-            borderRadius: 3,
             border: "1px solid",
             borderColor: "divider",
             transition: "border-color 0.2s ease",
             "&:hover": { borderColor: "primary.main" },
-          }}
+              ...rounded(3)
+        }}
         >
           <Stack spacing={1}>
             <Typography variant="h5" sx={{ fontWeight: 700 }}>

@@ -48,6 +48,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
 import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
+import { rounded } from "@/utils/styles";
 
 const DICTIONARY = (() => {
   const mapped = new Map(
@@ -233,13 +234,25 @@ export function Training({
                   flexShrink: 0,
                 }}
               >
-                <Image
-                  src={`/pokemon/${activePokemon.identifier}.png`}
-                  alt={ongoing.identifier}
-                  width={112}
-                  height={112}
-                  style={{ display: "block" }}
-                />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 10,
+                    width: "100%",
+                    height: "100%",
+                    bgcolor: alpha(theme.palette.background.paper, 0.5),
+                    backdropFilter: "blur(2px)",
+                  }}
+                >
+                  <Image
+                    src={`/pokemon/${activePokemon.identifier}.png`}
+                    alt={ongoing.identifier}
+                    width={120}
+                    height={120}
+                    style={{ display: "block" }}
+                  />
+                </Box>
                 {ongoing.item &&
                   (() => {
                     const item = itemList.find((i) => i.id === ongoing.item);
@@ -247,8 +260,8 @@ export function Training({
                       <Box
                         sx={{
                           position: "absolute",
-                          bottom: 6,
-                          right: 6,
+                          bottom: 10,
+                          right: 10,
                           width: 50,
                           height: 50,
                           borderRadius: "50%",
@@ -284,7 +297,7 @@ export function Training({
                     <Box
                       onClick={() => setUseForm(!useForm)}
                       sx={{
-                        position: "absolute",
+                          position: "absolute",
                         bottom: 6,
                         left: 6,
                         p: 0.5,
@@ -309,7 +322,7 @@ export function Training({
                           borderColor: theme.palette.primary.light,
                           transform: "scale(1.05)",
                         },
-                      }}
+                    }}
                     >
                       {formChangeState.type === "mega" ? (
                         <Image
@@ -847,7 +860,7 @@ export function Training({
                       <Box
                         key={stat}
                         sx={{
-                          display: "grid",
+                            display: "grid",
                           alignItems: "center",
                           columnGap: { xs: 1.5, md: 2.5 },
                           rowGap: { xs: 1, md: 0.5 },
@@ -859,8 +872,6 @@ export function Training({
                             xs: `"label number value" "slider slider slider"`,
                             md: `"label slider number value"`,
                           },
-                          p: { xs: 1.5, md: 2 },
-                          borderRadius: 2,
                           border: "1px solid",
                           borderColor: isPlus
                             ? alpha(theme.palette.error.main, 0.2)
@@ -869,6 +880,7 @@ export function Training({
                               : theme.palette.dividerSoft,
                           bgcolor: alpha(theme.palette.background.paper, 0.4),
                           transition: "border-color 0.2s, background-color 0.2s",
+                            ...rounded(2)
                         }}
                       >
                         {/* ステータス名と性格補正トグル */}
@@ -895,11 +907,9 @@ export function Training({
                                 aria-label={`${stat} +`}
                                 aria-pressed={isPlus}
                                 sx={{
-                                  display: "flex",
+                                    display: "flex",
                                   cursor: "pointer",
                                   userSelect: "none",
-                                  borderRadius: 1,
-                                  p: { xs: 0.25, md: 0 },
                                   color: isPlus ? "error.main" : "text.secondary",
                                   bgcolor: isPlus
                                     ? alpha(theme.palette.error.main, 0.12)
@@ -908,6 +918,7 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.error.main, 0.12),
                                   },
+                                    ...rounded(1)
                                 }}
                               >
                                 <Add
@@ -926,11 +937,9 @@ export function Training({
                                 aria-label={`${stat} -`}
                                 aria-pressed={isMinus}
                                 sx={{
-                                  display: "flex",
+                                    display: "flex",
                                   cursor: "pointer",
                                   userSelect: "none",
-                                  borderRadius: 1,
-                                  p: { xs: 0.25, md: 0 },
                                   color: isMinus ? "info.main" : "text.secondary",
                                   bgcolor: isMinus
                                     ? alpha(theme.palette.info.main, 0.12)
@@ -939,6 +948,7 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.info.main, 0.12),
                                   },
+                                    ...rounded(1)
                                 }}
                               >
                                 <Remove
@@ -964,10 +974,10 @@ export function Training({
                             gridArea: "slider",
                             color: "primary.main",
                             "& .MuiSlider-mark": {
-                              backgroundColor: "error.main",
+                                backgroundColor: "error.main",
                               width: 3,
                               height: 10,
-                              borderRadius: 1,
+                                ...rounded(1)
                             },
                             "& .MuiSlider-markActive": {
                               backgroundColor: "error.dark",

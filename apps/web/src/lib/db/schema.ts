@@ -20,8 +20,6 @@ import type { TrainedPokemon } from "@/store/team/team";
 export type BattleFormat = "singles" | "doubles";
 /** 対戦結果 */
 export type BattleResult = "win" | "loss" | "draw";
-/** 先攻/後攻 */
-export type FirstOrSecond = "first" | "second";
 /** 相手個体の選出役割（null = 選出外） */
 export type OpponentSelectionRole = "lead" | "back";
 
@@ -144,8 +142,6 @@ export const battleRecords = pgTable(
     myTeam: jsonb("my_team").notNull().$type<readonly TrainedPokemon[]>(),
     /** my_team 内 index。先頭=先発（フォーマットの active 数）、残り=後発 */
     mySelection: smallint("my_selection").array(),
-    /** "first" / "second" */
-    firstOrSecond: text("first_or_second").$type<FirstOrSecond>(),
     /** その試合終了時点のレート（例: 1650。任意）。試合間の変動は記録から算出する */
     rating: integer("rating"),
     notes: text("notes"),
@@ -156,7 +152,6 @@ export const battleRecords = pgTable(
   (t) => [
     check("battle_records_result_valid", sql`${t.result} in ('win', 'loss', 'draw')`),
     check("battle_records_my_team_is_array", sql`jsonb_typeof(${t.myTeam}) = 'array'`),
-    check("battle_records_first_or_second_valid", sql`${t.firstOrSecond} in ('first', 'second')`),
   ],
 );
 

@@ -98,7 +98,7 @@ function DataSourcePanel({
       {/* シーズン直指定 */}
       {ds.type === "season" && (
         <FormControl size="small" fullWidth>
-          <InputLabel id="ds-season-label">{t("battleRecord.season.label")}</InputLabel>
+          <InputLabel id="ds-season-label" shrink>{t("battleRecord.season.label")}</InputLabel>
           <Select
             labelId="ds-season-label"
             label={t("battleRecord.season.label")}

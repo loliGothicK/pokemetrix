@@ -13,6 +13,7 @@ import {
   Paper,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { rounded } from "@/utils/styles";
 
 export function TableVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
   const { t } = useTranslation();
@@ -32,14 +33,14 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
       component={Paper}
       elevation={0}
       variant="outlined"
-      sx={{ height: "100%", overflow: "auto" }}
+      sx={{ height: "100%", overflow: "auto", ...rounded(2) }}
     >
       <Table size="small" stickyHeader>
         <TableHead>
           <TableRow>
             {columns.map((col) => (
               <TableCell key={col} sx={{ fontWeight: 600 }}>
-                {col}
+                {t(`dashboard.dataKeys.${col}`, { defaultValue: col })}
               </TableCell>
             ))}
           </TableRow>
@@ -70,8 +71,11 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
   }
 
   const firstRow = data[0];
-  const firstKey = Object.keys(firstRow ?? {})[0];
-  const value = firstKey ? firstRow[firstKey] : "—";
+  const keys = Object.keys(firstRow ?? {});
+  const mainKey = keys[0];
+  const mainValue = mainKey ? firstRow[mainKey] : "—";
+  
+  const subKeys = keys.slice(1);
 
   return (
     <Box
@@ -83,14 +87,31 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
         p: 2,
       }}
     >
-      {firstKey && (
-        <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
-          {firstKey}
+      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        {mainKey && (
+          <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+            {t(`dashboard.dataKeys.${mainKey}`, { defaultValue: mainKey })}
+          </Typography>
+        )}
+        <Typography variant="h3" sx={{ fontWeight: 800 }}>
+          {String(mainValue)}
         </Typography>
+      </Box>
+
+      {subKeys.length > 0 && (
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mt: 2, pt: 2, borderTop: "1px solid", borderColor: "divider" }}>
+          {subKeys.map((k) => (
+            <Box key={k} sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+                {t(`dashboard.dataKeys.${k}`, { defaultValue: k })}
+              </Typography>
+              <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                {String(firstRow[k] ?? "—")}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       )}
-      <Typography variant="h3" sx={{ fontWeight: 800 }}>
-        {String(value)}
-      </Typography>
     </Box>
   );
 }

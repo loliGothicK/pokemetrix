@@ -5,8 +5,10 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { seasons } from "@/lib/db/schema";
 import { seasonUpdateSchema, type Season } from "@/store/battle-record/battleRecord";
-import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
+import { updateSeason, deleteSeason } from "@/lib/db/repositories/seasonRepository";
+import type { InsertSeason } from "@/lib/db/factories/seasonFactory";
+import { isLeft } from "fp-ts/Either";
 
 const toDto = (row: InferSelectModel<typeof seasons>): Season => ({
   id: row.id,
@@ -42,29 +44,17 @@ export async function PATCH(
       NextResponse.json({ error: error.flatten() }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
-      const updated = await withChildSpan(
-        "db.seasons.update",
-        async (span) => {
-          span.setAttribute("db.season_id", id);
-          return db
-            .update(seasons)
-            .set({
-              ...(input.name !== undefined && { name: input.name }),
-              ...(input.format !== undefined && { format: input.format }),
-              ...(input.ruleMark !== undefined && { ruleMark: input.ruleMark ?? null }),
-              ...(input.startedAt !== undefined && { startedAt: input.startedAt ?? null }),
-              ...(input.endedAt !== undefined && { endedAt: input.endedAt ?? null }),
-            })
-            .where(and(eq(seasons.id, id), eq(seasons.userId, userId)))
-            .returning();
-        },
-        { op: "db.query" },
-      );
+      const resultTask = updateSeason(id, userId, input as Partial<InsertSeason>);
+      const result = await resultTask();
+      
+      if (isLeft(result)) {
+        return NextResponse.json({ error: result.left.toString() }, { status: 500 });
+      }
 
-      if (updated.length === 0) {
+      if (!result.right) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
       }
-      return NextResponse.json(toDto(updated[0]));
+      return NextResponse.json(toDto(result.right));
     })
     .exhaustive();
 }
@@ -81,14 +71,12 @@ export async function DELETE(
   }
   const userId = claims.claims.sub;
 
-  await withChildSpan(
-    "db.seasons.delete",
-    async (span) => {
-      span.setAttribute("db.season_id", id);
-      return db.delete(seasons).where(and(eq(seasons.id, id), eq(seasons.userId, userId)));
-    },
-    { op: "db.query" },
-  );
+  const resultTask = deleteSeason(id, userId);
+  const result = await resultTask();
+  
+  if (isLeft(result)) {
+    return NextResponse.json({ error: result.left.toString() }, { status: 500 });
+  }
 
   return NextResponse.json({ success: true });
 }

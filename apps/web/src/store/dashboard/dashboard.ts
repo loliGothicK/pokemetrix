@@ -41,6 +41,15 @@ export interface DashboardWidget {
   readonly options?: Record<string, unknown>;
   readonly visualization?: VisualizationType;
   readonly query?: string;
+  /**
+   * Transformer ID.
+   * - "none" | undefined : パススルー
+   * - "winrate" / "streak" / "ratingDiff" : プリセット
+   * - "custom" : transformerCode を new Function で実行
+   */
+  readonly transformer?: string;
+  /** transformer === "custom" のときのユーザー定義 JS 関数本体 */
+  readonly transformerCode?: string;
 }
 
 /** ダッシュボード1件 */
@@ -75,6 +84,8 @@ interface LegacyWidget {
   readonly options?: Record<string, unknown>;
   readonly visualization?: VisualizationType;
   readonly query?: string;
+  readonly transformer?: string;
+  readonly transformerCode?: string;
 }
 
 /**
@@ -126,6 +137,8 @@ export function migrateWidget(raw: LegacyWidget): DashboardWidget {
     ...(raw.options !== undefined && { options: raw.options }),
     ...(visualization !== undefined && { visualization }),
     ...(query !== undefined && { query }),
+    ...(raw.transformer !== undefined && { transformer: raw.transformer }),
+    ...(raw.transformerCode !== undefined && { transformerCode: raw.transformerCode }),
   };
 }
 
@@ -151,6 +164,8 @@ export const dashboardWidgetSchema = z
     options: z.record(z.string(), z.unknown()).optional(),
     visualization: visualizationTypeSchema.optional(),
     query: z.string().optional(),
+    transformer: z.string().optional(),
+    transformerCode: z.string().optional(),
   })
   .readonly();
 

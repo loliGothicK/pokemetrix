@@ -16,6 +16,7 @@ import { nextOpponentKey } from "./formState";
 import { cycleOpponentRole, selectionLimits } from "./selection";
 import { OpponentDetailDialog } from "./OpponentDetailDialog";
 import { BACK_COLOR, LEAD_COLOR, Legend } from "./YourTeamSelector";
+import { rounded } from "@/utils/styles";
 
 const MAX_OPPONENTS = 6;
 
@@ -111,10 +112,9 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 role="button"
                 aria-label={t("battleRecord.form.addOpponent")}
                 sx={{
-                  aspectRatio: "1 / 1",
+                    aspectRatio: "1 / 1",
                   border: "1px dashed",
                   borderColor: theme.palette.divider,
-                  borderRadius: 2,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -126,6 +126,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                         ? theme.palette.primary.main
                         : theme.palette.divider,
                   },
+                    ...rounded(2)
                 }}
               >
                 <Add fontSize="small" />
@@ -144,21 +145,20 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
               aria-label={t(`pokemon.${opponent.pokemonSlug}.name`)}
               aria-pressed={opponent.selectionRole !== null}
               sx={{
-                position: "relative",
+                  position: "relative",
                 aspectRatio: "1 / 1",
                 border: "2px solid",
                 borderColor: color ?? theme.palette.divider,
-                borderRadius: 2,
                 bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                p: 0.5,
                 opacity: opponent.selectionRole === null ? 0.75 : 1,
                 transition: "border-color 0.15s, background-color 0.15s",
                 "&:hover .slot-action": { opacity: 1 },
-              }}
+                  ...rounded(2)
+            }}
             >
               <Image
                 src={`/pokemon/${opponent.pokemonSlug}.png`}
@@ -236,7 +236,6 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
           );
         })}
       </Box>
-
       <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: "block" }}>
         {t("battleRecord.selection.hint")}
       </Typography>
@@ -247,6 +246,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
         onClose={() => setSelectOpen(false)}
         translator={t}
         onChange={addSpecies}
+        excludedIdentifiers={opponents.map((o) => o?.pokemonSlug).filter(Boolean) as string[]}
       />
 
       <OpponentDetailDialog

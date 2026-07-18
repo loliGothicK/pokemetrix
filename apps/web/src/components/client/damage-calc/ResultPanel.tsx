@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter } from "@/theme/sx";
 import type { DamageCalcResult } from "./useDamageCalcPage";
+import { rounded } from "@/utils/styles";
 
 type EvSet = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
 
@@ -424,14 +425,12 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
               key={i}
               variant="caption"
               sx={{
-                px: 0.75,
-                py: 0.2,
-                borderRadius: 1,
-                bgcolor: "action.selected",
+                  bgcolor: "action.selected",
                 fontSize: 10,
                 lineHeight: 1.5,
                 whiteSpace: "nowrap",
-              }}
+                  ...rounded(1)
+            }}
             >
               {tag}
             </Typography>
@@ -497,13 +496,13 @@ function HpBar({
       <Tooltip title={`${minPercent.toFixed(1)}%〜${maxPercent.toFixed(1)}%`} placement="top" arrow>
         <Box
           sx={{
-            position: "relative",
+              position: "relative",
             height: 20,
-            borderRadius: 10,
             bgcolor: barBg,
             overflow: "hidden",
             cursor: "default",
-          }}
+              ...rounded(10)
+        }}
         >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}
           {stripeWidth > 0 &&

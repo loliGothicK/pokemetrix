@@ -33,7 +33,6 @@ const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord 
   result: row.result,
   myTeam: row.myTeam,
   mySelection: row.mySelection,
-  firstOrSecond: row.firstOrSecond,
   rating: row.rating,
   notes: row.notes,
   playedAt: row.playedAt.toISOString(),
@@ -122,9 +121,6 @@ export async function PATCH(
                   myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
                 }),
                 ...(input.mySelection !== undefined && { mySelection: input.mySelection ?? null }),
-                ...(input.firstOrSecond !== undefined && {
-                  firstOrSecond: input.firstOrSecond ?? null,
-                }),
                 ...(input.rating !== undefined && { rating: input.rating ?? null }),
                 ...(input.notes !== undefined && { notes: input.notes ?? null }),
                 ...(input.playedAt !== undefined &&

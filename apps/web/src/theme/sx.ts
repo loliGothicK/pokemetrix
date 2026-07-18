@@ -3,6 +3,7 @@
 // 呼び出し側では `sx={{ ...surfaceCard(theme), mt: 2 }}` のように差分だけ追記して使う。
 // 詳細: .design/sx-common.md
 import type { SxProps, Theme } from "@mui/material/styles";
+import { rounded } from "@/utils/styles";
 
 /**
  * カード/パネルの表面スタイル（枠線 + 角丸 + 背景色）。
@@ -15,7 +16,7 @@ export function surfaceCard(
   return {
     border: "1px solid",
     borderColor: theme.palette.divider,
-    borderRadius: options?.borderRadius ?? 3,
+    ...rounded(options?.borderRadius ?? 3),
     bgcolor: options?.raised
       ? theme.palette.background.paperRaised
       : theme.palette.background.paper,

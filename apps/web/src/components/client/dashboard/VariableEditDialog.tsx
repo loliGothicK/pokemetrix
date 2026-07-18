@@ -113,7 +113,7 @@ export function VariableEditDialog({
             slotProps={{ htmlInput: { maxLength: 100 } }}
           />
           <FormControl size="small" fullWidth>
-            <InputLabel id="variable-default-season-label">
+            <InputLabel id="variable-default-season-label" shrink>
               {t("dashboard.variable.defaultSeason")}
             </InputLabel>
             <Select

@@ -8,6 +8,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ReactNode, useId } from "react";
 import { SystemCssProperties } from "@mui/system";
+import { rounded } from "@/utils/styles";
 
 /**
  * This component is a placeholder for FormControl to correctly set the shrink label state on SSR.
@@ -82,10 +83,9 @@ export default function NumberField({
                   borderColor: "divider",
                   ml: 0,
                   "& button": {
-                    py: 0,
-                    flex: 1,
-                    borderRadius: 0.5,
-                  },
+                      flex: 1,
+                      ...rounded(0.5)
+                },
                 }}
               >
                 <BaseNumberField.Increment

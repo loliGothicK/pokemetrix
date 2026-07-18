@@ -239,7 +239,6 @@ export function WidgetCard({
     <SurfaceCard
       raised
       sx={{
-        p: 2,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -249,20 +248,13 @@ export function WidgetCard({
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isDragging ? `0 8px 24px ${alpha(theme.palette.common.black, 0.18)}` : undefined,
         ...(editing && {
-          cursor: "pointer",
           "&:hover": {
             outline: `2px solid ${theme.palette.primary.main}`,
           },
         }),
       }}
-      onClick={(e) => {
-        if (editing) {
-          e.stopPropagation();
-          onEditClick();
-        }
-      }}
     >
-      <Stack direction="row" spacing={0.5} sx={{ ...flexRowCenter, mb: 1.5 }}>
+      <Stack direction="row" spacing={0.5} sx={{ ...flexRowCenter, mb: 1.5, px: 2, pt: 2 }}>
         {editing && (
           <IconButton
             size="small"
@@ -278,6 +270,32 @@ export function WidgetCard({
         <Typography variant="subtitle2" sx={{ fontWeight: 700, flexGrow: 1 }} noWrap>
           {title}
         </Typography>
+
+        {editing && (
+          <Stack direction="row" spacing={0.5}>
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditClick();
+              }}
+              aria-label={t("common.edit")}
+            >
+              <EditRoundedIcon fontSize="small" />
+            </IconButton>
+            <IconButton
+              size="small"
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              aria-label={t("common.delete")}
+            >
+              <DeleteRoundedIcon fontSize="small" />
+            </IconButton>
+          </Stack>
+        )}
       </Stack>
       <Box sx={{ flexGrow: 1, overflow: "auto", minHeight: 0 }}>
         <WidgetRenderer
