@@ -41,3 +41,4 @@ minimumReleaseAgeExclude:
   - supabase@2.109.1
   - '@pokemetrix/damage-calc@0.1.0 || 0.1.1'
   - react-i18next@17.0.10
+  - happy-dom@20.11.0
