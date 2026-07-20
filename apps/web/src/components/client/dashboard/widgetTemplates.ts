@@ -26,7 +26,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.winrateSummaryDesc",
     visualization: "stat",
     transformer: "winrate",
-    query: "SELECT result FROM ? ORDER BY playedAt ASC",
+    query: "SELECT result FROM records ORDER BY playedAt ASC",
   },
   {
     id: "resultBreakdown",
@@ -35,7 +35,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     visualization: "table",
     transformer: "none",
     query:
-      "SELECT result, COUNT(*) count FROM ? GROUP BY result ORDER BY count DESC",
+      "SELECT result, COUNT(*) count FROM records GROUP BY result ORDER BY count DESC",
   },
   {
     id: "leadsAnalysis",
@@ -43,7 +43,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.leadsAnalysisDesc",
     visualization: "table",
     transformer: "leadsWinRate",
-    query: "SELECT myTeam, mySelection, result FROM ?",
+    query: "SELECT myTeam, mySelection, result FROM records",
   },
   {
     id: "ratingHistory",
@@ -52,7 +52,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     visualization: "table",
     transformer: "ratingDiff",
     query:
-      "SELECT playedAt, result, rating FROM ? ORDER BY playedAt ASC LIMIT 30",
+      "SELECT playedAt, result, rating FROM records ORDER BY playedAt ASC LIMIT 30",
   },
   {
     id: "maxRating",
@@ -60,7 +60,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.maxRatingDesc",
     visualization: "stat",
     transformer: "none",
-    query: "SELECT MAX(rating) maxRating FROM ?",
+    query: "SELECT MAX(rating) maxRating FROM records",
   },
   {
     id: "recentMatches",
@@ -69,7 +69,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     visualization: "table",
     transformer: "none",
     query:
-      "SELECT playedAt, result, firstOrSecond, rating FROM ? ORDER BY playedAt DESC LIMIT 10",
+      "SELECT playedAt, result, firstOrSecond, rating FROM records ORDER BY playedAt DESC LIMIT 10",
   },
   {
     id: "currentStreak",
@@ -77,6 +77,6 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.currentStreakDesc",
     visualization: "stat",
     transformer: "streak",
-    query: "SELECT result, playedAt FROM ? ORDER BY playedAt ASC",
+    query: "SELECT result, playedAt FROM records ORDER BY playedAt ASC",
   },
 ];

@@ -196,9 +196,11 @@ export function applyTransformer(
       if (!Array.isArray(result)) {
         throw new Error("Custom transformer must return an array");
       }
+      if (result.some((r) => typeof r !== "object" || r === null)) {
+        throw new Error("Custom transformer must return an array of objects");
+      }
       return result;
     } catch (e) {
-      console.error("Custom transformer error:", e);
       throw new Error(`Transformer Error: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -209,7 +211,6 @@ export function applyTransformer(
   try {
     return preset.fn(rows);
   } catch (e) {
-    console.error(`Preset transformer "${transformerId}" error:`, e);
     throw new Error(`Preset "${transformerId}" Error: ${e instanceof Error ? e.message : String(e)}`);
   }
 }

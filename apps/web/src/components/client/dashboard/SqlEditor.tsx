@@ -1,69 +1,106 @@
 "use client";
 
 import { useTheme } from "@mui/material/styles";
-import CodeMirror from "@uiw/react-codemirror";
-import { sql } from "@codemirror/lang-sql";
-import { javascript } from "@codemirror/lang-javascript";
-import { Box } from "@mui/material";
+import Editor, { useMonaco } from "@monaco-editor/react";
+import { Box, CircularProgress } from "@mui/material";
+import { useEffect } from "react";
 
 export function SqlEditor({
   value,
   onChange,
   language = "sql",
+  rowTypeDeclaration,
 }: {
   readonly value: string;
   readonly onChange: (val: string) => void;
   readonly language?: "sql" | "javascript";
+  readonly rowTypeDeclaration?: string;
 }) {
   const theme = useTheme();
-  const extensions = language === "javascript" ? [javascript()] : [sql()];
+  const monaco = useMonaco();
+
+  useEffect(() => {
+    if (monaco && language === "javascript") {
+      monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+      });
+
+      // Type definition for custom transformer variables
+      const libSource = `
+        interface BattleRecordOpponent {
+          readonly slotIndex: number;
+          readonly pokemonSlug: string;
+          readonly itemSlug: string | null;
+          readonly abilitySlug: string | null;
+          readonly moves: readonly string[] | null;
+          readonly selectionRole: "lead" | "back" | null;
+          readonly notes: string | null;
+        }
+
+        interface BattleRecord {
+          readonly id: string;
+          readonly seasonId: string;
+          readonly teamId: string | null;
+          readonly result: "win" | "loss" | "draw";
+          readonly myTeam: readonly any[];
+          readonly mySelection: readonly number[] | null;
+          readonly rating: number | null;
+          readonly notes: string | null;
+          readonly playedAt: string;
+          readonly opponents: readonly BattleRecordOpponent[];
+          readonly createdAt: string;
+          readonly updatedAt: string;
+        }
+
+        type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : any;
+
+        /** 
+         * The input records from the SQL query.
+         * The type is automatically inferred from your SQL query.
+         */
+        declare const rows: ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
+      `;
+      const libUri = "ts:filename/transformer.d.ts";
+      
+      const disposable = monaco.languages.typescript.javascriptDefaults.addExtraLib(libSource, libUri);
+      
+      return () => {
+        disposable.dispose();
+      };
+    }
+  }, [monaco, language, rowTypeDeclaration]);
 
   return (
     <Box
       sx={{
         width: "100%",
         height: "100%",
-        "& .cm-theme-light": {
-          bgcolor: "background.paper",
-        },
-        "& .cm-editor": {
-          height: "100%",
-          fontSize: "14px",
-          fontFamily: "'Fira Code', 'Roboto Mono', monospace",
-        },
+        position: "relative",
       }}
     >
-      <CodeMirror
-        value={value}
+      <Editor
         height="100%"
-        extensions={extensions}
-        onChange={onChange}
-        theme={theme.palette.mode === "dark" ? "dark" : "light"}
-        basicSetup={{
-          lineNumbers: true,
-          highlightActiveLineGutter: true,
-          highlightSpecialChars: true,
-          history: true,
-          foldGutter: true,
-          drawSelection: true,
-          dropCursor: true,
-          allowMultipleSelections: true,
-          indentOnInput: true,
-          syntaxHighlighting: true,
-          bracketMatching: true,
-          closeBrackets: true,
-          autocompletion: true,
-          rectangularSelection: true,
-          crosshairCursor: true,
-          highlightActiveLine: true,
-          highlightSelectionMatches: true,
-          closeBracketsKeymap: true,
-          defaultKeymap: true,
-          searchKeymap: true,
-          historyKeymap: true,
-          foldKeymap: true,
-          completionKeymap: true,
-          lintKeymap: true,
+        language={language}
+        theme={theme.palette.mode === "dark" ? "vs-dark" : "vs"}
+        value={value}
+        onChange={(val) => onChange(val || "")}
+        loading={
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <CircularProgress size={24} />
+          </Box>
+        }
+        options={{
+          minimap: { enabled: false },
+          fontSize: 14,
+          fontFamily: "'Fira Code', 'Roboto Mono', monospace",
+          wordWrap: "on",
+          scrollBeyondLastLine: false,
+          padding: { top: 16, bottom: 16 },
+          formatOnPaste: true,
+          formatOnType: true,
+          tabSize: 2,
+          fixedOverflowWidgets: true,
         }}
       />
     </Box>

@@ -58,7 +58,9 @@
       "options": {
         "displayCount": "Display count",
         "displayCountHelper": "Show top {{count}} opponents"
-      }
+      },
+      "notConfigured": "Visualize is not configured",
+      "openSettings": "Open Settings"
     },
     "variable": {
       "add": "Add variable",

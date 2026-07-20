@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { match } from "ts-pattern";
-import { eq } from "drizzle-orm";
+
 import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
+
 import { seasons } from "@/lib/db/schema";
 import { seasonInputSchema, type Season } from "@/store/battle-record/battleRecord";
 import type { InferSelectModel } from "drizzle-orm";

@@ -1,3 +1,5 @@
+import { match } from "ts-pattern";
+
 export interface SelectItem {
   type: "star" | "column" | "aggregate";
   column: string;
@@ -120,18 +122,18 @@ export function parseSql(query: string): SqlAST {
   const q = query.replace(/\s+/g, " ").trim();
 
   // Regex to extract clauses
-  // SELECT ... FROM ? [WHERE ...] [GROUP BY ...] [ORDER BY ...] [LIMIT ...]
+  // SELECT ... FROM table_name [WHERE ...] [GROUP BY ...] [ORDER BY ...] [LIMIT ...]
   const regex =
-    /SELECT\s+(.+?)\s+FROM\s+\?(?:\s+WHERE\s+(.+?))?(?:\s+GROUP\s+BY\s+(.+?))?(?:\s+ORDER\s+BY\s+(.+?))?(?:\s+LIMIT\s+(\d+))?$/i;
+    /SELECT\s+(.+?)\s+FROM\s+([a-zA-Z0-9_]+|\?)(?:\s+WHERE\s+(.+?))?(?:\s+GROUP\s+BY\s+(.+?))?(?:\s+ORDER\s+BY\s+(.+?))?(?:\s+LIMIT\s+(\d+))?$/i;
   const match = q.match(regex);
 
   if (!match) {
     throw new Error(
-      "Invalid SQL syntax. Must be: SELECT ... FROM ? [WHERE ...] [GROUP BY ...] [ORDER BY ...] [LIMIT ...]",
+      "Invalid SQL syntax. Must be: SELECT ... FROM table [WHERE ...] [GROUP BY ...] [ORDER BY ...] [LIMIT ...]",
     );
   }
 
-  const [, selectStr, whereStr, groupByStr, orderByStr, limitStr] = match;
+  const [, selectStr, tableStr, whereStr, groupByStr, orderByStr, limitStr] = match;
 
   const ast: SqlAST = {
     select: parseSelect(selectStr),
@@ -164,22 +166,14 @@ function evaluateCondition(record: any, cond: WhereCondition): boolean {
   const recordVal = record[cond.column];
   if (recordVal === undefined) return false;
 
-  switch (cond.operator) {
-    case "=":
-      return recordVal == cond.value; // loose equality for ease
-    case "!=":
-      return recordVal != cond.value;
-    case ">":
-      return recordVal > cond.value;
-    case ">=":
-      return recordVal >= cond.value;
-    case "<":
-      return recordVal < cond.value;
-    case "<=":
-      return recordVal <= cond.value;
-    default:
-      return false;
-  }
+  return match(cond.operator)
+    .with("=", () => recordVal == cond.value)
+    .with("!=", () => recordVal != cond.value)
+    .with(">", () => recordVal > cond.value)
+    .with(">=", () => recordVal >= cond.value)
+    .with("<", () => recordVal < cond.value)
+    .with("<=", () => recordVal <= cond.value)
+    .otherwise(() => false);
 }
 
 function evaluateWhereNode(record: any, node?: WhereNode): boolean {
@@ -305,11 +299,11 @@ export function executeSql(
     // Normal Projection
     for (const row of filtered) {
       const outRow: Record<string, unknown> = {};
-      let star = false;
+      let _star = false;
       for (const sel of ast.select) {
         if (sel.type === "star") {
           Object.assign(outRow, row);
-          star = true;
+          _star = true;
         } else if (sel.type === "column") {
           outRow[sel.alias || sel.column] = row[sel.column];
         }
@@ -338,4 +332,40 @@ export function executeSql(
   }
 
   return results;
+}
+
+/**
+ * Extracts a TypeScript type string representing the rows from a parsed SQL query.
+ * For Monaco Editor intelligence.
+ */
+export function generateRowTypeFromSql(sql: string): string {
+  try {
+    const ast = parseSql(sql);
+    if (!ast.select || ast.select.length === 0) return "Array<Partial<BattleRecord>>";
+    
+    // If there is a '*' we can just return Partial<BattleRecord>
+    if (ast.select.some((s) => s.type === "star")) {
+      return "Array<Partial<BattleRecord>>";
+    }
+
+    // Generate strict interface fields based on selected columns/aggregates
+    const props = ast.select.map((s) => {
+      const name = s.alias || s.column;
+      let type = "any";
+      if (s.type === "aggregate") {
+        type = "number";
+      } else if (s.type === "column") {
+        // Strict typing: if the column exists in BattleRecord, use it; otherwise 'any'
+        type = `ExtractRowValue<"${s.column}">`;
+      }
+      
+      const safeName = /^[a-zA-Z0-9_]+$/.test(name) ? name : `"${name}"`;
+      return `${safeName}: ${type};`;
+    });
+
+    return `Array<{ ${props.join(" ")} }>`;
+  } catch (e) {
+    // If parse fails (e.g. typing in progress), fallback to base
+    return "Array<Partial<BattleRecord>>";
+  }
 }

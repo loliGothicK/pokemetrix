@@ -19,6 +19,18 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('unhandledrejection', function(event) {
+                if (event.reason && (event.reason.name === 'Canceled' || event.reason.type === 'cancelation')) {
+                  event.preventDefault();
+                  event.stopImmediatePropagation();
+                }
+              });
+            `,
+          }}
+        />
         <AppRouterCacheProvider>
           <AppLayout>
             {children}

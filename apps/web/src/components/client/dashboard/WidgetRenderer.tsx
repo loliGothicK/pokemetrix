@@ -74,6 +74,8 @@ function WidgetEmpty({ message }: { readonly message: string }) {
   );
 }
 
+import { match } from "ts-pattern";
+
 /** カスタムクエリを実行して汎用ビジュアライザを描画するウィジェット */
 function CustomQueryWidget({
   seasonId,
@@ -96,7 +98,6 @@ function CustomQueryWidget({
       const raw = executeSql(query, records as unknown as Record<string, unknown>[]);
       return { resultData: applyTransformer(transformer, transformerCode, raw), error: null };
     } catch (e) {
-      console.error("Custom SQL Query Error:", e);
       return { resultData: [], error: e instanceof Error ? e.message : String(e) };
     }
   }, [query, transformer, transformerCode, records]);
@@ -107,18 +108,12 @@ function CustomQueryWidget({
     return <WidgetEmpty message={`Error: ${error}`} />;
   }
 
-  switch (visualization) {
-    case "table":
-      return <TableVisualizer data={resultData} />;
-    case "stat":
-      return <StatVisualizer data={resultData} />;
-    case "gauge":
-      return <GaugeVisualizer data={resultData} />;
-    case "histogram":
-      return <HistogramVisualizer data={resultData} />;
-    default:
-      return <WidgetEmpty message={`Unknown visualization: ${visualization}`} />;
-  }
+  return match(visualization)
+    .with("table", () => <TableVisualizer data={resultData} />)
+    .with("stat", () => <StatVisualizer data={resultData} />)
+    .with("gauge", () => <GaugeVisualizer data={resultData} />)
+    .with("histogram", () => <HistogramVisualizer data={resultData} />)
+    .otherwise(() => <WidgetEmpty message={`Unknown visualization: ${visualization}`} />);
 }
 
 /**
@@ -137,6 +132,7 @@ export function WidgetRenderer({
   readonly variableValues?: Readonly<Record<string, string | null>>;
   readonly onEditClick?: () => void;
 }) {
+  const { t } = useTranslation();
   const seasonId = resolveSeasonId(widget, variableValues);
 
   if (widget.templateId === "note") {
@@ -177,7 +173,7 @@ export function WidgetRenderer({
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>
-            Visualize が設定されていません
+            {t("dashboard.widget.notConfigured", "Visualize is not configured")}
           </Typography>
           {editing && onEditClick && (
             <Button
@@ -189,7 +185,7 @@ export function WidgetRenderer({
                 onEditClick();
               }}
             >
-              設定を開く
+              {t("dashboard.widget.openSettings", "Open Settings")}
             </Button>
           )}
         </Stack>
@@ -200,7 +196,7 @@ export function WidgetRenderer({
   return (
     <CustomQueryWidget
       seasonId={seasonId}
-      query={queryStr ?? "SELECT * FROM ? LIMIT 10"}
+      query={queryStr ?? "SELECT * FROM records LIMIT 10"}
       visualization={vis}
       transformer={widget.transformer}
       transformerCode={widget.transformerCode}

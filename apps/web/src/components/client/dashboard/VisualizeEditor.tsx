@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Box,
   Button,
@@ -17,7 +17,6 @@ import {
   Tab,
   Tabs,
   Toolbar,
-  Tooltip,
   Typography,
   alpha,
   Snackbar,
@@ -28,13 +27,14 @@ import { useTranslation } from "react-i18next";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import BoltRoundedIcon from "@mui/icons-material/BoltRounded";
-import { WidgetRenderer } from "./WidgetRenderer";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
+import { WidgetRenderer } from "./WidgetRenderer";
 import { SqlEditor } from "./SqlEditor";
 import { PRESET_TRANSFORMERS } from "./transformers";
 import { WIDGET_TEMPLATES } from "./widgetTemplates";
 import { widgetTypeLabelKey } from "./WidgetCard";
 import { rounded } from "@/utils/styles";
+import { generateRowTypeFromSql } from "@/lib/sql/engine";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Visualization Options Panel (right pane)
@@ -54,7 +54,7 @@ function VisualizeOptionsPanel({
   const handleVisChange = (newVis: string) => {
     onChange({
       visualization: newVis as any,
-      query: widget.query ?? "SELECT * FROM ? LIMIT 10",
+      query: widget.query ?? "SELECT * FROM records LIMIT 10",
     });
   };
 
@@ -168,13 +168,15 @@ function TransformerPanel({
   const { t } = useTranslation();
   const isCustom = widget.transformer === "custom";
 
+  const rowTypeDeclaration = useMemo(() => {
+    return generateRowTypeFromSql(widget.query);
+  }, [widget.query]);
+
   const handleModeChange = (mode: "preset" | "custom") => {
     if (mode === "custom") {
       onChange({
         transformer: "custom",
-        transformerCode:
-          widget.transformerCode ??
-          `// rows: Record<string, unknown>[]\n// return: Record<string, unknown>[]\n\nreturn rows;`,
+        transformerCode: widget.transformerCode ?? `return rows;`,
       });
     } else {
       onChange({ transformer: "none", transformerCode: undefined });
@@ -245,10 +247,8 @@ function TransformerPanel({
           <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
             <SqlEditor
               language="javascript"
-              value={
-                widget.transformerCode ??
-                `// rows: Record<string, unknown>[]\n// return: Record<string, unknown>[]\n\nreturn rows;`
-              }
+              rowTypeDeclaration={rowTypeDeclaration}
+              value={widget.transformerCode ?? `return rows;`}
               onChange={(val) => onChange({ transformerCode: val })}
             />
           </Box>
@@ -409,7 +409,7 @@ export function VisualizeEditor({
             <Box sx={{ flexGrow: 1, overflow: "hidden", position: "relative", p: tabIndex === 1 ? 2 : 0 }}>
               {tabIndex === 0 && (
                 <SqlEditor
-                  value={widget.query ?? "SELECT * FROM ? LIMIT 10"}
+                  value={widget.query ?? "SELECT * FROM records LIMIT 10"}
                   onChange={(val) => onChange({ query: val })}
                 />
               )}

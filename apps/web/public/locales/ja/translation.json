@@ -58,7 +58,9 @@
       "options": {
         "displayCount": "表示件数",
         "displayCountHelper": "上位 {{count}} 件を表示"
-      }
+      },
+      "notConfigured": "Visualize が設定されていません",
+      "openSettings": "設定を開く"
     },
     "variable": {
       "add": "変数を追加",

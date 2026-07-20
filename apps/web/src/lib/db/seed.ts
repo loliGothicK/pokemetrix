@@ -18,7 +18,7 @@ try {
       process.env[key] = val;
     }
   }
-} catch (e) {
+} catch  {
   console.log("No .env.local found");
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { alpha, Box, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { alpha, Box, IconButton, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
@@ -12,7 +12,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Resizable, type ResizeCallbackData } from "react-resizable";
 
 import { SurfaceCard } from "@/components/common/SurfaceCard";
-import { flexRowCenter } from "@/theme/sx";
+
 import { WidgetRenderer } from "./WidgetRenderer";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
 
@@ -21,7 +21,7 @@ export const widgetTypeLabelKey = (type?: string) =>
   type ? (`dashboard.widget.type.${type}` as const) : null;
 
 const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { style, className, children, isResizing, handleAxis, ...rest } = props;
+  const { style, className, children, isResizing, ...rest } = props;
   return (
     <Box
       ref={ref}
@@ -145,7 +145,7 @@ function LocalResizer({
     }
   };
 
-  const handleResizeStop = (e: React.SyntheticEvent, data: ResizeCallbackData) => {
+  const handleResizeStop = (e: React.SyntheticEvent, _data: ResizeCallbackData) => {
     e.stopPropagation();
     isResizingRef.current = false;
     setIsResizing(false);
@@ -238,66 +238,58 @@ export function WidgetCard({
   const cardContent = (
     <SurfaceCard
       raised
+      onClick={editing ? onEditClick : undefined}
       sx={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
         minWidth: 0,
         minHeight: 0,
-        overflow: "hidden",
+        position: "relative",
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isDragging ? `0 8px 24px ${alpha(theme.palette.common.black, 0.18)}` : undefined,
         ...(editing && {
+          cursor: "pointer",
           "&:hover": {
             outline: `2px solid ${theme.palette.primary.main}`,
           },
         }),
       }}
     >
-      <Stack direction="row" spacing={0.5} sx={{ ...flexRowCenter, mb: 1.5, px: 2, pt: 2 }}>
+      <Stack
+        direction="row"
+        spacing={0.5}
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 32,
+          transform: "translateY(-50%)",
+          bgcolor: "background.paper",
+          px: 1,
+          alignItems: "center",
+          zIndex: 10,
+          borderRadius: 1,
+          border: (theme) => `1px solid ${theme.palette.divider}`,
+          boxShadow: 1,
+        }}
+      >
         {editing && (
           <IconButton
             size="small"
             {...attributes}
             {...listeners}
-            sx={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "none", ml: -1 }}
+            sx={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "none", ml: -0.5, p: 0.25 }}
             aria-label={t("dashboard.dragToReorder")}
           >
             <DragIndicatorRoundedIcon fontSize="small" />
           </IconButton>
         )}
 
-        <Typography variant="subtitle2" sx={{ fontWeight: 700, flexGrow: 1 }} noWrap>
+        <Typography variant="caption" sx={{ fontWeight: 700, color: "text.secondary" }} noWrap>
           {title}
         </Typography>
-
-        {editing && (
-          <Stack direction="row" spacing={0.5}>
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditClick();
-              }}
-              aria-label={t("common.edit")}
-            >
-              <EditRoundedIcon fontSize="small" />
-            </IconButton>
-            <IconButton
-              size="small"
-              color="error"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete();
-              }}
-              aria-label={t("common.delete")}
-            >
-              <DeleteRoundedIcon fontSize="small" />
-            </IconButton>
-          </Stack>
-        )}
       </Stack>
-      <Box sx={{ flexGrow: 1, overflow: "auto", minHeight: 0 }}>
+      <Box sx={{ flexGrow: 1, overflow: "hidden", minHeight: 0, pt: 1.5, pb: 0.5, px: 0.5 }}>
         <WidgetRenderer
           widget={widget}
           editing={editing}

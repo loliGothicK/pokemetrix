@@ -51,7 +51,6 @@ import { useVariableValues } from "@/hooks/useVariableValues";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ulid } from "ulid";
 import type { Dashboard, DashboardVariable, DashboardWidget } from "@/store/dashboard/dashboard";
-import { migrateWidget } from "@/store/dashboard/dashboard";
 import { WidgetCard } from "./WidgetCard";
 import { VariableBar } from "./VariableBar";
 import { WidgetEditDrawer } from "./WidgetEditDrawer";
@@ -103,11 +102,7 @@ export default function DashboardPage() {
     }
   }, [dashboards, activeDashboardId]);
 
-  // 後方互換: 旧フォーマット (seasonId 直持ち) のウィジェットを新フォーマットに変換
-  const layout = useMemo(() => {
-    const raw = editing ? (draftLayout ?? []) : (activeDashboard?.layout ?? []);
-    return raw.map((w) => migrateWidget(w as any));
-  }, [editing, draftLayout, activeDashboard?.layout]);
+  const layout = editing ? (draftLayout ?? []) : (activeDashboard?.layout ?? []);
 
   const variables = editing ? (draftVariables ?? []) : (activeDashboard?.variables ?? []);
 
@@ -119,9 +114,38 @@ export default function DashboardPage() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
+  useEffect(() => {
+    if (!editing) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as Element).closest("a");
+      if (target && target.href && target.target !== "_blank") {
+        if (target.pathname !== window.location.pathname) {
+          if (!window.confirm(t("common.discardConfirm"))) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("click", handleClick, { capture: true });
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("click", handleClick, { capture: true });
+    };
+  }, [editing, t]);
+
   const handleStartEdit = () => {
     if (!activeDashboard) return;
-    setDraftLayout(activeDashboard.layout.map((w) => migrateWidget(w as any)));
+    setDraftLayout(activeDashboard.layout);
     setDraftVariables(activeDashboard.variables ?? []);
     setEditing(true);
   };

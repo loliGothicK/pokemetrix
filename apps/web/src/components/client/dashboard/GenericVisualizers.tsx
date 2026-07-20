@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { rounded } from "@/utils/styles";
+
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 export function TableVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
   const { t } = useTranslation();
@@ -30,6 +30,9 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
   // DataGrid requires a unique 'id' for each row
   const rows = useMemo(() => {
     return data.map((row, index) => {
+      if (!row || typeof row !== 'object') {
+        return { id: index };
+      }
       const hasValidId = 'id' in row && (typeof row.id === 'string' || typeof row.id === 'number');
       return hasValidId ? row : { ...row, id: index };
     });
@@ -52,7 +55,6 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
             bgcolor: "background.paper",
             borderColor: "divider",
           },
-          ...rounded(2),
         }}
       />
     </Box>
@@ -83,23 +85,25 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        height: "100%",
+        minHeight: "100%",
         p: 2,
+        containerType: "inline-size",
       }}
     >
       <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        {mainKey && (
-          <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
-            {t(`dashboard.dataKeys.${mainKey}`, { defaultValue: mainKey })}
-          </Typography>
-        )}
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            fontWeight: 800,
+            fontSize: "clamp(2rem, 15cqw, 3rem)",
+          }}
+        >
           {String(mainValue)}
         </Typography>
       </Box>
 
       {subKeys.length > 0 && (
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mt: 2, pt: 2, borderTop: "1px solid", borderColor: "divider" }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", columnGap: 1.5, rowGap: 0.5, mt: 1.5, pt: 1.5, borderTop: "1px solid", borderColor: "divider" }}>
           {subKeys.map((k) => (
             <Box key={k} sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
