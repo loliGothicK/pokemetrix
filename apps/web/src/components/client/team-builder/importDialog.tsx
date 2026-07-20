@@ -12,7 +12,7 @@ import {
 import { importSets } from "@/lib/pokepaste";
 import { Diagnostics } from "@/components/client/team-builder/index";
 import { Team } from "@/store/team/team";
-import { isLeft } from "fp-ts/Either";
+import { isLeft } from "fp-ts/lib/Either";
 import { anyhow } from "@/errors/anyhow/error";
 import { match } from "ts-pattern";
 

@@ -2,7 +2,7 @@ import { TrainedPokemon } from "@/store/team/team";
 
 import { option } from "fp-ts";
 
-import { Option } from "fp-ts/Option";
+import { Option } from "fp-ts/lib/Option";
 import { remainingEvs, RemainingEvs } from "@/lib/linter/errors/LintError";
 import { MAX_EV_TOTAL } from "@/store/team/lint";
 import { match } from "ts-pattern";

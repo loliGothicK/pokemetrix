@@ -12,7 +12,7 @@ import { createTeam } from "./repositories/teamRepository";
 import { createBoxPokemon } from "./repositories/boxPokemonRepository";
 import { createDashboard } from "./repositories/dashboardRepository";
 import { createBattleRecord } from "./repositories/battleRecordRepository";
-import { isLeft } from "fp-ts/Either";
+import { isLeft } from "fp-ts/lib/Either";
 
 const GIMMICK_TAGS = [
   "trick-room",

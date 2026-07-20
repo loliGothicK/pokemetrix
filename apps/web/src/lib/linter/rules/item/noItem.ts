@@ -1,6 +1,6 @@
 import { TrainedPokemon } from "@/store/team/team";
 import { option } from "fp-ts";
-import { Option } from "fp-ts/Option";
+import { Option } from "fp-ts/lib/Option";
 import { NoItem, noItem } from "@/lib/linter/errors/LintError";
 import { moveById } from "@/data/moves";
 

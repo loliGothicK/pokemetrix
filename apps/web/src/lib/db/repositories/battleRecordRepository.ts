@@ -1,12 +1,12 @@
 import { db } from "@/lib/db";
 import { battleRecords, battleRecordOpponents } from "@/lib/db/schema";
-import { TaskEither, tryCatch } from "fp-ts/TaskEither";
+import { TaskEither, tryCatch } from "fp-ts/lib/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
 import { eq, and } from "drizzle-orm";
 import type { InsertBattleRecord } from "../factories/battleRecordFactory";
 import { validateInsertBattleRecord } from "../validators";
-import { pipe } from "fp-ts/function";
-import * as TE from "fp-ts/TaskEither";
+import { pipe } from "fp-ts/lib/function";
+import * as TE from "fp-ts/lib/TaskEither";
 
 export type InsertBattleRecordWithOpponents = InsertBattleRecord & {
   opponents?: Omit<typeof battleRecordOpponents.$inferInsert, "battleRecordId">[];

@@ -1,12 +1,12 @@
 import { db } from "@/lib/db";
 import { boxPokemon } from "@/lib/db/schema";
-import { TaskEither, tryCatch } from "fp-ts/TaskEither";
+import { TaskEither, tryCatch } from "fp-ts/lib/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
 import { eq, and } from "drizzle-orm";
 import type { InsertBoxPokemon } from "../factories/boxPokemonFactory";
 import { validateInsertBoxPokemon } from "../validators";
-import { pipe } from "fp-ts/function";
-import * as TE from "fp-ts/TaskEither";
+import { pipe } from "fp-ts/lib/function";
+import * as TE from "fp-ts/lib/TaskEither";
 
 export const getBoxPokemon = (
   id: string,

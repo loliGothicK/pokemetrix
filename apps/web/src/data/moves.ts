@@ -2,7 +2,7 @@ import { data } from "@data/champions/moves.json";
 import { moveCategories, moveClassifications, moveRanges, types } from "@/types/pokemon";
 import { z as zod } from "zod";
 import { toValidationError, ValidationError } from "zod-validation-error";
-import { Either, tryCatch } from "fp-ts/Either";
+import { Either, tryCatch } from "fp-ts/lib/Either";
 
 export function parse(value: zod.input<typeof schema>): Either<ValidationError, Move> {
   return tryCatch(() => schema.parse(value), toValidationError());

@@ -9,10 +9,10 @@ import {
   ValidateResult,
   withContext,
 } from "@/errors/anyhow/error";
-import { left, right } from "fp-ts/Either";
+import { left, right } from "fp-ts/lib/Either";
 import { toValidated } from "@/cats/data/Validated";
 import { ChampionsPokemon, championsPokemonByIdentifier } from "@/data/champions-pokemon";
-import { pipe } from "fp-ts/function";
+import { pipe } from "fp-ts/lib/function";
 import { either } from "fp-ts";
 import { getApplicativeValidation } from "fp-ts/lib/Either";
 import { getSemigroup } from "fp-ts/lib/ReadonlyArray";

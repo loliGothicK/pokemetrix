@@ -1,12 +1,12 @@
 import { db } from "@/lib/db";
 import { teams } from "@/lib/db/schema";
-import { TaskEither, tryCatch } from "fp-ts/TaskEither";
+import { TaskEither, tryCatch } from "fp-ts/lib/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
 import { eq, and } from "drizzle-orm";
 import type { InsertTeam } from "../factories/teamFactory";
 import { validateInsertTeam } from "../validators";
-import { pipe } from "fp-ts/function";
-import * as TE from "fp-ts/TaskEither";
+import { pipe } from "fp-ts/lib/function";
+import * as TE from "fp-ts/lib/TaskEither";
 
 export const getTeam = (
   id: string,
