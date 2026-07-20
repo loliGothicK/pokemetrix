@@ -1,5 +1,4 @@
 {
-  "welcome": "ようこそ、私たちのアプリに！",
   "common": {
     "close": "閉じる",
     "cancel": "キャンセル",
@@ -28,7 +27,6 @@
     "addWidget": "ウィジェットを追加",
     "dragToReorder": "ドラッグで並び替え",
     "widget": {
-      "typeLabel": "ウィジェットの種類",
       "titleLabel": "タイトル",
       "allSeasons": "すべてのシーズン",
       "edit": "ウィジェットを編集",
@@ -39,21 +37,14 @@
         "visualize": "Visualize"
       },
       "type": {
-        "winRateSummary": "勝率サマリー",
         "winRateTrend": "勝率の推移",
-        "orderSplit": "先後別勝率",
         "topOpponents": "対面の多い相手",
-        "recentRecords": "直近の対戦",
         "ratingTrend": "レートの推移",
         "note": "メモ"
       },
       "note": {
         "placeholder": "メモを入力...",
         "content": "メモ内容"
-      },
-      "options": {
-        "displayCount": "表示件数",
-        "displayCountHelper": "上位 {{count}} 件を表示"
       },
       "notConfigured": "Visualize が設定されていません",
       "openSettings": "設定を開く"
@@ -78,10 +69,8 @@
     "visualize": {
       "title": "Visualize エディタ",
       "openFullscreen": "Visualize を編集する",
-      "exitFullscreen": "全画面を終了",
       "preview": "プレビュー",
       "options": "オプション",
-      "noOptions": "このウィジェットタイプに設定可能なオプションはありません。",
       "applyAndClose": "適用して閉じる",
       "visualizationType": "グラフ種別",
       "noData": "データなし",
@@ -92,9 +81,7 @@
       "label": "Transformer",
       "modePreset": "プリセット",
       "modeCustom": "カスタム (JS)",
-      "customPlaceholder": "// rows: Record<string, unknown>[]\n// return: Record<string, unknown>[]\n\nreturn rows;",
-      "customHelper": "関数本体を記述してください。変数 `rows` に SQL クエリの結果が入ります。",
-      "errorBoundary": "Transformer でエラーが発生しました。コンソールを確認してください。",
+      "customHelper": "関数を default export してください。引数 `rows` には型付きの SQL クエリ結果が入ります。",
       "none": "なし（そのまま渡す）",
       "noneDesc": "クエリ結果をそのままビジュアライザに渡します。",
       "winrate": "勝率計算",
@@ -210,7 +197,6 @@
       "item": "持ち物",
       "ability": "特性",
       "moves": "技",
-      "roleHint": "先発か後発（選出していなければ空欄）。",
       "opponentNotes": "メモ",
       "season": "フォーマット",
       "rating": "レート",
@@ -225,7 +211,6 @@
       "empty": "データがありません。対戦を記録すると分析が表示されます。",
       "winRate": "勝率",
       "total": "対戦数",
-      "byOrder": "先後別の勝率",
       "topOpponents": "対面の多い相手",
       "wldShort": "{{w}}勝{{l}}敗{{d}}分"
     }
@@ -285,10 +270,7 @@
     "items": {
       "createTeam": "チーム管理",
       "myBox": "マイBOX",
-      "draftAssistant": "ドラフト支援",
-      "coreFinder": "コア探索",
       "battleRecord": "対戦記録",
-      "matchupPlanner": "マッチアップ計画",
       "damageCalc": "ダメージ計算",
       "usageTrends": "使用率推移",
       "metaTables": "環境表",
@@ -327,8 +309,6 @@
     "weatherRain": "雨",
     "weatherSnow": "雪",
     "weatherSandstorm": "砂嵐",
-    "weatherHarshSun": "大日照り",
-    "weatherHeavyRain": "大雨",
     "terrain": "フィールド",
     "terrainElectric": "エレキ",
     "terrainGrassy": "グラス",
@@ -355,7 +335,6 @@
     "hitCount": "ヒット数",
     "totalDamageMerged": "合計 {{min}} – {{max}}（×{{hits}}ヒット）",
     "totalDamageFixed": "合計 {{min}} – {{max}}（×{{hits}}ヒット）",
-    "totalDamageVariable": "合計 {{minDmg}}〜{{maxDmg}}（×{{minHits}}〜{{maxHits}}ヒット）",
     "selectPokemon": "ポケモンを選択",
     "selectMove": "技を選択",
     "noResult": "ポケモンと技を選択してダメージを計算します。",
@@ -433,9 +412,6 @@
   "teamBuilder": {
     "title": "チームビルダー",
     "regulation": "レギュレーション {{regulation}}",
-    "openDrawer": "サイドバーを開く",
-    "closeDrawer": "サイドバーを閉じる",
-    "slotTabs": "チーム枠",
     "back": "一覧へ戻る",
     "slotLabel": "スロット {{index}}",
     "slotDescription": "ここにステータス、技、努力値の設定を入れます。",
@@ -459,15 +435,12 @@
     "teamOverviewTitle": "チーム概要",
     "teamLabel": "チーム {{index}}",
     "emptyMember": "空きスロット {{index}}",
-    "memberLabel": "メンバー {{index}}",
     "deleteTeamTitle": "チームを削除",
     "deleteTeamConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
     "cancel": "キャンセル",
     "delete": "削除",
     "drawer": {
       "overview": "概要",
-      "roster": "編成",
-      "loadout": "セット",
       "notes": "メモ"
     }
   },

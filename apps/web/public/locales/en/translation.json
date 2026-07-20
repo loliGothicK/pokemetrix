@@ -1,5 +1,4 @@
 {
-  "welcome": "Welcome to our app",
   "common": {
     "close": "Close",
     "cancel": "Cancel",
@@ -28,7 +27,6 @@
     "addWidget": "Add widget",
     "dragToReorder": "Drag to reorder",
     "widget": {
-      "typeLabel": "Widget type",
       "titleLabel": "Title",
       "allSeasons": "All seasons",
       "edit": "Edit widget",
@@ -39,21 +37,14 @@
         "visualize": "Visualize"
       },
       "type": {
-        "winRateSummary": "Win Rate Summary",
         "winRateTrend": "Win Rate Trend",
-        "orderSplit": "Win Rate by Order",
         "topOpponents": "Most Faced Opponents",
-        "recentRecords": "Recent Battles",
         "ratingTrend": "Rating Trend",
         "note": "Note"
       },
       "note": {
         "placeholder": "Write a note...",
         "content": "Note content"
-      },
-      "options": {
-        "displayCount": "Display count",
-        "displayCountHelper": "Show top {{count}} opponents"
       },
       "notConfigured": "Visualize is not configured",
       "openSettings": "Open Settings"
@@ -78,10 +69,8 @@
     "visualize": {
       "title": "Visualize Editor",
       "openFullscreen": "Edit Visualize",
-      "exitFullscreen": "Exit full screen",
       "preview": "Preview",
       "options": "Options",
-      "noOptions": "No options available for this widget type.",
       "applyAndClose": "Apply & Close",
       "visualizationType": "Visualization Type",
       "noData": "No data",
@@ -92,9 +81,7 @@
       "label": "Transformer",
       "modePreset": "Preset",
       "modeCustom": "Custom (JS)",
-      "customPlaceholder": "// rows: Record<string, unknown>[]\n// return: Record<string, unknown>[]\n\nreturn rows;",
-      "customHelper": "Write the function body. The variable `rows` contains SQL query results.",
-      "errorBoundary": "Transformer error — check the console for details.",
+      "customHelper": "Export a default function. The parameter `rows` contains strongly-typed SQL query results.",
       "none": "None (passthrough)",
       "noneDesc": "Pass the query result directly to the visualizer.",
       "winrate": "Win Rate",
@@ -210,7 +197,6 @@
       "item": "Item",
       "ability": "Ability",
       "moves": "Moves",
-      "roleHint": "Lead or back (leave empty if not brought).",
       "opponentNotes": "Notes",
       "season": "Format",
       "rating": "Rating",
@@ -225,7 +211,6 @@
       "empty": "No data yet. Record some battles to see analytics.",
       "winRate": "Win rate",
       "total": "Battles",
-      "byOrder": "Win rate by order",
       "topOpponents": "Most faced opponents",
       "wldShort": "{{w}}W {{l}}L {{d}}D"
     }
@@ -285,10 +270,7 @@
     "items": {
       "createTeam": "Team Builder",
       "myBox": "My BOX",
-      "draftAssistant": "Draft Assistant",
-      "coreFinder": "Core Finder",
       "battleRecord": "Battle Record",
-      "matchupPlanner": "Matchup Planner",
       "damageCalc": "Damage Calc",
       "usageTrends": "Usage Trends",
       "metaTables": "Meta Tables",
@@ -327,8 +309,6 @@
     "weatherRain": "Rain",
     "weatherSnow": "Snow",
     "weatherSandstorm": "Sandstorm",
-    "weatherHarshSun": "Harsh Sun",
-    "weatherHeavyRain": "Heavy Rain",
     "terrain": "Terrain",
     "terrainElectric": "Electric",
     "terrainGrassy": "Grassy",
@@ -355,7 +335,6 @@
     "hitCount": "Hits",
     "totalDamageMerged": "Total {{min}} – {{max}} (×{{hits}} hits)",
     "totalDamageFixed": "Total {{min}} – {{max}} (×{{hits}} hits)",
-    "totalDamageVariable": "Total {{minDmg}}–{{maxDmg}} (×{{minHits}}–{{maxHits}} hits)",
     "selectPokemon": "Select Pokémon",
     "selectMove": "Select Move",
     "noResult": "Select a Pokémon and move to calculate damage.",
@@ -433,9 +412,6 @@
   "teamBuilder": {
     "title": "Team Builder",
     "regulation": "Regulation {{regulation}}",
-    "openDrawer": "Open team drawer",
-    "closeDrawer": "Close team drawer",
-    "slotTabs": "Team slots",
     "back": "Back to overview",
     "slotLabel": "Slot {{index}}",
     "slotDescription": "This is where stats, moves, and EVs will live.",
@@ -458,20 +434,16 @@
     "teamOverviewTitle": "Team overview",
     "teamLabel": "Team {{index}}",
     "emptyMember": "Empty slot {{index}}",
-    "memberLabel": "Member {{index}}",
     "deleteTeamTitle": "Delete team",
     "deleteTeamConfirm": "Delete \"{{name}}\"? This cannot be undone.",
     "cancel": "Cancel",
     "delete": "Delete",
     "forgetMove": "Forget this move.",
-    "removeItem": "Remove Held Item",
     "dragToReorder": "Drag to reorder",
     "import": "import from",
     "export": "export as pokepate format",
     "drawer": {
       "overview": "Overview",
-      "roster": "Roster",
-      "loadout": "Loadout",
       "notes": "Notes"
     },
     "status": {
