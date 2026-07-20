@@ -16,11 +16,10 @@
     "fmt:check": "oxfmt --check .",
     "pretty": "oxlint --fix-dangerously . && oxfmt .",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "supabase migration up",
     "db:studio": "drizzle-kit studio",
-    "db:push": "drizzle-kit push",
     "db:setup:local": "pnpm db:migrate && pnpm db:seed",
-    "db:reset:local": "supabase db reset --local && pnpm db:migrate",
+    "db:reset:local": "supabase db reset --local && pnpm db:seed",
     "db:seed": "tsx src/lib/db/seed.ts"
   },
   "dependencies": {

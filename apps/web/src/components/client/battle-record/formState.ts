@@ -38,6 +38,7 @@ export interface BattleRecordDraft {
   /** datetime-local 文字列（"YYYY-MM-DDTHH:mm"） */
   readonly playedAt: string;
   readonly opponents: readonly OpponentDraft[];
+  readonly tags: readonly string[];
 }
 
 let keySeq = 0;
@@ -71,6 +72,7 @@ export const emptyDraft = (params?: {
   notes: "",
   playedAt: dateToLocalInput(new Date()),
   opponents: [],
+  tags: [],
 });
 
 /** 既存レコードから編集用の下書きを作る */
@@ -91,6 +93,7 @@ export const draftFromRecord = (record: BattleRecord, format: BattleFormat): Bat
     selectionRole: opponent.selectionRole,
     notes: opponent.notes ?? "",
   })),
+  tags: [...record.tags],
 });
 
 const emptyToNull = (value: string): string | null => {
@@ -124,4 +127,5 @@ export const draftToInput = (draft: BattleRecordDraft, seasonId: string): Battle
     selectionRole: opponent.selectionRole,
     notes: emptyToNull(opponent.notes),
   })),
+  tags: [...draft.tags],
 });

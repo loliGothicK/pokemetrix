@@ -223,7 +223,13 @@
       "playedAt": "Played at",
       "notes": "Notes",
       "notesPlaceholder": "Key plays, threats, reads...",
-      "selectResultFirst": "Select a result first"
+      "selectResultFirst": "Select a result first",
+      "tags": "Tags (optional)",
+      "tagsPlaceholder": "Select or type gimmicks, archetypes...",
+      "tagGroups": {
+        "gimmick": "Gimmick",
+        "role": "Role / Archetype"
+      }
     },
     "analytics": {
       "title": "Winrate Insights",
@@ -234,6 +240,24 @@
       "topOpponents": "Most faced opponents",
       "wldShort": "{{w}}W {{l}}L {{d}}D"
     }
+  },
+  "taxonomy": {
+    "trick-room": "Trick Room",
+    "tailwind": "Tailwind",
+    "weather-rain": "Rain",
+    "weather-sun": "Sun",
+    "weather-snow": "Snow",
+    "weather-sand": "Sandstorm",
+    "redirection": "Redirection",
+    "perish-trap": "Perish Trap",
+    "speed-control": "Speed Control",
+    "follow-me": "Follow Me",
+    "fake-out": "Fake Out",
+    "intimidate": "Intimidate",
+    "cycle": "Cycle",
+    "sleep-control": "Sleep Control",
+    "mega-focused": "Mega Focused",
+    "standard": "Standard"
   },
   "app": {
     "subtitle": "Analytics Workspace"

@@ -71,6 +71,13 @@
       "when": 1784343650427,
       "tag": "0009_odd_scream",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1784578017057,
+      "tag": "0010_legal_outlaw_kid",
+      "breakpoints": true
     }
   ]
 }

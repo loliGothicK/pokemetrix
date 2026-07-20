@@ -34,6 +34,7 @@ const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord 
   myTeam: row.myTeam,
   mySelection: row.mySelection,
   rating: row.rating,
+  tags: row.tags ?? [],
   notes: row.notes,
   playedAt: row.playedAt.toISOString(),
   opponents: opponents
@@ -122,6 +123,7 @@ export async function PATCH(
                 }),
                 ...(input.mySelection !== undefined && { mySelection: input.mySelection ?? null }),
                 ...(input.rating !== undefined && { rating: input.rating ?? null }),
+                ...(input.tags !== undefined && { tags: input.tags ? [...input.tags] : [] }),
                 ...(input.notes !== undefined && { notes: input.notes ?? null }),
                 ...(input.playedAt !== undefined &&
                   input.playedAt !== null && { playedAt: new Date(input.playedAt) }),

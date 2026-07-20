@@ -16,6 +16,9 @@ import {
   Stack,
   TextField,
   Typography,
+  Autocomplete,
+  Chip,
+  createFilterOptions,
 } from "@mui/material";
 import Close from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
@@ -49,6 +52,27 @@ interface BattleRecordFormDialogProps {
 }
 
 const RESULT_OPTIONS: readonly BattleResult[] = ["win", "loss", "draw"];
+
+const PREDEFINED_TAGS = [
+  { slug: "trick-room", group: "gimmick" },
+  { slug: "tailwind", group: "gimmick" },
+  { slug: "weather-rain", group: "gimmick" },
+  { slug: "weather-sun", group: "gimmick" },
+  { slug: "weather-snow", group: "gimmick" },
+  { slug: "weather-sand", group: "gimmick" },
+  { slug: "redirection", group: "gimmick" },
+  { slug: "perish-trap", group: "gimmick" },
+  { slug: "speed-control", group: "role" },
+  { slug: "follow-me", group: "role" },
+  { slug: "fake-out", group: "role" },
+  { slug: "intimidate", group: "role" },
+  { slug: "cycle", group: "role" },
+  { slug: "sleep-control", group: "role" },
+  { slug: "mega-focused", group: "role" },
+  { slug: "standard", group: "role" },
+];
+
+const PREDEFINED_TAG_SLUGS = PREDEFINED_TAGS.map(t => t.slug);
 
 export function BattleRecordFormDialog({
   open,
@@ -260,6 +284,50 @@ export function BattleRecordFormDialog({
             placeholder={t("battleRecord.form.notesPlaceholder")}
             value={draft.notes}
             onChange={(e) => setDraft((prev) => ({ ...prev, notes: e.target.value }))}
+          />
+
+          <Autocomplete
+            multiple
+            freeSolo
+            size="small"
+            options={PREDEFINED_TAG_SLUGS}
+            value={draft.tags as string[]}
+            onChange={(_e, newValue) => {
+              setDraft((prev) => ({ ...prev, tags: newValue as string[] }));
+            }}
+            groupBy={(option) => {
+              const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+              return preset ? t(`battleRecord.form.tagGroups.${preset.group}`) : "Custom";
+            }}
+            getOptionLabel={(option) => {
+              const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+              return preset ? t(`taxonomy.${preset.slug}`) : option;
+            }}
+            // @ts-ignore
+            renderTags={(value: readonly string[], getTagProps: any) =>
+              value.map((option, index) => {
+                const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+                const label = preset ? t(`taxonomy.${preset.slug}`) : option;
+                
+                const { key, ...tagProps } = getTagProps({ index });
+                return (
+                  <Chip
+                    key={key}
+                    variant="outlined"
+                    size="small"
+                    label={label}
+                    {...tagProps}
+                  />
+                );
+              })
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t("battleRecord.form.tags")}
+                placeholder={t("battleRecord.form.tagsPlaceholder")}
+              />
+            )}
           />
         </Stack>
       </DialogContent>

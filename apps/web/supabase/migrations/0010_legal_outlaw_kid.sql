@@ -1,0 +1,1 @@
+ALTER TABLE "battle_records" ADD COLUMN "tags" text[] DEFAULT '{}'::text[] NOT NULL;

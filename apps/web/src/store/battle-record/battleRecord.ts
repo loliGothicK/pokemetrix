@@ -55,6 +55,7 @@ export interface BattleRecord {
   /** ISO 8601 */
   readonly playedAt: string;
   readonly opponents: readonly BattleRecordOpponent[];
+  readonly tags: readonly string[];
   /** ISO 8601 */
   readonly createdAt: string;
   /** ISO 8601 */
@@ -117,6 +118,7 @@ const battleRecordInputObject = z.object({
       (arr) => new Set(arr.map((o) => o.slotIndex)).size === arr.length,
       "slotIndex must be unique",
     ),
+  tags: z.array(z.string().trim().min(1)).nullish(),
 });
 
 export const battleRecordInputSchema = battleRecordInputObject.readonly();

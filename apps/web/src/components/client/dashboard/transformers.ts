@@ -197,6 +197,19 @@ export interface HeatmapData {
 function detectFormat(row: Record<string, unknown>): "singles" | "doubles" | null {
   if (row.format === "singles") return "singles";
   if (row.format === "doubles") return "doubles";
+  
+  // 推測: mySelection が 4体以上ならダブル、3体以下ならシングル
+  if (Array.isArray(row.mySelection) && row.mySelection.length > 0) {
+    return row.mySelection.length >= 4 ? "doubles" : "singles";
+  }
+  
+  // 推測: 相手の選出リードが 2体以上ならダブル、1体ならシングル
+  if (Array.isArray(row.opponents)) {
+    const oppLeads = row.opponents.filter((o: any) => o && o.selectionRole === "lead");
+    if (oppLeads.length >= 2) return "doubles";
+    if (oppLeads.length === 1) return "singles";
+  }
+  
   return null;
 }
 
@@ -427,36 +440,32 @@ export function applyTransformer(
     if (!transformerCode?.trim()) return rows;
     try {
       let code = transformerCode;
-      let fn: unknown;
+      if (!code.includes("export default")) {
+        throw new Error("Custom transformer must export a default function");
+      }
 
-      if (code.includes("export default")) {
-        // Strip basic TypeScript parameter types for the main function
-        // Handles: export default function transform(rows: Rows) -> return function transform(rows)
-        code = code.replace(
-          /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)/,
-          "return function$1($2)"
-        );
+      // Strip basic TypeScript parameter types for the main function
+      // Handles: export default function transform(rows: Rows) -> return function transform(rows)
+      code = code.replace(
+        /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)/,
+        "return function$1($2)"
+      );
 
-        // Handles: export default (rows: Rows) => -> return (rows) =>
-        code = code.replace(
-          /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)\s*=>/,
-          "return ($1) =>"
-        );
-        
-        // Fallback for just export default without inline parameters (e.g. export default transform)
-        code = code.replace(/export\s+default\s+/, "return ");
-        
-        // eslint-disable-next-line no-new-func
-        const getTransformer = new Function(code);
-        fn = getTransformer();
-        
-        if (typeof fn !== "function") {
-          throw new Error("Custom transformer must export a default function");
-        }
-      } else {
-        // Legacy support (just plain `return rows.map(...)`)
-        // eslint-disable-next-line no-new-func
-        fn = new Function("rows", code);
+      // Handles: export default (rows: Rows) => -> return (rows) =>
+      code = code.replace(
+        /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)\s*=>/,
+        "return ($1) =>"
+      );
+      
+      // Fallback for just export default without inline parameters (e.g. export default transform)
+      code = code.replace(/export\s+default\s+/, "return ");
+      
+      // eslint-disable-next-line no-new-func
+      const getTransformer = new Function(code);
+      const fn = getTransformer();
+      
+      if (typeof fn !== "function") {
+        throw new Error("Custom transformer must export a default function");
       }
 
       const result = (fn as (r: Record<string, unknown>[]) => Record<string, unknown>[])(rows);

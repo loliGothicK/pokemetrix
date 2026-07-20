@@ -35,6 +35,7 @@ const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord 
   myTeam: row.myTeam,
   mySelection: row.mySelection,
   rating: row.rating,
+  tags: row.tags ?? [],
   notes: row.notes,
   playedAt: row.playedAt.toISOString(),
   opponents: opponents
@@ -127,6 +128,7 @@ export async function POST(request: Request) {
                 myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
                 mySelection: input.mySelection ?? null,
                 rating: input.rating ?? null,
+                tags: input.tags ? [...input.tags] : [],
                 notes: input.notes ?? null,
                 ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
               })

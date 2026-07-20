@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Fragment } from "react";
 import {
   Box,
   Typography,
@@ -211,9 +211,8 @@ function HeatmapGrid({
         {matrix.rows.map((row) => {
           const confidence = getConfidence(row.totalSamples);
           return (
-            <>
+            <Fragment key={row.oppLead}>
               <Box
-                key={`lbl-${row.oppLead}`}
                 sx={{ display: "flex", alignItems: "center", gap: 0.5, pr: 0.5, minWidth: 0 }}
               >
                 <Tooltip title={row.oppLead} placement="right" arrow>
@@ -246,7 +245,7 @@ function HeatmapGrid({
                   isDarkMode={isDarkMode}
                 />
               ))}
-            </>
+            </Fragment>
           );
         })}
       </Box>

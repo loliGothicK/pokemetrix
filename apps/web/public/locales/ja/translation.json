@@ -223,7 +223,13 @@
       "playedAt": "対戦日時",
       "notes": "メモ",
       "notesPlaceholder": "重要な立ち回り・脅威・読みなど...",
-      "selectResultFirst": "先に勝敗を選択"
+      "selectResultFirst": "先に勝敗を選択",
+      "tags": "分類タグ（任意）",
+      "tagsPlaceholder": "ギミック・アーキタイプを選択または入力...",
+      "tagGroups": {
+        "gimmick": "ギミック",
+        "role": "役割・アーキタイプ"
+      }
     },
     "analytics": {
       "title": "勝率インサイト",
@@ -234,6 +240,24 @@
       "topOpponents": "対面の多い相手",
       "wldShort": "{{w}}勝{{l}}敗{{d}}分"
     }
+  },
+  "taxonomy": {
+    "trick-room": "トリックルーム",
+    "tailwind": "おいかぜ",
+    "weather-rain": "雨",
+    "weather-sun": "晴れ",
+    "weather-snow": "雪",
+    "weather-sand": "砂嵐",
+    "redirection": "介護系",
+    "perish-trap": "滅びの歌",
+    "speed-control": "素早さ操作",
+    "follow-me": "このゆびとまれ",
+    "fake-out": "ねこだまし枠",
+    "intimidate": "威嚇枠",
+    "cycle": "サイクル",
+    "sleep-control": "催眠",
+    "mega-focused": "メガ主軸",
+    "standard": "スタン"
   },
   "app": {
     "subtitle": "Analytics Workspace"
