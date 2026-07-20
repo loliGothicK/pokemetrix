@@ -19,6 +19,7 @@ import {
   StatVisualizer,
   GaugeVisualizer,
   HistogramVisualizer,
+  HeatmapVisualizer,
 } from "./GenericVisualizers";
 import { applyTransformer } from "./transformers";
 import { rounded } from "@/utils/styles";
@@ -108,12 +109,19 @@ function CustomQueryWidget({
     return <WidgetEmpty message={`Error: ${error}`} />;
   }
 
-  return match(visualization)
+  // Auto-detect heatmap data to avoid breakage on existing widgets
+  const actualVis =
+    resultData.length > 0 && (resultData[0] as any)?._type === "heatmap"
+      ? "heatmap"
+      : visualization;
+
+  return match(actualVis)
     .with("table", () => <TableVisualizer data={resultData} />)
     .with("stat", () => <StatVisualizer data={resultData} />)
     .with("gauge", () => <GaugeVisualizer data={resultData} />)
     .with("histogram", () => <HistogramVisualizer data={resultData} />)
-    .otherwise(() => <WidgetEmpty message={`Unknown visualization: ${visualization}`} />);
+    .with("heatmap", () => <HeatmapVisualizer data={resultData} />)
+    .otherwise(() => <WidgetEmpty message={`Unknown visualization: ${actualVis}`} />);
 }
 
 /**

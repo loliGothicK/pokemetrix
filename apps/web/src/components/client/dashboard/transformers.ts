@@ -84,7 +84,7 @@ function calcRatingDiff(rows: Record<string, unknown>[]): Record<string, unknown
 
 /**
  * 先発ポケモンの成績を集計する。
- * 入力として `myTeam`, `mySelection`, `result` 列を期待する。
+ * 入力として `myTeam`, `mySelection`, `opponents`, `result` 列を期待する。
  */
 function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unknown>[] {
   const stats = new Map<string, { total: number; wins: number }>();
@@ -99,29 +99,61 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
       continue;
     }
 
-    // mySelection の先頭を先発とする
-    const leadIndex = row.mySelection[0];
-    const leadPokemon = row.myTeam[leadIndex];
-    if (!leadPokemon || typeof leadPokemon !== "object" || !("slug" in leadPokemon)) continue;
+    const opponents = Array.isArray(row.opponents) ? row.opponents : [];
+    
+    // opponentのleadを抽出
+    const oppLeads = opponents
+      .filter((o: any) => o && o.selectionRole === "lead")
+      .map((o: any) => String(o.pokemonSlug))
+      .sort(); // 順序を一定にするためソート
 
-    const slug = String(leadPokemon.slug);
+    // シングルかダブルかを推測する
+    let isDoubles = false;
+    if (row.format === "doubles") {
+      isDoubles = true;
+    } else if (row.format === "singles") {
+      isDoubles = false;
+    } else if (oppLeads.length >= 2) {
+      isDoubles = true;
+    } else if (oppLeads.length === 1) {
+      isDoubles = false;
+    } else {
+      isDoubles = row.mySelection.length >= 4;
+    }
+
+    const leadCount = isDoubles ? 2 : 1;
+    const myLeadIndices = row.mySelection.slice(0, leadCount);
+    
+    const myLeads = myLeadIndices
+      .map((idx: any) => {
+        const p = (row.myTeam as any[])[idx as number];
+        return p && typeof p === "object" && "slug" in p ? String(p.slug) : null;
+      })
+      .filter(Boolean) as string[];
+
+    if (myLeads.length === 0) continue;
+    
+    // ダブル等の場合、順序を一定にする
+    myLeads.sort();
+
+    const myLeadsStr = myLeads.join(" & ");
     const result = row.result;
 
-    const current = stats.get(slug) ?? { total: 0, wins: 0 };
+    const current = stats.get(myLeadsStr) ?? { total: 0, wins: 0 };
     current.total += 1;
     if (result === "win") {
       current.wins += 1;
     }
-    stats.set(slug, current);
+    stats.set(myLeadsStr, current);
   }
 
   if (stats.size === 0) return [];
 
   return Array.from(stats.entries())
-    .map(([slug, data]) => {
+    .map(([key, data]) => {
       const winRate = ((data.wins / data.total) * 100).toFixed(1);
       return {
-        pokemon: slug,
+        pokemon: key,
         total: data.total,
         wins: data.wins,
         losses: data.total - data.wins,
@@ -129,6 +161,200 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
       };
     })
     .sort((a, b) => b.total - a.total || parseFloat(b.winRate) - parseFloat(a.winRate));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ヒートマップ型
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface HeatmapCell {
+  wins: number;
+  total: number;
+}
+
+export interface HeatmapRow {
+  oppLead: string;
+  cells: Record<string, HeatmapCell>;
+  totalSamples: number;
+}
+
+export interface HeatmapMatrix {
+  /** 横軸（自分の頻出先発）、上位6パターン */
+  myLeads: string[];
+  rows: HeatmapRow[];
+}
+
+export interface HeatmapData {
+  readonly _type: "heatmap";
+  readonly singles: HeatmapMatrix;
+  readonly doubles: HeatmapMatrix;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ヘルパー: シングル / ダブル の判定
+// ─────────────────────────────────────────────────────────────────────────────
+
+function detectFormat(row: Record<string, unknown>): "singles" | "doubles" | null {
+  if (row.format === "singles") return "singles";
+  if (row.format === "doubles") return "doubles";
+  return null;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ヘルパー: マトリクスを構築する
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildMatrix(
+  rows: Record<string, unknown>[],
+  leadCount: number,
+): HeatmapMatrix {
+  const myLeadCounts = new Map<string, number>();
+  /** oppLeadKey -> myLeadKey -> cell */
+  const matrix = new Map<string, Map<string, HeatmapCell>>();
+
+  for (const row of rows) {
+    if (
+      !Array.isArray(row.myTeam) ||
+      !Array.isArray(row.mySelection) ||
+      row.mySelection.length === 0 ||
+      typeof row.result !== "string"
+    ) continue;
+
+    const opponents = Array.isArray(row.opponents) ? row.opponents : [];
+    const oppLeads = opponents
+      .filter((o: any) => o && o.selectionRole === "lead")
+      .map((o: any) => String(o.pokemonSlug))
+      .sort();
+
+    if (leadCount === 2 && oppLeads.length < 2) continue;
+    if (leadCount === 1 && oppLeads.length < 1) continue;
+
+    const myLeadIndices = row.mySelection.slice(0, leadCount);
+    const myLeads = myLeadIndices
+      .map((idx: any) => {
+        const p = (row.myTeam as any[])[idx as number];
+        return p && typeof p === "object" && "slug" in p ? String(p.slug) : null;
+      })
+      .filter(Boolean) as string[];
+
+    if (myLeads.length < leadCount) continue;
+    myLeads.sort();
+    const myLeadsKey = myLeads.join(" & ");
+    myLeadCounts.set(myLeadsKey, (myLeadCounts.get(myLeadsKey) ?? 0) + 1);
+
+    const oppLeadsForThis = leadCount === 2 ? oppLeads.slice(0, 2) : oppLeads.slice(0, 1);
+    oppLeadsForThis.sort();
+    const oppLeadsKey = oppLeadsForThis.join(" & ");
+
+    if (!matrix.has(oppLeadsKey)) matrix.set(oppLeadsKey, new Map());
+    const oppMap = matrix.get(oppLeadsKey)!;
+
+    if (!oppMap.has(myLeadsKey)) oppMap.set(myLeadsKey, { wins: 0, total: 0 });
+    const cell = oppMap.get(myLeadsKey)!;
+    cell.total += 1;
+    if (row.result === "win") cell.wins += 1;
+  }
+
+  // 横軸: 自分の頻出先発 上位6
+  const topMyLeads = Array.from(myLeadCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(e => e[0]);
+
+  // 縦軸: 相手先発を遭遇頻度順にソート
+  const matrixRows: HeatmapRow[] = Array.from(matrix.entries())
+    .map(([oppLead, myLeadMap]) => {
+      const cells: Record<string, HeatmapCell> = {};
+      let totalSamples = 0;
+
+      for (const myLead of topMyLeads) {
+        const c = myLeadMap.get(myLead);
+        if (c) {
+          cells[myLead] = { ...c };
+          totalSamples += c.total;
+        } else {
+          cells[myLead] = { wins: 0, total: 0 };
+        }
+      }
+
+      return { oppLead, cells, totalSamples };
+    })
+    .sort((a, b) => b.totalSamples - a.totalSamples)
+    .slice(0, 60);
+
+  return { myLeads: topMyLeads, rows: matrixRows };
+}
+
+/**
+ * 自分の先発 vs 相手の先発 の相性ヒートマップデータを生成する。
+ * シングルとダブルのレコードを完全に分離して計算する。
+ */
+function calcMatchupPivot(rows: Record<string, unknown>[]): Record<string, unknown>[] {
+  const singlesRows = rows.filter(r => detectFormat(r) === "singles");
+  const doublesRows = rows.filter(r => detectFormat(r) === "doubles");
+
+  const result: HeatmapData = {
+    _type: "heatmap",
+    singles: buildMatrix(singlesRows, 1),
+    doubles: buildMatrix(doublesRows, 2),
+  };
+
+  // HeatmapVisualizer が data[0] として受け取れるよう1要素配列で返す
+  return [result as unknown as Record<string, unknown>];
+}
+
+
+
+/**
+ * 相手のポケモン vs 勝敗のブレイクダウン
+ */
+function calcWinLossCauses(rows: Record<string, unknown>[]): Record<string, unknown>[] {
+  const stats = new Map<string, { total: number; winLead: number; winBack: number; lossLead: number; lossBack: number }>();
+
+  for (const row of rows) {
+    if (typeof row.result !== "string") continue;
+    
+    const opponents = Array.isArray(row.opponents) ? row.opponents : [];
+    const result = row.result;
+    
+    for (const o of opponents) {
+      if (!o || typeof o !== "object" || !("pokemonSlug" in o)) continue;
+      const slug = String(o.pokemonSlug);
+      const role = String(o.selectionRole);
+      
+      if (!stats.has(slug)) {
+        stats.set(slug, { total: 0, winLead: 0, winBack: 0, lossLead: 0, lossBack: 0 });
+      }
+      
+      const stat = stats.get(slug)!;
+      stat.total += 1;
+      
+      if (result === "win") {
+        if (role === "lead") stat.winLead += 1;
+        else stat.winBack += 1;
+      } else if (result === "loss") {
+        if (role === "lead") stat.lossLead += 1;
+        else stat.lossBack += 1;
+      }
+    }
+  }
+
+  if (stats.size === 0) return [];
+
+  return Array.from(stats.entries())
+    .map(([slug, data]) => {
+      const winMatches = data.winLead + data.winBack;
+      const lossMatches = data.lossLead + data.lossBack;
+      
+      return {
+        pokemon: slug,
+        total: data.total,
+        wins: `${winMatches} (Lead ${data.winLead} / Back ${data.winBack})`,
+        losses: `${lossMatches} (Lead ${data.lossLead} / Back ${data.lossBack})`,
+      };
+    })
+    .sort((a, b) => (b.total as number) - (a.total as number))
+    .slice(0, 20); // Top 20
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -165,6 +391,18 @@ export const PRESET_TRANSFORMERS: readonly Transformer[] = [
     labelKey: "dashboard.transformer.leadsWinRate",
     descriptionKey: "dashboard.transformer.leadsWinRateDesc",
     fn: calcLeadsWinRate,
+  },
+  {
+    id: "matchupPivot",
+    labelKey: "dashboard.transformer.matchupPivot",
+    descriptionKey: "dashboard.transformer.matchupPivotDesc",
+    fn: calcMatchupPivot,
+  },
+  {
+    id: "winLossCauses",
+    labelKey: "dashboard.transformer.winLossCauses",
+    descriptionKey: "dashboard.transformer.winLossCausesDesc",
+    fn: calcWinLossCauses,
   },
 ];
 

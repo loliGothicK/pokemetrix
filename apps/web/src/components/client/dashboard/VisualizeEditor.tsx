@@ -75,6 +75,7 @@ function VisualizeOptionsPanel({
           <MenuItem value="stat">Stat</MenuItem>
           <MenuItem value="gauge">Gauge</MenuItem>
           <MenuItem value="histogram">Histogram</MenuItem>
+          <MenuItem value="heatmap">Heatmap</MenuItem>
         </Select>
       </Box>
 
@@ -169,7 +170,7 @@ function TransformerPanel({
   const isCustom = widget.transformer === "custom";
 
   const rowTypeDeclaration = useMemo(() => {
-    return generateRowTypeFromSql(widget.query);
+    return generateRowTypeFromSql(widget.query || "SELECT * FROM records LIMIT 10");
   }, [widget.query]);
 
   const handleModeChange = (mode: "preset" | "custom") => {

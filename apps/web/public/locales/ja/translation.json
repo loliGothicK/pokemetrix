@@ -80,8 +80,8 @@
     "transformer": {
       "label": "Transformer",
       "modePreset": "プリセット",
-      "modeCustom": "カスタム (JS)",
-      "customHelper": "関数を default export してください。引数 `rows` には型付きの SQL クエリ結果が入ります。",
+      "modeCustom": "カスタム (TypeScript Function)",
+      "customHelper": "変換してレコード（の配列）を返してください(`rows` には型付きの SQL クエリ結果が入ります）。",
       "none": "なし（そのまま渡す）",
       "noneDesc": "クエリ結果をそのままビジュアライザに渡します。",
       "winrate": "勝率計算",
@@ -91,7 +91,11 @@
       "leadsWinRate": "先発勝率",
       "leadsWinRateDesc": "myTeam と mySelection から先発ポケモンを抽出し、ポケモンごとの勝率を集計します。",
       "ratingDiff": "レート変動",
-      "ratingDiffDesc": "`rating` と `playedAt` フィールドを期待します。前の試合からのレート増減 (`diff`) 列を追加します。"
+      "ratingDiffDesc": "`rating` と `playedAt` フィールドを期待します。前の試合からのレート増減 (`diff`) 列を追加します。",
+      "matchupPivot": "先発相性ピボット",
+      "matchupPivotDesc": "自分の先発コンビと相手の頻出先発との勝率相性表を作成します。",
+      "winLossCauses": "勝敗要因分析",
+      "winLossCausesDesc": "相手のポケモンごとに、それが先発・後発だったときの勝敗内訳を集計します。"
     },
     "template": {
       "winrateSummary": "勝率サマリー",
@@ -107,7 +111,23 @@
       "recentMatches": "直近の試合",
       "recentMatchesDesc": "直近10試合の対戦記録",
       "currentStreak": "現在のストリーク",
-      "currentStreakDesc": "現在継続中の連勝または連敗数"
+      "currentStreakDesc": "現在継続中の連勝または連敗数",
+      "matchupPivot": "先発相性表 (Pivot)",
+      "matchupPivotDesc": "シングル・ダブル別に、自分の先発 vs 相手の先発の勝率をヒートマップで表示します。",
+      "winLossCauses": "勝敗要因ブレイクダウン",
+      "winLossCausesDesc": "相手のパーティにいたポケモンが勝敗にどう影響したかを集計します。"
+    },
+    "heatmap": {
+      "singles": "シングル",
+      "doubles": "ダブル",
+      "oppLead": "相手の先発",
+      "myLead": "自分の先発",
+      "noData": "データが足りません（試合数を増やすか、フォーマットを確認してください）",
+      "legendLow": "負け越し",
+      "legendHigh": "勝ち越し",
+      "confidence": {
+        "low": "Low"
+      }
     },
     "dataKeys": {
       "winRate": "勝率",

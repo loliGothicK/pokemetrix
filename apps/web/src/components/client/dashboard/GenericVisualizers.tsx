@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+export { HeatmapVisualizer } from "./HeatmapVisualizer";
+
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 export function TableVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
   const { t } = useTranslation();

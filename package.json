@@ -2,22 +2,21 @@
   "name": "pokemetrix-monorepo",
   "private": true,
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "build:app": "pnpm build --filter @pokemetrix/web",
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "build:app": "pnpm build --filter @pokemetrix/app",
     "build:wasm": "pnpm build --filter @pokemetrix/damage-calc",
     "pack": "pnpm build --filter @pokemetrix/damage-calc && pnpm pack --filter @pokemetrix/damage-calc",
-    "test": "turbo run test",
-    "lint": "turbo run lint",
-    "fmt": "pnpm -r fmt",
-    "pretty": "pnpm -r pretty",
+    "test": "pnpm -r run test",
+    "lint": "pnpm -r run lint",
+    "fmt": "pnpm -r run fmt",
+    "pretty": "pnpm -r run pretty",
     "changeset": "changeset",
     "version": "changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.0-next.6",
-    "ts-morph": "28.0.0",
-    "turbo": "2.10.5"
+    "ts-morph": "28.0.0"
   },
   "packageManager": "pnpm@11.15.0"
 }

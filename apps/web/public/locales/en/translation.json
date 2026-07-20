@@ -80,8 +80,8 @@
     "transformer": {
       "label": "Transformer",
       "modePreset": "Preset",
-      "modeCustom": "Custom (JS)",
-      "customHelper": "Export a default function. The parameter `rows` contains strongly-typed SQL query results.",
+      "modeCustom": "Custom (TypeScript Function)",
+      "customHelper": "Transform `rows` to your own records, `rows` contains strongly-typed SQL query results.",
       "none": "None (passthrough)",
       "noneDesc": "Pass the query result directly to the visualizer.",
       "winrate": "Win Rate",
@@ -91,7 +91,11 @@
       "leadsWinRate": "Leads Win Rate",
       "leadsWinRateDesc": "Extracts the Lead Pokémon from `myTeam` and `mySelection` to calculate win rates per lead.",
       "ratingDiff": "Rating Diff",
-      "ratingDiffDesc": "Expects `rating` and `playedAt` fields. Adds a `diff` column showing change from the previous match."
+      "ratingDiffDesc": "Expects `rating` and `playedAt` fields. Adds a `diff` column showing change from the previous match.",
+      "matchupPivot": "Matchup Pivot",
+      "matchupPivotDesc": "Calculates win rates for your leads against common opponent leads.",
+      "winLossCauses": "Win/Loss Causes",
+      "winLossCausesDesc": "Analyzes win/loss breakdown based on opponent's team members and their roles."
     },
     "template": {
       "winrateSummary": "Win Rate Summary",
@@ -107,7 +111,23 @@
       "recentMatches": "Recent Matches",
       "recentMatchesDesc": "Last 10 matches in reverse chronological order.",
       "currentStreak": "Current Streak",
-      "currentStreakDesc": "Your current win or loss streak."
+      "currentStreakDesc": "Your current win or loss streak.",
+      "matchupPivot": "Matchup Heatmap",
+      "matchupPivotDesc": "Displays your lead vs opponent lead win rates as a heatmap, separated by Singles and Doubles.",
+      "winLossCauses": "Win/Loss Causes",
+      "winLossCausesDesc": "Shows which opponent Pokemon contribute most to your wins or losses."
+    },
+    "heatmap": {
+      "singles": "Singles",
+      "doubles": "Doubles",
+      "oppLead": "Opp. Lead",
+      "myLead": "My Lead",
+      "noData": "Not enough data (increase match count or check format field)",
+      "legendLow": "Losing",
+      "legendHigh": "Winning",
+      "confidence": {
+        "low": "Low"
+      }
     },
     "dataKeys": {
       "winRate": "Win Rate",

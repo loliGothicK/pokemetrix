@@ -13,8 +13,6 @@ jobs:
     name: Build & Cache
     runs-on: ubuntu-latest
     env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
       NODE_ENV: production
     steps:
       - uses: actions/checkout@v7
@@ -62,8 +60,8 @@ jobs:
         with:
           workspaces: "packages/damage-calc"
 
-      - name: Turbo Build
-        run: pnpm turbo run build --filter=@pokemetrix/damage-calc
+      - name: Build WebAssembly
+        run: pnpm --filter @pokemetrix/damage-calc run build
 
       - name: Install nextest
         uses: taiki-e/install-action@nextest

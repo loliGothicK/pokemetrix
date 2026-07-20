@@ -14,4 +14,19 @@ Before concluding any task or reporting completion to the user, you MUST perform
 3. **Execute and Test**: Run the relevant code or tests to verify your implementation actually works in practice, rather than assuming it works based on the source code.
 4. **Remove Temporary Files**: If you created any temporary scripts (e.g., node scripts to parse JSON or test logic) inside the project directory, you MUST delete them immediately after use.
 5. **Clean Up Associated Dead Code**: If you remove a feature, component, or UI element, proactively search for and delete all associated dead code. This strictly includes removing orphaned localization keys from translation files (`en/translation.json`, `ja/translation.json`, etc.).
+6. **Remove Temporary Debugging Code**: If you added temporary logs (e.g., `console.log`, `console.error`) or experimental code to debug an issue, you MUST remove them and restore the code to its original clean state before reporting completion.
 <!-- END:strict-housekeeping-rules -->
+
+<!-- BEGIN:i18n-consistency -->
+# i18n Translation Consistency
+
+When adding new user-facing features, components, or widgets, you MUST ensure that all new translation keys are added to ALL localization files (e.g., public/locales/ja/translation.json and public/locales/en/translation.json). Never leave raw i18n keys exposed in the UI.
+<!-- END:i18n-consistency -->
+
+<!-- BEGIN:mui-stack-props-rule -->
+# MUI Stack System Props
+
+When writing or fixing MUI components—especially to resolve React DOM prop warnings like "React does not recognize the `alignItems` prop on a DOM element":
+1. **Use `sx` for System Props**: Do NOT pass layout system props (e.g., `alignItems`, `justifyContent`) as direct props on `<Stack>`. Always pass them inside the `sx` prop instead (e.g., `<Stack direction="row" sx={{ alignItems: 'center' }}>`).
+2. **Preserve Component Semantics**: Do NOT lazily replace `<Stack>` with `<Box sx={{ display: 'flex' }}>` just to bypass the warning. Maintain the user's semantic choices.
+<!-- END:mui-stack-props-rule -->
