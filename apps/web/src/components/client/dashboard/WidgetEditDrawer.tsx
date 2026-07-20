@@ -4,7 +4,6 @@ import {
   alpha,
   Box,
   Button,
-  Divider,
   FormControl,
   IconButton,
   InputLabel,
@@ -275,10 +274,6 @@ export function WidgetEditDrawer({
           >
             {t("dashboard.visualize.openFullscreen")}
           </Button>
-          <Divider>{t("common.or")}</Divider>
-          <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-            {t("dashboard.visualize.drawerHint")}
-          </Typography>
         </Stack>
       </TabPanel>
 

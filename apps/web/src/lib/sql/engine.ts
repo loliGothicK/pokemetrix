@@ -364,7 +364,7 @@ export function generateRowTypeFromSql(sql: string): string {
     });
 
     return `Array<{ ${props.join(" ")} }>`;
-  } catch (e) {
+  } catch (_e) {
     // If parse fails (e.g. typing in progress), fallback to base
     return "Array<Partial<BattleRecord>>";
   }

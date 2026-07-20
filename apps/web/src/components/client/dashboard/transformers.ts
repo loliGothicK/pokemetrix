@@ -195,13 +195,13 @@ export function applyTransformer(
         // Strip basic TypeScript parameter types for the main function
         // Handles: export default function transform(rows: Rows) -> return function transform(rows)
         code = code.replace(
-          /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>\[\]]+)?\s*\)/,
+          /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)/,
           "return function$1($2)"
         );
 
         // Handles: export default (rows: Rows) => -> return (rows) =>
         code = code.replace(
-          /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>\[\]]+)?\s*\)\s*=>/,
+          /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)\s*=>/,
           "return ($1) =>"
         );
         
