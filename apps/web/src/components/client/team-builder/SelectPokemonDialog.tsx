@@ -206,14 +206,14 @@ export function SelectPokemonDialog({
                       direction="row"
                       onClick={() => handleSelect(pokemon)}
                       sx={{
-                          alignItems: "center",
+                        alignItems: "center",
                         gap: 1,
                         px: 1,
                         py: 1,
                         cursor: "pointer",
                         borderRadius: 2,
                         "&:hover": { bgcolor: "action.hover" },
-                    }}
+                      }}
                     >
                       <Chip
                         avatar={<Avatar src={`/pokemon/${pokemon.identifier}.png`} />}
@@ -236,7 +236,7 @@ export function SelectPokemonDialog({
                           </>
                         }
                         sx={{
-                            height: 48,
+                          height: 48,
                           fontSize: "1.1rem",
                           borderRadius: 24,
                           "& .MuiChip-avatar": {
@@ -322,14 +322,14 @@ export function SelectPokemonDialog({
                         }
                       }}
                       sx={{
-                          alignItems: "center",
+                        alignItems: "center",
                         gap: 1,
                         px: 1,
                         py: 1,
                         cursor: "pointer",
                         borderRadius: 2,
                         "&:hover": { bgcolor: "action.hover" },
-                    }}
+                      }}
                     >
                       <Chip
                         avatar={<Avatar src={`/pokemon/${pokemon.identifier}.png`} />}
@@ -352,7 +352,7 @@ export function SelectPokemonDialog({
                           </>
                         }
                         sx={{
-                            height: 48,
+                          height: 48,
                           fontSize: "1.1rem",
                           borderRadius: 24,
                           "& .MuiChip-avatar": { width: 40, height: 40 },

@@ -145,7 +145,10 @@ export const battleRecords = pgTable(
     /** その試合終了時点のレート（例: 1650。任意）。試合間の変動は記録から算出する */
     rating: integer("rating"),
     /** ギミックや役割などの分類タグ */
-    tags: text("tags").array().notNull().default(sql`'{}'::text[]`),
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     notes: text("notes"),
     playedAt: timestamp("played_at", { withTimezone: true }).notNull().defaultNow(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

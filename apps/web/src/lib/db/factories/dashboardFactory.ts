@@ -3,7 +3,10 @@ import { ulid } from "ulid";
 
 export type InsertDashboard = typeof dashboards.$inferInsert;
 
-export class DashboardFactory<THasUserId extends boolean = false, THasName extends boolean = false> {
+export class DashboardFactory<
+  THasUserId extends boolean = false,
+  THasName extends boolean = false,
+> {
   private data: Partial<InsertDashboard> = {
     id: ulid(),
     isDefault: false,

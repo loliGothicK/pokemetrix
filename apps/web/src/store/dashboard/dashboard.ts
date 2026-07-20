@@ -3,7 +3,14 @@ import type { DataSource, DashboardVariable } from "@/lib/db/schema";
 
 export type { DataSource, DashboardVariable };
 
-export const visualizationTypeSchema = z.enum(["table", "gauge", "stat", "histogram", "heatmap", "custom"]);
+export const visualizationTypeSchema = z.enum([
+  "table",
+  "gauge",
+  "stat",
+  "histogram",
+  "heatmap",
+  "custom",
+]);
 export type VisualizationType = z.infer<typeof visualizationTypeSchema>;
 
 // =====================================================================

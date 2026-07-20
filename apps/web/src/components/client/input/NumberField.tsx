@@ -83,9 +83,9 @@ export default function NumberField({
                   borderColor: "divider",
                   ml: 0,
                   "& button": {
-                      flex: 1,
-                      ...rounded(0.5)
-                },
+                    flex: 1,
+                    ...rounded(0.5),
+                  },
                 }}
               >
                 <BaseNumberField.Increment

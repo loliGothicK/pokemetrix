@@ -92,10 +92,14 @@ export function AuthButton() {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={() => setAnchorEl(null)}
-          slotProps={{ paper: { sx: {
-              minWidth: 200,
-              ...rounded(2)
-        } } }}
+          slotProps={{
+            paper: {
+              sx: {
+                minWidth: 200,
+                ...rounded(2),
+              },
+            },
+          }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
@@ -131,9 +135,6 @@ export function AuthButton() {
         aria-controls="login-menu"
         aria-haspopup="true"
         aria-expanded={Boolean(anchorEl)}
-        sx={{
-            ...rounded(2)
-        }}
       >
         {t("auth.login")}
       </Button>
@@ -143,10 +144,13 @@ export function AuthButton() {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
-        slotProps={{ paper: { sx: {
-            minWidth: 200,
-            ...rounded(2)
-        } } }}
+        slotProps={{
+          paper: {
+            sx: {
+              minWidth: 200,
+            },
+          },
+        }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >

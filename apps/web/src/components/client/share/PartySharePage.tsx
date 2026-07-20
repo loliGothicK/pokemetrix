@@ -170,9 +170,10 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
               onClick={handleCopy}
               disableElevation
               sx={{
-                  fontSize: "0.75rem", transition: "all 0.2s",
-                  ...rounded(2)
-            }}
+                fontSize: "0.75rem",
+                transition: "all 0.2s",
+                ...rounded(2),
+              }}
             >
               {copied ? t("share.linkCopied") : t("share.copyLink")}
             </Button>
@@ -183,9 +184,9 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
               onClick={handleOpenInBuilder}
               disableElevation
               sx={{
-                  fontSize: "0.75rem",
-                  ...rounded(2)
-            }}
+                fontSize: "0.75rem",
+                ...rounded(2),
+              }}
             >
               {t("share.openInBuilder")}
             </Button>

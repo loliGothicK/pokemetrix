@@ -18,7 +18,6 @@ import {
   Typography,
   Autocomplete,
   Chip,
-  createFilterOptions,
 } from "@mui/material";
 import Close from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
@@ -72,7 +71,7 @@ const PREDEFINED_TAGS = [
   { slug: "standard", group: "role" },
 ];
 
-const PREDEFINED_TAG_SLUGS = PREDEFINED_TAGS.map(t => t.slug);
+const PREDEFINED_TAG_SLUGS = PREDEFINED_TAGS.map((t) => t.slug);
 
 export function BattleRecordFormDialog({
   open,
@@ -172,12 +171,12 @@ export function BattleRecordFormDialog({
                   <Box
                     key={k}
                     sx={{
-                        fontSize: "0.65rem",
+                      fontSize: "0.65rem",
                       fontWeight: 700,
                       border: "1px solid",
                       borderColor: theme.palette.divider,
                       color: "text.secondary",
-                        ...rounded(0.75)
+                      ...rounded(0.75),
                     }}
                   >
                     {k}
@@ -196,7 +195,7 @@ export function BattleRecordFormDialog({
                     role="button"
                     aria-pressed={active}
                     sx={{
-                        flex: 1,
+                      flex: 1,
                       textAlign: "center",
                       border: "2px solid",
                       borderColor: active ? color : theme.palette.divider,
@@ -207,7 +206,7 @@ export function BattleRecordFormDialog({
                       cursor: "pointer",
                       transition: "all 0.15s",
                       "&:hover": { borderColor: color, bgcolor: alpha(color, 0.08) },
-                        ...rounded(3)
+                      ...rounded(3),
                     }}
                   >
                     {t(`battleRecord.result.${result}`).toUpperCase()}
@@ -308,16 +307,10 @@ export function BattleRecordFormDialog({
               value.map((option, index) => {
                 const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
                 const label = preset ? t(`taxonomy.${preset.slug}`) : option;
-                
+
                 const { key, ...tagProps } = getTagProps({ index });
                 return (
-                  <Chip
-                    key={key}
-                    variant="outlined"
-                    size="small"
-                    label={label}
-                    {...tagProps}
-                  />
+                  <Chip key={key} variant="outlined" size="small" label={label} {...tagProps} />
                 );
               })
             }

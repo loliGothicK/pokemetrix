@@ -86,8 +86,8 @@ function WinRateBar({ label, tally: t }: { readonly label: string; readonly tall
         variant="determinate"
         value={percent ?? 0}
         sx={{
-            height: 8,
-            ...rounded(4)
+          height: 8,
+          ...rounded(4),
         }}
       />
     </Box>
@@ -149,7 +149,9 @@ export default function BattleAnalyticsPage() {
       </Stack>
 
       <FormControl size="small" sx={{ minWidth: { xs: "100%", sm: 260 }, mb: 3 }}>
-        <InputLabel id="analytics-season-label" shrink={seasons.length === 0 ? true : undefined}>{t("battleRecord.season.label")}</InputLabel>
+        <InputLabel id="analytics-season-label" shrink={seasons.length === 0 ? true : undefined}>
+          {t("battleRecord.season.label")}
+        </InputLabel>
         <Select
           labelId="analytics-season-label"
           label={t("battleRecord.season.label")}
@@ -242,8 +244,9 @@ export default function BattleAnalyticsPage() {
                             variant="determinate"
                             value={percent ?? 0}
                             sx={{
-                                height: 6, mt: 0.25,
-                                ...rounded(3)
+                              height: 6,
+                              mt: 0.25,
+                              ...rounded(3),
                             }}
                           />
                         </Box>

@@ -3,7 +3,11 @@ import { ulid } from "ulid";
 
 export type InsertBoxPokemon = typeof boxPokemon.$inferInsert;
 
-export class BoxPokemonFactory<THasUserId extends boolean = false, THasSlug extends boolean = false, THasData extends boolean = false> {
+export class BoxPokemonFactory<
+  THasUserId extends boolean = false,
+  THasSlug extends boolean = false,
+  THasData extends boolean = false,
+> {
   private data: Partial<InsertBoxPokemon> = {
     id: ulid(),
     inBox: false,

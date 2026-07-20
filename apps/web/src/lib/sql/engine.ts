@@ -133,7 +133,7 @@ export function parseSql(query: string): SqlAST {
     );
   }
 
-  const [, selectStr, tableStr, whereStr, groupByStr, orderByStr, limitStr] = match;
+  const [, selectStr, ,whereStr, groupByStr, orderByStr, limitStr] = match;
 
   const ast: SqlAST = {
     select: parseSelect(selectStr),
@@ -205,7 +205,7 @@ export function executeSql(
   // 1.5 Sort before projection if NOT aggregating/grouping, so we can sort by unselected columns
   const isAggregating = ast.select.some((s) => s.type === "aggregate");
   const hasGroupBy = ast.groupBy && ast.groupBy.length > 0;
-  
+
   if (!isAggregating && !hasGroupBy && ast.orderBy && ast.orderBy.length > 0) {
     const ob = ast.orderBy;
     filtered = [...filtered].sort((a, b) => {
@@ -342,7 +342,7 @@ export function generateRowTypeFromSql(sql: string): string {
   try {
     const ast = parseSql(sql);
     if (!ast.select || ast.select.length === 0) return "Array<Partial<BattleRecord>>";
-    
+
     // If there is a '*' we can just return Partial<BattleRecord>
     if (ast.select.some((s) => s.type === "star")) {
       return "Array<Partial<BattleRecord>>";
@@ -358,13 +358,13 @@ export function generateRowTypeFromSql(sql: string): string {
         // Strict typing: if the column exists in BattleRecord, use it; otherwise 'any'
         type = `ExtractRowValue<"${s.column}">`;
       }
-      
+
       const safeName = /^[a-zA-Z0-9_]+$/.test(name) ? name : `"${name}"`;
       return `${safeName}: ${type};`;
     });
 
     return `Array<{ ${props.join(" ")} }>`;
-  } catch (_e) {
+  } catch  {
     // If parse fails (e.g. typing in progress), fallback to base
     return "Array<Partial<BattleRecord>>";
   }

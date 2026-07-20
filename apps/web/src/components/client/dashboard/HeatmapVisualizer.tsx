@@ -127,9 +127,7 @@ function HeatCell({
             lineHeight: 1,
           }}
         >
-          {confidence === "low"
-            ? t("dashboard.heatmap.confidence.low", "Low")
-            : `n=${cell.total}`}
+          {confidence === "low" ? t("dashboard.heatmap.confidence.low", "Low") : `n=${cell.total}`}
         </Typography>
       </Box>
     </Tooltip>
@@ -160,7 +158,9 @@ function HeatmapGrid({
   const colCount = matrix.myLeads.length;
 
   return (
-    <Box sx={{ width: "100%", overflowX: "auto", overflowY: "auto", maxHeight: "calc(100% - 64px)" }}>
+    <Box
+      sx={{ width: "100%", overflowX: "auto", overflowY: "auto", maxHeight: "calc(100% - 64px)" }}
+    >
       <Box
         sx={{
           display: "grid",
@@ -171,7 +171,11 @@ function HeatmapGrid({
       >
         {/* 左上の説明ラベル */}
         <Box sx={{ display: "flex", alignItems: "flex-end", pb: 0.5, pr: 1 }}>
-          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, fontSize: "0.65rem" }}>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ fontWeight: 600, fontSize: "0.65rem" }}
+          >
             {t("dashboard.heatmap.oppLead", "相手 ↓")} / {t("dashboard.heatmap.myLead", "自分 →")}
           </Typography>
         </Box>
@@ -212,9 +216,7 @@ function HeatmapGrid({
           const confidence = getConfidence(row.totalSamples);
           return (
             <Fragment key={row.oppLead}>
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 0.5, pr: 0.5, minWidth: 0 }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, pr: 0.5, minWidth: 0 }}>
                 <Tooltip title={row.oppLead} placement="right" arrow>
                   <Typography
                     sx={{
@@ -234,7 +236,12 @@ function HeatmapGrid({
                   label={row.totalSamples}
                   size="small"
                   color={CONFIDENCE_COLOR[confidence]}
-                  sx={{ height: 16, fontSize: "0.6rem", flexShrink: 0, "& .MuiChip-label": { px: 0.5 } }}
+                  sx={{
+                    height: 16,
+                    fontSize: "0.6rem",
+                    flexShrink: 0,
+                    "& .MuiChip-label": { px: 0.5 },
+                  }}
                 />
               </Box>
 
@@ -257,11 +264,7 @@ function HeatmapGrid({
 // メインコンポーネント
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function HeatmapVisualizer({
-  data,
-}: {
-  readonly data: readonly Record<string, unknown>[];
-}) {
+export function HeatmapVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
   const { t } = useTranslation();
   const [mode, setMode] = useState<"singles" | "doubles">("doubles");
 
@@ -301,7 +304,9 @@ export function HeatmapVisualizer({
         <ToggleButtonGroup
           value={effectiveMode}
           exclusive
-          onChange={(_, v) => { if (v) setMode(v); }}
+          onChange={(_, v) => {
+            if (v) setMode(v);
+          }}
           size="small"
           sx={{ "& .MuiToggleButton-root": { px: 1.5, py: 0.25, fontSize: "0.72rem" } }}
         >
@@ -319,8 +324,12 @@ export function HeatmapVisualizer({
           <Typography variant="caption" color="text.secondary">
             {t("dashboard.heatmap.legendLow", "負け")}
           </Typography>
-          <Box sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "rgba(128,128,128,0.3)" }} />
-          <Typography variant="caption" color="text.secondary">50%</Typography>
+          <Box
+            sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "rgba(128,128,128,0.3)" }}
+          />
+          <Typography variant="caption" color="text.secondary">
+            50%
+          </Typography>
           <Box sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "hsl(130, 60%, 34%)" }} />
           <Typography variant="caption" color="text.secondary">
             {t("dashboard.heatmap.legendHigh", "勝ち")}

@@ -1,15 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import {
-  alpha,
-  Box,
-  CircularProgress,
-  Stack,
-  Typography,
-  Skeleton,
-  Button,
-} from "@mui/material";
+import { alpha, Box, CircularProgress, Stack, Typography, Skeleton, Button } from "@mui/material";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
@@ -104,7 +96,7 @@ function CustomQueryWidget({
   }, [query, transformer, transformerCode, records]);
 
   if (isLoading) return <WidgetLoading />;
-  
+
   if (error) {
     return <WidgetEmpty message={`Error: ${error}`} />;
   }
@@ -162,9 +154,14 @@ export function WidgetRenderer({
           flexDirection: "column",
         }}
       >
-        <Skeleton variant="rectangular" width="100%" height="100%" sx={{
-            ...rounded(1)
-        }} />
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height="100%"
+          sx={{
+            ...rounded(1),
+          }}
+        />
         <Stack
           spacing={2}
           sx={{
@@ -177,7 +174,7 @@ export function WidgetRenderer({
             alignItems: "center",
             bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
             backdropFilter: "blur(4px)",
-            ...rounded(1)
+            ...rounded(1),
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>

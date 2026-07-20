@@ -27,7 +27,6 @@ import { ShareButton } from "@/components/client/share/ShareButton";
 import type { TrainedPokemon } from "@/store/team/team";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter } from "@/theme/sx";
-import { rounded } from "@/utils/styles";
 
 import {
   DndContext,
@@ -45,6 +44,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import {rounded} from "@/utils/styles";
 
 // ── ソータブルなスロット行 ────────────────────────────────────────────────────
 
@@ -80,7 +80,7 @@ function SortableSlotItem({
       <Box
         sx={{
           width: "100%",
-          ...rounded(3),
+          ...rounded(1),
           border: "1px solid",
           borderColor: isActive
             ? theme.palette.primary.main
@@ -324,10 +324,12 @@ export default function TeamOverview({
     <SurfaceCard
       raised
       sx={{
-        p: 3,
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        ...rounded(1),
+        py: 3,
+        px: 3,
       }}
     >
       {/* モバイル用ヘッダー */}

@@ -148,7 +148,7 @@ export default function TeamSlotDetail({
           updateSlot(slot, pokemon);
           setDialogOpen(false);
         }}
-        excludedIdentifiers={team.members.map(m => m?.identifier).filter(Boolean) as string[]}
+        excludedIdentifiers={team.members.map((m) => m?.identifier).filter(Boolean) as string[]}
       />
 
       <Snackbar

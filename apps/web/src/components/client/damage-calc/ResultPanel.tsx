@@ -425,12 +425,12 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
               key={i}
               variant="caption"
               sx={{
-                  bgcolor: "action.selected",
+                bgcolor: "action.selected",
                 fontSize: 10,
                 lineHeight: 1.5,
                 whiteSpace: "nowrap",
-                  ...rounded(1)
-            }}
+                ...rounded(1),
+              }}
             >
               {tag}
             </Typography>
@@ -496,13 +496,13 @@ function HpBar({
       <Tooltip title={`${minPercent.toFixed(1)}%〜${maxPercent.toFixed(1)}%`} placement="top" arrow>
         <Box
           sx={{
-              position: "relative",
+            position: "relative",
             height: 20,
             bgcolor: barBg,
             overflow: "hidden",
             cursor: "default",
-              ...rounded(10)
-        }}
+            ...rounded(10),
+          }}
         >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}
           {stripeWidth > 0 &&

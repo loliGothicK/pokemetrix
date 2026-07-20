@@ -80,7 +80,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                 aria-label={t(`pokemon.${member.identifier}.name`)}
                 aria-pressed={state !== "unused"}
                 sx={{
-                    position: "relative",
+                  position: "relative",
                   border: "2px solid",
                   borderColor: color ?? theme.palette.divider,
                   bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
@@ -90,7 +90,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                   cursor: "pointer",
                   transition: "border-color 0.15s, background-color 0.15s",
                   opacity: state === "unused" ? 0.7 : 1,
-                    ...rounded(2)
+                  ...rounded(2),
                 }}
               >
                 <Image

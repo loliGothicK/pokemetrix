@@ -440,7 +440,16 @@ export default function DashboardPage() {
         </Box>
       ) : (
         <Box sx={{ flexGrow: 1, display: "flex", overflow: "hidden" }}>
-          <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 }, pt: { xs: 1, md: 1.5 }, overflowY: "auto", display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              p: { xs: 2, md: 3 },
+              pt: { xs: 1, md: 1.5 },
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {!activeDashboard ? (
               <EmptyState message={t("dashboard.noDashboards")} />
             ) : layout.length === 0 ? (

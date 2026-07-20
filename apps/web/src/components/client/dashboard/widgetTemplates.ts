@@ -34,8 +34,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.resultBreakdownDesc",
     visualization: "table",
     transformer: "none",
-    query:
-      "SELECT result, COUNT(*) count FROM records GROUP BY result ORDER BY count DESC",
+    query: "SELECT result, COUNT(*) count FROM records GROUP BY result ORDER BY count DESC",
   },
   {
     id: "leadsAnalysis",
@@ -67,8 +66,7 @@ export const WIDGET_TEMPLATES: readonly WidgetTemplate[] = [
     descriptionKey: "dashboard.template.ratingHistoryDesc",
     visualization: "table",
     transformer: "ratingDiff",
-    query:
-      "SELECT playedAt, result, rating FROM records ORDER BY playedAt ASC LIMIT 30",
+    query: "SELECT playedAt, result, rating FROM records ORDER BY playedAt ASC LIMIT 30",
   },
   {
     id: "maxRating",

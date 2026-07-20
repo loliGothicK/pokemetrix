@@ -1,10 +1,6 @@
 import { z } from "zod";
 import type { TrainedPokemon } from "@/store/team/team";
-import type {
-  BattleFormat,
-  BattleResult,
-  OpponentSelectionRole,
-} from "@/lib/db/schema";
+import type { BattleFormat, BattleResult, OpponentSelectionRole } from "@/lib/db/schema";
 
 export type { BattleFormat, BattleResult, OpponentSelectionRole };
 

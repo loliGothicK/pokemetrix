@@ -287,12 +287,12 @@ export function MoveSelectionDrawer({
                         label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
                         color={move.priority > 0 ? "error" : "info"}
                         sx={{
-                            fontWeight: 900,
+                          fontWeight: 900,
                           fontSize: "0.8rem",
                           height: 18,
                           boxShadow: theme.shadows[1],
                           flexShrink: 0,
-                            ...rounded(1)
+                          ...rounded(1),
                         }}
                       />
                     )}
@@ -449,12 +449,12 @@ export function MoveSelectionDrawer({
                           label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
                           color={move.priority > 0 ? "error" : "info"}
                           sx={{
-                              fontWeight: 900,
+                            fontWeight: 900,
                             fontSize: "0.8rem",
                             height: 18,
                             boxShadow: theme.shadows[1],
-                              ...rounded(1)
-                        }}
+                            ...rounded(1),
+                          }}
                         />
                       )}
                       {move.classifications?.map((clazz: string) => (

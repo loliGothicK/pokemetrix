@@ -1,10 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import {
-  Box,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 export { HeatmapVisualizer } from "./HeatmapVisualizer";
@@ -32,10 +29,10 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
   // DataGrid requires a unique 'id' for each row
   const rows = useMemo(() => {
     return data.map((row, index) => {
-      if (!row || typeof row !== 'object') {
+      if (!row || typeof row !== "object") {
         return { id: index };
       }
-      const hasValidId = 'id' in row && (typeof row.id === 'string' || typeof row.id === 'number');
+      const hasValidId = "id" in row && (typeof row.id === "string" || typeof row.id === "number");
       return hasValidId ? row : { ...row, id: index };
     });
   }, [data]);
@@ -78,7 +75,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
   const keys = Object.keys(firstRow ?? {});
   const mainKey = keys[0];
   const mainValue = mainKey ? firstRow[mainKey] : "—";
-  
+
   const subKeys = keys.slice(1);
 
   return (
@@ -93,9 +90,9 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
       }}
     >
       <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <Typography 
-          variant="h3" 
-          sx={{ 
+        <Typography
+          variant="h3"
+          sx={{
             fontWeight: 800,
             fontSize: "clamp(2rem, 15cqw, 3rem)",
           }}
@@ -105,7 +102,18 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
       </Box>
 
       {subKeys.length > 0 && (
-        <Box sx={{ display: "flex", flexWrap: "wrap", columnGap: 1.5, rowGap: 0.5, mt: 1.5, pt: 1.5, borderTop: "1px solid", borderColor: "divider" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            columnGap: 1.5,
+            rowGap: 0.5,
+            mt: 1.5,
+            pt: 1.5,
+            borderTop: "1px solid",
+            borderColor: "divider",
+          }}
+        >
           {subKeys.map((k) => (
             <Box key={k} sx={{ display: "flex", alignItems: "baseline", gap: 0.5 }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>

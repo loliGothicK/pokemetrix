@@ -65,7 +65,7 @@ export async function POST(request: Request) {
         .withRuleMark(input.ruleMark ?? null)
         .withStartedAt(input.startedAt ?? null)
         .withEndedAt(input.endedAt ?? null);
-        
+
       if (input.id) factory.withId(input.id);
 
       const resultTask = createSeason(factory.build());

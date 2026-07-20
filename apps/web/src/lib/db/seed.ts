@@ -5,11 +5,29 @@ import path from "path";
 import { ulid } from "ulid";
 import { eq } from "drizzle-orm";
 import * as schema from "./schema";
-import type { TrainedPokemon } from "../../store/team/team";
-import { WIDGET_TEMPLATES } from "../../components/client/dashboard/widgetTemplates";
+import type { TrainedPokemon } from "@/store/team/team";
+import { WIDGET_TEMPLATES } from "@/components/client/dashboard/widgetTemplates";
 
-const GIMMICK_TAGS = ["trick-room", "tailwind", "weather-rain", "weather-sun", "weather-snow", "weather-sand", "redirection", "perish-trap"];
-const ROLE_TAGS = ["speed-control", "follow-me", "fake-out", "intimidate", "cycle", "sleep-control", "mega-focused", "standard"];
+const GIMMICK_TAGS = [
+  "trick-room",
+  "tailwind",
+  "weather-rain",
+  "weather-sun",
+  "weather-snow",
+  "weather-sand",
+  "redirection",
+  "perish-trap",
+];
+const ROLE_TAGS = [
+  "speed-control",
+  "follow-me",
+  "fake-out",
+  "intimidate",
+  "cycle",
+  "sleep-control",
+  "mega-focused",
+  "standard",
+];
 
 // Load .env.local manually
 try {
@@ -18,15 +36,15 @@ try {
     const match = line.match(/^([^=]+)=(.*)$/);
     if (match) {
       let key = match[1].trim();
-      let val = match[2].trim().replace(/^['"]|['"]$/g, "");
-      process.env[key] = val;
+      process.env[key] = match[2].trim().replace(/^['"]|['"]$/g, "");
     }
   }
-} catch  {
+} catch {
   console.log("No .env.local found");
 }
 
-const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@127.0.0.1:54322/postgres";
+const connectionString =
+  process.env.DATABASE_URL || "postgresql://postgres:postgres@127.0.0.1:54322/postgres";
 const client = postgres(connectionString);
 const db = drizzle(client, { schema });
 
@@ -34,23 +52,24 @@ async function seed() {
   console.log("Seeding database...");
 
   try {
-    // Get the first user from auth.users (Supabase)
-    let users = await client`SELECT id FROM auth.users LIMIT 1`;
-    
+    // 登録されているユーザーを動的に取得する（DBリセット等でIDが変わる可能性があるため）
+    const users =
+      await client`SELECT id FROM auth.users WHERE email = 'loligothick@gmail.com' LIMIT 1`;
     if (users.length === 0) {
-      console.log("No users found in auth.users. Creating a default seed user...");
-      const dummyId = "00000000-0000-0000-0000-000000000001";
-      await client`
-        INSERT INTO auth.users (id, instance_id, aud, role, email, encrypted_password, email_confirmed_at, recovery_sent_at, last_sign_in_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token) 
-        VALUES (${dummyId}, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'seed@example.com', '', now(), now(), now(), '{}', '{}', now(), now(), '', '', '', '')
-      `;
-      users = await client`SELECT id FROM auth.users LIMIT 1`;
+      console.error(
+        "エラー: 'loligothick@gmail.com' のユーザーが見つかりません。先にアプリ画面からサインアップしてください。",
+      );
+      process.exit(1);
     }
     const userId = users[0].id;
     console.log(`Using userId: ${userId}`);
 
     // Check if user already has data to avoid duplicating
-    const existingSeasons = await db.select().from(schema.seasons).where(eq(schema.seasons.userId, userId)).limit(1);
+    const existingSeasons = await db
+      .select({ id: schema.seasons.id })
+      .from(schema.seasons)
+      .where(eq(schema.seasons.userId, userId))
+      .limit(1);
     if (existingSeasons.length > 0 && !process.argv.includes("--dry-run")) {
       if (process.argv.includes("--force")) {
         console.log("Force flag detected. Deleting existing user data...");
@@ -70,7 +89,6 @@ async function seed() {
 
     try {
       await db.transaction(async (tx) => {
-
         // --- Season 1 (Singles) ---
         const singlesSeasonId = ulid();
         await tx.insert(schema.seasons).values({
@@ -106,108 +124,158 @@ async function seed() {
         });
         console.log(`Created team: ${teamId}`);
 
-    const myTeamData = [
-      { slug: "pikachu", item: 213, ability: 31, moves: [85, 87, 521, 182], evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 } },
-      { slug: "charizard", item: 247, ability: 66, moves: [53, 403, 416, 182], evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 } },
-      { slug: "venusaur", item: 247, ability: 34, moves: [188, 202, 414, 182], evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 } },
-      { slug: "blastoise", item: 211, ability: 67, moves: [56, 406, 430, 182], evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 } },
-      { slug: "gengar", item: 247, ability: 130, moves: [247, 188, 416, 182], evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 } },
-      { slug: "snorlax", item: 211, ability: 82, moves: [34, 89, 442, 182], evs: { hp: 32, atk: 32, def: 0, spa: 0, spd: 0, spe: 0 } }
-    ] as const;
+        const myTeamData = [
+          {
+            slug: "pikachu",
+            item: 213,
+            ability: 31,
+            moves: [85, 87, 521, 182],
+            evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+          },
+          {
+            slug: "charizard",
+            item: 247,
+            ability: 66,
+            moves: [53, 403, 416, 182],
+            evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+          },
+          {
+            slug: "venusaur",
+            item: 247,
+            ability: 34,
+            moves: [188, 202, 414, 182],
+            evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 },
+          },
+          {
+            slug: "blastoise",
+            item: 211,
+            ability: 67,
+            moves: [56, 406, 430, 182],
+            evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 },
+          },
+          {
+            slug: "gengar",
+            item: 247,
+            ability: 130,
+            moves: [247, 188, 416, 182],
+            evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+          },
+          {
+            slug: "snorlax",
+            item: 211,
+            ability: 82,
+            moves: [34, 89, 442, 182],
+            evs: { hp: 32, atk: 32, def: 0, spa: 0, spd: 0, spe: 0 },
+          },
+        ] as const;
 
-    const myTeam: TrainedPokemon[] = myTeamData.map((data) => ({ 
-      boxId: ulid(),
-      identifier: data.slug,
-      slug: data.slug, 
-      item: data.item, 
-      ability: data.ability, 
-      gender: { fixed: false },
-      nature: {},
-      moves: data.moves as [number, number, number, number],
-      evs: data.evs as any
-    }));
+        const myTeam: TrainedPokemon[] = myTeamData.map((data) => ({
+          boxId: ulid(),
+          identifier: data.slug,
+          slug: data.slug,
+          item: data.item,
+          ability: data.ability,
+          gender: { fixed: false },
+          nature: {},
+          moves: data.moves as [number, number, number, number],
+          evs: data.evs as any,
+        }));
 
-    const commonOpponents = [
-      "charizard", "blastoise", "venusaur", "pikachu", "arcanine",
-      "absol", "glalie", "torterra", "infernape", "empoleon",
-      "luxray", "roserade", "rampardos", "bastiodon", "gengar"
-    ];
+        const commonOpponents = [
+          "charizard",
+          "blastoise",
+          "venusaur",
+          "pikachu",
+          "arcanine",
+          "absol",
+          "glalie",
+          "torterra",
+          "infernape",
+          "empoleon",
+          "luxray",
+          "roserade",
+          "rampardos",
+          "bastiodon",
+          "gengar",
+        ];
 
-    let currentRating = 1500;
-    
-    // Generate 150 records for Singles and 150 for Doubles
-    const numRecordsPerSeason = 150;
-    
-    for (const format of ["singles", "doubles"]) {
-      const seasonId = format === "singles" ? singlesSeasonId : doublesSeasonId;
-      for (let i = 0; i < numRecordsPerSeason; i++) {
-        const result = Math.random() > 0.45 ? "win" : "loss"; // ~55% win rate
-        const recordId = ulid();
-        
-        if (result === "win") currentRating += Math.floor(Math.random() * 15) + 10;
-        else currentRating -= Math.floor(Math.random() * 15) + 10;
-        
-        const playedAt = new Date();
-        playedAt.setDate(playedAt.getDate() - Math.floor(Math.random() * 30)); // random within last 30 days
+        let currentRating = 1500;
 
-        // Randomize my selection (Singles = 3, Doubles = 4)
-        const mySelectionCount = format === "singles" ? 3 : 4;
-        const mySel: number[] = [];
-        while(mySel.length < mySelectionCount) {
-          const r = Math.floor(Math.random() * 6);
-          if(!mySel.includes(r)) mySel.push(r);
-        }
+        // Generate 150 records for Singles and 150 for Doubles
+        const numRecordsPerSeason = 150;
 
-        // Randomize tags
-        const tags: string[] = [];
-        if (Math.random() > 0.5) tags.push(GIMMICK_TAGS[Math.floor(Math.random() * GIMMICK_TAGS.length)]);
-        if (Math.random() > 0.3) tags.push(ROLE_TAGS[Math.floor(Math.random() * ROLE_TAGS.length)]);
-        if (Math.random() > 0.8) tags.push("カスタムタグ");
+        for (const format of ["singles", "doubles"]) {
+          const seasonId = format === "singles" ? singlesSeasonId : doublesSeasonId;
+          for (let i = 0; i < numRecordsPerSeason; i++) {
+            const result = Math.random() > 0.45 ? "win" : "loss"; // ~55% win rate
+            const recordId = ulid();
 
-        await tx.insert(schema.battleRecords).values({
-          id: recordId,
-          userId,
-          seasonId,
-          teamId,
-          result,
-          myTeam,
-          mySelection: mySel,
-          rating: currentRating,
-          notes: `Seed battle ${i + 1} (${format})`,
-          playedAt,
-          tags,
-        });
+            if (result === "win") currentRating += Math.floor(Math.random() * 15) + 10;
+            else currentRating -= Math.floor(Math.random() * 15) + 10;
 
-        // Random opponent party of 6
-        const oppTeam: string[] = [];
-        while(oppTeam.length < 6) {
-          const r = commonOpponents[Math.floor(Math.random() * commonOpponents.length)];
-          if(!oppTeam.includes(r)) oppTeam.push(r);
-        }
-        
-        // Insert opponents
-        await tx.insert(schema.battleRecordOpponents).values(
-          oppTeam.map((slug, index) => {
-            let role: "lead" | "back" | null = null;
-            if (format === "singles") {
-              if (index === 0) role = "lead";
-              else if (index < 3) role = "back";
-            } else {
-              if (index < 2) role = "lead";
-              else if (index < 4) role = "back";
+            const playedAt = new Date();
+            playedAt.setDate(playedAt.getDate() - Math.floor(Math.random() * 30)); // random within last 30 days
+
+            // Randomize my selection (Singles = 3, Doubles = 4)
+            const mySelectionCount = format === "singles" ? 3 : 4;
+            const mySel: number[] = [];
+            while (mySel.length < mySelectionCount) {
+              const r = Math.floor(Math.random() * 6);
+              if (!mySel.includes(r)) mySel.push(r);
             }
-            return {
-              battleRecordId: recordId,
-              slotIndex: index,
-              pokemonSlug: slug,
-              selectionRole: role,
-            };
-          }) as any
-        );
-      }
-    }
 
-    console.log(`Created ${numRecordsPerSeason * 2} battle records across both formats.`);
+            // Randomize tags
+            const tags: string[] = [];
+            if (Math.random() > 0.5)
+              tags.push(GIMMICK_TAGS[Math.floor(Math.random() * GIMMICK_TAGS.length)]);
+            if (Math.random() > 0.3)
+              tags.push(ROLE_TAGS[Math.floor(Math.random() * ROLE_TAGS.length)]);
+            if (Math.random() > 0.8) tags.push("カスタムタグ");
+
+            await tx.insert(schema.battleRecords).values({
+              id: recordId,
+              userId,
+              seasonId,
+              teamId,
+              result,
+              myTeam,
+              mySelection: mySel,
+              rating: currentRating,
+              notes: `Seed battle ${i + 1} (${format})`,
+              playedAt,
+              tags,
+            });
+
+            // Random opponent party of 6
+            const oppTeam: string[] = [];
+            while (oppTeam.length < 6) {
+              const r = commonOpponents[Math.floor(Math.random() * commonOpponents.length)];
+              if (!oppTeam.includes(r)) oppTeam.push(r);
+            }
+
+            // Insert opponents
+            await tx.insert(schema.battleRecordOpponents).values(
+              oppTeam.map((slug, index) => {
+                let role: "lead" | "back" | null = null;
+                if (format === "singles") {
+                  if (index === 0) role = "lead";
+                  else if (index < 3) role = "back";
+                } else {
+                  if (index < 2) role = "lead";
+                  else if (index < 4) role = "back";
+                }
+                return {
+                  battleRecordId: recordId,
+                  slotIndex: index,
+                  pokemonSlug: slug,
+                  selectionRole: role,
+                };
+              }) as any,
+            );
+          }
+        }
+
+        console.log(`Created ${numRecordsPerSeason * 2} battle records across both formats.`);
 
         // Create 6 box pokemon and link to team
         const boxPokemonIds = [];
@@ -232,14 +300,14 @@ async function seed() {
             },
           });
         }
-        
+
         // Create team members
         await tx.insert(schema.teamMembers).values(
           boxPokemonIds.map((boxId, index) => ({
             teamId,
             slotIndex: index,
             boxPokemonId: boxId,
-          }))
+          })),
         );
         console.log(`Created 6 box pokemon and linked to team.`);
 
@@ -249,7 +317,7 @@ async function seed() {
           const cols = 3;
           const col = idx % cols;
           const row = Math.floor(idx / cols);
-          
+
           return {
             id: ulid(),
             templateId: tmpl.id,
@@ -278,7 +346,7 @@ async function seed() {
               label: "Season",
               type: "season",
               defaultSeasonId: singlesSeasonId,
-            }
+            },
           ],
           layout,
         });
@@ -297,7 +365,6 @@ async function seed() {
         throw err;
       }
     }
-
   } catch (err) {
     console.error("Seeding failed:", err);
   } finally {

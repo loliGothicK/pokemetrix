@@ -21,15 +21,15 @@ export function BlogList({ posts }: { readonly posts: readonly BlogListItem[] })
           component={Link}
           href={`/blog/${post.slug}`}
           sx={{
-              display: "block",
+            display: "block",
             textDecoration: "none",
             color: "inherit",
             border: "1px solid",
             borderColor: "divider",
             transition: "border-color 0.2s ease",
             "&:hover": { borderColor: "primary.main" },
-              ...rounded(3)
-        }}
+            ...rounded(3),
+          }}
         >
           <Stack spacing={1}>
             <Typography variant="overline" color="text.secondary">

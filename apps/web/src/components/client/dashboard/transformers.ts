@@ -73,8 +73,7 @@ function calcRatingDiff(rows: Record<string, unknown>[]): Record<string, unknown
   return sorted.map((row, i) => {
     const prev = i > 0 ? (sorted[i - 1].rating as number | null | undefined) : null;
     const curr = row.rating as number | null | undefined;
-    const diff =
-      curr != null && prev != null ? curr - prev : null;
+    const diff = curr != null && prev != null ? curr - prev : null;
     return {
       ...row,
       diff: diff != null ? (diff >= 0 ? `+${diff}` : String(diff)) : "—",
@@ -100,7 +99,7 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
     }
 
     const opponents = Array.isArray(row.opponents) ? row.opponents : [];
-    
+
     // opponentのleadを抽出
     const oppLeads = opponents
       .filter((o: any) => o && o.selectionRole === "lead")
@@ -123,7 +122,7 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
 
     const leadCount = isDoubles ? 2 : 1;
     const myLeadIndices = row.mySelection.slice(0, leadCount);
-    
+
     const myLeads = myLeadIndices
       .map((idx: any) => {
         const p = (row.myTeam as any[])[idx as number];
@@ -132,7 +131,7 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
       .filter(Boolean) as string[];
 
     if (myLeads.length === 0) continue;
-    
+
     // ダブル等の場合、順序を一定にする
     myLeads.sort();
 
@@ -197,19 +196,19 @@ export interface HeatmapData {
 function detectFormat(row: Record<string, unknown>): "singles" | "doubles" | null {
   if (row.format === "singles") return "singles";
   if (row.format === "doubles") return "doubles";
-  
+
   // 推測: mySelection が 4体以上ならダブル、3体以下ならシングル
   if (Array.isArray(row.mySelection) && row.mySelection.length > 0) {
     return row.mySelection.length >= 4 ? "doubles" : "singles";
   }
-  
+
   // 推測: 相手の選出リードが 2体以上ならダブル、1体ならシングル
   if (Array.isArray(row.opponents)) {
     const oppLeads = row.opponents.filter((o: any) => o && o.selectionRole === "lead");
     if (oppLeads.length >= 2) return "doubles";
     if (oppLeads.length === 1) return "singles";
   }
-  
+
   return null;
 }
 
@@ -217,10 +216,7 @@ function detectFormat(row: Record<string, unknown>): "singles" | "doubles" | nul
 // ヘルパー: マトリクスを構築する
 // ─────────────────────────────────────────────────────────────────────────────
 
-function buildMatrix(
-  rows: Record<string, unknown>[],
-  leadCount: number,
-): HeatmapMatrix {
+function buildMatrix(rows: Record<string, unknown>[], leadCount: number): HeatmapMatrix {
   const myLeadCounts = new Map<string, number>();
   /** oppLeadKey -> myLeadKey -> cell */
   const matrix = new Map<string, Map<string, HeatmapCell>>();
@@ -231,7 +227,8 @@ function buildMatrix(
       !Array.isArray(row.mySelection) ||
       row.mySelection.length === 0 ||
       typeof row.result !== "string"
-    ) continue;
+    )
+      continue;
 
     const opponents = Array.isArray(row.opponents) ? row.opponents : [];
     const oppLeads = opponents
@@ -272,7 +269,7 @@ function buildMatrix(
   const topMyLeads = Array.from(myLeadCounts.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6)
-    .map(e => e[0]);
+    .map((e) => e[0]);
 
   // 縦軸: 相手先発を遭遇頻度順にソート
   const matrixRows: HeatmapRow[] = Array.from(matrix.entries())
@@ -303,8 +300,8 @@ function buildMatrix(
  * シングルとダブルのレコードを完全に分離して計算する。
  */
 function calcMatchupPivot(rows: Record<string, unknown>[]): Record<string, unknown>[] {
-  const singlesRows = rows.filter(r => detectFormat(r) === "singles");
-  const doublesRows = rows.filter(r => detectFormat(r) === "doubles");
+  const singlesRows = rows.filter((r) => detectFormat(r) === "singles");
+  const doublesRows = rows.filter((r) => detectFormat(r) === "doubles");
 
   const result: HeatmapData = {
     _type: "heatmap",
@@ -316,32 +313,33 @@ function calcMatchupPivot(rows: Record<string, unknown>[]): Record<string, unkno
   return [result as unknown as Record<string, unknown>];
 }
 
-
-
 /**
  * 相手のポケモン vs 勝敗のブレイクダウン
  */
 function calcWinLossCauses(rows: Record<string, unknown>[]): Record<string, unknown>[] {
-  const stats = new Map<string, { total: number; winLead: number; winBack: number; lossLead: number; lossBack: number }>();
+  const stats = new Map<
+    string,
+    { total: number; winLead: number; winBack: number; lossLead: number; lossBack: number }
+  >();
 
   for (const row of rows) {
     if (typeof row.result !== "string") continue;
-    
+
     const opponents = Array.isArray(row.opponents) ? row.opponents : [];
     const result = row.result;
-    
+
     for (const o of opponents) {
       if (!o || typeof o !== "object" || !("pokemonSlug" in o)) continue;
       const slug = String(o.pokemonSlug);
       const role = String(o.selectionRole);
-      
+
       if (!stats.has(slug)) {
         stats.set(slug, { total: 0, winLead: 0, winBack: 0, lossLead: 0, lossBack: 0 });
       }
-      
+
       const stat = stats.get(slug)!;
       stat.total += 1;
-      
+
       if (result === "win") {
         if (role === "lead") stat.winLead += 1;
         else stat.winBack += 1;
@@ -358,7 +356,7 @@ function calcWinLossCauses(rows: Record<string, unknown>[]): Record<string, unkn
     .map(([slug, data]) => {
       const winMatches = data.winLead + data.winBack;
       const lossMatches = data.lossLead + data.lossBack;
-      
+
       return {
         pokemon: slug,
         total: data.total,
@@ -448,22 +446,22 @@ export function applyTransformer(
       // Handles: export default function transform(rows: Rows) -> return function transform(rows)
       code = code.replace(
         /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)/,
-        "return function$1($2)"
+        "return function$1($2)",
       );
 
       // Handles: export default (rows: Rows) => -> return (rows) =>
       code = code.replace(
         /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>[\]]+)?\s*\)\s*=>/,
-        "return ($1) =>"
+        "return ($1) =>",
       );
-      
+
       // Fallback for just export default without inline parameters (e.g. export default transform)
       code = code.replace(/export\s+default\s+/, "return ");
-      
+
       // eslint-disable-next-line no-new-func
       const getTransformer = new Function(code);
       const fn = getTransformer();
-      
+
       if (typeof fn !== "function") {
         throw new Error("Custom transformer must export a default function");
       }
@@ -487,6 +485,8 @@ export function applyTransformer(
   try {
     return preset.fn(rows);
   } catch (e) {
-    throw new Error(`Preset "${transformerId}" Error: ${e instanceof Error ? e.message : String(e)}`);
+    throw new Error(
+      `Preset "${transformerId}" Error: ${e instanceof Error ? e.message : String(e)}`,
+    );
   }
 }

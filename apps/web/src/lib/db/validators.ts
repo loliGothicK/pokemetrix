@@ -8,9 +8,9 @@ const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "expected YYYY-MM-DD"
 const handleZodError = <T>(parsed: any, name: string): ValidateResult<T> => {
   if (!parsed.success) {
     return either.left(
-      parsed.error.issues.map((e: ZodIssue) => 
-        anyhow(`${name} validation error: ${e.path.join(".")} - ${e.message}`, undefined)
-      )
+      parsed.error.issues.map((e: ZodIssue) =>
+        anyhow(`${name} validation error: ${e.path.join(".")} - ${e.message}`, undefined),
+      ),
     );
   }
   return either.right(parsed.data);
@@ -31,7 +31,9 @@ export const insertSeasonSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export const validateInsertSeason = (data: unknown): ValidateResult<z.infer<typeof insertSeasonSchema>> =>
+export const validateInsertSeason = (
+  data: unknown,
+): ValidateResult<z.infer<typeof insertSeasonSchema>> =>
   handleZodError(insertSeasonSchema.safeParse(data), "Season");
 
 // -----------------------------------------------------------------------------
@@ -45,7 +47,9 @@ export const insertTeamSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export const validateInsertTeam = (data: unknown): ValidateResult<z.infer<typeof insertTeamSchema>> =>
+export const validateInsertTeam = (
+  data: unknown,
+): ValidateResult<z.infer<typeof insertTeamSchema>> =>
   handleZodError(insertTeamSchema.safeParse(data), "Team");
 
 // -----------------------------------------------------------------------------
@@ -61,7 +65,9 @@ export const insertBoxPokemonSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export const validateInsertBoxPokemon = (data: unknown): ValidateResult<z.infer<typeof insertBoxPokemonSchema>> =>
+export const validateInsertBoxPokemon = (
+  data: unknown,
+): ValidateResult<z.infer<typeof insertBoxPokemonSchema>> =>
   handleZodError(insertBoxPokemonSchema.safeParse(data), "BoxPokemon");
 
 // -----------------------------------------------------------------------------
@@ -82,7 +88,9 @@ export const insertBattleRecordSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export const validateInsertBattleRecord = (data: unknown): ValidateResult<z.infer<typeof insertBattleRecordSchema>> =>
+export const validateInsertBattleRecord = (
+  data: unknown,
+): ValidateResult<z.infer<typeof insertBattleRecordSchema>> =>
   handleZodError(insertBattleRecordSchema.safeParse(data), "BattleRecord");
 
 // -----------------------------------------------------------------------------
@@ -99,5 +107,7 @@ export const insertDashboardSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export const validateInsertDashboard = (data: unknown): ValidateResult<z.infer<typeof insertDashboardSchema>> =>
+export const validateInsertDashboard = (
+  data: unknown,
+): ValidateResult<z.infer<typeof insertDashboardSchema>> =>
   handleZodError(insertDashboardSchema.safeParse(data), "Dashboard");

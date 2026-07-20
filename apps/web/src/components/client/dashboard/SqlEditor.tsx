@@ -75,9 +75,9 @@ export function SqlEditor({
         declare const rows: Rows;
       `;
       const libUri = "ts:filename/transformer.d.ts";
-      
+
       const disposable = defaults.addExtraLib(libSource, libUri);
-      
+
       return () => {
         disposable.dispose();
       };
@@ -100,7 +100,9 @@ export function SqlEditor({
         value={value}
         onChange={(val) => onChange(val || "")}
         loading={
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}
+          >
             <CircularProgress size={24} />
           </Box>
         }

@@ -132,7 +132,7 @@ export function ShareButton() {
           {/* showStats トグル */}
           <Box
             sx={{
-                display: "flex",
+              display: "flex",
               alignItems: "center",
               gap: 1.5,
               border: "1px solid",
@@ -142,7 +142,7 @@ export function ShareButton() {
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",
-                ...rounded(2)
+              ...rounded(2),
             }}
             onClick={() => setShowStats((v) => !v)}
           >

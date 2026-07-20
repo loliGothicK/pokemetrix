@@ -140,7 +140,7 @@ const StyledMenu = styled((props: MenuProps) => (
   />
 ))(({ theme }) => ({
   "& .MuiPaper-root": {
-      marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1),
     minWidth: 180,
     color: "rgb(55, 65, 81)",
     boxShadow:
@@ -164,8 +164,8 @@ const StyledMenu = styled((props: MenuProps) => (
     ...theme.applyStyles("dark", {
       color: theme.palette.grey[300],
     }),
-      ...rounded(6)
-},
+    ...rounded(6),
+  },
 }));
 
 function ImportMenu({
@@ -356,7 +356,7 @@ function MobileTeamList({
             onClick={onCreateTeam}
             fullWidth
             sx={{
-                ...rounded(3)
+              ...rounded(3),
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -394,7 +394,7 @@ function MobileTeamList({
             onClick={onCreateTeam}
             disableElevation
             sx={{
-                ...rounded(2)
+              ...rounded(2),
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -422,15 +422,15 @@ function MobileTeamList({
           >
             <Box
               sx={{
-                  width: 44,
+                width: 44,
                 height: 44,
                 bgcolor: (theme) => alpha(theme.palette.primary.main, 0.1),
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
-                  ...rounded(2)
-            }}
+                ...rounded(2),
+              }}
             >
               <WorkspacesIcon sx={{ color: "primary.main", fontSize: 22 }} />
             </Box>
@@ -726,11 +726,11 @@ export default function TeamBuilderPage({
                       selected={team.id === activeTeamId}
                       onClick={() => setActiveTeamId(team.id)}
                       sx={{
-                          mx: 1,
+                        mx: 1,
                         mb: 0.5,
                         "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
-                          ...rounded(2)
-                    }}
+                        ...rounded(2),
+                      }}
                     >
                       <ListItemIcon>
                         <WorkspacesIcon />

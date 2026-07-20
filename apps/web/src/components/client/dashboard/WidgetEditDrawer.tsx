@@ -22,15 +22,9 @@ import { useTranslation } from "react-i18next";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import type {
-  DashboardVariable,
-  DashboardWidget,
-  DataSource,
-} from "@/store/dashboard/dashboard";
+import type { DashboardVariable, DashboardWidget, DataSource } from "@/store/dashboard/dashboard";
 import type { Season } from "@/store/battle-record/battleRecord";
 import { widgetTypeLabelKey } from "./WidgetCard";
-
-
 
 const DRAWER_WIDTH = 400;
 
@@ -97,7 +91,9 @@ function DataSourcePanel({
       {/* シーズン直指定 */}
       {ds.type === "season" && (
         <FormControl size="small" fullWidth>
-          <InputLabel id="ds-season-label" shrink>{t("battleRecord.season.label")}</InputLabel>
+          <InputLabel id="ds-season-label" shrink>
+            {t("battleRecord.season.label")}
+          </InputLabel>
           <Select
             labelId="ds-season-label"
             label={t("battleRecord.season.label")}

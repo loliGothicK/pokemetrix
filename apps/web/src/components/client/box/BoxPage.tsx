@@ -178,7 +178,7 @@ export default function BoxPage() {
             <Grid component="div" size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={pokemon.boxId}>
               <Paper
                 sx={{
-                    display: "flex",
+                  display: "flex",
                   alignItems: "center",
                   gap: 2,
                   bgcolor: theme.palette.background.paperRaised,
@@ -189,12 +189,12 @@ export default function BoxPage() {
                     borderColor: theme.palette.primary.main,
                     boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
                   },
-                    ...rounded(3)
+                  ...rounded(3),
                 }}
               >
                 <Box
                   sx={{
-                      width: 64,
+                    width: 64,
                     height: 64,
                     overflow: "hidden",
                     bgcolor: alpha(theme.palette.primary.main, 0.08),
@@ -203,8 +203,8 @@ export default function BoxPage() {
                     justifyContent: "center",
                     position: "relative",
                     flexShrink: 0,
-                      ...rounded(2)
-                }}
+                    ...rounded(2),
+                  }}
                 >
                   <Image
                     src={`/pokemon/${pokemon.identifier}.png`}

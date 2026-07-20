@@ -297,7 +297,7 @@ export function Training({
                     <Box
                       onClick={() => setUseForm(!useForm)}
                       sx={{
-                          position: "absolute",
+                        position: "absolute",
                         bottom: 6,
                         left: 6,
                         p: 0.5,
@@ -322,7 +322,7 @@ export function Training({
                           borderColor: theme.palette.primary.light,
                           transform: "scale(1.05)",
                         },
-                    }}
+                      }}
                     >
                       {formChangeState.type === "mega" ? (
                         <Image
@@ -860,7 +860,7 @@ export function Training({
                       <Box
                         key={stat}
                         sx={{
-                            display: "grid",
+                          display: "grid",
                           alignItems: "center",
                           columnGap: { xs: 1.5, md: 2.5 },
                           rowGap: { xs: 1, md: 0.5 },
@@ -880,7 +880,7 @@ export function Training({
                               : theme.palette.dividerSoft,
                           bgcolor: alpha(theme.palette.background.paper, 0.4),
                           transition: "border-color 0.2s, background-color 0.2s",
-                            ...rounded(2)
+                          ...rounded(2),
                         }}
                       >
                         {/* ステータス名と性格補正トグル */}
@@ -907,7 +907,7 @@ export function Training({
                                 aria-label={`${stat} +`}
                                 aria-pressed={isPlus}
                                 sx={{
-                                    display: "flex",
+                                  display: "flex",
                                   cursor: "pointer",
                                   userSelect: "none",
                                   color: isPlus ? "error.main" : "text.secondary",
@@ -918,7 +918,7 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.error.main, 0.12),
                                   },
-                                    ...rounded(1)
+                                  ...rounded(1),
                                 }}
                               >
                                 <Add
@@ -937,7 +937,7 @@ export function Training({
                                 aria-label={`${stat} -`}
                                 aria-pressed={isMinus}
                                 sx={{
-                                    display: "flex",
+                                  display: "flex",
                                   cursor: "pointer",
                                   userSelect: "none",
                                   color: isMinus ? "info.main" : "text.secondary",
@@ -948,7 +948,7 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.info.main, 0.12),
                                   },
-                                    ...rounded(1)
+                                  ...rounded(1),
                                 }}
                               >
                                 <Remove
@@ -974,10 +974,10 @@ export function Training({
                             gridArea: "slider",
                             color: "primary.main",
                             "& .MuiSlider-mark": {
-                                backgroundColor: "error.main",
+                              backgroundColor: "error.main",
                               width: 3,
                               height: 10,
-                                ...rounded(1)
+                              ...rounded(1),
                             },
                             "& .MuiSlider-markActive": {
                               backgroundColor: "error.dark",

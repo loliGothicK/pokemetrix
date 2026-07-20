@@ -62,7 +62,7 @@ function MergeRow({
       ref={setNodeRef}
       style={style}
       sx={{
-          display: "flex",
+        display: "flex",
         alignItems: "center",
         gap: 1.5,
         border: "1px solid",
@@ -71,8 +71,8 @@ function MergeRow({
         opacity: isPicked ? 1 : 0.5,
         transition: "all 0.15s ease",
         cursor: isDragging ? "grabbing" : "default",
-          ...rounded(2)
-    }}
+        ...rounded(2),
+      }}
     >
       {/* ドラッグハンドル */}
       <IconButton
@@ -182,9 +182,11 @@ export function TeamMergeDialog({
       onClose={onCancelAction}
       maxWidth="sm"
       fullWidth
-      sx={{ "& .MuiDialog-paper": {
-          ...rounded(3)
-    } }}
+      sx={{
+        "& .MuiDialog-paper": {
+          ...rounded(3),
+        },
+      }}
     >
       <DialogTitle sx={{ pb: 0.5 }}>
         <Typography variant="h6" sx={{ fontWeight: 700 }}>

@@ -5,8 +5,6 @@ import { alpha, Box, IconButton, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Resizable, type ResizeCallbackData } from "react-resizable";
@@ -49,7 +47,7 @@ const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
 ResizableWrapper.displayName = "ResizableWrapper";
 
 const ResizeHandle = React.forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { handleAxis, ...rest } = props;
+  const { ...rest } = props;
   return (
     <Box
       ref={ref}
@@ -278,7 +276,12 @@ export function WidgetCard({
             size="small"
             {...attributes}
             {...listeners}
-            sx={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "none", ml: -0.5, p: 0.25 }}
+            sx={{
+              cursor: isDragging ? "grabbing" : "grab",
+              touchAction: "none",
+              ml: -0.5,
+              p: 0.25,
+            }}
             aria-label={t("dashboard.dragToReorder")}
           >
             <DragIndicatorRoundedIcon fontSize="small" />

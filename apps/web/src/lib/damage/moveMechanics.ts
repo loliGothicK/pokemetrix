@@ -221,161 +221,186 @@ const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
 export function getMoveMechanics(identifier: string, category: MoveCategory): MoveMechanics {
   const base = DEFAULTS(category);
 
-  return match(identifier)
-    // --- Attacker HP proportional ---
-    .with(P.union("eruption", "water-spout"), () => ({ ...base, usesAttackerHp: true, computeBasePower: hpProportional }))
+  return (
+    match(identifier)
+      // --- Attacker HP proportional ---
+      .with(P.union("eruption", "water-spout"), () => ({
+        ...base,
+        usesAttackerHp: true,
+        computeBasePower: hpProportional,
+      }))
 
-    // --- Attacker HP inverse ---
-    .with(P.union("reversal", "flail"), () => ({ ...base, usesAttackerHp: true, computeBasePower: hpInverse }))
+      // --- Attacker HP inverse ---
+      .with(P.union("reversal", "flail"), () => ({
+        ...base,
+        usesAttackerHp: true,
+        computeBasePower: hpInverse,
+      }))
 
-    // --- Speed based ---
-    .with("gyro-ball", () => ({
-      ...base,
-      attackerExtraStats: ["spe"] as const,
-      defenderExtraStats: ["spe"] as const,
-      computeBasePower: gyroBall,
-    }))
-    .with("electro-ball", () => ({
-      ...base,
-      offensiveStat: "spa" as const,
-      defensiveStat: "spd" as const,
-      attackerExtraStats: ["spe"] as const,
-      defenderExtraStats: ["spe"] as const,
-      computeBasePower: electroBall,
-    }))
+      // --- Speed based ---
+      .with("gyro-ball", () => ({
+        ...base,
+        attackerExtraStats: ["spe"] as const,
+        defenderExtraStats: ["spe"] as const,
+        computeBasePower: gyroBall,
+      }))
+      .with("electro-ball", () => ({
+        ...base,
+        offensiveStat: "spa" as const,
+        defensiveStat: "spd" as const,
+        attackerExtraStats: ["spe"] as const,
+        defenderExtraStats: ["spe"] as const,
+        computeBasePower: electroBall,
+      }))
 
-    // --- Defender HP based ---
-    .with("hard-press", () => ({ ...base, computeBasePower: hardPress }))
-    .with(P.union("crush-grip", "wring-out"), () => ({ ...base, computeBasePower: crushGrip }))
+      // --- Defender HP based ---
+      .with("hard-press", () => ({ ...base, computeBasePower: hardPress }))
+      .with(P.union("crush-grip", "wring-out"), () => ({ ...base, computeBasePower: crushGrip }))
 
-    // --- Weight based ---
-    .with(P.union("low-kick", "grass-knot"), () => ({ ...base, usesWeight: true, computeBasePower: targetWeightPower }))
-    .with(P.union("heavy-slam", "heat-crash"), () => ({ ...base, usesWeight: true, computeBasePower: weightRatioPower }))
+      // --- Weight based ---
+      .with(P.union("low-kick", "grass-knot"), () => ({
+        ...base,
+        usesWeight: true,
+        computeBasePower: targetWeightPower,
+      }))
+      .with(P.union("heavy-slam", "heat-crash"), () => ({
+        ...base,
+        usesWeight: true,
+        computeBasePower: weightRatioPower,
+      }))
 
-    // --- Stat reference morphing ---
-    .with("body-press", () => ({ ...base, offensiveStat: "def" as const }))
-    .with("foul-play", () => ({ ...base, useTargetAttack: true, defenderExtraStats: ["atk"] as const }))
-    .with(P.union("psyshock", "psystrike", "secret-sword"), () => ({ ...base, defensiveStat: "def" as const }))
+      // --- Stat reference morphing ---
+      .with("body-press", () => ({ ...base, offensiveStat: "def" as const }))
+      .with("foul-play", () => ({
+        ...base,
+        useTargetAttack: true,
+        defenderExtraStats: ["atk"] as const,
+      }))
+      .with(P.union("psyshock", "psystrike", "secret-sword"), () => ({
+        ...base,
+        defensiveStat: "def" as const,
+      }))
 
-    // --- Conditional doublers (checkbox) ---
-    .with("hex", () => ({
-      ...base,
-      conditions: [{ key: "targetStatus", labelKey: "damageCalc.condTargetStatus" }],
-      bpModifiers: condDouble("targetStatus"),
-    }))
-    .with("facade", () => ({
-      ...base,
-      conditions: [{ key: "userStatus", labelKey: "damageCalc.condUserStatus" }],
-      bpModifiers: condDouble("userStatus"),
-    }))
-    .with("venoshock", () => ({
-      ...base,
-      conditions: [{ key: "targetPoisoned", labelKey: "damageCalc.condTargetPoisoned" }],
-      bpModifiers: condDouble("targetPoisoned"),
-    }))
-    .with("round", () => ({
-      ...base,
-      conditions: [{ key: "allyRound", labelKey: "damageCalc.condAllyRound" }],
-      bpModifiers: condDouble("allyRound"),
-    }))
-    .with(P.union("dragon-rush", "steamroller", "stomp", "body-slam"), () => ({
-      ...base,
-      conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
-      bpModifiers: condDouble("targetMinimized"),
-    }))
-    .with(P.union("stomping-tantrum", "temper-flare"), () => ({
-      ...base,
-      conditions: [{ key: "prevMoveFailed", labelKey: "damageCalc.condPrevMoveFailed" }],
-      bpModifiers: condDouble("prevMoveFailed"),
-    }))
-    .with("assurance", () => ({
-      ...base,
-      conditions: [{ key: "targetDamaged", labelKey: "damageCalc.condTargetDamaged" }],
-      bpModifiers: condDouble("targetDamaged"),
-    }))
-    .with("payback", () => ({
-      ...base,
-      conditions: [{ key: "movesAfterTarget", labelKey: "damageCalc.condMovesAfterTarget" }],
-      bpModifiers: condDouble("movesAfterTarget"),
-    }))
-    .with(P.union("earthquake", "magnitude"), () => ({
-      ...base,
-      conditions: [{ key: "targetUnderground", labelKey: "damageCalc.condTargetUnderground" }],
-      bpModifiers: condDouble("targetUnderground"),
-    }))
+      // --- Conditional doublers (checkbox) ---
+      .with("hex", () => ({
+        ...base,
+        conditions: [{ key: "targetStatus", labelKey: "damageCalc.condTargetStatus" }],
+        bpModifiers: condDouble("targetStatus"),
+      }))
+      .with("facade", () => ({
+        ...base,
+        conditions: [{ key: "userStatus", labelKey: "damageCalc.condUserStatus" }],
+        bpModifiers: condDouble("userStatus"),
+      }))
+      .with("venoshock", () => ({
+        ...base,
+        conditions: [{ key: "targetPoisoned", labelKey: "damageCalc.condTargetPoisoned" }],
+        bpModifiers: condDouble("targetPoisoned"),
+      }))
+      .with("round", () => ({
+        ...base,
+        conditions: [{ key: "allyRound", labelKey: "damageCalc.condAllyRound" }],
+        bpModifiers: condDouble("allyRound"),
+      }))
+      .with(P.union("dragon-rush", "steamroller", "stomp", "body-slam"), () => ({
+        ...base,
+        conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
+        bpModifiers: condDouble("targetMinimized"),
+      }))
+      .with(P.union("stomping-tantrum", "temper-flare"), () => ({
+        ...base,
+        conditions: [{ key: "prevMoveFailed", labelKey: "damageCalc.condPrevMoveFailed" }],
+        bpModifiers: condDouble("prevMoveFailed"),
+      }))
+      .with("assurance", () => ({
+        ...base,
+        conditions: [{ key: "targetDamaged", labelKey: "damageCalc.condTargetDamaged" }],
+        bpModifiers: condDouble("targetDamaged"),
+      }))
+      .with("payback", () => ({
+        ...base,
+        conditions: [{ key: "movesAfterTarget", labelKey: "damageCalc.condMovesAfterTarget" }],
+        bpModifiers: condDouble("movesAfterTarget"),
+      }))
+      .with(P.union("earthquake", "magnitude"), () => ({
+        ...base,
+        conditions: [{ key: "targetUnderground", labelKey: "damageCalc.condTargetUnderground" }],
+        bpModifiers: condDouble("targetUnderground"),
+      }))
 
-    // --- Conditional doublers / boosters (auto from field & item) ---
-    .with("knock-off", () => ({
-      ...base,
-      bpModifiers: (ctx: PowerContext) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
-    }))
-    .with("rising-voltage", () => ({
-      ...base,
-      bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
-    }))
-    .with("expanding-force", () => ({
-      ...base,
-      bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
-    }))
+      // --- Conditional doublers / boosters (auto from field & item) ---
+      .with("knock-off", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
+      }))
+      .with("rising-voltage", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
+      }))
+      .with("expanding-force", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
+      }))
 
-    // --- Type effectiveness override ---
-    .with("freeze-dry", () => ({ ...base, freezeDry: true }))
+      // --- Type effectiveness override ---
+      .with("freeze-dry", () => ({ ...base, freezeDry: true }))
 
-    // ---------------------------------------------------------------------------
-    // Multi-hit moves
-    // ---------------------------------------------------------------------------
+      // ---------------------------------------------------------------------------
+      // Multi-hit moves
+      // ---------------------------------------------------------------------------
 
-    // Fixed 2 hits
-    .with(
-      P.union(
-        "double-hit",
-        "dual-wingbeat",
-        "dual-chop",
-        "dragon-darts",
-        "gear-grind",
-        "bonemerang",
-        "double-kick",
-        "twineedle"
-      ),
-      () => ({ ...base, ...HIT2 })
-    )
+      // Fixed 2 hits
+      .with(
+        P.union(
+          "double-hit",
+          "dual-wingbeat",
+          "dual-chop",
+          "dragon-darts",
+          "gear-grind",
+          "bonemerang",
+          "double-kick",
+          "twineedle",
+        ),
+        () => ({ ...base, ...HIT2 }),
+      )
 
-    // Fixed 3 hits
-    .with("triple-kick", () => ({ ...base, ...HIT3 }))
+      // Fixed 3 hits
+      .with("triple-kick", () => ({ ...base, ...HIT3 }))
 
-    // Triple Axel: 3 hits with escalating BP
-    .with("triple-axel", () => ({
-      ...base,
-      computeBasePower: () => 120,
-      hitCount: { min: 3, max: 3 },
-      hitCountAlreadyMerged: true,
-    }))
+      // Triple Axel: 3 hits with escalating BP
+      .with("triple-axel", () => ({
+        ...base,
+        computeBasePower: () => 120,
+        hitCount: { min: 3, max: 3 },
+        hitCountAlreadyMerged: true,
+      }))
 
-    // 2–5 random hits
-    .with(
-      P.union(
-        "bone-rush",
-        "bullet-seed",
-        "icicle-spear",
-        "pin-missile",
-        "rock-blast",
-        "scale-shot",
-        "tail-slap",
-        "water-shuriken",
-        "arm-thrust",
-        "fury-attack",
-        "fury-swipes",
-        "comet-punch",
-        "spike-cannon",
-        "barrage"
-      ),
-      () => ({ ...base, ...HIT_2_5 })
-    )
+      // 2–5 random hits
+      .with(
+        P.union(
+          "bone-rush",
+          "bullet-seed",
+          "icicle-spear",
+          "pin-missile",
+          "rock-blast",
+          "scale-shot",
+          "tail-slap",
+          "water-shuriken",
+          "arm-thrust",
+          "fury-attack",
+          "fury-swipes",
+          "comet-punch",
+          "spike-cannon",
+          "barrage",
+        ),
+        () => ({ ...base, ...HIT_2_5 }),
+      )
 
-    // Population Bomb
-    .with("population-bomb", () => ({ ...base, hitCount: { min: 1, max: 10 } }))
+      // Population Bomb
+      .with("population-bomb", () => ({ ...base, hitCount: { min: 1, max: 10 } }))
 
-    .otherwise(() => base);
+      .otherwise(() => base)
+  );
 }
 
 /**

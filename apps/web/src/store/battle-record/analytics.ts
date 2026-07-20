@@ -37,8 +37,6 @@ export const tally = (records: readonly BattleRecord[]): RecordTally => {
   return withWinRate(wins, losses, draws);
 };
 
-
-
 /** 対面したポケモン1種ごとの成績 */
 export interface OpponentStat extends RecordTally {
   readonly pokemonSlug: string;

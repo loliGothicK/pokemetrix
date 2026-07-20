@@ -100,53 +100,53 @@ function VisualizeOptionsPanel({
               widget.visualization === tpl.visualization;
 
             return (
-            <Paper
-              key={tpl.id}
-              variant="outlined"
-              sx={{
-                cursor: "pointer",
-                transition: "all 0.15s",
-                borderColor: isActive ? "primary.main" : "divider",
-                bgcolor: isActive
-                  ? (theme) => alpha(theme.palette.primary.main, 0.08)
-                  : "transparent",
-                "&:hover": {
-                  borderColor: "primary.main",
-                  bgcolor: (theme) => alpha(theme.palette.primary.main, 0.04),
-                },
-                ...rounded(2),
-              }}
-              onClick={() => {
-                onChange({
-                  query: tpl.query,
-                  transformer: tpl.transformer,
-                  visualization: tpl.visualization,
-                });
-                onTemplateApplied();
-              }}
-            >
-              <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                    {t(tpl.labelKey)}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {t(tpl.descriptionKey)}
-                  </Typography>
-                </Box>
-                <Stack direction="row" spacing={0.5}>
-                  <Chip label={tpl.visualization} size="small" variant="outlined" />
-                  {tpl.transformer !== "none" && (
-                    <Chip
-                      label={t(`dashboard.transformer.${tpl.transformer}`)}
-                      size="small"
-                      color="primary"
-                      variant="outlined"
-                    />
-                  )}
+              <Paper
+                key={tpl.id}
+                variant="outlined"
+                sx={{
+                  cursor: "pointer",
+                  transition: "all 0.15s",
+                  borderColor: isActive ? "primary.main" : "divider",
+                  bgcolor: isActive
+                    ? (theme) => alpha(theme.palette.primary.main, 0.08)
+                    : "transparent",
+                  "&:hover": {
+                    borderColor: "primary.main",
+                    bgcolor: (theme) => alpha(theme.palette.primary.main, 0.04),
+                  },
+                  ...rounded(2),
+                }}
+                onClick={() => {
+                  onChange({
+                    query: tpl.query,
+                    transformer: tpl.transformer,
+                    visualization: tpl.visualization,
+                  });
+                  onTemplateApplied();
+                }}
+              >
+                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                      {t(tpl.labelKey)}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {t(tpl.descriptionKey)}
+                    </Typography>
+                  </Box>
+                  <Stack direction="row" spacing={0.5}>
+                    <Chip label={tpl.visualization} size="small" variant="outlined" />
+                    {tpl.transformer !== "none" && (
+                      <Chip
+                        label={t(`dashboard.transformer.${tpl.transformer}`)}
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                      />
+                    )}
+                  </Stack>
                 </Stack>
-              </Stack>
-            </Paper>
+              </Paper>
             );
           })}
         </Stack>
@@ -177,7 +177,9 @@ function TransformerPanel({
     if (mode === "custom") {
       onChange({
         transformer: "custom",
-        transformerCode: widget.transformerCode ?? `export default function transform(rows: Rows) {
+        transformerCode:
+          widget.transformerCode ??
+          `export default function transform(rows: Rows) {
   return rows;
 }`,
       });
@@ -187,7 +189,10 @@ function TransformerPanel({
   };
 
   return (
-    <Stack spacing={2.5} sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Stack
+      spacing={2.5}
+      sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column" }}
+    >
       {/* Mode switcher */}
       <Box sx={{ flexShrink: 0 }}>
         <RadioGroup
@@ -198,16 +203,12 @@ function TransformerPanel({
           <FormControlLabel
             value="preset"
             control={<Radio size="small" />}
-            label={
-              <Typography variant="body2">{t("dashboard.transformer.modePreset")}</Typography>
-            }
+            label={<Typography variant="body2">{t("dashboard.transformer.modePreset")}</Typography>}
           />
           <FormControlLabel
             value="custom"
             control={<Radio size="small" />}
-            label={
-              <Typography variant="body2">{t("dashboard.transformer.modeCustom")}</Typography>
-            }
+            label={<Typography variant="body2">{t("dashboard.transformer.modeCustom")}</Typography>}
           />
         </RadioGroup>
       </Box>
@@ -243,7 +244,9 @@ function TransformerPanel({
 
       {/* Custom JS editor */}
       {isCustom && (
-        <Box sx={{ flexGrow: 1, overflow: "hidden", display: "flex", flexDirection: "column", gap: 1 }}>
+        <Box
+          sx={{ flexGrow: 1, overflow: "hidden", display: "flex", flexDirection: "column", gap: 1 }}
+        >
           <Typography variant="caption" color="text.secondary">
             {t("dashboard.transformer.customHelper")}
           </Typography>
@@ -366,13 +369,13 @@ export function VisualizeEditor({
             >
               <Box
                 sx={{
-                    width: "100%",
+                  width: "100%",
                   maxWidth: 800,
                   height: "100%",
                   bgcolor: "background.paper",
                   border: "1px solid",
                   borderColor: "divider",
-                    ...rounded(3)
+                  ...rounded(3),
                 }}
               >
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 2 }}>
@@ -414,16 +417,21 @@ export function VisualizeEditor({
                 />
               </Tabs>
             </Box>
-            <Box sx={{ flexGrow: 1, overflow: "hidden", position: "relative", p: tabIndex === 1 ? 2 : 0 }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                overflow: "hidden",
+                position: "relative",
+                p: tabIndex === 1 ? 2 : 0,
+              }}
+            >
               {tabIndex === 0 && (
                 <SqlEditor
                   value={widget.query ?? "SELECT * FROM records LIMIT 10"}
                   onChange={(val) => onChange({ query: val })}
                 />
               )}
-              {tabIndex === 1 && (
-                <TransformerPanel widget={widget} onChange={onChange} />
-              )}
+              {tabIndex === 1 && <TransformerPanel widget={widget} onChange={onChange} />}
             </Box>
           </Box>
         </Box>

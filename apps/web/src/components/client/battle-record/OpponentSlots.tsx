@@ -112,7 +112,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 role="button"
                 aria-label={t("battleRecord.form.addOpponent")}
                 sx={{
-                    aspectRatio: "1 / 1",
+                  aspectRatio: "1 / 1",
                   border: "1px dashed",
                   borderColor: theme.palette.divider,
                   display: "flex",
@@ -126,7 +126,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                         ? theme.palette.primary.main
                         : theme.palette.divider,
                   },
-                    ...rounded(2)
+                  ...rounded(2),
                 }}
               >
                 <Add fontSize="small" />
@@ -145,7 +145,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
               aria-label={t(`pokemon.${opponent.pokemonSlug}.name`)}
               aria-pressed={opponent.selectionRole !== null}
               sx={{
-                  position: "relative",
+                position: "relative",
                 aspectRatio: "1 / 1",
                 border: "2px solid",
                 borderColor: color ?? theme.palette.divider,
@@ -157,8 +157,8 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 opacity: opponent.selectionRole === null ? 0.75 : 1,
                 transition: "border-color 0.15s, background-color 0.15s",
                 "&:hover .slot-action": { opacity: 1 },
-                  ...rounded(2)
-            }}
+                ...rounded(2),
+              }}
             >
               <Image
                 src={`/pokemon/${opponent.pokemonSlug}.png`}

@@ -46,7 +46,7 @@ export async function PATCH(
     .with({ success: true }, async ({ data: input }) => {
       const resultTask = updateSeason(id, userId, input as Partial<InsertSeason>);
       const result = await resultTask();
-      
+
       if (isLeft(result)) {
         return NextResponse.json({ error: result.left.toString() }, { status: 500 });
       }
@@ -73,7 +73,7 @@ export async function DELETE(
 
   const resultTask = deleteSeason(id, userId);
   const result = await resultTask();
-  
+
   if (isLeft(result)) {
     return NextResponse.json({ error: result.left.toString() }, { status: 500 });
   }

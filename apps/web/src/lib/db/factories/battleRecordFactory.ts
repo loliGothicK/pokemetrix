@@ -9,7 +9,7 @@ export class BattleRecordFactory<
   THasUserId extends boolean = false,
   THasSeasonId extends boolean = false,
   THasResult extends boolean = false,
-  THasMyTeam extends boolean = false
+  THasMyTeam extends boolean = false,
 > {
   private data: Partial<InsertBattleRecord> = {
     id: ulid(),
@@ -25,12 +25,16 @@ export class BattleRecordFactory<
     return this as any;
   }
 
-  withResult(result: BattleResult): BattleRecordFactory<THasUserId, THasSeasonId, true, THasMyTeam> {
+  withResult(
+    result: BattleResult,
+  ): BattleRecordFactory<THasUserId, THasSeasonId, true, THasMyTeam> {
     this.data.result = result;
     return this as any;
   }
 
-  withMyTeam(myTeam: readonly TrainedPokemon[]): BattleRecordFactory<THasUserId, THasSeasonId, THasResult, true> {
+  withMyTeam(
+    myTeam: readonly TrainedPokemon[],
+  ): BattleRecordFactory<THasUserId, THasSeasonId, THasResult, true> {
     this.data.myTeam = myTeam;
     return this as any;
   }

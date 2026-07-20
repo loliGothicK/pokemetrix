@@ -4,7 +4,11 @@ import { ulid } from "ulid";
 
 export type InsertSeason = typeof seasons.$inferInsert;
 
-export class SeasonFactory<THasUserId extends boolean = false, THasName extends boolean = false, THasFormat extends boolean = false> {
+export class SeasonFactory<
+  THasUserId extends boolean = false,
+  THasName extends boolean = false,
+  THasFormat extends boolean = false,
+> {
   private data: Partial<InsertSeason> = {
     id: ulid(),
   };
