@@ -176,7 +176,9 @@ function TransformerPanel({
     if (mode === "custom") {
       onChange({
         transformer: "custom",
-        transformerCode: widget.transformerCode ?? `return rows;`,
+        transformerCode: widget.transformerCode ?? `export default function transform(rows: Rows) {
+  return rows;
+}`,
       });
     } else {
       onChange({ transformer: "none", transformerCode: undefined });
@@ -246,9 +248,14 @@ function TransformerPanel({
           </Typography>
           <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
             <SqlEditor
-              language="javascript"
+              language="typescript"
               rowTypeDeclaration={rowTypeDeclaration}
-              value={widget.transformerCode ?? `return rows;`}
+              value={
+                widget.transformerCode ??
+                `export default function transform(rows: Rows) {
+  return rows;
+}`
+              }
               onChange={(val) => onChange({ transformerCode: val })}
             />
           </Box>

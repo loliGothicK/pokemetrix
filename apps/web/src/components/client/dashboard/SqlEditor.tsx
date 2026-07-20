@@ -3,7 +3,7 @@
 import { useTheme } from "@mui/material/styles";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 
 export function SqlEditor({
   value,
@@ -13,17 +13,30 @@ export function SqlEditor({
 }: {
   readonly value: string;
   readonly onChange: (val: string) => void;
-  readonly language?: "sql" | "javascript";
+  readonly language?: "sql" | "javascript" | "typescript";
   readonly rowTypeDeclaration?: string;
 }) {
   const theme = useTheme();
   const monaco = useMonaco();
+  const id = useId();
 
   useEffect(() => {
-    if (monaco && language === "javascript") {
-      monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+    if (monaco && (language === "javascript" || language === "typescript")) {
+      const defaults =
+        language === "typescript"
+          ? monaco.languages.typescript.typescriptDefaults
+          : monaco.languages.typescript.javascriptDefaults;
+
+      defaults.setDiagnosticsOptions({
         noSemanticValidation: false,
         noSyntaxValidation: false,
+      });
+
+      defaults.setCompilerOptions({
+        target: monaco.languages.typescript.ScriptTarget.ESNext,
+        allowNonTsExtensions: true,
+        allowJs: true,
+        checkJs: true,
       });
 
       // Type definition for custom transformer variables
@@ -56,14 +69,14 @@ export function SqlEditor({
         type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : any;
 
         /** 
-         * The input records from the SQL query.
-         * The type is automatically inferred from your SQL query.
+         * The type of the input records from the SQL query.
          */
-        declare const rows: ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
+        type Rows = ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
+        declare const rows: Rows;
       `;
       const libUri = "ts:filename/transformer.d.ts";
       
-      const disposable = monaco.languages.typescript.javascriptDefaults.addExtraLib(libSource, libUri);
+      const disposable = defaults.addExtraLib(libSource, libUri);
       
       return () => {
         disposable.dispose();
@@ -80,6 +93,7 @@ export function SqlEditor({
       }}
     >
       <Editor
+        path={`model-${id.replace(/:/g, "")}.${language === "typescript" ? "ts" : language === "javascript" ? "js" : "sql"}`}
         height="100%"
         language={language}
         theme={theme.palette.mode === "dark" ? "vs-dark" : "vs"}

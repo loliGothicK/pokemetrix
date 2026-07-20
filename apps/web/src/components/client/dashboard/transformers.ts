@@ -188,11 +188,40 @@ export function applyTransformer(
   if (transformerId === "custom") {
     if (!transformerCode?.trim()) return rows;
     try {
-      // eslint-disable-next-line no-new-func
-      const fn = new Function("rows", transformerCode) as (
-        r: Record<string, unknown>[],
-      ) => Record<string, unknown>[];
-      const result = fn(rows);
+      let code = transformerCode;
+      let fn: unknown;
+
+      if (code.includes("export default")) {
+        // Strip basic TypeScript parameter types for the main function
+        // Handles: export default function transform(rows: Rows) -> return function transform(rows)
+        code = code.replace(
+          /export\s+default\s+function(\s+[a-zA-Z0-9_]+)?\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>\[\]]+)?\s*\)/,
+          "return function$1($2)"
+        );
+
+        // Handles: export default (rows: Rows) => -> return (rows) =>
+        code = code.replace(
+          /export\s+default\s*\(\s*([a-zA-Z0-9_]+)\s*(:\s*[a-zA-Z0-9_<>\[\]]+)?\s*\)\s*=>/,
+          "return ($1) =>"
+        );
+        
+        // Fallback for just export default without inline parameters (e.g. export default transform)
+        code = code.replace(/export\s+default\s+/, "return ");
+        
+        // eslint-disable-next-line no-new-func
+        const getTransformer = new Function(code);
+        fn = getTransformer();
+        
+        if (typeof fn !== "function") {
+          throw new Error("Custom transformer must export a default function");
+        }
+      } else {
+        // Legacy support (just plain `return rows.map(...)`)
+        // eslint-disable-next-line no-new-func
+        fn = new Function("rows", code);
+      }
+
+      const result = (fn as (r: Record<string, unknown>[]) => Record<string, unknown>[])(rows);
       if (!Array.isArray(result)) {
         throw new Error("Custom transformer must return an array");
       }
