@@ -121,7 +121,7 @@ function LocalResizer({
     setPixelSize(data.size);
   };
 
-  const handleResize = (e: React.SyntheticEvent, data: ResizeCallbackData) => {
+  const handleResize = (_e: React.SyntheticEvent, data: ResizeCallbackData) => {
     setPixelSize(data.size);
 
     const dwPixels = data.size.width - initialSize.current.width;
@@ -201,7 +201,7 @@ export function WidgetCard({
   widget,
   editing,
   variableValues = {},
-  onDelete,
+  onDelete: _onDelete,
   onEditClick,
   onResize,
 }: {
@@ -281,6 +281,9 @@ export function WidgetCard({
               touchAction: "none",
               ml: -0.5,
               p: 0.25,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
             }}
             aria-label={t("dashboard.dragToReorder")}
           >

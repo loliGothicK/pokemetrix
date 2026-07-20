@@ -13,7 +13,7 @@ import type { SharedTeamSnapshot } from "@/lib/db/schema";
 const snapshotSchema = z
   .object({
     teamName: z.string().min(1).max(100),
-    members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
+    members: z.array(z.union([z.object({}).loose(), z.null()])).length(6),
     showStats: z.boolean(),
   })
   .readonly();
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   const parsed = snapshotSchema.safeParse(body);
   return match(parsed)
     .with({ success: false }, ({ error }) =>
-      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+      NextResponse.json({ error: error.issues }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: snapshot }) => {
       const id = genUlid();

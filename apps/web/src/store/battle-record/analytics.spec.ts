@@ -19,6 +19,7 @@ const makeRecord = (
     mySelection: null,
     rating: null,
     notes: null,
+    tags: [],
     playedAt: new Date(2026, 0, seq).toISOString(),
     opponents: (opts.opponents ?? []).map((pokemonSlug, slotIndex) => ({
       slotIndex,
@@ -40,12 +41,7 @@ describe("tally", () => {
   });
 
   it("counts wins, losses and draws", () => {
-    const result = tally([
-      makeRecord("win"),
-      makeRecord("win"),
-      makeRecord("loss"),
-      makeRecord("draw"),
-    ]);
+    const result = tally([makeRecord("win"), makeRecord("win"), makeRecord("loss"), makeRecord("draw")]);
     expect(result.total).toBe(4);
     expect(result.wins).toBe(2);
     expect(result.losses).toBe(1);
@@ -87,9 +83,7 @@ describe("opponentStats", () => {
 
 describe("winRatePercent", () => {
   it("returns a rounded integer percentage", () => {
-    expect(winRatePercent(tally([makeRecord("win"), makeRecord("win"), makeRecord("loss")]))).toBe(
-      67,
-    );
+    expect(winRatePercent(tally([makeRecord("win"), makeRecord("win"), makeRecord("loss")]))).toBe(67);
   });
 
   it("returns null when there are no battles", () => {

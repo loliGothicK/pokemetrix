@@ -3,14 +3,8 @@ import { MoveList } from "@/data/moves";
 import enTranslation from "../../../../public/locales/en/translation.json";
 import jaTranslation from "../../../../public/locales/ja/translation.json";
 
-const enMoves = (enTranslation as Record<string, any>).moves as Record<
-  string,
-  { readonly name: string }
->;
-const jaMoves = (jaTranslation as Record<string, any>).moves as Record<
-  string,
-  { readonly name: string }
->;
+const enMoves = (enTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
+const jaMoves = (jaTranslation as Record<string, any>).moves as Record<string, { readonly name: string }>;
 
 // ---------------------------------------------------------------------------
 // Font-metrics-based text width estimation
@@ -257,29 +251,17 @@ function findTruncatedMoves(locale: "en" | "ja", breakpoint: "sm" | "md" | "lg")
 
 describe("MovesDrawer — 採用率100%時に技名が省略されないこと (sm〜lg 全ブレークポイント)", () => {
   // --- Translation key existence checks ---
-  it.concurrent.for(MoveList)(
-    "EN: $identifier の技名が translation.json に存在し空でない",
-    (move, { expect }) => {
-      const name = enMoves[move.identifier]?.name;
-      expect(
-        name,
-        `moves.${move.identifier}.name が en/translation.json に存在しない`,
-      ).toBeDefined();
-      expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
-    },
-  );
+  it.concurrent.for(MoveList)("EN: $identifier の技名が translation.json に存在し空でない", (move, { expect }) => {
+    const name = enMoves[move.identifier]?.name;
+    expect(name, `moves.${move.identifier}.name が en/translation.json に存在しない`).toBeDefined();
+    expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
+  });
 
-  it.concurrent.for(MoveList)(
-    "JA: $identifier の技名が translation.json に存在し空でない",
-    (move, { expect }) => {
-      const name = jaMoves[move.identifier]?.name;
-      expect(
-        name,
-        `moves.${move.identifier}.name が ja/translation.json に存在しない`,
-      ).toBeDefined();
-      expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
-    },
-  );
+  it.concurrent.for(MoveList)("JA: $identifier の技名が translation.json に存在し空でない", (move, { expect }) => {
+    const name = jaMoves[move.identifier]?.name;
+    expect(name, `moves.${move.identifier}.name が ja/translation.json に存在しない`).toBeDefined();
+    expect(name?.trim(), `moves.${move.identifier}.name が空`).not.toBe("");
+  });
 
   // --- Truncation checks per breakpoint ---
   for (const bp of ["sm", "md", "lg"] as const) {

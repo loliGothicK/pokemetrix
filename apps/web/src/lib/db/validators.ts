@@ -1,14 +1,13 @@
 import { z } from "zod";
 import { ValidateResult, anyhow } from "@/errors/anyhow/error";
 import { either } from "fp-ts";
-import type { ZodIssue } from "zod";
 
 const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "expected YYYY-MM-DD");
 
 const handleZodError = <T>(parsed: any, name: string): ValidateResult<T> => {
   if (!parsed.success) {
     return either.left(
-      parsed.error.issues.map((e: ZodIssue) =>
+      parsed.error.issues.map((e: any) =>
         anyhow(`${name} validation error: ${e.path.join(".")} - ${e.message}`, undefined),
       ),
     );
@@ -21,7 +20,7 @@ const handleZodError = <T>(parsed: any, name: string): ValidateResult<T> => {
 // -----------------------------------------------------------------------------
 export const insertSeasonSchema = z.object({
   id: z.string().optional(),
-  userId: z.string().uuid(),
+  userId: z.string(),
   name: z.string().trim().min(1).max(100),
   format: z.enum(["singles", "doubles"]),
   ruleMark: z.string().trim().min(1).nullish(),
@@ -41,7 +40,7 @@ export const validateInsertSeason = (
 // -----------------------------------------------------------------------------
 export const insertTeamSchema = z.object({
   id: z.string().optional(),
-  userId: z.string().uuid(),
+  userId: z.string(),
   name: z.string().trim().min(1).max(100),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
@@ -57,7 +56,7 @@ export const validateInsertTeam = (
 // -----------------------------------------------------------------------------
 export const insertBoxPokemonSchema = z.object({
   id: z.string().optional(),
-  userId: z.string().uuid(),
+  userId: z.string(),
   slug: z.string().trim().min(1),
   data: z.record(z.string(), z.unknown()), // Drizzle jsonb field
   inBox: z.boolean().default(false),
@@ -75,7 +74,7 @@ export const validateInsertBoxPokemon = (
 // -----------------------------------------------------------------------------
 export const insertBattleRecordSchema = z.object({
   id: z.string().optional(),
-  userId: z.string().uuid(),
+  userId: z.string(),
   seasonId: z.string().min(1),
   teamId: z.string().min(1).nullish(),
   result: z.enum(["win", "loss", "draw"]),
@@ -98,7 +97,7 @@ export const validateInsertBattleRecord = (
 // -----------------------------------------------------------------------------
 export const insertDashboardSchema = z.object({
   id: z.string().optional(),
-  userId: z.string().uuid(),
+  userId: z.string(),
   name: z.string().trim().min(1).max(100),
   isDefault: z.boolean().optional(),
   layout: z.array(z.record(z.string(), z.unknown())),

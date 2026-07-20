@@ -13,20 +13,20 @@ const schema = zod
     id: zod.number(),
     identifier: zod.string(),
     type: zod.enum(types, {
-      error: (iss) => `${iss.input}" is invalid`,
+      error: (iss) => `${String(iss.input)}" is invalid`,
     }),
     category: zod.enum(moveCategories),
     power: zod.number().nullable(),
     accuracy: zod.number().nullable(),
     range: zod.enum(moveRanges, {
-      error: (iss) => `${iss.input}" is invalid`,
+      error: (iss) => `${String(iss.input)}" is invalid`,
     }),
     pp: zod.number(),
     priority: zod.number().nullable(),
     effect: zod.string().nullable(),
     classifications: zod.array(
       zod.enum(moveClassifications, {
-        error: (iss) => `"${iss.input}" is invalid`,
+        error: (iss) => `"${String(iss.input)}" is invalid`,
       }),
     ),
   })

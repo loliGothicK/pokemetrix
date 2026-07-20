@@ -146,11 +146,9 @@ interface WidgetEditDrawerProps {
 }
 
 export function WidgetEditDrawer({
-  open,
   widget,
   seasons,
   variables,
-  variableValues,
   onClose,
   onChange,
   onDelete,

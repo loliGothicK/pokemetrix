@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { battleRecords } from "@/lib/db/schema";
+import { battleRecords, battleRecordOpponents } from "@/lib/db/schema";
 import { TaskEither, tryCatch } from "fp-ts/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
 import { eq, and } from "drizzle-orm";
@@ -7,6 +7,10 @@ import type { InsertBattleRecord } from "../factories/battleRecordFactory";
 import { validateInsertBattleRecord } from "../validators";
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
+
+export type InsertBattleRecordWithOpponents = InsertBattleRecord & {
+  opponents?: Omit<typeof battleRecordOpponents.$inferInsert, "battleRecordId">[];
+};
 
 export const getBattleRecord = (
   id: string,
@@ -29,19 +33,42 @@ export const getBattleRecord = (
   );
 
 export const createBattleRecord = (
-  data: InsertBattleRecord,
-): TaskEither<MitamaError, typeof battleRecords.$inferSelect> =>
+  data: InsertBattleRecordWithOpponents,
+): TaskEither<
+  MitamaError,
+  {
+    record: typeof battleRecords.$inferSelect;
+    opponents: (typeof battleRecordOpponents.$inferSelect)[];
+  }
+> =>
   pipe(
     TE.fromEither(validateInsertBattleRecord(data)),
     TE.mapLeft((errors) => errors[0]),
     TE.chain((validData) =>
       tryCatch(
         async () => {
-          const [result] = await db
-            .insert(battleRecords)
-            .values(validData as unknown as InsertBattleRecord)
-            .returning();
-          return result;
+          return await db.transaction(async (tx) => {
+            const [record] = await tx
+              .insert(battleRecords)
+              .values(validData as unknown as InsertBattleRecord)
+              .returning();
+
+            const opponents = data.opponents || [];
+            const opponentRows =
+              opponents.length > 0
+                ? await tx
+                    .insert(battleRecordOpponents)
+                    .values(
+                      opponents.map((o) => ({
+                        ...o,
+                        battleRecordId: record.id,
+                      })),
+                    )
+                    .returning()
+                : [];
+
+            return { record, opponents: opponentRows };
+          });
         },
         (reason) =>
           anyhow(

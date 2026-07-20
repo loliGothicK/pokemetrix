@@ -133,7 +133,7 @@ export function parseSql(query: string): SqlAST {
     );
   }
 
-  const [, selectStr, ,whereStr, groupByStr, orderByStr, limitStr] = match;
+  const [, selectStr, , whereStr, groupByStr, orderByStr, limitStr] = match;
 
   const ast: SqlAST = {
     select: parseSelect(selectStr),
@@ -299,11 +299,9 @@ export function executeSql(
     // Normal Projection
     for (const row of filtered) {
       const outRow: Record<string, unknown> = {};
-      let _star = false;
       for (const sel of ast.select) {
         if (sel.type === "star") {
           Object.assign(outRow, row);
-          _star = true;
         } else if (sel.type === "column") {
           outRow[sel.alias || sel.column] = row[sel.column];
         }
@@ -364,7 +362,7 @@ export function generateRowTypeFromSql(sql: string): string {
     });
 
     return `Array<{ ${props.join(" ")} }>`;
-  } catch  {
+  } catch {
     // If parse fails (e.g. typing in progress), fallback to base
     return "Array<Partial<BattleRecord>>";
   }

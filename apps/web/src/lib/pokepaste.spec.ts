@@ -15,9 +15,7 @@ const data = championsPokemonList
         plus: "atk",
         minus: "spa",
       },
-      moves: championsPokemonByIdentifier
-        .get(pokemon.identifier)!
-        .moves.slice(0, 4) as TrainedPokemon["moves"],
+      moves: championsPokemonByIdentifier.get(pokemon.identifier)!.moves.slice(0, 4) as TrainedPokemon["moves"],
       evs: {
         hp: 32,
         atk: 32,

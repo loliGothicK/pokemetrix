@@ -120,7 +120,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
                 {t(`dashboard.dataKeys.${k}`, { defaultValue: k })}
               </Typography>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                {String(firstRow[k] ?? "—")}
+                {String((firstRow[k] as string | number | boolean) ?? "—")}
               </Typography>
             </Box>
           ))}

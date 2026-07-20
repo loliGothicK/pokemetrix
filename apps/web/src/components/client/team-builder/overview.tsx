@@ -44,7 +44,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {rounded} from "@/utils/styles";
+import { rounded } from "@/utils/styles";
 
 // ── ソータブルなスロット行 ────────────────────────────────────────────────────
 

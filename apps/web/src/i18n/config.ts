@@ -15,7 +15,7 @@ export const supportedLanguageOptions = Object.entries(supportedLngs).map(([valu
   label,
 }));
 
-i18n.use(initReactI18next).init({
+void i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: enTranslation,

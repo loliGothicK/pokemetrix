@@ -3,6 +3,7 @@
 // 呼び出し側では `sx={{ ...surfaceCard(theme), mt: 2 }}` のように差分だけ追記して使う。
 // 詳細: .design/sx-common.md
 import type { SxProps, Theme } from "@mui/material/styles";
+import type { SystemStyleObject } from "@mui/system";
 import { rounded } from "@/utils/styles";
 
 /**
@@ -24,26 +25,26 @@ export function surfaceCard(
 }
 
 /** flexboxで横並び・縦中央揃え。Box/Stack どちらでも使える。 */
-export const flexRowCenter: SxProps<Theme> = {
+export const flexRowCenter: SystemStyleObject<Theme> = {
   display: "flex",
   alignItems: "center",
 };
 
 /** overline的な見出しラベル（太字 + letterSpacing + secondaryカラー）。 */
-export const sectionLabel: SxProps<Theme> = {
+export const sectionLabel: SystemStyleObject<Theme> = {
   fontWeight: 800,
   letterSpacing: "0.08em",
   color: "text.secondary",
 };
 
 /** 空状態表示を中央に配置する。 */
-export const emptyStateCenter: SxProps<Theme> = {
+export const emptyStateCenter: SystemStyleObject<Theme> = {
   textAlign: "center",
   py: 8,
 };
 
 /** 1行に収まらない場合に "..." で省略する。 */
-export const truncateText: SxProps<Theme> = {
+export const truncateText: SystemStyleObject<Theme> = {
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",

@@ -27,12 +27,7 @@ import { useBattleRecords } from "@/hooks/useBattleRecords";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { EmptyState } from "@/components/common/EmptyState";
 import { flexRowCenter } from "@/theme/sx";
-import {
-  opponentStats,
-  tally,
-  winRatePercent,
-  type RecordTally,
-} from "@/store/battle-record/analytics";
+import { opponentStats, tally, winRatePercent } from "@/store/battle-record/analytics";
 import { rounded } from "@/utils/styles";
 
 function StatCard({
@@ -60,37 +55,6 @@ function StatCard({
         </Typography>
       )}
     </SurfaceCard>
-  );
-}
-
-function WinRateBar({ label, tally: t }: { readonly label: string; readonly tally: RecordTally }) {
-  const { t: translate } = useTranslation();
-  const percent = winRatePercent(t);
-  return (
-    <Box sx={{ mb: 2 }}>
-      <Stack direction="row" sx={{ justifyContent: "space-between", mb: 0.5 }}>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>
-          {label}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {percent === null
-            ? "—"
-            : `${percent}% (${translate("battleRecord.analytics.wldShort", {
-                w: t.wins,
-                l: t.losses,
-                d: t.draws,
-              })})`}
-        </Typography>
-      </Stack>
-      <LinearProgress
-        variant="determinate"
-        value={percent ?? 0}
-        sx={{
-          height: 8,
-          ...rounded(4),
-        }}
-      />
-    </Box>
   );
 }
 

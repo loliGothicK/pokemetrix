@@ -101,7 +101,7 @@ const battleRecordInputObject = z.object({
   teamId: z.string().min(1).nullish(),
   result: z.enum(["win", "loss", "draw"]),
   // 中身は TrainedPokemon をクライアントが保証。ここでは構造のみ検証。
-  myTeam: z.array(z.object({}).passthrough()).max(6),
+  myTeam: z.array(z.object({}).loose()).max(6),
   mySelection: z.array(z.number().int().min(0).max(5)).nullish(),
   rating: z.number().int().min(0).max(100000).nullish(),
   notes: z.string().nullish(),

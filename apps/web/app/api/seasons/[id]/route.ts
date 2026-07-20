@@ -41,7 +41,7 @@ export async function PATCH(
   const parsed = seasonUpdateSchema.safeParse(body);
   return match(parsed)
     .with({ success: false }, ({ error }) =>
-      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+      NextResponse.json({ error: error.issues }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
       const resultTask = updateSeason(id, userId, input as Partial<InsertSeason>);

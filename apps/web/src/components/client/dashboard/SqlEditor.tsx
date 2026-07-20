@@ -22,10 +22,9 @@ export function SqlEditor({
 
   useEffect(() => {
     if (monaco && (language === "javascript" || language === "typescript")) {
-      const defaults =
-        language === "typescript"
-          ? monaco.languages.typescript.typescriptDefaults
-          : monaco.languages.typescript.javascriptDefaults;
+      // eslint-disable-next-line typescript/no-deprecated
+      const ts = monaco.languages.typescript as any;
+      const defaults = language === "typescript" ? ts.typescriptDefaults : ts.javascriptDefaults;
 
       defaults.setDiagnosticsOptions({
         noSemanticValidation: false,
@@ -33,7 +32,7 @@ export function SqlEditor({
       });
 
       defaults.setCompilerOptions({
-        target: monaco.languages.typescript.ScriptTarget.ESNext,
+        target: ts.ScriptTarget.ESNext,
         allowNonTsExtensions: true,
         allowJs: true,
         checkJs: true,

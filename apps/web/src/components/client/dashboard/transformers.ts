@@ -40,7 +40,7 @@ function calcStreak(rows: Record<string, unknown>[]): Record<string, unknown>[] 
   if (rows.length === 0) return [{ streak: "—", count: 0 }];
 
   const sorted = [...rows].sort((a, b) =>
-    String(a.playedAt ?? "").localeCompare(String(b.playedAt ?? "")),
+    ((a.playedAt as string) ?? "").localeCompare((b.playedAt as string) ?? ""),
   );
 
   const lastRow = sorted[sorted.length - 1];
@@ -67,7 +67,7 @@ function calcStreak(rows: Record<string, unknown>[]): Record<string, unknown>[] 
  */
 function calcRatingDiff(rows: Record<string, unknown>[]): Record<string, unknown>[] {
   const sorted = [...rows].sort((a, b) =>
-    String(a.playedAt ?? "").localeCompare(String(b.playedAt ?? "")),
+    ((a.playedAt as string) ?? "").localeCompare((b.playedAt as string) ?? ""),
   );
 
   return sorted.map((row, i) => {
@@ -458,7 +458,7 @@ export function applyTransformer(
       // Fallback for just export default without inline parameters (e.g. export default transform)
       code = code.replace(/export\s+default\s+/, "return ");
 
-      // eslint-disable-next-line no-new-func
+      // eslint-disable-next-line no-new-func, typescript/no-implied-eval
       const getTransformer = new Function(code);
       const fn = getTransformer();
 

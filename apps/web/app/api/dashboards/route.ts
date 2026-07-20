@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   const parsed = dashboardInputSchema.safeParse(body);
   return match(parsed)
     .with({ success: false }, ({ error }) =>
-      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+      NextResponse.json({ error: error.issues }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
       const id = input.id ?? genUlid();

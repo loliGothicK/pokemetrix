@@ -63,6 +63,12 @@ jobs:
       - name: Build WebAssembly
         run: pnpm --filter @pokemetrix/damage-calc run build
 
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build Next.js App
+        run: pnpm build:app
+
       - name: Install nextest
         uses: taiki-e/install-action@nextest
 

@@ -119,6 +119,7 @@ export default function DashboardPage() {
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
+      // eslint-disable-next-line typescript/no-deprecated
       e.returnValue = "";
     };
 
@@ -314,7 +315,7 @@ export default function DashboardPage() {
               label={t("dashboard.title")}
               onChange={(e) => {
                 if (e.target.value === "NEW") {
-                  handleCreateDashboard();
+                  void handleCreateDashboard();
                 } else {
                   setEditing(false);
                   setDraftLayout(null);
@@ -384,7 +385,7 @@ export default function DashboardPage() {
                 >
                   <MenuItem
                     onClick={() => {
-                      handleSave();
+                      void handleSave();
                       setExitAnchorEl(null);
                     }}
                   >
