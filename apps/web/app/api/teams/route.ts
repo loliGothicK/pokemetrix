@@ -5,6 +5,7 @@ import { teams, teamMembers, boxPokemon } from "@/lib/db/schema";
 import { eq, inArray } from "drizzle-orm";
 import { withChildSpan } from "@/lib/otel";
 import type { Team, TrainedPokemon } from "@/store/team/team";
+import { teamsSchema } from "@/lib/team-validation";
 
 export async function GET(_request: Request) {
   const supabase = await createClient();
@@ -64,7 +65,17 @@ export async function POST(request: Request) {
   }
   const userId = claims.claims.sub;
 
-  const incomingTeams = (await request.json()) as readonly Team[];
+  const body = await request.json().catch(() => null);
+  if (!body) {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  const parsed = teamsSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues }, { status: 422 });
+  }
+
+  const incomingTeams = parsed.data;
 
   await withChildSpan(
     "db.teams.save",

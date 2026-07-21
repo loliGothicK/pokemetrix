@@ -7,14 +7,31 @@ import { z } from "zod";
 import { match } from "ts-pattern";
 import { withChildSpan } from "@/lib/otel";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
+import { trainedPokemonSchema } from "@/lib/team-validation";
 
 // members の中身は実行時に TrainedPokemon 形式であることをクライアントが保証するが、
 // Zod 側では passthrough() で受け付け、DB 挿入時に型キャストする。
 const snapshotSchema = z
   .object({
     teamName: z.string().min(1).max(100),
-    members: z.array(z.union([z.object({}).loose(), z.null()])).length(6),
+    members: z.array(trainedPokemonSchema.nullable()).length(6),
     showStats: z.boolean(),
+  })
+  .superRefine((snapshot, ctx) => {
+    const items = new Set<number>();
+    for (let i = 0; i < snapshot.members.length; i++) {
+      const member = snapshot.members[i];
+      if (member && member.item !== null) {
+        if (items.has(member.item)) {
+          ctx.addIssue({
+            code: "custom",
+            message: `Duplicate item found: ${member.item}. Each Pokemon must have a unique item.`,
+            path: ["members", i, "item"],
+          });
+        }
+        items.add(member.item);
+      }
+    }
   })
   .readonly();
 
