@@ -14,8 +14,16 @@ import {
   Stack,
   TextField,
   Typography,
+  Tabs,
+  Tab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import { Add, Delete, SaveOutlined } from "@mui/icons-material";
+
 import { Search } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTheme } from "@mui/material/styles";
@@ -42,10 +50,10 @@ export default function BoxPage() {
   const { box, isLoading, saveToBox, removeFromBox } = useBoxData();
   const [search, setSearch] = useState("");
 
-  // Step 1: species selection dialog
   const [selectOpen, setSelectOpen] = useState(false);
-  // Step 2: training dialog
   const [editingPokemon, setEditingPokemon] = useState<TrainedPokemon | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const handleSpeciesSelect = (identifier: string | null) => {
     const pokemon = toDefault(identifier);
@@ -106,18 +114,70 @@ export default function BoxPage() {
           >
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ fontWeight: 700, flexGrow: 1, ml: 1 }} noWrap>
-            {t(`pokemon.${editingPokemon.identifier}.name`)}
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start", ml: 2 }}>
+            <Tabs 
+              value={activeTab} 
+              onChange={(_, v) => setActiveTab(v)}
+              sx={{ minHeight: "auto", "& .MuiTab-root": { minHeight: "auto", py: 0.5, textTransform: "none", fontWeight: 600 } }}
+            >
+              <Tab label={t("teamBuilder.tabOpenSpecs")} />
+              <Tab label={t("teamBuilder.tabEvSpreads")} />
+            </Tabs>
+          </Box>
+        <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0 }}>
           <Button variant="contained" startIcon={<SaveOutlined />} onClick={handleSaveToBox}>
             {t("box.saveToBox")}
           </Button>
+          <IconButton
+            size="small"
+            onClick={() => setDeleteDialogOpen(true)}
+            sx={{
+              color: "error.main",
+              bgcolor: (theme) => alpha(theme.palette.error.main, 0.1),
+              "&:hover": { bgcolor: "error.main", color: "#fff" },
+            }}
+          >
+            <Delete fontSize="small" />
+          </IconButton>
         </Stack>
+      </Stack>
 
-        <Box sx={{ flexGrow: 1, p: { xs: 1, md: 3 } }}>
-          <Training member={editingPokemon} onUpdate={(updated) => setEditingPokemon(updated)} />
-        </Box>
+      <Box sx={{ flexGrow: 1, p: { xs: 1, md: 3 } }}>
+        <Training
+          member={editingPokemon}
+          activeTab={activeTab}
+          onUpdate={(updated) => setEditingPokemon(updated)}
+        />
       </Box>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        aria-labelledby="delete-pokemon-dialog-title"
+      >
+        <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t("teamBuilder.deleteTeamConfirm", { name: editingPokemon ? t(`pokemon.${editingPokemon.identifier}.name`) : t("pokemon.unknown") })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t("teamBuilder.cancel")}</Button>
+          <Button
+            color="error"
+            variant="contained"
+            disableElevation
+            onClick={() => {
+              if (editingPokemon?.boxId) removeFromBox(editingPokemon.boxId);
+              setEditingPokemon(null);
+              setDeleteDialogOpen(false);
+            }}
+          >
+            {t("teamBuilder.delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
     );
   }
 

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
+import { MAX_EV_TOTAL, MAX_EV_PER_STAT } from "@/store/team/lint";
 
 export const trainedPokemonSchema = z
   .object({
@@ -75,11 +76,23 @@ export const trainedPokemonSchema = z
     }
 
     // Validate EVs
-    const evTotal = data.evs.hp + data.evs.atk + data.evs.def + data.evs.spa + data.evs.spd + data.evs.spe;
-    if (evTotal > 64) {
+    const evKeys = ["hp", "atk", "def", "spa", "spd", "spe"] as const;
+    let evTotal = 0;
+    for (const key of evKeys) {
+      if (data.evs[key] > MAX_EV_PER_STAT) {
+        ctx.addIssue({
+          code: "custom",
+          message: `${key.toUpperCase()} EV exceeds ${MAX_EV_PER_STAT}`,
+          path: ["evs", key],
+        });
+      }
+      evTotal += data.evs[key];
+    }
+    
+    if (evTotal > MAX_EV_TOTAL) {
       ctx.addIssue({
         code: "custom",
-        message: `Total EVs exceed 64`,
+        message: `Total EVs exceed ${MAX_EV_TOTAL}`,
         path: ["evs"],
       });
     }

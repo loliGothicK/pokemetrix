@@ -318,14 +318,12 @@ function MobileTeamList({
   onSelectTeam,
   onCreateTeam,
   onImportTeam,
-  onDeleteTeam,
   onError,
 }: {
   readonly teams: readonly Team[];
   readonly onSelectTeam: (id: string) => void;
   readonly onCreateTeam: () => void;
   readonly onImportTeam: (team: { readonly members: Team["members"] }) => void;
-  readonly onDeleteTeam: (id: string) => void;
   readonly onError: (d: Diagnostics) => void;
 }) {
   const { t } = useTranslation();
@@ -441,21 +439,6 @@ function MobileTeamList({
             <Typography variant="subtitle1" sx={{ fontWeight: 600, flexGrow: 1 }}>
               {team.name}
             </Typography>
-            <MuiIconButton
-              size="small"
-              aria-label={t("teamBuilder.deleteTeamTitle")}
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteTeam(team.id);
-              }}
-              sx={{
-                color: "text.secondary",
-                flexShrink: 0,
-                "&:hover": { color: "error.main" },
-              }}
-            >
-              <DeleteOutlineIcon fontSize="small" />
-            </MuiIconButton>
           </SurfaceCard>
         ))}
       </Stack>
@@ -657,6 +640,14 @@ export default function TeamBuilderPage({
                   <ExportMenu />
                   <CloudSaveButton />
                   <ShareButton />
+                  <MuiIconButton
+                    color="inherit"
+                    aria-label={t("teamBuilder.deleteTeamTitle")}
+                    onClick={() => setDeleteTargetId(activeTeam.id)}
+                    sx={{ "&:hover": { color: "error.light" } }}
+                  >
+                    <DeleteOutlineIcon />
+                  </MuiIconButton>
                 </Box>
               )}
             </Toolbar>
@@ -709,23 +700,6 @@ export default function TeamBuilderPage({
                   <ListItem
                     key={team.id}
                     disablePadding
-                    secondaryAction={
-                      <MuiIconButton
-                        edge="end"
-                        size="small"
-                        aria-label={t("teamBuilder.deleteTeamTitle")}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setDeleteTargetId(team.id);
-                        }}
-                        sx={{
-                          color: "text.secondary",
-                          "&:hover": { color: "error.main" },
-                        }}
-                      >
-                        <DeleteOutlineIcon fontSize="small" />
-                      </MuiIconButton>
-                    }
                   >
                     <ListItemButton
                       selected={team.id === activeTeamId}
@@ -806,7 +780,6 @@ export default function TeamBuilderPage({
                 handleCreateTeam(team);
                 router.push("/team-builder?view=overview");
               }}
-              onDeleteTeam={(id) => setDeleteTargetId(id)}
               onError={(d) => {
                 setDiagnostics(d);
                 setSnackbarOpen(true);

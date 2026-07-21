@@ -2,6 +2,8 @@ import { TrainedPokemon } from "@/store/team/team";
 
 import { match } from "ts-pattern";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
+
+import { MAX_EV_PER_STAT } from "@/store/team/lint";
 import { Option } from "fp-ts/lib/Option";
 import { suboptimalEvs, SuboptimalEvs } from "@/lib/linter/errors/LintError";
 import { option } from "fp-ts";
@@ -93,7 +95,7 @@ function analyseEvSpreadsOptimization(pokemon: TrainedPokemon): OptimizedResult 
   let minCost = Infinity;
 
   const hpRequiredEV = targetStats.hp - (baseStats.hp + 75);
-  if (hpRequiredEV > 32 || hpRequiredEV < 0) {
+  if (hpRequiredEV > MAX_EV_PER_STAT || hpRequiredEV < 0) {
     return {
       hasUpgrade: false,
       bestCost: Infinity,
@@ -132,7 +134,7 @@ function analyseEvSpreadsOptimization(pokemon: TrainedPokemon): OptimizedResult 
       const requiredRaw = getRequiredRawStat(targetStats[key], multiplier);
       const evCost = requiredRaw - baseStats[key] - 20;
 
-      if (evCost > 32) {
+      if (evCost > MAX_EV_PER_STAT) {
         isValid = false;
         break;
       }

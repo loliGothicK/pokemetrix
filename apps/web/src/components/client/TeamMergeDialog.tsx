@@ -1,6 +1,6 @@
 "use client";
 
-import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
+import Image from "next/image";
 import {
   Box,
   Button,
@@ -9,224 +9,231 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   Stack,
   Typography,
+  alpha,
+  useTheme,
 } from "@mui/material";
-import {
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-} from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import type { MergeEntry } from "@/hooks/useAuthSync";
+import type { SlotResolution, TeamMergeConflict } from "@/hooks/useAuthSync";
 import { Dispatch, SetStateAction } from "react";
 import { rounded } from "@/utils/styles";
+import { TrainedPokemon } from "@/store/team/team";
 
-// ─────────────────────────────────────────────
-// 各チーム行
-// ─────────────────────────────────────────────
-function MergeRow({
-  entry,
-  onToggle,
+function isSamePokemon(a: TrainedPokemon | null, b: TrainedPokemon | null) {
+  if (a === null && b === null) return true;
+  if (a === null || b === null) return false;
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+function PokemonSlotDiff({
+  local,
+  server,
+  resolution,
+  onResolve,
 }: {
-  readonly entry: MergeEntry;
-  readonly onToggle: (id: string) => void;
+  readonly local: TrainedPokemon | null;
+  readonly server: TrainedPokemon | null;
+  readonly resolution: SlotResolution;
+  readonly onResolve: (res: SlotResolution) => void;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: entry.id,
-  });
+  const theme = useTheme();
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 10 : undefined,
+  if (local === null && server === null) {
+    return null; // Empty slot
+  }
+
+  const isIdentical = isSamePokemon(local, server);
+
+  // Helper to render a compact pokemon card
+  const renderCard = (p: TrainedPokemon | null, type: "local" | "server") => {
+    if (!p) return <Box sx={{ flex: 1, p: 1, border: "1px dashed", borderColor: "divider", ...rounded(1) }}><Typography variant="caption" color="text.secondary">Empty</Typography></Box>;
+    
+    const isSelected = resolution === type;
+    const color = type === "local" ? "warning" : "info";
+
+    return (
+      <Box
+        onClick={() => onResolve(type)}
+        sx={{
+          flex: 1,
+          p: 1,
+          border: "2px solid",
+          borderColor: isSelected ? `${color}.main` : "transparent",
+          bgcolor: isSelected ? alpha(theme.palette[color].main, 0.1) : "background.paper",
+          cursor: "pointer",
+          transition: "all 0.2s",
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          ...rounded(1),
+          "&:hover": {
+            bgcolor: alpha(theme.palette[color].main, 0.05),
+          }
+        }}
+      >
+        <Image
+          src={`/pokemon/${p.identifier}.png`}
+          alt={p.identifier}
+          width={40}
+          height={40}
+          style={{ objectFit: "contain", filter: isSelected ? "none" : "grayscale(50%)" }}
+        />
+        <Box>
+          <Typography variant="caption" sx={{ fontWeight: "bold", display: "block" }}>
+            {type.toUpperCase()}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", fontSize: 10 }}>
+            {p.nature.plus ? `+${p.nature.plus} ` : ""}{p.nature.minus ? `-${p.nature.minus}` : ""}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", fontSize: 10 }}>
+            EVs: {Object.values(p.evs).reduce<number>((a, b) => a + Number(b), 0)} total
+          </Typography>
+        </Box>
+      </Box>
+    );
   };
 
-  const isPicked = entry.action === "pick";
+  if (isIdentical) {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center", p: 1, border: "1px solid", borderColor: "divider", ...rounded(1), bgcolor: "action.hover" }}>
+        <Image src={`/pokemon/${local!.identifier}.png`} alt={local!.identifier} width={32} height={32} />
+        <Typography variant="body2" sx={{ ml: 1, flex: 1 }}>{local!.identifier}</Typography>
+        <Chip size="small" label="Identical" variant="outlined" />
+      </Box>
+    );
+  }
+
+  return (
+    <Stack direction="row" spacing={1} sx={{ p: 1, border: "1px solid", borderColor: "divider", ...rounded(1), bgcolor: "action.disabledBackground" }}>
+      {renderCard(local, "local")}
+      {renderCard(server, "server")}
+    </Stack>
+  );
+}
+
+function MergeConflictRow({
+  conflict,
+  onChange,
+}: {
+  readonly conflict: TeamMergeConflict;
+  readonly onChange: (newConflict: TeamMergeConflict) => void;
+}) {
+  const isLocalOnly = conflict.serverTeam === null;
+  const isServerOnly = conflict.localTeam === null;
+  const isConflict = !isLocalOnly && !isServerOnly;
 
   return (
     <Box
-      ref={setNodeRef}
-      style={style}
       sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 1.5,
+        p: 2,
         border: "1px solid",
-        borderColor: isPicked ? "primary.main" : "divider",
-        bgcolor: isPicked ? "action.selected" : "action.disabledBackground",
-        opacity: isPicked ? 1 : 0.5,
-        transition: "all 0.15s ease",
-        cursor: isDragging ? "grabbing" : "default",
+        borderColor: "divider",
+        bgcolor: "background.paper",
         ...rounded(2),
       }}
     >
-      {/* ドラッグハンドル */}
-      <IconButton
-        size="small"
-        {...attributes}
-        {...listeners}
-        sx={{ cursor: "grab", color: "text.disabled", touchAction: "none" }}
-        aria-label="drag to reorder"
-      >
-        <DragIndicatorRoundedIcon fontSize="small" />
-      </IconButton>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+        {isLocalOnly && <Chip label="Local Only" size="small" color="warning" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />}
+        {isServerOnly && <Chip label="Server Only" size="small" color="info" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />}
+        {isConflict && <Chip label="Conflict" size="small" color="error" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />}
 
-      {/* ソース (local / server) */}
-      <Chip
-        label={entry.source}
-        size="small"
-        color={entry.source === "local" ? "warning" : "info"}
-        variant="outlined"
-        sx={{ fontFamily: "monospace", fontSize: 11, minWidth: 58 }}
-      />
-
-      {/* チーム名 */}
-      <Typography
-        variant="body2"
-        sx={{
-          flex: 1,
-          fontWeight: 500,
-          color: isPicked ? "text.primary" : "text.disabled",
-          textDecoration: isPicked ? "none" : "line-through",
-        }}
-      >
-        {entry.team.name || "(無名チーム)"}
-      </Typography>
-
-      {/* pick / drop トグル */}
-      <Box sx={{ display: "flex", gap: 0.5 }}>
-        <Button
-          size="small"
-          variant={isPicked ? "contained" : "outlined"}
-          color="primary"
-          onClick={() => isPicked || onToggle(entry.id)}
-          sx={{ minWidth: 52, fontFamily: "monospace", fontSize: 12, py: 0.25 }}
-        >
-          pick
-        </Button>
-        <Button
-          size="small"
-          variant={!isPicked ? "contained" : "outlined"}
-          color="error"
-          onClick={() => !isPicked || onToggle(entry.id)}
-          sx={{ minWidth: 52, fontFamily: "monospace", fontSize: 12, py: 0.25 }}
-        >
-          drop
-        </Button>
+        <Typography variant="subtitle2" sx={{ flex: 1, fontWeight: 700 }}>
+          {conflict.name || "(無名チーム)"}
+        </Typography>
       </Box>
+
+      <Stack spacing={1}>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <PokemonSlotDiff
+            key={i}
+            local={conflict.localTeam?.members[i] || null}
+            server={conflict.serverTeam?.members[i] || null}
+            resolution={conflict.slotResolutions[i]}
+            onResolve={(res) => {
+              const newResolutions = [...conflict.slotResolutions];
+              newResolutions[i] = res;
+              onChange({ ...conflict, slotResolutions: newResolutions });
+            }}
+          />
+        ))}
+      </Stack>
     </Box>
   );
 }
 
-// ─────────────────────────────────────────────
-// ダイアログ本体
-// ─────────────────────────────────────────────
 type TeamMergeDialogProps = {
   readonly open: boolean;
-  readonly entries: MergeEntry[];
-  readonly setEntriesAction: Dispatch<SetStateAction<MergeEntry[]>>;
+  readonly conflicts: TeamMergeConflict[];
+  readonly setConflicts: Dispatch<SetStateAction<TeamMergeConflict[]>>;
   readonly onCommitAction: () => Promise<void>;
   readonly onCancelAction: () => void;
 };
 
 export function TeamMergeDialog({
   open,
-  entries,
-  setEntriesAction,
+  conflicts,
+  setConflicts,
   onCommitAction,
   onCancelAction,
 }: TeamMergeDialogProps) {
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  );
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setEntriesAction((prev) => {
-        const oldIndex = prev.findIndex((e) => e.id === active.id);
-        const newIndex = prev.findIndex((e) => e.id === over.id);
-        return arrayMove(prev, oldIndex, newIndex);
-      });
-    }
+  const handleConflictChange = (index: number, newConflict: TeamMergeConflict) => {
+    setConflicts((prev) => {
+      const copy = [...prev];
+      copy[index] = newConflict;
+      return copy;
+    });
   };
-
-  const handleToggle = (id: string) => {
-    setEntriesAction((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, action: e.action === "pick" ? "drop" : "pick" } : e)),
-    );
-  };
-
-  const pickedCount = entries.filter((e) => e.action === "pick").length;
 
   return (
     <Dialog
       open={open}
       onClose={onCancelAction}
-      maxWidth="sm"
+      maxWidth="md"
       fullWidth
       sx={{
         "& .MuiDialog-paper": {
           ...rounded(3),
+          maxHeight: "85vh"
         },
       }}
     >
-      <DialogTitle sx={{ pb: 0.5 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700 }}>
-          チームを整理する
+      <DialogTitle sx={{ pb: 1 }} component="div">
+        <Typography variant="h6" component="h2" sx={{ fontWeight: 700 }}>
+          チームの競合を解決する
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-          ログイン前後のチームをマージしてください。 ドラッグで並び替え、pick / drop
-          で選択できます。
+          同じチームに対してローカルとサーバーで異なる変更があります。スロットごとに採用するポケモンを選択してください。
         </Typography>
       </DialogTitle>
 
-      <DialogContent sx={{ pt: 2 }}>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={entries.map((e) => e.id)} strategy={verticalListSortingStrategy}>
-            <Stack spacing={1}>
-              {entries.map((entry) => (
-                <MergeRow key={entry.id} entry={entry} onToggle={handleToggle} />
-              ))}
-            </Stack>
-          </SortableContext>
-        </DndContext>
+      <DialogContent dividers sx={{ p: 2 }}>
+        <Stack spacing={2}>
+          {conflicts.map((conflict, i) => (
+            <MergeConflictRow
+              key={conflict.teamId}
+              conflict={conflict}
+              onChange={(nc) => handleConflictChange(i, nc)}
+            />
+          ))}
+        </Stack>
 
-        {entries.length === 0 && (
+        {conflicts.length === 0 && (
           <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", py: 4 }}>
-            チームがありません
+            競合はありません
           </Typography>
         )}
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 2.5, gap: 1 }}>
+      <DialogActions sx={{ px: 3, py: 2.5, gap: 1 }}>
         <Button variant="outlined" color="inherit" onClick={onCancelAction}>
           Cancel
         </Button>
         <Button
           variant="contained"
           onClick={onCommitAction}
-          disabled={pickedCount === 0}
           sx={{ fontFamily: "monospace" }}
         >
-          Commit ({pickedCount}) →
+          Commit →
         </Button>
       </DialogActions>
     </Dialog>

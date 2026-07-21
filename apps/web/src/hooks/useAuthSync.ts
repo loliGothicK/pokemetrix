@@ -4,22 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAuthenticatedAtom } from "@/store/auth";
-import { localTeamsAtom, type Team } from "@/store/team/team";
+import { localTeamsAtom, type Team, type TrainedPokemon } from "@/store/team/team";
 import { fetchTeamsFromServer, saveTeamsToServer } from "@services/teams";
 
-export type MergeAction = "pick" | "drop";
+export type SlotResolution = "local" | "server" | "none";
 
-export type MergeEntry = {
-  readonly id: string; // team.id
-  readonly team: Team;
-  readonly source: "local" | "server";
-  readonly action: MergeAction;
+export type TeamMergeConflict = {
+  readonly teamId: string;
+  readonly name: string;
+  readonly localTeam: Team | null;
+  readonly serverTeam: Team | null;
+  readonly slotResolutions: SlotResolution[];
 };
 
 type AuthSyncResult = {
   readonly isMergeOpen: boolean;
-  readonly mergeEntries: MergeEntry[];
-  readonly setMergeEntries: React.Dispatch<React.SetStateAction<MergeEntry[]>>;
+  readonly conflicts: TeamMergeConflict[];
+  readonly setConflicts: React.Dispatch<React.SetStateAction<TeamMergeConflict[]>>;
   readonly onMergeCommit: () => Promise<void>;
   readonly onMergeCancel: () => void;
 };
@@ -31,14 +32,13 @@ export const useAuthSync = (): AuthSyncResult => {
 
   const prevIsAuthenticated = useRef(isAuthenticated);
   const [isMergeOpen, setIsMergeOpen] = useState(false);
-  const [mergeEntries, setMergeEntries] = useState<MergeEntry[]>([]);
+  const [conflicts, setConflicts] = useState<TeamMergeConflict[]>([]);
 
   useEffect(() => {
     const wasLoggedOut = !prevIsAuthenticated.current;
     const isNowLoggedIn = isAuthenticated;
 
     if (wasLoggedOut && isNowLoggedIn && localTeams.length > 0) {
-      // ログイン直後：ローカルにチームがある場合のみ同期処理を開始
       void (async () => {
         const serverTeams = await queryClient.fetchQuery({
           queryKey: ["teams"],
@@ -46,51 +46,84 @@ export const useAuthSync = (): AuthSyncResult => {
         });
 
         if (serverTeams.length === 0) {
-          // サーバーにチームなし → そのままアップロードしてクリア
           await saveTeamsToServer(localTeams);
           await queryClient.invalidateQueries({ queryKey: ["teams"] });
           setLocalTeams([]);
         } else {
-          // 双方にチームあり → マージダイアログを開く
-          const entries: MergeEntry[] = [
-            ...serverTeams.map((team) => ({
-              id: team.id,
-              team,
-              source: "server" as const,
-              action: "pick" as const,
-            })),
-            ...localTeams.map((team) => ({
-              id: team.id,
-              team,
-              source: "local" as const,
-              action: "pick" as const,
-            })),
-          ];
-          setMergeEntries(entries);
+          const teamIds = new Set<string>([
+            ...localTeams.map(t => t.id),
+            ...serverTeams.map(t => t.id)
+          ]);
+
+          const newConflicts: TeamMergeConflict[] = Array.from(teamIds).map(teamId => {
+            const localTeam = localTeams.find(t => t.id === teamId) || null;
+            const serverTeam = serverTeams.find(t => t.id === teamId) || null;
+            
+            const name = localTeam?.name || serverTeam?.name || "";
+            
+            const slotResolutions: SlotResolution[] = [];
+            for (let i = 0; i < 6; i++) {
+              const localMem = localTeam?.members[i] || null;
+              const serverMem = serverTeam?.members[i] || null;
+              
+              if (localMem && !serverMem) {
+                slotResolutions.push("local");
+              } else if (!localMem && serverMem) {
+                slotResolutions.push("server");
+              } else if (localMem && serverMem) {
+                // デフォルトはサーバー優先
+                slotResolutions.push("server");
+              } else {
+                slotResolutions.push("none");
+              }
+            }
+
+            return { teamId, name, localTeam, serverTeam, slotResolutions };
+          });
+
+          setConflicts(newConflicts);
           setIsMergeOpen(true);
         }
       })();
     }
 
     prevIsAuthenticated.current = isAuthenticated;
-    // localTeams は依存に含めない（ログイン時の snapshot のみ使いたいため）
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   const onMergeCommit = async () => {
-    const picked = mergeEntries.filter((e) => e.action === "pick").map((e) => e.team);
-    await saveTeamsToServer(picked);
+    const mergedTeams: Team[] = conflicts.map(conflict => {
+      const members: (TrainedPokemon | null)[] = [];
+      for (let i = 0; i < 6; i++) {
+        const res = conflict.slotResolutions[i];
+        if (res === "local") {
+          members.push(conflict.localTeam?.members[i] || null);
+        } else if (res === "server") {
+          members.push(conflict.serverTeam?.members[i] || null);
+        } else {
+          members.push(null);
+        }
+      }
+      return {
+        id: conflict.teamId,
+        name: conflict.name,
+        members
+      };
+    });
+
+    const validTeams = mergedTeams.filter(t => t.members.some(m => m !== null));
+
+    await saveTeamsToServer(validTeams);
     await queryClient.invalidateQueries({ queryKey: ["teams"] });
     setLocalTeams([]);
     setIsMergeOpen(false);
-    setMergeEntries([]);
+    setConflicts([]);
   };
 
   const onMergeCancel = () => {
-    // ローカルデータはそのまま保持。ダイアログだけ閉じる。
     setIsMergeOpen(false);
-    setMergeEntries([]);
+    setConflicts([]);
   };
 
-  return { isMergeOpen, mergeEntries, setMergeEntries, onMergeCommit, onMergeCancel };
+  return { isMergeOpen, conflicts, setConflicts, onMergeCommit, onMergeCancel };
 };

@@ -13,6 +13,7 @@ import { createBoxPokemon } from "./repositories/boxPokemonRepository";
 import { createDashboard } from "./repositories/dashboardRepository";
 import { createBattleRecord } from "./repositories/battleRecordRepository";
 import { isLeft } from "fp-ts/lib/Either";
+import { teamSchema } from "@/lib/validator/team";
 
 const GIMMICK_TAGS = [
   "trick-room",
@@ -135,42 +136,42 @@ async function seed() {
       const myTeamData = [
         {
           slug: "pikachu",
-          item: 213,
+          item: 213,  // light-ball
           ability: 31,
           moves: [85, 87, 521, 182],
           evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
         },
         {
           slug: "charizard",
-          item: 247,
+          item: 696,  // charizardite-x
           ability: 66,
           moves: [53, 403, 416, 182],
           evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
         },
         {
           slug: "venusaur",
-          item: 247,
+          item: 695,  // venusaurite
           ability: 34,
           moves: [188, 202, 414, 182],
           evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 },
         },
         {
           slug: "blastoise",
-          item: 211,
+          item: 697,  // blastoisinite
           ability: 67,
           moves: [56, 406, 430, 182],
           evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 },
         },
         {
           slug: "gengar",
-          item: 247,
+          item: 692,  // gengarite
           ability: 130,
           moves: [247, 188, 416, 182],
           evs: { hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
         },
         {
           slug: "snorlax",
-          item: 211,
+          item: 211,  // leftovers
           ability: 82,
           moves: [34, 89, 442, 182],
           evs: { hp: 32, atk: 32, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -188,6 +189,23 @@ async function seed() {
         moves: data.moves as [number, number, number, number],
         evs: data.evs as any,
       }));
+
+      // --- Validate team data before seeding ---
+      const teamToValidate = {
+        id: teamId,
+        name: "Test Team",
+        members: [...myTeam, ...Array(Math.max(0, 6 - myTeam.length)).fill(null)].slice(0, 6),
+      };
+      const validationResult = teamSchema.safeParse(teamToValidate);
+      if (!validationResult.success) {
+        console.error("\n[VALIDATION ERROR] Seed team data is invalid:");
+        for (const issue of validationResult.error.issues) {
+          console.error(`  path: ${issue.path.join(" > ")}  message: ${issue.message}`);
+        }
+        if (isDryRun) throw new Error("Dry-run aborted: seed team is invalid (see above)");
+      } else {
+        console.log("[VALIDATION OK] Team data is valid.");
+      }
 
       const commonOpponents = [
         "charizard",

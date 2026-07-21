@@ -4,7 +4,6 @@ import {
   alpha,
   Box,
   Divider,
-  Fab,
   Grid,
   IconButton,
   InputAdornment,
@@ -15,7 +14,6 @@ import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { itemById, itemList } from "@/data/items";
-import { Delete } from "@mui/icons-material";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useMemo } from "react";
@@ -54,14 +52,12 @@ function SortableSlotItem({
   member,
   isActive,
   onNavigate,
-  onDelete,
 }: {
   readonly id: string;
   readonly index: number;
   readonly member: TrainedPokemon | null;
   readonly isActive: boolean;
   readonly onNavigate: () => void;
-  readonly onDelete: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -246,27 +242,6 @@ function SortableSlotItem({
             </Box>
           )}
         </Box>
-
-        {/* 削除ボタン（メンバーがいる場合のみ） */}
-        {member && (
-          <Fab
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
-            sx={{
-              boxShadow: "none",
-              bgcolor: alpha(theme.palette.error.main, 0.1),
-              color: theme.palette.error.main,
-              flexShrink: 0,
-              ml: 1,
-              "&:hover": { bgcolor: theme.palette.error.main, color: "#fff" },
-            }}
-          >
-            <Delete fontSize="small" />
-          </Fab>
-        )}
       </Box>
     </Grid>
   );
@@ -283,7 +258,7 @@ export default function TeamOverview({
 }) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const [team, updateSlot, updateTeamName, reorderMembers] = useActiveTeam();
+  const [team, _updateSlot, updateTeamName, reorderMembers] = useActiveTeam();
 
   const name = useMemo(() => team?.name ?? "", [team]);
 
@@ -384,7 +359,6 @@ export default function TeamOverview({
                 member={member}
                 isActive={activeSlot === index}
                 onNavigate={() => router.push(`/team-builder/${index}`)}
-                onDelete={() => updateSlot(index, null)}
               />
             ))}
           </Grid>

@@ -38,8 +38,18 @@ export const useTeamsData = () => {
 
   // 更新ロジックの切り替え
   const updateTeams = (newTeams: readonly Team[]) => {
-    // ログイン状態にかかわらず、すべての編集は LocalStorage (Jotai) に自動退避する
-    setLocalTeams(newTeams);
+    if (!isAuthenticated) {
+      setLocalTeams(newTeams);
+      return;
+    }
+
+    // ログイン状態では、サーバーのデータと参照が同じ（変更されていない）ものは localTeams から除外する
+    const unsavedTeams = newTeams.filter((nt) => {
+      const st = serverTeams.find((s) => s.id === nt.id);
+      // サーバーから取得したオブジェクトと参照が一致する場合は、ローカルに変更がないとみなす
+      return st !== nt;
+    });
+    setLocalTeams(unsavedTeams);
   };
 
   // 削除ロジックの切り替え

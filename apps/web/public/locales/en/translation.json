@@ -463,6 +463,10 @@
     "remove": "Remove",
     "emptySlot": "This slot does not have a Pokémon yet.",
     "selectPokemon": "Select a Pokémon",
+    "tabOpenSpecs": "Open Specs",
+    "tabEvSpreads": "EV Spreads",
+    "sectionBasicSpecs": "Basic Specs",
+    "sectionMoves": "Moves",
     "query": {
       "label": "Search",
       "helper": "Search by name, or filter with @type:fire",

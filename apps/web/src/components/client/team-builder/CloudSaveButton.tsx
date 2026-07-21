@@ -61,18 +61,18 @@ export function CloudSaveButton() {
   const draftReasons = formatTeamValidationIssues(parseResult, t, activeTeam.members);
 
   const isLoading = saveMutation.isPending;
-  const isSuccess = saveMutation.isSuccess && !hasUnsavedChanges;
+  const isSaved = !hasUnsavedChanges && !isDraft;
 
   const button = (
     <Button
       variant={hasUnsavedChanges ? "contained" : "outlined"}
       disableElevation
       color={hasUnsavedChanges ? (isDraft ? "warning" : "primary") : "inherit"}
-      disabled={isLoading || !hasUnsavedChanges || isDraft}
+      disabled={isLoading || isSaved || isDraft}
       startIcon={
         isLoading ? (
           <CircularProgress size={16} color="inherit" />
-        ) : isSuccess ? (
+        ) : isSaved ? (
           <CheckIcon />
         ) : (
           <CloudUploadIcon />
@@ -83,7 +83,7 @@ export function CloudSaveButton() {
     >
       {isLoading
         ? (t("teamBuilder.saving") || "Saving...")
-        : isSuccess
+        : isSaved
           ? (t("teamBuilder.saved") || "Saved to Cloud")
           : isDraft
             ? (t("teamBuilder.draft") || "Draft")

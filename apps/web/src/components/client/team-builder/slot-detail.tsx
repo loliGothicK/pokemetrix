@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/Delete";
+import { alpha } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
 import { Training } from "@/components/client/team-builder/training";
@@ -30,11 +32,13 @@ export default function TeamSlotDetail({
   readonly slot: number;
   readonly showBackButton?: boolean;
 }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [savedSnackbar, setSavedSnackbar] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [team, updateSlot] = useActiveTeam();
   const setActiveSlotIndex = useSetAtom(activeSlotIndexAtom);
   const { saveToBox } = useBoxData();
@@ -50,14 +54,6 @@ export default function TeamSlotDetail({
   }
 
   const member = team.members[slot] ?? null;
-  const title = member
-    ? t(`pokemon.${member.identifier}.name`)
-    : t("teamBuilder.slotLabel", { index: slot + 1 });
-  const formName = member
-    ? i18n.exists(`pokemon.${member.identifier}.formName`)
-      ? t(`pokemon.${member.identifier}.formName`)
-      : ""
-    : "";
 
   return (
     <SurfaceCard
@@ -89,29 +85,46 @@ export default function TeamSlotDetail({
             <ArrowBackIcon />
           </IconButton>
         )}
-        <Stack direction="column" spacing={0}>
-          <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
-            {title}
-          </Typography>
-          {formName && (
-            <Typography variant="caption" noWrap sx={{ color: "text.secondary", fontWeight: 400 }}>
-              {formName}
-            </Typography>
-          )}
-        </Stack>
-        {member && isAuthenticated && (
-          <Button
-            size="small"
-            variant="outlined"
-            startIcon={<SaveOutlinedIcon />}
-            onClick={() => {
-              saveToBox(member);
-              setSavedSnackbar(true);
-            }}
-            sx={{ ml: "auto", flexShrink: 0 }}
-          >
-            {t("box.saveToBox")}
-          </Button>
+        {member && (
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start", ml: showBackButton ? 2 : 0 }}>
+            <Tabs 
+              value={activeTab} 
+              onChange={(_, v) => setActiveTab(v)}
+              sx={{ minHeight: "auto", "& .MuiTab-root": { minHeight: "auto", py: 0.5, textTransform: "none", fontWeight: 600 } }}
+            >
+              <Tab label={t("teamBuilder.tabOpenSpecs")} />
+              <Tab label={t("teamBuilder.tabEvSpreads")} />
+            </Tabs>
+          </Box>
+        )}
+
+        {member && (
+          <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0 }}>
+            {isAuthenticated && (
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<SaveOutlinedIcon />}
+                onClick={() => {
+                  saveToBox(member);
+                  setSavedSnackbar(true);
+                }}
+              >
+                {t("box.saveToBox")}
+              </Button>
+            )}
+            <IconButton
+              size="small"
+              onClick={() => setDeleteDialogOpen(true)}
+              sx={{
+                color: "error.main",
+                bgcolor: (theme) => alpha(theme.palette.error.main, 0.1),
+                "&:hover": { bgcolor: "error.main", color: "#fff" },
+              }}
+            >
+              <DeleteOutlineIcon fontSize="small" />
+            </IconButton>
+          </Stack>
         )}
       </Stack>
 
@@ -120,6 +133,7 @@ export default function TeamSlotDetail({
           <Box sx={{ p: { xs: 1, md: 3 } }}>
             <Training
               member={member}
+              activeTab={activeTab}
               onUpdate={(trained: TrainedPokemon) => updateSlot(slot, trained)}
             />
           </Box>
@@ -161,6 +175,33 @@ export default function TeamSlotDetail({
           {t("box.savedToBox")}
         </Alert>
       </Snackbar>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        aria-labelledby="delete-pokemon-dialog-title"
+      >
+        <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t("teamBuilder.deleteTeamConfirm", { name: member ? t(`pokemon.${member.identifier}.name`) : t("pokemon.unknown") })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t("teamBuilder.cancel")}</Button>
+          <Button
+            color="error"
+            variant="contained"
+            disableElevation
+            onClick={() => {
+              updateSlot(slot, null);
+              setDeleteDialogOpen(false);
+            }}
+          >
+            {t("teamBuilder.delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </SurfaceCard>
   );
 }

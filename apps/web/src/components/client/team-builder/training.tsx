@@ -43,7 +43,7 @@ import { useBattleData } from "@/hooks/useBattleData";
 import { itemSprite, typeIcon } from "@/lib/image";
 import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
 import { Add, Remove, ArrowDropDown, ChangeCircle } from "@mui/icons-material";
-import { makeTeamLintIssuesAtom, activeSlotLintIssueAtom, MAX_EV_TOTAL } from "@/store/team/lint";
+import { makeTeamLintIssuesAtom, activeSlotLintIssueAtom, MAX_EV_TOTAL, MAX_EV_PER_STAT } from "@/store/team/lint";
 import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -90,12 +90,29 @@ const megaPokemonByStoneId = new Map(
     .flatMap((p) => p.mega!.map(({ stone_id, mega_id }) => [stone_id, mega_id])),
 );
 
+export function getActivePokemon(member: TrainedPokemon) {
+  const pokemon = DICTIONARY.get(member.identifier);
+  if (!pokemon) return null;
+  if (member.item && pokemon.mega?.some(({ stone_id }) => stone_id === member.item)) {
+    const megaId = megaPokemonByStoneId.get(member.item)!;
+    const megaPokemon = DICTIONARY.get(pokemonById.get(megaId)!.identifier);
+    if (megaPokemon) return megaPokemon;
+  }
+  if (pokemon.form) {
+    const formPokemon = DICTIONARY.get(pokemonById.get(pokemon.form)!.identifier);
+    if (formPokemon) return formPokemon;
+  }
+  return pokemon;
+}
+
 export function Training({
   member,
   onUpdate,
+  activeTab,
 }: {
   readonly member: TrainedPokemon;
   readonly onUpdate: (trained: TrainedPokemon) => void;
+  readonly activeTab: number;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -200,583 +217,548 @@ export function Training({
   };
 
   return (
-    <Stack direction={"column"} className={"Training-root"} sx={{ minWidth: 0 }}>
-      {/* メインコンテンツ（Basics, Items, Nature等） */}
-      <Box sx={{ flexGrow: 1 }}>
+    <Stack
+      direction={{ xs: "column", md: "row" }}
+      spacing={{ xs: 2, md: 4 }}
+      className={"Training-root"}
+      sx={{ minWidth: 0, p: { xs: 2, md: 4 } }}
+    >
+      {/* 左カラム：ポケモン画像（独立したCard） */}
+      <Stack
+        spacing={2}
+        sx={{ width: { xs: "100%", md: 240 }, flexShrink: 0, alignItems: "center" }}
+      >
+        {/* Name and Types Block */}
+        <Stack spacing={1} sx={{ width: "100%", alignItems: "center", mb: 1 }}>
+          <Stack direction="column" spacing={0} sx={{ alignItems: "center" }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, textAlign: "center" }}>
+              {t(`pokemon.${activePokemon.identifier}.name`)}
+            </Typography>
+            {i18n.exists(`pokemon.${activePokemon.identifier}.formName`) && (
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary", textAlign: "center", fontWeight: 400 }}
+              >
+                {t(`pokemon.${activePokemon.identifier}.formName`)}
+              </Typography>
+            )}
+          </Stack>
+          <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
+            {activePokemon.types.map((type) => (
+              <Chip avatar={<Avatar src={typeIcon(type)} />} key={type} label={type} size="small" />
+            ))}
+          </Stack>
+        </Stack>
+
         <SurfaceCard
           raised
-          sx={{
-            m: { xs: 0, md: 2 },
-            px: { xs: 0, md: 4 },
-            overflow: "hidden",
-            borderRadius: { xs: 3, md: 5 },
-          }}
+          sx={{ p: 4, borderRadius: 4, width: "100%", ...flexRowCenter, justifyContent: "center" }}
         >
-          <Box sx={{ p: { xs: 3, md: 4 } }}>
-            <Stack
-              direction={{ xs: "column", md: "row" }}
-              spacing={3}
-              sx={{ alignItems: "flex-start" }}
+          {/* ポケモン画像領域 */}
+          <Box
+            sx={{
+              width: 144,
+              height: 144,
+              minWidth: 144,
+              borderRadius: 4,
+              bgcolor: theme.palette.background.paper,
+              display: "grid",
+              placeItems: "center",
+              position: "relative",
+              boxShadow: 1,
+              overflow: "hidden",
+              flexShrink: 0,
+            }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 10,
+                width: "100%",
+                height: "100%",
+                bgcolor: alpha(theme.palette.background.paper, 0.5),
+                backdropFilter: "blur(2px)",
+              }}
             >
-              {/* ポケモン画像領域 */}
-              <Box
-                sx={{
-                  width: 144,
-                  height: 144,
-                  minWidth: 144,
-                  borderRadius: 4,
-                  bgcolor: theme.palette.background.paper,
-                  display: "grid",
-                  placeItems: "center",
-                  position: "relative",
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  flexShrink: 0,
-                }}
+              <Image
+                src={`/pokemon/${activePokemon.identifier}.png`}
+                alt={ongoing.identifier}
+                width={120}
+                height={120}
+                style={{ display: "block" }}
+              />
+            </Box>
+            {ongoing.item &&
+              (() => {
+                const item = itemList.find((i) => i.id === ongoing.item);
+                return item ? (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: 10,
+                      right: 10,
+                      width: 50,
+                      height: 50,
+                      borderRadius: "50%",
+                      bgcolor: alpha(theme.palette.background.paperRaised, 0.7),
+                      boxShadow: 2,
+                      ...flexRowCenter,
+                      justifyContent: "center",
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
+                    <Image
+                      src={itemSprite(item.identifier)}
+                      alt={item.identifier}
+                      width={45}
+                      height={45}
+                    />
+                  </Box>
+                ) : null;
+              })()}
+            {formChangeState && (
+              <Tooltip
+                title={
+                  useForm
+                    ? formChangeState.type === "mega"
+                      ? "Cancel Mega Evolve"
+                      : "Revert Form"
+                    : formChangeState.type === "mega"
+                      ? "Mega Evolve"
+                      : "Change Form"
+                }
+                placement="top"
               >
                 <Box
+                  onClick={() => setUseForm(!useForm)}
                   sx={{
                     position: "absolute",
-                    top: 0,
-                    left: 10,
-                    width: "100%",
-                    height: "100%",
-                    bgcolor: alpha(theme.palette.background.paper, 0.5),
+                    bottom: 6,
+                    left: 6,
+                    p: 0.5,
+                    width: 48,
+                    height: 48,
+                    borderRadius: 2,
+                    cursor: "pointer",
+                    ...flexRowCenter,
+                    justifyContent: "center",
+                    bgcolor: useForm
+                      ? alpha(theme.palette.primary.main, 0.1)
+                      : alpha(theme.palette.background.paperRaised, 0.7),
+                    borderColor: useForm ? theme.palette.primary.main : theme.palette.dividerSoft,
+                    transition: "all 0.2s",
                     backdropFilter: "blur(2px)",
+                    "&:hover": {
+                      bgcolor: useForm
+                        ? alpha(theme.palette.primary.main, 0.15)
+                        : alpha(theme.palette.primary.main, 0.05),
+                      borderColor: theme.palette.primary.light,
+                      transform: "scale(1.05)",
+                    },
                   }}
                 >
-                  <Image
-                    src={`/pokemon/${activePokemon.identifier}.png`}
-                    alt={ongoing.identifier}
-                    width={120}
-                    height={120}
-                    style={{ display: "block" }}
-                  />
-                </Box>
-                {ongoing.item &&
-                  (() => {
-                    const item = itemList.find((i) => i.id === ongoing.item);
-                    return item ? (
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          bottom: 10,
-                          right: 10,
-                          width: 50,
-                          height: 50,
-                          borderRadius: "50%",
-                          bgcolor: alpha(theme.palette.background.paperRaised, 0.7),
-                          boxShadow: 2,
-                          ...flexRowCenter,
-                          justifyContent: "center",
-                          backdropFilter: "blur(2px)",
-                        }}
-                      >
-                        <Image
-                          src={itemSprite(item.identifier)}
-                          alt={item.identifier}
-                          width={45}
-                          height={45}
-                        />
-                      </Box>
-                    ) : null;
-                  })()}
-                {formChangeState && (
-                  <Tooltip
-                    title={
-                      useForm
-                        ? formChangeState.type === "mega"
-                          ? "Cancel Mega Evolve"
-                          : "Revert Form"
-                        : formChangeState.type === "mega"
-                          ? "Mega Evolve"
-                          : "Change Form"
-                    }
-                    placement="top"
-                  >
-                    <Box
-                      onClick={() => setUseForm(!useForm)}
-                      sx={{
-                        position: "absolute",
-                        bottom: 6,
-                        left: 6,
-                        p: 0.5,
-                        width: 48,
-                        height: 48,
-                        borderRadius: 2,
-                        cursor: "pointer",
-                        ...flexRowCenter,
-                        justifyContent: "center",
-                        bgcolor: useForm
-                          ? alpha(theme.palette.primary.main, 0.1)
-                          : alpha(theme.palette.background.paperRaised, 0.7),
-                        borderColor: useForm
-                          ? theme.palette.primary.main
-                          : theme.palette.dividerSoft,
-                        transition: "all 0.2s",
-                        backdropFilter: "blur(2px)",
-                        "&:hover": {
-                          bgcolor: useForm
-                            ? alpha(theme.palette.primary.main, 0.15)
-                            : alpha(theme.palette.primary.main, 0.05),
-                          borderColor: theme.palette.primary.light,
-                          transform: "scale(1.05)",
-                        },
+                  {formChangeState.type === "mega" ? (
+                    <Image
+                      src={"/Mega_Evolution_symbol.png"}
+                      alt="Mega Evolve"
+                      width={28}
+                      height={37}
+                      style={{
+                        filter: useForm ? "none" : "grayscale(80%) opacity(0.6)",
+                        transition: "filter 0.2s",
                       }}
+                    />
+                  ) : (
+                    <ChangeCircle
+                      sx={{
+                        fontSize: 32,
+                        color: useForm ? theme.palette.primary.main : theme.palette.text.secondary,
+                        transition: "color 0.2s",
+                      }}
+                    />
+                  )}
+                </Box>
+              </Tooltip>
+            )}
+          </Box>
+        </SurfaceCard>
+      </Stack>
+
+      {/* 右カラム：コンテンツ */}
+      <Stack spacing={2} sx={{ flexGrow: 1, minWidth: 0 }}>
+        {/* タブ 0: Basics */}
+        <Box sx={{ display: activeTab === 0 ? "block" : "none", p: { xs: 1, md: 2 } }}>
+          <Stack spacing={3} sx={{ flexGrow: 1 }}>
+            <Box>
+              <Divider textAlign={"left"} sx={{ mt: 1 }}>
+                <Typography variant="h6">{t("teamBuilder.sectionBasicSpecs")}</Typography>
+              </Divider>
+            </Box>
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <Autocomplete
+                  value={items.find(({ id }) => id === ongoing.item) || null}
+                  options={items}
+                  groupBy={(option) => option.category}
+                  getOptionLabel={(option) => t(`items.${option.identifier}.name`)}
+                  sx={{ flexGrow: 1 }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"Held Item"}
+                      slotProps={{ ...params.slotProps, formHelperText: { component: "div" } }}
+                      helperText={
+                        issue &&
+                        remainingEvs === 0 &&
+                        issue.item.length > 0 && (
+                          <Box>
+                            {issue.item.map((issue) => (
+                              <Alert severity={issue.severity} key={issue.source._tag}>
+                                {issue.source.message}
+                              </Alert>
+                            ))}
+                          </Box>
+                        )
+                      }
+                    />
+                  )}
+                  renderValue={(params) => (
+                    <Chip
+                      avatar={<Avatar src={itemSprite(params.identifier)} />}
+                      label={t(`items.${params.identifier}.name`)}
+                    />
+                  )}
+                  renderOption={({ key, ...props }, value) => (
+                    <Stack
+                      key={key}
+                      component={"li"}
+                      direction={"column"}
+                      sx={{ alignItems: "flex-start" }}
+                      {...props}
                     >
-                      {formChangeState.type === "mega" ? (
-                        <Image
-                          src={"/Mega_Evolution_symbol.png"}
-                          alt="Mega Evolve"
-                          width={28}
-                          height={37}
-                          style={{
-                            filter: useForm ? "none" : "grayscale(80%) opacity(0.6)",
-                            transition: "filter 0.2s",
-                          }}
-                        />
-                      ) : (
-                        <ChangeCircle
-                          sx={{
-                            fontSize: 32,
-                            color: useForm
-                              ? theme.palette.primary.main
-                              : theme.palette.text.secondary,
-                            transition: "color 0.2s",
-                          }}
-                        />
-                      )}
-                    </Box>
-                  </Tooltip>
-                )}
-              </Box>
-
-              <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                <Stack direction={"row"} sx={flexRowCenter}>
-                  <Stack
-                    direction="column"
-                    spacing={1}
-                    sx={{ alignItems: "flex-start", flexGrow: 0.5 }}
-                  >
-                    <Typography variant="h4">
-                      {t(`pokemon.${activePokemon.identifier}.name`)}
-                    </Typography>
-                    {i18n.exists(`pokemon.${activePokemon.identifier}.formName`) && (
-                      <Typography variant="body2" sx={{ color: "text.secondary", fontWeight: 400 }}>
-                        {t(`pokemon.${activePokemon.identifier}.formName`)}
-                      </Typography>
-                    )}
-                  </Stack>
-                  <Stack direction="row" spacing={1}>
-                    {pokemon.types.map((type) => (
                       <Chip
-                        avatar={<Avatar src={typeIcon(type)} />}
-                        key={type}
-                        label={type}
-                        size="medium"
+                        avatar={<Avatar src={itemSprite(value.identifier)} />}
+                        label={t(`items.${value.identifier}.name`)}
                       />
-                    ))}
-                  </Stack>
-                </Stack>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                      >{`${t(`items.${value.identifier}.description`).split(".")[0]}.`}</Typography>
+                    </Stack>
+                  )}
+                  onChange={(_, value) => {
+                    setUseForm(false);
+                    handleUpdate({ ...ongoing, item: value?.id || null });
+                  }}
+                />
 
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  useFlexGap
-                  sx={{ alignItems: "flex-start", flexWrap: "wrap", width: "100%" }}
-                >
-                  <Autocomplete
-                    value={items.find(({ id }) => id === ongoing.item) || null}
-                    options={items}
-                    groupBy={(option) => option.category}
-                    getOptionLabel={(option) => t(`items.${option.identifier}.name`)}
-                    sx={{ width: { xs: "100%", md: 300 } }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={"Held Item"}
-                        slotProps={{ ...params.slotProps, formHelperText: { component: "div" } }}
-                        helperText={
-                          issue &&
-                          remainingEvs === 0 &&
-                          issue.item.length > 0 && (
-                            <Box>
-                              {issue.item.map((issue) => (
-                                <Alert severity={issue.severity} key={issue.source._tag}>
-                                  {issue.source.message}
-                                </Alert>
-                              ))}
-                            </Box>
-                          )
-                        }
-                      />
-                    )}
-                    renderValue={(params) => (
-                      <Chip
-                        avatar={<Avatar src={itemSprite(params.identifier)} />}
-                        label={t(`items.${params.identifier}.name`)}
-                      />
-                    )}
-                    renderOption={({ key, ...props }, value) => (
-                      <Stack
-                        key={key}
-                        component={"li"}
-                        direction={"column"}
-                        sx={{ alignItems: "flex-start" }}
-                        {...props}
-                      >
-                        <Chip
-                          avatar={<Avatar src={itemSprite(value.identifier)} />}
-                          label={t(`items.${value.identifier}.name`)}
-                        />
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                        >{`${t(`items.${value.identifier}.description`).split(".")[0]}.`}</Typography>
-                      </Stack>
-                    )}
-                    onChange={(_, value) => {
-                      setUseForm(false);
-                      handleUpdate({ ...ongoing, item: value?.id || null });
+                <Autocomplete
+                  options={["male", "female"] as const}
+                  value={ongoing.gender.specified || null}
+                  onChange={(_, newValue) =>
+                    handleUpdate({
+                      ...ongoing,
+                      gender: { fixed: false, specified: newValue || "male" },
+                    })
+                  }
+                  onInputChange={(_, newInputValue) =>
+                    handleUpdate({
+                      ...ongoing,
+                      gender: { fixed: false, specified: newInputValue as Gender },
+                    })
+                  }
+                  renderInput={(params) => <TextField {...params} label="Gender" />}
+                  disabled={ongoing.gender.fixed}
+                  sx={{ width: { xs: "100%", md: 140 } }}
+                />
+              </Stack>
+
+              <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <Autocomplete
+                  value={ongoing.ability}
+                  options={
+                    useForm && formChangeState?.type === "mega"
+                      ? activePokemon.abilities
+                      : pokemon.abilities
+                  }
+                  getOptionLabel={(option) =>
+                    t(`abilities.${abilityById.get(option)?.identifier}.name`)
+                  }
+                  sx={{ flexGrow: 1 }}
+                  renderInput={(params) => <TextField {...params} label={"Ability"} />}
+                  onChange={(_, value) => handleUpdate({ ...ongoing, ability: value! })}
+                />
+
+                <Box sx={{ width: { xs: "100%", md: 140 } }}>
+                  <TextField
+                    label="Nature"
+                    value={nature || ""}
+                    slotProps={{
+                      input: {
+                        readOnly: true,
+                        endAdornment: (
+                          <ArrowDropDown
+                            sx={{
+                              color: "action.active",
+                              mr: -0.5,
+                              transform: isNaturePopoverOpen ? "rotate(180deg)" : "none",
+                              transition: "transform 0.2s",
+                            }}
+                          />
+                        ),
+                      },
+                    }}
+                    onClick={(e) => setNatureAnchorEl(e.currentTarget as any)}
+                    sx={{
+                      width: "100%",
+                      cursor: "pointer",
+                      "& .MuiInputBase-root": { cursor: "pointer" },
+                      "& .MuiOutlinedInput-root": {
+                        ...(isNaturePopoverOpen && {
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "primary.main",
+                            borderWidth: 2,
+                          },
+                        }),
+                      },
+                      "& .MuiInputLabel-root": {
+                        ...(isNaturePopoverOpen && { color: "primary.main" }),
+                      },
                     }}
                   />
 
-                  <Autocomplete
-                    value={ongoing.ability}
-                    options={
-                      useForm && formChangeState?.type === "mega"
-                        ? activePokemon.abilities
-                        : pokemon.abilities
-                    }
-                    getOptionLabel={(option) =>
-                      t(`abilities.${abilityById.get(option)?.identifier}.name`)
-                    }
-                    sx={{ width: { xs: "100%", md: 300 } }}
-                    renderInput={(params) => <TextField {...params} label={"Ability"} />}
-                    onChange={(_, value) => handleUpdate({ ...ongoing, ability: value! })}
-                  />
-                  <Autocomplete
-                    options={["male", "female"] as const}
-                    value={ongoing.gender.specified || null}
-                    onChange={(_, newValue) =>
-                      handleUpdate({
-                        ...ongoing,
-                        gender: { fixed: false, specified: newValue || "male" },
-                      })
-                    }
-                    onInputChange={(_, newInputValue) =>
-                      handleUpdate({
-                        ...ongoing,
-                        gender: { fixed: false, specified: newInputValue as Gender },
-                      })
-                    }
-                    renderInput={(params) => <TextField {...params} label="Gender" />}
-                    disabled={ongoing.gender.fixed}
-                    sx={{ width: { xs: "calc(50% - 4px)", sm: 140 } }}
-                  />
-                  <Box sx={{ width: { xs: "calc(50% - 4px)", sm: 140 } }}>
-                    <TextField
-                      label="Nature"
-                      value={nature || ""}
-                      slotProps={{
-                        input: {
-                          readOnly: true,
-                          endAdornment: (
-                            <ArrowDropDown
-                              sx={{
-                                color: "action.active",
-                                mr: -0.5,
-                                transform: isNaturePopoverOpen ? "rotate(180deg)" : "none",
-                                transition: "transform 0.2s",
-                              }}
-                            />
-                          ),
+                  <Popover
+                    open={isNaturePopoverOpen}
+                    anchorEl={natureAnchorEl}
+                    onClose={() => setNatureAnchorEl(null)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          p: 1,
+                          mt: 0.5,
+                          maxWidth: "95vw",
+                          overflowX: "auto",
+                          bgcolor: theme.palette.background.paperRaised,
+                          border: "1px solid",
+                          borderColor: theme.palette.divider,
+                          boxShadow: theme.shadows[4],
                         },
-                      }}
-                      onClick={(e) => setNatureAnchorEl(e.currentTarget as any)}
-                      sx={{
-                        width: "100%",
-                        cursor: "pointer",
-                        "& .MuiInputBase-root": { cursor: "pointer" },
-                        "& .MuiOutlinedInput-root": {
-                          ...(isNaturePopoverOpen && {
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "primary.main",
-                              borderWidth: 2,
-                            },
-                          }),
-                        },
-                        "& .MuiInputLabel-root": {
-                          ...(isNaturePopoverOpen && { color: "primary.main" }),
-                        },
-                      }}
-                    />
-
-                    <Popover
-                      open={isNaturePopoverOpen}
-                      anchorEl={natureAnchorEl}
-                      onClose={() => setNatureAnchorEl(null)}
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                      }}
-                      slotProps={{
-                        paper: {
-                          sx: {
+                      },
+                    }}
+                  >
+                    <TableContainer component={Paper} elevation={0} sx={{ bgcolor: "transparent" }}>
+                      <Table
+                        size="small"
+                        sx={{
+                          "& .MuiTableCell-root": {
                             p: 1,
-                            mt: 0.5,
-                            maxWidth: "95vw",
-                            overflowX: "auto",
-                            bgcolor: theme.palette.background.paperRaised,
-                            border: "1px solid",
-                            borderColor: theme.palette.divider,
-                            boxShadow: theme.shadows[4],
+                            textAlign: "center",
+                            minWidth: 80,
+                            fontSize: "0.8rem",
+                            border: `1px solid ${theme.palette.dividerSoft}`,
                           },
-                        },
-                      }}
-                    >
-                      <TableContainer
-                        component={Paper}
-                        elevation={0}
-                        sx={{ bgcolor: "transparent" }}
+                        }}
                       >
-                        <Table
-                          size="small"
-                          sx={{
-                            "& .MuiTableCell-root": {
-                              p: 1,
-                              textAlign: "center",
-                              minWidth: 80,
-                              fontSize: "0.8rem",
-                              border: `1px solid ${theme.palette.dividerSoft}`,
-                            },
-                          }}
-                        >
-                          <TableHead>
-                            <TableRow>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell
+                              sx={{
+                                fontWeight: "bold",
+                                bgcolor: alpha(theme.palette.background.paper, 0.5),
+                              }}
+                            >
+                              <Typography
+                                variant="caption"
+                                sx={{ fontSize: "0.65rem", fontWeight: "bold" }}
+                              >
+                                <Box component="span" color="error.main">
+                                  +
+                                </Box>{" "}
+                                Increase /{" "}
+                                <Box component="span" color="info.main">
+                                  -
+                                </Box>{" "}
+                                Decrease
+                              </Typography>
+                            </TableCell>
+                            {STAT_LABELS.map((col) => (
+                              <TableCell
+                                key={col}
+                                sx={{
+                                  fontWeight: "bold",
+                                  color: "info.main",
+                                  bgcolor: alpha(theme.palette.info.main, 0.05),
+                                }}
+                              >
+                                {col.toUpperCase()} (-)
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {STAT_LABELS.map((row) => (
+                            <TableRow key={row}>
                               <TableCell
                                 sx={{
                                   fontWeight: "bold",
-                                  bgcolor: alpha(theme.palette.background.paper, 0.5),
+                                  color: "error.main",
+                                  bgcolor: alpha(theme.palette.error.main, 0.05),
                                 }}
                               >
-                                <Typography
-                                  variant="caption"
-                                  sx={{ fontSize: "0.65rem", fontWeight: "bold" }}
-                                >
-                                  <Box component="span" color="error.main">
-                                    +
-                                  </Box>{" "}
-                                  Increase /{" "}
-                                  <Box component="span" color="info.main">
-                                    -
-                                  </Box>{" "}
-                                  Decrease
-                                </Typography>
+                                {row.toUpperCase()} (+)
                               </TableCell>
-                              {STAT_LABELS.map((col) => (
-                                <TableCell
-                                  key={col}
-                                  sx={{
-                                    fontWeight: "bold",
-                                    color: "info.main",
-                                    bgcolor: alpha(theme.palette.info.main, 0.05),
-                                  }}
-                                >
-                                  {col.toUpperCase()} (-)
-                                </TableCell>
-                              ))}
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {STAT_LABELS.map((row) => (
-                              <TableRow key={row}>
-                                <TableCell
-                                  sx={{
-                                    fontWeight: "bold",
-                                    color: "error.main",
-                                    bgcolor: alpha(theme.palette.error.main, 0.05),
-                                  }}
-                                >
-                                  {row.toUpperCase()} (+)
-                                </TableCell>
-                                {STAT_LABELS.map((col) => {
-                                  const currentCellNature = NATURE_MATRIX[row][col];
-                                  const isSelectable = currentCellNature !== null;
-                                  const isSelected = isSelectable && nature === currentCellNature;
+                              {STAT_LABELS.map((col) => {
+                                const currentCellNature = NATURE_MATRIX[row][col];
+                                const isSelectable = currentCellNature !== null;
+                                const isSelected = isSelectable && nature === currentCellNature;
 
-                                  return (
-                                    <TableCell
-                                      key={col}
-                                      onClick={() => {
-                                        if (!isSelectable) return;
-                                        setNature(currentCellNature);
-                                        handleUpdate({
-                                          ...ongoing,
-                                          nature: natureStringToObject(currentCellNature),
-                                        });
-                                        setNatureAnchorEl(null);
-                                      }}
-                                      sx={{
-                                        cursor: isSelectable ? "pointer" : "default",
-                                        fontWeight: isSelected ? 700 : 400,
+                                return (
+                                  <TableCell
+                                    key={col}
+                                    onClick={() => {
+                                      if (!isSelectable) return;
+                                      setNature(currentCellNature);
+                                      handleUpdate({
+                                        ...ongoing,
+                                        nature: natureStringToObject(currentCellNature),
+                                      });
+                                      setNatureAnchorEl(null);
+                                    }}
+                                    sx={{
+                                      cursor: isSelectable ? "pointer" : "default",
+                                      fontWeight: isSelected ? 700 : 400,
+                                      bgcolor: isSelected
+                                        ? alpha(theme.palette.primary.main, 0.15)
+                                        : !isSelectable
+                                          ? alpha(theme.palette.action.disabledBackground, 0.3)
+                                          : "transparent",
+                                      color: isSelected
+                                        ? theme.palette.primary.main
+                                        : !isSelectable
+                                          ? "text.disabled"
+                                          : "text.primary",
+                                      transition: "all 0.1s",
+                                      outline: isSelected
+                                        ? `2px solid ${theme.palette.primary.main}`
+                                        : undefined,
+                                      outlineOffset: "-2px",
+                                      "&:hover": {
                                         bgcolor: isSelected
-                                          ? alpha(theme.palette.primary.main, 0.15)
-                                          : !isSelectable
-                                            ? alpha(theme.palette.action.disabledBackground, 0.3)
-                                            : "transparent",
-                                        color: isSelected
-                                          ? theme.palette.primary.main
-                                          : !isSelectable
-                                            ? "text.disabled"
-                                            : "text.primary",
-                                        transition: "all 0.1s",
-                                        outline: isSelected
-                                          ? `2px solid ${theme.palette.primary.main}`
-                                          : undefined,
-                                        outlineOffset: "-2px",
-                                        "&:hover": {
-                                          bgcolor: isSelected
-                                            ? alpha(theme.palette.primary.main, 0.2)
-                                            : isSelectable
-                                              ? alpha(theme.palette.primary.main, 0.08)
-                                              : alpha(theme.palette.action.disabledBackground, 0.3),
-                                        },
-                                      }}
-                                    >
-                                      {isSelectable ? currentCellNature : "—"}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </Popover>
-                  </Box>
-                </Stack>
-
-                <Divider />
-
-                {/* --- 技スロット --- */}
-                <Typography variant="subtitle2" color="text.secondary">
-                  Moves
-                </Typography>
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" },
-                    gap: 2,
-                  }}
-                >
-                  {[0, 1, 2, 3].map((index) => {
-                    const currentMoveId = ongoing.moves[index];
-                    const moveInfo = currentMoveId ? moveById.get(currentMoveId) : null;
-                    const isActive = activeMoveSlot === index;
-
-                    return (
-                      <Paper
-                        key={index}
-                        variant="outlined"
-                        sx={{
-                          p: 1.5,
-                          cursor: "pointer",
-                          borderColor: isActive
-                            ? theme.palette.primary.main
-                            : theme.palette.dividerSoft,
-                          bgcolor: isActive
-                            ? alpha(theme.palette.primary.main, 0.05)
-                            : "transparent",
-                          "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.1) },
-                        }}
-                        onClick={() => handleDrawerOpen(index)}
-                      >
-                        {moveInfo ? (
-                          <Stack
-                            direction="row"
-                            sx={{ ...flexRowCenter, justifyContent: "space-between" }}
-                          >
-                            <Stack direction="row" spacing={1} sx={flexRowCenter}>
-                              <Avatar
-                                src={typeIcon(moveInfo.type)}
-                                sx={{ width: 20, height: 20 }}
-                              />
-                              <Typography sx={{ fontWeight: 500 }}>
-                                {t(`moves.${moveInfo.identifier}.name`)}
-                              </Typography>
-                            </Stack>
-                            <Tooltip title={t("teamBuilder.forgetMove")}>
-                              <IconButton
-                                size="small"
-                                onClick={(e) => handleClearMove(e, index)}
-                                sx={{
-                                  color: theme.palette.divider,
-                                  "&:hover": {
-                                    color: "error.main",
-                                    bgcolor: alpha(theme.palette.error.main, 0.1),
-                                  },
-                                }}
-                              >
-                                <CloseIcon fontSize="small" />
-                              </IconButton>
-                            </Tooltip>
-                          </Stack>
-                        ) : (
-                          <Typography color="text.secondary" sx={{ fontStyle: "italic", py: 0.5 }}>
-                            + Select Move {index + 1}
-                          </Typography>
-                        )}
-                      </Paper>
-                    );
-                  })}
+                                          ? alpha(theme.palette.primary.main, 0.2)
+                                          : isSelectable
+                                            ? alpha(theme.palette.primary.main, 0.08)
+                                            : alpha(theme.palette.action.disabledBackground, 0.3),
+                                      },
+                                    }}
+                                  >
+                                    {isSelectable ? currentCellNature : "—"}
+                                  </TableCell>
+                                );
+                              })}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Popover>
                 </Box>
               </Stack>
             </Stack>
-          </Box>
-        </SurfaceCard>
-      </Box>
-      {/* --- 技選択 Drawer --- */}
-      <MoveSelectionDrawer
-        open={drawerOpen}
-        activeSlot={activeMoveSlot}
-        onClose={handleDrawerClose}
-        onChangeSlot={setActiveMoveSlot}
-        onSelectMove={handleSelectMove}
-        ongoing={ongoing}
-        pokemon={pokemon}
-        battleData={battleData}
-        isError={isError}
-      />
 
-      {/* EV Spreads */}
-      <Box sx={{ flexGrow: 1, transition: "margin 0.3s" }}>
-        <SurfaceCard
-          raised
-          sx={{
-            m: { xs: 0, md: 2 },
-            py: { xs: 3, md: 4 },
-            px: { xs: 2, md: 8 },
-            borderRadius: { xs: 3, md: 5 },
-          }}
-        >
-          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-            <Typography variant="h4" sx={{ mb: { xs: 1, md: 3 } }}>
-              EV Spreads
-            </Typography>
-            {isLintOn &&
-              issue &&
-              issue.status.length > 0 &&
-              issue.status.map((issue) => {
+            <Divider textAlign={"left"}>
+              <Typography variant="h6">{t("teamBuilder.sectionMoves")}</Typography>
+            </Divider>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" },
+                gap: 2,
+              }}
+            >
+              {[0, 1, 2, 3].map((index) => {
+                const currentMoveId = ongoing.moves[index];
+                const moveInfo = currentMoveId ? moveById.get(currentMoveId) : null;
+                const isActive = activeMoveSlot === index;
+
                 return (
-                  <Alert severity={issue.severity} key={issue.source._tag}>
-                    {issue.source.message}
-                  </Alert>
+                  <Box
+                    key={index}
+                    sx={{
+                      p: 1.5,
+                      cursor: "pointer",
+                      ...rounded(2),
+                      bgcolor: isActive
+                        ? alpha(theme.palette.primary.main, 0.1)
+                        : alpha(theme.palette.action.hover, 0.05),
+                      "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.15) },
+                    }}
+                    onClick={() => handleDrawerOpen(index)}
+                  >
+                    {moveInfo ? (
+                      <Stack
+                        direction="row"
+                        sx={{ ...flexRowCenter, justifyContent: "space-between" }}
+                      >
+                        <Stack direction="row" spacing={1} sx={flexRowCenter}>
+                          <Avatar src={typeIcon(moveInfo.type)} sx={{ width: 20, height: 20 }} />
+                          <Typography sx={{ fontWeight: 500 }}>
+                            {t(`moves.${moveInfo.identifier}.name`)}
+                          </Typography>
+                        </Stack>
+                        <Tooltip title={t("teamBuilder.forgetMove")}>
+                          <IconButton
+                            size="small"
+                            onClick={(e) => handleClearMove(e, index)}
+                            sx={{
+                              color: theme.palette.divider,
+                              "&:hover": {
+                                color: "error.main",
+                                bgcolor: alpha(theme.palette.error.main, 0.1),
+                              },
+                            }}
+                          >
+                            <CloseIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </Stack>
+                    ) : (
+                      <Typography color="text.secondary" sx={{ fontStyle: "italic", py: 0.5 }}>
+                        + Select Move {index + 1}
+                      </Typography>
+                    )}
+                  </Box>
                 );
               })}
+            </Box>
           </Stack>
-          <Divider sx={{ pt: 2, mb: 4 }} />
+        </Box>
+
+        {/* タブ 1: EV Spreads */}
+        <Box sx={{ display: activeTab === 1 ? "block" : "none", p: { xs: 1, md: 2 } }}>
           <Stack spacing={{ xs: 1.5, md: 1.5 }}>
+            <Box>
+              <Typography variant="h6">{t("teamBuilder.tabEvSpreads")}</Typography>
+              <Divider sx={{ mt: 1, mb: 2 }} />
+            </Box>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+              {isLintOn &&
+                issue &&
+                issue.status.length > 0 &&
+                issue.status.map((issue) => {
+                  return (
+                    <Alert severity={issue.severity} key={issue.source._tag}>
+                      {issue.source.message}
+                    </Alert>
+                  );
+                })}
+            </Stack>
+            {isLintOn && issue && issue.status.length > 0 && <Divider sx={{ mb: 4 }} />}
+
             {/* 1. ループの外で全体の合計使用EVを一度だけ計算する */}
             {(() => {
               const STAT_KEYS = ["hp", "atk", "def", "spa", "spd", "spe"] as const;
@@ -829,7 +811,7 @@ export function Training({
                     const rawEv = statLens.get(ongoing);
                     const currentEv = typeof rawEv === "number" && !Number.isNaN(rawEv) ? rawEv : 0;
 
-                    const maxAvailable = Math.min(32, remainingEvsTotal + currentEv);
+                    const maxAvailable = Math.min(MAX_EV_PER_STAT, remainingEvsTotal + currentEv);
 
                     const updateEv = (newValue: number) => {
                       const safeValue = Number.isNaN(newValue) ? 0 : newValue;
@@ -846,7 +828,7 @@ export function Training({
                     const efficientMarks = useMemo(() => {
                       if (stat === "hp" || !isPlus) return false;
                       const marks = [];
-                      for (let v = 0; v <= 32; v++) {
+                      for (let v = 0; v <= MAX_EV_PER_STAT; v++) {
                         // 補正なし(1.0)の生ステータスを計算
                         const raw = calcStatus(activePokemon.status[statIndex], v, 1.0);
                         if (raw % 10 === 0) {
@@ -880,7 +862,8 @@ export function Training({
                               : theme.palette.dividerSoft,
                           bgcolor: alpha(theme.palette.background.paper, 0.4),
                           transition: "border-color 0.2s, background-color 0.2s",
-                          ...rounded(2),
+                          p: { xs: 1.5, md: 2 },
+                          borderRadius: 2,
                         }}
                       >
                         {/* ステータス名と性格補正トグル */}
@@ -918,7 +901,8 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.error.main, 0.12),
                                   },
-                                  ...rounded(1),
+                                  borderRadius: 1,
+                                  p: { xs: 0.25, md: 0 },
                                 }}
                               >
                                 <Add
@@ -948,7 +932,8 @@ export function Training({
                                   "&:hover": {
                                     bgcolor: alpha(theme.palette.info.main, 0.12),
                                   },
-                                  ...rounded(1),
+                                  borderRadius: 1,
+                                  p: { xs: 0.25, md: 0 },
                                 }}
                               >
                                 <Remove
@@ -966,7 +951,7 @@ export function Training({
                           value={currentEv}
                           step={1}
                           min={0}
-                          max={32}
+                          max={MAX_EV_PER_STAT}
                           disabled={maxAvailable <= 0 && currentEv === 0}
                           onChange={(_, value) => updateEv(value as number)}
                           marks={efficientMarks as any}
@@ -977,7 +962,7 @@ export function Training({
                               backgroundColor: "error.main",
                               width: 3,
                               height: 10,
-                              ...rounded(1),
+                              borderRadius: 1,
                             },
                             "& .MuiSlider-markActive": {
                               backgroundColor: "error.dark",
@@ -1052,8 +1037,21 @@ export function Training({
               );
             })()}
           </Stack>
-        </SurfaceCard>
-      </Box>
+        </Box>
+      </Stack>
+
+      {/* --- 技選択 Drawer --- */}
+      <MoveSelectionDrawer
+        open={drawerOpen}
+        activeSlot={activeMoveSlot}
+        onClose={handleDrawerClose}
+        onChangeSlot={setActiveMoveSlot}
+        onSelectMove={handleSelectMove}
+        ongoing={ongoing}
+        pokemon={pokemon}
+        battleData={battleData}
+        isError={isError}
+      />
     </Stack>
   );
 }

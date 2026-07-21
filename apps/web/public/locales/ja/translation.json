@@ -464,6 +464,10 @@
     "emptySlot": "このスロットにはまだポケモンが選ばれていません。",
     "selectPokemon": "ポケモンを選ぶ",
     "choosePokemon": "ポケモンを選択",
+    "tabOpenSpecs": "Open Specs",
+    "tabEvSpreads": "EV Spreads",
+    "sectionBasicSpecs": "Basic Specs",
+    "sectionMoves": "Moves",
     "query": {
       "label": "検索",
       "helper": "名前で検索、または @type:ほのお でタイプ絞り込み",
