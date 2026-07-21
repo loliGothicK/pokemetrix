@@ -1,8 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { localTeamsAtom, activeTeamIdAtom, Team, TrainedPokemon } from "@/store/team/team";
-import { saveTeamsToServer } from "@services/teams";
 
 export const useActiveTeam = () => {
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
@@ -10,83 +9,53 @@ export const useActiveTeam = () => {
   const activeId = useAtomValue(activeTeamIdAtom);
   const queryClient = useQueryClient();
 
-  // ログイン時のソースはQueryキャッシュ、未ログイン時はlocalTeamsAtom
+  const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
   const teams = isAuthenticated
-    ? (queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [])
+    ? [
+        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
+        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id))
+      ]
     : localTeams;
 
-  // サーバー保存用のMutation
-  const serverMutation = useMutation({
-    mutationFn: saveTeamsToServer,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["teams"] });
-    },
-  });
+
 
   const team = teams.find(({ id }) => id === activeId);
 
+  const applyLocalUpdate = (updater: (team: Team) => Team) => {
+    if (!activeId) return;
+    setLocalTeams((prev) => {
+      const existingLocal = prev.find((t) => t.id === activeId);
+      if (existingLocal) {
+        return prev.map((t) => (t.id === activeId ? updater(t) : t));
+      } else {
+        const serverTeam = teams.find((t) => t.id === activeId);
+        if (!serverTeam) return prev;
+        return [...prev, updater(serverTeam)];
+      }
+    });
+  };
+
   // 共通の更新ロジック（スロット更新）
   const updateSlot = (slotIndex: number, trained: TrainedPokemon | null) => {
-    if (!activeId) return;
-
-    if (isAuthenticated) {
-      // ログイン時：TanStack Queryのキャッシュを更新し、サーバーへMutation
-      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-      const newTeams = currentServerTeams.map((t) =>
-        t.id === activeId
-          ? { ...t, members: t.members.map((m, i) => (i === slotIndex ? trained : m)) }
-          : t,
-      );
-      queryClient.setQueryData(["teams"], newTeams);
-      serverMutation.mutate(newTeams);
-    } else {
-      // 未ログイン時：Jotai (localStorage) を更新
-      setLocalTeams((prev) =>
-        prev.map((t) =>
-          t.id === activeId
-            ? { ...t, members: t.members.map((m, i) => (i === slotIndex ? trained : m)) }
-            : t,
-        ),
-      );
-    }
+    applyLocalUpdate((t) => ({
+      ...t,
+      members: t.members.map((m, i) => (i === slotIndex ? trained : m)),
+    }));
   };
 
   const updateTeamName = (name: string) => {
-    if (!activeId) return;
-
-    if (isAuthenticated) {
-      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-      const newTeams = currentServerTeams.map((t) => (t.id === activeId ? { ...t, name } : t));
-      queryClient.setQueryData(["teams"], newTeams);
-      serverMutation.mutate(newTeams);
-    } else {
-      setLocalTeams((prev) => prev.map((t) => (t.id === activeId ? { ...t, name } : t)));
-    }
+    applyLocalUpdate((t) => ({ ...t, name }));
   };
 
   // スロットの並べ替え（DnD 用）
   const reorderMembers = (fromIndex: number, toIndex: number) => {
-    if (!activeId || fromIndex === toIndex) return;
-
-    const applyReorder = (members: readonly (TrainedPokemon | null)[]) => {
-      const next = [...members];
+    if (fromIndex === toIndex) return;
+    applyLocalUpdate((t) => {
+      const next = [...t.members];
       const [moved] = next.splice(fromIndex, 1);
       next.splice(toIndex, 0, moved);
-      return next;
-    };
-
-    if (isAuthenticated) {
-      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-      const newTeams = currentServerTeams.map((t) =>
-        t.id === activeId ? { ...t, members: applyReorder(t.members) } : t,
-      );
-      queryClient.setQueryData(["teams"], newTeams);
-      serverMutation.mutate(newTeams);
-    } else {
-      setLocalTeams((prev) =>
-        prev.map((t) => (t.id === activeId ? { ...t, members: applyReorder(t.members) } : t)),
-      );
-    }
+      return { ...t, members: next };
+    });
   };
 
   return [team, updateSlot, updateTeamName, reorderMembers] as const;

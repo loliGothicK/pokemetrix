@@ -5,7 +5,7 @@ import { teams, teamMembers, boxPokemon } from "@/lib/db/schema";
 import { eq, inArray } from "drizzle-orm";
 import { withChildSpan } from "@/lib/otel";
 import type { Team, TrainedPokemon } from "@/store/team/team";
-import { teamsSchema } from "@/lib/team-validation";
+import { teamsSchema } from "@/lib/validator/team";
 
 export async function GET(_request: Request) {
   const supabase = await createClient();

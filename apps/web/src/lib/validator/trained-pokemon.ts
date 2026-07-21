@@ -42,15 +42,27 @@ export const trainedPokemonSchema = z
     }
 
     // Validate moves
+    let hasMove = false;
     for (let i = 0; i < data.moves.length; i++) {
       const move = data.moves[i];
-      if (move !== null && !pokemonData.moves.includes(move)) {
-        ctx.addIssue({
-          code: "custom",
-          message: `Move ${move} is not valid for ${data.identifier}`,
-          path: ["moves", i],
-        });
+      if (move !== null) {
+        hasMove = true;
+        if (!pokemonData.moves.includes(move)) {
+          ctx.addIssue({
+            code: "custom",
+            message: `Move ${move} is not valid for ${data.identifier}`,
+            path: ["moves", i],
+          });
+        }
       }
+    }
+
+    if (!hasMove) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Pokemon must have at least one move`,
+        path: ["moves"],
+      });
     }
 
     // Validate ability
@@ -72,28 +84,3 @@ export const trainedPokemonSchema = z
       });
     }
   });
-
-export const teamSchema = z
-  .object({
-    id: z.string(),
-    name: z.string(),
-    members: z.array(trainedPokemonSchema.nullable()).length(6),
-  })
-  .superRefine((team, ctx) => {
-    const items = new Set<number>();
-    for (let i = 0; i < team.members.length; i++) {
-      const member = team.members[i];
-      if (member && member.item !== null) {
-        if (items.has(member.item)) {
-          ctx.addIssue({
-            code: "custom",
-            message: `Duplicate item found: ${member.item}. Each Pokemon must have a unique item.`,
-            path: ["members", i, "item"],
-          });
-        }
-        items.add(member.item);
-      }
-    }
-  });
-
-export const teamsSchema = z.array(teamSchema);

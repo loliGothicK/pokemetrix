@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAtom, useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
-import { fetchTeamsFromServer, saveTeamsToServer, deleteTeamFromServer } from "@services/teams";
+import { fetchTeamsFromServer, deleteTeamFromServer } from "@services/teams";
 import { localTeamsAtom, Team } from "@/store/team/team";
 
 export const useTeamsData = () => {
@@ -16,13 +16,7 @@ export const useTeamsData = () => {
     enabled: isAuthenticated,
   });
 
-  // 更新用Mutation：サーバー保存用
-  const updateTeamsMutation = useMutation({
-    mutationFn: saveTeamsToServer,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["teams"] });
-    },
-  });
+
 
   // 削除用Mutation
   const deleteTeamMutation = useMutation({
@@ -32,31 +26,32 @@ export const useTeamsData = () => {
     },
   });
 
-  // データソースの切り替え
-  const teams = isAuthenticated ? (teamsQuery.data ?? []) : localTeams;
+  const serverTeams = teamsQuery.data ?? [];
+
+  // データソースの切り替え: サーバーデータにローカルデータをマージ（ローカル優先）
+  const teams = isAuthenticated 
+    ? [
+        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
+        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id))
+      ]
+    : localTeams;
 
   // 更新ロジックの切り替え
   const updateTeams = (newTeams: readonly Team[]) => {
-    if (isAuthenticated) {
-      // ログイン時：TanStack Queryのキャッシュを直接更新（楽観的UI更新）し、サーバーへMutation
-      queryClient.setQueryData(["teams"], newTeams);
-      updateTeamsMutation.mutate(newTeams);
-    } else {
-      // 未ログイン時：Jotai (localStorage) を更新
-      setLocalTeams(newTeams);
-    }
+    // ログイン状態にかかわらず、すべての編集は LocalStorage (Jotai) に自動退避する
+    setLocalTeams(newTeams);
   };
 
   // 削除ロジックの切り替え
   const removeTeam = (teamId: string) => {
-    const newTeams = teams.filter((t) => t.id !== teamId);
+    const newLocalTeams = localTeams.filter((t) => t.id !== teamId);
+    setLocalTeams(newLocalTeams);
+
     if (isAuthenticated) {
-      // 楽観的UI更新：先にキャッシュから除去してからサーバーへ
-      queryClient.setQueryData(["teams"], newTeams);
+      // 楽観的UI更新：サーバーキャッシュからも除去して即座に反映
+      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
+      queryClient.setQueryData(["teams"], currentServerTeams.filter((t) => t.id !== teamId));
       deleteTeamMutation.mutate(teamId);
-    } else {
-      // 未ログイン時：フィルタ済みのリストをそのままローカルストレージへ保存
-      setLocalTeams(newTeams);
     }
   };
 

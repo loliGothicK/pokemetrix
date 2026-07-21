@@ -486,6 +486,12 @@
     "dragToReorder": "Drag to reorder",
     "import": "import from",
     "export": "export as pokepate format",
+    "saving": "Saving...",
+    "saved": "Saved to Cloud",
+    "draft": "Draft",
+    "saveToCloud": "Save to Cloud",
+    "saveSuccess": "Successfully saved to Cloud",
+    "draftReasonTitle": "Why this team can't be saved",
     "drawer": {
       "overview": "Overview",
       "notes": "Notes"

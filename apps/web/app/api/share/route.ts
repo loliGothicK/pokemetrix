@@ -7,7 +7,7 @@ import { z } from "zod";
 import { match } from "ts-pattern";
 import { withChildSpan } from "@/lib/otel";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
-import { trainedPokemonSchema } from "@/lib/team-validation";
+import { trainedPokemonSchema } from "@/lib/validator/trained-pokemon";
 
 // members の中身は実行時に TrainedPokemon 形式であることをクライアントが保証するが、
 // Zod 側では passthrough() で受け付け、DB 挿入時に型キャストする。

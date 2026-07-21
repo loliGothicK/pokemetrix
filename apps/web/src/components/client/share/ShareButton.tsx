@@ -25,6 +25,7 @@ import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
 import { rounded } from "@/utils/styles";
+import { teamSchema } from "@/lib/validator/team";
 
 type ShareState = "idle" | "loading" | "success" | "error";
 
@@ -67,7 +68,19 @@ export function ShareButton() {
         body: JSON.stringify(snapshot),
       });
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorMsg = t("share.shareError");
+        try {
+          const parsed = JSON.parse(errorText);
+          if (parsed.error && Array.isArray(parsed.error)) {
+            errorMsg = parsed.error.map((e: any) => e.message).join(", ");
+          }
+        } catch {
+          errorMsg = errorText;
+        }
+        throw new Error(errorMsg);
+      }
 
       const { id } = (await res.json()) as { readonly id: string };
       setShareState("success");
@@ -79,9 +92,9 @@ export function ShareButton() {
         router.push(`/share/${id}`);
         setShareState("idle");
       }, 800);
-    } catch {
+    } catch (e: any) {
       setShareState("error");
-      setSnackMessage(t("share.shareError"));
+      setSnackMessage(e.message || t("share.shareError"));
       setSnackSeverity("error");
       setSnackOpen(true);
       setTimeout(() => setShareState("idle"), 2000);
@@ -90,6 +103,7 @@ export function ShareButton() {
 
   const isLoading = shareState === "loading";
   const isSuccess = shareState === "success";
+  const isDraft = activeTeam ? !teamSchema.safeParse(activeTeam).success : false;
 
   return (
     <>
@@ -98,7 +112,7 @@ export function ShareButton() {
         variant="contained"
         disableElevation
         color={isSuccess ? "success" : "primary"}
-        disabled={isLoading || !activeTeam}
+        disabled={isLoading || !activeTeam || isDraft}
         startIcon={
           isLoading ? (
             <CircularProgress size={16} color="inherit" />

@@ -57,7 +57,11 @@ import { ParseError } from "@/errors/thiserror/thiserror";
 import LinkIcon from "@mui/icons-material/Link";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { ShareButton } from "@/components/client/share/ShareButton";
+import { CloudSaveButton } from "@/components/client/team-builder/CloudSaveButton";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { teamSchema } from "@/lib/validator/team";
+import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
+import { Chip, Tooltip } from "@mui/material";
 import { flexRowCenter } from "@/theme/sx";
 
 const MAX_TEAM_SIZE = 6;
@@ -651,6 +655,7 @@ export default function TeamBuilderPage({
                     isMobile={false}
                   />
                   <ExportMenu />
+                  <CloudSaveButton />
                   <ShareButton />
                 </Box>
               )}
@@ -735,7 +740,39 @@ export default function TeamBuilderPage({
                       <ListItemIcon>
                         <WorkspacesIcon />
                       </ListItemIcon>
-                      <ListItemText primary={team.name} />
+                      <ListItemText 
+                        primary={
+                          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                            <Box sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              {team.name}
+                            </Box>
+                            {(() => {
+                              const result = teamSchema.safeParse(team);
+                              if (result.success) return null;
+                              const reasons = formatTeamValidationIssues(result, t, team.members);
+                              return (
+                                <Tooltip
+                                  arrow
+                                  title={
+                                    <Box sx={{ p: 0.5 }}>
+                                      <Typography variant="caption" sx={{ fontWeight: 700, display: "block", mb: 0.5 }}>
+                                        {t("teamBuilder.draftReasonTitle") || "保存できない理由"}
+                                      </Typography>
+                                      {reasons.map((r: string, i: number) => (
+                                        <Typography key={i} variant="caption" sx={{ display: "block" }}>
+                                          • {r}
+                                        </Typography>
+                                      ))}
+                                    </Box>
+                                  }
+                                >
+                                  <Chip label="Draft" size="small" color="warning" sx={{ height: 20, fontSize: "0.7rem", flexShrink: 0, cursor: "help" }} />
+                                </Tooltip>
+                              );
+                            })()}
+                          </Stack>
+                        } 
+                      />
                     </ListItemButton>
                   </ListItem>
                 ))
