@@ -47,7 +47,7 @@ const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
 ResizableWrapper.displayName = "ResizableWrapper";
 
 const ResizeHandle = React.forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { ...rest } = props;
+  const { handleAxis: _, ...rest } = props;
   return (
     <Box
       ref={ref}

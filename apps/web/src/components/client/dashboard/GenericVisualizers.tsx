@@ -6,9 +6,21 @@ import { useTranslation } from "react-i18next";
 
 export { HeatmapVisualizer } from "./HeatmapVisualizer";
 
+import { format, parseISO, isValid } from "date-fns";
+import { ja, enUS } from "date-fns/locale";
+
+function getLocaleObj(language: string) {
+  return language.startsWith("ja") ? ja : enUS;
+}
+
+const isIsoDateString = (val: unknown): val is string => {
+  return typeof val === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})/.test(val);
+};
+
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+
 export function TableVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (data.length === 0) {
     return (
@@ -19,14 +31,26 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
   }
 
   const firstRow = data[0] ?? {};
-  const columns: GridColDef[] = Object.keys(firstRow).map((col) => ({
-    field: col,
-    headerName: t(`dashboard.dataKeys.${col}`, { defaultValue: col }) as string,
-    flex: 1,
-    minWidth: 100,
-  }));
 
-  // DataGrid requires a unique 'id' for each row
+  const columns: GridColDef[] = Object.keys(firstRow).map((col) => {
+    const isDate = firstRow[col] instanceof Date || isIsoDateString(firstRow[col]);
+    return {
+      field: col,
+      headerName: t(`dashboard.dataKeys.${col}`, { defaultValue: col }) as string,
+      flex: 1,
+      minWidth: 100,
+      valueFormatter: isDate
+        ? (value: any) => {
+            const dateObj = value instanceof Date ? value : isIsoDateString(value) ? parseISO(value) : null;
+            if (dateObj && isValid(dateObj)) {
+              return format(dateObj, "yyyy/MM/dd HH:mm", { locale: getLocaleObj(i18n.language) });
+            }
+            return value;
+          }
+        : undefined,
+    };
+  });
+
   const rows = useMemo(() => {
     return data.map((row, index) => {
       if (!row || typeof row !== "object") {
@@ -60,8 +84,16 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
   );
 }
 
+function formatStatValue(val: unknown, language: string): string {
+  const dateObj = val instanceof Date ? val : isIsoDateString(val) ? parseISO(val) : null;
+  if (dateObj && isValid(dateObj)) {
+    return format(dateObj, "yyyy/MM/dd HH:mm", { locale: getLocaleObj(language) });
+  }
+  return String((val as string | number | boolean) ?? "—");
+}
+
 export function StatVisualizer({ data }: { readonly data: readonly Record<string, unknown>[] }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (data.length === 0) {
     return (
@@ -74,7 +106,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
   const firstRow = data[0];
   const keys = Object.keys(firstRow ?? {});
   const mainKey = keys[0];
-  const mainValue = mainKey ? firstRow[mainKey] : "—";
+  const mainValue = mainKey ? formatStatValue(firstRow[mainKey], i18n.language) : "—";
 
   const subKeys = keys.slice(1);
 
@@ -97,7 +129,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
             fontSize: "clamp(2rem, 15cqw, 3rem)",
           }}
         >
-          {String(mainValue)}
+          {mainValue}
         </Typography>
       </Box>
 
@@ -120,7 +152,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
                 {t(`dashboard.dataKeys.${k}`, { defaultValue: k })}
               </Typography>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                {String((firstRow[k] as string | number | boolean) ?? "—")}
+                {formatStatValue(firstRow[k], i18n.language)}
               </Typography>
             </Box>
           ))}
