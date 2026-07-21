@@ -14,7 +14,10 @@ function getLocaleObj(language: string) {
 }
 
 const isIsoDateString = (val: unknown): val is string => {
-  return typeof val === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})/.test(val);
+  return (
+    typeof val === "string" &&
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})/.test(val)
+  );
 };
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -41,7 +44,8 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
       minWidth: 100,
       valueFormatter: isDate
         ? (value: any) => {
-            const dateObj = value instanceof Date ? value : isIsoDateString(value) ? parseISO(value) : null;
+            const dateObj =
+              value instanceof Date ? value : isIsoDateString(value) ? parseISO(value) : null;
             if (dateObj && isValid(dateObj)) {
               return format(dateObj, "yyyy/MM/dd HH:mm", { locale: getLocaleObj(i18n.language) });
             }

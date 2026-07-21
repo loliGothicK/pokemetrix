@@ -20,7 +20,6 @@ export async function proxy(request: NextRequest) {
             supabaseResponse.cookies.set(name, value, options),
           );
         },
-
       },
     },
   );
@@ -30,7 +29,6 @@ export async function proxy(request: NextRequest) {
 
   return supabaseResponse;
 }
-
 
 export const config = {
   matcher: [

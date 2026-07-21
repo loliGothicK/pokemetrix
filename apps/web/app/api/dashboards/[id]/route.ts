@@ -3,7 +3,7 @@ import { match } from "ts-pattern";
 import { and, eq } from "drizzle-orm";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
-import { dashboards } from "@/lib/db/schema";
+import { dashboards, type DashboardVariable } from "@/lib/db/schema";
 import { dashboardUpdateSchema, type Dashboard } from "@/store/dashboard/dashboard";
 import { withChildSpan } from "@/lib/otel";
 import type { InferSelectModel } from "drizzle-orm";
@@ -15,8 +15,7 @@ const toDto = (row: DashboardRow): Dashboard => ({
   name: row.name,
   isDefault: row.isDefault,
   layout: row.layout,
-  variables: (row.variables ??
-    []) as readonly import("@/store/dashboard/dashboard").DashboardVariable[],
+  variables: (row.variables ?? []) as readonly DashboardVariable[],
   createdAt: row.createdAt.toISOString(),
   updatedAt: row.updatedAt.toISOString(),
 });
