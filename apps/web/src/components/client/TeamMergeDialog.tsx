@@ -13,10 +13,12 @@ import {
   Typography,
   alpha,
   useTheme,
+  useMediaQuery,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import type { SlotResolution, TeamMergeConflict } from "@/hooks/useAuthSync";
 import { Dispatch, SetStateAction } from "react";
-import { rounded } from "@/utils/styles";
 import { TrainedPokemon } from "@/store/team/team";
 import { useTranslation } from "react-i18next";
 
@@ -43,8 +45,35 @@ function getDiffFields(a: TrainedPokemon, b: TrainedPokemon): DiffField[] {
   return fields;
 }
 
+function renderFieldValue(p: TrainedPokemon | null, field: DiffField): string {
+  if (!p) return "—";
+  switch (field) {
+    case "item":
+      return p.item != null ? `#${p.item}` : "—";
+    case "ability":
+      return `#${p.ability}`;
+    case "gender":
+      return p.gender.specified ?? (p.gender.fixed ? "fixed" : "—");
+    case "nature":
+      return (
+        [p.nature.plus ? `+${p.nature.plus}` : null, p.nature.minus ? `-${p.nature.minus}` : null]
+          .filter(Boolean)
+          .join(" / ") || "—"
+      );
+    case "moves":
+      return p.moves.map((m) => (m != null ? `#${m}` : "—")).join(", ");
+    case "evs":
+      return (
+        Object.entries(p.evs)
+          .filter(([, v]) => Number(v) > 0)
+          .map(([k, v]) => `${k}:${v}`)
+          .join(" ") || "0"
+      );
+  }
+}
+
 // ────────────────────────────────────────────────────────────────
-// PokemonSlotDiff
+// Desktop: PokemonSlotDiff
 // ────────────────────────────────────────────────────────────────
 
 function PokemonSlotDiff({
@@ -77,7 +106,7 @@ function PokemonSlotDiff({
             p: 1.5,
             border: "1px dashed",
             borderColor: "divider",
-            ...rounded(1),
+            borderRadius: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -104,14 +133,18 @@ function PokemonSlotDiff({
           bgcolor: isSelected ? alpha(theme.palette[color].main, 0.1) : "background.paper",
           cursor: "pointer",
           transition: "all 0.15s",
-          ...rounded(1),
+          borderRadius: 1,
           "&:hover": {
             bgcolor: alpha(theme.palette[color].main, 0.06),
           },
         }}
       >
         {/* Header */}
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: diffFields.length > 0 ? 1 : 0 }}>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ alignItems: "center", mb: diffFields.length > 0 ? 1 : 0 }}
+        >
           <Image
             src={`/pokemon/${p.identifier}.png`}
             alt={p.identifier}
@@ -120,7 +153,15 @@ function PokemonSlotDiff({
             style={{ objectFit: "contain", filter: isSelected ? "none" : "grayscale(40%)" }}
           />
           <Box>
-            <Typography variant="caption" sx={{ fontWeight: 700, display: "block", textTransform: "uppercase", color: `${color}.main` }}>
+            <Typography
+              variant="caption"
+              sx={{
+                fontWeight: 700,
+                display: "block",
+                textTransform: "uppercase",
+                color: `${color}.main`,
+              }}
+            >
               {t(`merge.source.${type}`)}
             </Typography>
             <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
@@ -133,11 +174,24 @@ function PokemonSlotDiff({
         {diffFields.length > 0 && (
           <Stack spacing={0.25}>
             {diffFields.map((field) => (
-              <Typography key={field} variant="caption" sx={{ display: "block", color: "text.secondary", fontSize: 10, fontFamily: "monospace" }}>
+              <Typography
+                key={field}
+                variant="caption"
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 0.5,
+                  color: "text.secondary",
+                  fontSize: 10,
+                  fontFamily: "monospace",
+                }}
+              >
                 <Box component="span" sx={{ color: `${color}.main`, fontWeight: 700 }}>
                   {t(`merge.field.${field}`)}:
-                </Box>{" "}
-                {renderFieldValue(p, field)}
+                </Box>
+                <Box component="span" sx={{ wordBreak: "break-all" }}>
+                  {renderFieldValue(p, field)}
+                </Box>
               </Typography>
             ))}
           </Stack>
@@ -152,10 +206,10 @@ function PokemonSlotDiff({
       spacing={1}
       sx={{
         p: 1,
-        border: "1px solid",
+        borderBottom: { xs: "1px dashed", sm: "none" },
         borderColor: "divider",
-        ...rounded(1),
-        bgcolor: "action.disabledBackground",
+        borderRadius: { xs: 0, sm: 1 },
+        bgcolor: { xs: "transparent", sm: "action.disabledBackground" },
       }}
     >
       {renderCard(local, "local")}
@@ -164,26 +218,189 @@ function PokemonSlotDiff({
   );
 }
 
-function renderFieldValue(p: TrainedPokemon, field: DiffField): string {
-  switch (field) {
-    case "item":
-      return p.item != null ? `#${p.item}` : "—";
-    case "ability":
-      return `#${p.ability}`;
-    case "gender":
-      return p.gender.specified ?? (p.gender.fixed ? "fixed" : "—");
-    case "nature":
-      return [p.nature.plus ? `+${p.nature.plus}` : null, p.nature.minus ? `-${p.nature.minus}` : null]
-        .filter(Boolean)
-        .join(" / ") || "—";
-    case "moves":
-      return p.moves.map((m) => (m != null ? `#${m}` : "—")).join(", ");
-    case "evs":
-      return Object.entries(p.evs)
-        .filter(([, v]) => Number(v) > 0)
-        .map(([k, v]) => `${k}:${v}`)
-        .join(" ") || "0";
-  }
+// ────────────────────────────────────────────────────────────────
+// Mobile: MobilePokemonSlotDiff
+// ────────────────────────────────────────────────────────────────
+
+function MobilePokemonSlotDiff({
+  local,
+  server,
+  resolution,
+  onResolve,
+}: {
+  readonly local: TrainedPokemon | null;
+  readonly server: TrainedPokemon | null;
+  readonly resolution: SlotResolution;
+  readonly onResolve: (res: SlotResolution) => void;
+}) {
+  const theme = useTheme();
+  const { t } = useTranslation();
+
+  if (local === null && server === null) return null;
+  if (local !== null && server !== null && isSamePokemon(local, server)) return null;
+
+  const diffFields = local !== null && server !== null ? getDiffFields(local, server) : [];
+
+  const p = local || server;
+  if (!p) return null;
+
+  return (
+    <Box
+      sx={{
+        p: 1.5,
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 2,
+        bgcolor: "background.paper",
+        boxShadow: theme.shadows[1],
+      }}
+    >
+      {/* Target Pokemon Icon & Title */}
+      <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 2 }}>
+        <Box
+          sx={{
+            width: 44,
+            height: 44,
+            bgcolor: "action.hover",
+            borderRadius: 1.5,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            src={`/pokemon/${p.identifier}.png`}
+            alt={p.identifier}
+            width={36}
+            height={36}
+            style={{ objectFit: "contain" }}
+          />
+        </Box>
+        <Box>
+          <Typography
+            variant="body2"
+            sx={{ fontWeight: 700, textTransform: "capitalize", fontSize: 15 }}
+          >
+            {p.identifier}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            {t("merge.slotDiffDetected")}
+          </Typography>
+        </Box>
+      </Stack>
+
+      {/* Comparison List */}
+      {diffFields.length > 0 && (
+        <Stack spacing={1.5} sx={{ mb: 2.5 }}>
+          {diffFields.map((field) => (
+            <Box key={field}>
+              <Typography
+                variant="caption"
+                sx={{
+                  display: "block",
+                  color: "text.primary",
+                  fontWeight: 700,
+                  mb: 0.5,
+                  borderBottom: "1px solid",
+                  borderColor: "divider",
+                  pb: 0.5,
+                }}
+              >
+                {t(`merge.field.${field}`)}
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ pt: 0.5 }}>
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "warning.main",
+                      display: "block",
+                      fontWeight: 700,
+                      mb: 0.25,
+                      fontSize: 10,
+                    }}
+                  >
+                    LOCAL
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      wordBreak: "break-all",
+                      fontFamily: "monospace",
+                      display: "block",
+                      lineHeight: 1.3,
+                      fontSize: 11,
+                    }}
+                  >
+                    {renderFieldValue(local, field)}
+                  </Typography>
+                </Box>
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: "info.main",
+                      display: "block",
+                      fontWeight: 700,
+                      mb: 0.25,
+                      fontSize: 10,
+                    }}
+                  >
+                    SERVER
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      wordBreak: "break-all",
+                      fontFamily: "monospace",
+                      display: "block",
+                      lineHeight: 1.3,
+                      fontSize: 11,
+                    }}
+                  >
+                    {renderFieldValue(server, field)}
+                  </Typography>
+                </Box>
+              </Stack>
+            </Box>
+          ))}
+        </Stack>
+      )}
+
+      {(local === null || server === null) && (
+        <Typography
+          variant="body2"
+          sx={{ mb: 2.5, textAlign: "center", p: 1, bgcolor: "action.hover", borderRadius: 1 }}
+        >
+          {local === null ? t("merge.onlyInServer") : t("merge.onlyInLocal")}
+        </Typography>
+      )}
+
+      {/* Resolution Action */}
+      <ToggleButtonGroup
+        value={resolution}
+        exclusive
+        onChange={(_, val) => {
+          if (val !== null) onResolve(val);
+        }}
+        fullWidth
+        size="small"
+        sx={{
+          "& .MuiToggleButtonGroup-grouped": {
+            border: "1px solid",
+            borderColor: "divider",
+          },
+        }}
+      >
+        <ToggleButton value="local" color="warning" sx={{ fontWeight: 700, py: 1 }}>
+          {t("merge.source.local")}
+        </ToggleButton>
+        <ToggleButton value="server" color="info" sx={{ fontWeight: 700, py: 1 }}>
+          {t("merge.source.server")}
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </Box>
+  );
 }
 
 // ────────────────────────────────────────────────────────────────
@@ -198,6 +415,9 @@ function MergeConflictRow({
   readonly onChange: (newConflict: TeamMergeConflict) => void;
 }) {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const isLocalOnly = conflict.serverTeam === null;
   const isServerOnly = conflict.localTeam === null;
   const isConflict = !isLocalOnly && !isServerOnly;
@@ -211,22 +431,39 @@ function MergeConflictRow({
   return (
     <Box
       sx={{
-        p: 2,
-        border: "1px solid",
+        p: { xs: 0, sm: 2 },
         borderColor: "divider",
-        bgcolor: "background.paper",
-        ...rounded(2),
+        bgcolor: { xs: "transparent", sm: "background.paper" },
+        borderRadius: { xs: 0, sm: 2 },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5, px: { xs: 0.5, sm: 0 } }}>
         {isLocalOnly && (
-          <Chip label={t("merge.tag.localOnly")} size="small" color="warning" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />
+          <Chip
+            label={t("merge.tag.localOnly")}
+            size="small"
+            color="warning"
+            variant="outlined"
+            sx={{ fontFamily: "monospace", fontSize: 11 }}
+          />
         )}
         {isServerOnly && (
-          <Chip label={t("merge.tag.serverOnly")} size="small" color="info" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />
+          <Chip
+            label={t("merge.tag.serverOnly")}
+            size="small"
+            color="info"
+            variant="outlined"
+            sx={{ fontFamily: "monospace", fontSize: 11 }}
+          />
         )}
         {isConflict && (
-          <Chip label={t("merge.tag.conflict")} size="small" color="error" variant="outlined" sx={{ fontFamily: "monospace", fontSize: 11 }} />
+          <Chip
+            label={t("merge.tag.conflict")}
+            size="small"
+            color="error"
+            variant="outlined"
+            sx={{ fontFamily: "monospace", fontSize: 11 }}
+          />
         )}
         <Typography variant="subtitle2" sx={{ flex: 1, fontWeight: 700 }}>
           {conflict.name || t("merge.unnamedTeam")}
@@ -234,23 +471,41 @@ function MergeConflictRow({
       </Box>
 
       {hasDiff ? (
-        <Stack spacing={1}>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <PokemonSlotDiff
-              key={i}
-              local={conflict.localTeam?.members[i] ?? null}
-              server={conflict.serverTeam?.members[i] ?? null}
-              resolution={conflict.slotResolutions[i]}
-              onResolve={(res) => {
-                const newResolutions = [...conflict.slotResolutions];
-                newResolutions[i] = res;
-                onChange({ ...conflict, slotResolutions: newResolutions });
-              }}
-            />
-          ))}
+        <Stack spacing={isMobile ? 2 : 1}>
+          {Array.from({ length: 6 }).map((_, i) => {
+            const local = conflict.localTeam?.members[i] ?? null;
+            const server = conflict.serverTeam?.members[i] ?? null;
+            const res = conflict.slotResolutions[i];
+            const onResolve = (res: SlotResolution) => {
+              const newResolutions = [...conflict.slotResolutions];
+              newResolutions[i] = res;
+              onChange({ ...conflict, slotResolutions: newResolutions });
+            };
+
+            if (local === null && server === null) return null;
+            if (local !== null && server !== null && isSamePokemon(local, server)) return null;
+
+            return isMobile ? (
+              <MobilePokemonSlotDiff
+                key={i}
+                local={local}
+                server={server}
+                resolution={res}
+                onResolve={onResolve}
+              />
+            ) : (
+              <PokemonSlotDiff
+                key={i}
+                local={local}
+                server={server}
+                resolution={res}
+                onResolve={onResolve}
+              />
+            );
+          })}
         </Stack>
       ) : (
-        <Typography variant="body2" color="text.secondary" sx={{ py: 1 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ py: 1, px: { xs: 0.5, sm: 0 } }}>
           {t("merge.noDiff")}
         </Typography>
       )}
@@ -278,6 +533,8 @@ export function TeamMergeDialog({
   onCancelAction,
 }: TeamMergeDialogProps) {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleConflictChange = (index: number, newConflict: TeamMergeConflict) => {
     setConflicts((prev) => {
@@ -293,10 +550,13 @@ export function TeamMergeDialog({
       onClose={onCancelAction}
       maxWidth="md"
       fullWidth
+      fullScreen={isMobile}
       sx={{
         "& .MuiDialog-paper": {
-          ...rounded(3),
-          maxHeight: "85vh",
+          borderRadius: { xs: 2, sm: 3 },
+          maxHeight: "90vh",
+          m: { xs: 1, sm: 3 },
+          width: "100%",
         },
       }}
     >
@@ -309,8 +569,11 @@ export function TeamMergeDialog({
         </Typography>
       </DialogTitle>
 
-      <DialogContent dividers sx={{ p: 2 }}>
-        <Stack spacing={2}>
+      <DialogContent
+        dividers
+        sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: isMobile ? "action.hover" : "transparent" }}
+      >
+        <Stack spacing={isMobile ? 3 : 2}>
           {conflicts.map((conflict, i) => (
             <MergeConflictRow
               key={conflict.teamId}

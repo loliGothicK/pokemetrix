@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
@@ -526,7 +526,10 @@ export default function TeamBuilderPage({
   });
 
   const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
-  const { teams, isLoading, updateTeams, removeTeam } = useTeamsData();
+  const { teams: rawTeams, isLoading, updateTeams, removeTeam } = useTeamsData();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const teams = useMemo(() => mounted ? rawTeams : [], [mounted, rawTeams]);
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
   const [, , , , undo, redo, canUndo, canRedo] = useActiveTeam();
 
