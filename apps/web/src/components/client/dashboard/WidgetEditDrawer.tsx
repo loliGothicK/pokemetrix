@@ -175,7 +175,6 @@ export function WidgetEditDrawer({
         bgcolor: "background.paper",
         borderLeft: "1px solid",
         borderColor: "divider",
-        flexShrink: 0,
         height: "100%",
         overflow: "hidden",
       }}

@@ -14,6 +14,7 @@ import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
 import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";
 import {
   AppBar,
+  Badge,
   Box,
   CssBaseline,
   Divider,
@@ -62,6 +63,7 @@ type SideMenuItem = {
   readonly labelKey: string;
   readonly icon: ReactNode;
   readonly route?: string;
+  readonly isPreview?: boolean;
 };
 
 type SideMenuGroup = {
@@ -120,6 +122,7 @@ const sideMenuGroups: SideMenuGroup[] = [
         labelKey: "navigation.items.dashboard",
         icon: <DashboardCustomizeRoundedIcon fontSize="small" />,
         route: "/dashboard",
+        isPreview: true,
       },
     ],
   },
@@ -164,7 +167,28 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
                 <ListItemIcon sx={{ minWidth: 36, color: "primary.main" }}>
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={t(item.labelKey)} />
+                <ListItemText
+                  primary={
+                    <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      {t(item.labelKey)}
+                      {item.isPreview && (
+                        <Badge
+                          badgeContent={t("common.preview")}
+                          color="primary"
+                          sx={{
+                            "& .MuiBadge-badge": {
+                              position: "static",
+                              transform: "none",
+                              padding: "0 6px",
+                              height: 18,
+                              fontSize: "0.65rem",
+                            },
+                          }}
+                        />
+                      )}
+                    </Box>
+                  }
+                />
               </ListItemButton>
             ) : (
               <ListItemButton

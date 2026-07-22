@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/Delete";
-import { alpha } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
 import { Training } from "@/components/client/team-builder/training";
@@ -63,17 +62,24 @@ export default function TeamSlotDetail({
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
+        border: { xs: "none" },
+        borderRadius: { xs: 0 },
+        p: { xs: 0 },
       }}
     >
       <Stack
         direction="row"
-        spacing={1}
         sx={{
           ...flexRowCenter,
           px: 2,
-          py: 1.5,
+          py: 1,
           borderBottom: "1px solid",
           borderColor: theme.palette.divider,
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          bgcolor: theme.palette.background.paper,
         }}
       >
         {showBackButton && (
@@ -97,40 +103,37 @@ export default function TeamSlotDetail({
             </Tabs>
           </Box>
         )}
-
         {member && (
-          <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0 }}>
+          <Stack direction="row" spacing={1} sx={{ display: { xs: "none", md: "flex" } }}>
             {isAuthenticated && (
               <Button
-                size="small"
-                variant="outlined"
-                startIcon={<SaveOutlinedIcon />}
+                variant="contained"
                 onClick={() => {
                   saveToBox(member);
                   setSavedSnackbar(true);
                 }}
+                startIcon={<SaveOutlinedIcon />}
+                size="small"
               >
                 {t("box.saveToBox")}
               </Button>
             )}
-            <IconButton
-              size="small"
+            <Button
+              variant="outlined"
+              color="error"
               onClick={() => setDeleteDialogOpen(true)}
-              sx={{
-                color: "error.main",
-                bgcolor: (theme) => alpha(theme.palette.error.main, 0.1),
-                "&:hover": { bgcolor: "error.main", color: "#fff" },
-              }}
+              startIcon={<DeleteOutlineIcon />}
+              size="small"
             >
-              <DeleteOutlineIcon fontSize="small" />
-            </IconButton>
+              {t("teamBuilder.delete")}
+            </Button>
           </Stack>
         )}
       </Stack>
 
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
         {member ? (
-          <Box sx={{ p: { xs: 1, md: 3 } }}>
+          <Box sx={{ p: { xs: 2, md: 0 } }}>
             <Training
               member={member}
               activeTab={activeTab}
@@ -148,6 +151,30 @@ export default function TeamSlotDetail({
           </Box>
         )}
       </Box>
+
+      {member && (
+        <SpeedDial
+          ariaLabel="Actions"
+          sx={{ display: { xs: "flex", md: "none" }, position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          {isAuthenticated && (
+            <SpeedDialAction
+              icon={<SaveOutlinedIcon />}
+              title={t("box.saveToBox")}
+              onClick={() => {
+                saveToBox(member);
+                setSavedSnackbar(true);
+              }}
+            />
+          )}
+          <SpeedDialAction
+            icon={<DeleteOutlineIcon />}
+            title={t("teamBuilder.delete")}
+            onClick={() => setDeleteDialogOpen(true)}
+          />
+        </SpeedDial>
+      )}
 
       <SelectPokemonDialog
         title={t("teamBuilder.selectPokemon")}

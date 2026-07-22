@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
+  Badge,
   Box,
   Button,
   CircularProgress,
@@ -19,6 +20,8 @@ import {
   Typography,
   alpha,
   Divider,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useAtomValue } from "jotai";
@@ -73,6 +76,8 @@ function newEmptyWidget(y: number): DashboardWidget {
 
 export default function DashboardPage() {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const { dashboards, isLoading, createDashboard, updateDashboard, removeDashboard } =
     useDashboards();
@@ -275,8 +280,25 @@ export default function DashboardPage() {
     );
   }
 
+  if (isMobile) {
+    return (
+      <Box sx={{ p: 4, height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <EmptyState
+          message={t("dashboard.desktopOnly", "ダッシュボードはPC環境（デスクトップ）でのみご利用いただけます。")}
+        />
+      </Box>
+    );
+  }
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: { xs: "calc(100vh - 60px)", md: "calc(100vh - 68px)" },
+        minHeight: 0,
+      }}
+    >
       {/* ===== ダッシュボードツールバー ===== */}
       <Box sx={{ p: { xs: 2, md: 3 }, pb: { xs: 1, md: 1.5 } }}>
         <Stack
@@ -298,13 +320,27 @@ export default function DashboardPage() {
               slotProps={{ htmlInput: { maxLength: 100 } }}
             />
           ) : (
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 700, flexGrow: 1, cursor: activeDashboard ? "pointer" : "default" }}
-              onClick={handleStartRename}
-            >
-              {activeDashboard?.name ?? t("dashboard.title")}
-            </Typography>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexGrow: 1 }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 700, cursor: activeDashboard ? "pointer" : "default" }}
+                onClick={handleStartRename}
+              >
+                {activeDashboard?.name ?? t("dashboard.title")}
+              </Typography>
+              <Badge
+                badgeContent={t("common.preview")}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    position: "static",
+                    transform: "none",
+                    padding: "0 6px",
+                    height: 20,
+                  },
+                }}
+              />
+            </Stack>
           )}
 
           <FormControl size="small" sx={{ minWidth: { xs: "100%", sm: 220 } }}>
@@ -431,7 +467,7 @@ export default function DashboardPage() {
 
       {/* ===== メインコンテンツ ===== */}
       {visualizeWidget ? (
-        <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
+        <Box sx={{ flexGrow: 1, overflow: "hidden", minHeight: 0 }}>
           <VisualizeEditor
             widget={visualizeWidget}
             variableValues={variableValues}
@@ -440,7 +476,7 @@ export default function DashboardPage() {
           />
         </Box>
       ) : (
-        <Box sx={{ flexGrow: 1, display: "flex", overflow: "hidden" }}>
+        <Box sx={{ flexGrow: 1, display: "flex", overflow: "hidden", minHeight: 0 }}>
           <Box
             sx={{
               flexGrow: 1,
@@ -449,6 +485,7 @@ export default function DashboardPage() {
               overflowY: "auto",
               display: "flex",
               flexDirection: "column",
+              minHeight: 0,
             }}
           >
             {!activeDashboard ? (

@@ -28,6 +28,7 @@ import {
   Snackbar,
   Alert,
   Stack,
+  GlobalStyles,
   Paper,
   FormControlLabel,
   Switch,
@@ -541,15 +542,19 @@ export default function TeamBuilderPage({
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        position: "relative",
-        overflow: { xs: "visible", md: "hidden" },
-        height: { xs: "auto", md: "100vh" },
-      }}
-    >
+    <>
+      {isMobile && hasSelection && activeTeam && (
+        <GlobalStyles styles={{ body: { overflow: "hidden" } }} />
+      )}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          position: "relative",
+          overflow: "hidden",
+          height: { xs: (hasSelection && activeTeam) ? "calc(100dvh - 60px)" : "auto", md: "100vh" },
+        }}
+      >
       <Dialog
         open={deleteTargetId !== null}
         onClose={() => setDeleteTargetId(null)}
@@ -789,7 +794,14 @@ export default function TeamBuilderPage({
 
       <Main
         open={isMobile ? false : drawerOpen}
-        sx={isMobile ? { ml: 0, height: "auto", overflowY: "visible" } : undefined}
+        sx={isMobile ? { 
+          ml: 0, 
+          height: (hasSelection && activeTeam) ? "100%" : "auto", 
+          overflowY: (hasSelection && activeTeam) ? "hidden" : "visible", 
+          display: (hasSelection && activeTeam) ? "flex" : "block",
+          flexDirection: "column",
+          p: 0 
+        } : undefined}
       >
         {!isMobile && <DrawerHeader />}
 
@@ -866,5 +878,6 @@ export default function TeamBuilderPage({
         )}
       </Main>
     </Box>
+    </>
   );
 }

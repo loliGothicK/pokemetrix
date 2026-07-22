@@ -217,7 +217,7 @@ export function Training({
       direction={{ xs: "column", md: "row" }}
       spacing={{ xs: 2, md: 4 }}
       className={"Training-root"}
-      sx={{ minWidth: 0, p: { xs: 2, md: 4 } }}
+      sx={{ minWidth: 0, p: { xs: 0, md: 4 } }}
     >
       {/* 左カラム：ポケモン画像（独立したCard） */}
       <Stack
@@ -225,21 +225,25 @@ export function Training({
         sx={{ width: { xs: "100%", md: 240 }, flexShrink: 0, alignItems: "center" }}
       >
         {/* Name and Types Block */}
-        <Stack spacing={1} sx={{ width: "100%", alignItems: "center", mb: 1 }}>
-          <Stack direction="column" spacing={0} sx={{ alignItems: "center" }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, textAlign: "center" }}>
+        <Stack 
+          direction={{ xs: "row", md: "column" }} 
+          spacing={{ xs: 2, md: 1 }} 
+          sx={{ width: "100%", alignItems: "center", justifyContent: "center", mb: 1, px: { xs: 2, md: 0 }, pt: { xs: 2, md: 0 } }}
+        >
+          <Stack direction="column" spacing={0} sx={{ alignItems: { xs: "flex-end", md: "center" } }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, textAlign: { xs: "right", md: "center" } }}>
               {t(`pokemon.${activePokemon.identifier}.name`)}
             </Typography>
             {i18n.exists(`pokemon.${activePokemon.identifier}.formName`) && (
               <Typography
                 variant="body2"
-                sx={{ color: "text.secondary", textAlign: "center", fontWeight: 400 }}
+                sx={{ color: "text.secondary", textAlign: { xs: "right", md: "center" }, fontWeight: 400 }}
               >
                 {t(`pokemon.${activePokemon.identifier}.formName`)}
               </Typography>
             )}
           </Stack>
-          <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
+          <Stack direction="row" spacing={1} sx={{ justifyContent: { xs: "flex-start", md: "center" } }}>
             {activePokemon.types.map((type) => (
               <Chip avatar={<Avatar src={typeIcon(type)} />} key={type} label={type} size="small" />
             ))}
@@ -248,7 +252,17 @@ export function Training({
 
         <SurfaceCard
           raised
-          sx={{ p: 4, borderRadius: 4, width: "100%", ...flexRowCenter, justifyContent: "center" }}
+          sx={{
+            p: { xs: 0, md: 4 },
+            borderRadius: { xs: 0, md: 4 },
+            border: { xs: "none" },
+            bgcolor: { xs: "transparent" },
+            backgroundImage: { xs: "none" },
+            boxShadow: { xs: "none" },
+            width: "100%",
+            ...flexRowCenter,
+            justifyContent: "center",
+          }}
         >
           {/* ポケモン画像領域 */}
           <Box

@@ -12,7 +12,8 @@
     "add": "Add",
     "done": "Done",
     "back": "Back",
-    "or": "or"
+    "or": "or",
+    "preview": "Preview"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -238,6 +239,7 @@
       "winRate": "Win rate",
       "total": "Battles",
       "topOpponents": "Most faced opponents",
+      "desktopOnly": "The dashboard is only available on desktop devices.",
       "wldShort": "{{w}}W {{l}}L {{d}}D"
     }
   },
