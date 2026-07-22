@@ -21,6 +21,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  SpeedDial,
+  SpeedDialIcon,
+  SpeedDialAction,
 } from "@mui/material";
 import { Add, Delete, SaveOutlined } from "@mui/icons-material";
 
@@ -41,7 +44,6 @@ import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
 import { useHotkeys } from "react-hotkeys-hook";
 import { moveById } from "@/data/moves";
-import { rounded } from "@/utils/styles";
 
 export default function BoxPage() {
   const { t } = useTranslation();
@@ -124,7 +126,7 @@ export default function BoxPage() {
               <Tab label={t("teamBuilder.tabEvSpreads")} />
             </Tabs>
           </Box>
-        <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0 }}>
+        <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0, display: { xs: "none", md: "flex" } }}>
           <Button variant="contained" startIcon={<SaveOutlined />} onClick={handleSaveToBox}>
             {t("box.saveToBox")}
           </Button>
@@ -142,13 +144,32 @@ export default function BoxPage() {
         </Stack>
       </Stack>
 
-      <Box sx={{ flexGrow: 1, p: { xs: 1, md: 3 } }}>
+      <Box sx={{ flexGrow: 1, p: { xs: 1.5, md: 3 } }}>
         <Training
           member={editingPokemon}
           activeTab={activeTab}
           onUpdate={(updated) => setEditingPokemon(updated)}
         />
       </Box>
+
+      <SpeedDial
+        ariaLabel="Actions"
+        sx={{ display: { xs: "flex", md: "none" }, position: "fixed", bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        <SpeedDialAction
+          icon={<SaveOutlined />}
+          title={t("box.saveToBox")}
+          slotProps={{ tooltip: { title: t("box.saveToBox"), open: true } }}
+          onClick={handleSaveToBox}
+        />
+        <SpeedDialAction
+          icon={<Delete />}
+          title={t("teamBuilder.delete")}
+          slotProps={{ tooltip: { title: t("teamBuilder.delete"), open: true } }}
+          onClick={() => setDeleteDialogOpen(true)}
+        />
+      </SpeedDial>
 
       <Dialog
         open={deleteDialogOpen}
@@ -200,9 +221,7 @@ export default function BoxPage() {
           onClick={() => setSelectOpen(true)}
           color="primary"
           aria-label="add"
-          sx={{
-            display: { xs: "none", md: "flex" },
-          }}
+          size="medium"
         >
           <Add />
         </Fab>
@@ -237,19 +256,22 @@ export default function BoxPage() {
           {filtered.map((pokemon) => (
             <Grid component="div" size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={pokemon.boxId}>
               <Paper
+                onClick={() => setEditingPokemon(pokemon)}
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 2,
+                  gap: { xs: 1, sm: 2 },
+                  p: { xs: 1.5, sm: 2 },
                   bgcolor: theme.palette.background.paperRaised,
                   border: "1px solid",
                   borderColor: theme.palette.divider,
+                  cursor: "pointer",
                   transition: "all 0.2s ease-in-out",
                   "&:hover": {
                     borderColor: theme.palette.primary.main,
                     boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
                   },
-                  ...rounded(3),
+                  borderRadius: 3,
                 }}
               >
                 <Box
@@ -263,7 +285,7 @@ export default function BoxPage() {
                     justifyContent: "center",
                     position: "relative",
                     flexShrink: 0,
-                    ...rounded(2),
+                    borderRadius: 2,
                   }}
                 >
                   <Image
@@ -331,7 +353,10 @@ export default function BoxPage() {
 
                 <Fab
                   size="small"
-                  onClick={() => removeFromBox(pokemon.boxId)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeFromBox(pokemon.boxId);
+                  }}
                   sx={{
                     boxShadow: "none",
                     bgcolor: alpha(theme.palette.error.main, 0.1),

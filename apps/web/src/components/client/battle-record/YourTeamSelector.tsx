@@ -15,7 +15,6 @@ import {
   type MemberSelectionState,
   type Selection,
 } from "./selection";
-import { rounded } from "@/utils/styles";
 
 interface YourTeamSelectorProps {
   readonly myTeam: readonly TrainedPokemon[];
@@ -90,7 +89,8 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                   cursor: "pointer",
                   transition: "border-color 0.15s, background-color 0.15s",
                   opacity: state === "unused" ? 0.7 : 1,
-                  ...rounded(2),
+                  borderRadius: 2,
+                  py: 1,
                 }}
               >
                 <Image

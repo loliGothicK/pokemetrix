@@ -45,8 +45,8 @@ function SpriteRow({
           <Box
             key={`${slug}-${i}`}
             sx={{
-              width: 26,
-              height: 26,
+              width: { xs: 18, sm: 26 },
+              height: { xs: 18, sm: 26 },
               position: "relative",
               flexShrink: 0,
               opacity: isSelected ? 1 : 0.35,
@@ -54,7 +54,13 @@ function SpriteRow({
               transition: "opacity 0.15s, filter 0.15s",
             }}
           >
-            <Image src={`/pokemon/${slug}.png`} alt={slug} width={26} height={26} />
+            <Image 
+              src={`/pokemon/${slug}.png`} 
+              alt={slug} 
+              width={26} 
+              height={26} 
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
           </Box>
         );
       })}
@@ -178,11 +184,11 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
                 </Typography>
               ) : null}
 
-              {/* アクション */}
+              {/* アクション (Desktop) */}
               <Stack
                 direction="row"
                 className="row-actions"
-                sx={{ opacity: { xs: 1, md: 0 }, transition: "opacity 0.15s", ml: "auto" }}
+                sx={{ display: { xs: "none", md: "flex" }, opacity: 0, transition: "opacity 0.15s", ml: "auto" }}
               >
                 <IconButton
                   size="small"
@@ -202,8 +208,8 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
               </Stack>
             </Stack>
 
-            {/* 日時 + メモ（2行目） */}
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 0.25 }}>
+            {/* 日時 + メモ + アクション(Mobile) */}
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 0.25, flexWrap: "wrap" }}>
               <Typography variant="caption" color="text.secondary">
                 {new Date(record.playedAt).toLocaleString(i18n.language, {
                   year: "numeric",
@@ -219,11 +225,35 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
                   variant="caption"
                   color="text.secondary"
                   noWrap
-                  sx={{ maxWidth: { xs: 160, md: 320 } }}
+                  sx={{ maxWidth: { xs: 140, md: 320 } }}
                 >
                   {record.notes}
                 </Typography>
               )}
+              
+              <Box sx={{ flexGrow: 1 }} />
+              
+              {/* アクション (Mobile) */}
+              <Stack
+                direction="row"
+                sx={{ display: { xs: "flex", md: "none" } }}
+              >
+                <IconButton
+                  size="small"
+                  onClick={() => onEdit(record)}
+                  aria-label={t("common.edit")}
+                >
+                  <Edit fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  color="error"
+                  onClick={() => onDelete(record.id)}
+                  aria-label={t("common.delete")}
+                >
+                  <Delete fontSize="small" />
+                </IconButton>
+              </Stack>
             </Stack>
           </SurfaceCard>
         );

@@ -149,7 +149,7 @@ export function BattleRecordFormDialog({
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.06em", flexGrow: 1 }}>
           {editing ? t("battleRecord.form.editTitle") : t("battleRecord.form.newTitle")}
         </Typography>
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption" color="text.secondary" sx={{ display: { xs: "none", sm: "block" } }}>
           {t("battleRecord.form.escHint")}
         </Typography>
         <IconButton onClick={onClose} size="small" aria-label={t("common.close")}>
@@ -206,7 +206,8 @@ export function BattleRecordFormDialog({
                       cursor: "pointer",
                       transition: "all 0.15s",
                       "&:hover": { borderColor: color, bgcolor: alpha(color, 0.08) },
-                      ...rounded(3),
+                      borderRadius: 3,
+                      py: 1.5,
                     }}
                   >
                     {t(`battleRecord.result.${result}`).toUpperCase()}

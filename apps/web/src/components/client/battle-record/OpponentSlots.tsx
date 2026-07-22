@@ -16,7 +16,6 @@ import { nextOpponentKey } from "./formState";
 import { cycleOpponentRole, selectionLimits } from "./selection";
 import { OpponentDetailDialog } from "./OpponentDetailDialog";
 import { BACK_COLOR, LEAD_COLOR, Legend } from "./YourTeamSelector";
-import { rounded } from "@/utils/styles";
 
 const MAX_OPPONENTS = 6;
 
@@ -126,7 +125,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                         ? theme.palette.primary.main
                         : theme.palette.divider,
                   },
-                  ...rounded(2),
+                  borderRadius: 2,
                 }}
               >
                 <Add fontSize="small" />
@@ -157,7 +156,8 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 opacity: opponent.selectionRole === null ? 0.75 : 1,
                 transition: "border-color 0.15s, background-color 0.15s",
                 "&:hover .slot-action": { opacity: 1 },
-                ...rounded(2),
+                overflow: "hidden",
+                borderRadius: 2,
               }}
             >
               <Image

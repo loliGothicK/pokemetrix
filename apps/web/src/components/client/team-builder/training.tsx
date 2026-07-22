@@ -842,14 +842,14 @@ export function Training({
                         sx={{
                           display: "grid",
                           alignItems: "center",
-                          columnGap: { xs: 1.5, md: 2.5 },
-                          rowGap: { xs: 1, md: 0.5 },
+                          columnGap: { xs: 1, md: 2.5 },
+                          rowGap: { xs: 0.5, md: 0.5 },
                           gridTemplateColumns: {
-                            xs: "1fr auto auto",
+                            xs: "min-content 1fr auto auto",
                             md: "72px 1fr auto 56px",
                           },
                           gridTemplateAreas: {
-                            xs: `"label number value" "slider slider slider"`,
+                            xs: `"label label number value" "slider slider slider slider"`,
                             md: `"label slider number value"`,
                           },
                           border: { xs: "none", md: "1px solid" },
@@ -867,8 +867,8 @@ export function Training({
                         {/* ステータス名と性格補正トグル */}
                         <Stack
                           direction="row"
-                          spacing={0.75}
-                          sx={{ gridArea: "label", alignItems: "center", minWidth: 0 }}
+                          spacing={0.5}
+                          sx={{ gridArea: "label", alignItems: "center", minWidth: 0, flexWrap: "nowrap" }}
                         >
                           <Typography
                             sx={{
@@ -971,7 +971,9 @@ export function Training({
                         <Box
                           sx={{
                             gridArea: "number",
-                            width: { xs: 76, md: 96 },
+                            width: { xs: 72, md: 96 },
+                            display: "flex",
+                            alignItems: "center",
                             "& .MuiFormControl-root": { width: "100%" },
                             "& .MuiInputBase-root": { width: "100%" },
                             "& .MuiInputBase-input": {
@@ -983,7 +985,7 @@ export function Training({
                           }}
                         >
                           <NumberField
-                            label={t(`teamBuilder.status.${stat}.name`)}
+                            aria-label={t(`teamBuilder.status.${stat}.name`)}
                             min={0}
                             max={maxAvailable}
                             step={1}

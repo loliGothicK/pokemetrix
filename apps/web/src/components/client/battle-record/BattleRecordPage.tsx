@@ -441,7 +441,8 @@ export default function BattleRecordPage() {
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "240px minmax(0, 1fr)" },
           gap: { xs: 2, md: 3 },
-          p: { xs: 2, md: 3 },
+          px: { xs: 1, sm: 2, md: 3 },
+          py: { xs: 2, md: 3 },
           alignItems: "start",
         }}
       >
