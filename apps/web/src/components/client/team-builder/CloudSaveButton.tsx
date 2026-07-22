@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Button, CircularProgress, Snackbar, Alert, Tooltip, Box, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Button, CircularProgress, Snackbar, Alert, Tooltip, Box, Typography, SpeedDialAction, SpeedDialActionProps } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CheckIcon from "@mui/icons-material/Check";
 import { useAtom, useAtomValue } from "jotai";
@@ -14,15 +14,20 @@ import { teamSchema } from "@/lib/validator/team";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
 
-export function CloudSaveButton() {
-  const { t } = useTranslation();
-  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
-  const [localTeams, setLocalTeams] = useAtom(localTeamsAtom);
-  const [activeTeam] = useActiveTeam();
-  const queryClient = useQueryClient();
+type CloudSaveButtonProps = {
+  asSpeedDialAction?: boolean;
+} & Partial<SpeedDialActionProps>;
 
-  const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState("");
+export const CloudSaveButton = React.forwardRef<HTMLDivElement, CloudSaveButtonProps>(
+  ({ asSpeedDialAction, ...props }, ref) => {
+    const { t } = useTranslation();
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+    const [localTeams, setLocalTeams] = useAtom(localTeamsAtom);
+    const [activeTeam] = useActiveTeam();
+    const queryClient = useQueryClient();
+
+    const [snackOpen, setSnackOpen] = useState(false);
+    const [snackMessage, setSnackMessage] = useState("");
   const [snackSeverity, setSnackSeverity] = useState<"success" | "error">("success");
 
   const saveMutation = useMutation({
@@ -63,37 +68,52 @@ export function CloudSaveButton() {
   const isLoading = saveMutation.isPending;
   const isSaved = !hasUnsavedChanges && !isDraft;
 
-  const button = (
+  const actionIcon = isLoading ? (
+    <CircularProgress size={16} color="inherit" />
+  ) : isSaved ? (
+    <CheckIcon />
+  ) : (
+    <CloudUploadIcon />
+  );
+
+  const actionText = isLoading
+    ? (t("teamBuilder.saving") || "Saving...")
+    : isSaved
+      ? (t("teamBuilder.saved") || "Synced")
+      : isDraft
+        ? (t("teamBuilder.draft") || "Draft")
+        : (t("teamBuilder.saveToCloud") || "Sync");
+
+  const button = asSpeedDialAction ? (
+    <SpeedDialAction
+      {...(props as SpeedDialActionProps)}
+      ref={ref}
+      icon={actionIcon}
+      title={actionText}
+      onClick={() => saveMutation.mutate()}
+      slotProps={{
+        tooltip: { title: actionText, open: true },
+        fab: { disabled: isLoading || isSaved || isDraft } as any
+      }}
+    />
+  ) : (
     <Button
+      ref={ref as any}
       variant={hasUnsavedChanges ? "contained" : "outlined"}
       disableElevation
       color={hasUnsavedChanges ? (isDraft ? "warning" : "primary") : "inherit"}
       disabled={isLoading || isSaved || isDraft}
-      startIcon={
-        isLoading ? (
-          <CircularProgress size={16} color="inherit" />
-        ) : isSaved ? (
-          <CheckIcon />
-        ) : (
-          <CloudUploadIcon />
-        )
-      }
+      startIcon={actionIcon}
       onClick={() => saveMutation.mutate()}
       sx={{ transition: "all 0.2s", minWidth: 140 }}
     >
-      {isLoading
-        ? (t("teamBuilder.saving") || "Saving...")
-        : isSaved
-          ? (t("teamBuilder.saved") || "Saved to Cloud")
-          : isDraft
-            ? (t("teamBuilder.draft") || "Draft")
-            : (t("teamBuilder.saveToCloud") || "Save to Cloud")}
+      {actionText}
     </Button>
   );
 
   return (
     <>
-      {isDraft && draftReasons.length > 0 ? (
+      {isDraft && draftReasons.length > 0 && !asSpeedDialAction ? (
         <Tooltip
           arrow
           title={
@@ -133,4 +153,4 @@ export function CloudSaveButton() {
       </Snackbar>
     </>
   );
-}
+});

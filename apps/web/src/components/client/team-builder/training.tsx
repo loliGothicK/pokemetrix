@@ -852,16 +852,16 @@ export function Training({
                             xs: `"label number value" "slider slider slider"`,
                             md: `"label slider number value"`,
                           },
-                          border: "1px solid",
+                          border: { xs: "none", md: "1px solid" },
                           borderColor: isPlus
                             ? alpha(theme.palette.error.main, 0.2)
                             : isMinus
                               ? alpha(theme.palette.info.main, 0.2)
                               : theme.palette.dividerSoft,
-                          bgcolor: alpha(theme.palette.background.paper, 0.4),
+                          bgcolor: { xs: "transparent", md: alpha(theme.palette.background.paper, 0.4) },
                           transition: "border-color 0.2s, background-color 0.2s",
-                          p: { xs: 1.5, md: 2 },
-                          borderRadius: 2,
+                          p: { xs: 1, md: 2 },
+                          borderRadius: { xs: 0, md: 2 },
                         }}
                       >
                         {/* ステータス名と性格補正トグル */}

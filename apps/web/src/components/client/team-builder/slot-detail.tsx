@@ -162,6 +162,7 @@ export default function TeamSlotDetail({
             <SpeedDialAction
               icon={<SaveOutlinedIcon />}
               title={t("box.saveToBox")}
+              slotProps={{ tooltip: { title: t("box.saveToBox"), open: true } }}
               onClick={() => {
                 saveToBox(member);
                 setSavedSnackbar(true);
@@ -171,6 +172,7 @@ export default function TeamSlotDetail({
           <SpeedDialAction
             icon={<DeleteOutlineIcon />}
             title={t("teamBuilder.delete")}
+            slotProps={{ tooltip: { title: t("teamBuilder.delete"), open: true } }}
             onClick={() => setDeleteDialogOpen(true)}
           />
         </SpeedDial>

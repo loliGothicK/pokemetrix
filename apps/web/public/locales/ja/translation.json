@@ -490,9 +490,10 @@
     "cancel": "キャンセル",
     "delete": "削除",
     "saving": "保存中...",
-    "saved": "クラウドへ保存完了",
+    "saved": "同期済み",
     "draft": "Draft",
-    "saveToCloud": "クラウドへ保存",
+    "saveToCloud": "同期",
+    "lintToggle": "解析",
     "saveSuccess": "クラウドに保存しました",
     "draftReasonTitle": "保存できない理由",
     "drawer": {

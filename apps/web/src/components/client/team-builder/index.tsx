@@ -128,10 +128,14 @@ import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import DownloadIcon from "@mui/icons-material/Download";
+import UploadIcon from "@mui/icons-material/Upload";
+import RuleIcon from "@mui/icons-material/Rule";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { activeTeamLintAtom } from "@/store/team/options";
 import Add from "@mui/icons-material/Add";
 import { rounded } from "@/utils/styles";
+import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -176,15 +180,18 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-function ImportMenu({
-  createTeamAction,
-  onError,
-  isMobile,
-}: {
+const ImportMenu = React.forwardRef<HTMLDivElement, {
   readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
   readonly onError: (diagnostics: Diagnostics) => void;
   readonly isMobile: boolean;
-}) {
+  readonly asSpeedDialAction?: boolean;
+} & Omit<Partial<import("@mui/material").SpeedDialActionProps>, "onError">>(({
+  createTeamAction,
+  onError,
+  isMobile,
+  asSpeedDialAction,
+  ...props
+}, ref) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openPaste, setOpenPaste] = useState(false);
   const [openFromUrl, setOpenFromUrl] = useState(false);
@@ -197,16 +204,28 @@ function ImportMenu({
   };
 
   return (
-    <Box>
-      <Button
-        variant="contained"
-        disableElevation
-        onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
-        size={isMobile ? "small" : "medium"}
-      >
-        Import
-      </Button>
+    <>
+      {asSpeedDialAction ? (
+        <SpeedDialAction
+          {...props as any}
+          ref={ref}
+          icon={<DownloadIcon />}
+          title="Import"
+          slotProps={{ tooltip: { title: "Import", open: true } }}
+          onClick={handleClick}
+        />
+      ) : (
+        <Button
+          ref={ref as any}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDownIcon />}
+          size={isMobile ? "small" : "medium"}
+        >
+          Import
+        </Button>
+      )}
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem
           onClick={() => {
@@ -243,11 +262,13 @@ function ImportMenu({
         onImport={(data) => createTeamAction(data)}
         onError={onError}
       />
-    </Box>
+    </>
   );
-}
+});
 
-function ExportMenu() {
+const ExportMenu = React.forwardRef<HTMLDivElement, {
+  readonly asSpeedDialAction?: boolean;
+} & Partial<import("@mui/material").SpeedDialActionProps>>(({ asSpeedDialAction, ...props }, ref) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [activeTeam] = useActiveTeam();
@@ -284,15 +305,27 @@ function ExportMenu() {
   };
 
   return (
-    <Box>
-      <Button
-        variant="contained"
-        disableElevation
-        onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        Export
-      </Button>
+    <>
+      {asSpeedDialAction ? (
+        <SpeedDialAction
+          {...props as any}
+          ref={ref}
+          icon={<UploadIcon />}
+          title="Export"
+          slotProps={{ tooltip: { title: "Export", open: true } }}
+          onClick={handleClick}
+        />
+      ) : (
+        <Button
+          ref={ref as any}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDownIcon />}
+        >
+          Export
+        </Button>
+      )}
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={handleMenuClick("clipboard")} disableRipple>
           <ContentCopyIcon />
@@ -303,9 +336,9 @@ function ExportMenu() {
           Make Pokepaste
         </MenuItem>
       </StyledMenu>
-    </Box>
+    </>
   );
-}
+});
 
 export type Diagnostics =
   | {
@@ -447,6 +480,7 @@ function MobileTeamList({
         ))}
       </Stack>
       <Fab
+        variant="extended"
         color="primary"
         aria-label="add"
         onClick={() => {
@@ -460,7 +494,7 @@ function MobileTeamList({
           zIndex: 1000,
         }}
       >
-        <Add />
+        <Add sx={{ mr: 1 }} /> {t("teamBuilder.createTeam")}
       </Fab>
     </Box>
   );
@@ -877,6 +911,29 @@ export default function TeamBuilderPage({
           </Grid>
         )}
       </Main>
+      {isMobile && activeTeam && (
+        <SpeedDial
+          ariaLabel="Team Actions"
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          <CloudSaveButton asSpeedDialAction />
+          <ExportMenu asSpeedDialAction />
+          <ImportMenu asSpeedDialAction isMobile={true} createTeamAction={handleCreateTeam} onError={(diagnostics) => { setDiagnostics(diagnostics); setSnackbarOpen(true); }} />
+          <SpeedDialAction
+            icon={<RuleIcon color={isLintOn ? "primary" : "inherit"} />}
+            title={t("teamBuilder.lintToggle") || "Lint Toggle"}
+            slotProps={{ tooltip: { title: t("teamBuilder.lintToggle") || "Lint Toggle", open: true } }}
+            onClick={() => setIsLintOn(!isLintOn)}
+          />
+          <SpeedDialAction
+            icon={<DeleteOutlineIcon />}
+            title={t("teamBuilder.delete") || "Delete Team"}
+            slotProps={{ tooltip: { title: t("teamBuilder.delete") || "Delete Team", open: true } }}
+            onClick={() => setDeleteTargetId(activeTeam.id)}
+          />
+        </SpeedDial>
+      )}
     </Box>
     </>
   );
