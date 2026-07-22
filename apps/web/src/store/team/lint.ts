@@ -3,7 +3,7 @@ import { activeSlotIndexAtom } from "./team";
 import { linter, LintResult } from "@/lib/linter/linter";
 import type { Team } from "./team";
 
-export const MAX_EV_PER_STAT = 66;
+export const MAX_EV_PER_STAT = 32;
 export const MAX_EV_TOTAL = 66;
 
 // チームを受け取ってlint結果を返すatom factory

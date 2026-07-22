@@ -63,6 +63,9 @@ import { teamSchema } from "@/lib/validator/team";
 import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
 import { Chip, Tooltip } from "@mui/material";
 import { flexRowCenter } from "@/theme/sx";
+import UndoIcon from "@mui/icons-material/Undo";
+import RedoIcon from "@mui/icons-material/Redo";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const MAX_TEAM_SIZE = 6;
 const drawerWidth = 240;
@@ -490,6 +493,10 @@ export default function TeamBuilderPage({
   const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
   const { teams, isLoading, updateTeams, removeTeam } = useTeamsData();
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
+  const [, , , , undo, redo, canUndo, canRedo] = useActiveTeam();
+
+  useHotkeys("ctrl+z", (e) => { e.preventDefault(); undo(); }, [undo]);
+  useHotkeys("ctrl+y, ctrl+shift+z", (e) => { e.preventDefault(); redo(); }, [redo]);
 
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const deleteTargetTeam = teams.find((t) => t.id === deleteTargetId) ?? null;
@@ -629,6 +636,30 @@ export default function TeamBuilderPage({
                     control={<Switch checked={isLintOn} onChange={() => setIsLintOn(!isLintOn)} />}
                     label="Lint"
                   />
+                  <Tooltip title="Undo (Ctrl+Z)">
+                    <span>
+                      <MuiIconButton
+                        color="inherit"
+                        onClick={undo}
+                        disabled={!canUndo}
+                        aria-label="Undo"
+                      >
+                        <UndoIcon />
+                      </MuiIconButton>
+                    </span>
+                  </Tooltip>
+                  <Tooltip title="Redo (Ctrl+Y)">
+                    <span>
+                      <MuiIconButton
+                        color="inherit"
+                        onClick={redo}
+                        disabled={!canRedo}
+                        aria-label="Redo"
+                      >
+                        <RedoIcon />
+                      </MuiIconButton>
+                    </span>
+                  </Tooltip>
                   <ImportMenu
                     createTeamAction={handleCreateTeam}
                     onError={(diagnostics) => {

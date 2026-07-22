@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useMemo, useState, useEffect, type MouseEvent as ReactMouseEvent } from "react";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
@@ -43,7 +43,12 @@ import { useBattleData } from "@/hooks/useBattleData";
 import { itemSprite, typeIcon } from "@/lib/image";
 import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
 import { Add, Remove, ArrowDropDown, ChangeCircle } from "@mui/icons-material";
-import { makeTeamLintIssuesAtom, activeSlotLintIssueAtom, MAX_EV_TOTAL, MAX_EV_PER_STAT } from "@/store/team/lint";
+import {
+  makeTeamLintIssuesAtom,
+  activeSlotLintIssueAtom,
+  MAX_EV_TOTAL,
+  MAX_EV_PER_STAT,
+} from "@/store/team/lint";
 import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -90,21 +95,6 @@ const megaPokemonByStoneId = new Map(
     .flatMap((p) => p.mega!.map(({ stone_id, mega_id }) => [stone_id, mega_id])),
 );
 
-export function getActivePokemon(member: TrainedPokemon) {
-  const pokemon = DICTIONARY.get(member.identifier);
-  if (!pokemon) return null;
-  if (member.item && pokemon.mega?.some(({ stone_id }) => stone_id === member.item)) {
-    const megaId = megaPokemonByStoneId.get(member.item)!;
-    const megaPokemon = DICTIONARY.get(pokemonById.get(megaId)!.identifier);
-    if (megaPokemon) return megaPokemon;
-  }
-  if (pokemon.form) {
-    const formPokemon = DICTIONARY.get(pokemonById.get(pokemon.form)!.identifier);
-    if (formPokemon) return formPokemon;
-  }
-  return pokemon;
-}
-
 export function Training({
   member,
   onUpdate,
@@ -117,11 +107,17 @@ export function Training({
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const [ongoing, setOngoing] = useState<TrainedPokemon | null>(member);
+  useEffect(() => {
+    setOngoing((prev) => {
+      if (prev === member) return prev;
+      if (JSON.stringify(prev) === JSON.stringify(member)) return prev;
+      return member;
+    });
+  }, [member]);
+
   const [isLintOn] = useAtom(activeTeamLintAtom);
   const { battleData, isError } = useBattleData(member.slug, "Doubles");
-  const [nature, setNature] = useState<Nature | null>(
-    (ongoing?.nature && natureObjectToString(ongoing.nature)) || null,
-  );
+  const nature = ongoing?.nature ? natureObjectToString(ongoing.nature) : null;
   const [natureAnchorEl, setNatureAnchorEl] = useState<HTMLButtonElement | null>(null);
   const isNaturePopoverOpen = Boolean(natureAnchorEl);
   const [activeTeam] = useActiveTeam();
@@ -196,7 +192,7 @@ export function Training({
   const handleSelectMove = (moveId: number | null) => {
     if (activeMoveSlot === null) return;
 
-    const newMoves = ongoing.moves;
+    const newMoves = [...ongoing.moves] as typeof ongoing.moves;
     newMoves[activeMoveSlot] = moveId;
 
     handleUpdate({ ...ongoing, moves: newMoves });
@@ -211,7 +207,7 @@ export function Training({
     slotIndex: number,
   ) => {
     e.stopPropagation();
-    const newMoves = ongoing.moves;
+    const newMoves = [...ongoing.moves] as typeof ongoing.moves;
     newMoves[slotIndex] = null;
     handleUpdate({ ...ongoing, moves: newMoves });
   };
@@ -386,12 +382,12 @@ export function Training({
       </Stack>
 
       {/* 右カラム：コンテンツ */}
-      <Stack spacing={2} sx={{ flexGrow: 1, minWidth: 0 }}>
+      <Box sx={{ flexGrow: 1, minWidth: 0 }}>
         {/* タブ 0: Basics */}
-        <Box sx={{ display: activeTab === 0 ? "block" : "none", p: { xs: 1, md: 2 } }}>
+        <Box sx={{ display: activeTab === 0 ? "block" : "none" }}>
           <Stack spacing={3} sx={{ flexGrow: 1 }}>
             <Box>
-              <Divider textAlign={"left"} sx={{ mt: 1 }}>
+              <Divider textAlign={"left"}>
                 <Typography variant="h6">{t("teamBuilder.sectionBasicSpecs")}</Typography>
               </Divider>
             </Box>
@@ -622,7 +618,6 @@ export function Training({
                                     key={col}
                                     onClick={() => {
                                       if (!isSelectable) return;
-                                      setNature(currentCellNature);
                                       handleUpdate({
                                         ...ongoing,
                                         nature: natureStringToObject(currentCellNature),
@@ -739,12 +734,11 @@ export function Training({
         </Box>
 
         {/* タブ 1: EV Spreads */}
-        <Box sx={{ display: activeTab === 1 ? "block" : "none", p: { xs: 1, md: 2 } }}>
+        <Box sx={{ display: activeTab === 1 ? "block" : "none" }}>
           <Stack spacing={{ xs: 1.5, md: 1.5 }}>
-            <Box>
+            <Divider textAlign={"left"} sx={{ mb: 2 }}>
               <Typography variant="h6">{t("teamBuilder.tabEvSpreads")}</Typography>
-              <Divider sx={{ mt: 1, mb: 2 }} />
-            </Box>
+            </Divider>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               {isLintOn &&
                 issue &&
@@ -792,10 +786,6 @@ export function Training({
                   plus: newPlus,
                   minus: newMinus,
                 };
-
-                const nature = natureObjectToString(newNature);
-
-                setNature(nature || null);
 
                 handleUpdate({
                   ...ongoing,
@@ -999,6 +989,7 @@ export function Training({
                         </Box>
 
                         <Typography
+                          variant={"h5"}
                           sx={{
                             gridArea: "value",
                             textAlign: "right",
@@ -1038,7 +1029,7 @@ export function Training({
             })()}
           </Stack>
         </Box>
-      </Stack>
+      </Box>
 
       {/* --- 技選択 Drawer --- */}
       <MoveSelectionDrawer
@@ -1047,7 +1038,7 @@ export function Training({
         onClose={handleDrawerClose}
         onChangeSlot={setActiveMoveSlot}
         onSelectMove={handleSelectMove}
-        ongoing={ongoing}
+        ongoing={ongoing!}
         pokemon={pokemon}
         battleData={battleData}
         isError={isError}
