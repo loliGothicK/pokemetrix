@@ -537,9 +537,9 @@ export function AppLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthSyncEffect />
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <AuthSyncEffect />
         <Box
           sx={{
             display: "flex",

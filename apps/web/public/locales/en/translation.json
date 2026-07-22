@@ -1179,6 +1179,33 @@
       "description": "Boosts the accuracy of the holder's moves by 20% when the holder acts after the targets."
     }
   },
+  "merge": {
+    "title": "Resolve Team Conflicts",
+    "description": "The same team has different changes locally and on the server. Select which version to keep for each slot that differs.",
+    "noConflicts": "No conflicts",
+    "noDiff": "All slots are identical.",
+    "unnamedTeam": "(Unnamed team)",
+    "emptySlot": "Empty",
+    "cancel": "Cancel",
+    "commit": "Commit →",
+    "tag": {
+      "localOnly": "Local Only",
+      "serverOnly": "Server Only",
+      "conflict": "Conflict"
+    },
+    "source": {
+      "local": "Local",
+      "server": "Server"
+    },
+    "field": {
+      "item": "Item",
+      "ability": "Ability",
+      "gender": "Gender",
+      "nature": "Nature",
+      "moves": "Moves",
+      "evs": "EVs"
+    }
+  },
   "moves": {
     "accelerock": {
       "name": "Accelerock",

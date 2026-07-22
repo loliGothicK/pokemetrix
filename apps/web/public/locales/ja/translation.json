@@ -498,6 +498,33 @@
       "notes": "メモ"
     }
   },
+  "merge": {
+    "title": "チームの競合を解決する",
+    "description": "同じチームに対してローカルとサーバーで異なる変更があります。差分のあるスロットごとに採用するバージョンを選択してください。",
+    "noConflicts": "競合はありません",
+    "noDiff": "すべてのスロットが同一です。",
+    "unnamedTeam": "(無名チーム)",
+    "emptySlot": "空き",
+    "cancel": "キャンセル",
+    "commit": "確定 →",
+    "tag": {
+      "localOnly": "ローカルのみ",
+      "serverOnly": "サーバーのみ",
+      "conflict": "競合"
+    },
+    "source": {
+      "local": "ローカル",
+      "server": "サーバー"
+    },
+    "field": {
+      "item": "アイテム",
+      "ability": "特性",
+      "gender": "性別",
+      "nature": "性格",
+      "moves": "技",
+      "evs": "努力値"
+    }
+  },
   "moves": {
     "accelerock": {
       "name": "アクセルロック"

@@ -38,7 +38,7 @@ import { getStatLens, TrainedPokemon } from "@/store/team/team";
 import NumberField from "@/components/client/input/NumberField";
 import { calcHp, calcStatus } from "@/data/utility/training";
 import { match } from "ts-pattern";
-import { EV, Gender } from "@/types/pokemon";
+import { EV } from "@/types/pokemon";
 import { useBattleData } from "@/hooks/useBattleData";
 import { itemSprite, typeIcon } from "@/lib/image";
 import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
@@ -456,12 +456,6 @@ export function Training({
                     handleUpdate({
                       ...ongoing,
                       gender: { fixed: false, specified: newValue || "male" },
-                    })
-                  }
-                  onInputChange={(_, newInputValue) =>
-                    handleUpdate({
-                      ...ongoing,
-                      gender: { fixed: false, specified: newInputValue as Gender },
                     })
                   }
                   renderInput={(params) => <TextField {...params} label="Gender" />}

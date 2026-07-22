@@ -75,7 +75,10 @@ export const useActiveTeam = () => {
         const entry = getHistoryEntry(activeId);
         // デバウンス：前回編集からDEBOUNCE_MS以上経過していれば、現在の状態(baseTeam)をpastに保存
         if (now - lastEditTimeRef.current > DEBOUNCE_MS) {
-          const newPast = [...entry.past, baseTeam].slice(-HISTORY_LIMIT);
+          // structuredClone で深いコピーを取ることで、コンポーネント側でのミューテーション
+          // (moves 配列の直接書き換え等) が過去のスナップショットを汚染するのを防ぐ。
+          // moves / evs / nature 等すべてのネストされた参照型に対して統一的に有効。
+          const newPast = [...entry.past, structuredClone(baseTeam)].slice(-HISTORY_LIMIT);
           setHistoryEntry(activeId, { past: newPast, future: [] });
         }
         lastEditTimeRef.current = now;
@@ -136,7 +139,8 @@ export const useActiveTeam = () => {
 
     const newPast = [...entry.past];
     const target = newPast.pop()!;
-    const newFuture = [current, ...entry.future].slice(0, HISTORY_LIMIT);
+    // current をそのまま保存すると、以降のミューテーションで future が汚染されるため deep copy する
+    const newFuture = [structuredClone(current), ...entry.future].slice(0, HISTORY_LIMIT);
     
     // undoした直後の編集は別バーストとして扱うためにリセット
     lastEditTimeRef.current = 0;
@@ -154,7 +158,8 @@ export const useActiveTeam = () => {
 
     const newFuture = [...entry.future];
     const target = newFuture.shift()!;
-    const newPast = [...entry.past, current].slice(-HISTORY_LIMIT);
+    // current をそのまま保存すると、以降のミューテーションで past が汚染されるため deep copy する
+    const newPast = [...entry.past, structuredClone(current)].slice(-HISTORY_LIMIT);
     
     // redoした直後の編集は別バーストとして扱うためにリセット
     lastEditTimeRef.current = 0;
