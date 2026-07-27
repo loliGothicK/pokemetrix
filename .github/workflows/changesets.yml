@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'packages/damage-calc/package.json'
 
 jobs:
   version:
@@ -44,6 +46,6 @@ jobs:
           commit: "chore: update versions"
           title: "chore: update versions"
           version: pnpm run version
-          publish: bash -c 'LOCAL=$(jq -r .version packages/damage-calc/package.json); REMOTE=$(npm view @pokemetrix/damage-calc version 2>/dev/null || echo ""); if [ "$LOCAL" != "$REMOTE" ]; then pnpm --filter @pokemetrix/damage-calc run release; else echo "Version unchanged"; fi'
+          publish: pnpm --filter @pokemetrix/damage-calc run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
