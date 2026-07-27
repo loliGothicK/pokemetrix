@@ -336,11 +336,11 @@ export function Training({
                 title={
                   useForm
                     ? formChangeState.type === "mega"
-                      ? "Cancel Mega Evolve"
-                      : "Revert Form"
+                      ? t("teamBuilder.cancelMegaEvolve")
+                      : t("teamBuilder.revertForm")
                     : formChangeState.type === "mega"
-                      ? "Mega Evolve"
-                      : "Change Form"
+                      ? t("teamBuilder.megaEvolve")
+                      : t("teamBuilder.changeForm")
                 }
                 placement="top"
               >
@@ -420,7 +420,7 @@ export function Training({
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={"Held Item"}
+                      label={t("teamBuilder.heldItem")}
                       slotProps={{ ...params.slotProps, formHelperText: { component: "div" } }}
                       helperText={
                         issue &&
@@ -476,7 +476,7 @@ export function Training({
                       gender: { fixed: false, specified: newValue || "male" },
                     })
                   }
-                  renderInput={(params) => <TextField {...params} label="Gender" />}
+                  renderInput={(params) => <TextField {...params} label={t("teamBuilder.gender")} />}
                   disabled={ongoing.gender.fixed}
                   sx={{ width: { xs: "100%", md: 140 } }}
                 />
@@ -494,13 +494,13 @@ export function Training({
                     t(`abilities.${abilityById.get(option)?.identifier}.name`)
                   }
                   sx={{ flexGrow: 1 }}
-                  renderInput={(params) => <TextField {...params} label={"Ability"} />}
+                  renderInput={(params) => <TextField {...params} label={t("teamBuilder.ability")} />}
                   onChange={(_, value) => handleUpdate({ ...ongoing, ability: value! })}
                 />
 
                 <Box sx={{ width: { xs: "100%", md: 140 } }}>
                   <TextField
-                    label="Nature"
+                    label={t("teamBuilder.nature")}
                     value={nature || ""}
                     slotProps={{
                       input: {
@@ -587,11 +587,11 @@ export function Training({
                                 <Box component="span" color="error.main">
                                   +
                                 </Box>{" "}
-                                Increase /{" "}
+                                {t("teamBuilder.increase")} /{" "}
                                 <Box component="span" color="info.main">
                                   -
                                 </Box>{" "}
-                                Decrease
+                                {t("teamBuilder.decrease")}
                               </Typography>
                             </TableCell>
                             {STAT_LABELS.map((col) => (
@@ -735,7 +735,7 @@ export function Training({
                       </Stack>
                     ) : (
                       <Typography color="text.secondary" sx={{ fontStyle: "italic", py: 0.5 }}>
-                        + Select Move {index + 1}
+                        {t("teamBuilder.selectMove", { number: index + 1 })}
                       </Typography>
                     )}
                   </Box>
@@ -1037,7 +1037,7 @@ export function Training({
 
                   <Divider />
 
-                  <Typography>{`Remaining Evs: ${remainingEvs}`}</Typography>
+                  <Typography>{t("teamBuilder.remainingEvs", { remaining: remainingEvs })}</Typography>
                 </>
               );
             })()}
