@@ -138,6 +138,7 @@ export default function TeamSlotDetail({
               member={member}
               activeTab={activeTab}
               onUpdate={(trained: TrainedPokemon) => updateSlot(slot, trained)}
+              onChangePokemonClick={() => setDialogOpen(true)}
             />
           </Box>
         ) : (

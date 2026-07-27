@@ -931,8 +931,8 @@ export default function TeamBuilderPage({
           />
           <SpeedDialAction
             icon={<DeleteOutlineIcon />}
-            title={t("teamBuilder.delete") || "Delete Team"}
-            slotProps={{ tooltip: { title: t("teamBuilder.delete") || "Delete Team", open: true } }}
+            title={t("teamBuilder.deleteTeamTitle") || "Delete Team"}
+            slotProps={{ tooltip: { title: t("teamBuilder.deleteTeamTitle") || "Delete Team", open: true } }}
             onClick={() => setDeleteTargetId(activeTeam.id)}
           />
         </SpeedDial>

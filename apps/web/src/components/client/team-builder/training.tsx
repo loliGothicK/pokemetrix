@@ -99,10 +99,12 @@ export function Training({
   member,
   onUpdate,
   activeTab,
+  onChangePokemonClick,
 }: {
   readonly member: TrainedPokemon;
   readonly onUpdate: (trained: TrainedPokemon) => void;
   readonly activeTab: number;
+  readonly onChangePokemonClick?: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -266,6 +268,7 @@ export function Training({
         >
           {/* ポケモン画像領域 */}
           <Box
+            onClick={onChangePokemonClick}
             sx={{
               width: 144,
               height: 144,
@@ -278,6 +281,7 @@ export function Training({
               boxShadow: 1,
               overflow: "hidden",
               flexShrink: 0,
+              cursor: onChangePokemonClick ? "pointer" : "default",
             }}
           >
             <Box
