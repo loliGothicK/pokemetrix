@@ -1,0 +1,42 @@
+name: Generate Blog from Changelog
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  generate-blog:
+    if: startsWith(github.head_ref, 'release-please--branches--main')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Generate Blog Post
+        run: pnpm exec tsx apps/web/scripts/generate-blog.ts
+        
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: generate blog post from changelog"
+          file_pattern: "apps/web/content/blog/*.mdx"

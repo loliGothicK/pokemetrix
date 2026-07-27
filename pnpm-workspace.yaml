@@ -2,6 +2,7 @@ packages:
   - "apps/*"
   - "packages/*"
 
+linkWorkspacePackages: true
 allowBuilds:
   '@sentry/cli': true
   '@swc/core': true
