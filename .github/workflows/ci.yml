@@ -8,13 +8,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  checks: write
+  id-token: write
+
 jobs:
   build:
-    name: Build & Cache
+    name: Build/Format/Lint/Test
+    environment: Test
     runs-on: ubuntu-latest
     env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
       NODE_ENV: production
     steps:
       - uses: actions/checkout@v7
@@ -62,5 +66,45 @@ jobs:
         with:
           workspaces: "packages/damage-calc"
 
-      - name: Turbo Build
-        run: pnpm turbo run build --filter=@pokemetrix/damage-calc
+      - name: Build WebAssembly
+        run: pnpm --filter @pokemetrix/damage-calc run build
+
+      - name: Generate content-collections
+        run: pnpm --filter @pokemetrix/app exec content-collections build
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build Next.js App
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET: ${{ secrets.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+        run: pnpm build:app
+
+      - name: Install nextest
+        uses: taiki-e/install-action@nextest
+
+      - name: Test WebAssembly (Chrome)
+        run: wasm-pack test --headless --chrome packages/damage-calc
+
+      - name: Test WebAssembly (Firefox)
+        run: wasm-pack test --headless --firefox packages/damage-calc
+
+      - name: Test Rust (cargo nextest)
+        run: |
+          cd packages/damage-calc
+          cargo nextest run --profile ci
+
+      - name: Test Next.js (Vitest)
+        run: pnpm --filter @pokemetrix/app run test:ci
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure() # always run even if tests fail
+        with:
+          report_paths: '**/junit.xml,**/test-results/*.xml'
+          check_name: 'JUnit Test Report'
+

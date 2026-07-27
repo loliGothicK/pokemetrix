@@ -1,11 +1,151 @@
 {
-  "welcome": "Welcome to our app",
   "common": {
     "close": "Close",
     "cancel": "Cancel",
     "save": "Save",
+    "exit": "Exit",
+    "saveAndExit": "Save & Exit",
+    "discardAndExit": "Discard Changes",
+    "discardConfirm": "Are you sure you want to discard your changes? Unsaved changes will be lost.",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "add": "Add",
+    "done": "Done",
+    "back": "Back",
+    "or": "or",
+    "preview": "Preview"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "selectLabel": "Dashboard",
+    "newDashboard": "New dashboard",
+    "untitled": "Untitled dashboard",
+    "noDashboards": "No dashboards yet. Create one to get started.",
+    "empty": "This dashboard has no widgets yet. Click Edit, then Add Widget.",
+    "deleteConfirm": "Delete \"{{name}}\"? This cannot be undone.",
+    "setDefault": "Set as default",
+    "unsetDefault": "Unset as default",
+    "addWidget": "Add widget",
+    "dragToReorder": "Drag to reorder",
+    "widget": {
+      "titleLabel": "Title",
+      "allSeasons": "All seasons",
+      "edit": "Edit widget",
+      "deleteConfirm": "Delete this widget?",
+      "tab": {
+        "general": "General",
+        "dataSource": "Data Source",
+        "visualize": "Visualize"
+      },
+      "type": {
+        "winRateTrend": "Win Rate Trend",
+        "topOpponents": "Most Faced Opponents",
+        "ratingTrend": "Rating Trend",
+        "note": "Note"
+      },
+      "note": {
+        "placeholder": "Write a note...",
+        "content": "Note content"
+      },
+      "notConfigured": "Visualize is not configured",
+      "openSettings": "Open Settings"
+    },
+    "variable": {
+      "add": "Add variable",
+      "addTitle": "Add Variable",
+      "editTitle": "Edit Variable",
+      "nameLabel": "Internal name",
+      "nameHelper": "Used internally (e.g. season)",
+      "displayLabel": "Display label",
+      "defaultSeason": "Default season",
+      "deleteConfirm": "Delete variable \"{{label}}\"?"
+    },
+    "datasource": {
+      "type": "Data source type",
+      "season": "Direct season",
+      "variable": "Variable reference",
+      "variableLabel": "Variable",
+      "noVariables": "No variables defined"
+    },
+    "visualize": {
+      "title": "Visualize Editor",
+      "openFullscreen": "Edit Visualize",
+      "preview": "Preview",
+      "options": "Options",
+      "applyAndClose": "Apply & Close",
+      "visualizationType": "Visualization Type",
+      "noData": "No data",
+      "templatePicker": "Quick Templates",
+      "templatePickerDesc": "Apply a preset to quickly configure query, transformer and visualization."
+    },
+    "transformer": {
+      "label": "Transformer",
+      "modePreset": "Preset",
+      "modeCustom": "Custom (TypeScript Function)",
+      "customHelper": "Transform `rows` to your own records, `rows` contains strongly-typed SQL query results.",
+      "none": "None (passthrough)",
+      "noneDesc": "Pass the query result directly to the visualizer.",
+      "winrate": "Win Rate",
+      "winrateDesc": "Expects `result` field. Computes wins / losses / draws and win rate %.",
+      "streak": "Current Streak",
+      "streakDesc": "Expects `result` and `playedAt` fields. Calculates the current win/loss streak.",
+      "leadsWinRate": "Leads Win Rate",
+      "leadsWinRateDesc": "Extracts the Lead Pokémon from `myTeam` and `mySelection` to calculate win rates per lead.",
+      "ratingDiff": "Rating Diff",
+      "ratingDiffDesc": "Expects `rating` and `playedAt` fields. Adds a `diff` column showing change from the previous match.",
+      "matchupPivot": "Matchup Pivot",
+      "matchupPivotDesc": "Calculates win rates for your leads against common opponent leads.",
+      "winLossCauses": "Win/Loss Causes",
+      "winLossCausesDesc": "Analyzes win/loss breakdown based on opponent's team members and their roles."
+    },
+    "template": {
+      "winrateSummary": "Win Rate Summary",
+      "winrateSummaryDesc": "Overall win rate as a single stat.",
+      "resultBreakdown": "Result Breakdown",
+      "resultBreakdownDesc": "Count of wins, losses and draws.",
+      "leadsAnalysis": "Leads / Backs Analysis",
+      "leadsAnalysisDesc": "Win rate breakdown by Lead Pokémon.",
+      "ratingHistory": "Rating History",
+      "ratingHistoryDesc": "Rating per match with change from previous match.",
+      "maxRating": "Peak Rating",
+      "maxRatingDesc": "Highest rating achieved this season.",
+      "recentMatches": "Recent Matches",
+      "recentMatchesDesc": "Last 10 matches in reverse chronological order.",
+      "currentStreak": "Current Streak",
+      "currentStreakDesc": "Your current win or loss streak.",
+      "matchupPivot": "Matchup Heatmap",
+      "matchupPivotDesc": "Displays your lead vs opponent lead win rates as a heatmap, separated by Singles and Doubles.",
+      "winLossCauses": "Win/Loss Causes",
+      "winLossCausesDesc": "Shows which opponent Pokemon contribute most to your wins or losses."
+    },
+    "heatmap": {
+      "singles": "Singles",
+      "doubles": "Doubles",
+      "oppLead": "Opp. Lead",
+      "myLead": "My Lead",
+      "noData": "Not enough data (increase match count or check format field)",
+      "legendLow": "Losing",
+      "legendHigh": "Winning",
+      "confidence": {
+        "low": "Low"
+      }
+    },
+    "dataKeys": {
+      "winRate": "Win Rate",
+      "total": "Total",
+      "wins": "Wins",
+      "losses": "Losses",
+      "draws": "Draws",
+      "streak": "Streak",
+      "count": "Count",
+      "type": "Type",
+      "maxRating": "Peak Rating",
+      "result": "Result",
+      "playedAt": "Played At",
+      "pokemon": "Pokémon",
+      "rating": "Rating",
+      "opponent": "Opponent"
+    }
   },
   "battleRecord": {
     "title": "Battle Record",
@@ -78,14 +218,19 @@
       "item": "Item",
       "ability": "Ability",
       "moves": "Moves",
-      "roleHint": "Lead or back (leave empty if not brought).",
       "opponentNotes": "Notes",
       "season": "Format",
       "rating": "Rating",
       "playedAt": "Played at",
       "notes": "Notes",
       "notesPlaceholder": "Key plays, threats, reads...",
-      "selectResultFirst": "Select a result first"
+      "selectResultFirst": "Select a result first",
+      "tags": "Tags (optional)",
+      "tagsPlaceholder": "Select or type gimmicks, archetypes...",
+      "tagGroups": {
+        "gimmick": "Gimmick",
+        "role": "Role / Archetype"
+      }
     },
     "analytics": {
       "title": "Winrate Insights",
@@ -93,10 +238,28 @@
       "empty": "No data yet. Record some battles to see analytics.",
       "winRate": "Win rate",
       "total": "Battles",
-      "byOrder": "Win rate by order",
       "topOpponents": "Most faced opponents",
+      "desktopOnly": "The dashboard is only available on desktop devices.",
       "wldShort": "{{w}}W {{l}}L {{d}}D"
     }
+  },
+  "taxonomy": {
+    "trick-room": "Trick Room",
+    "tailwind": "Tailwind",
+    "weather-rain": "Rain",
+    "weather-sun": "Sun",
+    "weather-snow": "Snow",
+    "weather-sand": "Sandstorm",
+    "redirection": "Redirection",
+    "perish-trap": "Perish Trap",
+    "speed-control": "Speed Control",
+    "follow-me": "Follow Me",
+    "fake-out": "Fake Out",
+    "intimidate": "Intimidate",
+    "cycle": "Cycle",
+    "sleep-control": "Sleep Control",
+    "mega-focused": "Mega Focused",
+    "standard": "Standard"
   },
   "app": {
     "subtitle": "Analytics Workspace"
@@ -153,14 +316,12 @@
     "items": {
       "createTeam": "Team Builder",
       "myBox": "My BOX",
-      "draftAssistant": "Draft Assistant",
-      "coreFinder": "Core Finder",
       "battleRecord": "Battle Record",
-      "matchupPlanner": "Matchup Planner",
       "damageCalc": "Damage Calc",
       "usageTrends": "Usage Trends",
       "metaTables": "Meta Tables",
       "winrateInsights": "Winrate Insights",
+      "dashboard": "Dashboard",
       "docs": "Docs",
       "blog": "Blog",
       "privacy": "Privacy Policy",
@@ -194,8 +355,6 @@
     "weatherRain": "Rain",
     "weatherSnow": "Snow",
     "weatherSandstorm": "Sandstorm",
-    "weatherHarshSun": "Harsh Sun",
-    "weatherHeavyRain": "Heavy Rain",
     "terrain": "Terrain",
     "terrainElectric": "Electric",
     "terrainGrassy": "Grassy",
@@ -222,7 +381,6 @@
     "hitCount": "Hits",
     "totalDamageMerged": "Total {{min}} – {{max}} (×{{hits}} hits)",
     "totalDamageFixed": "Total {{min}} – {{max}} (×{{hits}} hits)",
-    "totalDamageVariable": "Total {{minDmg}}–{{maxDmg}} (×{{minHits}}–{{maxHits}} hits)",
     "selectPokemon": "Select Pokémon",
     "selectMove": "Select Move",
     "noResult": "Select a Pokémon and move to calculate damage.",
@@ -300,9 +458,6 @@
   "teamBuilder": {
     "title": "Team Builder",
     "regulation": "Regulation {{regulation}}",
-    "openDrawer": "Open team drawer",
-    "closeDrawer": "Close team drawer",
-    "slotTabs": "Team slots",
     "back": "Back to overview",
     "slotLabel": "Slot {{index}}",
     "slotDescription": "This is where stats, moves, and EVs will live.",
@@ -310,6 +465,10 @@
     "remove": "Remove",
     "emptySlot": "This slot does not have a Pokémon yet.",
     "selectPokemon": "Select a Pokémon",
+    "tabOpenSpecs": "Open Specs",
+    "tabEvSpreads": "EV Spreads",
+    "sectionBasicSpecs": "Basic Specs",
+    "sectionMoves": "Moves",
     "query": {
       "label": "Search",
       "helper": "Search by name, or filter with @type:fire",
@@ -325,20 +484,23 @@
     "teamOverviewTitle": "Team overview",
     "teamLabel": "Team {{index}}",
     "emptyMember": "Empty slot {{index}}",
-    "memberLabel": "Member {{index}}",
     "deleteTeamTitle": "Delete team",
     "deleteTeamConfirm": "Delete \"{{name}}\"? This cannot be undone.",
     "cancel": "Cancel",
     "delete": "Delete",
     "forgetMove": "Forget this move.",
-    "removeItem": "Remove Held Item",
     "dragToReorder": "Drag to reorder",
     "import": "import from",
     "export": "export as pokepate format",
+    "saving": "Saving...",
+    "saved": "Synced",
+    "draft": "Draft",
+    "saveToCloud": "Sync",
+    "lintToggle": "Lint",
+    "saveSuccess": "Successfully saved to Cloud",
+    "draftReasonTitle": "Why this team can't be saved",
     "drawer": {
       "overview": "Overview",
-      "roster": "Roster",
-      "loadout": "Loadout",
       "notes": "Notes"
     },
     "status": {
@@ -1018,6 +1180,33 @@
     "zoom-lens": {
       "name": "Zoom Lens",
       "description": "Boosts the accuracy of the holder's moves by 20% when the holder acts after the targets."
+    }
+  },
+  "merge": {
+    "title": "Resolve Team Conflicts",
+    "description": "The same team has different changes locally and on the server. Select which version to keep for each slot that differs.",
+    "noConflicts": "No conflicts",
+    "noDiff": "All slots are identical.",
+    "unnamedTeam": "(Unnamed team)",
+    "emptySlot": "Empty",
+    "cancel": "Cancel",
+    "commit": "Commit →",
+    "tag": {
+      "localOnly": "Local Only",
+      "serverOnly": "Server Only",
+      "conflict": "Conflict"
+    },
+    "source": {
+      "local": "Local",
+      "server": "Server"
+    },
+    "field": {
+      "item": "Item",
+      "ability": "Ability",
+      "gender": "Gender",
+      "nature": "Nature",
+      "moves": "Moves",
+      "evs": "EVs"
     }
   },
   "moves": {

@@ -16,13 +16,14 @@ import {
   Stack,
   TextField,
   Typography,
+  Autocomplete,
+  Chip,
 } from "@mui/material";
 import Close from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useHotkeys } from "react-hotkeys-hook";
 import { match } from "ts-pattern";
-import { getAppPalette } from "@/theme/palette";
 import type { TrainedPokemon } from "@/store/team/team";
 import type {
   BattleFormat,
@@ -33,6 +34,8 @@ import type {
 import { emptyDraft, draftFromRecord, type BattleRecordDraft } from "./formState";
 import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
+import { flexRowCenter, sectionLabel } from "@/theme/sx";
+import { rounded } from "@/utils/styles";
 
 interface BattleRecordFormDialogProps {
   readonly open: boolean;
@@ -49,6 +52,27 @@ interface BattleRecordFormDialogProps {
 
 const RESULT_OPTIONS: readonly BattleResult[] = ["win", "loss", "draw"];
 
+const PREDEFINED_TAGS = [
+  { slug: "trick-room", group: "gimmick" },
+  { slug: "tailwind", group: "gimmick" },
+  { slug: "weather-rain", group: "gimmick" },
+  { slug: "weather-sun", group: "gimmick" },
+  { slug: "weather-snow", group: "gimmick" },
+  { slug: "weather-sand", group: "gimmick" },
+  { slug: "redirection", group: "gimmick" },
+  { slug: "perish-trap", group: "gimmick" },
+  { slug: "speed-control", group: "role" },
+  { slug: "follow-me", group: "role" },
+  { slug: "fake-out", group: "role" },
+  { slug: "intimidate", group: "role" },
+  { slug: "cycle", group: "role" },
+  { slug: "sleep-control", group: "role" },
+  { slug: "mega-focused", group: "role" },
+  { slug: "standard", group: "role" },
+];
+
+const PREDEFINED_TAG_SLUGS = PREDEFINED_TAGS.map((t) => t.slug);
+
 export function BattleRecordFormDialog({
   open,
   onClose,
@@ -62,7 +86,6 @@ export function BattleRecordFormDialog({
 }: BattleRecordFormDialogProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
 
   const [seasonId, setSeasonId] = useState<string | null>(defaultSeasonId);
   const [draft, setDraft] = useState<BattleRecordDraft>(emptyDraft);
@@ -122,11 +145,11 @@ export function BattleRecordFormDialog({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth scroll="paper">
       {/* ヘッダー */}
-      <Stack direction="row" sx={{ alignItems: "center", px: 3, py: 2, gap: 1 }}>
+      <Stack direction="row" sx={{ ...flexRowCenter, px: 3, py: 2, gap: 1 }}>
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.06em", flexGrow: 1 }}>
           {editing ? t("battleRecord.form.editTitle") : t("battleRecord.form.newTitle")}
         </Typography>
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption" color="text.secondary" sx={{ display: { xs: "none", sm: "block" } }}>
           {t("battleRecord.form.escHint")}
         </Typography>
         <IconButton onClick={onClose} size="small" aria-label={t("common.close")}>
@@ -139,8 +162,8 @@ export function BattleRecordFormDialog({
         <Stack spacing={3}>
           {/* 勝敗（大きいボタン + W/L/D キー） */}
           <Box>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
-              <Typography variant="overline" sx={{ fontWeight: 700, letterSpacing: "0.08em" }}>
+            <Stack direction="row" spacing={1} sx={{ ...flexRowCenter, mb: 1 }}>
+              <Typography variant="overline" sx={{ ...sectionLabel, fontWeight: 700 }}>
                 {t("battleRecord.form.result")}
               </Typography>
               <Stack direction="row" spacing={0.5}>
@@ -148,14 +171,12 @@ export function BattleRecordFormDialog({
                   <Box
                     key={k}
                     sx={{
-                      px: 0.75,
-                      py: 0.1,
                       fontSize: "0.65rem",
                       fontWeight: 700,
-                      borderRadius: 0.75,
                       border: "1px solid",
-                      borderColor: palette.edge,
+                      borderColor: theme.palette.divider,
                       color: "text.secondary",
+                      ...rounded(0.75),
                     }}
                   >
                     {k}
@@ -175,11 +196,9 @@ export function BattleRecordFormDialog({
                     aria-pressed={active}
                     sx={{
                       flex: 1,
-                      py: { xs: 2, sm: 3 },
                       textAlign: "center",
-                      borderRadius: 3,
                       border: "2px solid",
-                      borderColor: active ? color : palette.edge,
+                      borderColor: active ? color : theme.palette.divider,
                       bgcolor: active ? alpha(color, 0.14) : "transparent",
                       color: active ? color : "text.secondary",
                       fontWeight: 800,
@@ -187,6 +206,8 @@ export function BattleRecordFormDialog({
                       cursor: "pointer",
                       transition: "all 0.15s",
                       "&:hover": { borderColor: color, bgcolor: alpha(color, 0.08) },
+                      borderRadius: 3,
+                      py: 1.5,
                     }}
                   >
                     {t(`battleRecord.result.${result}`).toUpperCase()}
@@ -263,6 +284,44 @@ export function BattleRecordFormDialog({
             placeholder={t("battleRecord.form.notesPlaceholder")}
             value={draft.notes}
             onChange={(e) => setDraft((prev) => ({ ...prev, notes: e.target.value }))}
+          />
+
+          <Autocomplete
+            multiple
+            freeSolo
+            size="small"
+            options={PREDEFINED_TAG_SLUGS}
+            value={draft.tags as string[]}
+            onChange={(_e, newValue) => {
+              setDraft((prev) => ({ ...prev, tags: newValue as string[] }));
+            }}
+            groupBy={(option) => {
+              const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+              return preset ? t(`battleRecord.form.tagGroups.${preset.group}`) : "Custom";
+            }}
+            getOptionLabel={(option) => {
+              const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+              return preset ? t(`taxonomy.${preset.slug}`) : option;
+            }}
+            // @ts-ignore
+            renderTags={(value: readonly string[], getTagProps: any) =>
+              value.map((option, index) => {
+                const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
+                const label = preset ? t(`taxonomy.${preset.slug}`) : option;
+
+                const { key, ...tagProps } = getTagProps({ index });
+                return (
+                  <Chip key={key} variant="outlined" size="small" label={label} {...tagProps} />
+                );
+              })
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t("battleRecord.form.tags")}
+                placeholder={t("battleRecord.form.tagsPlaceholder")}
+              />
+            )}
           />
         </Stack>
       </DialogContent>

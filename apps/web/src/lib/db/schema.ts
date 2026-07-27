@@ -20,8 +20,6 @@ import type { TrainedPokemon } from "@/store/team/team";
 export type BattleFormat = "singles" | "doubles";
 /** 対戦結果 */
 export type BattleResult = "win" | "loss" | "draw";
-/** 先攻/後攻 */
-export type FirstOrSecond = "first" | "second";
 /** 相手個体の選出役割（null = 選出外） */
 export type OpponentSelectionRole = "lead" | "back";
 
@@ -144,10 +142,13 @@ export const battleRecords = pgTable(
     myTeam: jsonb("my_team").notNull().$type<readonly TrainedPokemon[]>(),
     /** my_team 内 index。先頭=先発（フォーマットの active 数）、残り=後発 */
     mySelection: smallint("my_selection").array(),
-    /** "first" / "second" */
-    firstOrSecond: text("first_or_second").$type<FirstOrSecond>(),
     /** その試合終了時点のレート（例: 1650。任意）。試合間の変動は記録から算出する */
     rating: integer("rating"),
+    /** ギミックや役割などの分類タグ */
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     notes: text("notes"),
     playedAt: timestamp("played_at", { withTimezone: true }).notNull().defaultNow(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -156,7 +157,6 @@ export const battleRecords = pgTable(
   (t) => [
     check("battle_records_result_valid", sql`${t.result} in ('win', 'loss', 'draw')`),
     check("battle_records_my_team_is_array", sql`jsonb_typeof(${t.myTeam}) = 'array'`),
-    check("battle_records_first_or_second_valid", sql`${t.firstOrSecond} in ('first', 'second')`),
   ],
 );
 
@@ -187,5 +187,72 @@ export const battleRecordOpponents = pgTable(
       "battle_record_opponents_selection_role_valid",
       sql`${t.selectionRole} in ('lead', 'back')`,
     ),
+  ],
+);
+
+// =====================================================================
+// Dashboards（カスタマイズ可能ダッシュボード）
+// 設計: .design/dashboard.md
+// =====================================================================
+
+/** ウィジェットのデータソース（直指定 or ダッシュボード変数参照） */
+export type DataSource =
+  | { readonly type: "season"; readonly seasonId: string | null }
+  | { readonly type: "variable"; readonly variableId: string };
+
+/**
+ * ダッシュボード変数。
+ * グリッド上部の Variable バーに表示され、複数ウィジェットが同一変数を参照できる。
+ */
+export interface DashboardVariable {
+  readonly id: string;
+  readonly name: string;
+  readonly label: string;
+  readonly type: "season";
+  /** null = 全シーズン統合 */
+  readonly defaultSeasonId: string | null;
+}
+
+/** ダッシュボードの1ウィジェット（layout jsonb の要素） */
+export interface DashboardWidget {
+  readonly id: string;
+  /** 描画テンプレート（旧 type） */
+  readonly templateId?: string;
+  readonly title: string;
+  /** データソース（シーズン直指定 or Variable 参照） */
+  readonly dataSource: DataSource;
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
+  readonly options?: Record<string, unknown>;
+}
+
+/**
+ * ユーザーがカスタマイズ可能なダッシュボード。
+ * ウィジェットの配置・種別・パラメータを layout に jsonb で保持する。
+ * 変数の定義を variables に jsonb で保持する。
+ */
+export const dashboards = pgTable(
+  "dashboards",
+  {
+    id: ulidType("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => authUsers.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    /** ユーザーごとに1件のみ true（アプリ側で保証） */
+    isDefault: boolean("is_default").notNull().default(false),
+    /** DashboardWidget[] */
+    layout: jsonb("layout").notNull().default([]).$type<readonly DashboardWidget[]>(),
+    /** DashboardVariable[] */
+    variables: jsonb("variables").notNull().default([]).$type<readonly DashboardVariable[]>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    check("dashboards_name_len", sql`char_length(${t.name}) between 1 and 100`),
+    check("dashboards_layout_is_array", sql`jsonb_typeof(${t.layout}) = 'array'`),
+    check("dashboards_variables_is_array", sql`jsonb_typeof(${t.variables}) = 'array'`),
   ],
 );

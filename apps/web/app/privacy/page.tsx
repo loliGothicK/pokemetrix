@@ -2,12 +2,10 @@
 
 import { Box, Container, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
 
 export default function PrivacyPolicy() {
   const theme = useTheme();
   const { i18n } = useTranslation();
-  const palette = getAppPalette(theme.palette.mode);
   const isJa = i18n.language.startsWith("ja");
 
   return (
@@ -26,7 +24,7 @@ export default function PrivacyPolicy() {
               mt: 4,
               mb: 2,
               borderBottom: "1px solid",
-              borderColor: palette.edge,
+              borderColor: theme.palette.divider,
               pb: 1,
             },
             "& p": {
@@ -44,10 +42,14 @@ export default function PrivacyPolicy() {
         >
           {isJa ? (
             <>
-              <p>本プライバシーポリシーは、Pokemetrix（以下「本サービス」）が、本サービスを利用するユーザーの情報をどのように収集、利用、保護するかについて定めたものです。</p>
+              <p>
+                本プライバシーポリシーは、Pokemetrix（以下「本サービス」）が、本サービスを利用するユーザーの情報をどのように収集、利用、保護するかについて定めたものです。
+              </p>
 
               <h2>1. 収集する情報</h2>
-              <p>本サービスでは、アカウント登録および提供する機能のために以下の情報を収集する場合があります。</p>
+              <p>
+                本サービスでは、アカウント登録および提供する機能のために以下の情報を収集する場合があります。
+              </p>
               <ul>
                 <li>メールアドレスおよびパスワード等の認証情報（アカウント作成時）</li>
                 <li>ユーザーが作成・入力したパーティや対戦記録などのデータ</li>
@@ -63,26 +65,46 @@ export default function PrivacyPolicy() {
               </ul>
 
               <h2>3. 個人情報の第三者提供</h2>
-              <p>本サービスは、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。</p>
+              <p>
+                本サービスは、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。
+              </p>
 
               <h2>4. データの保護と管理</h2>
-              <p>本サービスは、ユーザーの情報を適切に管理し、不正アクセスやデータの紛失・漏えいを防ぐために合理的なセキュリティ対策を講じます。ただし、インターネットを通じた情報の送信には完全な安全性が保証されるものではないことをご承知おきください。</p>
+              <p>
+                本サービスは、ユーザーの情報を適切に管理し、不正アクセスやデータの紛失・漏えいを防ぐために合理的なセキュリティ対策を講じます。ただし、インターネットを通じた情報の送信には完全な安全性が保証されるものではないことをご承知おきください。
+              </p>
 
               <h2>5. プライバシーポリシーの変更</h2>
-              <p>本サービスは、必要に応じて本プライバシーポリシーを変更することがあります。変更があった場合は、本ページにて通知します。</p>
+              <p>
+                本サービスは、必要に応じて本プライバシーポリシーを変更することがあります。変更があった場合は、本ページにて通知します。
+              </p>
 
               <h2>6. お問い合わせ</h2>
-              <p>本プライバシーポリシーに関するご質問などは、フッターに記載の連絡先（Contact）よりお問い合わせください。</p>
+              <p>
+                本プライバシーポリシーに関するご質問などは、フッターに記載の連絡先（Contact）よりお問い合わせください。
+              </p>
             </>
           ) : (
             <>
-              <p>This Privacy Policy describes how Pokemetrix ("we," "our," or "the Service") collects, uses, and protects information from users of our application.</p>
+              <p>
+                This Privacy Policy describes how Pokemetrix ("we," "our," or "the Service")
+                collects, uses, and protects information from users of our application.
+              </p>
 
               <h2>1. Information We Collect</h2>
-              <p>We may collect the following information to provide our services and account functionality:</p>
+              <p>
+                We may collect the following information to provide our services and account
+                functionality:
+              </p>
               <ul>
-                <li>Authentication information, such as your email address and password (when creating an account).</li>
-                <li>Data you create or input, such as team builds, battle records, and custom settings.</li>
+                <li>
+                  Authentication information, such as your email address and password (when creating
+                  an account).
+                </li>
+                <li>
+                  Data you create or input, such as team builds, battle records, and custom
+                  settings.
+                </li>
                 <li>Error logs to help us improve the service and fix bugs.</li>
               </ul>
               <p>* We do not use Google Analytics or other comprehensive tracking services.</p>
@@ -95,16 +117,29 @@ export default function PrivacyPolicy() {
               </ul>
 
               <h2>3. Third-Party Sharing</h2>
-              <p>We do not share your personal information with third parties without your consent, except as required by law.</p>
+              <p>
+                We do not share your personal information with third parties without your consent,
+                except as required by law.
+              </p>
 
               <h2>4. Data Security</h2>
-              <p>We implement reasonable security measures to protect your information from unauthorized access, loss, or disclosure. However, please be aware that no transmission of data over the internet is completely secure.</p>
+              <p>
+                We implement reasonable security measures to protect your information from
+                unauthorized access, loss, or disclosure. However, please be aware that no
+                transmission of data over the internet is completely secure.
+              </p>
 
               <h2>5. Changes to This Policy</h2>
-              <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page.</p>
+              <p>
+                We may update this Privacy Policy from time to time. Any changes will be posted on
+                this page.
+              </p>
 
               <h2>6. Contact Us</h2>
-              <p>If you have any questions about this Privacy Policy, please contact us using the Contact link in the footer.</p>
+              <p>
+                If you have any questions about this Privacy Policy, please contact us using the
+                Contact link in the footer.
+              </p>
             </>
           )}
         </Box>

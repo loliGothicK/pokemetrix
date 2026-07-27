@@ -1,7 +1,7 @@
 {
   "name": "Pokémetrix",
   "short_name": "Pokémetrix",
-  "description": "Pokémetrix: Optimizing Pokémon Battles",
+  "description": "Analytics Workspace for Pokémon Battle",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff",

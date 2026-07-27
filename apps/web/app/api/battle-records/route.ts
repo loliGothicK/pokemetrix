@@ -4,6 +4,8 @@ import { and, eq, inArray, desc } from "drizzle-orm";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { battleRecords, battleRecordOpponents } from "@/lib/db/schema";
+import { createBattleRecord } from "@/lib/db/repositories/battleRecordRepository";
+import { isLeft } from "fp-ts/Either";
 import { genUlid } from "@/lib/db/ulid-type";
 import {
   battleRecordInputSchema,
@@ -34,8 +36,8 @@ const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord 
   result: row.result,
   myTeam: row.myTeam,
   mySelection: row.mySelection,
-  firstOrSecond: row.firstOrSecond,
   rating: row.rating,
+  tags: row.tags ?? [],
   notes: row.notes,
   playedAt: row.playedAt.toISOString(),
   opponents: opponents
@@ -108,56 +110,45 @@ export async function POST(request: Request) {
   const parsed = battleRecordInputSchema.safeParse(body);
   return match(parsed)
     .with({ success: false }, ({ error }) =>
-      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+      NextResponse.json({ error: error.issues }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
       const id = input.id ?? genUlid();
 
-      const dto = await withChildSpan(
+      const dtoEither = await withChildSpan(
         "db.battle-records.create",
         async (_span) => {
-          return db.transaction(async (tx) => {
-            const [row] = await tx
-              .insert(battleRecords)
-              .values({
-                id,
-                userId,
-                seasonId: input.seasonId,
-                teamId: input.teamId ?? null,
-                result: input.result,
-                myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
-                mySelection: input.mySelection ?? null,
-                firstOrSecond: input.firstOrSecond ?? null,
-                rating: input.rating ?? null,
-                notes: input.notes ?? null,
-                ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
-              })
-              .returning();
-
-            const opponentRows =
-              input.opponents.length > 0
-                ? await tx
-                    .insert(battleRecordOpponents)
-                    .values(
-                      input.opponents.map((o) => ({
-                        battleRecordId: id,
-                        slotIndex: o.slotIndex,
-                        pokemonSlug: o.pokemonSlug,
-                        itemSlug: o.itemSlug ?? null,
-                        abilitySlug: o.abilitySlug ?? null,
-                        moves: o.moves ?? null,
-                        selectionRole: o.selectionRole ?? null,
-                        notes: o.notes ?? null,
-                      })),
-                    )
-                    .returning()
-                : [];
-
-            return toDto(row, opponentRows);
-          });
+          return createBattleRecord({
+            id,
+            userId,
+            seasonId: input.seasonId,
+            teamId: input.teamId ?? null,
+            result: input.result,
+            myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
+            mySelection: input.mySelection ?? null,
+            rating: input.rating ?? null,
+            tags: input.tags ? [...input.tags] : [],
+            notes: input.notes ?? null,
+            ...(input.playedAt ? { playedAt: new Date(input.playedAt) } : {}),
+            opponents: input.opponents.map((o) => ({
+              slotIndex: o.slotIndex,
+              pokemonSlug: o.pokemonSlug,
+              itemSlug: o.itemSlug ?? null,
+              abilitySlug: o.abilitySlug ?? null,
+              moves: o.moves ?? null,
+              selectionRole: o.selectionRole ?? null,
+              notes: o.notes ?? null,
+            })),
+          })();
         },
         { op: "db.query" },
       );
+
+      if (isLeft(dtoEither)) {
+        return NextResponse.json({ error: dtoEither.left.message }, { status: 500 });
+      }
+
+      const dto = toDto(dtoEither.right.record, dtoEither.right.opponents);
 
       return NextResponse.json(dto, { status: 201 });
     })

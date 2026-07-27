@@ -8,14 +8,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import {
-  weatherModifier,
-  stabModifier,
-  screenModifier,
-  spreadModifier,
-  isPhysicalCategory,
-  M,
-} from "@/lib/damage";
+import { weatherModifier, stabModifier, screenModifier, spreadModifier, isPhysicalCategory, M } from "@/lib/damage";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { moveByIdentifier } from "@/data/moves";
 import { calcHp, calcStatus } from "@/data/utility/training";
@@ -117,32 +110,22 @@ describe("DamageCalcPage — move data correctness", () => {
 });
 
 describe("damageCalc translation keys — EN/JA completeness", () => {
-  const enKeys = Object.keys(
-    (enTranslation as Record<string, unknown>)["damageCalc"] as Record<string, unknown>,
-  );
-  const jaKeys = Object.keys(
-    (jaTranslation as Record<string, unknown>)["damageCalc"] as Record<string, unknown>,
-  );
+  const enKeys = Object.keys((enTranslation as Record<string, unknown>)["damageCalc"] as Record<string, unknown>);
+  const jaKeys = Object.keys((jaTranslation as Record<string, unknown>)["damageCalc"] as Record<string, unknown>);
 
   it("EN and JA have the same keys", () => {
     expect(enKeys.sort()).toEqual(jaKeys.sort());
   });
 
   it("all keys have non-empty values in EN", () => {
-    const section = (enTranslation as Record<string, unknown>)["damageCalc"] as Record<
-      string,
-      string
-    >;
+    const section = (enTranslation as Record<string, unknown>)["damageCalc"] as Record<string, string>;
     for (const key of enKeys) {
       expect(section[key], `EN key "${key}" should be non-empty`).not.toBe("");
     }
   });
 
   it("all keys have non-empty values in JA", () => {
-    const section = (jaTranslation as Record<string, unknown>)["damageCalc"] as Record<
-      string,
-      string
-    >;
+    const section = (jaTranslation as Record<string, unknown>)["damageCalc"] as Record<string, string>;
     for (const key of jaKeys) {
       expect(section[key], `JA key "${key}" should be non-empty`).not.toBe("");
     }

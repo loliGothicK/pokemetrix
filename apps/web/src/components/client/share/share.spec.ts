@@ -18,7 +18,7 @@ import jaTranslation from "@locales/ja/translation.json";
 const snapshotSchema = z
   .object({
     teamName: z.string().min(1).max(100),
-    members: z.array(z.union([z.object({}).passthrough(), z.null()])).length(6),
+    members: z.array(z.union([z.object({}).loose(), z.null()])).length(6),
   })
   .readonly();
 
@@ -94,23 +94,13 @@ describe("snapshotSchema — バリデーション", () => {
 
 type StatKey = "hp" | "atk" | "def" | "spa" | "spd" | "spe";
 
-function calcStat(
-  key: StatKey,
-  base: number,
-  ev: number,
-  plus?: StatKey | null,
-  minus?: StatKey | null,
-): number {
+function calcStat(key: StatKey, base: number, ev: number, plus?: StatKey | null, minus?: StatKey | null): number {
   if (key === "hp") return calcHp(base, ev);
   const natureMult = key === plus ? 1.1 : key === minus ? 0.9 : 1.0;
   return calcStatus(base, ev, natureMult);
 }
 
-function statColor(
-  key: StatKey,
-  plus?: StatKey | null,
-  minus?: StatKey | null,
-): string | undefined {
+function statColor(key: StatKey, plus?: StatKey | null, minus?: StatKey | null): string | undefined {
   if (key === "hp") return undefined;
   if (key === plus) return "#ef5350";
   if (key === minus) return "#42a5f5";

@@ -61,7 +61,11 @@ export function SeasonSelect({
 
   return (
     <FormControl size="small" sx={sx}>
-      {label && <InputLabel id={labelId}>{label}</InputLabel>}
+      {label && (
+        <InputLabel id={labelId} shrink>
+          {label}
+        </InputLabel>
+      )}
       <Select
         labelId={label ? labelId : undefined}
         label={label}

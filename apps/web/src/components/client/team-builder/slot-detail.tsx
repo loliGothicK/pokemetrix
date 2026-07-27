@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/Delete";
 import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
-import { getAppPalette } from "@/theme/palette";
 import { Training } from "@/components/client/team-builder/training";
 import { activeSlotIndexAtom, TrainedPokemon } from "@/store/team/team";
 import { toDefault } from "@/data/utility/training";
@@ -17,6 +17,8 @@ import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import { useBoxData } from "@/hooks/useBoxData";
 import { isAuthenticatedAtom } from "@/store/auth";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { emptyStateCenter, flexRowCenter } from "@/theme/sx";
 
 /**
  * URLのスロット（`/team-builder/[slot]`）に対応した単一スロットの育成画面。
@@ -29,12 +31,13 @@ export default function TeamSlotDetail({
   readonly slot: number;
   readonly showBackButton?: boolean;
 }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [savedSnackbar, setSavedSnackbar] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [team, updateSlot] = useActiveTeam();
   const setActiveSlotIndex = useSetAtom(activeSlotIndexAtom);
   const { saveToBox } = useBoxData();
@@ -50,36 +53,33 @@ export default function TeamSlotDetail({
   }
 
   const member = team.members[slot] ?? null;
-  const title = member
-    ? t(`pokemon.${member.identifier}.name`)
-    : t("teamBuilder.slotLabel", { index: slot + 1 });
-  const formName = member
-    ? i18n.exists(`pokemon.${member.identifier}.formName`)
-      ? t(`pokemon.${member.identifier}.formName`)
-      : ""
-    : "";
 
   return (
-    <Paper
+    <SurfaceCard
+      raised
       sx={{
         width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        bgcolor: palette.surfaceRaised,
-        border: "1px solid",
-        borderColor: palette.edge,
+        position: "relative",
+        border: { xs: "none" },
+        borderRadius: { xs: 0 },
+        p: { xs: 0 },
       }}
     >
       <Stack
         direction="row"
-        spacing={1}
         sx={{
-          alignItems: "center",
+          ...flexRowCenter,
           px: 2,
-          py: 1.5,
+          py: 1,
           borderBottom: "1px solid",
-          borderColor: palette.edge,
+          borderColor: theme.palette.divider,
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          bgcolor: theme.palette.background.paper,
         }}
       >
         {showBackButton && (
@@ -91,42 +91,57 @@ export default function TeamSlotDetail({
             <ArrowBackIcon />
           </IconButton>
         )}
-        <Stack direction="column" spacing={0}>
-          <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
-            {title}
-          </Typography>
-          {formName && (
-            <Typography variant="caption" noWrap sx={{ color: "text.secondary", fontWeight: 400 }}>
-              {formName}
-            </Typography>
-          )}
-        </Stack>
-        {member && isAuthenticated && (
-          <Button
-            size="small"
-            variant="outlined"
-            startIcon={<SaveOutlinedIcon />}
-            onClick={() => {
-              saveToBox(member);
-              setSavedSnackbar(true);
-            }}
-            sx={{ ml: "auto", flexShrink: 0 }}
-          >
-            {t("box.saveToBox")}
-          </Button>
+        {member && (
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start", ml: showBackButton ? 2 : 0 }}>
+            <Tabs 
+              value={activeTab} 
+              onChange={(_, v) => setActiveTab(v)}
+              sx={{ minHeight: "auto", "& .MuiTab-root": { minHeight: "auto", py: 0.5, textTransform: "none", fontWeight: 600 } }}
+            >
+              <Tab label={t("teamBuilder.tabOpenSpecs")} />
+              <Tab label={t("teamBuilder.tabEvSpreads")} />
+            </Tabs>
+          </Box>
+        )}
+        {member && (
+          <Stack direction="row" spacing={1} sx={{ display: { xs: "none", md: "flex" } }}>
+            {isAuthenticated && (
+              <Button
+                variant="contained"
+                onClick={() => {
+                  saveToBox(member);
+                  setSavedSnackbar(true);
+                }}
+                startIcon={<SaveOutlinedIcon />}
+                size="small"
+              >
+                {t("box.saveToBox")}
+              </Button>
+            )}
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => setDeleteDialogOpen(true)}
+              startIcon={<DeleteOutlineIcon />}
+              size="small"
+            >
+              {t("teamBuilder.delete")}
+            </Button>
+          </Stack>
         )}
       </Stack>
 
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
         {member ? (
-          <Box sx={{ p: { xs: 1, md: 3 } }}>
+          <Box sx={{ p: { xs: 2, md: 0 } }}>
             <Training
               member={member}
+              activeTab={activeTab}
               onUpdate={(trained: TrainedPokemon) => updateSlot(slot, trained)}
             />
           </Box>
         ) : (
-          <Box sx={{ textAlign: "center", py: 6, px: 3 }}>
+          <Box sx={{ ...emptyStateCenter, py: 6, px: 3 }}>
             <Typography variant="body1" color="text.secondary" gutterBottom>
               {t("teamBuilder.emptySlot")}
             </Typography>
@@ -136,6 +151,32 @@ export default function TeamSlotDetail({
           </Box>
         )}
       </Box>
+
+      {member && (
+        <SpeedDial
+          ariaLabel="Actions"
+          sx={{ display: { xs: "flex", md: "none" }, position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          {isAuthenticated && (
+            <SpeedDialAction
+              icon={<SaveOutlinedIcon />}
+              title={t("box.saveToBox")}
+              slotProps={{ tooltip: { title: t("box.saveToBox"), open: true } }}
+              onClick={() => {
+                saveToBox(member);
+                setSavedSnackbar(true);
+              }}
+            />
+          )}
+          <SpeedDialAction
+            icon={<DeleteOutlineIcon />}
+            title={t("teamBuilder.delete")}
+            slotProps={{ tooltip: { title: t("teamBuilder.delete"), open: true } }}
+            onClick={() => setDeleteDialogOpen(true)}
+          />
+        </SpeedDial>
+      )}
 
       <SelectPokemonDialog
         title={t("teamBuilder.selectPokemon")}
@@ -150,6 +191,7 @@ export default function TeamSlotDetail({
           updateSlot(slot, pokemon);
           setDialogOpen(false);
         }}
+        excludedIdentifiers={team.members.map((m) => m?.identifier).filter(Boolean) as string[]}
       />
 
       <Snackbar
@@ -162,6 +204,33 @@ export default function TeamSlotDetail({
           {t("box.savedToBox")}
         </Alert>
       </Snackbar>
-    </Paper>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        aria-labelledby="delete-pokemon-dialog-title"
+      >
+        <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t("teamBuilder.deleteTeamConfirm", { name: member ? t(`pokemon.${member.identifier}.name`) : t("pokemon.unknown") })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t("teamBuilder.cancel")}</Button>
+          <Button
+            color="error"
+            variant="contained"
+            disableElevation
+            onClick={() => {
+              updateSlot(slot, null);
+              setDeleteDialogOpen(false);
+            }}
+          >
+            {t("teamBuilder.delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </SurfaceCard>
   );
 }

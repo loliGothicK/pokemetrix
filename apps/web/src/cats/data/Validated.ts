@@ -1,4 +1,4 @@
-import { mapLeft, type Either } from "fp-ts/Either";
+import { mapLeft, type Either } from "fp-ts/lib/Either";
 
 export type Validated<E, A> = Either<readonly E[], A>;
 

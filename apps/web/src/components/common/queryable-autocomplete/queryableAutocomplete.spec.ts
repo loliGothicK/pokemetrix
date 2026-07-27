@@ -125,9 +125,7 @@ describe("parseQueryToken", () => {
 
 describe("queryTokenLabel", () => {
   it("labels a field chip with its human-readable parts", () => {
-    expect(queryTokenLabel({ kind: "field", key: "type", value: "fire" }, fields)).toBe(
-      "Type: Fire",
-    );
+    expect(queryTokenLabel({ kind: "field", key: "type", value: "fire" }, fields)).toBe("Type: Fire");
   });
 
   it("labels a text chip with the raw text", () => {
@@ -166,10 +164,7 @@ describe("matchesQueryTokens", () => {
   });
 
   it("applies multiple tokens as an AND filter", () => {
-    const tokens = [
-      { kind: "field", key: "type", value: "fire" } as const,
-      { kind: "text", text: "char" } as const,
-    ];
+    const tokens = [{ kind: "field", key: "type", value: "fire" } as const, { kind: "text", text: "char" } as const];
     expect(matchesQueryTokens(charizard, tokens)).toBe(true);
     expect(matchesQueryTokens({ text: "flareon", fields: { type: ["fire"] } }, tokens)).toBe(false);
   });

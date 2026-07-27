@@ -1,6 +1,6 @@
 import { TrainedPokemon } from "@/store/team/team";
 import { option } from "fp-ts";
-import { Option } from "fp-ts/Option";
+import { Option } from "fp-ts/lib/Option";
 import { WrongMegaStone, wrongMegaStone } from "@/lib/linter/errors/LintError";
 import { itemById } from "@/data/items";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";

@@ -1,12 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { tally, tallyByOrder, opponentStats, winRatePercent } from "./analytics";
-import type { BattleRecord, BattleResult, FirstOrSecond } from "./battleRecord";
+import { tally, opponentStats, winRatePercent } from "./analytics";
+import type { BattleRecord, BattleResult } from "./battleRecord";
 
 let seq = 0;
 const makeRecord = (
   result: BattleResult,
   opts: {
-    readonly firstOrSecond?: FirstOrSecond | null;
     readonly opponents?: readonly string[];
   } = {},
 ): BattleRecord => {
@@ -18,9 +17,9 @@ const makeRecord = (
     result,
     myTeam: [],
     mySelection: null,
-    firstOrSecond: opts.firstOrSecond ?? null,
     rating: null,
     notes: null,
+    tags: [],
     playedAt: new Date(2026, 0, seq).toISOString(),
     opponents: (opts.opponents ?? []).map((pokemonSlug, slotIndex) => ({
       slotIndex,
@@ -42,12 +41,7 @@ describe("tally", () => {
   });
 
   it("counts wins, losses and draws", () => {
-    const result = tally([
-      makeRecord("win"),
-      makeRecord("win"),
-      makeRecord("loss"),
-      makeRecord("draw"),
-    ]);
+    const result = tally([makeRecord("win"), makeRecord("win"), makeRecord("loss"), makeRecord("draw")]);
     expect(result.total).toBe(4);
     expect(result.wins).toBe(2);
     expect(result.losses).toBe(1);
@@ -58,22 +52,6 @@ describe("tally", () => {
   it("includes draws in the win-rate denominator", () => {
     const result = tally([makeRecord("win"), makeRecord("draw")]);
     expect(result.winRate).toBeCloseTo(0.5);
-  });
-});
-
-describe("tallyByOrder", () => {
-  it("splits records by first / second / unknown", () => {
-    const split = tallyByOrder([
-      makeRecord("win", { firstOrSecond: "first" }),
-      makeRecord("loss", { firstOrSecond: "first" }),
-      makeRecord("win", { firstOrSecond: "second" }),
-      makeRecord("win", { firstOrSecond: null }),
-    ]);
-    expect(split.first.total).toBe(2);
-    expect(split.first.winRate).toBeCloseTo(0.5);
-    expect(split.second.total).toBe(1);
-    expect(split.second.winRate).toBeCloseTo(1);
-    expect(split.unknown.total).toBe(1);
   });
 });
 
@@ -105,9 +83,7 @@ describe("opponentStats", () => {
 
 describe("winRatePercent", () => {
   it("returns a rounded integer percentage", () => {
-    expect(winRatePercent(tally([makeRecord("win"), makeRecord("win"), makeRecord("loss")]))).toBe(
-      67,
-    );
+    expect(winRatePercent(tally([makeRecord("win"), makeRecord("win"), makeRecord("loss")]))).toBe(67);
   });
 
   it("returns null when there are no battles", () => {

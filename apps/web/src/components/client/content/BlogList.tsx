@@ -2,6 +2,7 @@
 
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { rounded } from "@/utils/styles";
 
 export type BlogListItem = {
   readonly slug: string;
@@ -23,12 +24,11 @@ export function BlogList({ posts }: { readonly posts: readonly BlogListItem[] })
             display: "block",
             textDecoration: "none",
             color: "inherit",
-            p: 3,
-            borderRadius: 3,
             border: "1px solid",
             borderColor: "divider",
             transition: "border-color 0.2s ease",
             "&:hover": { borderColor: "primary.main" },
+            ...rounded(3),
           }}
         >
           <Stack spacing={1}>

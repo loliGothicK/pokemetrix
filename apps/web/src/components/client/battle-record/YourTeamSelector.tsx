@@ -4,9 +4,9 @@ import { alpha, Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { BattleFormat } from "@/store/battle-record/battleRecord";
+import { flexRowCenter, sectionLabel } from "@/theme/sx";
 import {
   backCount,
   cycleMember,
@@ -37,16 +37,15 @@ const stateColor = (state: MemberSelectionState): string | null =>
 export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTeamSelectorProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const limits = selectionLimits(format);
 
   return (
     <Box>
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center", mb: 1, flexWrap: "wrap" }}>
-        <Typography variant="overline" sx={{ fontWeight: 700, letterSpacing: "0.08em" }}>
+      <Stack direction="row" spacing={2} sx={{ ...flexRowCenter, mb: 1, flexWrap: "wrap" }}>
+        <Typography variant="overline" sx={{ ...sectionLabel, fontWeight: 700 }}>
           {t("battleRecord.form.myTeam")}
         </Typography>
-        <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
+        <Stack direction="row" spacing={1.5} sx={flexRowCenter}>
           <Legend color={LEAD_COLOR} label={t("battleRecord.selection.lead")} />
           <Legend color={BACK_COLOR} label={t("battleRecord.selection.back")} />
         </Stack>
@@ -82,16 +81,16 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                 sx={{
                   position: "relative",
                   border: "2px solid",
-                  borderColor: color ?? palette.edge,
-                  borderRadius: 2,
-                  bgcolor: color ? alpha(color, 0.12) : palette.surface,
-                  p: 0.5,
+                  borderColor: color ?? theme.palette.divider,
+                  bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   cursor: "pointer",
                   transition: "border-color 0.15s, background-color 0.15s",
                   opacity: state === "unused" ? 0.7 : 1,
+                  borderRadius: 2,
+                  py: 1,
                 }}
               >
                 <Image
@@ -114,7 +113,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                       borderRadius: "50%",
                       bgcolor: color,
                       border: "2px solid",
-                      borderColor: palette.surface,
+                      borderColor: theme.palette.background.paper,
                     }}
                   />
                 )}
@@ -132,7 +131,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
 
 export function Legend({ color, label }: { readonly color: string; readonly label: string }) {
   return (
-    <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+    <Stack direction="row" spacing={0.5} sx={flexRowCenter}>
       <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: color }} />
       <Typography variant="caption" color="text.secondary">
         {label}

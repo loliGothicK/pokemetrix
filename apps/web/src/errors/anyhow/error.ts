@@ -1,6 +1,6 @@
-import { Either, left } from "fp-ts/Either";
+import { Either, left } from "fp-ts/lib/Either";
 import { Validated } from "@/cats/data/Validated";
-import { pipe } from "fp-ts/function";
+import { pipe } from "fp-ts/lib/function";
 import { either } from "fp-ts";
 
 export abstract class MitamaError extends Error {

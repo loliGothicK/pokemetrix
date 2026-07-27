@@ -3,6 +3,8 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 // This module is server-only. Never import from client components.
-const client = postgres(process.env.DATABASE_URL!);
+const client = postgres(
+  process.env.DATABASE_URL || "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+);
 
 export const db = drizzle(client, { schema });

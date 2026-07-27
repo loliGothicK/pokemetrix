@@ -3,10 +3,11 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import "./globals.css";
 import { AppLayout } from "@/components/client/layout";
 import { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Pokemetrix",
-  description: "Pokemon analytics workspace built with Next.js and MUI",
+  description: "Analytics Workspace for Pokémon Battle",
 };
 
 export default function RootLayout({
@@ -18,8 +19,23 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('unhandledrejection', function(event) {
+                if (event.reason && (event.reason.name === 'Canceled' || event.reason.type === 'cancelation')) {
+                  event.preventDefault();
+                  event.stopImmediatePropagation();
+                }
+              });
+            `,
+          }}
+        />
         <AppRouterCacheProvider>
-          <AppLayout>{children}</AppLayout>
+          <AppLayout>
+            {children}
+            <Analytics />
+          </AppLayout>
         </AppRouterCacheProvider>
       </body>
     </html>

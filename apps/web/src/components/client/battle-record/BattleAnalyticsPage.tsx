@@ -12,7 +12,6 @@ import {
   InputLabel,
   LinearProgress,
   MenuItem,
-  Paper,
   Select,
   Stack,
   Typography,
@@ -23,16 +22,13 @@ import { useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { isAuthenticatedAtom } from "@/store/auth";
-import { getAppPalette } from "@/theme/palette";
 import { useSeasons } from "@/hooks/useSeasons";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
-import {
-  opponentStats,
-  tally,
-  tallyByOrder,
-  winRatePercent,
-  type RecordTally,
-} from "@/store/battle-record/analytics";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { EmptyState } from "@/components/common/EmptyState";
+import { flexRowCenter } from "@/theme/sx";
+import { opponentStats, tally, winRatePercent } from "@/store/battle-record/analytics";
+import { rounded } from "@/utils/styles";
 
 function StatCard({
   label,
@@ -45,20 +41,8 @@ function StatCard({
   readonly caption?: string;
   readonly accent?: string;
 }) {
-  const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 2.5,
-        height: "100%",
-        border: "1px solid",
-        borderColor: palette.edge,
-        borderRadius: 3,
-        bgcolor: palette.surfaceRaised,
-      }}
-    >
+    <SurfaceCard raised sx={{ p: 2.5, height: "100%" }}>
       <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
         {label}
       </Typography>
@@ -70,42 +54,13 @@ function StatCard({
           {caption}
         </Typography>
       )}
-    </Paper>
-  );
-}
-
-function WinRateBar({ label, tally: t }: { readonly label: string; readonly tally: RecordTally }) {
-  const { t: translate } = useTranslation();
-  const percent = winRatePercent(t);
-  return (
-    <Box sx={{ mb: 2 }}>
-      <Stack direction="row" sx={{ justifyContent: "space-between", mb: 0.5 }}>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>
-          {label}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {percent === null
-            ? "—"
-            : `${percent}% (${translate("battleRecord.analytics.wldShort", {
-                w: t.wins,
-                l: t.losses,
-                d: t.draws,
-              })})`}
-        </Typography>
-      </Stack>
-      <LinearProgress
-        variant="determinate"
-        value={percent ?? 0}
-        sx={{ height: 8, borderRadius: 4 }}
-      />
-    </Box>
+    </SurfaceCard>
   );
 }
 
 export default function BattleAnalyticsPage() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const { seasons, isLoading: seasonsLoading } = useSeasons();
 
@@ -124,7 +79,6 @@ export default function BattleAnalyticsPage() {
   const { records, isLoading: recordsLoading } = useBattleRecords({ seasonId: activeSeasonId });
 
   const overall = useMemo(() => tally(records), [records]);
-  const byOrder = useMemo(() => tallyByOrder(records), [records]);
   const opponents = useMemo(() => opponentStats(records), [records]);
   const overallPercent = winRatePercent(overall);
 
@@ -159,7 +113,9 @@ export default function BattleAnalyticsPage() {
       </Stack>
 
       <FormControl size="small" sx={{ minWidth: { xs: "100%", sm: 260 }, mb: 3 }}>
-        <InputLabel id="analytics-season-label">{t("battleRecord.season.label")}</InputLabel>
+        <InputLabel id="analytics-season-label" shrink={seasons.length === 0 ? true : undefined}>
+          {t("battleRecord.season.label")}
+        </InputLabel>
         <Select
           labelId="analytics-season-label"
           label={t("battleRecord.season.label")}
@@ -185,11 +141,7 @@ export default function BattleAnalyticsPage() {
           <CircularProgress />
         </Box>
       ) : records.length === 0 ? (
-        <Box sx={{ textAlign: "center", py: 8 }}>
-          <Typography variant="body1" color="text.secondary">
-            {t("battleRecord.analytics.empty")}
-          </Typography>
-        </Box>
+        <EmptyState message={t("battleRecord.analytics.empty")} />
       ) : (
         <Stack spacing={3}>
           {/* サマリーカード */}
@@ -221,43 +173,9 @@ export default function BattleAnalyticsPage() {
           </Grid>
 
           <Grid container spacing={3}>
-            {/* 先後別勝率 */}
-            <Grid size={{ xs: 12, md: 5 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 2.5,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: palette.edge,
-                  borderRadius: 3,
-                  bgcolor: palette.surface,
-                }}
-              >
-                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
-                  {t("battleRecord.analytics.byOrder")}
-                </Typography>
-                <WinRateBar label={t("battleRecord.order.first")} tally={byOrder.first} />
-                <WinRateBar label={t("battleRecord.order.second")} tally={byOrder.second} />
-                {byOrder.unknown.total > 0 && (
-                  <WinRateBar label={t("battleRecord.order.unknown")} tally={byOrder.unknown} />
-                )}
-              </Paper>
-            </Grid>
-
             {/* 対面ポケモン別成績 */}
-            <Grid size={{ xs: 12, md: 7 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 2.5,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: palette.edge,
-                  borderRadius: 3,
-                  bgcolor: palette.surface,
-                }}
-              >
+            <Grid size={{ xs: 12, md: 12 }}>
+              <SurfaceCard sx={{ p: 2.5, height: "100%" }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
                   {t("battleRecord.analytics.topOpponents")}
                 </Typography>
@@ -269,7 +187,7 @@ export default function BattleAnalyticsPage() {
                         key={opponent.pokemonSlug}
                         direction="row"
                         spacing={1.5}
-                        sx={{ alignItems: "center" }}
+                        sx={flexRowCenter}
                       >
                         <Avatar
                           src={`/pokemon/${opponent.pokemonSlug}.png`}
@@ -289,7 +207,11 @@ export default function BattleAnalyticsPage() {
                           <LinearProgress
                             variant="determinate"
                             value={percent ?? 0}
-                            sx={{ height: 6, borderRadius: 3, mt: 0.25 }}
+                            sx={{
+                              height: 6,
+                              mt: 0.25,
+                              ...rounded(3),
+                            }}
                           />
                         </Box>
                         <Typography
@@ -314,7 +236,7 @@ export default function BattleAnalyticsPage() {
                     );
                   })}
                 </Stack>
-              </Paper>
+              </SurfaceCard>
             </Grid>
           </Grid>
         </Stack>

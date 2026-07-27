@@ -8,9 +8,9 @@ import EditNote from "@mui/icons-material/EditNote";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { getAppPalette } from "@/theme/palette";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import type { BattleFormat, OpponentSelectionRole } from "@/store/battle-record/battleRecord";
+import { flexRowCenter, sectionLabel } from "@/theme/sx";
 import type { OpponentDraft } from "./formState";
 import { nextOpponentKey } from "./formState";
 import { cycleOpponentRole, selectionLimits } from "./selection";
@@ -36,7 +36,6 @@ const roleColor = (role: OpponentSelectionRole | null): string | null =>
 export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const [selectOpen, setSelectOpen] = useState(false);
   const [detailIndex, setDetailIndex] = useState<number | null>(null);
   const limits = selectionLimits(format);
@@ -81,11 +80,11 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
 
   return (
     <Box>
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center", mb: 1, flexWrap: "wrap" }}>
-        <Typography variant="overline" sx={{ fontWeight: 700, letterSpacing: "0.08em" }}>
+      <Stack direction="row" spacing={2} sx={{ ...flexRowCenter, mb: 1, flexWrap: "wrap" }}>
+        <Typography variant="overline" sx={{ ...sectionLabel, fontWeight: 700 }}>
           {t("battleRecord.form.opponents")}
         </Typography>
-        <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
+        <Stack direction="row" spacing={1.5} sx={flexRowCenter}>
           <Legend color={LEAD_COLOR} label={t("battleRecord.selection.lead")} />
           <Legend color={BACK_COLOR} label={t("battleRecord.selection.back")} />
         </Stack>
@@ -114,8 +113,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 sx={{
                   aspectRatio: "1 / 1",
                   border: "1px dashed",
-                  borderColor: palette.edge,
-                  borderRadius: 2,
+                  borderColor: theme.palette.divider,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -123,8 +121,11 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   color: "text.disabled",
                   "&:hover": {
                     borderColor:
-                      opponents.length < MAX_OPPONENTS ? theme.palette.primary.main : palette.edge,
+                      opponents.length < MAX_OPPONENTS
+                        ? theme.palette.primary.main
+                        : theme.palette.divider,
                   },
+                  borderRadius: 2,
                 }}
               >
                 <Add fontSize="small" />
@@ -146,17 +147,17 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 position: "relative",
                 aspectRatio: "1 / 1",
                 border: "2px solid",
-                borderColor: color ?? palette.edge,
-                borderRadius: 2,
-                bgcolor: color ? alpha(color, 0.12) : palette.surface,
+                borderColor: color ?? theme.palette.divider,
+                bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                p: 0.5,
                 opacity: opponent.selectionRole === null ? 0.75 : 1,
                 transition: "border-color 0.15s, background-color 0.15s",
                 "&:hover .slot-action": { opacity: 1 },
+                overflow: "hidden",
+                borderRadius: 2,
               }}
             >
               <Image
@@ -176,7 +177,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                     borderRadius: "50%",
                     bgcolor: color,
                     border: "2px solid",
-                    borderColor: palette.surface,
+                    borderColor: theme.palette.background.paper,
                   }}
                 />
               )}
@@ -196,13 +197,13 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   transform: "translateX(-50%)",
                   opacity: { xs: 1, sm: 0 },
                   transition: "opacity 0.15s",
-                  bgcolor: palette.surfaceRaised,
+                  bgcolor: theme.palette.background.paperRaised,
                   border: "1px solid",
-                  borderColor: palette.edge,
+                  borderColor: theme.palette.divider,
                   width: 22,
                   height: 22,
                   color: hasDetail ? theme.palette.success.main : "text.secondary",
-                  "&:hover": { bgcolor: palette.surfaceRaised },
+                  "&:hover": { bgcolor: theme.palette.background.paperRaised },
                 }}
               >
                 <EditNote sx={{ fontSize: 15 }} />
@@ -235,7 +236,6 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
           );
         })}
       </Box>
-
       <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: "block" }}>
         {t("battleRecord.selection.hint")}
       </Typography>
@@ -246,6 +246,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
         onClose={() => setSelectOpen(false)}
         translator={t}
         onChange={addSpecies}
+        excludedIdentifiers={opponents.map((o) => o?.pokemonSlug).filter(Boolean) as string[]}
       />
 
       <OpponentDetailDialog

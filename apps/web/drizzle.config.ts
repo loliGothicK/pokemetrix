@@ -1,30 +1,15 @@
 import { defineConfig } from "drizzle-kit";
-import { existsSync, readFileSync } from "node:fs";
+import { loadEnvConfig } from "@next/env";
 
-// drizzle-kit auto-loads `.env`, but Next.js prefers `.env.local`.
-// Resolve DATABASE_URL explicitly so `.env.local` wins in local development.
-function resolveDatabaseUrl(): string {
-  for (const file of [".env.local", ".env"]) {
-    if (!existsSync(file)) continue;
-    const content = readFileSync(file, "utf-8");
-    for (const rawLine of content.split(/\r?\n/)) {
-      const line = rawLine.trim();
-      if (!line || line.startsWith("#")) continue;
-      const match = line.match(/^DATABASE_URL\s*=\s*(.*)$/);
-      if (match) {
-        return match[1].trim().replace(/^["']|["']$/g, "");
-      }
-    }
-  }
-  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
-  throw new Error("DATABASE_URL not found in .env.local, .env, or environment");
-}
+// 開発環境（NODE_ENVが未指定、または'development'）の場合にのみdevフラグをtrueにする
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+loadEnvConfig(process.cwd(), isDev);
 
 export default defineConfig({
   schema: "./src/lib/db/schema.ts",
-  out: "./drizzle",
+  out: "./supabase/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: resolveDatabaseUrl(),
+    url: process.env.DATABASE_URL!,
   },
 });

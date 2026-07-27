@@ -33,8 +33,8 @@ const toDto = (row: RecordRow, opponents: readonly OpponentRow[]): BattleRecord 
   result: row.result,
   myTeam: row.myTeam,
   mySelection: row.mySelection,
-  firstOrSecond: row.firstOrSecond,
   rating: row.rating,
+  tags: row.tags ?? [],
   notes: row.notes,
   playedAt: row.playedAt.toISOString(),
   opponents: opponents
@@ -105,7 +105,7 @@ export async function PATCH(
   const parsed = battleRecordUpdateSchema.safeParse(body);
   return match(parsed)
     .with({ success: false }, ({ error }) =>
-      NextResponse.json({ error: error.flatten() }, { status: 422 }),
+      NextResponse.json({ error: error.issues }, { status: 422 }),
     )
     .with({ success: true }, async ({ data: input }) => {
       const result = await withChildSpan(
@@ -122,10 +122,8 @@ export async function PATCH(
                   myTeam: input.myTeam as unknown as readonly TrainedPokemon[],
                 }),
                 ...(input.mySelection !== undefined && { mySelection: input.mySelection ?? null }),
-                ...(input.firstOrSecond !== undefined && {
-                  firstOrSecond: input.firstOrSecond ?? null,
-                }),
                 ...(input.rating !== undefined && { rating: input.rating ?? null }),
+                ...(input.tags !== undefined && { tags: input.tags ? [...input.tags] : [] }),
                 ...(input.notes !== undefined && { notes: input.notes ?? null }),
                 ...(input.playedAt !== undefined &&
                   input.playedAt !== null && { playedAt: new Date(input.playedAt) }),

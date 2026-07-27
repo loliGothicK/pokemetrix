@@ -19,7 +19,7 @@ const ChampionsPokemonSchema = z
           stone_id: z.number(),
         }),
         {
-          error: (iss) => `${iss.input}" is invalid`,
+          error: (iss) => `${String(iss.input)}" is invalid`,
         },
       )
       .optional(),

@@ -1,3 +1,4 @@
+import { match, P } from "ts-pattern";
 import type { MoveCategory, Type } from "@/types/pokemon";
 import type { Terrain } from "./modifiers";
 import { M } from "./types";
@@ -220,196 +221,186 @@ const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
 export function getMoveMechanics(identifier: string, category: MoveCategory): MoveMechanics {
   const base = DEFAULTS(category);
 
-  switch (identifier) {
-    // --- Attacker HP proportional ---
-    case "eruption":
-    case "water-spout":
-      return { ...base, usesAttackerHp: true, computeBasePower: hpProportional };
-
-    // --- Attacker HP inverse ---
-    case "reversal":
-    case "flail":
-      return { ...base, usesAttackerHp: true, computeBasePower: hpInverse };
-
-    // --- Speed based ---
-    case "gyro-ball":
-      return {
+  return (
+    match(identifier)
+      // --- Attacker HP proportional ---
+      .with(P.union("eruption", "water-spout"), () => ({
         ...base,
-        attackerExtraStats: ["spe"],
-        defenderExtraStats: ["spe"],
+        usesAttackerHp: true,
+        computeBasePower: hpProportional,
+      }))
+
+      // --- Attacker HP inverse ---
+      .with(P.union("reversal", "flail"), () => ({
+        ...base,
+        usesAttackerHp: true,
+        computeBasePower: hpInverse,
+      }))
+
+      // --- Speed based ---
+      .with("gyro-ball", () => ({
+        ...base,
+        attackerExtraStats: ["spe"] as const,
+        defenderExtraStats: ["spe"] as const,
         computeBasePower: gyroBall,
-      };
-    case "electro-ball":
-      return {
+      }))
+      .with("electro-ball", () => ({
         ...base,
-        offensiveStat: "spa",
-        defensiveStat: "spd",
-        attackerExtraStats: ["spe"],
-        defenderExtraStats: ["spe"],
+        offensiveStat: "spa" as const,
+        defensiveStat: "spd" as const,
+        attackerExtraStats: ["spe"] as const,
+        defenderExtraStats: ["spe"] as const,
         computeBasePower: electroBall,
-      };
+      }))
 
-    // --- Defender HP based ---
-    case "hard-press":
-      return { ...base, computeBasePower: hardPress };
-    case "crush-grip":
-    case "wring-out":
-      return { ...base, computeBasePower: crushGrip };
+      // --- Defender HP based ---
+      .with("hard-press", () => ({ ...base, computeBasePower: hardPress }))
+      .with(P.union("crush-grip", "wring-out"), () => ({ ...base, computeBasePower: crushGrip }))
 
-    // --- Weight based ---
-    case "low-kick":
-    case "grass-knot":
-      return { ...base, usesWeight: true, computeBasePower: targetWeightPower };
-    case "heavy-slam":
-    case "heat-crash":
-      return { ...base, usesWeight: true, computeBasePower: weightRatioPower };
+      // --- Weight based ---
+      .with(P.union("low-kick", "grass-knot"), () => ({
+        ...base,
+        usesWeight: true,
+        computeBasePower: targetWeightPower,
+      }))
+      .with(P.union("heavy-slam", "heat-crash"), () => ({
+        ...base,
+        usesWeight: true,
+        computeBasePower: weightRatioPower,
+      }))
 
-    // --- Stat reference morphing ---
-    case "body-press":
-      return { ...base, offensiveStat: "def" };
-    case "foul-play":
-      return { ...base, useTargetAttack: true, defenderExtraStats: ["atk"] };
-    case "psyshock":
-    case "psystrike":
-    case "secret-sword":
-      return { ...base, defensiveStat: "def" };
+      // --- Stat reference morphing ---
+      .with("body-press", () => ({ ...base, offensiveStat: "def" as const }))
+      .with("foul-play", () => ({
+        ...base,
+        useTargetAttack: true,
+        defenderExtraStats: ["atk"] as const,
+      }))
+      .with(P.union("psyshock", "psystrike", "secret-sword"), () => ({
+        ...base,
+        defensiveStat: "def" as const,
+      }))
 
-    // --- Conditional doublers (checkbox) ---
-    case "hex":
-      return {
+      // --- Conditional doublers (checkbox) ---
+      .with("hex", () => ({
         ...base,
         conditions: [{ key: "targetStatus", labelKey: "damageCalc.condTargetStatus" }],
         bpModifiers: condDouble("targetStatus"),
-      };
-    case "facade":
-      return {
+      }))
+      .with("facade", () => ({
         ...base,
         conditions: [{ key: "userStatus", labelKey: "damageCalc.condUserStatus" }],
         bpModifiers: condDouble("userStatus"),
-      };
-    case "venoshock":
-      return {
+      }))
+      .with("venoshock", () => ({
         ...base,
         conditions: [{ key: "targetPoisoned", labelKey: "damageCalc.condTargetPoisoned" }],
         bpModifiers: condDouble("targetPoisoned"),
-      };
-    case "round":
-      return {
+      }))
+      .with("round", () => ({
         ...base,
         conditions: [{ key: "allyRound", labelKey: "damageCalc.condAllyRound" }],
         bpModifiers: condDouble("allyRound"),
-      };
-    case "dragon-rush":
-    case "steamroller":
-    case "stomp":
-    case "body-slam":
-      return {
+      }))
+      .with(P.union("dragon-rush", "steamroller", "stomp", "body-slam"), () => ({
         ...base,
         conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
         bpModifiers: condDouble("targetMinimized"),
-      };
-    case "stomping-tantrum":
-    case "temper-flare":
-      return {
+      }))
+      .with(P.union("stomping-tantrum", "temper-flare"), () => ({
         ...base,
         conditions: [{ key: "prevMoveFailed", labelKey: "damageCalc.condPrevMoveFailed" }],
         bpModifiers: condDouble("prevMoveFailed"),
-      };
-    case "assurance":
-      return {
+      }))
+      .with("assurance", () => ({
         ...base,
         conditions: [{ key: "targetDamaged", labelKey: "damageCalc.condTargetDamaged" }],
         bpModifiers: condDouble("targetDamaged"),
-      };
-    case "payback":
-      return {
+      }))
+      .with("payback", () => ({
         ...base,
         conditions: [{ key: "movesAfterTarget", labelKey: "damageCalc.condMovesAfterTarget" }],
         bpModifiers: condDouble("movesAfterTarget"),
-      };
-    case "earthquake":
-    case "magnitude":
-      return {
+      }))
+      .with(P.union("earthquake", "magnitude"), () => ({
         ...base,
         conditions: [{ key: "targetUnderground", labelKey: "damageCalc.condTargetUnderground" }],
         bpModifiers: condDouble("targetUnderground"),
-      };
+      }))
 
-    // --- Conditional doublers / boosters (auto from field & item) ---
-    case "knock-off":
-      return {
+      // --- Conditional doublers / boosters (auto from field & item) ---
+      .with("knock-off", () => ({
         ...base,
-        bpModifiers: (ctx) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
-      };
-    case "rising-voltage":
-      return {
+        bpModifiers: (ctx: PowerContext) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
+      }))
+      .with("rising-voltage", () => ({
         ...base,
-        bpModifiers: (ctx) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
-      };
-    case "expanding-force":
-      return {
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
+      }))
+      .with("expanding-force", () => ({
         ...base,
-        bpModifiers: (ctx) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
-      };
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
+      }))
 
-    // --- Type effectiveness override ---
-    case "freeze-dry":
-      return { ...base, freezeDry: true };
+      // --- Type effectiveness override ---
+      .with("freeze-dry", () => ({ ...base, freezeDry: true }))
 
-    // ---------------------------------------------------------------------------
-    // Multi-hit moves
-    // ---------------------------------------------------------------------------
+      // ---------------------------------------------------------------------------
+      // Multi-hit moves
+      // ---------------------------------------------------------------------------
 
-    // Fixed 2 hits
-    case "double-hit":
-    case "dual-wingbeat":
-    case "dual-chop":
-    case "dragon-darts":
-    case "gear-grind":
-    case "bonemerang":
-    case "double-kick":
-    case "twineedle":
-      return { ...base, ...HIT2 };
+      // Fixed 2 hits
+      .with(
+        P.union(
+          "double-hit",
+          "dual-wingbeat",
+          "dual-chop",
+          "dragon-darts",
+          "gear-grind",
+          "bonemerang",
+          "double-kick",
+          "twineedle",
+        ),
+        () => ({ ...base, ...HIT2 }),
+      )
 
-    // Fixed 3 hits
-    case "triple-kick":
-      return { ...base, ...HIT3 };
+      // Fixed 3 hits
+      .with("triple-kick", () => ({ ...base, ...HIT3 }))
 
-    // Triple Axel: 3 hits with escalating BP (20/40/60 = 120 total).
-    // We pass the summed BP (120) to the engine for a realistic single-calc
-    // result, and mark hitCountAlreadyMerged so the UI doesn't multiply again.
-    case "triple-axel":
-      return {
+      // Triple Axel: 3 hits with escalating BP
+      .with("triple-axel", () => ({
         ...base,
         computeBasePower: () => 120,
         hitCount: { min: 3, max: 3 },
         hitCountAlreadyMerged: true,
-      };
+      }))
 
-    // 2–5 random hits
-    case "bone-rush":
-    case "bullet-seed":
-    case "icicle-spear":
-    case "pin-missile":
-    case "rock-blast":
-    case "scale-shot":
-    case "tail-slap":
-    case "water-shuriken":
-    case "arm-thrust":
-    case "fury-attack":
-    case "fury-swipes":
-    case "comet-punch":
-    case "spike-cannon":
-    case "barrage":
-      return { ...base, ...HIT_2_5 };
+      // 2–5 random hits
+      .with(
+        P.union(
+          "bone-rush",
+          "bullet-seed",
+          "icicle-spear",
+          "pin-missile",
+          "rock-blast",
+          "scale-shot",
+          "tail-slap",
+          "water-shuriken",
+          "arm-thrust",
+          "fury-attack",
+          "fury-swipes",
+          "comet-punch",
+          "spike-cannon",
+          "barrage",
+        ),
+        () => ({ ...base, ...HIT_2_5 }),
+      )
 
-    // Population Bomb: 1–10 hits (skill-link makes it always 10)
-    case "population-bomb":
-      return { ...base, hitCount: { min: 1, max: 10 } };
+      // Population Bomb
+      .with("population-bomb", () => ({ ...base, hitCount: { min: 1, max: 10 } }))
 
-    default:
-      return base;
-  }
+      .otherwise(() => base)
+  );
 }
 
 /**
@@ -425,32 +416,20 @@ export function resolveFieldReactiveMove(
   fallbackPower: number,
 ): { type: Type; power: number } | null {
   if (identifier === "weather-ball") {
-    switch (weather) {
-      case "sun":
-        return { type: "fire", power: fallbackPower * 2 };
-      case "rain":
-        return { type: "water", power: fallbackPower * 2 };
-      case "snow":
-        return { type: "ice", power: fallbackPower * 2 };
-      case "sandstorm":
-        return { type: "rock", power: fallbackPower * 2 };
-      default:
-        return { type: "normal", power: fallbackPower };
-    }
+    return match(weather)
+      .with("sun", () => ({ type: "fire" as Type, power: fallbackPower * 2 }))
+      .with("rain", () => ({ type: "water" as Type, power: fallbackPower * 2 }))
+      .with("snow", () => ({ type: "ice" as Type, power: fallbackPower * 2 }))
+      .with("sandstorm", () => ({ type: "rock" as Type, power: fallbackPower * 2 }))
+      .otherwise(() => ({ type: "normal" as Type, power: fallbackPower }));
   }
   if (identifier === "terrain-pulse") {
-    switch (terrain) {
-      case "electric":
-        return { type: "electric", power: fallbackPower * 2 };
-      case "grassy":
-        return { type: "grass", power: fallbackPower * 2 };
-      case "misty":
-        return { type: "fairy", power: fallbackPower * 2 };
-      case "psychic":
-        return { type: "psychic", power: fallbackPower * 2 };
-      default:
-        return { type: fallbackType, power: fallbackPower };
-    }
+    return match(terrain)
+      .with("electric", () => ({ type: "electric" as Type, power: fallbackPower * 2 }))
+      .with("grassy", () => ({ type: "grass" as Type, power: fallbackPower * 2 }))
+      .with("misty", () => ({ type: "fairy" as Type, power: fallbackPower * 2 }))
+      .with("psychic", () => ({ type: "psychic" as Type, power: fallbackPower * 2 }))
+      .otherwise(() => ({ type: fallbackType, power: fallbackPower }));
   }
   return null;
 }

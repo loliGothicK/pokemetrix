@@ -1,8 +1,8 @@
-import { type Either, isLeft } from "fp-ts/Either";
+import { type Either, isLeft } from "fp-ts/lib/Either";
 import { either, option } from "fp-ts";
-import { isSome, type Option } from "fp-ts/Option";
-import { of } from "fp-ts/Array";
-import { pipe } from "fp-ts/function";
+import { isSome, type Option } from "fp-ts/lib/Option";
+import { of } from "fp-ts/lib/Array";
+import { pipe } from "fp-ts/lib/function";
 
 export const iter = <T>(a: Option<T>) =>
   pipe(

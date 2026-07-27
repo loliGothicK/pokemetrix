@@ -30,6 +30,7 @@ export interface TrainedPokemon {
 
 // 1. まず、TrainedPokemon から `evs` プロパティへフォーカスするLensを作る
 const evsLens = Lens.fromProp<TrainedPokemon>()("evs");
+export const movesLens = Lens.fromProp<TrainedPokemon>()("moves");
 
 // 2. ループ内で動的に適用するためのLensファクトリ（関数）を作る
 export const getStatLens = (stat: keyof TrainedPokemon["evs"]) =>

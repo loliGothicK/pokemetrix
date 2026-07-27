@@ -4,7 +4,6 @@ import {
   Box,
   Chip,
   LinearProgress,
-  Paper,
   Stack,
   ToggleButton,
   ToggleButtonGroup,
@@ -14,8 +13,10 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { getAppPalette } from "@/theme/palette";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
 import type { DamageCalcResult } from "./useDamageCalcPage";
+import { rounded } from "@/utils/styles";
 
 type EvSet = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
 
@@ -46,8 +47,6 @@ type ResultPanelProps = {
 
 export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPanelProps) {
   const { t } = useTranslation();
-  const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const { output, analysis, isLoading, isError, missingReason } = result;
 
   // All hooks before any early return
@@ -66,28 +65,22 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
   if (isLoading) {
     return (
-      <Paper
-        elevation={0}
-        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
-      >
+      <SurfaceCard sx={{ p: 2 }}>
         <LinearProgress />
-      </Paper>
+      </SurfaceCard>
     );
   }
 
   if (isError) {
     return (
-      <Paper
-        elevation={0}
-        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
-      >
-        <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
+      <SurfaceCard sx={{ p: 2 }}>
+        <Stack direction="row" sx={{ justifyContent: "space-between", ...flexRowCenter }}>
           <Typography color="error" variant="body2">
             {t("damageCalc.calcError")}
           </Typography>
           {critToggle}
         </Stack>
-      </Paper>
+      </SurfaceCard>
     );
   }
 
@@ -102,17 +95,14 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
             : t("damageCalc.noResult");
 
     return (
-      <Paper
-        elevation={0}
-        sx={{ p: 2, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
-      >
-        <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center" }}>
+      <SurfaceCard sx={{ p: 2 }}>
+        <Stack direction="row" sx={{ justifyContent: "space-between", ...flexRowCenter }}>
           <Typography color="text.secondary" variant="body2">
             {hint}
           </Typography>
           {critToggle}
         </Stack>
-      </Paper>
+      </SurfaceCard>
     );
   }
 
@@ -167,13 +157,10 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
         : 0;
 
   return (
-    <Paper
-      elevation={0}
-      sx={{ px: 6, py: 3, border: "1px solid", borderColor: palette.edge, borderRadius: 3 }}
-    >
+    <SurfaceCard sx={{ px: 6, py: 3 }}>
       <Stack
         direction="row"
-        sx={{ justifyContent: "space-between", alignItems: "center", mb: summary ? 1 : 1.5 }}
+        sx={{ justifyContent: "space-between", ...flexRowCenter, mb: summary ? 1 : 1.5 }}
       >
         <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
           {t("damageCalc.result")}
@@ -211,11 +198,7 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
 
         {/* Hit count selector */}
         {isMultiHit && !hitCountAlreadyMerged && (
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}
-          >
+          <Stack direction="row" spacing={2} sx={{ ...flexRowCenter, flexWrap: "wrap", gap: 1 }}>
             <Typography
               variant="caption"
               sx={{ fontWeight: 600, color: "text.secondary", minWidth: 40 }}
@@ -304,7 +287,7 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
           </Stack>
         </Box>
       </Stack>
-    </Paper>
+    </SurfaceCard>
   );
 }
 
@@ -442,13 +425,11 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
               key={i}
               variant="caption"
               sx={{
-                px: 0.75,
-                py: 0.2,
-                borderRadius: 1,
                 bgcolor: "action.selected",
                 fontSize: 10,
                 lineHeight: 1.5,
                 whiteSpace: "nowrap",
+                ...rounded(1),
               }}
             >
               {tag}
@@ -517,10 +498,10 @@ function HpBar({
           sx={{
             position: "relative",
             height: 20,
-            borderRadius: 10,
             bgcolor: barBg,
             overflow: "hidden",
             cursor: "default",
+            ...rounded(10),
           }}
         >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}

@@ -1,13 +1,8 @@
 import { z } from "zod";
 import type { TrainedPokemon } from "@/store/team/team";
-import type {
-  BattleFormat,
-  BattleResult,
-  FirstOrSecond,
-  OpponentSelectionRole,
-} from "@/lib/db/schema";
+import type { BattleFormat, BattleResult, OpponentSelectionRole } from "@/lib/db/schema";
 
-export type { BattleFormat, BattleResult, FirstOrSecond, OpponentSelectionRole };
+export type { BattleFormat, BattleResult, OpponentSelectionRole };
 
 // =====================================================================
 // DTO（クライアント⇔サーバ間でやり取りするシリアライズ済みの形）
@@ -50,13 +45,13 @@ export interface BattleRecord {
   readonly result: BattleResult;
   readonly myTeam: readonly TrainedPokemon[];
   readonly mySelection: readonly number[] | null;
-  readonly firstOrSecond: FirstOrSecond | null;
   /** その試合終了時点のレート */
   readonly rating: number | null;
   readonly notes: string | null;
   /** ISO 8601 */
   readonly playedAt: string;
   readonly opponents: readonly BattleRecordOpponent[];
+  readonly tags: readonly string[];
   /** ISO 8601 */
   readonly createdAt: string;
   /** ISO 8601 */
@@ -106,9 +101,8 @@ const battleRecordInputObject = z.object({
   teamId: z.string().min(1).nullish(),
   result: z.enum(["win", "loss", "draw"]),
   // 中身は TrainedPokemon をクライアントが保証。ここでは構造のみ検証。
-  myTeam: z.array(z.object({}).passthrough()).max(6),
+  myTeam: z.array(z.object({}).loose()).max(6),
   mySelection: z.array(z.number().int().min(0).max(5)).nullish(),
-  firstOrSecond: z.enum(["first", "second"]).nullish(),
   rating: z.number().int().min(0).max(100000).nullish(),
   notes: z.string().nullish(),
   /** ISO 8601。省略時はサーバ側で now() */
@@ -120,6 +114,7 @@ const battleRecordInputObject = z.object({
       (arr) => new Set(arr.map((o) => o.slotIndex)).size === arr.length,
       "slotIndex must be unique",
     ),
+  tags: z.array(z.string().trim().min(1)).nullish(),
 });
 
 export const battleRecordInputSchema = battleRecordInputObject.readonly();

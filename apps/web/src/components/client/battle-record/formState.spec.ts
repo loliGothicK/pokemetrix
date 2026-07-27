@@ -22,13 +22,13 @@ describe("draftToInput", () => {
     const input = draftToInput(
       {
         result: "loss",
-        firstOrSecond: null,
         teamId: "team-1",
         myTeam: [],
         selection: { leads: [0, 2], backs: [1] },
         rating: "1650",
         notes: "close game",
         playedAt: "2026-07-07T10:30",
+        tags: [],
         opponents: [
           {
             key: "k1",
@@ -107,10 +107,10 @@ describe("draftFromRecord", () => {
     result: "win",
     myTeam: [],
     mySelection: [0, 1, 2],
-    firstOrSecond: null,
     rating: 1720,
     notes: null,
     playedAt: new Date("2026-07-07T01:30:00.000Z").toISOString(),
+    tags: [],
     opponents: [
       {
         slotIndex: 0,

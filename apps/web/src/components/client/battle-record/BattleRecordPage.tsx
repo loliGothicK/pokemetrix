@@ -14,7 +14,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   Stack,
   Tab,
@@ -31,7 +30,6 @@ import { useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { isAuthenticatedAtom } from "@/store/auth";
-import { getAppPalette } from "@/theme/palette";
 import { useSeasons } from "@/hooks/useSeasons";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import { useTeamsData } from "@/hooks/useTeamsData";
@@ -46,11 +44,14 @@ import type {
   SeasonInput,
 } from "@/store/battle-record/battleRecord";
 import type { Team, TrainedPokemon } from "@/store/team/team";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter, sectionLabel, emptyStateCenter } from "@/theme/sx";
 import { SeasonSelect } from "./SeasonSelect";
 import { SeasonFormDialog } from "./SeasonFormDialog";
 import { BattleRecordFormDialog } from "./BattleRecordFormDialog";
 import { BattleRecordList } from "./BattleRecordList";
 import { useHotkeys } from "react-hotkeys-hook";
+import { rounded } from "@/utils/styles";
 
 type ResultFilter = "all" | BattleResult;
 
@@ -58,15 +59,11 @@ type ResultFilter = "all" | BattleResult;
 function PartyPanel({ team }: { readonly team: Team | null }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const members = (team?.members ?? []).filter((m): m is TrainedPokemon => m !== null);
 
   return (
     <Box>
-      <Typography
-        variant="overline"
-        sx={{ fontWeight: 800, letterSpacing: "0.12em", color: "text.secondary" }}
-      >
+      <Typography variant="overline" sx={{ ...sectionLabel, letterSpacing: "0.12em" }}>
         {t("battleRecord.party")}
       </Typography>
       {members.length === 0 ? (
@@ -84,10 +81,9 @@ function PartyPanel({ team }: { readonly team: Team | null }) {
                 direction="row"
                 spacing={1}
                 sx={{
-                  alignItems: "center",
-                  p: 0.75,
-                  borderRadius: 2,
-                  bgcolor: palette.surfaceRaised,
+                  ...flexRowCenter,
+                  bgcolor: theme.palette.background.paperRaised,
+                  ...rounded(2),
                 }}
               >
                 <Image
@@ -203,26 +199,16 @@ function Counter({
 function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const stats = useMemo(() => tally(records), [records]);
   const winPct = stats.total === 0 ? 0 : Math.round((stats.wins / stats.total) * 100);
   const decided = stats.wins + stats.losses;
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 2,
-        borderRadius: 3,
-        border: "1px solid",
-        borderColor: palette.edge,
-        bgcolor: palette.surface,
-      }}
-    >
+    <SurfaceCard sx={{ p: 2 }}>
       <Stack
         direction="row"
         spacing={{ xs: 2, md: 3 }}
-        sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between" }}
+        sx={{ ...flexRowCenter, flexWrap: "wrap", justifyContent: "space-between" }}
       >
         <Box>
           <Typography
@@ -246,9 +232,9 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
             sx={{
               display: "flex",
               height: 8,
-              borderRadius: 4,
               overflow: "hidden",
-              bgcolor: palette.edge,
+              bgcolor: theme.palette.divider,
+              ...rounded(4),
             }}
           >
             {decided > 0 && (
@@ -273,16 +259,15 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
           </Typography>
         </Box>
       </Stack>
-    </Paper>
+    </SurfaceCard>
   );
 }
 
 export default function BattleRecordPage() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const palette = getAppPalette(theme.palette.mode);
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
-  const { teams, isLoading: teamsLoading } = useTeamsData();
+  const { teams: rawTeams, isLoading: teamsLoading } = useTeamsData();
   const {
     seasons,
     isLoading: seasonsLoading,
@@ -292,13 +277,17 @@ export default function BattleRecordPage() {
     isMutating: seasonMutating,
   } = useSeasons();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const safeTeams = useMemo(() => mounted ? rawTeams : [], [mounted, rawTeams]);
+
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
   const [activeSeasonId, setActiveSeasonId] = useState<string | null>(null);
   const [filter, setFilter] = useState<ResultFilter>("all");
 
   const activeTeam = useMemo(
-    () => teams.find((tm) => tm.id === activeTeamId) ?? null,
-    [teams, activeTeamId],
+    () => safeTeams.find((tm) => tm.id === activeTeamId) ?? null,
+    [safeTeams, activeTeamId],
   );
   const activeSeason = useMemo(
     () => seasons.find((s) => s.id === activeSeasonId) ?? null,
@@ -306,11 +295,11 @@ export default function BattleRecordPage() {
   );
 
   useEffect(() => {
-    if (activeTeamId === null && teams.length > 0) setActiveTeamId(teams[0].id);
-    if (activeTeamId !== null && !teams.some((tm) => tm.id === activeTeamId)) {
-      setActiveTeamId(teams[0]?.id ?? null);
+    if (activeTeamId === null && safeTeams.length > 0) setActiveTeamId(safeTeams[0].id);
+    if (activeTeamId !== null && !safeTeams.some((tm) => tm.id === activeTeamId)) {
+      setActiveTeamId(safeTeams[0]?.id ?? null);
     }
-  }, [teams, activeTeamId]);
+  }, [safeTeams, activeTeamId]);
 
   useEffect(() => {
     if (activeSeasonId === null && seasons.length > 0) setActiveSeasonId(seasons[0].id);
@@ -389,7 +378,7 @@ export default function BattleRecordPage() {
   ];
 
   const showEmptyState =
-    !teamsLoading && !seasonsLoading && (teams.length === 0 || seasons.length === 0);
+    !teamsLoading && !seasonsLoading && (safeTeams.length === 0 || seasons.length === 0);
 
   return (
     <Box sx={{ position: "relative", pb: { xs: 10, md: 0 } }}>
@@ -405,7 +394,7 @@ export default function BattleRecordPage() {
           pb: 1,
           px: 2,
           borderBottom: "1px solid",
-          borderColor: palette.edge,
+          borderColor: theme.palette.divider,
         }}
       >
         <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
@@ -415,12 +404,12 @@ export default function BattleRecordPage() {
               onChange={(e) => setActiveTeamId(e.target.value || null)}
               displayEmpty
             >
-              {teams.length === 0 && (
+              {safeTeams.length === 0 && (
                 <MenuItem value="" disabled>
                   {t("battleRecord.noTeams")}
                 </MenuItem>
               )}
-              {teams.map((tm) => (
+              {safeTeams.map((tm) => (
                 <MenuItem key={tm.id} value={tm.id}>
                   {tm.name}
                 </MenuItem>
@@ -452,26 +441,24 @@ export default function BattleRecordPage() {
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "240px minmax(0, 1fr)" },
           gap: { xs: 2, md: 3 },
-          p: { xs: 2, md: 3 },
+          px: { xs: 1, sm: 2, md: 3 },
+          py: { xs: 2, md: 3 },
           alignItems: "start",
         }}
       >
         {/* 左カラム：デスクトップ専用サイドバー (md未満で非表示) */}
-        <Paper
-          elevation={0}
+        <SurfaceCard
           sx={{
             display: { xs: "none", md: "block" },
             p: 2,
-            borderRadius: 3,
-            border: "1px solid",
-            borderColor: palette.edge,
-            bgcolor: palette.surface,
             position: "sticky",
             top: 16,
           }}
         >
           <FormControl size="small" fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="team-select-label">{t("battleRecord.team")}</InputLabel>
+            <InputLabel id="team-select-label" shrink={safeTeams.length === 0 ? true : undefined}>
+              {t("battleRecord.team")}
+            </InputLabel>
             <Select
               labelId="team-select-label"
               label={t("battleRecord.team")}
@@ -479,12 +466,12 @@ export default function BattleRecordPage() {
               onChange={(e) => setActiveTeamId(e.target.value || null)}
               displayEmpty
             >
-              {teams.length === 0 && (
+              {safeTeams.length === 0 && (
                 <MenuItem value="" disabled>
                   {t("battleRecord.noTeams")}
                 </MenuItem>
               )}
-              {teams.map((tm) => (
+              {safeTeams.map((tm) => (
                 <MenuItem key={tm.id} value={tm.id}>
                   {tm.name}
                 </MenuItem>
@@ -492,7 +479,7 @@ export default function BattleRecordPage() {
             </Select>
           </FormControl>
           <PartyPanel team={activeTeam} />
-        </Paper>
+        </SurfaceCard>
 
         {/* 右カラム：メインコンテンツ */}
         <Box>
@@ -541,13 +528,13 @@ export default function BattleRecordPage() {
           </Stack>
 
           {showEmptyState ? (
-            <Box sx={{ textAlign: "center", py: 8 }}>
+            <Box sx={emptyStateCenter}>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                {teams.length === 0
+                {safeTeams.length === 0
                   ? t("battleRecord.needTeam")
                   : t("battleRecord.season.emptyPrompt")}
               </Typography>
-              {teams.length === 0 ? (
+              {safeTeams.length === 0 ? (
                 <Button component={Link} href="/team-builder" variant="contained">
                   {t("navigation.items.createTeam")}
                 </Button>

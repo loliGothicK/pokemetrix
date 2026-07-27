@@ -1,11 +1,152 @@
 {
-  "welcome": "ようこそ、私たちのアプリに！",
   "common": {
     "close": "閉じる",
     "cancel": "キャンセル",
     "save": "保存",
+    "exit": "終了",
+    "saveAndExit": "保存して終了",
+    "discardAndExit": "変更を破棄",
+    "discardConfirm": "変更を破棄しますか？保存されていない変更は失われます。",
     "edit": "編集",
-    "delete": "削除"
+    "delete": "削除",
+    "add": "追加",
+    "done": "完了",
+    "back": "戻る",
+    "or": "または",
+    "preview": "プレビュー"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "selectLabel": "ダッシュボード",
+    "newDashboard": "新規ダッシュボード",
+    "untitled": "無題のダッシュボード",
+    "noDashboards": "ダッシュボードがまだありません。作成してみましょう。",
+    "empty": "このダッシュボードにはウィジェットがありません。「編集」→「ウィジェットを追加」から追加してください。",
+    "desktopOnly": "ダッシュボードはPC環境（デスクトップ）でのみご利用いただけます。",
+    "deleteConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
+    "setDefault": "既定に設定",
+    "unsetDefault": "既定を解除",
+    "addWidget": "ウィジェットを追加",
+    "dragToReorder": "ドラッグで並び替え",
+    "widget": {
+      "titleLabel": "タイトル",
+      "allSeasons": "すべてのシーズン",
+      "edit": "ウィジェットを編集",
+      "deleteConfirm": "このウィジェットを削除しますか？",
+      "tab": {
+        "general": "一般",
+        "dataSource": "データソース",
+        "visualize": "Visualize"
+      },
+      "type": {
+        "winRateTrend": "勝率の推移",
+        "topOpponents": "対面の多い相手",
+        "ratingTrend": "レートの推移",
+        "note": "メモ"
+      },
+      "note": {
+        "placeholder": "メモを入力...",
+        "content": "メモ内容"
+      },
+      "notConfigured": "Visualize が設定されていません",
+      "openSettings": "設定を開く"
+    },
+    "variable": {
+      "add": "変数を追加",
+      "addTitle": "変数を追加",
+      "editTitle": "変数を編集",
+      "nameLabel": "内部名",
+      "nameHelper": "内部識別子（例: season）",
+      "displayLabel": "表示ラベル",
+      "defaultSeason": "デフォルトシーズン",
+      "deleteConfirm": "変数「{{label}}」を削除しますか？"
+    },
+    "datasource": {
+      "type": "データソースの種類",
+      "season": "シーズン直指定",
+      "variable": "変数参照",
+      "variableLabel": "変数",
+      "noVariables": "変数が定義されていません"
+    },
+    "visualize": {
+      "title": "Visualize エディタ",
+      "openFullscreen": "Visualize を編集する",
+      "preview": "プレビュー",
+      "options": "オプション",
+      "applyAndClose": "適用して閉じる",
+      "visualizationType": "グラフ種別",
+      "noData": "データなし",
+      "templatePicker": "クイックテンプレート",
+      "templatePickerDesc": "テンプレートを選ぶと、クエリ・Transformer・グラフ種別がまとめてセットされます。"
+    },
+    "transformer": {
+      "label": "Transformer",
+      "modePreset": "プリセット",
+      "modeCustom": "カスタム (TypeScript Function)",
+      "customHelper": "変換してレコード（の配列）を返してください(`rows` には型付きの SQL クエリ結果が入ります）。",
+      "none": "なし（そのまま渡す）",
+      "noneDesc": "クエリ結果をそのままビジュアライザに渡します。",
+      "winrate": "勝率計算",
+      "winrateDesc": "`result` フィールドを期待します。勝/負/引分の件数と勝率(%) を計算します。",
+      "streak": "ストリーク計算",
+      "streakDesc": "result列とplayedAt列（昇順ソート済み）を元に、現在の連勝・連敗ストリークを計算します。",
+      "leadsWinRate": "先発勝率",
+      "leadsWinRateDesc": "myTeam と mySelection から先発ポケモンを抽出し、ポケモンごとの勝率を集計します。",
+      "ratingDiff": "レート変動",
+      "ratingDiffDesc": "`rating` と `playedAt` フィールドを期待します。前の試合からのレート増減 (`diff`) 列を追加します。",
+      "matchupPivot": "先発相性ピボット",
+      "matchupPivotDesc": "自分の先発コンビと相手の頻出先発との勝率相性表を作成します。",
+      "winLossCauses": "勝敗要因分析",
+      "winLossCausesDesc": "相手のポケモンごとに、それが先発・後発だったときの勝敗内訳を集計します。"
+    },
+    "template": {
+      "winrateSummary": "勝率サマリー",
+      "winrateSummaryDesc": "全体の勝率を1つの数値で表示します。",
+      "resultBreakdown": "結果別内訳",
+      "resultBreakdownDesc": "勝・負・引分の試合数を集計します。",
+      "leadsAnalysis": "先発 / 後発 成績",
+      "leadsAnalysisDesc": "先発ポケモンごとの勝率を集計します。",
+      "ratingHistory": "レート推移",
+      "ratingHistoryDesc": "各試合のレートと前試合からの増減を表示します。",
+      "maxRating": "最高レート",
+      "maxRatingDesc": "シーズン中の最高レートを表示します。",
+      "recentMatches": "直近の試合",
+      "recentMatchesDesc": "直近10試合の対戦記録",
+      "currentStreak": "現在のストリーク",
+      "currentStreakDesc": "現在継続中の連勝または連敗数",
+      "matchupPivot": "先発相性表 (Pivot)",
+      "matchupPivotDesc": "シングル・ダブル別に、自分の先発 vs 相手の先発の勝率をヒートマップで表示します。",
+      "winLossCauses": "勝敗要因ブレイクダウン",
+      "winLossCausesDesc": "相手のパーティにいたポケモンが勝敗にどう影響したかを集計します。"
+    },
+    "heatmap": {
+      "singles": "シングル",
+      "doubles": "ダブル",
+      "oppLead": "相手の先発",
+      "myLead": "自分の先発",
+      "noData": "データが足りません（試合数を増やすか、フォーマットを確認してください）",
+      "legendLow": "負け越し",
+      "legendHigh": "勝ち越し",
+      "confidence": {
+        "low": "Low"
+      }
+    },
+    "dataKeys": {
+      "winRate": "勝率",
+      "total": "総試合数",
+      "wins": "勝",
+      "losses": "負",
+      "draws": "引分",
+      "streak": "ストリーク",
+      "count": "連続数",
+      "type": "種別",
+      "maxRating": "最高レート",
+      "result": "結果",
+      "playedAt": "日時",
+      "pokemon": "ポケモン",
+      "rating": "レート",
+      "opponent": "相手"
+    }
   },
   "battleRecord": {
     "title": "対戦記録",
@@ -78,14 +219,19 @@
       "item": "持ち物",
       "ability": "特性",
       "moves": "技",
-      "roleHint": "先発か後発（選出していなければ空欄）。",
       "opponentNotes": "メモ",
       "season": "フォーマット",
       "rating": "レート",
       "playedAt": "対戦日時",
       "notes": "メモ",
       "notesPlaceholder": "重要な立ち回り・脅威・読みなど...",
-      "selectResultFirst": "先に勝敗を選択"
+      "selectResultFirst": "先に勝敗を選択",
+      "tags": "分類タグ（任意）",
+      "tagsPlaceholder": "ギミック・アーキタイプを選択または入力...",
+      "tagGroups": {
+        "gimmick": "ギミック",
+        "role": "役割・アーキタイプ"
+      }
     },
     "analytics": {
       "title": "勝率インサイト",
@@ -93,10 +239,27 @@
       "empty": "データがありません。対戦を記録すると分析が表示されます。",
       "winRate": "勝率",
       "total": "対戦数",
-      "byOrder": "先後別の勝率",
       "topOpponents": "対面の多い相手",
       "wldShort": "{{w}}勝{{l}}敗{{d}}分"
     }
+  },
+  "taxonomy": {
+    "trick-room": "トリックルーム",
+    "tailwind": "おいかぜ",
+    "weather-rain": "雨",
+    "weather-sun": "晴れ",
+    "weather-snow": "雪",
+    "weather-sand": "砂嵐",
+    "redirection": "介護系",
+    "perish-trap": "滅びの歌",
+    "speed-control": "素早さ操作",
+    "follow-me": "このゆびとまれ",
+    "fake-out": "ねこだまし枠",
+    "intimidate": "威嚇枠",
+    "cycle": "サイクル",
+    "sleep-control": "催眠",
+    "mega-focused": "メガ主軸",
+    "standard": "スタン"
   },
   "app": {
     "subtitle": "Analytics Workspace"
@@ -153,14 +316,12 @@
     "items": {
       "createTeam": "チーム管理",
       "myBox": "マイBOX",
-      "draftAssistant": "ドラフト支援",
-      "coreFinder": "コア探索",
       "battleRecord": "対戦記録",
-      "matchupPlanner": "マッチアップ計画",
       "damageCalc": "ダメージ計算",
       "usageTrends": "使用率推移",
       "metaTables": "環境表",
       "winrateInsights": "勝率分析",
+      "dashboard": "ダッシュボード",
       "docs": "ドキュメント",
       "blog": "ブログ",
       "privacy": "プライバシーポリシー",
@@ -194,8 +355,6 @@
     "weatherRain": "雨",
     "weatherSnow": "雪",
     "weatherSandstorm": "砂嵐",
-    "weatherHarshSun": "大日照り",
-    "weatherHeavyRain": "大雨",
     "terrain": "フィールド",
     "terrainElectric": "エレキ",
     "terrainGrassy": "グラス",
@@ -222,7 +381,6 @@
     "hitCount": "ヒット数",
     "totalDamageMerged": "合計 {{min}} – {{max}}（×{{hits}}ヒット）",
     "totalDamageFixed": "合計 {{min}} – {{max}}（×{{hits}}ヒット）",
-    "totalDamageVariable": "合計 {{minDmg}}〜{{maxDmg}}（×{{minHits}}〜{{maxHits}}ヒット）",
     "selectPokemon": "ポケモンを選択",
     "selectMove": "技を選択",
     "noResult": "ポケモンと技を選択してダメージを計算します。",
@@ -300,9 +458,6 @@
   "teamBuilder": {
     "title": "チームビルダー",
     "regulation": "レギュレーション {{regulation}}",
-    "openDrawer": "サイドバーを開く",
-    "closeDrawer": "サイドバーを閉じる",
-    "slotTabs": "チーム枠",
     "back": "一覧へ戻る",
     "slotLabel": "スロット {{index}}",
     "slotDescription": "ここにステータス、技、努力値の設定を入れます。",
@@ -311,6 +466,10 @@
     "emptySlot": "このスロットにはまだポケモンが選ばれていません。",
     "selectPokemon": "ポケモンを選ぶ",
     "choosePokemon": "ポケモンを選択",
+    "tabOpenSpecs": "Open Specs",
+    "tabEvSpreads": "EV Spreads",
+    "sectionBasicSpecs": "Basic Specs",
+    "sectionMoves": "Moves",
     "query": {
       "label": "検索",
       "helper": "名前で検索、または @type:ほのお でタイプ絞り込み",
@@ -326,16 +485,47 @@
     "teamOverviewTitle": "チーム概要",
     "teamLabel": "チーム {{index}}",
     "emptyMember": "空きスロット {{index}}",
-    "memberLabel": "メンバー {{index}}",
     "deleteTeamTitle": "チームを削除",
     "deleteTeamConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
     "cancel": "キャンセル",
     "delete": "削除",
+    "saving": "保存中...",
+    "saved": "同期済み",
+    "draft": "Draft",
+    "saveToCloud": "同期",
+    "lintToggle": "解析",
+    "saveSuccess": "クラウドに保存しました",
+    "draftReasonTitle": "保存できない理由",
     "drawer": {
       "overview": "概要",
-      "roster": "編成",
-      "loadout": "セット",
       "notes": "メモ"
+    }
+  },
+  "merge": {
+    "title": "チームの競合を解決する",
+    "description": "同じチームに対してローカルとサーバーで異なる変更があります。差分のあるスロットごとに採用するバージョンを選択してください。",
+    "noConflicts": "競合はありません",
+    "noDiff": "すべてのスロットが同一です。",
+    "unnamedTeam": "(無名チーム)",
+    "emptySlot": "空き",
+    "cancel": "キャンセル",
+    "commit": "確定 →",
+    "tag": {
+      "localOnly": "ローカルのみ",
+      "serverOnly": "サーバーのみ",
+      "conflict": "競合"
+    },
+    "source": {
+      "local": "ローカル",
+      "server": "サーバー"
+    },
+    "field": {
+      "item": "アイテム",
+      "ability": "特性",
+      "gender": "性別",
+      "nature": "性格",
+      "moves": "技",
+      "evs": "努力値"
     }
   },
   "moves": {

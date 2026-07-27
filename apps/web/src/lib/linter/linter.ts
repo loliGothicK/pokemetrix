@@ -1,10 +1,10 @@
 import { TrainedPokemon } from "@/store/team/team";
 import { MitamaError } from "@/errors/anyhow/error";
 import { checkSuboptimalEVs } from "@/lib/linter/rules/status/suboptimalEvs";
-import { Option } from "fp-ts/Option";
+import { Option } from "fp-ts/lib/Option";
 import { option } from "fp-ts";
 import { transposeArray } from "@/cats/syntax/Validated";
-import { pipe } from "fp-ts/function";
+import { pipe } from "fp-ts/lib/function";
 import { checkRemainingEVs } from "@/lib/linter/rules/status/remainigEvs";
 import { checkWrongMegaStone } from "@/lib/linter/rules/item/wrongMegaStone";
 import { checkNoItem } from "@/lib/linter/rules/item/noItem";

@@ -16,8 +16,6 @@ jobs:
     environment: Release
     env:
       CI: true
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v7
@@ -45,7 +43,7 @@ jobs:
         with:
           commit: "chore: update versions"
           title: "chore: update versions"
-          version: pnpm turbo run version
-          publish: pnpm --filter @pokemetrix/damage-calc run release
+          version: pnpm run version
+          publish: bash -c 'LOCAL=$(node -p "require(\"./packages/damage-calc/package.json\").version"); REMOTE=$(npm view @pokemetrix/damage-calc version 2>/dev/null || echo ""); if [ "$LOCAL" != "$REMOTE" ]; then pnpm --filter @pokemetrix/damage-calc run release; else echo "Version unchanged"; fi'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

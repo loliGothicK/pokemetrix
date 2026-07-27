@@ -6,6 +6,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import PokemetrixIcon from "@/components/icons/Pokemetrix";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
@@ -13,6 +14,7 @@ import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
 import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";
 import {
   AppBar,
+  Badge,
   Box,
   CssBaseline,
   Divider,
@@ -25,7 +27,6 @@ import {
   ListItemIcon,
   ListItemText,
   MenuItem,
-  Paper,
   Select,
   Stack,
   ThemeProvider,
@@ -35,6 +36,7 @@ import {
   alpha,
   type PaletteMode,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
@@ -46,7 +48,8 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
 import { createAppTheme } from "../../../theme";
-import { getAppPalette } from "@/theme/palette";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const SIDE_MENU_WIDTH = 240;
@@ -60,6 +63,7 @@ type SideMenuItem = {
   readonly labelKey: string;
   readonly icon: ReactNode;
   readonly route?: string;
+  readonly isPreview?: boolean;
 };
 
 type SideMenuGroup = {
@@ -114,6 +118,12 @@ const sideMenuGroups: SideMenuGroup[] = [
         icon: <InsightsRoundedIcon fontSize="small" />,
         route: "/battle-analytics",
       },
+      {
+        labelKey: "navigation.items.dashboard",
+        icon: <DashboardCustomizeRoundedIcon fontSize="small" />,
+        route: "/dashboard",
+        isPreview: true,
+      },
     ],
   },
 ] as const;
@@ -135,15 +145,7 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
         <Box key={group.titleKey} sx={{ listStyle: "none" }}>
           <Typography
             variant="overline"
-            sx={{
-              display: "block",
-              mb: 1,
-              fontSize: 12,
-              fontWeight: 800,
-              letterSpacing: "0.08em",
-              color: "text.secondary",
-              lineHeight: 1.2,
-            }}
+            sx={{ ...sectionLabel, mb: 1, display: "block", fontSize: 12, lineHeight: 1.2 }}
           >
             {t(group.titleKey)}
           </Typography>
@@ -165,7 +167,28 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
                 <ListItemIcon sx={{ minWidth: 36, color: "primary.main" }}>
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={t(item.labelKey)} />
+                <ListItemText
+                  primary={
+                    <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      {t(item.labelKey)}
+                      {item.isPreview && (
+                        <Badge
+                          badgeContent={t("common.preview")}
+                          color="primary"
+                          sx={{
+                            "& .MuiBadge-badge": {
+                              position: "static",
+                              transform: "none",
+                              padding: "0 6px",
+                              height: 18,
+                              fontSize: "0.65rem",
+                            },
+                          }}
+                        />
+                      )}
+                    </Box>
+                  }
+                />
               </ListItemButton>
             ) : (
               <ListItemButton
@@ -204,18 +227,18 @@ function AppControls({
   readonly onToggleMode: () => void;
 }) {
   const { t } = useTranslation();
-  const palette = getAppPalette(mode);
+  const theme = useTheme();
 
   return (
-    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
-      <FormControl size="small" sx={{ minWidth: 150 }}>
+    <Stack direction="row" spacing={{ xs: 0.75, md: 1.25 }} sx={flexRowCenter}>
+      <FormControl size="small" sx={{ minWidth: 150, display: { xs: "none", md: "inline-flex" } }}>
         <InputLabel id="language-select-label">{t("preferences.language")}</InputLabel>
         <Select
           labelId="language-select-label"
           label={t("preferences.language")}
           value={language}
           onChange={(event) => onLanguageChange(event.target.value)}
-          sx={{ bgcolor: palette.surface }}
+          sx={{ bgcolor: theme.palette.background.paper }}
         >
           {supportedLanguageOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -228,13 +251,9 @@ function AppControls({
         <IconButton
           color="primary"
           onClick={onToggleMode}
+          size="small"
           aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
-          sx={{
-            border: "1px solid",
-            borderColor: palette.edge,
-            bgcolor: palette.surface,
-            borderRadius: 2.5,
-          }}
+          sx={iconButtonBordered(theme)}
         >
           {mode === "dark" ? (
             <LightModeRoundedIcon fontSize="small" />
@@ -262,7 +281,7 @@ function ResponsiveAppBar({
   readonly onOpenNav: () => void;
 }) {
   const { t } = useTranslation();
-  const palette = getAppPalette(mode);
+  const theme = useTheme();
 
   // モードに応じたグラデーション背景
   const appBarBg =
@@ -273,8 +292,8 @@ function ResponsiveAppBar({
   // ロゴエリアの輝きアクセント
   const logoGlow =
     mode === "dark"
-      ? `drop-shadow(0 0 10px ${palette.glowPrimary})`
-      : `drop-shadow(0 2px 6px ${palette.glowPrimary})`;
+      ? `drop-shadow(0 0 10px ${alpha(theme.palette.primary.main, 0.28)})`
+      : `drop-shadow(0 2px 6px ${alpha(theme.palette.primary.main, 0.22)})`;
 
   return (
     <AppBar
@@ -284,7 +303,7 @@ function ResponsiveAppBar({
       sx={{
         top: 0,
         borderBottom: "1px solid",
-        borderColor: palette.edge,
+        borderColor: theme.palette.divider,
         background: appBarBg,
         backdropFilter: "blur(20px) saturate(180%)",
         WebkitBackdropFilter: "blur(20px) saturate(180%)",
@@ -296,10 +315,11 @@ function ResponsiveAppBar({
           minHeight: { xs: 60, md: 68 },
           px: { xs: 1.5, sm: 2, md: 3 },
           gap: { xs: 1, md: 2 },
+          justifyContent: "space-between",
         }}
       >
         {/* ===== 左: ハンバーガー（モバイル）+ ロゴ ===== */}
-        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: { xs: 1, md: 1.5 } }}>
+        <Box sx={{ flexGrow: 1, ...flexRowCenter, gap: { xs: 1, md: 1.5 } }}>
           <IconButton
             size="medium"
             aria-label={t("navigation.openMenu")}
@@ -317,8 +337,7 @@ function ResponsiveAppBar({
             component={Link}
             href="/"
             sx={{
-              display: "flex",
-              alignItems: "center",
+              ...flexRowCenter,
               gap: 1.25,
               textDecoration: "none",
               "&:hover .logo-icon": { filter: logoGlow, transform: "scale(1.06)" },
@@ -377,62 +396,29 @@ function ResponsiveAppBar({
                   mt: 0.25,
                 }}
               >
-                {t("appBar.tagline", "ANALYTICS WORKSPACE")}
+                {"ANALYTICS WORKSPACE"}
               </Typography>
             </Box>
           </Box>
         </Box>
 
-        {/* ===== 右: デスクトップ フルコントロール ===== */}
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <AppControls
-            language={language}
-            mode={mode}
-            onLanguageChange={onLanguageChange}
-            onToggleMode={onToggleMode}
-          />
-        </Box>
-
-        {/* ===== 右: モバイル — テーマ切り替え + Auth ===== */}
-        <Stack
-          direction="row"
-          spacing={0.75}
-          sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
-        >
-          <Tooltip title={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}>
-            <IconButton
-              color="primary"
-              onClick={onToggleMode}
-              size="small"
-              aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
-              sx={{
-                border: "1px solid",
-                borderColor: palette.edge,
-                bgcolor: palette.surface,
-                borderRadius: 2.5,
-              }}
-            >
-              {mode === "dark" ? (
-                <LightModeRoundedIcon fontSize="small" />
-              ) : (
-                <DarkModeRoundedIcon fontSize="small" />
-              )}
-            </IconButton>
-          </Tooltip>
-          <AuthButton />
-        </Stack>
+        {/* ===== 右: コントロール ===== */}
+        <AppControls
+          language={language}
+          mode={mode}
+          onLanguageChange={onLanguageChange}
+          onToggleMode={onToggleMode}
+        />
       </Toolbar>
     </AppBar>
   );
 }
 
-function MobileNavigation({
-  open,
+function MobileDrawerContent({
   onClose,
   language,
   onLanguageChange,
 }: {
-  readonly open: boolean;
   readonly onClose: () => void;
   readonly language: string;
   readonly onLanguageChange: (language: string) => void;
@@ -440,23 +426,10 @@ function MobileNavigation({
   const { t } = useTranslation();
 
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      sx={{
-        display: { xs: "block", md: "none" },
-        "& .MuiDrawer-paper": {
-          width: "min(92vw, 320px)",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
-    >
+    <>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
+          ...flexRowCenter,
           justifyContent: "space-between",
           px: 1.5,
           py: 1,
@@ -490,18 +463,18 @@ function MobileNavigation({
           </Select>
         </FormControl>
       </Box>
-    </Drawer>
+    </>
   );
 }
 
 function AuthSyncEffect() {
-  const { isMergeOpen, mergeEntries, setMergeEntries, onMergeCommit, onMergeCancel } =
+  const { isMergeOpen, conflicts, setConflicts, onMergeCommit, onMergeCancel } =
     useAuthSync();
   return (
     <TeamMergeDialog
       open={isMergeOpen}
-      entries={mergeEntries}
-      setEntriesAction={setMergeEntries}
+      conflicts={conflicts}
+      setConflicts={setConflicts}
       onCommitAction={onMergeCommit}
       onCancelAction={onMergeCancel}
     />
@@ -531,7 +504,6 @@ export function AppLayout({
       }),
   );
   const theme = useMemo(() => createAppTheme(mode), [mode]);
-  const palette = useMemo(() => getAppPalette(mode), [mode]);
 
   useEffect(() => {
     const storedLanguage =
@@ -589,9 +561,9 @@ export function AppLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthSyncEffect />
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <AuthSyncEffect />
         <Box
           sx={{
             display: "flex",
@@ -599,7 +571,7 @@ export function AppLayout({
             minHeight: "100vh",
             overflow: "hidden",
             width: "100%",
-            bgcolor: palette.canvas,
+            bgcolor: "background.default",
           }}
         >
           <ResponsiveAppBar
@@ -608,12 +580,6 @@ export function AppLayout({
             onLanguageChange={handleLanguageChange}
             onToggleMode={handleToggleMode}
             onOpenNav={() => setMobileNavOpen(true)}
-          />
-          <MobileNavigation
-            open={mobileNavOpen}
-            onClose={() => setMobileNavOpen(false)}
-            language={language}
-            onLanguageChange={handleLanguageChange}
           />
           <Box
             sx={{
@@ -627,21 +593,41 @@ export function AppLayout({
               overflow: "hidden",
             }}
           >
-            <Paper
-              elevation={0}
+            {/* デスクトップ用サイドバー（md以上で表示） */}
+            <SurfaceCard
+              borderRadius={0}
               sx={{
                 display: { xs: "none", md: "flex" },
                 flexDirection: "row",
-                borderColor: palette.edge,
-                bgcolor: palette.surface,
                 overflow: "hidden",
-                borderRadius: 0,
               }}
             >
               <Box sx={{ width: SIDE_MENU_WIDTH }}>
                 <SideMenuContent />
               </Box>
-            </Paper>
+            </SurfaceCard>
+
+            {/* モバイル用サイドバー（md以上ではDrawerごと非表示） */}
+            <Drawer
+              open={mobileNavOpen}
+              onClose={() => setMobileNavOpen(false)}
+              sx={{
+                display: { xs: "block", md: "none" },
+                "& .MuiDrawer-paper": {
+                  width: "min(92vw, 320px)",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "column",
+                },
+              }}
+            >
+              <MobileDrawerContent
+                onClose={() => setMobileNavOpen(false)}
+                language={language}
+                onLanguageChange={handleLanguageChange}
+              />
+            </Drawer>
+
             <Box
               component="main"
               sx={{

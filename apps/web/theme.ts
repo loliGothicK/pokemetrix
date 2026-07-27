@@ -2,7 +2,7 @@
 
 import { createTheme } from "@mui/material/styles";
 import type { PaletteMode } from "@mui/material";
-import { appPalette, getAppPalette } from "@/theme/palette";
+import { brandColors, darkPalette, lightPalette } from "@/theme/palette";
 
 const sharedThemeOptions = {
   cssVariables: true,
@@ -48,24 +48,23 @@ const sharedThemeOptions = {
 } as const;
 
 export function createAppTheme(mode: PaletteMode) {
-  const palette = getAppPalette(mode);
+  const modePalette = mode === "dark" ? darkPalette : lightPalette;
 
   return createTheme({
     ...sharedThemeOptions,
     palette: {
       mode,
       primary: {
-        main: appPalette.brand.primary,
+        main: brandColors.primary,
       },
       secondary: {
-        main: appPalette.brand.secondary,
+        main: brandColors.secondary,
       },
-      background: {
-        default: palette.canvas,
-        paper: palette.surface,
-      },
+      background: modePalette.background,
+      divider: modePalette.divider,
+      dividerSoft: modePalette.dividerSoft,
       text: {
-        primary: palette.ink,
+        primary: modePalette.text.primary,
       },
     },
   });

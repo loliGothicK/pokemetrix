@@ -11,7 +11,8 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography, useMediaQuery,
+  Typography,
+  useMediaQuery,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
@@ -29,13 +30,14 @@ import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@/store/auth";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { TFunction } from "i18next";
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 
 type SelectPokemonDialogProps = Pick<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
   readonly title: string;
   readonly onChange: (identifier: string | null) => void;
   readonly translator: TFunction;
   readonly onSelectFromBox?: (pokemon: TrainedPokemon) => void;
+  readonly excludedIdentifiers?: string[];
 };
 
 /** Cap the rendered result rows so a broad filter can't tank the dialog. */
@@ -48,6 +50,7 @@ export function SelectPokemonDialog({
   onChange,
   translator,
   onSelectFromBox,
+  excludedIdentifiers,
 }: SelectPokemonDialogProps) {
   const { t, i18n } = useTranslation();
   const [tokens, setTokens] = useState<QueryToken[]>([]);
@@ -79,10 +82,11 @@ export function SelectPokemonDialog({
 
     return championsPokemonList
       .filter(({ id, identifier }) => !identifier.includes("-mega") && !forms.includes(id))
+      .filter(({ identifier }) => !excludedIdentifiers?.includes(identifier))
       .toSorted((a, b) =>
         t(`pokemon.${a.identifier}.name`).localeCompare(t(`pokemon.${b.identifier}.name`)),
       );
-  }, [t]);
+  }, [t, excludedIdentifiers]);
 
   // The only queryable field for now is `type`, populated with the types that
   // actually appear in the option set. Labels are localized via the translator.
@@ -121,9 +125,13 @@ export function SelectPokemonDialog({
   }, [pokemonOptions, tokens, translator, i18n]);
 
   const filteredBox = useMemo(() => {
+    let result = box;
+    if (excludedIdentifiers && excludedIdentifiers.length > 0) {
+      result = result.filter((p) => !excludedIdentifiers.includes(p.identifier));
+    }
     const trimmed = boxSearch.trim().toLowerCase();
-    if (!trimmed) return box;
-    return box.filter(
+    if (!trimmed) return result;
+    return result.filter(
       (p) =>
         translator(`pokemon.${p.identifier}.name`).toLowerCase().includes(trimmed) ||
         (i18n.exists(`pokemon.${p.identifier}.formName`)
@@ -134,7 +142,7 @@ export function SelectPokemonDialog({
           .includes(trimmed) ||
         p.identifier.includes(trimmed),
     );
-  }, [box, boxSearch, translator, i18n]);
+  }, [box, boxSearch, translator, i18n, excludedIdentifiers]);
 
   const handleSelect = (pokemon: ChampionsPokemon) => {
     onChange(pokemon.identifier);
@@ -240,7 +248,7 @@ export function SelectPokemonDialog({
                       <Box sx={{ flexGrow: 1 }} />
                       {pokemon.types.map((type) =>
                         isMobile ? (
-                          <Avatar src={typeIcon(type)} />
+                          <Avatar key={type} src={typeIcon(type)} />
                         ) : (
                           <Chip
                             key={type}
@@ -255,7 +263,8 @@ export function SelectPokemonDialog({
                               },
                             }}
                           />
-                      ))}
+                        ),
+                      )}
                     </Stack>
                   ))}
                 </Stack>

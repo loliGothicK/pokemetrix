@@ -4,7 +4,6 @@ import type {
   BattleRecord,
   BattleRecordInput,
   BattleResult,
-  FirstOrSecond,
   OpponentSelectionRole,
 } from "@/store/battle-record/battleRecord";
 import {
@@ -29,8 +28,6 @@ export interface OpponentDraft {
 /** 記録フォーム全体の下書き */
 export interface BattleRecordDraft {
   readonly result: BattleResult;
-  /** 画像UIには無いが列は保持。編集時に既存値を維持 */
-  readonly firstOrSecond: FirstOrSecond | null;
   readonly teamId: string | null;
   readonly myTeam: readonly TrainedPokemon[];
   /** 選出（先発/後発） */
@@ -41,6 +38,7 @@ export interface BattleRecordDraft {
   /** datetime-local 文字列（"YYYY-MM-DDTHH:mm"） */
   readonly playedAt: string;
   readonly opponents: readonly OpponentDraft[];
+  readonly tags: readonly string[];
 }
 
 let keySeq = 0;
@@ -67,7 +65,6 @@ export const emptyDraft = (params?: {
   readonly myTeam?: readonly TrainedPokemon[];
 }): BattleRecordDraft => ({
   result: "win",
-  firstOrSecond: null,
   teamId: params?.teamId ?? null,
   myTeam: params?.myTeam ?? [],
   selection: emptySelection,
@@ -75,12 +72,12 @@ export const emptyDraft = (params?: {
   notes: "",
   playedAt: dateToLocalInput(new Date()),
   opponents: [],
+  tags: [],
 });
 
 /** 既存レコードから編集用の下書きを作る */
 export const draftFromRecord = (record: BattleRecord, format: BattleFormat): BattleRecordDraft => ({
   result: record.result,
-  firstOrSecond: record.firstOrSecond,
   teamId: record.teamId,
   myTeam: [...record.myTeam],
   selection: selectionFromIndices(record.mySelection, format),
@@ -96,6 +93,7 @@ export const draftFromRecord = (record: BattleRecord, format: BattleFormat): Bat
     selectionRole: opponent.selectionRole,
     notes: opponent.notes ?? "",
   })),
+  tags: [...record.tags],
 });
 
 const emptyToNull = (value: string): string | null => {
@@ -117,7 +115,6 @@ export const draftToInput = (draft: BattleRecordDraft, seasonId: string): Battle
   result: draft.result,
   myTeam: draft.myTeam as unknown as BattleRecordInput["myTeam"],
   mySelection: selectionToIndices(draft.selection),
-  firstOrSecond: draft.firstOrSecond,
   rating: parseRating(draft.rating),
   notes: emptyToNull(draft.notes),
   playedAt: draft.playedAt ? new Date(draft.playedAt).toISOString() : null,
@@ -130,4 +127,5 @@ export const draftToInput = (draft: BattleRecordDraft, seasonId: string): Battle
     selectionRole: opponent.selectionRole,
     notes: emptyToNull(opponent.notes),
   })),
+  tags: [...draft.tags],
 });
