@@ -36,7 +36,7 @@ jobs:
         run: pnpm exec tsx apps/web/scripts/generate-blog.ts
         
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: generate blog post from changelog"
           file_pattern: "apps/web/content/blog/*.mdx"
