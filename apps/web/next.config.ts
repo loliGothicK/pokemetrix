@@ -8,7 +8,8 @@ import { withContentCollections } from "@content-collections/next";
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   images: {
-    unoptimized: true,
+    loader: "custom",
+    loaderFile: "./src/utils/ImageRoader.ts",
     remotePatterns: [
       {
         protocol: "https" as const,
