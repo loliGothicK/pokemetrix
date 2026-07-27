@@ -192,6 +192,7 @@ const ImportMenu = React.forwardRef<HTMLDivElement, {
   asSpeedDialAction,
   ...props
 }, ref) => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openPaste, setOpenPaste] = useState(false);
   const [openFromUrl, setOpenFromUrl] = useState(false);
@@ -210,8 +211,8 @@ const ImportMenu = React.forwardRef<HTMLDivElement, {
           {...props as any}
           ref={ref}
           icon={<DownloadIcon />}
-          title="Import"
-          slotProps={{ tooltip: { title: "Import", open: true } }}
+          title={t("teamBuilder.importAction")}
+          slotProps={{ tooltip: { title: t("teamBuilder.importAction"), open: true } }}
           onClick={handleClick}
         />
       ) : (
@@ -269,6 +270,7 @@ const ImportMenu = React.forwardRef<HTMLDivElement, {
 const ExportMenu = React.forwardRef<HTMLDivElement, {
   readonly asSpeedDialAction?: boolean;
 } & Partial<import("@mui/material").SpeedDialActionProps>>(({ asSpeedDialAction, ...props }, ref) => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [activeTeam] = useActiveTeam();
@@ -311,8 +313,8 @@ const ExportMenu = React.forwardRef<HTMLDivElement, {
           {...props as any}
           ref={ref}
           icon={<UploadIcon />}
-          title="Export"
-          slotProps={{ tooltip: { title: "Export", open: true } }}
+          title={t("teamBuilder.exportAction")}
+          slotProps={{ tooltip: { title: t("teamBuilder.exportAction"), open: true } }}
           onClick={handleClick}
         />
       ) : (
@@ -813,7 +815,7 @@ export default function TeamBuilderPage({
                                     </Box>
                                   }
                                 >
-                                  <Chip label="Draft" size="small" color="warning" sx={{ height: 20, fontSize: "0.7rem", flexShrink: 0, cursor: "help" }} />
+                                  <Chip label={t("teamBuilder.draft")} size="small" color="warning" sx={{ height: 20, fontSize: "0.7rem", flexShrink: 0, cursor: "help" }} />
                                 </Tooltip>
                               );
                             })()}

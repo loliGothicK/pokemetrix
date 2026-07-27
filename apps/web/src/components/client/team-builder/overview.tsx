@@ -219,7 +219,7 @@ function SortableSlotItem({
                 >
                   {member.item
                     ? `@ ${t(`items.${itemById.get(member.item)?.identifier}.name`)}`
-                    : "No Item"}
+                    : t("teamBuilder.noItem")}
                 </Typography>
               </Box>
             </>
@@ -330,7 +330,7 @@ export default function TeamOverview({
 
       <TextField
         id="title"
-        label="Team Name"
+        label={t("teamBuilder.teamName")}
         variant="outlined"
         value={name}
         onChange={(event) => updateTeamName(event.target.value)}

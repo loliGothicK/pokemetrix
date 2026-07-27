@@ -463,6 +463,7 @@
     "megaEvolve": "メガシンカ",
     "changeForm": "フォルムチェンジ",
     "heldItem": "もちもの",
+    "noItem": "持ち物なし",
     "gender": "性別",
     "ability": "特性",
     "nature": "性格",
@@ -470,6 +471,9 @@
     "decrease": "下降",
     "selectMove": "+ 技 {{number}} を選択",
     "remainingEvs": "残り努力値: {{remaining}}",
+    "teamName": "チーム名",
+    "importAction": "インポート",
+    "exportAction": "エクスポート",
     "back": "概要に戻る",
     "slotLabel": "スロット {{index}}",
     "slotDescription": "ここにステータス、技、努力値の設定を入れます。",
@@ -478,10 +482,10 @@
     "emptySlot": "このスロットにはまだポケモンが選ばれていません。",
     "selectPokemon": "ポケモンを選ぶ",
     "choosePokemon": "ポケモンを選択",
-    "tabOpenSpecs": "Open Specs",
-    "tabEvSpreads": "EV Spreads",
-    "sectionBasicSpecs": "Basic Specs",
-    "sectionMoves": "Moves",
+    "tabOpenSpecs": "基本情報",
+    "tabEvSpreads": "努力値",
+    "sectionBasicSpecs": "基本設定",
+    "sectionMoves": "技",
     "query": {
       "label": "検索",
       "helper": "名前で検索、または @type:ほのお でタイプ絞り込み",
@@ -503,7 +507,7 @@
     "delete": "削除",
     "saving": "保存中...",
     "saved": "同期済み",
-    "draft": "Draft",
+    "draft": "下書き",
     "saveToCloud": "同期",
     "lintToggle": "解析",
     "saveSuccess": "クラウドに保存しました",
@@ -511,6 +515,62 @@
     "drawer": {
       "overview": "概要",
       "notes": "メモ"
+    }
+  },
+  "types": {
+    "normal": {
+      "name": "ノーマル"
+    },
+    "fire": {
+      "name": "ほのお"
+    },
+    "water": {
+      "name": "みず"
+    },
+    "electric": {
+      "name": "でんき"
+    },
+    "grass": {
+      "name": "くさ"
+    },
+    "ice": {
+      "name": "こおり"
+    },
+    "fighting": {
+      "name": "かくとう"
+    },
+    "poison": {
+      "name": "どく"
+    },
+    "ground": {
+      "name": "じめん"
+    },
+    "flying": {
+      "name": "ひこう"
+    },
+    "psychic": {
+      "name": "エスパー"
+    },
+    "bug": {
+      "name": "むし"
+    },
+    "rock": {
+      "name": "いわ"
+    },
+    "ghost": {
+      "name": "ゴースト"
+    },
+    "dragon": {
+      "name": "ドラゴン"
+    },
+    "dark": {
+      "name": "あく"
+    },
+    "steel": {
+      "name": "はがね"
+    },
+    "fairy": {
+      "name": "フェアリー"
     }
   },
   "merge": {
@@ -3689,6 +3749,1023 @@
     },
     "kings-rock": {
       "name": "おうじゃのしるし"
+    }
+  },
+  "abilities": {
+    "stench": {
+      "name": "あくしゅう"
+    },
+    "drizzle": {
+      "name": "あめふらし"
+    },
+    "speed-boost": {
+      "name": "かそく"
+    },
+    "battle-armor": {
+      "name": "カブトアーマー"
+    },
+    "sturdy": {
+      "name": "がんじょう"
+    },
+    "damp": {
+      "name": "しめりけ"
+    },
+    "limber": {
+      "name": "じゅうなん"
+    },
+    "sand-veil": {
+      "name": "すながくれ"
+    },
+    "static": {
+      "name": "せいでんき"
+    },
+    "volt-absorb": {
+      "name": "ちくでん"
+    },
+    "water-absorb": {
+      "name": "ちょすい"
+    },
+    "oblivious": {
+      "name": "どんかん"
+    },
+    "cloud-nine": {
+      "name": "ノーてんき"
+    },
+    "compound-eyes": {
+      "name": "ふくがん"
+    },
+    "insomnia": {
+      "name": "ふみん"
+    },
+    "color-change": {
+      "name": "へんしょく"
+    },
+    "immunity": {
+      "name": "めんえき"
+    },
+    "flash-fire": {
+      "name": "もらいび"
+    },
+    "shield-dust": {
+      "name": "りんぷん"
+    },
+    "own-tempo": {
+      "name": "マイペース"
+    },
+    "suction-cups": {
+      "name": "きゅうばん"
+    },
+    "intimidate": {
+      "name": "いかく"
+    },
+    "shadow-tag": {
+      "name": "かげふみ"
+    },
+    "rough-skin": {
+      "name": "さめはだ"
+    },
+    "wonder-guard": {
+      "name": "ふしぎなまもり"
+    },
+    "levitate": {
+      "name": "ふゆう"
+    },
+    "effect-spore": {
+      "name": "ほうし"
+    },
+    "synchronize": {
+      "name": "シンクロ"
+    },
+    "clear-body": {
+      "name": "クリアボディ"
+    },
+    "natural-cure": {
+      "name": "しぜんかいふく"
+    },
+    "lightning-rod": {
+      "name": "ひらいしん"
+    },
+    "serene-grace": {
+      "name": "てんのめぐみ"
+    },
+    "swift-swim": {
+      "name": "すいすい"
+    },
+    "chlorophyll": {
+      "name": "ようりょくそ"
+    },
+    "illuminate": {
+      "name": "はっこう"
+    },
+    "trace": {
+      "name": "トレース"
+    },
+    "huge-power": {
+      "name": "ちからもち"
+    },
+    "poison-point": {
+      "name": "どくのトゲ"
+    },
+    "inner-focus": {
+      "name": "せいしんりょく"
+    },
+    "magma-armor": {
+      "name": "マグマのよろい"
+    },
+    "water-veil": {
+      "name": "みずのベール"
+    },
+    "magnet-pull": {
+      "name": "じりょく"
+    },
+    "soundproof": {
+      "name": "ぼうおん"
+    },
+    "rain-dish": {
+      "name": "あめうけざら"
+    },
+    "sand-stream": {
+      "name": "すなおこし"
+    },
+    "pressure": {
+      "name": "プレッシャー"
+    },
+    "thick-fat": {
+      "name": "あついしぼう"
+    },
+    "early-bird": {
+      "name": "はやおき"
+    },
+    "flame-body": {
+      "name": "ほのおのからだ"
+    },
+    "run-away": {
+      "name": "にげあし"
+    },
+    "keen-eye": {
+      "name": "するどいめ"
+    },
+    "hyper-cutter": {
+      "name": "かいりきバサミ"
+    },
+    "pickup": {
+      "name": "ものひろい"
+    },
+    "truant": {
+      "name": "なまけ"
+    },
+    "hustle": {
+      "name": "はりきり"
+    },
+    "cute-charm": {
+      "name": "メロメロボディ"
+    },
+    "plus": {
+      "name": "プラス"
+    },
+    "minus": {
+      "name": "マイナス"
+    },
+    "forecast": {
+      "name": "てんきや"
+    },
+    "sticky-hold": {
+      "name": "ねんちゃく"
+    },
+    "shed-skin": {
+      "name": "だっぴ"
+    },
+    "guts": {
+      "name": "こんじょう"
+    },
+    "marvel-scale": {
+      "name": "ふしぎなうろこ"
+    },
+    "liquid-ooze": {
+      "name": "ヘドロえき"
+    },
+    "overgrow": {
+      "name": "しんりょく"
+    },
+    "blaze": {
+      "name": "もうか"
+    },
+    "torrent": {
+      "name": "げきりゅう"
+    },
+    "swarm": {
+      "name": "むしのしらせ"
+    },
+    "rock-head": {
+      "name": "いしあたま"
+    },
+    "drought": {
+      "name": "ひでり"
+    },
+    "arena-trap": {
+      "name": "ありじごく"
+    },
+    "vital-spirit": {
+      "name": "やるき"
+    },
+    "white-smoke": {
+      "name": "しろいけむり"
+    },
+    "pure-power": {
+      "name": "ヨガパワー"
+    },
+    "shell-armor": {
+      "name": "シェルアーマー"
+    },
+    "air-lock": {
+      "name": "エアロック"
+    },
+    "tangled-feet": {
+      "name": "ちどりあし"
+    },
+    "motor-drive": {
+      "name": "でんきエンジン"
+    },
+    "rivalry": {
+      "name": "とうそうしん"
+    },
+    "steadfast": {
+      "name": "ふくつのこころ"
+    },
+    "snow-cloak": {
+      "name": "ゆきがくれ"
+    },
+    "gluttony": {
+      "name": "くいしんぼう"
+    },
+    "anger-point": {
+      "name": "いかりのつぼ"
+    },
+    "unburden": {
+      "name": "かるわざ"
+    },
+    "heatproof": {
+      "name": "たいねつ"
+    },
+    "simple": {
+      "name": "たんじゅん"
+    },
+    "dry-skin": {
+      "name": "かんそうはだ"
+    },
+    "download": {
+      "name": "ダウンロード"
+    },
+    "iron-fist": {
+      "name": "てつのこぶし"
+    },
+    "poison-heal": {
+      "name": "ポイズンヒール"
+    },
+    "adaptability": {
+      "name": "てきおうりょく"
+    },
+    "skill-link": {
+      "name": "スキルリンク"
+    },
+    "hydration": {
+      "name": "うるおいボディ"
+    },
+    "solar-power": {
+      "name": "サンパワー"
+    },
+    "quick-feet": {
+      "name": "はやあし"
+    },
+    "normalize": {
+      "name": "ノーマルスキン"
+    },
+    "sniper": {
+      "name": "スナイパー"
+    },
+    "magic-guard": {
+      "name": "マジックガード"
+    },
+    "no-guard": {
+      "name": "ノーガード"
+    },
+    "stall": {
+      "name": "あとだし"
+    },
+    "technician": {
+      "name": "テクニシャン"
+    },
+    "leaf-guard": {
+      "name": "リーフガード"
+    },
+    "klutz": {
+      "name": "ぶきよう"
+    },
+    "mold-breaker": {
+      "name": "かたやぶり"
+    },
+    "super-luck": {
+      "name": "きょううん"
+    },
+    "aftermath": {
+      "name": "ゆうばく"
+    },
+    "anticipation": {
+      "name": "きけんよち"
+    },
+    "forewarn": {
+      "name": "よちむ"
+    },
+    "unaware": {
+      "name": "てんねん"
+    },
+    "tinted-lens": {
+      "name": "いろめがね"
+    },
+    "filter": {
+      "name": "フィルター"
+    },
+    "slow-start": {
+      "name": "スロースタート"
+    },
+    "scrappy": {
+      "name": "きもったま"
+    },
+    "storm-drain": {
+      "name": "よびみず"
+    },
+    "ice-body": {
+      "name": "アイスボディ"
+    },
+    "solid-rock": {
+      "name": "ハードロック"
+    },
+    "snow-warning": {
+      "name": "ゆきふらし"
+    },
+    "honey-gather": {
+      "name": "みつあつめ"
+    },
+    "frisk": {
+      "name": "おみとおし"
+    },
+    "reckless": {
+      "name": "すてみ"
+    },
+    "multitype": {
+      "name": "マルチタイプ"
+    },
+    "flower-gift": {
+      "name": "フラワーギフト"
+    },
+    "bad-dreams": {
+      "name": "ナイトメア"
+    },
+    "pickpocket": {
+      "name": "わるいてぐせ"
+    },
+    "sheer-force": {
+      "name": "ちからずく"
+    },
+    "contrary": {
+      "name": "あまのじゃく"
+    },
+    "unnerve": {
+      "name": "きんちょうかん"
+    },
+    "defiant": {
+      "name": "まけんき"
+    },
+    "defeatist": {
+      "name": "よわき"
+    },
+    "cursed-body": {
+      "name": "のろわれボディ"
+    },
+    "healer": {
+      "name": "いやしのこころ"
+    },
+    "friend-guard": {
+      "name": "フレンドガード"
+    },
+    "weak-armor": {
+      "name": "くだけるよろい"
+    },
+    "heavy-metal": {
+      "name": "ヘヴィメタル"
+    },
+    "light-metal": {
+      "name": "ライトメタル"
+    },
+    "multiscale": {
+      "name": "マルチスケイル"
+    },
+    "toxic-boost": {
+      "name": "どくぼうそう"
+    },
+    "flare-boost": {
+      "name": "ねつぼうそう"
+    },
+    "harvest": {
+      "name": "しゅうかく"
+    },
+    "telepathy": {
+      "name": "テレパシー"
+    },
+    "moody": {
+      "name": "ムラっけ"
+    },
+    "overcoat": {
+      "name": "ぼうじん"
+    },
+    "poison-touch": {
+      "name": "どくしゅ"
+    },
+    "regenerator": {
+      "name": "さいせいりょく"
+    },
+    "big-pecks": {
+      "name": "はとむね"
+    },
+    "sand-rush": {
+      "name": "すなかき"
+    },
+    "wonder-skin": {
+      "name": "ミラクルスキン"
+    },
+    "analytic": {
+      "name": "アナライズ"
+    },
+    "illusion": {
+      "name": "イリュージョン"
+    },
+    "imposter": {
+      "name": "かわりもの"
+    },
+    "infiltrator": {
+      "name": "すりぬけ"
+    },
+    "mummy": {
+      "name": "ミイラ"
+    },
+    "moxie": {
+      "name": "じしんかじょう"
+    },
+    "justified": {
+      "name": "せいぎのこころ"
+    },
+    "rattled": {
+      "name": "びびり"
+    },
+    "magic-bounce": {
+      "name": "マジックミラー"
+    },
+    "sap-sipper": {
+      "name": "そうしょく"
+    },
+    "prankster": {
+      "name": "いたずらごころ"
+    },
+    "sand-force": {
+      "name": "すなのちから"
+    },
+    "iron-barbs": {
+      "name": "てつのトゲ"
+    },
+    "zen-mode": {
+      "name": "ダルマモード"
+    },
+    "victory-star": {
+      "name": "しょうりのほし"
+    },
+    "turboblaze": {
+      "name": "ターボブレイズ"
+    },
+    "teravolt": {
+      "name": "テラボルテージ"
+    },
+    "aroma-veil": {
+      "name": "アロマベール"
+    },
+    "flower-veil": {
+      "name": "フラワーベール"
+    },
+    "cheek-pouch": {
+      "name": "ほおぶくろ"
+    },
+    "protean": {
+      "name": "へんげんじざい"
+    },
+    "fur-coat": {
+      "name": "ファーコート"
+    },
+    "magician": {
+      "name": "マジシャン"
+    },
+    "bulletproof": {
+      "name": "ぼうだん"
+    },
+    "competitive": {
+      "name": "かちき"
+    },
+    "strong-jaw": {
+      "name": "がんじょうあご"
+    },
+    "refrigerate": {
+      "name": "フリーズスキン"
+    },
+    "sweet-veil": {
+      "name": "スイートベール"
+    },
+    "stance-change": {
+      "name": "バトルスイッチ"
+    },
+    "gale-wings": {
+      "name": "はやてのつばさ"
+    },
+    "mega-launcher": {
+      "name": "メガランチャー"
+    },
+    "grass-pelt": {
+      "name": "くさのけがわ"
+    },
+    "symbiosis": {
+      "name": "きょうせい"
+    },
+    "tough-claws": {
+      "name": "かたいツメ"
+    },
+    "pixilate": {
+      "name": "フェアリースキン"
+    },
+    "gooey": {
+      "name": "ぬめぬめ"
+    },
+    "aerilate": {
+      "name": "スカイスキン"
+    },
+    "parental-bond": {
+      "name": "おやこあい"
+    },
+    "dark-aura": {
+      "name": "ダークオーラ"
+    },
+    "fairy-aura": {
+      "name": "フェアリーオーラ"
+    },
+    "aura-break": {
+      "name": "オーラブレイク"
+    },
+    "primordial-sea": {
+      "name": "はじまりのうみ"
+    },
+    "desolate-land": {
+      "name": "おわりのだいち"
+    },
+    "delta-stream": {
+      "name": "デルタストリーム"
+    },
+    "stamina": {
+      "name": "じきゅうりょく"
+    },
+    "wimp-out": {
+      "name": "にげごし"
+    },
+    "emergency-exit": {
+      "name": "ききかいひ"
+    },
+    "water-compaction": {
+      "name": "みずがため"
+    },
+    "merciless": {
+      "name": "ひとでなし"
+    },
+    "shields-down": {
+      "name": "リミットシールド"
+    },
+    "stakeout": {
+      "name": "はりこみ"
+    },
+    "water-bubble": {
+      "name": "すいほう"
+    },
+    "steelworker": {
+      "name": "はがねつかい"
+    },
+    "berserk": {
+      "name": "ぎゃくじょう"
+    },
+    "slush-rush": {
+      "name": "ゆきかき"
+    },
+    "long-reach": {
+      "name": "えんかく"
+    },
+    "liquid-voice": {
+      "name": "うるおいボイス"
+    },
+    "triage": {
+      "name": "ヒーリングシフト"
+    },
+    "galvanize": {
+      "name": "エレキスキン"
+    },
+    "surge-surfer": {
+      "name": "サーフテール"
+    },
+    "schooling": {
+      "name": "ぎょぐん"
+    },
+    "disguise": {
+      "name": "ばけのかわ"
+    },
+    "battle-bond": {
+      "name": "きずなへんげ"
+    },
+    "power-construct": {
+      "name": "スワームチェンジ"
+    },
+    "corrosion": {
+      "name": "ふしょく"
+    },
+    "comatose": {
+      "name": "ぜったいねむり"
+    },
+    "queenly-majesty": {
+      "name": "じょおうのいげん"
+    },
+    "innards-out": {
+      "name": "とびだすなかみ"
+    },
+    "dancer": {
+      "name": "おどりこ"
+    },
+    "battery": {
+      "name": "バッテリー"
+    },
+    "fluffy": {
+      "name": "もふもふ"
+    },
+    "dazzling": {
+      "name": "ビビッドボディ"
+    },
+    "soul-heart": {
+      "name": "ソウルハート"
+    },
+    "tangling-hair": {
+      "name": "カーリーヘアー"
+    },
+    "receiver": {
+      "name": "レシーバー"
+    },
+    "power-of-alchemy": {
+      "name": "かがくのちから"
+    },
+    "beast-boost": {
+      "name": "ビーストブースト"
+    },
+    "rks-system": {
+      "name": "ＡＲシステム"
+    },
+    "electric-surge": {
+      "name": "エレキメイカー"
+    },
+    "psychic-surge": {
+      "name": "サイコメイカー"
+    },
+    "misty-surge": {
+      "name": "ミストメイカー"
+    },
+    "grassy-surge": {
+      "name": "グラスメイカー"
+    },
+    "full-metal-body": {
+      "name": "メタルプロテクト"
+    },
+    "shadow-shield": {
+      "name": "ファントムガード"
+    },
+    "prism-armor": {
+      "name": "プリズムアーマー"
+    },
+    "neuroforce": {
+      "name": "ブレインフォース"
+    },
+    "intrepid-sword": {
+      "name": "ふとうのけん"
+    },
+    "dauntless-shield": {
+      "name": "ふくつのたて"
+    },
+    "libero": {
+      "name": "リベロ"
+    },
+    "ball-fetch": {
+      "name": "たまひろい"
+    },
+    "cotton-down": {
+      "name": "わたげ"
+    },
+    "propeller-tail": {
+      "name": "スクリューおびれ"
+    },
+    "mirror-armor": {
+      "name": "ミラーアーマー"
+    },
+    "gulp-missile": {
+      "name": "うのミサイル"
+    },
+    "stalwart": {
+      "name": "すじがねいり"
+    },
+    "steam-engine": {
+      "name": "じょうききかん"
+    },
+    "punk-rock": {
+      "name": "パンクロック"
+    },
+    "sand-spit": {
+      "name": "すなはき"
+    },
+    "ice-scales": {
+      "name": "こおりのりんぷん"
+    },
+    "ripen": {
+      "name": "じゅくせい"
+    },
+    "ice-face": {
+      "name": "アイスフェイス"
+    },
+    "power-spot": {
+      "name": "パワースポット"
+    },
+    "mimicry": {
+      "name": "ぎたい"
+    },
+    "screen-cleaner": {
+      "name": "バリアフリー"
+    },
+    "steely-spirit": {
+      "name": "はがねのせいしん"
+    },
+    "perish-body": {
+      "name": "ほろびのボディ"
+    },
+    "wandering-spirit": {
+      "name": "さまようたましい"
+    },
+    "gorilla-tactics": {
+      "name": "ごりむちゅう"
+    },
+    "neutralizing-gas": {
+      "name": "かがくへんかガス"
+    },
+    "pastel-veil": {
+      "name": "パステルベール"
+    },
+    "hunger-switch": {
+      "name": "はらぺこスイッチ"
+    },
+    "quick-draw": {
+      "name": "クイックドロウ"
+    },
+    "unseen-fist": {
+      "name": "ふかしのこぶし"
+    },
+    "curious-medicine": {
+      "name": "きみょうなくすり"
+    },
+    "transistor": {
+      "name": "トランジスタ"
+    },
+    "dragons-maw": {
+      "name": "りゅうのあぎと"
+    },
+    "chilling-neigh": {
+      "name": "しろのいななき"
+    },
+    "grim-neigh": {
+      "name": "くろのいななき"
+    },
+    "as-one-glastrier": {
+      "name": "じんばいったい"
+    },
+    "as-one-spectrier": {
+      "name": "じんばいったい"
+    },
+    "lingering-aroma": {
+      "name": "とれないにおい"
+    },
+    "seed-sower": {
+      "name": "こぼれダネ"
+    },
+    "thermal-exchange": {
+      "name": "ねつこうかん"
+    },
+    "anger-shell": {
+      "name": "いかりのこうら"
+    },
+    "purifying-salt": {
+      "name": "きよめのしお"
+    },
+    "well-baked-body": {
+      "name": "こんがりボディ"
+    },
+    "wind-rider": {
+      "name": "かぜのり"
+    },
+    "guard-dog": {
+      "name": "ばんけん"
+    },
+    "rocky-payload": {
+      "name": "いわはこび"
+    },
+    "wind-power": {
+      "name": "ふうりょくでんき"
+    },
+    "zero-to-hero": {
+      "name": "マイティチェンジ"
+    },
+    "commander": {
+      "name": "しれいとう"
+    },
+    "electromorphosis": {
+      "name": "でんきにかえる"
+    },
+    "protosynthesis": {
+      "name": "こだいかっせい"
+    },
+    "quark-drive": {
+      "name": "クォークチャージ"
+    },
+    "good-as-gold": {
+      "name": "おうごんのからだ"
+    },
+    "vessel-of-ruin": {
+      "name": "わざわいのうつわ"
+    },
+    "sword-of-ruin": {
+      "name": "わざわいのつるぎ"
+    },
+    "tablets-of-ruin": {
+      "name": "わざわいのおふだ"
+    },
+    "beads-of-ruin": {
+      "name": "わざわいのたま"
+    },
+    "orichalcum-pulse": {
+      "name": "ひひいろのこどう"
+    },
+    "hadron-engine": {
+      "name": "ハドロンエンジン"
+    },
+    "opportunist": {
+      "name": "びんじょう"
+    },
+    "cud-chew": {
+      "name": "はんすう"
+    },
+    "sharpness": {
+      "name": "きれあじ"
+    },
+    "supreme-overlord": {
+      "name": "そうだいしょう"
+    },
+    "costar": {
+      "name": "きょうえん"
+    },
+    "toxic-debris": {
+      "name": "どくげしょう"
+    },
+    "armor-tail": {
+      "name": "テイルアーマー"
+    },
+    "earth-eater": {
+      "name": "どしょく"
+    },
+    "mycelium-might": {
+      "name": "きんしのちから"
+    },
+    "minds-eye": {
+      "name": "しんがん"
+    },
+    "supersweet-syrup": {
+      "name": "かんろなミツ"
+    },
+    "hospitality": {
+      "name": "おもてなし"
+    },
+    "toxic-chain": {
+      "name": "どくのくさり"
+    },
+    "embody-aspect": {
+      "name": "おもかげやどし"
+    },
+    "tera-shift": {
+      "name": "テラスチェンジ"
+    },
+    "tera-shell": {
+      "name": "テラスシェル"
+    },
+    "teraform-zero": {
+      "name": "ゼロフォーミング"
+    },
+    "poison-puppeteer": {
+      "name": "どくくぐつ"
+    },
+    "piercing-drill": {
+      "name": "かんつうドリル"
+    },
+    "dragonize": {
+      "name": "ドラゴンスキン"
+    },
+    "mega-sol": {
+      "name": "メガソーラー"
+    },
+    "spicy-spray": {
+      "name": "とびだすハバネロ"
+    }
+  },
+  "gender": {
+    "male": "オス",
+    "female": "メス",
+    "genderless": "不明"
+  },
+  "natures": {
+    "hardy": {
+      "name": "がんばりや"
+    },
+    "lonely": {
+      "name": "さみしがり"
+    },
+    "brave": {
+      "name": "ゆうかん"
+    },
+    "adamant": {
+      "name": "いじっぱり"
+    },
+    "naughty": {
+      "name": "やんちゃ"
+    },
+    "bold": {
+      "name": "ずぶとい"
+    },
+    "docile": {
+      "name": "すなお"
+    },
+    "relaxed": {
+      "name": "のんき"
+    },
+    "impish": {
+      "name": "わんぱく"
+    },
+    "lax": {
+      "name": "のうてんき"
+    },
+    "timid": {
+      "name": "おくびょう"
+    },
+    "hasty": {
+      "name": "せっかち"
+    },
+    "serious": {
+      "name": "まじめ"
+    },
+    "jolly": {
+      "name": "ようき"
+    },
+    "naive": {
+      "name": "むじゃき"
+    },
+    "modest": {
+      "name": "ひかえめ"
+    },
+    "mild": {
+      "name": "おっとり"
+    },
+    "quiet": {
+      "name": "れいせい"
+    },
+    "bashful": {
+      "name": "てれや"
+    },
+    "rash": {
+      "name": "うっかりや"
+    },
+    "calm": {
+      "name": "おだやか"
+    },
+    "gentle": {
+      "name": "おとなしい"
+    },
+    "sassy": {
+      "name": "なまいき"
+    },
+    "careful": {
+      "name": "しんちょう"
+    },
+    "quirky": {
+      "name": "きまぐれ"
     }
   }
 }

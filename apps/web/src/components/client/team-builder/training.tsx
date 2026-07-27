@@ -247,7 +247,7 @@ export function Training({
           </Stack>
           <Stack direction="row" spacing={1} sx={{ justifyContent: { xs: "flex-start", md: "center" } }}>
             {activePokemon.types.map((type) => (
-              <Chip avatar={<Avatar src={typeIcon(type)} />} key={type} label={type} size="small" />
+              <Chip avatar={<Avatar src={typeIcon(type)} />} key={type} label={t(`types.${type.toLowerCase()}.name`)} size="small" />
             ))}
           </Stack>
         </Stack>
@@ -469,7 +469,8 @@ export function Training({
 
                 <Autocomplete
                   options={["male", "female"] as const}
-                  value={ongoing.gender.specified || null}
+                  value={ongoing.gender.fixed ? "male" : ongoing.gender.specified}
+                  getOptionLabel={(option) => t(`gender.${option}`)}
                   onChange={(_, newValue) =>
                     handleUpdate({
                       ...ongoing,
@@ -501,7 +502,7 @@ export function Training({
                 <Box sx={{ width: { xs: "100%", md: 140 } }}>
                   <TextField
                     label={t("teamBuilder.nature")}
-                    value={nature || ""}
+                    value={nature ? t(`natures.${nature.toLowerCase()}.name`) : ""}
                     slotProps={{
                       input: {
                         readOnly: true,
@@ -663,7 +664,7 @@ export function Training({
                                       },
                                     }}
                                   >
-                                    {isSelectable ? currentCellNature : "—"}
+                                    {isSelectable ? t(`natures.${currentCellNature.toLowerCase()}.name`) : "—"}
                                   </TableCell>
                                 );
                               })}
