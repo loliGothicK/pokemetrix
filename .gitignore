@@ -60,3 +60,7 @@ packages/damage-calc/target/
 
 # Turborepo
 .turbo
+
+target
+
+test-results
