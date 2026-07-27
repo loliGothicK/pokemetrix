@@ -2,7 +2,9 @@ export const itemSprite = (identifier: string) => {
   const fullName = identifier
     .split("-")
     .map((s) => s[0].toUpperCase() + s.slice(1))
-    .join(" ");
+    .join(" ")
+    .replace(/Never Melt Ice/, "Never-Melt Ice")
+    .replace(/Kings Rock/, "King's Rock");
   return `https://championsbattledata.com/pokemon_champions_assets/items/${encodeURIComponent(fullName)}.png`;
 };
 
