@@ -41,7 +41,7 @@
     "@mui/system": "9.2.0",
     "@mui/x-data-grid": "9.10.1",
     "@pkmn/sets": "5.2.0",
-    "@pokemetrix/damage-calc": "^0.1.0",
+    "@pokemetrix/damage-calc": "0.1.1",
     "@sentry/nextjs": "10.68.0",
     "@supabase/ssr": "0.12.3",
     "@supabase/supabase-js": "2.110.8",

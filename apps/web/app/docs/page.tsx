@@ -4,7 +4,7 @@ import { Container, Stack, Typography } from "@mui/material";
 import { DocsList } from "@/components/client/content/DocsList";
 
 export const metadata: Metadata = {
-  title: "Docs | Pokemetrix",
+  title: "Docs",
   description: "Documentation for the Pokemetrix toolset.",
 };
 

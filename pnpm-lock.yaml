@@ -66,7 +66,7 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       '@pokemetrix/damage-calc':
-        specifier: ^0.1.0
+        specifier: 0.1.1
         version: link:../../packages/damage-calc/pkg
       '@sentry/nextjs':
         specifier: 10.68.0

@@ -4,7 +4,7 @@ import { Container, Stack, Typography } from "@mui/material";
 import { BlogList } from "@/components/client/content/BlogList";
 
 export const metadata: Metadata = {
-  title: "Blog | Pokemetrix",
+  title: "Blog",
   description: "Feature updates and development notes from the Pokemetrix team.",
 };
 
