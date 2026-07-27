@@ -8,9 +8,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  checks: write
+  id-token: write
+
 jobs:
   build:
-    name: Build & Cache
+    name: Build/Format/Lint/Test
+    environment: Test
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
@@ -63,10 +69,19 @@ jobs:
       - name: Build WebAssembly
         run: pnpm --filter @pokemetrix/damage-calc run build
 
+      - name: Generate content-collections
+        run: pnpm --filter @pokemetrix/app exec content-collections build
+
       - name: Lint
         run: pnpm lint
 
       - name: Build Next.js App
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET: ${{ secrets.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
         run: pnpm build:app
 
       - name: Install nextest
@@ -79,7 +94,9 @@ jobs:
         run: wasm-pack test --headless --firefox packages/damage-calc
 
       - name: Test Rust (cargo nextest)
-        run: cargo nextest run --profile ci --workspace
+        run: |
+          cd packages/damage-calc
+          cargo nextest run --profile ci
 
       - name: Test Next.js (Vitest)
         run: pnpm --filter @pokemetrix/app run test:ci

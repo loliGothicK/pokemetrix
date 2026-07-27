@@ -4,9 +4,10 @@
   "scripts": {
     "dev": "pnpm -r --parallel run dev",
     "build": "pnpm -r run build",
-    "build:app": "pnpm build --filter @pokemetrix/app",
-    "build:wasm": "pnpm build --filter @pokemetrix/damage-calc",
-    "pack": "pnpm build --filter @pokemetrix/damage-calc && pnpm pack --filter @pokemetrix/damage-calc",
+    "b": "pnpm -r run build",
+    "build:app": "pnpm --filter @pokemetrix/app run build",
+    "build:wasm": "pnpm --filter @pokemetrix/damage-calc run build",
+    "pack": "pnpm --filter @pokemetrix/damage-calc run build && pnpm --filter @pokemetrix/damage-calc pack",
     "test": "pnpm -r run test",
     "lint": "pnpm -r run lint",
     "fmt": "pnpm -r run fmt",
