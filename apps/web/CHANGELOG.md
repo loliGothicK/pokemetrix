@@ -1,5 +1,11 @@
 # @pokemetrix/app
 
+## 0.2.0
+
+### Minor Changes
+
+- 533291c: Add Dashbord page
+
 ## 0.1.1
 
 ### Patch Changes
