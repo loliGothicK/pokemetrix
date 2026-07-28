@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { championsPokemonList, championsPokemonByIdentifier } from "@/data/champions-pokemon";
@@ -458,17 +458,35 @@ function EvField({
   readonly onChange: (value: number) => void;
   readonly grow?: boolean;
 }) {
+  const [localValue, setLocalValue] = useState(value.toString());
+
+  useEffect(() => {
+    const parsed = localValue === "" ? 0 : parseInt(localValue, 10);
+    if (parsed !== value) {
+      setLocalValue(value.toString());
+    }
+  }, [value, localValue]);
+
   return (
     <Box sx={{ ...flexRowCenter, gap: 1, flexGrow: grow ? 1 : 0 }}>
       <TextField
         label={label}
         type="number"
         size="small"
-        value={value}
+        value={localValue}
         onChange={(e) => {
-          const parsed = parseInt(e.target.value, 10);
-          if (!isNaN(parsed) && parsed >= 0 && parsed <= 32) onChange(parsed);
+          const val = e.target.value;
+          setLocalValue(val);
+          if (val === "") {
+            onChange(0);
+          } else {
+            const parsed = parseInt(val, 10);
+            if (!isNaN(parsed) && parsed >= 0 && parsed <= 32) {
+              onChange(parsed);
+            }
+          }
         }}
+        onBlur={() => setLocalValue(value.toString())}
         slotProps={{ htmlInput: { min: 0, max: 32, step: 1 } }}
         sx={{ width: 96 }}
       />
