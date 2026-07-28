@@ -1,6 +1,17 @@
 "use client";
 
-import { alpha, Box, Button, Chip, Grid, Snackbar, Stack, Typography } from "@mui/material";
+import {
+  alpha,
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Paper,
+  Snackbar,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
@@ -9,7 +20,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { PokemonBuildCard } from "@/components/client/share/PokemonBuildCard";
-import { SurfaceCard } from "@/components/common/SurfaceCard";
 import type { SharedTeamSnapshot } from "@/lib/db/schema";
 import { useSetAtom } from "jotai";
 import { localTeamsAtom, activeTeamIdAtom } from "@/store/team/team";
@@ -24,17 +34,19 @@ export interface PartySharePageProps {
   readonly createdAt: string;
 }
 
-// ── 空スロットのプレースホルダー ──────────────────────────────────────────────
+// ── 空スロットのプレースホルダー（フルカード用）──────────────────────────────
 
-function EmptySlotCard() {
+function EmptyFullCard() {
   const theme = useTheme();
   return (
-    <SurfaceCard
+    <Paper
+      elevation={0}
       sx={{
-        borderStyle: "dashed",
+        border: "1px dashed",
         borderColor: alpha(theme.palette.divider, 0.5),
-        height: "100%",
-        minHeight: 260,
+        borderRadius: "12px",
+        bgcolor: "transparent",
+        minHeight: 200,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -46,17 +58,48 @@ function EmptySlotCard() {
       >
         —
       </Typography>
-    </SurfaceCard>
+    </Paper>
+  );
+}
+
+// ── 空スロットのプレースホルダー（コンパクト行用）────────────────────────────
+
+function EmptyCompactRow() {
+  const theme = useTheme();
+  return (
+    <Paper
+      elevation={0}
+      sx={{
+        border: "1px dashed",
+        borderColor: alpha(theme.palette.divider, 0.4),
+        borderRadius: "12px",
+        bgcolor: "transparent",
+        height: "52px",
+        display: "flex",
+        alignItems: "center",
+        px: "16px",
+      }}
+    >
+      <Typography
+        sx={{ color: alpha(theme.palette.text.secondary, 0.3), fontStyle: "italic", fontSize: "0.8rem" }}
+      >
+        —
+      </Typography>
+    </Paper>
   );
 }
 
 // ── メインコンポーネント ──────────────────────────────────────────────────────
+
 export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
   const setLocalTeams = useSetAtom(localTeamsAtom);
   const setActiveTeamId = useSetAtom(activeTeamIdAtom);
+
+  // ブレークポイント検出
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [copied, setCopied] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
@@ -99,20 +142,23 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
     day: "numeric",
   });
 
+  // 有効なメンバー数
+  const memberCount = snapshot.members.filter(Boolean).length;
+
   return (
     <Box
       sx={{
         maxWidth: 1200,
         mx: "auto",
-        px: { xs: 2, sm: 3 },
-        py: { xs: 3, sm: 5 },
+        px: { xs: 1.5, sm: 3 },
+        py: { xs: 2.5, sm: 4 },
       }}
     >
       {/* ── ヘッダー ─────────────────────────────────────────────── */}
       <Box
         sx={{
-          mb: { xs: 3, sm: 4 },
-          pb: 2,
+          mb: { xs: 2.5, sm: 3.5 },
+          pb: { xs: 1.5, sm: 2 },
           borderBottom: "1px solid",
           borderColor: theme.palette.divider,
         }}
@@ -123,7 +169,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           component="h1"
           sx={{
             fontWeight: 800,
-            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.25rem" },
+            fontSize: { xs: "1.35rem", sm: "1.85rem", md: "2.25rem" },
             letterSpacing: -0.5,
             mb: 1,
             lineHeight: 1.15,
@@ -132,7 +178,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           {snapshot.teamName}
         </Typography>
 
-        {/* メタ情報 + コピーボタン */}
+        {/* メタ情報 + ボタン群 */}
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 1.5, sm: 2 }}
@@ -148,6 +194,12 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           >
             <Typography variant="caption" color="text.secondary">
               {t("share.createdAt", { date: formattedDate })}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              ·
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              {t("share.memberCount", { count: memberCount })}
             </Typography>
             {snapshot.showStats && (
               <Chip
@@ -191,27 +243,46 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
         </Stack>
       </Box>
 
-      {/* ── パーティグリッド ─────────────────────────────────────── */}
-      <Grid container spacing={{ xs: 1.5, sm: 2, md: 2.5 }}>
-        {snapshot.members.map((member, index) => (
-          <Grid
-            component="div"
-            size={{ xs: 12, sm: 6, lg: 4 }}
-            key={index}
-            sx={{ display: "flex" }}
-          >
-            {member ? (
-              <Box sx={{ width: "100%" }}>
-                <PokemonBuildCard pokemon={member} showStats={snapshot.showStats} />
-              </Box>
+      {/* ── パーティ一覧 ─────────────────────────────────────────── */}
+
+      {isMobile ? (
+        // ── モバイル: コンパクト行リスト ──────────────────────────────────
+        <Stack spacing={1}>
+          {snapshot.members.map((member, index) =>
+            member ? (
+              <PokemonBuildCard
+                key={index}
+                pokemon={member}
+                showStats={snapshot.showStats}
+                variant="compact"
+              />
             ) : (
-              <Box sx={{ width: "100%", minHeight: 260 }}>
-                <EmptySlotCard />
-              </Box>
-            )}
-          </Grid>
-        ))}
-      </Grid>
+              <EmptyCompactRow key={index} />
+            ),
+          )}
+        </Stack>
+      ) : (
+        // ── タブレット / デスクトップ: グリッド ──────────────────────────
+        <Grid container spacing={{ sm: 2, md: 2.5 }}>
+          {snapshot.members.map((member, index) => (
+            <Grid
+              component="div"
+              size={{ sm: 6, lg: 4 }}
+              key={index}
+            >
+              {member ? (
+                <PokemonBuildCard
+                  pokemon={member}
+                  showStats={snapshot.showStats}
+                  variant="full"
+                />
+              ) : (
+                <EmptyFullCard />
+              )}
+            </Grid>
+          ))}
+        </Grid>
+      )}
 
       {/* コピー完了スナックバー */}
       <Snackbar

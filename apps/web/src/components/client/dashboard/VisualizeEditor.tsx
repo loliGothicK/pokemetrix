@@ -33,7 +33,7 @@ import { SqlEditor } from "./SqlEditor";
 import { PRESET_TRANSFORMERS } from "./transformers";
 import { WIDGET_TEMPLATES } from "./widgetTemplates";
 import { widgetTypeLabelKey } from "./WidgetCard";
-import { rounded } from "@/utils/styles";
+
 import { generateRowTypeFromSql } from "@/lib/sql/engine";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -114,7 +114,7 @@ function VisualizeOptionsPanel({
                     borderColor: "primary.main",
                     bgcolor: (theme) => alpha(theme.palette.primary.main, 0.04),
                   },
-                  ...rounded(2),
+                  borderRadius: 2, py: 2, px: 4,
                 }}
                 onClick={() => {
                   onChange({
@@ -375,7 +375,7 @@ export function VisualizeEditor({
                   bgcolor: "background.paper",
                   border: "1px solid",
                   borderColor: "divider",
-                  ...rounded(3),
+                  borderRadius: 3, py: 3, px: 6,
                 }}
               >
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 2 }}>

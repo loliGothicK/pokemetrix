@@ -21,7 +21,7 @@ import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { useTranslation } from "react-i18next";
-import { rounded } from "@/utils/styles";
+
 
 export function AuthButton() {
   const { t } = useTranslation();
@@ -96,7 +96,7 @@ export function AuthButton() {
             paper: {
               sx: {
                 minWidth: 200,
-                ...rounded(2),
+                borderRadius: 2, py: 2, px: 4,
               },
             },
           }}

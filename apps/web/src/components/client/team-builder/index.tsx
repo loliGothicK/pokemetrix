@@ -134,7 +134,7 @@ import RuleIcon from "@mui/icons-material/Rule";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { activeTeamLintAtom } from "@/store/team/options";
 import Add from "@mui/icons-material/Add";
-import { rounded } from "@/utils/styles";
+
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -176,7 +176,7 @@ const StyledMenu = styled((props: MenuProps) => (
     ...theme.applyStyles("dark", {
       color: theme.palette.grey[300],
     }),
-    ...rounded(6),
+    borderRadius: 6, py: 6, px: 12,
   },
 }));
 
@@ -397,7 +397,7 @@ function MobileTeamList({
             onClick={onCreateTeam}
             fullWidth
             sx={{
-              ...rounded(3),
+              borderRadius: 3, py: 3, px: 6,
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -435,7 +435,7 @@ function MobileTeamList({
             onClick={onCreateTeam}
             disableElevation
             sx={{
-              ...rounded(2),
+              borderRadius: 2, py: 2, px: 4,
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -470,7 +470,7 @@ function MobileTeamList({
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
-                ...rounded(2),
+                borderRadius: 2, py: 2, px: 4,
               }}
             >
               <WorkspacesIcon sx={{ color: "primary.main", fontSize: 22 }} />
@@ -578,6 +578,7 @@ export default function TeamBuilderPage({
       setActiveTeamId(remaining.length > 0 ? remaining[0].id : null);
     }
     setDeleteTargetId(null);
+    router.push("/team-builder");
   };
 
   return (
@@ -783,7 +784,7 @@ export default function TeamBuilderPage({
                         mx: 1,
                         mb: 0.5,
                         "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
-                        ...rounded(2),
+                        borderRadius: 2, py: 2, px: 4,
                       }}
                     >
                       <ListItemIcon>
@@ -916,7 +917,7 @@ export default function TeamBuilderPage({
           </Grid>
         )}
       </Main>
-      {isMobile && activeTeam && (
+      {isMobile && activeTeam && !hasSelection && (
         <SpeedDial
           ariaLabel="Team Actions"
           sx={{ position: "fixed", bottom: 16, right: 16 }}

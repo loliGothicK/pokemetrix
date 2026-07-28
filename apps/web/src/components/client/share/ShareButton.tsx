@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
-import { rounded } from "@/utils/styles";
+
 import { teamSchema } from "@/lib/validator/team";
 
 type ShareState = "idle" | "loading" | "success" | "error";
@@ -156,7 +156,7 @@ export function ShareButton() {
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",
-              ...rounded(2),
+              borderRadius: 2, py: 2, px: 4,
             }}
             onClick={() => setShowStats((v) => !v)}
           >

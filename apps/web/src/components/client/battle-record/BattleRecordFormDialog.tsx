@@ -35,7 +35,7 @@ import { emptyDraft, draftFromRecord, type BattleRecordDraft } from "./formState
 import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
 import { flexRowCenter, sectionLabel } from "@/theme/sx";
-import { rounded } from "@/utils/styles";
+
 
 interface BattleRecordFormDialogProps {
   readonly open: boolean;
@@ -176,7 +176,7 @@ export function BattleRecordFormDialog({
                       border: "1px solid",
                       borderColor: theme.palette.divider,
                       color: "text.secondary",
-                      ...rounded(0.75),
+                      borderRadius: 0.75, py: 0.75, px: 1.5,
                     }}
                   >
                     {k}

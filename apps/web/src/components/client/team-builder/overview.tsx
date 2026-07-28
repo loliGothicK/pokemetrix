@@ -42,7 +42,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { rounded } from "@/utils/styles";
+
 
 // ── ソータブルなスロット行 ────────────────────────────────────────────────────
 
@@ -76,7 +76,7 @@ function SortableSlotItem({
       <Box
         sx={{
           width: "100%",
-          ...rounded(1),
+          borderRadius: 1, py: 1, px: 2,
           border: "1px solid",
           borderColor: isActive
             ? theme.palette.primary.main
@@ -302,7 +302,7 @@ export default function TeamOverview({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        ...rounded(1),
+        borderRadius: 1,
         py: 3,
         px: 3,
       }}

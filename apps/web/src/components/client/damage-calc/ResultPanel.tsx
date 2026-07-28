@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter } from "@/theme/sx";
 import type { DamageCalcResult } from "./useDamageCalcPage";
-import { rounded } from "@/utils/styles";
+
 
 type EvSet = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
 
@@ -429,7 +429,7 @@ function CalcSummaryRow({ summary }: { readonly summary: CalcSummary }) {
                 fontSize: 10,
                 lineHeight: 1.5,
                 whiteSpace: "nowrap",
-                ...rounded(1),
+                borderRadius: 1, py: 1, px: 2,
               }}
             >
               {tag}
@@ -501,7 +501,7 @@ function HpBar({
             bgcolor: barBg,
             overflow: "hidden",
             cursor: "default",
-            ...rounded(10),
+            borderRadius: 10, py: 10, px: 20,
           }}
         >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}

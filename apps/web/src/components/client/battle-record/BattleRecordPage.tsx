@@ -51,7 +51,7 @@ import { SeasonFormDialog } from "./SeasonFormDialog";
 import { BattleRecordFormDialog } from "./BattleRecordFormDialog";
 import { BattleRecordList } from "./BattleRecordList";
 import { useHotkeys } from "react-hotkeys-hook";
-import { rounded } from "@/utils/styles";
+
 
 type ResultFilter = "all" | BattleResult;
 
@@ -83,7 +83,7 @@ function PartyPanel({ team }: { readonly team: Team | null }) {
                 sx={{
                   ...flexRowCenter,
                   bgcolor: theme.palette.background.paperRaised,
-                  ...rounded(2),
+                  borderRadius: 2, py: 2, px: 4,
                 }}
               >
                 <Image
@@ -234,7 +234,7 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
               height: 8,
               overflow: "hidden",
               bgcolor: theme.palette.divider,
-              ...rounded(4),
+              borderRadius: 4, py: 4, px: 8,
             }}
           >
             {decided > 0 && (

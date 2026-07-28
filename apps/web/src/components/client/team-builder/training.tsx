@@ -53,7 +53,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
 import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
-import { rounded } from "@/utils/styles";
+
 
 const DICTIONARY = (() => {
   const mapped = new Map(
@@ -699,7 +699,7 @@ export function Training({
                     sx={{
                       p: 1.5,
                       cursor: "pointer",
-                      ...rounded(2),
+                      borderRadius: 2, py: 2, px: 4,
                       bgcolor: isActive
                         ? alpha(theme.palette.primary.main, 0.1)
                         : alpha(theme.palette.action.hover, 0.05),

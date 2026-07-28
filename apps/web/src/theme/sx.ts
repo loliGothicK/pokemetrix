@@ -4,7 +4,7 @@
 // 詳細: .design/sx-common.md
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { SystemStyleObject } from "@mui/system";
-import { rounded } from "@/utils/styles";
+
 
 /**
  * カード/パネルの表面スタイル（枠線 + 角丸 + 背景色）。
@@ -17,7 +17,7 @@ export function surfaceCard(
   return {
     border: "1px solid",
     borderColor: theme.palette.divider,
-    ...rounded(options?.borderRadius ?? 3),
+    borderRadius: options?.borderRadius ?? 3,
     bgcolor: options?.raised
       ? theme.palette.background.paperRaised
       : theme.palette.background.paper,

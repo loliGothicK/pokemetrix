@@ -14,8 +14,8 @@ import { natureObjectToString } from "@/data/nature";
 import { match } from "ts-pattern";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { Type } from "@/types/pokemon";
-import { flexRowCenter, truncateText } from "@/theme/sx";
-import { SurfaceCard } from "@/components/common/SurfaceCard";
+import { flexRowCenter } from "@/theme/sx";
+import { Paper } from "@mui/material";
 
 // ── タイプカラー ──────────────────────────────────────────────────────────────
 
@@ -58,14 +58,8 @@ function calcStat(
 ) {
   if (key === "hp") return calcHp(base, ev);
   const mult = match(key)
-    .when(
-      (k) => k === plus,
-      () => 1.1,
-    )
-    .when(
-      (k) => k === minus,
-      () => 0.9,
-    )
+    .when((k) => k === plus, () => 1.1)
+    .when((k) => k === minus, () => 0.9)
     .otherwise(() => 1.0);
   return calcStatus(base, ev, mult);
 }
@@ -77,7 +71,7 @@ function statColor(key: StatKey, plus?: StatKey | null, minus?: StatKey | null) 
   return undefined;
 }
 
-// ── Tooltip の共通スタイル ────────────────────────────────────────────────────
+// ── Tooltip コンテンツ ────────────────────────────────────────────────────────
 
 const TooltipContent = ({
   title,
@@ -105,6 +99,35 @@ const TooltipContent = ({
   </Box>
 );
 
+// ── カード共通ラッパー（SurfaceCard の rounded() 二重パディングを回避） ────────
+// SurfaceCard は rounded(n) を内部で呼ぶため py/px が自動付与される。
+// ここでは Paper を直接使い borderRadius / border / bgcolor だけ設定する。
+
+function CardShell({
+  children,
+  sx,
+}: {
+  readonly children: React.ReactNode;
+  readonly sx?: object;
+}) {
+  const theme = useTheme();
+  return (
+    <Paper
+      elevation={0}
+      sx={{
+        border: "1px solid",
+        borderColor: theme.palette.divider,
+        borderRadius: "12px",
+        bgcolor: theme.palette.background.paperRaised,
+        overflow: "hidden",
+        ...sx,
+      }}
+    >
+      {children}
+    </Paper>
+  );
+}
+
 // ── StatRow ───────────────────────────────────────────────────────────────────
 
 function StatRow({
@@ -122,13 +145,7 @@ function StatRow({
   return (
     <Box sx={{ ...flexRowCenter, gap: 1 }}>
       <Typography
-        sx={{
-          width: 28,
-          fontSize: "0.62rem",
-          fontWeight: 700,
-          color: color ?? "text.secondary",
-          flexShrink: 0,
-        }}
+        sx={{ width: 28, fontSize: "0.62rem", fontWeight: 700, color: color ?? "text.secondary", flexShrink: 0 }}
       >
         {label}
       </Typography>
@@ -146,13 +163,13 @@ function StatRow({
             height: "100%",
             width: `${Math.min((actual / 252) * 100, 100)}%`,
             bgcolor: color ?? theme.palette.primary.main,
-            opacity: 0.8,
+            opacity: 0.85,
           }}
         />
       </Box>
       <Typography
         sx={{
-          width: 24,
+          width: 26,
           fontSize: "0.62rem",
           fontWeight: 700,
           textAlign: "right",
@@ -165,7 +182,7 @@ function StatRow({
       </Typography>
       <Typography
         sx={{
-          width: 22,
+          width: 24,
           fontSize: "0.58rem",
           textAlign: "right",
           fontVariantNumeric: "tabular-nums",
@@ -179,7 +196,7 @@ function StatRow({
   );
 }
 
-// ── MoveChip ──────────────────────────────────────────────────────────────────
+// ── MoveChip（フルカード用 2×2 グリッド内） ───────────────────────────────────
 
 function MoveChip({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
@@ -190,22 +207,16 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
     return (
       <Box
         sx={{
-          height: 34,
+          height: 30,
           display: "flex",
           alignItems: "center",
-          px: 1.5,
-          borderRadius: "6px",
+          px: 1,
+          borderRadius: "5px",
           border: "1px dashed",
           borderColor: alpha(theme.palette.divider, 0.4),
         }}
       >
-        <Typography
-          sx={{
-            fontSize: "0.7rem",
-            color: alpha(theme.palette.text.secondary, 0.3),
-            fontStyle: "italic",
-          }}
-        >
+        <Typography sx={{ fontSize: "0.7rem", color: alpha(theme.palette.text.secondary, 0.3), fontStyle: "italic" }}>
           —
         </Typography>
       </Box>
@@ -213,53 +224,45 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
   }
 
   const tc = TYPE_BG[move.type as Type] ?? "#9e9e9e";
-
-  // Tooltip のメタ行: タイプ / 分類 / 威力 / 命中
   const powerStr = move.power != null ? String(move.power) : "—";
   const accuracyStr = move.accuracy != null ? `${move.accuracy}%` : "—";
   const metaStr = `${t(`types.${move.type}.name`)} · ${move.category} · Power ${powerStr} · Acc ${accuracyStr}`;
-  const effectStr = move.effect ?? undefined;
 
   return (
     <Tooltip
-      title={
-        <TooltipContent
-          title={t(`moves.${move.identifier}.name`)}
-          meta={metaStr}
-          body={effectStr}
-        />
-      }
+      title={<TooltipContent title={t(`moves.${move.identifier}.name`)} meta={metaStr} body={move.effect ?? undefined} />}
       arrow
       placement="top"
       enterDelay={300}
     >
       <Box
         sx={{
-          height: 34,
+          height: 30,
           display: "flex",
           alignItems: "center",
-          gap: 0.75,
-          px: 1.25,
-          borderRadius: "6px",
+          gap: 0.5,
+          px: 1,
+          borderRadius: "5px",
           background: `linear-gradient(105deg, ${tc}28 0%, ${tc}0e 100%)`,
           border: "1px solid",
-          borderColor: `${tc}50`,
+          borderColor: `${tc}55`,
           cursor: "default",
+          overflow: "hidden",
+          width: "100%",
         }}
       >
-        <Box
-          component="img"
-          src={typeIcon(move.type)}
-          alt=""
-          sx={{ width: 14, height: 14, flexShrink: 0 }}
-        />
+        <Box component="img" src={typeIcon(move.type)} alt="" sx={{ width: 13, height: 13, flexShrink: 0 }} />
         <Typography
           sx={{
-            fontSize: "0.72rem",
+            fontSize: "0.7rem",
             fontWeight: 600,
             lineHeight: 1,
             color: "text.primary",
-            ...truncateText,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            flex: 1,
+            minWidth: 0,
           }}
         >
           {t(`moves.${move.identifier}.name`)}
@@ -269,18 +272,63 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
   );
 }
 
-// ── メインコンポーネント ──────────────────────────────────────────────────────
+// ── MoveTag（コンパクト行用インライン） ───────────────────────────────────────
+
+function MoveTag({ moveId }: { readonly moveId: number | null }) {
+  const { t } = useTranslation();
+  const move = moveId != null ? moveById.get(moveId) : null;
+  if (!move) return null;
+
+  const tc = TYPE_BG[move.type as Type] ?? "#9e9e9e";
+  const powerStr = move.power != null ? String(move.power) : "—";
+  const accuracyStr = move.accuracy != null ? `${move.accuracy}%` : "—";
+  const metaStr = `${t(`types.${move.type}.name`)} · ${move.category} · Power ${powerStr} · Acc ${accuracyStr}`;
+
+  return (
+    <Tooltip
+      title={<TooltipContent title={t(`moves.${move.identifier}.name`)} meta={metaStr} body={move.effect ?? undefined} />}
+      arrow
+      placement="top"
+      enterDelay={300}
+    >
+      <Box
+        sx={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 0.4,
+          px: 0.75,
+          py: "2px",
+          borderRadius: "4px",
+          background: `linear-gradient(105deg, ${tc}28 0%, ${tc}0e 100%)`,
+          border: "1px solid",
+          borderColor: `${tc}50`,
+          cursor: "default",
+        }}
+      >
+        <Box component="img" src={typeIcon(move.type)} alt="" sx={{ width: 10, height: 10, flexShrink: 0 }} />
+        <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, lineHeight: 1.3, color: "text.primary", whiteSpace: "nowrap" }}>
+          {t(`moves.${move.identifier}.name`)}
+        </Typography>
+      </Box>
+    </Tooltip>
+  );
+}
+
+// ── Props ──────────────────────────────────────────────────────────────────────
 
 export interface PokemonBuildCardProps {
   readonly pokemon: TrainedPokemon;
   readonly showStats: boolean;
+  /** "full" = フルカード（タブレット・デスクトップ）。"compact" = コンパクト行（モバイル）。 */
+  readonly variant?: "full" | "compact";
 }
 
-export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) {
+// ── Compact row variant (mobile) ──────────────────────────────────────────────
+
+function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "variant">) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
 
-  // 既存の表示慣習に合わせる: name を主表示、formName は副次テキスト（無ければ空文字）
   const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
   const formNameKey = `pokemon.${pokemon.identifier}.formName` as const;
   const formName = i18n.exists(formNameKey) ? t(formNameKey) : "";
@@ -291,11 +339,180 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
   const { plus, minus } = pokemon.nature;
   const baseStat = data?.status ?? [45, 45, 45, 45, 45, 45];
   const types = data?.types ?? [];
-
   const c1 = TYPE_BG[types[0] as Type] ?? "#1565c0";
   const c2 = TYPE_BG[(types[1] ?? types[0]) as Type] ?? c1;
 
-  // 性格補正テキスト (↑Atk / ↓SpA)
+  const statLabels: Record<StatKey, string> = {
+    hp: t("teamBuilder.status.hp.name"),
+    atk: t("teamBuilder.status.atk.name"),
+    def: t("teamBuilder.status.def.name"),
+    spa: t("teamBuilder.status.spa.name"),
+    spd: t("teamBuilder.status.spd.name"),
+    spe: t("teamBuilder.status.spe.name"),
+  };
+
+  const activeMoves = pokemon.moves.filter((m): m is number => m != null);
+
+  return (
+    <CardShell>
+      <Box sx={{ display: "flex", alignItems: "stretch" }}>
+        {/* スプライト */}
+        <Box
+          sx={{
+            width: 72,
+            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: `linear-gradient(145deg, ${c1}30 0%, ${c2}18 100%)`,
+            borderRight: "1px solid",
+            borderColor: theme.palette.divider,
+            py: "10px",
+          }}
+        >
+          <Box sx={{ width: 56, height: 56, position: "relative" }}>
+            <Image
+              src={`/pokemon/${pokemon.identifier}.png`}
+              alt={formName ? `${pokemonName} (${formName})` : pokemonName}
+              fill
+              style={{ objectFit: "contain" }}
+              sizes="56px"
+            />
+          </Box>
+        </Box>
+
+        {/* メイン情報（min-width:0 でオーバーフロー防止） */}
+        <Box sx={{ flex: 1, minWidth: 0, px: "12px", py: "10px", display: "flex", flexDirection: "column", gap: "4px" }}>
+          {/* 名前 + タイプアイコン */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: "6px", minWidth: 0 }}>
+            <Typography
+              sx={{
+                fontWeight: 800,
+                fontSize: "0.85rem",
+                lineHeight: 1.2,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                flexShrink: 1,
+                minWidth: 0,
+              }}
+            >
+              {pokemonName}
+              {formName && (
+                <Typography
+                  component="span"
+                  sx={{ ml: "4px", fontSize: "0.72em", color: "text.secondary", fontWeight: 500 }}
+                >
+                  {formName}
+                </Typography>
+              )}
+            </Typography>
+            <Stack direction="row" spacing="3px" sx={{ flexShrink: 0 }}>
+              {types.map((type) => (
+                <Box
+                  key={type}
+                  component="img"
+                  src={typeIcon(type)}
+                  alt={t(`types.${type}.name`)}
+                  sx={{ height: 13, width: "auto" }}
+                />
+              ))}
+            </Stack>
+          </Box>
+
+          {/* 特性 / 性格 / 持ち物 */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+            {ability && (
+              <Tooltip
+                title={
+                  <TooltipContent
+                    title={t(`abilities.${ability.identifier}.name`)}
+                    body={t(`abilities.${ability.identifier}.description`)}
+                  />
+                }
+                arrow
+                placement="top"
+                enterDelay={300}
+              >
+                <Typography sx={{ fontSize: "0.67rem", color: "text.secondary", cursor: "default", whiteSpace: "nowrap" }}>
+                  {t(`abilities.${ability.identifier}.name`)}
+                </Typography>
+              </Tooltip>
+            )}
+            {nature && (
+              <Typography sx={{ fontSize: "0.67rem", color: "text.disabled", whiteSpace: "nowrap" }}>
+                {nature}
+              </Typography>
+            )}
+            {item && (
+              <Tooltip
+                title={
+                  <TooltipContent
+                    title={t(`items.${item.identifier}.name`)}
+                    body={t(`items.${item.identifier}.description`)}
+                  />
+                }
+                arrow
+                placement="top"
+                enterDelay={300}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: "3px", cursor: "default" }}>
+                  <Box component="img" src={itemSprite(item.identifier)} alt="" sx={{ width: 13, height: 13 }} />
+                  <Typography sx={{ fontSize: "0.67rem", color: "text.secondary", whiteSpace: "nowrap" }}>
+                    {t(`items.${item.identifier}.name`)}
+                  </Typography>
+                </Box>
+              </Tooltip>
+            )}
+          </Box>
+
+          {/* 技 */}
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+            {activeMoves.map((moveId) => (
+              <MoveTag key={moveId} moveId={moveId} />
+            ))}
+          </Box>
+
+          {/* ステータス（showStats のみ） */}
+          {showStats && (
+            <Box sx={{ mt: "6px" }}>
+              <Divider sx={{ mb: "6px", borderColor: theme.palette.divider }} />
+              <Stack spacing="2px">
+                {STAT_KEYS.map((key, i) => {
+                  const base = baseStat[i] ?? 45;
+                  const ev = pokemon.evs[key];
+                  const actual = calcStat(key, base, ev, plus ?? undefined, minus ?? undefined);
+                  const color = statColor(key, plus ?? undefined, minus ?? undefined);
+                  return <StatRow key={key} label={statLabels[key]} ev={ev} actual={actual} color={color} />;
+                })}
+              </Stack>
+            </Box>
+          )}
+        </Box>
+      </Box>
+    </CardShell>
+  );
+}
+
+// ── Full card variant (tablet / desktop) ──────────────────────────────────────
+
+function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "variant">) {
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+
+  const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
+  const formNameKey = `pokemon.${pokemon.identifier}.formName` as const;
+  const formName = i18n.exists(formNameKey) ? t(formNameKey) : "";
+  const data = championsPokemonByIdentifier.get(pokemon.identifier);
+  const item = pokemon.item != null ? itemById.get(pokemon.item) : null;
+  const ability = abilityById.get(pokemon.ability);
+  const nature = natureObjectToString(pokemon.nature);
+  const { plus, minus } = pokemon.nature;
+  const baseStat = data?.status ?? [45, 45, 45, 45, 45, 45];
+  const types = data?.types ?? [];
+  const c1 = TYPE_BG[types[0] as Type] ?? "#1565c0";
+  const c2 = TYPE_BG[(types[1] ?? types[0]) as Type] ?? c1;
+
   const natureBoostLabel = (() => {
     if (!plus && !minus) return undefined;
     const statName = (k: string) => t(`teamBuilder.status.${k}.name`);
@@ -305,10 +522,7 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
     return parts.join(" / ");
   })();
 
-  // 特性 description（翻訳キー: abilities.{identifier}.description）
   const abilityDescription = ability ? t(`abilities.${ability.identifier}.description`) : undefined;
-
-  // 持ち物 description（翻訳キー: items.{identifier}.description）
   const itemDescription = item ? t(`items.${item.identifier}.description`) : undefined;
 
   const statLabels: Record<StatKey, string> = {
@@ -321,80 +535,46 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
   };
 
   return (
-    <SurfaceCard
-      raised
-      borderRadius={12}
-      sx={{
-        overflow: "hidden",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* ── 名前行 ──────────────────────────────────────────────────────────── */}
+    <CardShell sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      {/* ── ヘッダー: 名前 + タイプ ──────────────────────────────────────────── */}
       <Box
         sx={{
-          px: 2,
-          py: 1.25,
+          px: "14px",
+          py: "10px",
           display: "flex",
           alignItems: "center",
-          gap: 0.75,
+          gap: "8px",
           borderBottom: "1px solid",
           borderColor: theme.palette.divider,
+          background: `linear-gradient(90deg, ${c1}20 0%, transparent 100%)`,
+          minWidth: 0,
         }}
       >
-        <Typography sx={{ fontWeight: 800, fontSize: "0.9rem", lineHeight: 1, flexShrink: 0 }}>
+        <Typography
+          sx={{
+            fontWeight: 800,
+            fontSize: "0.9rem",
+            lineHeight: 1.2,
+            flex: 1,
+            minWidth: 0,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           {pokemonName}
           {formName && (
             <Typography
               component="span"
-              sx={{ ml: 0.5, fontSize: "0.75em", color: "text.secondary", fontWeight: 500 }}
+              sx={{ ml: "4px", fontSize: "0.72em", color: "text.secondary", fontWeight: 500 }}
             >
               {formName}
             </Typography>
           )}
         </Typography>
 
-        <Typography sx={{ fontSize: "0.82rem", color: "text.disabled", flexShrink: 0 }}>
-          @
-        </Typography>
-
-        {item ? (
-          <Tooltip
-            title={
-              <TooltipContent title={t(`items.${item.identifier}.name`)} body={itemDescription} />
-            }
-            arrow
-            placement="top"
-            enterDelay={300}
-          >
-            <Typography
-              sx={{
-                fontSize: "0.82rem",
-                fontWeight: 500,
-                color: "text.secondary",
-                minWidth: 0,
-                cursor: "default",
-                ...truncateText,
-              }}
-            >
-              {t(`items.${item.identifier}.name`)}
-            </Typography>
-          </Tooltip>
-        ) : (
-          <Typography
-            sx={{
-              fontSize: "0.82rem",
-              color: alpha(theme.palette.text.secondary, 0.35),
-              fontStyle: "italic",
-            }}
-          >
-            {t("box.noItem")}
-          </Typography>
-        )}
-
         {types.length > 0 && (
-          <Stack direction="row" spacing={0.5} sx={{ ml: "auto", flexShrink: 0 }}>
+          <Stack direction="row" spacing="4px" sx={{ flexShrink: 0 }}>
             {types.map((type) => (
               <Box
                 key={type}
@@ -408,23 +588,23 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
         )}
       </Box>
 
-      {/* ── ヒーロー ─────────────────────────────────────────────────────────── */}
+      {/* ── スプライト + 持ち物バッジ ───────────────────────────────────────── */}
       <Box
         sx={{
           position: "relative",
-          background: `linear-gradient(145deg, ${c1}40 0%, ${c2}1a 60%, transparent 100%)`,
-          pt: 2,
-          pb: 1.5,
+          background: `linear-gradient(145deg, ${c1}35 0%, ${c2}18 60%, transparent 100%)`,
+          py: "16px",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Box
           sx={{
-            width: { xs: 112, sm: 128 },
-            height: { xs: 112, sm: 128 },
+            width: 104,
+            height: 104,
             position: "relative",
-            filter: `drop-shadow(0 8px 20px ${alpha(theme.palette.common.black, 0.4)})`,
+            filter: `drop-shadow(0 6px 16px ${alpha(theme.palette.common.black, 0.4)})`,
           }}
         >
           <Image
@@ -432,15 +612,13 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
             alt={formName ? `${pokemonName} (${formName})` : pokemonName}
             fill
             style={{ objectFit: "contain" }}
-            sizes="(max-width: 600px) 112px, 128px"
+            sizes="104px"
           />
         </Box>
 
         {item && (
           <Tooltip
-            title={
-              <TooltipContent title={t(`items.${item.identifier}.name`)} body={itemDescription} />
-            }
+            title={<TooltipContent title={t(`items.${item.identifier}.name`)} body={itemDescription} />}
             arrow
             placement="left"
             enterDelay={300}
@@ -448,10 +626,10 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
             <Box
               sx={{
                 position: "absolute",
-                bottom: 10,
-                right: 14,
-                width: 32,
-                height: 32,
+                bottom: "8px",
+                right: "12px",
+                width: 30,
+                height: 30,
                 borderRadius: "8px",
                 bgcolor: alpha(theme.palette.background.paper, 0.85),
                 border: "1px solid",
@@ -463,12 +641,7 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
                 cursor: "default",
               }}
             >
-              <Box
-                component="img"
-                src={itemSprite(item.identifier)}
-                alt={t(`items.${item.identifier}.name`)}
-                sx={{ width: 22, height: 22 }}
-              />
+              <Box component="img" src={itemSprite(item.identifier)} alt="" sx={{ width: 20, height: 20 }} />
             </Box>
           </Tooltip>
         )}
@@ -477,39 +650,70 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
       {/* ── ボディ ───────────────────────────────────────────────────────────── */}
       <Box
         sx={{
-          px: 2,
-          pt: 1.5,
-          pb: 2,
+          px: "14px",
+          pt: "12px",
+          pb: "16px",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          gap: 1.25,
+          gap: "12px",
+          minWidth: 0,
         }}
       >
-        {/* 特性 + 性格 */}
-        <Box sx={{ display: "flex", gap: 3 }}>
-          {ability && (
+        {/* 持ち物テキスト行 */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: "4px", minWidth: 0 }}>
+          <Typography sx={{ fontSize: "0.7rem", color: "text.disabled", flexShrink: 0 }}>@</Typography>
+          {item ? (
             <Tooltip
-              title={
-                <TooltipContent
-                  title={t(`abilities.${ability.identifier}.name`)}
-                  body={abilityDescription}
-                />
-              }
+              title={<TooltipContent title={t(`items.${item.identifier}.name`)} body={itemDescription} />}
               arrow
               placement="top"
               enterDelay={300}
             >
-              <Box sx={{ cursor: "default" }}>
-                <Typography sx={{ fontSize: "0.62rem", color: "text.disabled", mb: 0.25 }}>
+              <Typography
+                sx={{
+                  fontSize: "0.8rem",
+                  fontWeight: 500,
+                  color: "text.secondary",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  cursor: "default",
+                  minWidth: 0,
+                }}
+              >
+                {t(`items.${item.identifier}.name`)}
+              </Typography>
+            </Tooltip>
+          ) : (
+            <Typography sx={{ fontSize: "0.8rem", color: alpha(theme.palette.text.secondary, 0.35), fontStyle: "italic" }}>
+              {t("box.noItem")}
+            </Typography>
+          )}
+        </Box>
+
+        {/* 特性 + 性格 */}
+        <Box sx={{ display: "flex", gap: "20px", minWidth: 0, flexWrap: "wrap" }}>
+          {ability && (
+            <Tooltip
+              title={<TooltipContent title={t(`abilities.${ability.identifier}.name`)} body={abilityDescription} />}
+              arrow
+              placement="top"
+              enterDelay={300}
+            >
+              <Box sx={{ cursor: "default", minWidth: 0 }}>
+                <Typography sx={{ fontSize: "0.6rem", color: "text.disabled", mb: "2px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   {t("share.abilityLabel")}
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: "0.85rem",
+                    fontSize: "0.82rem",
                     fontWeight: 700,
                     color: "text.primary",
-                    lineHeight: 1,
+                    lineHeight: 1.2,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {t(`abilities.${ability.identifier}.name`)}
@@ -520,28 +724,17 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
 
           {nature && (
             <Tooltip
-              title={
-                natureBoostLabel ? (
-                  <TooltipContent title={nature} body={natureBoostLabel} />
-                ) : undefined
-              }
+              title={natureBoostLabel ? <TooltipContent title={nature} body={natureBoostLabel} /> : undefined}
               arrow
               placement="top"
               enterDelay={300}
               disableHoverListener={!natureBoostLabel}
             >
-              <Box sx={{ cursor: natureBoostLabel ? "default" : "auto" }}>
-                <Typography sx={{ fontSize: "0.62rem", color: "text.disabled", mb: 0.25 }}>
+              <Box sx={{ cursor: natureBoostLabel ? "default" : "auto", flexShrink: 0 }}>
+                <Typography sx={{ fontSize: "0.6rem", color: "text.disabled", mb: "2px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   {t("share.natureLabel")}
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                    color: "text.primary",
-                    lineHeight: 1,
-                  }}
-                >
+                <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: "text.primary", lineHeight: 1.2 }}>
                   {nature}
                 </Typography>
               </Box>
@@ -549,8 +742,8 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
           )}
         </Box>
 
-        {/* 技 (2×2) */}
-        <Grid container spacing={0.75}>
+        {/* 技 2×2 */}
+        <Grid container spacing="6px">
           {pokemon.moves.map((moveId, i) => (
             <Grid component="div" size={6} key={i}>
               <MoveChip moveId={moveId} />
@@ -562,26 +755,27 @@ export function PokemonBuildCard({ pokemon, showStats }: PokemonBuildCardProps) 
         {showStats && (
           <>
             <Divider sx={{ borderColor: theme.palette.divider }} />
-            <Stack spacing={0.3}>
+            <Stack spacing="3px">
               {STAT_KEYS.map((key, i) => {
                 const base = baseStat[i] ?? 45;
                 const ev = pokemon.evs[key];
                 const actual = calcStat(key, base, ev, plus ?? undefined, minus ?? undefined);
                 const color = statColor(key, plus ?? undefined, minus ?? undefined);
-                return (
-                  <StatRow
-                    key={key}
-                    label={statLabels[key]}
-                    ev={ev}
-                    actual={actual}
-                    color={color}
-                  />
-                );
+                return <StatRow key={key} label={statLabels[key]} ev={ev} actual={actual} color={color} />;
               })}
             </Stack>
           </>
         )}
       </Box>
-    </SurfaceCard>
+    </CardShell>
   );
+}
+
+// ── メインエクスポート ─────────────────────────────────────────────────────────
+
+export function PokemonBuildCard({ pokemon, showStats, variant = "full" }: PokemonBuildCardProps) {
+  if (variant === "compact") {
+    return <PokemonCompactRow pokemon={pokemon} showStats={showStats} />;
+  }
+  return <PokemonFullCard pokemon={pokemon} showStats={showStats} />;
 }

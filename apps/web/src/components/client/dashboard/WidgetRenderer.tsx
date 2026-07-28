@@ -14,7 +14,7 @@ import {
   HeatmapVisualizer,
 } from "./GenericVisualizers";
 import { applyTransformer } from "./transformers";
-import { rounded } from "@/utils/styles";
+
 import { useTranslation } from "react-i18next";
 
 /** DataSource を seasonId に解決するヘルパー */
@@ -159,7 +159,7 @@ export function WidgetRenderer({
           width="100%"
           height="100%"
           sx={{
-            ...rounded(1),
+            borderRadius: 1, py: 1, px: 2,
           }}
         />
         <Stack
@@ -174,7 +174,7 @@ export function WidgetRenderer({
             alignItems: "center",
             bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
             backdropFilter: "blur(4px)",
-            ...rounded(1),
+            borderRadius: 1, py: 1, px: 2,
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>
