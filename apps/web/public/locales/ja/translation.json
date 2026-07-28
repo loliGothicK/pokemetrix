@@ -515,6 +515,26 @@
     "drawer": {
       "overview": "概要",
       "notes": "メモ"
+    },
+    "status": {
+      "hp": {
+        "name": "HP"
+      },
+      "atk": {
+        "name": "攻撃"
+      },
+      "def": {
+        "name": "防御"
+      },
+      "spa": {
+        "name": "特攻"
+      },
+      "spd": {
+        "name": "特防"
+      },
+      "spe": {
+        "name": "素早さ"
+      }
     }
   },
   "types": {
