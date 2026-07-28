@@ -66,14 +66,7 @@ export const useDamageCalcItemOptions = (): readonly SlugOption[] => {
     });
 
     // Individual items, with their damage multiplier appended to the label
-    for (const identifier of [
-      "choice-band",
-      "choice-specs",
-      "life-orb",
-      "expert-belt",
-      "muscle-band",
-      "wise-glasses",
-    ]) {
+    for (const identifier of ["life-orb", "expert-belt", "muscle-band", "wise-glasses"]) {
       const mult = DAMAGE_CALC_ITEM_MULTIPLIERS[identifier];
       options.push({
         slug: identifier,
