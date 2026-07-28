@@ -468,8 +468,7 @@ function MobileDrawerContent({
 }
 
 function AuthSyncEffect() {
-  const { isMergeOpen, conflicts, setConflicts, onMergeCommit, onMergeCancel } =
-    useAuthSync();
+  const { isMergeOpen, conflicts, setConflicts, onMergeCommit, onMergeCancel } = useAuthSync();
   return (
     <TeamMergeDialog
       open={isMergeOpen}

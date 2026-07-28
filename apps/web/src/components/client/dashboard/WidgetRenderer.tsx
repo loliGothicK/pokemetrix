@@ -159,7 +159,9 @@ export function WidgetRenderer({
           width="100%"
           height="100%"
           sx={{
-            borderRadius: 1, py: 1, px: 2,
+            borderRadius: 1,
+            py: 1,
+            px: 2,
           }}
         />
         <Stack
@@ -174,7 +176,9 @@ export function WidgetRenderer({
             alignItems: "center",
             bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
             backdropFilter: "blur(4px)",
-            borderRadius: 1, py: 1, px: 2,
+            borderRadius: 1,
+            py: 1,
+            px: 2,
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>

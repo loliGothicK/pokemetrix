@@ -54,7 +54,6 @@ import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
 import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
 
-
 const DICTIONARY = (() => {
   const mapped = new Map(
     pokemonList.map(({ species_id, identifier }) => [
@@ -227,27 +226,54 @@ export function Training({
         sx={{ width: { xs: "100%", md: 240 }, flexShrink: 0, alignItems: "center" }}
       >
         {/* Name and Types Block */}
-        <Stack 
-          direction={{ xs: "row", md: "column" }} 
-          spacing={{ xs: 2, md: 1 }} 
-          sx={{ width: "100%", alignItems: "center", justifyContent: "center", mb: 1, px: { xs: 2, md: 0 }, pt: { xs: 2, md: 0 } }}
+        <Stack
+          direction={{ xs: "row", md: "column" }}
+          spacing={{ xs: 2, md: 1 }}
+          sx={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            mb: 1,
+            px: { xs: 2, md: 0 },
+            pt: { xs: 2, md: 0 },
+          }}
         >
-          <Stack direction="column" spacing={0} sx={{ alignItems: { xs: "flex-end", md: "center" } }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, textAlign: { xs: "right", md: "center" } }}>
+          <Stack
+            direction="column"
+            spacing={0}
+            sx={{ alignItems: { xs: "flex-end", md: "center" } }}
+          >
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: 700, textAlign: { xs: "right", md: "center" } }}
+            >
               {t(`pokemon.${activePokemon.identifier}.name`)}
             </Typography>
             {i18n.exists(`pokemon.${activePokemon.identifier}.formName`) && (
               <Typography
                 variant="body2"
-                sx={{ color: "text.secondary", textAlign: { xs: "right", md: "center" }, fontWeight: 400 }}
+                sx={{
+                  color: "text.secondary",
+                  textAlign: { xs: "right", md: "center" },
+                  fontWeight: 400,
+                }}
               >
                 {t(`pokemon.${activePokemon.identifier}.formName`)}
               </Typography>
             )}
           </Stack>
-          <Stack direction="row" spacing={1} sx={{ justifyContent: { xs: "flex-start", md: "center" } }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ justifyContent: { xs: "flex-start", md: "center" } }}
+          >
             {activePokemon.types.map((type) => (
-              <Chip avatar={<Avatar src={typeIcon(type)} />} key={type} label={t(`types.${type.toLowerCase()}.name`)} size="small" />
+              <Chip
+                avatar={<Avatar src={typeIcon(type)} />}
+                key={type}
+                label={t(`types.${type.toLowerCase()}.name`)}
+                size="small"
+              />
             ))}
           </Stack>
         </Stack>
@@ -477,7 +503,9 @@ export function Training({
                       gender: { fixed: false, specified: newValue || "male" },
                     })
                   }
-                  renderInput={(params) => <TextField {...params} label={t("teamBuilder.gender")} />}
+                  renderInput={(params) => (
+                    <TextField {...params} label={t("teamBuilder.gender")} />
+                  )}
                   disabled={ongoing.gender.fixed}
                   sx={{ width: { xs: "100%", md: 140 } }}
                 />
@@ -495,7 +523,9 @@ export function Training({
                     t(`abilities.${abilityById.get(option)?.identifier}.name`)
                   }
                   sx={{ flexGrow: 1 }}
-                  renderInput={(params) => <TextField {...params} label={t("teamBuilder.ability")} />}
+                  renderInput={(params) => (
+                    <TextField {...params} label={t("teamBuilder.ability")} />
+                  )}
                   onChange={(_, value) => handleUpdate({ ...ongoing, ability: value! })}
                 />
 
@@ -664,7 +694,9 @@ export function Training({
                                       },
                                     }}
                                   >
-                                    {isSelectable ? t(`natures.${currentCellNature.toLowerCase()}.name`) : "—"}
+                                    {isSelectable
+                                      ? t(`natures.${currentCellNature.toLowerCase()}.name`)
+                                      : "—"}
                                   </TableCell>
                                 );
                               })}
@@ -699,7 +731,9 @@ export function Training({
                     sx={{
                       p: 1.5,
                       cursor: "pointer",
-                      borderRadius: 2, py: 2, px: 4,
+                      borderRadius: 2,
+                      py: 2,
+                      px: 4,
                       bgcolor: isActive
                         ? alpha(theme.palette.primary.main, 0.1)
                         : alpha(theme.palette.action.hover, 0.05),
@@ -863,7 +897,10 @@ export function Training({
                             : isMinus
                               ? alpha(theme.palette.info.main, 0.2)
                               : theme.palette.dividerSoft,
-                          bgcolor: { xs: "transparent", md: alpha(theme.palette.background.paper, 0.4) },
+                          bgcolor: {
+                            xs: "transparent",
+                            md: alpha(theme.palette.background.paper, 0.4),
+                          },
                           transition: "border-color 0.2s, background-color 0.2s",
                           p: { xs: 1, md: 2 },
                           borderRadius: { xs: 0, md: 2 },
@@ -873,7 +910,12 @@ export function Training({
                         <Stack
                           direction="row"
                           spacing={0.5}
-                          sx={{ gridArea: "label", alignItems: "center", minWidth: 0, flexWrap: "nowrap" }}
+                          sx={{
+                            gridArea: "label",
+                            alignItems: "center",
+                            minWidth: 0,
+                            flexWrap: "nowrap",
+                          }}
                         >
                           <Typography
                             sx={{
@@ -1038,7 +1080,9 @@ export function Training({
 
                   <Divider />
 
-                  <Typography>{t("teamBuilder.remainingEvs", { remaining: remainingEvs })}</Typography>
+                  <Typography>
+                    {t("teamBuilder.remainingEvs", { remaining: remainingEvs })}
+                  </Typography>
                 </>
               );
             })()}

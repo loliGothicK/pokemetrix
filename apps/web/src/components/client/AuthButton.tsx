@@ -22,7 +22,6 @@ import { createClient } from "@/lib/supabase/client";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { useTranslation } from "react-i18next";
 
-
 export function AuthButton() {
   const { t } = useTranslation();
   const [, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
@@ -96,7 +95,9 @@ export function AuthButton() {
             paper: {
               sx: {
                 minWidth: 200,
-                borderRadius: 2, py: 2, px: 4,
+                borderRadius: 2,
+                py: 2,
+                px: 4,
               },
             },
           }}

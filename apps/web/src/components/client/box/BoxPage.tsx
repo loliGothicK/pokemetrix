@@ -117,88 +117,104 @@ export default function BoxPage() {
             <ArrowBackIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start", ml: 2 }}>
-            <Tabs 
-              value={activeTab} 
+            <Tabs
+              value={activeTab}
               onChange={(_, v) => setActiveTab(v)}
-              sx={{ minHeight: "auto", "& .MuiTab-root": { minHeight: "auto", py: 0.5, textTransform: "none", fontWeight: 600 } }}
+              sx={{
+                minHeight: "auto",
+                "& .MuiTab-root": {
+                  minHeight: "auto",
+                  py: 0.5,
+                  textTransform: "none",
+                  fontWeight: 600,
+                },
+              }}
             >
               <Tab label={t("teamBuilder.tabOpenSpecs")} />
               <Tab label={t("teamBuilder.tabEvSpreads")} />
             </Tabs>
           </Box>
-        <Stack direction="row" spacing={1} sx={{ ml: "auto", flexShrink: 0, display: { xs: "none", md: "flex" } }}>
-          <Button variant="contained" startIcon={<SaveOutlined />} onClick={handleSaveToBox}>
-            {t("box.saveToBox")}
-          </Button>
-          <IconButton
-            size="small"
-            onClick={() => setDeleteDialogOpen(true)}
-            sx={{
-              color: "error.main",
-              bgcolor: (theme) => alpha(theme.palette.error.main, 0.1),
-              "&:hover": { bgcolor: "error.main", color: "#fff" },
-            }}
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ ml: "auto", flexShrink: 0, display: { xs: "none", md: "flex" } }}
           >
-            <Delete fontSize="small" />
-          </IconButton>
+            <Button variant="contained" startIcon={<SaveOutlined />} onClick={handleSaveToBox}>
+              {t("box.saveToBox")}
+            </Button>
+            <IconButton
+              size="small"
+              onClick={() => setDeleteDialogOpen(true)}
+              sx={{
+                color: "error.main",
+                bgcolor: (theme) => alpha(theme.palette.error.main, 0.1),
+                "&:hover": { bgcolor: "error.main", color: "#fff" },
+              }}
+            >
+              <Delete fontSize="small" />
+            </IconButton>
+          </Stack>
         </Stack>
-      </Stack>
 
-      <Box sx={{ flexGrow: 1, p: { xs: 1.5, md: 3 } }}>
-        <Training
-          member={editingPokemon}
-          activeTab={activeTab}
-          onUpdate={(updated) => setEditingPokemon(updated)}
-        />
+        <Box sx={{ flexGrow: 1, p: { xs: 1.5, md: 3 } }}>
+          <Training
+            member={editingPokemon}
+            activeTab={activeTab}
+            onUpdate={(updated) => setEditingPokemon(updated)}
+          />
+        </Box>
+
+        <SpeedDial
+          ariaLabel="Actions"
+          sx={{ display: { xs: "flex", md: "none" }, position: "fixed", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          <SpeedDialAction
+            icon={<SaveOutlined />}
+            title={t("box.saveToBox")}
+            slotProps={{ tooltip: { title: t("box.saveToBox"), open: true } }}
+            onClick={handleSaveToBox}
+          />
+          <SpeedDialAction
+            icon={<Delete />}
+            title={t("teamBuilder.delete")}
+            slotProps={{ tooltip: { title: t("teamBuilder.delete"), open: true } }}
+            onClick={() => setDeleteDialogOpen(true)}
+          />
+        </SpeedDial>
+
+        <Dialog
+          open={deleteDialogOpen}
+          onClose={() => setDeleteDialogOpen(false)}
+          aria-labelledby="delete-pokemon-dialog-title"
+        >
+          <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              {t("teamBuilder.deleteTeamConfirm", {
+                name: editingPokemon
+                  ? t(`pokemon.${editingPokemon.identifier}.name`)
+                  : t("pokemon.unknown"),
+              })}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDeleteDialogOpen(false)}>{t("teamBuilder.cancel")}</Button>
+            <Button
+              color="error"
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                if (editingPokemon?.boxId) removeFromBox(editingPokemon.boxId);
+                setEditingPokemon(null);
+                setDeleteDialogOpen(false);
+              }}
+            >
+              {t("teamBuilder.delete")}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
-
-      <SpeedDial
-        ariaLabel="Actions"
-        sx={{ display: { xs: "flex", md: "none" }, position: "fixed", bottom: 16, right: 16 }}
-        icon={<SpeedDialIcon />}
-      >
-        <SpeedDialAction
-          icon={<SaveOutlined />}
-          title={t("box.saveToBox")}
-          slotProps={{ tooltip: { title: t("box.saveToBox"), open: true } }}
-          onClick={handleSaveToBox}
-        />
-        <SpeedDialAction
-          icon={<Delete />}
-          title={t("teamBuilder.delete")}
-          slotProps={{ tooltip: { title: t("teamBuilder.delete"), open: true } }}
-          onClick={() => setDeleteDialogOpen(true)}
-        />
-      </SpeedDial>
-
-      <Dialog
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-        aria-labelledby="delete-pokemon-dialog-title"
-      >
-        <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t("teamBuilder.deleteTeamConfirm", { name: editingPokemon ? t(`pokemon.${editingPokemon.identifier}.name`) : t("pokemon.unknown") })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>{t("teamBuilder.cancel")}</Button>
-          <Button
-            color="error"
-            variant="contained"
-            disableElevation
-            onClick={() => {
-              if (editingPokemon?.boxId) removeFromBox(editingPokemon.boxId);
-              setEditingPokemon(null);
-              setDeleteDialogOpen(false);
-            }}
-          >
-            {t("teamBuilder.delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
     );
   }
 
@@ -217,12 +233,7 @@ export default function BoxPage() {
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {t("box.title")}
         </Typography>
-        <Fab
-          onClick={() => setSelectOpen(true)}
-          color="primary"
-          aria-label="add"
-          size="medium"
-        >
+        <Fab onClick={() => setSelectOpen(true)} color="primary" aria-label="add" size="medium">
           <Add />
         </Fab>
       </Stack>

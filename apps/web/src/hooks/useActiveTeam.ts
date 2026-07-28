@@ -141,7 +141,7 @@ export const useActiveTeam = () => {
     const target = newPast.pop()!;
     // current をそのまま保存すると、以降のミューテーションで future が汚染されるため deep copy する
     const newFuture = [structuredClone(current), ...entry.future].slice(0, HISTORY_LIMIT);
-    
+
     // undoした直後の編集は別バーストとして扱うためにリセット
     lastEditTimeRef.current = 0;
     setHistoryEntry(activeId, { past: newPast, future: newFuture });
@@ -160,7 +160,7 @@ export const useActiveTeam = () => {
     const target = newFuture.shift()!;
     // current をそのまま保存すると、以降のミューテーションで past が汚染されるため deep copy する
     const newPast = [...entry.past, structuredClone(current)].slice(-HISTORY_LIMIT);
-    
+
     // redoした直後の編集は別バーストとして扱うためにリセット
     lastEditTimeRef.current = 0;
     setHistoryEntry(activeId, { past: newPast, future: newFuture });

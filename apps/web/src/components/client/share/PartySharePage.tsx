@@ -81,7 +81,11 @@ function EmptyCompactRow() {
       }}
     >
       <Typography
-        sx={{ color: alpha(theme.palette.text.secondary, 0.3), fontStyle: "italic", fontSize: "0.8rem" }}
+        sx={{
+          color: alpha(theme.palette.text.secondary, 0.3),
+          fontStyle: "italic",
+          fontSize: "0.8rem",
+        }}
       >
         —
       </Typography>
@@ -265,17 +269,9 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
         // ── タブレット / デスクトップ: グリッド ──────────────────────────
         <Grid container spacing={{ sm: 2, md: 2.5 }}>
           {snapshot.members.map((member, index) => (
-            <Grid
-              component="div"
-              size={{ sm: 6, lg: 4 }}
-              key={index}
-            >
+            <Grid component="div" size={{ sm: 6, lg: 4 }} key={index}>
               {member ? (
-                <PokemonBuildCard
-                  pokemon={member}
-                  showStats={snapshot.showStats}
-                  variant="full"
-                />
+                <PokemonBuildCard pokemon={member} showStats={snapshot.showStats} variant="full" />
               ) : (
                 <EmptyFullCard />
               )}

@@ -51,21 +51,21 @@ export const useAuthSync = (): AuthSyncResult => {
           setLocalTeams([]);
         } else {
           const teamIds = new Set<string>([
-            ...localTeams.map(t => t.id),
-            ...serverTeams.map(t => t.id)
+            ...localTeams.map((t) => t.id),
+            ...serverTeams.map((t) => t.id),
           ]);
 
-          const newConflicts: TeamMergeConflict[] = Array.from(teamIds).map(teamId => {
-            const localTeam = localTeams.find(t => t.id === teamId) || null;
-            const serverTeam = serverTeams.find(t => t.id === teamId) || null;
-            
+          const newConflicts: TeamMergeConflict[] = Array.from(teamIds).map((teamId) => {
+            const localTeam = localTeams.find((t) => t.id === teamId) || null;
+            const serverTeam = serverTeams.find((t) => t.id === teamId) || null;
+
             const name = localTeam?.name || serverTeam?.name || "";
-            
+
             const slotResolutions: SlotResolution[] = [];
             for (let i = 0; i < 6; i++) {
               const localMem = localTeam?.members[i] || null;
               const serverMem = serverTeam?.members[i] || null;
-              
+
               if (localMem && !serverMem) {
                 slotResolutions.push("local");
               } else if (!localMem && serverMem) {
@@ -92,7 +92,7 @@ export const useAuthSync = (): AuthSyncResult => {
   }, [isAuthenticated]);
 
   const onMergeCommit = async () => {
-    const mergedTeams: Team[] = conflicts.map(conflict => {
+    const mergedTeams: Team[] = conflicts.map((conflict) => {
       const members: (TrainedPokemon | null)[] = [];
       for (let i = 0; i < 6; i++) {
         const res = conflict.slotResolutions[i];
@@ -107,11 +107,11 @@ export const useAuthSync = (): AuthSyncResult => {
       return {
         id: conflict.teamId,
         name: conflict.name,
-        members
+        members,
       };
     });
 
-    const validTeams = mergedTeams.filter(t => t.members.some(m => m !== null));
+    const validTeams = mergedTeams.filter((t) => t.members.some((m) => m !== null));
 
     await saveTeamsToServer(validTeams);
     await queryClient.invalidateQueries({ queryKey: ["teams"] });

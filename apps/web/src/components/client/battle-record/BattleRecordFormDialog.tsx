@@ -36,7 +36,6 @@ import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
 import { flexRowCenter, sectionLabel } from "@/theme/sx";
 
-
 interface BattleRecordFormDialogProps {
   readonly open: boolean;
   readonly onClose: () => void;
@@ -149,7 +148,11 @@ export function BattleRecordFormDialog({
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.06em", flexGrow: 1 }}>
           {editing ? t("battleRecord.form.editTitle") : t("battleRecord.form.newTitle")}
         </Typography>
-        <Typography variant="caption" color="text.secondary" sx={{ display: { xs: "none", sm: "block" } }}>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
           {t("battleRecord.form.escHint")}
         </Typography>
         <IconButton onClick={onClose} size="small" aria-label={t("common.close")}>
@@ -176,7 +179,9 @@ export function BattleRecordFormDialog({
                       border: "1px solid",
                       borderColor: theme.palette.divider,
                       color: "text.secondary",
-                      borderRadius: 0.75, py: 0.75, px: 1.5,
+                      borderRadius: 0.75,
+                      py: 0.75,
+                      px: 1.5,
                     }}
                   >
                     {k}

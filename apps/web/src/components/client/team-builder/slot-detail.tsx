@@ -1,7 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, IconButton, Snackbar, Stack, Typography, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  IconButton,
+  Snackbar,
+  Stack,
+  Typography,
+  Tabs,
+  Tab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
@@ -92,11 +110,26 @@ export default function TeamSlotDetail({
           </IconButton>
         )}
         {member && (
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start", ml: showBackButton ? 2 : 0 }}>
-            <Tabs 
-              value={activeTab} 
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "flex-start",
+              ml: showBackButton ? 2 : 0,
+            }}
+          >
+            <Tabs
+              value={activeTab}
               onChange={(_, v) => setActiveTab(v)}
-              sx={{ minHeight: "auto", "& .MuiTab-root": { minHeight: "auto", py: 0.5, textTransform: "none", fontWeight: 600 } }}
+              sx={{
+                minHeight: "auto",
+                "& .MuiTab-root": {
+                  minHeight: "auto",
+                  py: 0.5,
+                  textTransform: "none",
+                  fontWeight: 600,
+                },
+              }}
             >
               <Tab label={t("teamBuilder.tabOpenSpecs")} />
               <Tab label={t("teamBuilder.tabEvSpreads")} />
@@ -214,7 +247,9 @@ export default function TeamSlotDetail({
         <DialogTitle id="delete-pokemon-dialog-title">{t("teamBuilder.delete")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t("teamBuilder.deleteTeamConfirm", { name: member ? t(`pokemon.${member.identifier}.name`) : t("pokemon.unknown") })}
+            {t("teamBuilder.deleteTeamConfirm", {
+              name: member ? t(`pokemon.${member.identifier}.name`) : t("pokemon.unknown"),
+            })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

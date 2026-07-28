@@ -29,7 +29,6 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { flexRowCenter } from "@/theme/sx";
 import { opponentStats, tally, winRatePercent } from "@/store/battle-record/analytics";
 
-
 function StatCard({
   label,
   value,
@@ -210,7 +209,9 @@ export default function BattleAnalyticsPage() {
                             sx={{
                               height: 6,
                               mt: 0.25,
-                              borderRadius: 3, py: 3, px: 6,
+                              borderRadius: 3,
+                              py: 3,
+                              px: 6,
                             }}
                           />
                         </Box>

@@ -282,9 +282,20 @@ export default function DashboardPage() {
 
   if (isMobile) {
     return (
-      <Box sx={{ p: 4, height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Box
+        sx={{
+          p: 4,
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <EmptyState
-          message={t("dashboard.desktopOnly", "ダッシュボードはPC環境（デスクトップ）でのみご利用いただけます。")}
+          message={t(
+            "dashboard.desktopOnly",
+            "ダッシュボードはPC環境（デスクトップ）でのみご利用いただけます。",
+          )}
         />
       </Box>
     );

@@ -52,7 +52,6 @@ import { BattleRecordFormDialog } from "./BattleRecordFormDialog";
 import { BattleRecordList } from "./BattleRecordList";
 import { useHotkeys } from "react-hotkeys-hook";
 
-
 type ResultFilter = "all" | BattleResult;
 
 // デスクトップ用：元の詳細なパーティ表示
@@ -83,7 +82,9 @@ function PartyPanel({ team }: { readonly team: Team | null }) {
                 sx={{
                   ...flexRowCenter,
                   bgcolor: theme.palette.background.paperRaised,
-                  borderRadius: 2, py: 2, px: 4,
+                  borderRadius: 2,
+                  py: 2,
+                  px: 4,
                 }}
               >
                 <Image
@@ -234,7 +235,9 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
               height: 8,
               overflow: "hidden",
               bgcolor: theme.palette.divider,
-              borderRadius: 4, py: 4, px: 8,
+              borderRadius: 4,
+              py: 4,
+              px: 8,
             }}
           >
             {decided > 0 && (
@@ -279,7 +282,7 @@ export default function BattleRecordPage() {
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const safeTeams = useMemo(() => mounted ? rawTeams : [], [mounted, rawTeams]);
+  const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
   const [activeSeasonId, setActiveSeasonId] = useState<string | null>(null);

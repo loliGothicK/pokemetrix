@@ -9,7 +9,9 @@ export const fetchTeamsFromServer = async (): Promise<readonly Team[]> => {
     if (!res.ok) {
       const errorText = await res.text();
       span.setAttribute("error", true);
-      Sentry.captureException(new Error("Failed to fetch teams"), { extra: { status: res.status, errorText } });
+      Sentry.captureException(new Error("Failed to fetch teams"), {
+        extra: { status: res.status, errorText },
+      });
       throw new Error(`Failed to fetch teams: ${errorText}`);
     }
     return res.json() as Promise<readonly Team[]>;
@@ -35,7 +37,9 @@ export const saveTeamsToServer = async (teams: readonly Team[]): Promise<void> =
       } catch {
         // ignore
       }
-      Sentry.captureException(new Error("Failed to save teams"), { extra: { status: res.status, errorText } });
+      Sentry.captureException(new Error("Failed to save teams"), {
+        extra: { status: res.status, errorText },
+      });
       throw new Error(errorMsg);
     }
   });
@@ -47,7 +51,9 @@ export const deleteTeamFromServer = async (teamId: string): Promise<void> => {
     if (!res.ok) {
       const errorText = await res.text();
       span.setAttribute("error", true);
-      Sentry.captureException(new Error("Failed to delete team"), { extra: { status: res.status, errorText, teamId } });
+      Sentry.captureException(new Error("Failed to delete team"), {
+        extra: { status: res.status, errorText, teamId },
+      });
       throw new Error(`Failed to delete team: ${errorText}`);
     }
   });

@@ -8,6 +8,9 @@
     "pkg"
   ],
   "scripts": {
+    "lint": "cargo clippy",
+    "fmt": "cargo fmt",
+    "fmt:check": "cargo fmt --check",
     "sync-version": "node scripts/sync-version.js",
     "prebuild": "pnpm run sync-version",
     "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name damage_calc && wasm-pack build --scope pokemetrix --target nodejs --out-dir pkg-node --out-name damage_calc",

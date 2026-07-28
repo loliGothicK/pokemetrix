@@ -31,7 +31,6 @@ import type { ChampionsPokemon } from "@/data/champions-pokemon";
 import type { FetchResponse } from "@services/battleData";
 import type { Result } from "neverthrow";
 
-
 // moveById の値型
 type Move = NonNullable<ReturnType<typeof moveById.get>>;
 
@@ -294,7 +293,9 @@ export function MoveSelectionDrawer({
                             height: 18,
                             boxShadow: theme.shadows[1],
                             flexShrink: 0,
-                            borderRadius: 1, py: 1, px: 2,
+                            borderRadius: 1,
+                            py: 1,
+                            px: 2,
                           }}
                         />
                       )}
@@ -460,7 +461,9 @@ export function MoveSelectionDrawer({
                               fontSize: "0.8rem",
                               height: 18,
                               boxShadow: theme.shadows[1],
-                              borderRadius: 1, py: 1, px: 2,
+                              borderRadius: 1,
+                              py: 1,
+                              px: 2,
                             }}
                           />
                         )}

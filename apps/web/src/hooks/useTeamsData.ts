@@ -16,8 +16,6 @@ export const useTeamsData = () => {
     enabled: isAuthenticated,
   });
 
-
-
   // 削除用Mutation
   const deleteTeamMutation = useMutation({
     mutationFn: deleteTeamFromServer,
@@ -29,10 +27,10 @@ export const useTeamsData = () => {
   const serverTeams = teamsQuery.data ?? [];
 
   // データソースの切り替え: サーバーデータにローカルデータをマージ（ローカル優先）
-  const teams = isAuthenticated 
+  const teams = isAuthenticated
     ? [
         ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
-        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id))
+        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
       ]
     : localTeams;
 
@@ -60,7 +58,10 @@ export const useTeamsData = () => {
     if (isAuthenticated) {
       // 楽観的UI更新：サーバーキャッシュからも除去して即座に反映
       const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-      queryClient.setQueryData(["teams"], currentServerTeams.filter((t) => t.id !== teamId));
+      queryClient.setQueryData(
+        ["teams"],
+        currentServerTeams.filter((t) => t.id !== teamId),
+      );
       deleteTeamMutation.mutate(teamId);
     }
   };

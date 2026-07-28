@@ -244,9 +244,9 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
     }
 
     // Type immunity short-circuits to 0 (the one-damage check does NOT apply).
-    let immune = input
-        .immune_override
-        .unwrap_or_else(|| combined_immune(input.move_type, input.defender_type1, input.defender_type2));
+    let immune = input.immune_override.unwrap_or_else(|| {
+        combined_immune(input.move_type, input.defender_type1, input.defender_type2)
+    });
     if immune {
         return DamageOutput {
             rolls: vec![0; 16],
@@ -271,9 +271,9 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
         pre = apply_modifier(pre, input.crit_modifier as u32);
     }
 
-    let effectiveness_shift = input
-        .effectiveness_override
-        .unwrap_or_else(|| combined_shift(input.move_type, input.defender_type1, input.defender_type2));
+    let effectiveness_shift = input.effectiveness_override.unwrap_or_else(|| {
+        combined_shift(input.move_type, input.defender_type1, input.defender_type2)
+    });
     let final_combined = chain_modifiers(&input.final_modifiers);
 
     let mut rolls: Vec<u32> = Vec::with_capacity(16);
@@ -395,7 +395,16 @@ mod tests {
     fn kyogre_water_spout_vs_amoonguss() {
         // 252+ SpA Primal Kyogre (255) Water Spout (150 BP) vs 252 HP / 252+ SpD
         // Amoonguss (145 SpD), in Rain, spread move in doubles -> 84–99.
-        let mut inp = input(50, 150, 255, 145, false, Type::Water, Type::Grass, Some(Type::Poison));
+        let mut inp = input(
+            50,
+            150,
+            255,
+            145,
+            false,
+            Type::Water,
+            Type::Grass,
+            Some(Type::Poison),
+        );
         inp.spread_modifier = 3072;
         inp.weather_modifier = 6144;
         inp.stab_modifier = 6144;
@@ -413,10 +422,19 @@ mod tests {
     fn mega_rayquaza_dragon_ascent_vs_lunala() {
         // 252 Atk Life Orb Mega Rayquaza (232) Dragon Ascent (120 BP, Flying) vs
         // Shadow Shield Lunala (109 Def) through Reflect + Friend Guard -> 47–56.
-        let mut inp = input(50, 120, 232, 109, true, Type::Flying, Type::Psychic, Some(Type::Ghost));
+        let mut inp = input(
+            50,
+            120,
+            232,
+            109,
+            true,
+            Type::Flying,
+            Type::Psychic,
+            Some(Type::Ghost),
+        );
         inp.stab_modifier = 6144; // Rayquaza is Dragon/Flying
-        // Reflect (doubles-agnostic value used in the example), Shadow Shield,
-        // Friend Guard, Life Orb.
+                                  // Reflect (doubles-agnostic value used in the example), Shadow Shield,
+                                  // Friend Guard, Life Orb.
         inp.final_modifiers = vec![2732, 2048, 3072, 5324];
         let out = calculate_input(&inp);
         assert_eq!(out.min, 47);

@@ -43,7 +43,6 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-
 // ── ソータブルなスロット行 ────────────────────────────────────────────────────
 
 function SortableSlotItem({
@@ -76,7 +75,9 @@ function SortableSlotItem({
       <Box
         sx={{
           width: "100%",
-          borderRadius: 1, py: 1, px: 2,
+          borderRadius: 1,
+          py: 1,
+          px: 2,
           border: "1px solid",
           borderColor: isActive
             ? theme.palette.primary.main

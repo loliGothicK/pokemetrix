@@ -88,7 +88,7 @@ export const trainedPokemonSchema = z
       }
       evTotal += data.evs[key];
     }
-    
+
     if (evTotal > MAX_EV_TOTAL) {
       ctx.addIssue({
         code: "custom",

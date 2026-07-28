@@ -156,7 +156,9 @@ export function ShareButton() {
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",
-              borderRadius: 2, py: 2, px: 4,
+              borderRadius: 2,
+              py: 2,
+              px: 4,
             }}
             onClick={() => setShowStats((v) => !v)}
           >

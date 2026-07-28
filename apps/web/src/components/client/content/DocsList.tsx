@@ -3,7 +3,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
-
 export type DocsListItem = {
   readonly slug: string;
   readonly title: string;
@@ -26,7 +25,9 @@ export function DocsList({ docs }: { readonly docs: readonly DocsListItem[] }) {
             borderColor: "divider",
             transition: "border-color 0.2s ease",
             "&:hover": { borderColor: "primary.main" },
-            borderRadius: 3, py: 3, px: 6,
+            borderRadius: 3,
+            py: 3,
+            px: 6,
           }}
         >
           <Stack spacing={1}>

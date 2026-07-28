@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
 
-mod types;
 mod calc;
+mod types;
 
 pub use calc::*;
 

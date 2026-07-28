@@ -176,22 +176,21 @@ const StyledMenu = styled((props: MenuProps) => (
     ...theme.applyStyles("dark", {
       color: theme.palette.grey[300],
     }),
-    borderRadius: 6, py: 6, px: 12,
+    borderRadius: 6,
+    py: 6,
+    px: 12,
   },
 }));
 
-const ImportMenu = React.forwardRef<HTMLDivElement, {
-  readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
-  readonly onError: (diagnostics: Diagnostics) => void;
-  readonly isMobile: boolean;
-  readonly asSpeedDialAction?: boolean;
-} & Omit<Partial<import("@mui/material").SpeedDialActionProps>, "onError">>(({
-  createTeamAction,
-  onError,
-  isMobile,
-  asSpeedDialAction,
-  ...props
-}, ref) => {
+const ImportMenu = React.forwardRef<
+  HTMLDivElement,
+  {
+    readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
+    readonly onError: (diagnostics: Diagnostics) => void;
+    readonly isMobile: boolean;
+    readonly asSpeedDialAction?: boolean;
+  } & Omit<Partial<import("@mui/material").SpeedDialActionProps>, "onError">
+>(({ createTeamAction, onError, isMobile, asSpeedDialAction, ...props }, ref) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openPaste, setOpenPaste] = useState(false);
@@ -208,7 +207,7 @@ const ImportMenu = React.forwardRef<HTMLDivElement, {
     <>
       {asSpeedDialAction ? (
         <SpeedDialAction
-          {...props as any}
+          {...(props as any)}
           ref={ref}
           icon={<DownloadIcon />}
           title={t("teamBuilder.importAction")}
@@ -267,9 +266,12 @@ const ImportMenu = React.forwardRef<HTMLDivElement, {
   );
 });
 
-const ExportMenu = React.forwardRef<HTMLDivElement, {
-  readonly asSpeedDialAction?: boolean;
-} & Partial<import("@mui/material").SpeedDialActionProps>>(({ asSpeedDialAction, ...props }, ref) => {
+const ExportMenu = React.forwardRef<
+  HTMLDivElement,
+  {
+    readonly asSpeedDialAction?: boolean;
+  } & Partial<import("@mui/material").SpeedDialActionProps>
+>(({ asSpeedDialAction, ...props }, ref) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -310,7 +312,7 @@ const ExportMenu = React.forwardRef<HTMLDivElement, {
     <>
       {asSpeedDialAction ? (
         <SpeedDialAction
-          {...props as any}
+          {...(props as any)}
           ref={ref}
           icon={<UploadIcon />}
           title={t("teamBuilder.exportAction")}
@@ -397,7 +399,9 @@ function MobileTeamList({
             onClick={onCreateTeam}
             fullWidth
             sx={{
-              borderRadius: 3, py: 3, px: 6,
+              borderRadius: 3,
+              py: 3,
+              px: 6,
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -435,7 +439,9 @@ function MobileTeamList({
             onClick={onCreateTeam}
             disableElevation
             sx={{
-              borderRadius: 2, py: 2, px: 4,
+              borderRadius: 2,
+              py: 2,
+              px: 4,
             }}
           >
             {t("teamBuilder.createTeam")}
@@ -470,7 +476,9 @@ function MobileTeamList({
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
-                borderRadius: 2, py: 2, px: 4,
+                borderRadius: 2,
+                py: 2,
+                px: 4,
               }}
             >
               <WorkspacesIcon sx={{ color: "primary.main", fontSize: 22 }} />
@@ -531,12 +539,26 @@ export default function TeamBuilderPage({
   const { teams: rawTeams, isLoading, updateTeams, removeTeam } = useTeamsData();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const teams = useMemo(() => mounted ? rawTeams : [], [mounted, rawTeams]);
+  const teams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
   const [, , , , undo, redo, canUndo, canRedo] = useActiveTeam();
 
-  useHotkeys("ctrl+z", (e) => { e.preventDefault(); undo(); }, [undo]);
-  useHotkeys("ctrl+y, ctrl+shift+z", (e) => { e.preventDefault(); redo(); }, [redo]);
+  useHotkeys(
+    "ctrl+z",
+    (e) => {
+      e.preventDefault();
+      undo();
+    },
+    [undo],
+  );
+  useHotkeys(
+    "ctrl+y, ctrl+shift+z",
+    (e) => {
+      e.preventDefault();
+      redo();
+    },
+    [redo],
+  );
 
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const deleteTargetTeam = teams.find((t) => t.id === deleteTargetId) ?? null;
@@ -592,355 +614,401 @@ export default function TeamBuilderPage({
           flexDirection: { xs: "column", md: "row" },
           position: "relative",
           overflow: "hidden",
-          height: { xs: (hasSelection && activeTeam) ? "calc(100dvh - 60px)" : "auto", md: "100vh" },
+          height: { xs: hasSelection && activeTeam ? "calc(100dvh - 60px)" : "auto", md: "100vh" },
         }}
       >
-      <Dialog
-        open={deleteTargetId !== null}
-        onClose={() => setDeleteTargetId(null)}
-        aria-labelledby="delete-team-dialog-title"
-      >
-        <DialogTitle id="delete-team-dialog-title">{t("teamBuilder.deleteTeamTitle")}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t("teamBuilder.deleteTeamConfirm", { name: deleteTargetTeam?.name ?? "" })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteTargetId(null)}>{t("teamBuilder.cancel")}</Button>
-          <Button
-            color="error"
-            variant="contained"
-            disableElevation
-            onClick={() => deleteTargetId && handleDeleteTeam(deleteTargetId)}
-          >
-            {t("teamBuilder.delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog
+          open={deleteTargetId !== null}
+          onClose={() => setDeleteTargetId(null)}
+          aria-labelledby="delete-team-dialog-title"
+        >
+          <DialogTitle id="delete-team-dialog-title">
+            {t("teamBuilder.deleteTeamTitle")}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              {t("teamBuilder.deleteTeamConfirm", { name: deleteTargetTeam?.name ?? "" })}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDeleteTargetId(null)}>{t("teamBuilder.cancel")}</Button>
+            <Button
+              color="error"
+              variant="contained"
+              disableElevation
+              onClick={() => deleteTargetId && handleDeleteTeam(deleteTargetId)}
+            >
+              {t("teamBuilder.delete")}
+            </Button>
+          </DialogActions>
+        </Dialog>
 
-      <Snackbar autoHideDuration={5000} open={snackbarOpen} onClose={() => setSnackbarOpen(false)}>
-        <Alert severity={diagnostics.severity} sx={{ whiteSpace: "pre-wrap" }}>
-          {match(diagnostics)
-            .with({ severity: "error" }, ({ message }) => (
-              <>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-                  {message.length} errors occurred：
+        <Snackbar
+          autoHideDuration={5000}
+          open={snackbarOpen}
+          onClose={() => setSnackbarOpen(false)}
+        >
+          <Alert severity={diagnostics.severity} sx={{ whiteSpace: "pre-wrap" }}>
+            {match(diagnostics)
+              .with({ severity: "error" }, ({ message }) => (
+                <>
+                  <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+                    {message.length} errors occurred：
+                  </Typography>
+                  <Stack spacing={1.5}>
+                    {message.map((err, index) => (
+                      <Box
+                        key={index}
+                        sx={{ pl: 1, borderLeft: "3px solid", borderColor: "error.main" }}
+                      >
+                        <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                          {err.message}
+                        </Typography>
+                        {err instanceof ParseError && (
+                          <Paper
+                            variant="outlined"
+                            sx={{
+                              p: 1,
+                              mt: 0.5,
+                              bgcolor: "background.default",
+                              fontFamily: "monospace",
+                            }}
+                          >
+                            {err.meta.raw}
+                          </Paper>
+                        )}
+                      </Box>
+                    ))}
+                  </Stack>
+                </>
+              ))
+              .otherwise(({ message }) => (
+                <Typography>{message}</Typography>
+              ))}
+          </Alert>
+        </Snackbar>
+
+        {!isMobile && (
+          <>
+            <AppBar open={drawerOpen}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  onClick={() => setDrawerOpen(true)}
+                  edge="start"
+                  sx={[{ mr: 2 }, drawerOpen && { display: "none" }]}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+                  {t("teamBuilder.title")}
                 </Typography>
-                <Stack spacing={1.5}>
-                  {message.map((err, index) => (
-                    <Box
-                      key={index}
-                      sx={{ pl: 1, borderLeft: "3px solid", borderColor: "error.main" }}
-                    >
-                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                        {err.message}
-                      </Typography>
-                      {err instanceof ParseError && (
-                        <Paper
-                          variant="outlined"
-                          sx={{
-                            p: 1,
-                            mt: 0.5,
-                            bgcolor: "background.default",
-                            fontFamily: "monospace",
-                          }}
+                {activeTeam && (
+                  <Box sx={{ display: "flex", gap: 1 }}>
+                    <FormControlLabel
+                      control={
+                        <Switch checked={isLintOn} onChange={() => setIsLintOn(!isLintOn)} />
+                      }
+                      label="Lint"
+                    />
+                    <Tooltip title="Undo (Ctrl+Z)">
+                      <span>
+                        <MuiIconButton
+                          color="inherit"
+                          onClick={undo}
+                          disabled={!canUndo}
+                          aria-label="Undo"
                         >
-                          {err.meta.raw}
-                        </Paper>
-                      )}
-                    </Box>
-                  ))}
-                </Stack>
-              </>
-            ))
-            .otherwise(({ message }) => (
-              <Typography>{message}</Typography>
-            ))}
-        </Alert>
-      </Snackbar>
-
-      {!isMobile && (
-        <>
-          <AppBar open={drawerOpen}>
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                onClick={() => setDrawerOpen(true)}
-                edge="start"
-                sx={[{ mr: 2 }, drawerOpen && { display: "none" }]}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-                {t("teamBuilder.title")}
-              </Typography>
-              {activeTeam && (
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <FormControlLabel
-                    control={<Switch checked={isLintOn} onChange={() => setIsLintOn(!isLintOn)} />}
-                    label="Lint"
-                  />
-                  <Tooltip title="Undo (Ctrl+Z)">
-                    <span>
-                      <MuiIconButton
-                        color="inherit"
-                        onClick={undo}
-                        disabled={!canUndo}
-                        aria-label="Undo"
-                      >
-                        <UndoIcon />
-                      </MuiIconButton>
-                    </span>
-                  </Tooltip>
-                  <Tooltip title="Redo (Ctrl+Y)">
-                    <span>
-                      <MuiIconButton
-                        color="inherit"
-                        onClick={redo}
-                        disabled={!canRedo}
-                        aria-label="Redo"
-                      >
-                        <RedoIcon />
-                      </MuiIconButton>
-                    </span>
-                  </Tooltip>
-                  <ImportMenu
-                    createTeamAction={handleCreateTeam}
-                    onError={(diagnostics) => {
-                      setDiagnostics(diagnostics);
-                      setSnackbarOpen(true);
-                    }}
-                    isMobile={false}
-                  />
-                  <ExportMenu />
-                  <CloudSaveButton />
-                  <ShareButton />
-                  <MuiIconButton
-                    color="inherit"
-                    aria-label={t("teamBuilder.deleteTeamTitle")}
-                    onClick={() => setDeleteTargetId(activeTeam.id)}
-                    sx={{ "&:hover": { color: "error.light" } }}
-                  >
-                    <DeleteOutlineIcon />
-                  </MuiIconButton>
-                </Box>
-              )}
-            </Toolbar>
-          </AppBar>
-
-          <Drawer
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-                position: "absolute",
-                bgcolor: theme.palette.background.paper,
-                borderRight: "1px solid",
-                borderColor: theme.palette.divider,
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={drawerOpen}
-          >
-            <DrawerHeader>
-              <IconButton onClick={() => setDrawerOpen(false)}>
-                {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-              </IconButton>
-            </DrawerHeader>
-            <Divider sx={{ borderColor: theme.palette.divider }} />
-            <Box sx={{ p: 2 }}>
-              <Button
-                variant="contained"
-                startIcon={<AddIcon />}
-                fullWidth
-                onClick={handleCreateNewTeam}
-              >
-                {t("teamBuilder.createTeam")}
-              </Button>
-            </Box>
-            <Divider sx={{ borderColor: theme.palette.divider }} />
-            <List>
-              {teams.length === 0 ? (
-                <ListItem>
-                  <ListItemText
-                    primary={t("teamBuilder.noTeamsTitle")}
-                    secondary={t("teamBuilder.noTeamsDescription")}
-                  />
-                </ListItem>
-              ) : (
-                teams.map((team) => (
-                  <ListItem
-                    key={team.id}
-                    disablePadding
-                  >
-                    <ListItemButton
-                      selected={team.id === activeTeamId}
-                      onClick={() => setActiveTeamId(team.id)}
-                      sx={{
-                        mx: 1,
-                        mb: 0.5,
-                        "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
-                        borderRadius: 2, py: 2, px: 4,
+                          <UndoIcon />
+                        </MuiIconButton>
+                      </span>
+                    </Tooltip>
+                    <Tooltip title="Redo (Ctrl+Y)">
+                      <span>
+                        <MuiIconButton
+                          color="inherit"
+                          onClick={redo}
+                          disabled={!canRedo}
+                          aria-label="Redo"
+                        >
+                          <RedoIcon />
+                        </MuiIconButton>
+                      </span>
+                    </Tooltip>
+                    <ImportMenu
+                      createTeamAction={handleCreateTeam}
+                      onError={(diagnostics) => {
+                        setDiagnostics(diagnostics);
+                        setSnackbarOpen(true);
                       }}
+                      isMobile={false}
+                    />
+                    <ExportMenu />
+                    <CloudSaveButton />
+                    <ShareButton />
+                    <MuiIconButton
+                      color="inherit"
+                      aria-label={t("teamBuilder.deleteTeamTitle")}
+                      onClick={() => setDeleteTargetId(activeTeam.id)}
+                      sx={{ "&:hover": { color: "error.light" } }}
                     >
-                      <ListItemIcon>
-                        <WorkspacesIcon />
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary={
-                          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                            <Box sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                              {team.name}
-                            </Box>
-                            {(() => {
-                              const result = teamSchema.safeParse(team);
-                              if (result.success) return null;
-                              const reasons = formatTeamValidationIssues(result, t, team.members);
-                              return (
-                                <Tooltip
-                                  arrow
-                                  title={
-                                    <Box sx={{ p: 0.5 }}>
-                                      <Typography variant="caption" sx={{ fontWeight: 700, display: "block", mb: 0.5 }}>
-                                        {t("teamBuilder.draftReasonTitle") || "保存できない理由"}
-                                      </Typography>
-                                      {reasons.map((r: string, i: number) => (
-                                        <Typography key={i} variant="caption" sx={{ display: "block" }}>
-                                          • {r}
-                                        </Typography>
-                                      ))}
-                                    </Box>
-                                  }
-                                >
-                                  <Chip label={t("teamBuilder.draft")} size="small" color="warning" sx={{ height: 20, fontSize: "0.7rem", flexShrink: 0, cursor: "help" }} />
-                                </Tooltip>
-                              );
-                            })()}
-                          </Stack>
-                        } 
-                      />
-                    </ListItemButton>
+                      <DeleteOutlineIcon />
+                    </MuiIconButton>
+                  </Box>
+                )}
+              </Toolbar>
+            </AppBar>
+
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: drawerWidth,
+                  boxSizing: "border-box",
+                  position: "absolute",
+                  bgcolor: theme.palette.background.paper,
+                  borderRight: "1px solid",
+                  borderColor: theme.palette.divider,
+                },
+              }}
+              variant="persistent"
+              anchor="left"
+              open={drawerOpen}
+            >
+              <DrawerHeader>
+                <IconButton onClick={() => setDrawerOpen(false)}>
+                  {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
+              </DrawerHeader>
+              <Divider sx={{ borderColor: theme.palette.divider }} />
+              <Box sx={{ p: 2 }}>
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  fullWidth
+                  onClick={handleCreateNewTeam}
+                >
+                  {t("teamBuilder.createTeam")}
+                </Button>
+              </Box>
+              <Divider sx={{ borderColor: theme.palette.divider }} />
+              <List>
+                {teams.length === 0 ? (
+                  <ListItem>
+                    <ListItemText
+                      primary={t("teamBuilder.noTeamsTitle")}
+                      secondary={t("teamBuilder.noTeamsDescription")}
+                    />
                   </ListItem>
-                ))
-              )}
-            </List>
-          </Drawer>
-        </>
-      )}
+                ) : (
+                  teams.map((team) => (
+                    <ListItem key={team.id} disablePadding>
+                      <ListItemButton
+                        selected={team.id === activeTeamId}
+                        onClick={() => setActiveTeamId(team.id)}
+                        sx={{
+                          mx: 1,
+                          mb: 0.5,
+                          "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
+                          borderRadius: 2,
+                          py: 2,
+                          px: 4,
+                        }}
+                      >
+                        <ListItemIcon>
+                          <WorkspacesIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={
+                            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                              <Box
+                                sx={{
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                {team.name}
+                              </Box>
+                              {(() => {
+                                const result = teamSchema.safeParse(team);
+                                if (result.success) return null;
+                                const reasons = formatTeamValidationIssues(result, t, team.members);
+                                return (
+                                  <Tooltip
+                                    arrow
+                                    title={
+                                      <Box sx={{ p: 0.5 }}>
+                                        <Typography
+                                          variant="caption"
+                                          sx={{ fontWeight: 700, display: "block", mb: 0.5 }}
+                                        >
+                                          {t("teamBuilder.draftReasonTitle") || "保存できない理由"}
+                                        </Typography>
+                                        {reasons.map((r: string, i: number) => (
+                                          <Typography
+                                            key={i}
+                                            variant="caption"
+                                            sx={{ display: "block" }}
+                                          >
+                                            • {r}
+                                          </Typography>
+                                        ))}
+                                      </Box>
+                                    }
+                                  >
+                                    <Chip
+                                      label={t("teamBuilder.draft")}
+                                      size="small"
+                                      color="warning"
+                                      sx={{
+                                        height: 20,
+                                        fontSize: "0.7rem",
+                                        flexShrink: 0,
+                                        cursor: "help",
+                                      }}
+                                    />
+                                  </Tooltip>
+                                );
+                              })()}
+                            </Stack>
+                          }
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))
+                )}
+              </List>
+            </Drawer>
+          </>
+        )}
 
-      <Main
-        open={isMobile ? false : drawerOpen}
-        sx={isMobile ? { 
-          ml: 0, 
-          height: (hasSelection && activeTeam) ? "100%" : "auto", 
-          overflowY: (hasSelection && activeTeam) ? "hidden" : "visible", 
-          display: (hasSelection && activeTeam) ? "flex" : "block",
-          flexDirection: "column",
-          p: 0 
-        } : undefined}
-      >
-        {!isMobile && <DrawerHeader />}
+        <Main
+          open={isMobile ? false : drawerOpen}
+          sx={
+            isMobile
+              ? {
+                  ml: 0,
+                  height: hasSelection && activeTeam ? "100%" : "auto",
+                  overflowY: hasSelection && activeTeam ? "hidden" : "visible",
+                  display: hasSelection && activeTeam ? "flex" : "block",
+                  flexDirection: "column",
+                  p: 0,
+                }
+              : undefined
+          }
+        >
+          {!isMobile && <DrawerHeader />}
 
-        {isMobile ? (
-          hasSelection && activeTeam ? (
-            <TeamSlotDetail slot={activeSlot!} showBackButton />
-          ) : mobileView === "list" ? (
-            <MobileTeamList
-              teams={teams}
-              onSelectTeam={(id) => {
-                setActiveTeamId(id);
-                router.push("/team-builder?view=overview");
+          {isMobile ? (
+            hasSelection && activeTeam ? (
+              <TeamSlotDetail slot={activeSlot!} showBackButton />
+            ) : mobileView === "list" ? (
+              <MobileTeamList
+                teams={teams}
+                onSelectTeam={(id) => {
+                  setActiveTeamId(id);
+                  router.push("/team-builder?view=overview");
+                }}
+                onCreateTeam={() => {
+                  handleCreateNewTeam();
+                  router.push("/team-builder?view=overview");
+                }}
+                onImportTeam={(team) => {
+                  handleCreateTeam(team);
+                  router.push("/team-builder?view=overview");
+                }}
+                onError={(d) => {
+                  setDiagnostics(d);
+                  setSnackbarOpen(true);
+                }}
+              />
+            ) : activeTeam ? (
+              <TeamOverview
+                activeSlot={hasSelection ? activeSlot : undefined}
+                onBack={() => router.push("/team-builder")}
+              />
+            ) : null
+          ) : !activeTeam ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                minHeight: { xs: 240, md: "100%" },
               }}
-              onCreateTeam={() => {
-                handleCreateNewTeam();
-                router.push("/team-builder?view=overview");
-              }}
-              onImportTeam={(team) => {
-                handleCreateTeam(team);
-                router.push("/team-builder?view=overview");
-              }}
-              onError={(d) => {
-                setDiagnostics(d);
+            >
+              <Box sx={{ textAlign: "center" }}>
+                <Typography variant="h5" color="text.secondary">
+                  {t("teamBuilder.selectTeamHint")}
+                </Typography>
+              </Box>
+            </Box>
+          ) : (
+            <Grid container spacing={3}>
+              <Grid component={"div"} size={{ xs: 12, md: 3 }} sx={{ height: "100%" }}>
+                <TeamOverview activeSlot={hasSelection ? activeSlot : undefined} />
+              </Grid>
+              <Grid component={"div"} size={{ xs: 12, md: 9 }} sx={{ height: "100%" }}>
+                {hasSelection ? (
+                  <TeamSlotDetail slot={activeSlot!} />
+                ) : (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                      minHeight: 240,
+                    }}
+                  >
+                    <Typography variant="body1" color="text.secondary">
+                      {t("teamBuilder.slotDescription")}
+                    </Typography>
+                  </Box>
+                )}
+              </Grid>
+            </Grid>
+          )}
+        </Main>
+        {isMobile && activeTeam && !hasSelection && mobileView === "overview" && (
+          <SpeedDial
+            ariaLabel="Team Actions"
+            sx={{ position: "fixed", bottom: 16, right: 16 }}
+            icon={<SpeedDialIcon />}
+          >
+            <CloudSaveButton asSpeedDialAction />
+            <ExportMenu asSpeedDialAction />
+            <ImportMenu
+              asSpeedDialAction
+              isMobile={true}
+              createTeamAction={handleCreateTeam}
+              onError={(diagnostics) => {
+                setDiagnostics(diagnostics);
                 setSnackbarOpen(true);
               }}
             />
-          ) : activeTeam ? (
-            <TeamOverview
-              activeSlot={hasSelection ? activeSlot : undefined}
-              onBack={() => router.push("/team-builder")}
+            <SpeedDialAction
+              icon={<RuleIcon color={isLintOn ? "primary" : "inherit"} />}
+              title={t("teamBuilder.lintToggle") || "Lint Toggle"}
+              slotProps={{
+                tooltip: { title: t("teamBuilder.lintToggle") || "Lint Toggle", open: true },
+              }}
+              onClick={() => setIsLintOn(!isLintOn)}
             />
-          ) : null
-        ) : !activeTeam ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-              minHeight: { xs: 240, md: "100%" },
-            }}
-          >
-            <Box sx={{ textAlign: "center" }}>
-              <Typography variant="h5" color="text.secondary">
-                {t("teamBuilder.selectTeamHint")}
-              </Typography>
-            </Box>
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            <Grid component={"div"} size={{ xs: 12, md: 3 }} sx={{ height: "100%" }}>
-              <TeamOverview activeSlot={hasSelection ? activeSlot : undefined} />
-            </Grid>
-            <Grid component={"div"} size={{ xs: 12, md: 9 }} sx={{ height: "100%" }}>
-              {hasSelection ? (
-                <TeamSlotDetail slot={activeSlot!} />
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    minHeight: 240,
-                  }}
-                >
-                  <Typography variant="body1" color="text.secondary">
-                    {t("teamBuilder.slotDescription")}
-                  </Typography>
-                </Box>
-              )}
-            </Grid>
-          </Grid>
+            <SpeedDialAction
+              icon={<DeleteOutlineIcon />}
+              title={t("teamBuilder.deleteTeamTitle") || "Delete Team"}
+              slotProps={{
+                tooltip: { title: t("teamBuilder.deleteTeamTitle") || "Delete Team", open: true },
+              }}
+              onClick={() => setDeleteTargetId(activeTeam.id)}
+            />
+          </SpeedDial>
         )}
-      </Main>
-      {isMobile && activeTeam && !hasSelection && mobileView === "overview" && (
-        <SpeedDial
-          ariaLabel="Team Actions"
-          sx={{ position: "fixed", bottom: 16, right: 16 }}
-          icon={<SpeedDialIcon />}
-        >
-          <CloudSaveButton asSpeedDialAction />
-          <ExportMenu asSpeedDialAction />
-          <ImportMenu asSpeedDialAction isMobile={true} createTeamAction={handleCreateTeam} onError={(diagnostics) => { setDiagnostics(diagnostics); setSnackbarOpen(true); }} />
-          <SpeedDialAction
-            icon={<RuleIcon color={isLintOn ? "primary" : "inherit"} />}
-            title={t("teamBuilder.lintToggle") || "Lint Toggle"}
-            slotProps={{ tooltip: { title: t("teamBuilder.lintToggle") || "Lint Toggle", open: true } }}
-            onClick={() => setIsLintOn(!isLintOn)}
-          />
-          <SpeedDialAction
-            icon={<DeleteOutlineIcon />}
-            title={t("teamBuilder.deleteTeamTitle") || "Delete Team"}
-            slotProps={{ tooltip: { title: t("teamBuilder.deleteTeamTitle") || "Delete Team", open: true } }}
-            onClick={() => setDeleteTargetId(activeTeam.id)}
-          />
-        </SpeedDial>
-      )}
-    </Box>
+      </Box>
     </>
   );
 }

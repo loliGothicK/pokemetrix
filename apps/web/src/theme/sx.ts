@@ -5,7 +5,6 @@
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { SystemStyleObject } from "@mui/system";
 
-
 /**
  * カード/パネルの表面スタイル（枠線 + 角丸 + 背景色）。
  * `raised: true` で `background.paperRaised` を使う（浮き上がったパネル用）。

@@ -54,11 +54,11 @@ function SpriteRow({
               transition: "opacity 0.15s, filter 0.15s",
             }}
           >
-            <Image 
-              src={`/pokemon/${slug}.png`} 
-              alt={slug} 
-              width={26} 
-              height={26} 
+            <Image
+              src={`/pokemon/${slug}.png`}
+              alt={slug}
+              width={26}
+              height={26}
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </Box>
@@ -188,7 +188,12 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
               <Stack
                 direction="row"
                 className="row-actions"
-                sx={{ display: { xs: "none", md: "flex" }, opacity: 0, transition: "opacity 0.15s", ml: "auto" }}
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  opacity: 0,
+                  transition: "opacity 0.15s",
+                  ml: "auto",
+                }}
               >
                 <IconButton
                   size="small"
@@ -209,7 +214,11 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
             </Stack>
 
             {/* 日時 + メモ + アクション(Mobile) */}
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 0.25, flexWrap: "wrap" }}>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ alignItems: "center", mt: 0.25, flexWrap: "wrap" }}
+            >
               <Typography variant="caption" color="text.secondary">
                 {new Date(record.playedAt).toLocaleString(i18n.language, {
                   year: "numeric",
@@ -230,14 +239,11 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
                   {record.notes}
                 </Typography>
               )}
-              
+
               <Box sx={{ flexGrow: 1 }} />
-              
+
               {/* アクション (Mobile) */}
-              <Stack
-                direction="row"
-                sx={{ display: { xs: "flex", md: "none" } }}
-              >
+              <Stack direction="row" sx={{ display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="small"
                   onClick={() => onEdit(record)}

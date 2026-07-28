@@ -3,7 +3,6 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
-
 export type BlogListItem = {
   readonly slug: string;
   readonly title: string;
@@ -28,7 +27,9 @@ export function BlogList({ posts }: { readonly posts: readonly BlogListItem[] })
             borderColor: "divider",
             transition: "border-color 0.2s ease",
             "&:hover": { borderColor: "primary.main" },
-            borderRadius: 3, py: 3, px: 6,
+            borderRadius: 3,
+            py: 3,
+            px: 6,
           }}
         >
           <Stack spacing={1}>
