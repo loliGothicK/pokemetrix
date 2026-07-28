@@ -53,7 +53,7 @@
     "fp-ts": "2.16.11",
     "i18next": "26.3.6",
     "i18next-browser-languagedetector": "8.2.1",
-    "i18next-http-backend": "4.0.0",
+    "i18next-http-backend": "4.0.1",
     "jotai": "2.20.2",
     "monocle-ts": "2.3.13",
     "neverthrow": "8.2.0",
