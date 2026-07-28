@@ -917,7 +917,7 @@ export default function TeamBuilderPage({
           </Grid>
         )}
       </Main>
-      {isMobile && activeTeam && !hasSelection && (
+      {isMobile && activeTeam && !hasSelection && mobileView === "overview" && (
         <SpeedDial
           ariaLabel="Team Actions"
           sx={{ position: "fixed", bottom: 16, right: 16 }}

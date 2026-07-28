@@ -132,7 +132,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
       },
     ]);
     setActiveTeamId(newId);
-    router.push("/team-builder");
+    router.push("/team-builder?view=overview");
   }, [snapshot, setLocalTeams, setActiveTeamId, router]);
 
   // 日付フォーマット（ロケール対応）
