@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.1](https://github.com/loliGothicK/pokemetrix/compare/app-v0.3.0...app-v0.3.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* i18n in training ([6554f5a](https://github.com/loliGothicK/pokemetrix/commit/6554f5a774b2995a0816928744dfcd9f1904fad8))
+* PMX-11 [team-builder] 性格を選択できない ([f4fc25b](https://github.com/loliGothicK/pokemetrix/commit/f4fc25b7d9d6066f96e215f82565bf303d5463e7))
+* PMX-2 ([eb978c5](https://github.com/loliGothicK/pokemetrix/commit/eb978c54188d570852cac02e8a5b163eae568fb1))
+* PMX-3 [damage-calc] ダメージ計算でこだわりはちまき/メガネが存在する ([183c8c9](https://github.com/loliGothicK/pokemetrix/commit/183c8c942f218bb8282016a96cffd52139315670))
+* PMX-5 [damage-calc] 数値の入力が backspace で消す時に挙動がおかしい ([e82396e](https://github.com/loliGothicK/pokemetrix/commit/e82396e85360cd57066dc4343d48a5570e86ee9b))
+* share ([87a85e0](https://github.com/loliGothicK/pokemetrix/commit/87a85e09271036aa58658b89b37792192e5a2aa9))
+
 ## [0.3.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.2.0...app-v0.3.0) (2026-07-27)
 
 
