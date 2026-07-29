@@ -5,7 +5,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 <!-- BEGIN:strict-housekeeping-rules -->
-# Strict Housekeeping & Cleanup
+# Strict Housekeeping & Clean-up
 
 Before concluding any task or reporting completion to the user, you MUST perform the following cleanup steps:
 
