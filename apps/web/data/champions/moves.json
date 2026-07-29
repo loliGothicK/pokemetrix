@@ -10,9 +10,7 @@
       "range": "single-target",
       "pp": 35,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 7,
@@ -24,10 +22,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 8,
@@ -39,10 +34,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 9,
@@ -54,10 +46,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 12,
@@ -69,9 +58,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 14,
@@ -95,10 +82,7 @@
       "range": "single-target",
       "pp": 30,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 18,
@@ -110,9 +94,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -6,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 19,
@@ -124,9 +106,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 20,
@@ -138,9 +118,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 25,
@@ -152,9 +130,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 32,
@@ -166,9 +142,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 33,
@@ -180,9 +154,7 @@
       "range": "single-target",
       "pp": 35,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 34,
@@ -194,9 +166,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 35,
@@ -208,9 +178,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 36,
@@ -222,9 +190,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 37,
@@ -236,9 +202,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 38,
@@ -250,9 +214,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 42,
@@ -276,10 +238,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 46,
@@ -291,9 +250,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -6,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 47,
@@ -305,9 +262,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 48,
@@ -319,9 +274,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 50,
@@ -417,9 +370,7 @@
       "range": "all-allies",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 63,
@@ -443,9 +394,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 67,
@@ -457,9 +406,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 68,
@@ -471,9 +418,7 @@
       "range": "varies",
       "pp": 20,
       "priority": -5,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 69,
@@ -485,9 +430,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 73,
@@ -535,9 +478,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 78,
@@ -549,9 +490,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 79,
@@ -563,9 +502,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 80,
@@ -577,9 +514,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 81,
@@ -687,9 +622,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 92,
@@ -749,9 +682,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 101,
@@ -775,9 +706,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 104,
@@ -909,9 +838,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 129,
@@ -959,9 +886,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 137,
@@ -997,9 +922,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 143,
@@ -1035,9 +958,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 148,
@@ -1073,9 +994,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 153,
@@ -1135,9 +1054,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 163,
@@ -1149,10 +1066,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 164,
@@ -1176,9 +1090,7 @@
       "range": "random-opponent",
       "pp": 1,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 168,
@@ -1190,9 +1102,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 173,
@@ -1204,9 +1114,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 174,
@@ -1230,9 +1138,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 178,
@@ -1244,9 +1150,7 @@
       "range": "all-allies",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 179,
@@ -1258,9 +1162,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 180,
@@ -1296,10 +1198,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 184,
@@ -1347,9 +1246,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 189,
@@ -1385,9 +1282,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 194,
@@ -1411,9 +1306,7 @@
       "range": "all-pokemon",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 196,
@@ -1425,9 +1318,7 @@
       "range": "all-allies",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 197,
@@ -1475,9 +1366,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 201,
@@ -1489,9 +1378,7 @@
       "range": "entire-field",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 202,
@@ -1539,9 +1426,7 @@
       "range": "single-target",
       "pp": 40,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 207,
@@ -1577,10 +1462,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 211,
@@ -1592,9 +1474,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 212,
@@ -1642,9 +1522,7 @@
       "range": "all-allies",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 216,
@@ -1656,9 +1534,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 218,
@@ -1670,9 +1546,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 219,
@@ -1708,10 +1582,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 224,
@@ -1723,9 +1594,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 226,
@@ -1761,9 +1630,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 229,
@@ -1775,9 +1642,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 230,
@@ -1801,9 +1666,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 234,
@@ -1863,9 +1726,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 240,
@@ -1901,10 +1762,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 243,
@@ -1940,9 +1798,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 2,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 246,
@@ -1966,9 +1822,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 248,
@@ -1992,9 +1846,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 250,
@@ -2030,9 +1882,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 3,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 253,
@@ -2044,9 +1894,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 254,
@@ -2094,9 +1942,7 @@
       "range": "all-allies",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 259,
@@ -2156,9 +2002,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 264,
@@ -2170,10 +2014,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -3,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 266,
@@ -2281,9 +2122,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 278,
@@ -2307,9 +2146,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 281,
@@ -2333,9 +2170,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 283,
@@ -2347,9 +2182,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 284,
@@ -2421,9 +2254,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 297,
@@ -2459,9 +2290,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 303,
@@ -2485,9 +2314,7 @@
       "range": "all-allies",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 305,
@@ -2499,10 +2326,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 306,
@@ -2514,10 +2338,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 307,
@@ -2553,10 +2374,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 310,
@@ -2568,9 +2386,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 311,
@@ -2582,9 +2398,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 313,
@@ -2608,10 +2422,7 @@
       "range": "all-allies",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing",
-        "wind"
-      ]
+      "classifications": ["slicing", "wind"]
     },
     {
       "id": 315,
@@ -2647,9 +2458,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 321,
@@ -2709,10 +2518,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 326,
@@ -2772,9 +2578,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 332,
@@ -2786,10 +2590,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 333,
@@ -2837,9 +2638,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 337,
@@ -2851,10 +2650,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 338,
@@ -2890,9 +2686,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 341,
@@ -2916,9 +2710,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 344,
@@ -2930,9 +2722,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 347,
@@ -2956,10 +2746,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 349,
@@ -2983,9 +2770,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 351,
@@ -3045,10 +2830,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 360,
@@ -3060,10 +2842,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "ball-and-bomb"
-      ]
+      "classifications": ["contact", "ball-and-bomb"]
     },
     {
       "id": 361,
@@ -3111,9 +2890,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 366,
@@ -3125,9 +2902,7 @@
       "range": "user's-side",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 367,
@@ -3163,9 +2938,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 370,
@@ -3177,9 +2950,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 371,
@@ -3191,9 +2962,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 372,
@@ -3205,9 +2974,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 374,
@@ -3291,9 +3058,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 388,
@@ -3317,9 +3082,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 390,
@@ -3367,9 +3130,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 396,
@@ -3381,9 +3142,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 397,
@@ -3407,9 +3166,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 399,
@@ -3433,10 +3190,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 401,
@@ -3448,9 +3202,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 402,
@@ -3462,9 +3214,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 403,
@@ -3476,9 +3226,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ]
+      "classifications": ["slicing"]
     },
     {
       "id": 404,
@@ -3490,10 +3238,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 405,
@@ -3505,9 +3250,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 406,
@@ -3531,9 +3274,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 408,
@@ -3557,10 +3298,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 410,
@@ -3584,9 +3322,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 412,
@@ -3598,9 +3334,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 413,
@@ -3612,9 +3346,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 414,
@@ -3650,9 +3382,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 417,
@@ -3676,10 +3406,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 419,
@@ -3691,9 +3418,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -4,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 420,
@@ -3717,10 +3442,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 422,
@@ -3732,10 +3454,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 423,
@@ -3747,10 +3466,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 424,
@@ -3762,10 +3478,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 425,
@@ -3777,9 +3490,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 427,
@@ -3791,9 +3502,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ]
+      "classifications": ["slicing"]
     },
     {
       "id": 428,
@@ -3805,9 +3514,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 430,
@@ -3903,9 +3610,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 439,
@@ -3917,9 +3622,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 440,
@@ -3931,10 +3634,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 441,
@@ -3958,9 +3658,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 444,
@@ -3996,9 +3694,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 450,
@@ -4010,9 +3706,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 451,
@@ -4036,9 +3730,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 453,
@@ -4050,9 +3742,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 457,
@@ -4064,9 +3754,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 458,
@@ -4078,9 +3766,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 466,
@@ -4236,9 +3922,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 482,
@@ -4274,9 +3958,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 486,
@@ -4288,9 +3970,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 487,
@@ -4314,9 +3994,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 489,
@@ -4340,9 +4018,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 491,
@@ -4354,9 +4030,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 492,
@@ -4368,9 +4042,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 493,
@@ -4418,9 +4090,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 499,
@@ -4528,9 +4198,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -6,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 511,
@@ -4554,9 +4222,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 513,
@@ -4580,9 +4246,7 @@
       "range": "single-target",
       "pp": 5,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 515,
@@ -4666,9 +4330,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -6,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 527,
@@ -4692,9 +4354,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 529,
@@ -4706,9 +4366,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 532,
@@ -4720,9 +4378,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 533,
@@ -4734,10 +4390,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 534,
@@ -4749,10 +4402,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 535,
@@ -4764,9 +4414,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 538,
@@ -4802,9 +4450,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 542,
@@ -4816,9 +4462,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 552,
@@ -4842,9 +4486,7 @@
       "range": "all-allies",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 556,
@@ -4868,9 +4510,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 562,
@@ -4906,9 +4546,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 566,
@@ -4920,9 +4558,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 567,
@@ -4946,9 +4582,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 570,
@@ -4984,9 +4618,7 @@
       "range": "all-pokemon",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ]
+      "classifications": ["wind"]
     },
     {
       "id": 573,
@@ -5010,9 +4642,7 @@
       "range": "all-allies",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 575,
@@ -5024,9 +4654,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 576,
@@ -5050,9 +4678,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 580,
@@ -5100,9 +4726,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 585,
@@ -5126,9 +4750,7 @@
       "range": "all-pokemon",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 587,
@@ -5164,9 +4786,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 594,
@@ -5286,9 +4906,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 611,
@@ -5300,9 +4918,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 617,
@@ -5326,9 +4942,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 2,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 661,
@@ -5364,9 +4978,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 664,
@@ -5378,9 +4990,7 @@
       "range": "all-pokemon",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 665,
@@ -5392,10 +5002,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 667,
@@ -5407,9 +5014,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 668,
@@ -5433,10 +5038,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 672,
@@ -5472,9 +5074,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 676,
@@ -5486,9 +5086,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 678,
@@ -5512,9 +5110,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 680,
@@ -5526,9 +5122,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 681,
@@ -5540,9 +5134,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 682,
@@ -5578,9 +5170,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 688,
@@ -5592,9 +5182,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 689,
@@ -5618,9 +5206,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": -3,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 691,
@@ -5632,9 +5218,7 @@
       "range": "all-allies",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 693,
@@ -5646,9 +5230,7 @@
       "range": "all-pokemon",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 694,
@@ -5672,10 +5254,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ]
+      "classifications": ["contact", "biting"]
     },
     {
       "id": 707,
@@ -5687,9 +5266,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 709,
@@ -5701,9 +5278,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 710,
@@ -5715,9 +5290,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 715,
@@ -5765,9 +5338,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ]
+      "classifications": ["powder"]
     },
     {
       "id": 751,
@@ -5803,9 +5374,7 @@
       "range": "self",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 776,
@@ -5817,9 +5386,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 777,
@@ -5843,9 +5410,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 783,
@@ -5869,9 +5434,7 @@
       "range": "all-allies",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 787,
@@ -5907,9 +5470,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 791,
@@ -5957,9 +5518,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 799,
@@ -6019,9 +5578,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 804,
@@ -6057,9 +5614,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 807,
@@ -6083,9 +5638,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 809,
@@ -6133,9 +5686,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 813,
@@ -6147,9 +5698,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 814,
@@ -6161,9 +5710,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 815,
@@ -6187,9 +5734,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 827,
@@ -6201,9 +5746,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 828,
@@ -6215,9 +5758,7 @@
       "range": "user's-side",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 829,
@@ -6241,10 +5782,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 833,
@@ -6268,9 +5806,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 836,
@@ -6294,10 +5830,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 839,
@@ -6369,10 +5902,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 851,
@@ -6396,9 +5926,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 854,
@@ -6434,10 +5962,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 858,
@@ -6461,10 +5986,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 861,
@@ -6476,9 +5998,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 864,
@@ -6502,9 +6022,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 869,
@@ -6516,10 +6034,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 870,
@@ -6543,9 +6058,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 872,
@@ -6557,9 +6070,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 873,
@@ -6571,9 +6082,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 874,
@@ -6645,9 +6154,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 885,
@@ -6659,9 +6166,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 886,
@@ -6697,10 +6202,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ]
+      "classifications": ["contact", "punch"]
     },
     {
       "id": 890,
@@ -6724,10 +6226,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ]
+      "classifications": ["contact", "slicing"]
     },
     {
       "id": 893,
@@ -6751,9 +6250,7 @@
       "range": "varies",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 895,
@@ -6765,9 +6262,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ]
+      "classifications": ["slicing"]
     },
     {
       "id": 902,
@@ -6779,9 +6274,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ]
+      "classifications": ["ball-and-bomb"]
     },
     {
       "id": 903,
@@ -6829,9 +6322,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 913,
@@ -6855,9 +6346,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 915,
@@ -6869,9 +6358,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 916,
@@ -6883,9 +6370,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     },
     {
       "id": 917,
@@ -6897,9 +6382,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ]
+      "classifications": ["sound-based"]
     },
     {
       "id": 918,
@@ -6911,9 +6394,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 3,
-      "classifications": [
-        "contact"
-      ]
+      "classifications": ["contact"]
     }
   ]
 }
