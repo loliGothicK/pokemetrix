@@ -223,7 +223,7 @@ const ImportMenu = React.forwardRef<
           endIcon={<KeyboardArrowDownIcon />}
           size={isMobile ? "small" : "medium"}
         >
-          Import
+          {t("teamBuilder.importAction")}
         </Button>
       )}
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
@@ -235,7 +235,7 @@ const ImportMenu = React.forwardRef<
           disableRipple
         >
           <EditIcon />
-          From Pokepaste URL
+          {t("teamBuilder.importFromUrl")}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -245,7 +245,7 @@ const ImportMenu = React.forwardRef<
           disableRipple
         >
           <FileCopyIcon />
-          From Paste
+          {t("teamBuilder.importFromPaste")}
         </MenuItem>
       </StyledMenu>
       <ImportPokepasteDialog
@@ -327,17 +327,17 @@ const ExportMenu = React.forwardRef<
           onClick={handleClick}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Export
+          {t("teamBuilder.exportAction")}
         </Button>
       )}
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={handleMenuClick("clipboard")} disableRipple>
           <ContentCopyIcon />
-          Copy Paste to Clipboard
+          {t("teamBuilder.exportToClipboard")}
         </MenuItem>
         <MenuItem onClick={handleMenuClick("pokepaste")} disableRipple>
           <LinkIcon />
-          Make Pokepaste
+          {t("teamBuilder.exportToPokepaste")}
         </MenuItem>
       </StyledMenu>
     </>
@@ -492,7 +492,7 @@ function MobileTeamList({
       <Fab
         variant="extended"
         color="primary"
-        aria-label="add"
+        aria-label={t("teamBuilder.add")}
         onClick={() => {
           onCreateTeam();
         }}
@@ -709,27 +709,27 @@ export default function TeamBuilderPage({
                       control={
                         <Switch checked={isLintOn} onChange={() => setIsLintOn(!isLintOn)} />
                       }
-                      label="Lint"
+                      label={t("teamBuilder.lintToggle")}
                     />
-                    <Tooltip title="Undo (Ctrl+Z)">
+                    <Tooltip title={t("teamBuilder.undo")}>
                       <span>
                         <MuiIconButton
                           color="inherit"
                           onClick={undo}
                           disabled={!canUndo}
-                          aria-label="Undo"
+                          aria-label={t("teamBuilder.undo")}
                         >
                           <UndoIcon />
                         </MuiIconButton>
                       </span>
                     </Tooltip>
-                    <Tooltip title="Redo (Ctrl+Y)">
+                    <Tooltip title={t("teamBuilder.redo")}>
                       <span>
                         <MuiIconButton
                           color="inherit"
                           onClick={redo}
                           disabled={!canRedo}
-                          aria-label="Redo"
+                          aria-label={t("teamBuilder.redo")}
                         >
                           <RedoIcon />
                         </MuiIconButton>

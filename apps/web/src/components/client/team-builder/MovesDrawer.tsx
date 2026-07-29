@@ -184,7 +184,7 @@ export function MoveSelectionDrawer({
               direction="row"
               sx={{ ...flexRowCenter, mb: 2, justifyContent: "space-between" }}
             >
-              <Typography variant="h6">Select Move</Typography>
+              <Typography variant="h6">{t("teamBuilder.movesDrawer.selectMove")}</Typography>
               <IconButton onClick={onClose} size="small">
                 <CloseIcon />
               </IconButton>
@@ -200,7 +200,7 @@ export function MoveSelectionDrawer({
                 >
                   {ongoing.moves[idx]
                     ? t(`moves.${moveById.get(ongoing.moves[idx]!)?.identifier}.name`)
-                    : `Move ${idx + 1}`}
+                    : t("teamBuilder.movesDrawer.moveLabel", { index: idx + 1 })}
                 </Button>
               ))}
             </ButtonGroup>
@@ -285,7 +285,7 @@ export function MoveSelectionDrawer({
                       {move.priority !== null && move.priority !== 0 && (
                         <Chip
                           size="small"
-                          label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
+                          label={t("teamBuilder.movesDrawer.priority", { val: move.priority > 0 ? `+${move.priority}` : move.priority })}
                           color={move.priority > 0 ? "error" : "info"}
                           sx={{
                             fontWeight: 900,
@@ -305,7 +305,7 @@ export function MoveSelectionDrawer({
                           <Chip
                             key={clazz}
                             size="small"
-                            label={clazz}
+                            label={t(`moveClassification.${clazz}`)}
                             sx={{ fontSize: "0.75rem", height: 18 }}
                           />
                         ))}
@@ -454,7 +454,7 @@ export function MoveSelectionDrawer({
                         {move.priority !== null && move.priority !== 0 && (
                           <Chip
                             size="small"
-                            label={`priority ${move.priority > 0 ? `+${move.priority}` : move.priority}`}
+                            label={t("teamBuilder.movesDrawer.priority", { val: move.priority > 0 ? `+${move.priority}` : move.priority })}
                             color={move.priority > 0 ? "error" : "info"}
                             sx={{
                               fontWeight: 900,
@@ -471,7 +471,7 @@ export function MoveSelectionDrawer({
                           <Chip
                             key={clazz}
                             size="small"
-                            label={clazz}
+                            label={t(`moveClassification.${clazz}`)}
                             sx={{ fontSize: "0.75rem", height: 18 }}
                           />
                         ))}

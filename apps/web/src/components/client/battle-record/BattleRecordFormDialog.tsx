@@ -309,12 +309,12 @@ export function BattleRecordFormDialog({
               return preset ? t(`taxonomy.${preset.slug}`) : option;
             }}
             // @ts-ignore
-            renderTags={(value: readonly string[], getTagProps: any) =>
+            renderValue={(value: readonly string[], getItemProps: any) =>
               value.map((option, index) => {
                 const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
                 const label = preset ? t(`taxonomy.${preset.slug}`) : option;
 
-                const { key, ...tagProps } = getTagProps({ index });
+                const { key, ...tagProps } = getItemProps({ index });
                 return (
                   <Chip key={key} variant="outlined" size="small" label={label} {...tagProps} />
                 );

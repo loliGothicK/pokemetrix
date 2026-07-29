@@ -179,7 +179,7 @@ export function SelectPokemonDialog({
               fields={fields}
               onTokensChange={setTokens}
               label={translator("teamBuilder.query.label")}
-              placeholder="pikachu, @type:fire..."
+              placeholder={translator("teamBuilder.query.placeholder")}
               helperText={translator("teamBuilder.query.helper")}
               textFieldProps={{ inputRef: autocompleteInputRef }}
             />

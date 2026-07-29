@@ -1,4 +1,14 @@
 {
+  "moveClassification": {
+    "contact": "Contact",
+    "sound-based": "Sound",
+    "punch": "Punch",
+    "biting": "Bite",
+    "slicing": "Slice",
+    "ball-and-bomb": "Ball/Bomb",
+    "wind": "Wind",
+    "powder": "Powder"
+  },
   "common": {
     "close": "Close",
     "cancel": "Cancel",
@@ -395,6 +405,7 @@
     "status": "Status",
     "conditions": "Conditions",
     "ev": "EV",
+    "actualStat": "Actual Stat",
     "condFaintedAllies": "Fainted allies",
     "condTimesHit": "Times hit",
     "condMetronomeTurns": "Consecutive uses",
@@ -477,7 +488,11 @@
     "remainingEvs": "Remaining Evs: {{remaining}}",
     "teamName": "Team Name",
     "importAction": "Import",
+    "importFromUrl": "From Pokepaste URL",
+    "importFromPaste": "From Paste",
     "exportAction": "Export",
+    "exportToClipboard": "Copy Paste to Clipboard",
+    "exportToPokepaste": "Make Pokepaste",
     "back": "Back to overview",
     "slotLabel": "Slot {{index}}",
     "slotDescription": "This is where stats, moves, and EVs will live.",
@@ -491,6 +506,7 @@
     "sectionMoves": "Moves",
     "query": {
       "label": "Search",
+      "placeholder": "pikachu, @type:fire...",
       "helper": "Search by name, or filter with @type:fire",
       "type": "Type",
       "noResults": "No Pokémon match your filters.",
@@ -508,6 +524,9 @@
     "deleteTeamConfirm": "Delete \"{{name}}\"? This cannot be undone.",
     "cancel": "Cancel",
     "delete": "Delete",
+    "add": "Add",
+    "undo": "Undo (Ctrl+Z)",
+    "redo": "Redo (Ctrl+Y)",
     "forgetMove": "Forget this move.",
     "dragToReorder": "Drag to reorder",
     "import": "import from",
@@ -544,6 +563,9 @@
       }
     },
     "movesDrawer": {
+      "selectMove": "Select Move",
+      "moveLabel": "Move {{index}}",
+      "priority": "priority {{val}}",
       "pwr": "PWR",
       "acc": "ACC",
       "range": "RANGE",

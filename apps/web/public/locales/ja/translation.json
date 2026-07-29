@@ -1,4 +1,14 @@
 {
+  "moveClassification": {
+    "contact": "接触",
+    "sound-based": "音",
+    "punch": "パンチ",
+    "biting": "キバ",
+    "slicing": "斬撃",
+    "ball-and-bomb": "弾・爆弾",
+    "wind": "風",
+    "powder": "粉"
+  },
   "common": {
     "close": "閉じる",
     "cancel": "キャンセル",
@@ -395,6 +405,7 @@
     "status": "ステータス",
     "conditions": "状態",
     "ev": "努力値",
+    "actualStat": "実数値",
     "condFaintedAllies": "ひんしになった味方",
     "condTimesHit": "攻撃を受けた回数",
     "condMetronomeTurns": "連続使用ターン",
@@ -477,7 +488,11 @@
     "remainingEvs": "残り努力値: {{remaining}}",
     "teamName": "チーム名",
     "importAction": "インポート",
+    "importFromUrl": "Pokepaste URL からインポート",
+    "importFromPaste": "テキストからインポート",
     "exportAction": "エクスポート",
+    "exportToClipboard": "クリップボードにコピー",
+    "exportToPokepaste": "Pokepaste を作成",
     "back": "概要に戻る",
     "slotLabel": "スロット {{index}}",
     "slotDescription": "ここにステータス、技、努力値の設定を入れます。",
@@ -492,6 +507,7 @@
     "sectionMoves": "技",
     "query": {
       "label": "検索",
+      "placeholder": "ピカチュウ, @type:ほのお...",
       "helper": "名前で検索、または @type:ほのお でタイプ絞り込み",
       "type": "タイプ",
       "noResults": "条件に一致するポケモンがいません。",
@@ -509,6 +525,9 @@
     "deleteTeamConfirm": "「{{name}}」を削除しますか？この操作は取り消せません。",
     "cancel": "キャンセル",
     "delete": "削除",
+    "add": "追加",
+    "undo": "元に戻す (Ctrl+Z)",
+    "redo": "やり直す (Ctrl+Y)",
     "saving": "保存中...",
     "saved": "同期済み",
     "draft": "下書き",
@@ -541,6 +560,9 @@
       }
     },
     "movesDrawer": {
+      "selectMove": "技を選択",
+      "moveLabel": "技 {{index}}",
+      "priority": "優先度 {{val}}",
       "pwr": "威力",
       "acc": "命中",
       "range": "範囲",

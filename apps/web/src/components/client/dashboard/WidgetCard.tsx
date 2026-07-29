@@ -16,7 +16,7 @@ import type { DashboardWidget } from "@/store/dashboard/dashboard";
 
 /** ウィジェット種別ごとの既定タイトル（i18n キー） */
 export const widgetTypeLabelKey = (type?: string) =>
-  type ? (`dashboard.widget.type.${type}` as const) : null;
+  type ? (`dashboard.template.${type}` as const) : null;
 
 const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
   const { style, className, children, isResizing, ...rest } = props;
@@ -229,13 +229,22 @@ export function WidgetCard({
   };
 
   const defaultTitleKey = widgetTypeLabelKey(widget.templateId);
-  const title =
-    widget.title ||
-    (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled", "New Widget"));
+  
+  // Convert raw seed titles (e.g. "winrateSummary") to their translated equivalents
+  const isSeedKey = widget.title && [
+    "winrateSummary", "resultBreakdown", "leadsAnalysis", "leadAnalysis",
+    "ratingHistory", "maxRating", "recentMatches", "currentStreak",
+    "matchupPivot", "winLossCauses"
+  ].includes(widget.title);
+
+  const title = isSeedKey
+    ? t(`dashboard.template.${widget.title === "leadAnalysis" ? "leadsAnalysis" : widget.title}`)
+    : widget.title || (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled", "New Widget"));
 
   const cardContent = (
     <SurfaceCard
       raised
+      borderRadius={1}
       onClick={editing ? onEditClick : undefined}
       sx={{
         height: "100%",
@@ -260,9 +269,10 @@ export function WidgetCard({
         sx={{
           position: "absolute",
           top: 0,
-          left: 32,
+          left: 16,
+          maxWidth: "calc(100% - 32px)",
           transform: "translateY(-50%)",
-          bgcolor: "background.paper",
+          bgcolor: (theme) => (theme.palette.background as any).paperRaised || theme.palette.background.paper,
           px: 1,
           alignItems: "center",
           zIndex: 10,
@@ -290,12 +300,11 @@ export function WidgetCard({
             <DragIndicatorRoundedIcon fontSize="small" />
           </IconButton>
         )}
-
-        <Typography variant="caption" sx={{ fontWeight: 700, color: "text.secondary" }} noWrap>
+        <Typography variant="caption" sx={{ fontWeight: 700, color: "text.secondary", flex: 1, minWidth: 0 }} noWrap>
           {title}
         </Typography>
       </Stack>
-      <Box sx={{ flexGrow: 1, overflow: "hidden", minHeight: 0, pt: 1.5, pb: 0.5, px: 0.5 }}>
+      <Box sx={{ flexGrow: 1, overflow: "hidden", minHeight: 0, pt: 1.5, pb: 1.5, px: 1.5, borderRadius: 1 }}>
         <WidgetRenderer
           widget={widget}
           editing={editing}
