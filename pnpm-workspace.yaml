@@ -24,7 +24,7 @@ minimumReleaseAgeExclude:
   - '@sentry/replay@10.64.0 || 10.65.0 || 10.67.0'
   - '@sentry/server-utils@10.64.0 || 10.65.0 || 10.67.0'
   - '@sentry/vercel-edge@10.64.0 || 10.65.0 || 10.67.0'
-  - '@supabase/auth-js@2.110.1 || 2.110.6 || 2.110.9'
+  - '@supabase/auth-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
   - '@supabase/cli-darwin-arm64@2.109.1 || 2.110.0'
   - '@supabase/cli-darwin-x64@2.109.1 || 2.110.0'
   - '@supabase/cli-linux-arm64-musl@2.109.1 || 2.110.0'
@@ -33,11 +33,11 @@ minimumReleaseAgeExclude:
   - '@supabase/cli-linux-x64@2.109.1 || 2.110.0'
   - '@supabase/cli-windows-arm64@2.109.1 || 2.110.0'
   - '@supabase/cli-windows-x64@2.109.1 || 2.110.0'
-  - '@supabase/functions-js@2.110.1 || 2.110.6 || 2.110.9'
-  - '@supabase/postgrest-js@2.110.1 || 2.110.6 || 2.110.9'
-  - '@supabase/realtime-js@2.110.1 || 2.110.6 || 2.110.9'
-  - '@supabase/storage-js@2.110.1 || 2.110.6 || 2.110.9'
-  - '@supabase/supabase-js@2.110.1 || 2.110.6 || 2.110.9'
+  - '@supabase/functions-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
+  - '@supabase/postgrest-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
+  - '@supabase/realtime-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
+  - '@supabase/storage-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
+  - '@supabase/supabase-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
   - supabase@2.109.1 || 2.110.0
   - '@pokemetrix/damage-calc@0.1.0 || 0.1.1'
   - react-i18next@17.0.10
@@ -84,4 +84,7 @@ minimumReleaseAgeExclude:
   - '@oxlint/binding-win32-x64-msvc@1.76.0'
   - oxfmt@0.61.0
   - oxlint@1.76.0
-  - webpack@5.109.1
+  - webpack@5.109.1 || 5.109.2
+  - '@supabase/ssr@0.12.4'
+  - enhanced-resolve@5.24.4
+  - i18next-http-backend@4.0.1
