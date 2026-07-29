@@ -502,9 +502,7 @@ function HpBar({
             bgcolor: barBg,
             overflow: "hidden",
             cursor: "default",
-            borderRadius: 10,
-            py: 10,
-            px: 20,
+            borderRadius: 2,
           }}
         >
           {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}
