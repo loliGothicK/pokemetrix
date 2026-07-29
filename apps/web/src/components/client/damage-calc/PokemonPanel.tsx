@@ -8,7 +8,14 @@ import {
   Stack,
   TextField,
   Typography,
+  ToggleButton,
+  ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
@@ -271,27 +278,49 @@ export function PokemonPanel({
             {/* Conditional-power toggles for the selected move */}
             {mechanics && mechanics.conditions.length > 0 && (
               <Stack direction="row" sx={{ flexWrap: "wrap", ml: -0.5 }}>
-                {mechanics.conditions.map((cond) => (
-                  <FormControlLabel
-                    key={cond.key}
-                    control={
-                      <Checkbox
+                {mechanics.conditions.map((cond) => {
+                  if (cond.type === "number") {
+                    return (
+                      <TextField
+                        key={cond.key}
+                        label={t(cond.labelKey)}
+                        type="number"
                         size="small"
-                        checked={value.moveConditions[cond.key] ?? false}
-                        onChange={(e) =>
+                        slotProps={{ htmlInput: { min: cond.min ?? 0, max: cond.max ?? 100 } }}
+                        value={(value.moveConditions[cond.key] as number) ?? cond.defaultValue ?? 0}
+                        onChange={(e) => {
+                          const val = Math.max(cond.min ?? 0, Math.min(cond.max ?? 100, parseInt(e.target.value) || 0));
                           onChange((prev) => ({
                             ...prev,
-                            moveConditions: {
-                              ...prev.moveConditions,
-                              [cond.key]: e.target.checked,
-                            },
-                          }))
-                        }
+                            moveConditions: { ...prev.moveConditions, [cond.key]: val },
+                          }));
+                        }}
+                        sx={{ width: 140, ml: 1, mt: 1 }}
                       />
-                    }
-                    label={t(cond.labelKey)}
-                  />
-                ))}
+                    );
+                  }
+                  return (
+                    <FormControlLabel
+                      key={cond.key}
+                      control={
+                        <Checkbox
+                          size="small"
+                          checked={(value.moveConditions[cond.key] as boolean) ?? false}
+                          onChange={(e) =>
+                            onChange((prev) => ({
+                              ...prev,
+                              moveConditions: {
+                                ...prev.moveConditions,
+                                [cond.key]: e.target.checked,
+                              },
+                            }))
+                          }
+                        />
+                      }
+                      label={t(cond.labelKey)}
+                    />
+                  );
+                })}
               </Stack>
             )}
           </Stack>
@@ -319,6 +348,23 @@ export function PokemonPanel({
           onChange={(slug) => onChange((prev) => ({ ...prev, item: slug }))}
           label={t("damageCalc.item")}
         />
+        {value.item === "metronome" && isAttacker && (
+          <TextField
+            label={t("damageCalc.condMetronomeTurns", "Consecutive uses")}
+            type="number"
+            size="small"
+            slotProps={{ htmlInput: { min: 0, max: 5 } }}
+            value={(value.itemConditions?.metronome as number) ?? 0}
+            onChange={(e) => {
+              const val = Math.max(0, Math.min(5, parseInt(e.target.value) || 0));
+              onChange((prev) => ({
+                ...prev,
+                itemConditions: { ...prev.itemConditions, metronome: val },
+              }));
+            }}
+            sx={{ width: 160, mt: 1 }}
+          />
+        )}
 
         {/* Status */}
         <Divider textAlign="left">{t("damageCalc.status")}</Divider>
@@ -337,17 +383,72 @@ export function PokemonPanel({
             const actual = pokemon
               ? statKey === "hp"
                 ? calcHp(pokemon.status[0], ev)
-                : calcStatus(pokemon.status[meta.index], ev)
+                : calcStatus(pokemon.status[meta.index], ev, value.natures?.[statKey] ?? 1.0)
               : undefined;
             const showRank = rankStat === statKey;
             return (
               <Stack key={statKey} direction="row" spacing={1} sx={flexRowCenter}>
+                <Typography sx={{ width: 64, fontWeight: "bold", textAlign: "left" }}>
+                  {t(meta.labelKey)}
+                </Typography>
                 <EvField
-                  label={t(meta.labelKey)}
+                  label={t("damageCalc.ev", "EV")}
                   value={ev}
                   statValue={actual}
                   onChange={(v) => setEv(meta.evKey, v)}
                   grow={showRank || (showHpPercent && statKey === "hp")}
+                  natureValue={statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : undefined}
+                  onNatureChange={
+                    statKey !== "hp"
+                      ? (n) => onChange((prev) => ({ ...prev, natures: { ...prev.natures, [statKey]: n } }))
+                      : undefined
+                  }
+                  onStatChange={
+                    pokemon
+                      ? (targetStat) => {
+                          const base = pokemon.status[meta.index];
+                          const currentNature = statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : 1.0;
+                          
+                          if (statKey === "hp") {
+                            const validEvs = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
+                              calcHp(base, testEv) === targetStat
+                            );
+                            if (validEvs.length > 0) {
+                              setEv(meta.evKey, validEvs[0]);
+                              return true;
+                            }
+                            return false;
+                          } else {
+                            // First, try with the current nature
+                            const validWithCurrent = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
+                              calcStatus(base, testEv, currentNature) === targetStat
+                            );
+                            if (validWithCurrent.length > 0) {
+                              setEv(meta.evKey, validWithCurrent[0]);
+                              return true;
+                            }
+
+                            // If not found, try other natures
+                            const allNatures = [1.1, 1.0, 0.9];
+                            for (const n of allNatures) {
+                              if (n === currentNature) continue;
+                              const validWithN = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
+                                calcStatus(base, testEv, n) === targetStat
+                              );
+                              if (validWithN.length > 0) {
+                                onChange((prev) => ({
+                                  ...prev,
+                                  [meta.evKey]: validWithN[0],
+                                  natures: { ...prev.natures, [statKey]: n },
+                                }));
+                                return true;
+                              }
+                            }
+                            return false;
+                          }
+                        }
+                      : undefined
+                  }
                 />
                 {showHpPercent && statKey === "hp" && (
                   <NumberField
@@ -451,52 +552,194 @@ function EvField({
   statValue,
   onChange,
   grow,
+  natureValue,
+  onNatureChange,
+  onStatChange,
 }: {
   readonly label: string;
   readonly value: number;
   readonly statValue?: number;
   readonly onChange: (value: number) => void;
   readonly grow?: boolean;
+  readonly natureValue?: number;
+  readonly onNatureChange?: (value: number) => void;
+  readonly onStatChange?: (targetStat: number) => boolean;
 }) {
-  const [localValue, setLocalValue] = useState(value.toString());
+  const { t } = useTranslation();
+  const formattedValue = useMemo(() => {
+    if (natureValue === 1.1) return `${value}+`;
+    if (natureValue === 0.9) return `${value}-`;
+    return value.toString();
+  }, [value, natureValue]);
+
+  const [localValue, setLocalValue] = useState(formattedValue);
+  const [localStat, setLocalStat] = useState(statValue?.toString() ?? "");
+  const [statError, setStatError] = useState(false);
 
   useEffect(() => {
-    const parsed = localValue === "" ? 0 : parseInt(localValue, 10);
-    if (parsed !== value) {
-      setLocalValue(value.toString());
+    setLocalStat(statValue?.toString() ?? "");
+    setStatError(false);
+  }, [statValue]);
+
+  useEffect(() => {
+    const rawVal = localValue.replace(/[+-]/g, "");
+    const rawParsed = rawVal === "" ? 0 : parseInt(rawVal, 10);
+    const hasPlus = localValue.includes("+");
+    const hasMinus = localValue.includes("-");
+    const localNature = hasPlus ? 1.1 : hasMinus ? 0.9 : 1.0;
+
+    if (rawParsed !== value || (natureValue !== undefined && localNature !== natureValue)) {
+      setLocalValue(formattedValue);
     }
-  }, [value, localValue]);
+  }, [value, natureValue, formattedValue, localValue]);
 
   return (
     <Box sx={{ ...flexRowCenter, gap: 1, flexGrow: grow ? 1 : 0 }}>
       <TextField
         label={label}
-        type="number"
+        type="text"
         size="small"
         value={localValue}
         onChange={(e) => {
           const val = e.target.value;
           setLocalValue(val);
-          if (val === "") {
-            onChange(0);
-          } else {
-            const parsed = parseInt(val, 10);
-            if (!isNaN(parsed) && parsed >= 0 && parsed <= 32) {
-              onChange(parsed);
+          
+          let parsedVal = parseInt(val, 10);
+          if (isNaN(parsedVal)) {
+            if (val === "" || val === "+" || val === "-") {
+              onChange(0);
+              if (onNatureChange) {
+                if (val === "+") onNatureChange(1.1);
+                else if (val === "-") onNatureChange(0.9);
+                else onNatureChange(1.0);
+              }
+            }
+            return;
+          }
+          
+          if (parsedVal >= 0 && parsedVal <= 32) {
+            onChange(parsedVal);
+          }
+
+          if (onNatureChange) {
+            if (val.includes("+")) {
+              onNatureChange(1.1);
+            } else if (val.includes("-")) {
+              onNatureChange(0.9);
+            } else {
+              onNatureChange(1.0);
             }
           }
         }}
-        onBlur={() => setLocalValue(value.toString())}
-        slotProps={{ htmlInput: { min: 0, max: 32, step: 1 } }}
-        sx={{ width: 96 }}
+        onBlur={() => setLocalValue(formattedValue)}
+        slotProps={{
+          htmlInput: { inputMode: "decimal" },
+          input: {
+            endAdornment: (
+              <Stack sx={{ display: "flex", flexDirection: "column", mr: -1 }}>
+                <IconButton
+                  size="small"
+                  onClick={() => onChange(Math.min(32, value + 1))}
+                  sx={{ p: 0, height: 12 }}
+                  disableRipple
+                  tabIndex={-1}
+                >
+                  <ArrowDropUpIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  onClick={() => onChange(Math.max(0, value - 1))}
+                  sx={{ p: 0, height: 12 }}
+                  disableRipple
+                  tabIndex={-1}
+                >
+                  <ArrowDropDownIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+              </Stack>
+            ),
+          },
+        }}
+        sx={{ width: 72 }}
       />
-      {statValue !== undefined && (
-        <Typography
-          variant="caption"
-          sx={{ color: "text.secondary", minWidth: 32, textAlign: "right" }}
+      {onNatureChange && (
+        <ToggleButtonGroup
+          size="small"
+          value={natureValue ?? 1.0}
+          exclusive
+          onChange={(_, newNature) => {
+            if (onNatureChange) onNatureChange(newNature || 1.0);
+          }}
+          sx={{ height: 40 }}
         >
-          {statValue}
-        </Typography>
+          <ToggleButton
+            value={1.1}
+            sx={{
+              px: 1,
+              py: 0,
+              color: natureValue === 1.1 ? "error.main" : "inherit",
+              "&.Mui-selected": {
+                backgroundColor: "error.main",
+                color: "error.contrastText",
+                "&:hover": { backgroundColor: "error.dark" },
+              },
+            }}
+          >
+            <AddIcon fontSize="small" />
+          </ToggleButton>
+          <ToggleButton
+            value={0.9}
+            sx={{
+              px: 1,
+              py: 0,
+              color: natureValue === 0.9 ? "info.main" : "inherit",
+              "&.Mui-selected": {
+                backgroundColor: "info.main",
+                color: "info.contrastText",
+                "&:hover": { backgroundColor: "info.dark" },
+              },
+            }}
+          >
+            <RemoveIcon fontSize="small" />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      )}
+      {statValue !== undefined && (
+        <TextField
+          label={t("damageCalc.actualStat", "実数値")}
+          value={localStat}
+          size="small"
+          error={statError}
+          onBlur={() => {
+            setLocalStat(statValue?.toString() ?? "");
+            setStatError(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.currentTarget.blur();
+            }
+          }}
+          onChange={(e) => {
+            const val = e.target.value;
+            setLocalStat(val);
+            if (val === "") {
+              setStatError(false);
+              return;
+            }
+            const num = parseInt(val, 10);
+            if (!isNaN(num) && onStatChange) {
+              const success = onStatChange(num);
+              setStatError(!success);
+            }
+          }}
+          sx={{
+            width: 72,
+            "& .MuiInputBase-input": {
+              fontWeight: 800,
+              fontVariantNumeric: "tabular-nums",
+              textAlign: "center",
+            },
+          }}
+        />
       )}
     </Box>
   );

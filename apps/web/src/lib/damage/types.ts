@@ -25,6 +25,11 @@ export const M = {
   SCREEN_SINGLES: 2048, // 0.5x
   SCREEN_DOUBLES: 2732, // 0.6669921875x
   LIFE_ORB: 5324, // ~1.3x
+  METRONOME_1: 4915, // ~1.2x (2 consecutive uses)
+  METRONOME_2: 5734, // ~1.4x (3 consecutive uses)
+  METRONOME_3: 6553, // ~1.6x (4 consecutive uses)
+  METRONOME_4: 7372, // ~1.8x (5 consecutive uses)
+  METRONOME_5: 8192, // 2.0x (6+ consecutive uses)
   FRIEND_GUARD: 3072, // 0.75x
   MULTISCALE: 2048, // 0.5x — defender at full HP
   TINTED_LENS: 8192, // 2x — resisted move

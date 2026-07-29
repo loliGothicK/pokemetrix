@@ -28,6 +28,10 @@ export type StatKey = "hp" | "atk" | "def" | "spa" | "spd" | "spe";
 export type MoveConditionDef = {
   readonly key: string; // stored in PokemonPanelState.moveConditions
   readonly labelKey: string; // i18n key
+  readonly type?: "boolean" | "number";
+  readonly min?: number;
+  readonly max?: number;
+  readonly defaultValue?: number;
 };
 
 /** Context passed to variable-power / bp-modifier resolvers. */
@@ -50,8 +54,8 @@ export type PowerContext = {
   readonly terrain: Terrain;
   /** Whether the defender is holding a (removable) item — for Knock Off. */
   readonly defenderHasItem: boolean;
-  /** Move-condition checkbox states (keyed by MoveConditionDef.key). */
-  readonly conditions: Readonly<Record<string, boolean>>;
+  /** Move-condition checkbox/numeric states (keyed by MoveConditionDef.key). */
+  readonly conditions: Readonly<Record<string, boolean | number>>;
 };
 
 export type MoveMechanics = {
@@ -188,6 +192,8 @@ const HIT_2_5: Pick<MoveMechanics, "hitCount"> = { hitCount: { min: 2, max: 5 } 
 
 /** Variable-power moves whose base power is null/0 in data but computable here. */
 export const VARIABLE_POWER_MOVES: ReadonlySet<string> = new Set([
+  "last-respects",
+  "rage-fist",
   "eruption",
   "water-spout",
   "reversal",
@@ -223,6 +229,42 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
 
   return (
     match(identifier)
+      // --- Base Power Modifiers (Last Respects, Rage Fist) ---
+      .with("last-respects", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "faintedAllies",
+            labelKey: "damageCalc.condFaintedAllies",
+            type: "number",
+            min: 0,
+            max: 5, // Up to 5 fainted allies (typically, can be more with revive but 5 is standard max for singles/doubles normal mode)
+            defaultValue: 0,
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          const faints = typeof ctx.conditions.faintedAllies === "number" ? ctx.conditions.faintedAllies : 0;
+          return ctx.basePower + 50 * faints;
+        },
+      }))
+      .with("rage-fist", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "timesHit",
+            labelKey: "damageCalc.condTimesHit",
+            type: "number",
+            min: 0,
+            max: 6, // Maxes out at 6 hits (350 BP)
+            defaultValue: 0,
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          const hits = typeof ctx.conditions.timesHit === "number" ? ctx.conditions.timesHit : 0;
+          return ctx.basePower + 50 * Math.min(6, hits);
+        },
+      }))
+
       // --- Attacker HP proportional ---
       .with(P.union("eruption", "water-spout"), () => ({
         ...base,

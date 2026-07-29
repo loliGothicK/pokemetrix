@@ -20,6 +20,7 @@ import {
 } from "@/lib/damage";
 import type { Type } from "@/types/pokemon";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
+import type { StatKey } from "@/lib/damage/moveMechanics";
 import { moveByIdentifier } from "@/data/moves";
 import { pokemonById } from "@/data/pokemon";
 import { calcHp, calcStatus } from "@/data/utility/training";
@@ -41,7 +42,11 @@ export type PokemonPanelState = {
   /** General condition toggles (burn / helpingHand / tailwind / paralysis / ...). */
   readonly conditions: Readonly<Record<string, boolean>>;
   /** Attacker only: conditional-power toggles keyed by move-condition id. */
-  readonly moveConditions: Readonly<Record<string, boolean>>;
+  readonly moveConditions: Readonly<Record<string, boolean | number>>;
+  /** Attacker only: conditional item toggles/numbers. */
+  readonly itemConditions: Readonly<Record<string, boolean | number>>;
+  /** Nature multipliers keyed by stat (1.1, 1.0, 0.9). */
+  readonly natures: Readonly<Partial<Record<StatKey, number>>>;
 };
 
 export type DamageCalcResult = {
@@ -76,6 +81,8 @@ const defaultPanel: PokemonPanelState = {
   hpPercent: 100,
   conditions: {},
   moveConditions: {},
+  itemConditions: {},
+  natures: {},
 };
 
 /** Speed after Tailwind (×2) / Paralysis (÷2). */
@@ -154,11 +161,11 @@ export function useDamageCalcPage() {
     if (ac.electrify) moveType = "electric";
 
     // --- Stat helpers ---
-    const stat = (pokemon: typeof atkPokemon, idx: number, ev: number) =>
-      calcStatus(pokemon.status[idx], ev);
+    const stat = (pokemon: typeof atkPokemon, idx: number, ev: number, nature: number = 1.0) =>
+      calcStatus(pokemon.status[idx], ev, nature);
 
-    const atkSpe = effectiveSpeed(stat(atkPokemon, 5, attacker.evSpe), ac);
-    const defSpe = effectiveSpeed(stat(defPokemon, 5, defender.evSpe), dc);
+    const atkSpe = effectiveSpeed(stat(atkPokemon, 5, attacker.evSpe, attacker.natures?.spe), ac);
+    const defSpe = effectiveSpeed(stat(defPokemon, 5, defender.evSpe, defender.natures?.spe), dc);
 
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
     const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
@@ -208,16 +215,16 @@ export function useDamageCalcPage() {
     }
 
     // --- Attacker stat values (Power Trick swaps Atk ⇄ Def) ---
-    const atkAtkVal = stat(atkPokemon, 1, attacker.evAtk);
-    const atkDefVal = stat(atkPokemon, 2, attacker.evDef);
-    const atkSpaVal = stat(atkPokemon, 3, attacker.evSpa);
+    const atkAtkVal = stat(atkPokemon, 1, attacker.evAtk, attacker.natures?.atk);
+    const atkDefVal = stat(atkPokemon, 2, attacker.evDef, attacker.natures?.def);
+    const atkSpaVal = stat(atkPokemon, 3, attacker.evSpa, attacker.natures?.spa);
     const effAtkAtk = ac.powerTrick ? atkDefVal : atkAtkVal;
     const effAtkDef = ac.powerTrick ? atkAtkVal : atkDefVal;
 
     // --- Defender stat values (Power Trick swaps Atk ⇄ Def, then Wonder Room swaps Def ⇄ Sp.Def) ---
-    const defAtkVal = stat(defPokemon, 1, defender.evAtk);
-    const defDefRaw = stat(defPokemon, 2, defender.evDef);
-    const defSpdRaw = stat(defPokemon, 4, defender.evSpd);
+    const defAtkVal = stat(defPokemon, 1, defender.evAtk, defender.natures?.atk);
+    const defDefRaw = stat(defPokemon, 2, defender.evDef, defender.natures?.def);
+    const defSpdRaw = stat(defPokemon, 4, defender.evSpd, defender.natures?.spd);
     let effDefDef = dc.powerTrick ? defAtkVal : defDefRaw;
     let effDefSpd = defSpdRaw;
     if (wonderRoom) {
@@ -267,6 +274,14 @@ export function useDamageCalcPage() {
     const screenMod = screenModifier(screens, isPhysical, isDoubles, { isCrit });
     if (screenMod !== M.NEUTRAL) finalModifiers.push(screenMod);
     if (attacker.item === "life-orb") finalModifiers.push(M.LIFE_ORB);
+    if (attacker.item === "metronome" && typeof attacker.itemConditions.metronome === "number") {
+      const turns = attacker.itemConditions.metronome;
+      if (turns === 1) finalModifiers.push(M.METRONOME_1);
+      else if (turns === 2) finalModifiers.push(M.METRONOME_2);
+      else if (turns === 3) finalModifiers.push(M.METRONOME_3);
+      else if (turns === 4) finalModifiers.push(M.METRONOME_4);
+      else if (turns >= 5) finalModifiers.push(M.METRONOME_5);
+    }
 
     // --- Other modifiers ---
     const isSpreadMove =

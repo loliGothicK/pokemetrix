@@ -505,7 +505,7 @@ function HpBar({
             borderRadius: 2,
           }}
         >
-          {/* Random range — color tint (split at HP thresholds) + diagonal stripe */}
+          {/* Random range — colour tint (split at HP thresholds) + diagonal stripe */}
           {stripeWidth > 0 &&
             (() => {
               const thresholds = [50, 80].filter((d) => d > minDmg && d < maxDmg);
