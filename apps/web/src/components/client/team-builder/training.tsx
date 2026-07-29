@@ -484,7 +484,7 @@ export function Training({
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                      >{`${t(`items.${value.identifier}.description`).split(".")[0]}.`}</Typography>
+                      >{`${t(`items.${value.identifier}.effect`).split(".")[0]}.`}</Typography>
                     </Stack>
                   )}
                   onChange={(_, value) => {

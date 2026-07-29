@@ -246,7 +246,7 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
         <TooltipContent
           title={t(`moves.${move.identifier}.name`)}
           meta={metaStr}
-          body={move.effect ?? undefined}
+          body={t(`moves.${move.identifier}.effect`)}
         />
       }
       arrow
@@ -313,7 +313,7 @@ function MoveTag({ moveId }: { readonly moveId: number | null }) {
         <TooltipContent
           title={t(`moves.${move.identifier}.name`)}
           meta={metaStr}
-          body={move.effect ?? undefined}
+          body={t(`moves.${move.identifier}.effect`)}
         />
       }
       arrow
@@ -479,7 +479,7 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
                 title={
                   <TooltipContent
                     title={t(`abilities.${ability.identifier}.name`)}
-                    body={t(`abilities.${ability.identifier}.description`)}
+                    body={t(`abilities.${ability.identifier}.effect`)}
                   />
                 }
                 arrow
@@ -510,7 +510,7 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
                 title={
                   <TooltipContent
                     title={t(`items.${item.identifier}.name`)}
-                    body={t(`items.${item.identifier}.description`)}
+                    body={t(`items.${item.identifier}.effect`)}
                   />
                 }
                 arrow
@@ -598,8 +598,8 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
     return parts.join(" / ");
   })();
 
-  const abilityDescription = ability ? t(`abilities.${ability.identifier}.description`) : undefined;
-  const itemDescription = item ? t(`items.${item.identifier}.description`) : undefined;
+  const abilityDescription = ability ? t(`abilities.${ability.identifier}.effect`) : undefined;
+  const itemDescription = item ? t(`items.${item.identifier}.effect`) : undefined;
 
   const statLabels: Record<StatKey, string> = {
     hp: t("teamBuilder.status.hp.name"),

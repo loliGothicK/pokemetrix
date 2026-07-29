@@ -75,7 +75,7 @@ export function MoveSelectionDrawer({
       [
         {
           key: "type",
-          label: t("teamBuilder.query.type"),
+          label: t("teamBuilder.movesDrawer.type"),
           values: types.map((type) => ({
             value: type,
             label: t(`types.${type}.name`),
@@ -83,10 +83,10 @@ export function MoveSelectionDrawer({
         },
         {
           key: "category",
-          label: "Category",
+          label: t("teamBuilder.movesDrawer.category"),
           values: moveCategories.map((cat) => ({
             value: cat,
-            label: cat.charAt(0).toUpperCase() + cat.slice(1),
+            label: t(`moveCategory.${cat}`),
           })),
         },
       ] as const,
@@ -346,7 +346,7 @@ export function MoveSelectionDrawer({
                             color: "text.disabled",
                           }}
                         >
-                          PWR
+                          {t("teamBuilder.movesDrawer.pwr")}
                         </Typography>
                         <Typography
                           sx={{
@@ -368,7 +368,7 @@ export function MoveSelectionDrawer({
                             color: "text.disabled",
                           }}
                         >
-                          ACC
+                          {t("teamBuilder.movesDrawer.acc")}
                         </Typography>
                         <Typography
                           sx={{
@@ -398,7 +398,7 @@ export function MoveSelectionDrawer({
                             color: "text.disabled",
                           }}
                         >
-                          RANGE
+                          {t("teamBuilder.movesDrawer.range")}
                         </Typography>
                         <Typography
                           variant="caption"
@@ -504,7 +504,7 @@ export function MoveSelectionDrawer({
                                 color: "text.disabled",
                               }}
                             >
-                              PWR
+                              {t("teamBuilder.movesDrawer.pwr")}
                             </Typography>
                             <Typography
                               sx={{
@@ -527,7 +527,7 @@ export function MoveSelectionDrawer({
                                 color: "text.disabled",
                               }}
                             >
-                              ACC
+                              {t("teamBuilder.movesDrawer.acc")}
                             </Typography>
                             <Typography
                               sx={{
@@ -556,7 +556,7 @@ export function MoveSelectionDrawer({
                                 color: "text.disabled",
                               }}
                             >
-                              RANGE
+                              {t("teamBuilder.movesDrawer.range")}
                             </Typography>
                             <Typography
                               variant="caption"

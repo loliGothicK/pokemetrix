@@ -535,6 +535,48 @@
       "spe": {
         "name": "素早さ"
       }
+    },
+    "movesDrawer": {
+      "pwr": "威力",
+      "acc": "命中",
+      "range": "範囲",
+      "category": "分類",
+      "type": "タイプ"
+    }
+  },
+  "range": {
+    "self": {
+      "name": "自分"
+    },
+    "single-target": {
+      "name": "単体"
+    },
+    "user's-side": {
+      "name": "味方全体"
+    },
+    "opponent's-side": {
+      "name": "相手全体"
+    },
+    "entire-field": {
+      "name": "フィールド全体"
+    },
+    "all-opponents": {
+      "name": "相手2体"
+    },
+    "single-ally": {
+      "name": "味方1体"
+    },
+    "all-allies": {
+      "name": "相手2体"
+    },
+    "all-pokemon": {
+      "name": "全体"
+    },
+    "random-opponent": {
+      "name": "相手ランダム"
+    },
+    "varies": {
+      "name": "特殊"
     }
   },
   "types": {
@@ -5630,5 +5672,10 @@
     "quirky": {
       "name": "きまぐれ"
     }
+  },
+  "moveCategory": {
+    "physical": "物理",
+    "special": "特殊",
+    "status": "変化"
   }
 }

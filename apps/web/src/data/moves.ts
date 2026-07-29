@@ -23,7 +23,7 @@ const schema = zod
     }),
     pp: zod.number(),
     priority: zod.number().nullable(),
-    effect: zod.string().nullable(),
+
     classifications: zod.array(
       zod.enum(moveClassifications, {
         error: (iss) => `"${String(iss.input)}" is invalid`,

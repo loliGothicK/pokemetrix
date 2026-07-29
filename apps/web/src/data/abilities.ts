@@ -5,7 +5,6 @@ const AbilitySchema = z
   .object({
     id: z.number(),
     identifier: z.string(),
-    description: z.string(),
   })
   .readonly();
 
