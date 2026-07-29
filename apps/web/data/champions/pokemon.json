@@ -4183,7 +4183,7 @@
       "identifier": "eelektross-mega",
       "slug": null,
       "types": ["electric"],
-      "abilities": [],
+      "abilities": [312],
       "status": [85, 145, 80, 135, 90, 80],
       "moves": [
         491, 512, 776, 34, 340, 280, 339, 523, 268, 451, 370, 489, 109, 242, 306, 435, 337, 406,
@@ -4210,7 +4210,7 @@
       "identifier": "pyroar-mega",
       "slug": null,
       "types": ["fire", "normal"],
-      "abilities": [],
+      "abilities": [313],
       "status": [86, 88, 92, 129, 86, 126],
       "moves": [
         512, 34, 523, 807, 242, 399, 91, 38, 283, 203, 494, 263, 126, 424, 83, 488, 53, 394, 416,

@@ -5396,6 +5396,14 @@
     },
     "spicy-spray": {
       "name": "Spicy Spray"
+    },
+    "eelevate": {
+      "name": "Eelevate",
+      "effect": "The Pokémon floats off the ground, making it immune to Ground-type moves, as well as the Spikes, Toxic Spikes, and Sticky Web statuses. When the Pokémon knocks out a target with an attack, its highest stat is boosted by 1 stage."
+    },
+    "fire-mane": {
+      "name": "Fire Mane",
+      "effect": "Boosts the power of the Pokémon's Fire-type moves by 50%."
     }
   },
   "range": {
