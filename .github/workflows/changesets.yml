@@ -6,9 +6,41 @@ on:
       - main
     paths:
       - 'packages/damage-calc/package.json'
+      - '.changeset/**'
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.compare.outputs.should_run }}
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v7
+      - name: Check version and changesets
+        id: compare
+        run: |
+          HAS_CHANGESETS="false"
+          if ls .changeset/*.md 1> /dev/null 2>&1; then
+            for f in .changeset/*.md; do
+              if [ "$f" != ".changeset/README.md" ]; then
+                HAS_CHANGESETS="true"
+                break
+              fi
+            done
+          fi
+          
+          LOCAL=$(jq -r .version packages/damage-calc/package.json)
+          REMOTE=$(npm view @pokemetrix/damage-calc version 2>/dev/null || echo "0.0.0")
+          
+          if [ "$HAS_CHANGESETS" = "true" ] || npx --yes semver -gt "$LOCAL" "$REMOTE"; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
   version:
+    needs: check
+    if: needs.check.outputs.should_run == 'true'
     permissions:
       contents: write
       id-token: write
