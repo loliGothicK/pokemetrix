@@ -37,7 +37,7 @@ import { isAuthenticatedAtom } from "@/store/auth";
 import { useBoxData } from "@/hooks/useBoxData";
 import { itemById } from "@/data/items";
 import { itemSprite } from "@/lib/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import { Training } from "@/components/client/team-builder/training";
 import { toDefault } from "@/data/utility/training";
@@ -54,8 +54,17 @@ export default function BoxPage() {
 
   const [selectOpen, setSelectOpen] = useState(false);
   const [editingPokemon, setEditingPokemon] = useState<TrainedPokemon | null>(null);
+  const [lastEditingIdentifier, setLastEditingIdentifier] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(0);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (editingPokemon?.identifier) {
+      setLastEditingIdentifier(editingPokemon.identifier);
+    }
+  }, [editingPokemon?.identifier]);
+
+  const targetIdentifier = editingPokemon?.identifier || lastEditingIdentifier;
 
   const handleSpeciesSelect = (identifier: string | null) => {
     const pokemon = toDefault(identifier);
@@ -192,8 +201,8 @@ export default function BoxPage() {
           <DialogContent>
             <DialogContentText>
               {t("teamBuilder.deleteTeamConfirm", {
-                name: editingPokemon
-                  ? t(`pokemon.${editingPokemon.identifier}.name`)
+                name: targetIdentifier
+                  ? t(`pokemon.${targetIdentifier}.name`)
                   : t("pokemon.unknown"),
               })}
             </DialogContentText>
