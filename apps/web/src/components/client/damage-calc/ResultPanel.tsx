@@ -465,7 +465,7 @@ function hpColor(remainingPct: number, isDark: boolean): string {
   return isDark ? "#f44336" : "#c62828";
 }
 
-function HpBar({
+export function HpBar({
   minPercent,
   maxPercent,
 }: {

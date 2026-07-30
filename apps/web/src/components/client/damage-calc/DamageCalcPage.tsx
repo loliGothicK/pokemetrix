@@ -194,7 +194,7 @@ export default function DamageCalcPage() {
 
   // ── Desktop layout (md+) – unchanged ────────────────────────────────────
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1536, mx: "auto" }}>
       {/* Title + Singles/Doubles toggle */}
       <Stack direction="row" sx={{ ...flexRowCenter, mb: 3, gap: 2, flexWrap: "wrap" }}>
         <Typography variant="h5" sx={{ fontWeight: 700, flexGrow: 1 }}>
@@ -213,31 +213,34 @@ export default function DamageCalcPage() {
         </ButtonGroup>
       </Stack>
 
-      {/* Attacker / Defender panels */}
-      <Box
-        sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3, mb: 3 }}
-      >
-        <PokemonPanel
-          label={t("damageCalc.attacker")}
-          role="attacker"
-          value={attacker}
-          onChange={setAttacker}
-          activeMove={attacker.move}
-          isDoubles={isDoubles}
-          sx={{ borderColor: attackerBorder, bgcolor: attackerBg }}
-        />
-        <PokemonPanel
-          label={t("damageCalc.defender")}
-          role="defender"
-          value={defender}
-          onChange={setDefender}
-          activeMove={attacker.move}
-          isDoubles={isDoubles}
-          screens={screens}
-          onScreensChange={setScreens}
-          sx={{ borderColor: defenderBorder, bgcolor: defenderBg }}
-        />
-      </Box>
+      <Box sx={{ display: "flex", flexDirection: { xs: "column", lg: "row" }, gap: 3, alignItems: "flex-start" }}>
+        {/* ── Left Column: Inputs ── */}
+        <Box sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 3 }}>
+          {/* Attacker / Defender panels */}
+          <Box
+            sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", xl: "1fr 1fr" }, gap: 3 }}
+          >
+            <PokemonPanel
+              label={t("damageCalc.attacker")}
+              role="attacker"
+              value={attacker}
+              onChange={setAttacker}
+              activeMove={attacker.move}
+              isDoubles={isDoubles}
+              sx={{ borderColor: attackerBorder, bgcolor: attackerBg }}
+            />
+            <PokemonPanel
+              label={t("damageCalc.defender")}
+              role="defender"
+              value={defender}
+              onChange={setDefender}
+              activeMove={attacker.move}
+              isDoubles={isDoubles}
+              screens={screens}
+              onScreensChange={setScreens}
+              sx={{ borderColor: defenderBorder, bgcolor: defenderBg }}
+            />
+          </Box>
 
       {/* Field Conditions */}
       <SurfaceCard sx={{ px: 6, py: 3, mb: 3 }}>
@@ -336,9 +339,23 @@ export default function DamageCalcPage() {
           </Box>
         </Stack>
       </SurfaceCard>
+        </Box>
 
-      {/* Result */}
-      <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
+        {/* ── Right Column: Sticky Result ── */}
+        <Box
+          sx={{
+            width: { lg: 400, xl: 460 },
+            flexShrink: 0,
+            position: "sticky",
+            top: 24, // Matches standard app bar padding/clearance
+            // Ensure the sticky panel doesn't extend infinitely if it's too tall
+            maxHeight: "calc(100vh - 48px)",
+            overflowY: "auto",
+          }}
+        >
+          <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
+        </Box>
+      </Box>
     </Box>
   );
 }

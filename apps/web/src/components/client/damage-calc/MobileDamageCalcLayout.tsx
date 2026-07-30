@@ -8,6 +8,7 @@ import {
   ButtonGroup,
   Chip,
   Divider,
+  Drawer,
   LinearProgress,
   Paper,
   Stack,
@@ -24,7 +25,7 @@ import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import type { Weather, Terrain } from "@/lib/damage";
 import { PokemonPanel } from "./PokemonPanel";
-import { ResultPanel } from "./ResultPanel";
+import { ResultPanel, HpBar } from "./ResultPanel";
 import type { PokemonPanelState, DamageCalcResult } from "./useDamageCalcPage";
 
 // ── Colour maps (mirrored from DamageCalcPage) ──────────────────────────────
@@ -342,9 +343,12 @@ function MobileResultSummary({ result }: MobileResultSummaryProps) {
     }
   }
 
+  const barMin = hasAnalysis ? analysis.minPercent : 0;
+  const barMax = hasAnalysis ? analysis.maxPercent : 0;
+
   return (
     <Box sx={{ px: 2, py: 1.5 }}>
-      <Stack direction="row" sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
+      <Stack direction="row" sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap", mb: hasAnalysis ? 1.5 : 0 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1 }}>
           {t("damageCalc.damageRange", { min: output.min, max: output.max })}
         </Typography>
@@ -365,6 +369,7 @@ function MobileResultSummary({ result }: MobileResultSummaryProps) {
           />
         )}
       </Stack>
+      {hasAnalysis && <HpBar minPercent={barMin} maxPercent={barMax} />}
     </Box>
   );
 }
@@ -443,6 +448,7 @@ export function MobileDamageCalcLayout({
   const isDark = theme.palette.mode === "dark";
 
   const [activeTab, setActiveTab] = useState(TAB_ATTACKER);
+  const [isResultDrawerOpen, setIsResultDrawerOpen] = useState(false);
 
   const attackerBorder = isDark ? "rgba(96,165,250,0.45)" : "rgba(21,101,192,0.35)";
   const defenderBorder = isDark ? "rgba(251,146,60,0.45)" : "rgba(194,65,12,0.35)";
@@ -508,20 +514,56 @@ export function MobileDamageCalcLayout({
         </Box>
       )}
 
-      {/* ── Result — always visible below panel content ───────────────────── */}
-      <Divider sx={{ mx: 2 }} />
-      <Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "text.secondary" }}>
-          {t("damageCalc.result")}
-        </Typography>
-      </Box>
+      {/* ── Fixed Result Summary Strip ── */}
+      {result.output && !result.isLoading && !result.isError && (
+        <Paper
+          elevation={4}
+          onClick={() => setIsResultDrawerOpen(true)}
+          sx={{
+            position: "fixed",
+            bottom: BOTTOM_NAV_HEIGHT,
+            left: 0,
+            right: 0,
+            zIndex: theme.zIndex.appBar - 1,
+            cursor: "pointer",
+            borderTop: "1px solid",
+            borderColor: "divider",
+            bgcolor: "background.paper",
+            "&:active": { bgcolor: "action.hover" },
+          }}
+        >
+          <Box sx={{ p: 1, pointerEvents: "none" }}>
+            <MobileResultSummary result={result} />
+          </Box>
+        </Paper>
+      )}
 
-      {/* Compact summary strip (damage range + KO chip) */}
-      <MobileResultSummary result={result} />
-
-      {/* Full result panel (HP bar, rolls, etc.) — shown when there's output */}
-      {result.output && (
-        <Box sx={{ px: 2, pb: 2 }}>
+      {/* ── Result Drawer ── */}
+      <Drawer
+        anchor="bottom"
+        open={isResultDrawerOpen}
+        onClose={() => setIsResultDrawerOpen(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+            pb: 4,
+            maxHeight: "85vh",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            width: 40,
+            height: 4,
+            bgcolor: "divider",
+            borderRadius: 2,
+            mx: "auto",
+            mt: 1.5,
+            mb: 1,
+          }}
+        />
+        <Box sx={{ px: 2, pb: 2, overflowY: "auto" }}>
           <ResultPanel
             result={result}
             isCrit={isCrit}
@@ -529,7 +571,7 @@ export function MobileDamageCalcLayout({
             summary={summary}
           />
         </Box>
-      )}
+      </Drawer>
 
       {/* ── Fixed bottom navigation ───────────────────────────────────────── */}
       <Paper
