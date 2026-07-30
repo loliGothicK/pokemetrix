@@ -7,6 +7,7 @@ import {
   Button,
   ButtonGroup,
   Chip,
+  Divider,
   LinearProgress,
   Paper,
   Stack,
@@ -20,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import SportsKabaddiRoundedIcon from "@mui/icons-material/SportsKabaddiRounded";
 import NatureRoundedIcon from "@mui/icons-material/NatureRounded";
 import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
-import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import type { Weather, Terrain } from "@/lib/damage";
 import { PokemonPanel } from "./PokemonPanel";
@@ -49,150 +49,10 @@ const FIELD_EFFECT_COLORS: Record<string, string> = {
   wonderRoom: "#7b1fa2",
 };
 
-// ── Bottom navigation tab indices ────────────────────────────────────────────
+// ── Bottom navigation tab indices (3 tabs — no Result tab) ───────────────────
 const TAB_ATTACKER = 0;
 const TAB_FIELD = 1;
 const TAB_DEFENDER = 2;
-const TAB_RESULT = 3;
-
-// ── Compact result preview bar ───────────────────────────────────────────────
-
-type MobileDamagePreviewBarProps = {
-  readonly result: DamageCalcResult;
-  readonly onTap: () => void;
-};
-
-function MobileDamagePreviewBar({ result, onTap }: MobileDamagePreviewBarProps) {
-  const { t } = useTranslation();
-  const { output, analysis, isLoading, missingReason } = result;
-
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          px: 2,
-          py: 1,
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          bgcolor: "background.paper",
-        }}
-      >
-        <LinearProgress sx={{ borderRadius: 1 }} />
-      </Box>
-    );
-  }
-
-  if (!output) {
-    const hint =
-      missingReason === "attacker"
-        ? t("damageCalc.hintSelectAttacker")
-        : missingReason === "move"
-          ? t("damageCalc.hintSelectMove")
-          : missingReason === "defender"
-            ? t("damageCalc.hintSelectDefender")
-            : t("damageCalc.noResult");
-    return (
-      <Box
-        sx={{
-          px: 2,
-          py: 0.75,
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          bgcolor: "background.paper",
-        }}
-      >
-        <Typography variant="caption" color="text.secondary">
-          {hint}
-        </Typography>
-      </Box>
-    );
-  }
-
-  const hasAnalysis = analysis !== undefined;
-
-  return (
-    <Box
-      component="button"
-      onClick={onTap}
-      aria-label={t("damageCalc.result")}
-      sx={{
-        all: "unset",
-        display: "flex",
-        alignItems: "center",
-        gap: 1,
-        px: 2,
-        py: 0.75,
-        borderBottom: "1px solid",
-        borderColor: "divider",
-        bgcolor: "background.paper",
-        width: "100%",
-        boxSizing: "border-box",
-        cursor: "pointer",
-        "&:active": { bgcolor: "action.selected" },
-      }}
-    >
-      {/* Damage range */}
-      <Typography variant="body2" sx={{ fontWeight: 700, flexShrink: 0 }}>
-        {t("damageCalc.damageRange", { min: output.min, max: output.max })}
-      </Typography>
-
-      {/* Percentage range */}
-      {hasAnalysis && (
-        <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
-          {t("damageCalc.percentRange", {
-            minPercent: analysis.minPercent,
-            maxPercent: analysis.maxPercent,
-          })}
-        </Typography>
-      )}
-
-      {/* KO chip (computed inline here for compactness) */}
-      {hasAnalysis && (() => {
-        const defHp =
-          analysis.minPercent > 0
-            ? Math.round((output.min / analysis.minPercent) * 100)
-            : undefined;
-        if (!defHp) return null;
-        const minKO = output.max > 0 ? Math.ceil(defHp / output.max) : Infinity;
-        const maxKO = output.min > 0 ? Math.ceil(defHp / output.min) : Infinity;
-        const ohkoChance = output.rolls.filter((r) => r >= defHp).length / output.rolls.length;
-
-        let label: string;
-        let color: "error" | "warning" | "default";
-        if (minKO === 1 && ohkoChance === 1) {
-          label = t("damageCalc.ohko");
-          color = "error";
-        } else if (minKO === 1 && ohkoChance > 0) {
-          label = t("damageCalc.ohkoChance", { chance: Math.round(ohkoChance * 100) });
-          color = "warning";
-        } else if (minKO === maxKO) {
-          label = t("damageCalc.guaranteedKO", { n: minKO });
-          color = minKO === 2 ? "warning" : "default";
-        } else {
-          label = t("damageCalc.possibleKO", { n: minKO });
-          color = "default";
-        }
-
-        return (
-          <Chip
-            label={label}
-            color={color}
-            size="small"
-            sx={{ height: 20, fontSize: 11, fontWeight: 700, flexShrink: 0 }}
-          />
-        );
-      })()}
-
-      <Typography
-        variant="caption"
-        color="primary.main"
-        sx={{ ml: "auto", flexShrink: 0, fontWeight: 600 }}
-      >
-        {t("damageCalc.result")} ›
-      </Typography>
-    </Box>
-  );
-}
 
 // ── Field Conditions panel (mobile-only inline version) ──────────────────────
 
@@ -417,6 +277,98 @@ function MobileFieldConditionsPanel({
   );
 }
 
+// ── Compact result summary strip (always visible, no output state) ────────────
+
+type MobileResultSummaryProps = {
+  readonly result: DamageCalcResult;
+};
+
+function MobileResultSummary({ result }: MobileResultSummaryProps) {
+  const { t } = useTranslation();
+  const { output, analysis, isLoading, missingReason } = result;
+
+  if (isLoading) {
+    return (
+      <Box sx={{ px: 2, pt: 1 }}>
+        <LinearProgress sx={{ borderRadius: 1 }} />
+      </Box>
+    );
+  }
+
+  if (!output) {
+    const hint =
+      missingReason === "attacker"
+        ? t("damageCalc.hintSelectAttacker")
+        : missingReason === "move"
+          ? t("damageCalc.hintSelectMove")
+          : missingReason === "defender"
+            ? t("damageCalc.hintSelectDefender")
+            : t("damageCalc.noResult");
+    return (
+      <Box sx={{ px: 2, py: 1.5 }}>
+        <Typography variant="caption" color="text.secondary">
+          {hint}
+        </Typography>
+      </Box>
+    );
+  }
+
+  const hasAnalysis = analysis !== undefined;
+
+  // KO chip calculation (single-hit only for the summary strip)
+  let koLabel: string | null = null;
+  let koColor: "error" | "warning" | "default" = "default";
+  if (hasAnalysis) {
+    const defHp =
+      analysis.minPercent > 0
+        ? Math.round((output.min / analysis.minPercent) * 100)
+        : undefined;
+    if (defHp) {
+      const minKO = output.max > 0 ? Math.ceil(defHp / output.max) : Infinity;
+      const maxKO = output.min > 0 ? Math.ceil(defHp / output.min) : Infinity;
+      const ohkoChance = output.rolls.filter((r) => r >= defHp).length / output.rolls.length;
+      if (minKO === 1 && ohkoChance === 1) {
+        koLabel = t("damageCalc.ohko");
+        koColor = "error";
+      } else if (minKO === 1 && ohkoChance > 0) {
+        koLabel = t("damageCalc.ohkoChance", { chance: Math.round(ohkoChance * 100) });
+        koColor = "warning";
+      } else if (minKO === maxKO) {
+        koLabel = t("damageCalc.guaranteedKO", { n: minKO });
+        koColor = minKO === 2 ? "warning" : "default";
+      } else {
+        koLabel = t("damageCalc.possibleKO", { n: minKO });
+      }
+    }
+  }
+
+  return (
+    <Box sx={{ px: 2, py: 1.5 }}>
+      <Stack direction="row" sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
+        <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1 }}>
+          {t("damageCalc.damageRange", { min: output.min, max: output.max })}
+        </Typography>
+        {hasAnalysis && (
+          <Typography variant="body2" color="text.secondary">
+            {t("damageCalc.percentRange", {
+              minPercent: analysis.minPercent,
+              maxPercent: analysis.maxPercent,
+            })}
+          </Typography>
+        )}
+        {koLabel && (
+          <Chip
+            label={koLabel}
+            color={koColor}
+            size="small"
+            sx={{ height: 22, fontSize: 12, fontWeight: 700 }}
+          />
+        )}
+      </Stack>
+    </Box>
+  );
+}
+
 // ── Props type ───────────────────────────────────────────────────────────────
 
 type CalcSummary = {
@@ -502,17 +454,10 @@ export function MobileDamageCalcLayout({
       sx={{
         display: "flex",
         flexDirection: "column",
-        // Reserve space for the sticky preview bar (approx 36px) + bottom nav (56px)
         pb: `${BOTTOM_NAV_HEIGHT}px`,
         minHeight: 0,
       }}
     >
-      {/* ── Sticky result preview bar ─────────────────────────────────────── */}
-      <MobileDamagePreviewBar
-        result={result}
-        onTap={() => setActiveTab(TAB_RESULT)}
-      />
-
       {/* ── Panel content ────────────────────────────────────────────────── */}
       {activeTab === TAB_ATTACKER && (
         <Box sx={{ p: 2 }}>
@@ -563,8 +508,20 @@ export function MobileDamageCalcLayout({
         </Box>
       )}
 
-      {activeTab === TAB_RESULT && (
-        <Box sx={{ p: 2 }}>
+      {/* ── Result — always visible below panel content ───────────────────── */}
+      <Divider sx={{ mx: 2 }} />
+      <Box sx={{ px: 2, pt: 1.5, pb: 0.5 }}>
+        <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "text.secondary" }}>
+          {t("damageCalc.result")}
+        </Typography>
+      </Box>
+
+      {/* Compact summary strip (damage range + KO chip) */}
+      <MobileResultSummary result={result} />
+
+      {/* Full result panel (HP bar, rolls, etc.) — shown when there's output */}
+      {result.output && (
+        <Box sx={{ px: 2, pb: 2 }}>
           <ResultPanel
             result={result}
             isCrit={isCrit}
@@ -607,11 +564,6 @@ export function MobileDamageCalcLayout({
             id="mobile-tab-defender"
             label={t("damageCalc.defender")}
             icon={<ShieldRoundedIcon />}
-          />
-          <BottomNavigationAction
-            id="mobile-tab-result"
-            label={t("damageCalc.result")}
-            icon={<BarChartRoundedIcon />}
           />
         </BottomNavigation>
       </Paper>
