@@ -289,7 +289,10 @@ export function PokemonPanel({
                         slotProps={{ htmlInput: { min: cond.min ?? 0, max: cond.max ?? 100 } }}
                         value={(value.moveConditions[cond.key] as number) ?? cond.defaultValue ?? 0}
                         onChange={(e) => {
-                          const val = Math.max(cond.min ?? 0, Math.min(cond.max ?? 100, parseInt(e.target.value) || 0));
+                          const val = Math.max(
+                            cond.min ?? 0,
+                            Math.min(cond.max ?? 100, parseInt(e.target.value) || 0),
+                          );
                           onChange((prev) => ({
                             ...prev,
                             moveConditions: { ...prev.moveConditions, [cond.key]: val },
@@ -400,18 +403,23 @@ export function PokemonPanel({
                   natureValue={statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : undefined}
                   onNatureChange={
                     statKey !== "hp"
-                      ? (n) => onChange((prev) => ({ ...prev, natures: { ...prev.natures, [statKey]: n } }))
+                      ? (n) =>
+                          onChange((prev) => ({
+                            ...prev,
+                            natures: { ...prev.natures, [statKey]: n },
+                          }))
                       : undefined
                   }
                   onStatChange={
                     pokemon
                       ? (targetStat) => {
                           const base = pokemon.status[meta.index];
-                          const currentNature = statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : 1.0;
-                          
+                          const currentNature =
+                            statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : 1.0;
+
                           if (statKey === "hp") {
-                            const validEvs = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
-                              calcHp(base, testEv) === targetStat
+                            const validEvs = Array.from({ length: 33 }, (_, i) => i).filter(
+                              (testEv) => calcHp(base, testEv) === targetStat,
                             );
                             if (validEvs.length > 0) {
                               setEv(meta.evKey, validEvs[0]);
@@ -420,8 +428,8 @@ export function PokemonPanel({
                             return false;
                           } else {
                             // First, try with the current nature
-                            const validWithCurrent = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
-                              calcStatus(base, testEv, currentNature) === targetStat
+                            const validWithCurrent = Array.from({ length: 33 }, (_, i) => i).filter(
+                              (testEv) => calcStatus(base, testEv, currentNature) === targetStat,
                             );
                             if (validWithCurrent.length > 0) {
                               setEv(meta.evKey, validWithCurrent[0]);
@@ -432,8 +440,8 @@ export function PokemonPanel({
                             const allNatures = [1.1, 1.0, 0.9];
                             for (const n of allNatures) {
                               if (n === currentNature) continue;
-                              const validWithN = Array.from({ length: 33 }, (_, i) => i).filter((testEv) =>
-                                calcStatus(base, testEv, n) === targetStat
+                              const validWithN = Array.from({ length: 33 }, (_, i) => i).filter(
+                                (testEv) => calcStatus(base, testEv, n) === targetStat,
                               );
                               if (validWithN.length > 0) {
                                 onChange((prev) => ({
@@ -603,7 +611,7 @@ function EvField({
         onChange={(e) => {
           const val = e.target.value;
           setLocalValue(val);
-          
+
           let parsedVal = parseInt(val, 10);
           if (isNaN(parsedVal)) {
             if (val === "" || val === "+" || val === "-") {
@@ -616,7 +624,7 @@ function EvField({
             }
             return;
           }
-          
+
           if (parsedVal >= 0 && parsedVal <= 32) {
             onChange(parsedVal);
           }

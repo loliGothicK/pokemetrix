@@ -299,8 +299,37 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
 
 function MoveTag({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const move = moveId != null ? moveById.get(moveId) : null;
-  if (!move) return null;
+
+  if (!move) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          px: 0.75,
+          py: "2px",
+          height: 18,
+          borderRadius: "4px",
+          border: "1px dashed",
+          borderColor: alpha(theme.palette.divider, 0.4),
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "0.6rem",
+            color: alpha(theme.palette.text.secondary, 0.3),
+            fontStyle: "italic",
+          }}
+        >
+          —
+        </Typography>
+      </Box>
+    );
+  }
 
   const tc = TYPE_BG[move.type as Type] ?? "#9e9e9e";
   const powerStr = move.power != null ? String(move.power) : "—";
@@ -322,16 +351,20 @@ function MoveTag({ moveId }: { readonly moveId: number | null }) {
     >
       <Box
         sx={{
-          display: "inline-flex",
+          display: "flex",
           alignItems: "center",
           gap: 0.4,
           px: 0.75,
           py: "2px",
+          height: 18,
           borderRadius: "4px",
           background: `linear-gradient(105deg, ${tc}28 0%, ${tc}0e 100%)`,
           border: "1px solid",
           borderColor: `${tc}50`,
           cursor: "default",
+          width: "100%",
+          boxSizing: "border-box",
+          overflow: "hidden",
         }}
       >
         <Box
@@ -347,6 +380,10 @@ function MoveTag({ moveId }: { readonly moveId: number | null }) {
             lineHeight: 1.3,
             color: "text.primary",
             whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            flex: 1,
+            minWidth: 0,
           }}
         >
           {t(`moves.${move.identifier}.name`)}
@@ -392,8 +429,6 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
     spd: t("teamBuilder.status.spd.name"),
     spe: t("teamBuilder.status.spe.name"),
   };
-
-  const activeMoves = pokemon.moves.filter((m): m is number => m != null);
 
   return (
     <CardShell>
@@ -502,7 +537,7 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
               <Typography
                 sx={{ fontSize: "0.67rem", color: "text.disabled", whiteSpace: "nowrap" }}
               >
-                {nature}
+                {t(`natures.${nature.toLowerCase()}.name`)}
               </Typography>
             )}
             {item && (
@@ -535,11 +570,13 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
           </Box>
 
           {/* 技 */}
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-            {activeMoves.map((moveId) => (
-              <MoveTag key={moveId} moveId={moveId} />
+          <Grid container spacing="4px">
+            {pokemon.moves.map((moveId, i) => (
+              <Grid component="div" size={6} key={i}>
+                <MoveTag moveId={moveId} />
+              </Grid>
             ))}
-          </Box>
+          </Grid>
 
           {/* ステータス（showStats のみ） */}
           {showStats && (
@@ -832,7 +869,10 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
             <Tooltip
               title={
                 natureBoostLabel ? (
-                  <TooltipContent title={nature} body={natureBoostLabel} />
+                  <TooltipContent
+                    title={t(`natures.${nature.toLowerCase()}.name`)}
+                    body={natureBoostLabel}
+                  />
                 ) : undefined
               }
               arrow
@@ -860,7 +900,7 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
                     lineHeight: 1.2,
                   }}
                 >
-                  {nature}
+                  {t(`natures.${nature.toLowerCase()}.name`)}
                 </Typography>
               </Box>
             </Tooltip>

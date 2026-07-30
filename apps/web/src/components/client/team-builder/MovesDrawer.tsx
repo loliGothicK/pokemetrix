@@ -285,7 +285,9 @@ export function MoveSelectionDrawer({
                       {move.priority !== null && move.priority !== 0 && (
                         <Chip
                           size="small"
-                          label={t("teamBuilder.movesDrawer.priority", { val: move.priority > 0 ? `+${move.priority}` : move.priority })}
+                          label={t("teamBuilder.movesDrawer.priority", {
+                            val: move.priority > 0 ? `+${move.priority}` : move.priority,
+                          })}
                           color={move.priority > 0 ? "error" : "info"}
                           sx={{
                             fontWeight: 900,
@@ -454,7 +456,9 @@ export function MoveSelectionDrawer({
                         {move.priority !== null && move.priority !== 0 && (
                           <Chip
                             size="small"
-                            label={t("teamBuilder.movesDrawer.priority", { val: move.priority > 0 ? `+${move.priority}` : move.priority })}
+                            label={t("teamBuilder.movesDrawer.priority", {
+                              val: move.priority > 0 ? `+${move.priority}` : move.priority,
+                            })}
                             color={move.priority > 0 ? "error" : "info"}
                             sx={{
                               fontWeight: 900,

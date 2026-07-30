@@ -243,7 +243,8 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
           },
         ] as const,
         computeBasePower: (ctx: PowerContext) => {
-          const faints = typeof ctx.conditions.faintedAllies === "number" ? ctx.conditions.faintedAllies : 0;
+          const faints =
+            typeof ctx.conditions.faintedAllies === "number" ? ctx.conditions.faintedAllies : 0;
           return ctx.basePower + 50 * faints;
         },
       }))
