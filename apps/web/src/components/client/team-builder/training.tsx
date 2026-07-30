@@ -885,7 +885,7 @@ export function Training({
                           rowGap: { xs: 0.5, md: 0.5 },
                           gridTemplateColumns: {
                             xs: "min-content 1fr auto auto",
-                            md: "72px 1fr auto 56px",
+                            md: "86px 1fr auto 56px",
                           },
                           gridTemplateAreas: {
                             xs: `"label label number value" "slider slider slider slider"`,
