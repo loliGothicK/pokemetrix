@@ -2226,9 +2226,9 @@ Ability: Levitate
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
 - Air Slash  
-- Astonish  
 - Charge  
 - Charge Beam  
+- Confuse Ray  
 
 "
 `;
@@ -2238,10 +2238,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-frost' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Astonish  
 - Blizzard  
 - Charge  
 - Charge Beam  
+- Confuse Ray  
 
 "
 `;
@@ -2251,10 +2251,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-heat' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Astonish  
 - Charge  
 - Charge Beam  
-- Confide  
+- Confuse Ray  
+- Dark Pulse  
 
 "
 `;
@@ -2264,10 +2264,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-mow' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Astonish  
 - Charge  
 - Charge Beam  
-- Confide  
+- Confuse Ray  
+- Dark Pulse  
 
 "
 `;
@@ -2277,10 +2277,10 @@ exports[`exportSet for All Pokémon > exportSet( 'rotom-wash' ) 1`] = `
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
 Adamant Nature  
-- Astonish  
 - Charge  
 - Charge Beam  
-- Confide  
+- Confuse Ray  
+- Dark Pulse  
 
 "
 `;

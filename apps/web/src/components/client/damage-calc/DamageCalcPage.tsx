@@ -8,6 +8,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
@@ -19,6 +20,7 @@ import { flexRowCenter } from "@/theme/sx";
 import { PokemonPanel } from "./PokemonPanel";
 import { ResultPanel } from "./ResultPanel";
 import { useDamageCalcPage } from "./useDamageCalcPage";
+import { MobileDamageCalcLayout } from "./MobileDamageCalcLayout";
 
 // ----------------------------------------------------------------
 // Weather & terrain: active-button colours
@@ -48,6 +50,7 @@ export default function DamageCalcPage() {
   const { t } = useTranslation();
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     preloadDamageEngine();
@@ -161,6 +164,35 @@ export default function DamageCalcPage() {
     defenderConditions: defender.conditions,
   };
 
+  // ── Mobile layout (xs/sm) ────────────────────────────────────────────────
+  if (isMobile) {
+    return (
+      <MobileDamageCalcLayout
+        attacker={attacker}
+        setAttacker={setAttacker}
+        defender={defender}
+        setDefender={setDefender}
+        weather={weather}
+        setWeather={setWeather}
+        terrain={terrain}
+        setTerrain={setTerrain}
+        fairyAura={fairyAura}
+        setFairyAura={setFairyAura}
+        wonderRoom={wonderRoom}
+        setWonderRoom={setWonderRoom}
+        screens={screens}
+        setScreens={setScreens}
+        isDoubles={isDoubles}
+        setIsDoubles={setIsDoubles}
+        isCrit={isCrit}
+        setIsCrit={setIsCrit}
+        result={result}
+        summary={summary}
+      />
+    );
+  }
+
+  // ── Desktop layout (md+) – unchanged ────────────────────────────────────
   return (
     <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
       {/* Title + Singles/Doubles toggle */}

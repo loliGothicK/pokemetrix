@@ -484,7 +484,7 @@ export function Training({
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                      >{`${t(`items.${value.identifier}.effect`).split(".")[0]}.`}</Typography>
+                      >{`${t(`items.${value.identifier}.effect`)}`}</Typography>
                     </Stack>
                   )}
                   onChange={(_, value) => {
@@ -634,7 +634,7 @@ export function Training({
                                   bgcolor: alpha(theme.palette.info.main, 0.05),
                                 }}
                               >
-                                {col.toUpperCase()} (-)
+                                {t(`teamBuilder.status.${col}.name`)} (-)
                               </TableCell>
                             ))}
                           </TableRow>
@@ -649,7 +649,7 @@ export function Training({
                                   bgcolor: alpha(theme.palette.error.main, 0.05),
                                 }}
                               >
-                                {row.toUpperCase()} (+)
+                                {t(`teamBuilder.status.${row}.name`)} (+)
                               </TableCell>
                               {STAT_LABELS.map((col) => {
                                 const currentCellNature = NATURE_MATRIX[row][col];
