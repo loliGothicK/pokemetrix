@@ -7,7 +7,6 @@ import {
   Button,
   ButtonGroup,
   Chip,
-  Divider,
   Drawer,
   LinearProgress,
   Paper,
@@ -67,7 +66,15 @@ type FieldConditionsPanelProps = {
   readonly wonderRoom: boolean;
   readonly setWonderRoom: (v: boolean) => void;
   readonly screens: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean };
-  readonly setScreens: (updater: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean } | ((prev: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }) => { reflect: boolean; lightScreen: boolean; auroraVeil: boolean })) => void;
+  readonly setScreens: (
+    updater:
+      | { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }
+      | ((prev: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }) => {
+          reflect: boolean;
+          lightScreen: boolean;
+          auroraVeil: boolean;
+        }),
+  ) => void;
   readonly isDoubles: boolean;
   readonly setIsDoubles: (v: boolean) => void;
 };
@@ -149,10 +156,7 @@ function MobileFieldConditionsPanel({
           >
             {t("damageCalc.singles")}
           </Button>
-          <Button
-            variant={isDoubles ? "contained" : "outlined"}
-            onClick={() => setIsDoubles(true)}
-          >
+          <Button variant={isDoubles ? "contained" : "outlined"} onClick={() => setIsDoubles(true)}>
             {t("damageCalc.doubles")}
           </Button>
         </ButtonGroup>
@@ -319,9 +323,7 @@ function MobileResultSummary({ result }: MobileResultSummaryProps) {
   let koColor: "error" | "warning" | "default" = "default";
   if (hasAnalysis) {
     const defHp =
-      analysis.minPercent > 0
-        ? Math.round((output.min / analysis.minPercent) * 100)
-        : undefined;
+      analysis.minPercent > 0 ? Math.round((output.min / analysis.minPercent) * 100) : undefined;
     if (defHp) {
       const minKO = output.max > 0 ? Math.ceil(defHp / output.max) : Infinity;
       const maxKO = output.min > 0 ? Math.ceil(defHp / output.min) : Infinity;
@@ -346,7 +348,10 @@ function MobileResultSummary({ result }: MobileResultSummaryProps) {
 
   return (
     <Box sx={{ px: 2, py: 1.5 }}>
-      <Stack direction="row" sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap", mb: hasAnalysis ? 1.5 : 0 }}>
+      <Stack
+        direction="row"
+        sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap", mb: hasAnalysis ? 1.5 : 0 }}
+      >
         <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1 }}>
           {t("damageCalc.damageRange", { min: output.min, max: output.max })}
         </Typography>
@@ -378,8 +383,22 @@ type CalcSummary = {
   readonly attackerName: string | null;
   readonly defenderName: string | null;
   readonly moveName: string | null;
-  readonly attackerEvs: { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
-  readonly defenderEvs: { hp: number; atk: number; def: number; spa: number; spd: number; spe: number };
+  readonly attackerEvs: {
+    hp: number;
+    atk: number;
+    def: number;
+    spa: number;
+    spd: number;
+    spe: number;
+  };
+  readonly defenderEvs: {
+    hp: number;
+    atk: number;
+    def: number;
+    spa: number;
+    spd: number;
+    spe: number;
+  };
   readonly weather: string | null;
   readonly terrain: string | null;
   readonly fairyAura: boolean;
@@ -394,9 +413,13 @@ type CalcSummary = {
 
 type MobileDamageCalcLayoutProps = {
   readonly attacker: PokemonPanelState;
-  readonly setAttacker: (updater: PokemonPanelState | ((prev: PokemonPanelState) => PokemonPanelState)) => void;
+  readonly setAttacker: (
+    updater: PokemonPanelState | ((prev: PokemonPanelState) => PokemonPanelState),
+  ) => void;
   readonly defender: PokemonPanelState;
-  readonly setDefender: (updater: PokemonPanelState | ((prev: PokemonPanelState) => PokemonPanelState)) => void;
+  readonly setDefender: (
+    updater: PokemonPanelState | ((prev: PokemonPanelState) => PokemonPanelState),
+  ) => void;
   readonly weather: Weather;
   readonly setWeather: (v: Weather) => void;
   readonly terrain: Terrain;
@@ -406,7 +429,15 @@ type MobileDamageCalcLayoutProps = {
   readonly wonderRoom: boolean;
   readonly setWonderRoom: (v: boolean) => void;
   readonly screens: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean };
-  readonly setScreens: (updater: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean } | ((prev: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }) => { reflect: boolean; lightScreen: boolean; auroraVeil: boolean })) => void;
+  readonly setScreens: (
+    updater:
+      | { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }
+      | ((prev: { reflect: boolean; lightScreen: boolean; auroraVeil: boolean }) => {
+          reflect: boolean;
+          lightScreen: boolean;
+          auroraVeil: boolean;
+        }),
+  ) => void;
   readonly isDoubles: boolean;
   readonly setIsDoubles: (v: boolean) => void;
   readonly isCrit: boolean;
@@ -562,12 +593,7 @@ export function MobileDamageCalcLayout({
           }}
         />
         <Box sx={{ px: 2, pb: 2, overflowY: "auto" }}>
-          <ResultPanel
-            result={result}
-            isCrit={isCrit}
-            onCritChange={setIsCrit}
-            summary={summary}
-          />
+          <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
         </Box>
       </Drawer>
 

@@ -211,13 +211,18 @@ export default function DamageCalcPage() {
         </ButtonGroup>
       </Stack>
 
-      <Box sx={{ display: "flex", flexDirection: { xs: "column", lg: "row" }, gap: 3, alignItems: "flex-start" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", lg: "row" },
+          gap: 3,
+          alignItems: "flex-start",
+        }}
+      >
         {/* ── Left Column: Inputs ── */}
         <Box sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 3 }}>
           {/* Attacker / Defender panels */}
-          <Box
-            sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", xl: "1fr 1fr" }, gap: 3 }}
-          >
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", xl: "1fr 1fr" }, gap: 3 }}>
             <PokemonPanel
               label={t("damageCalc.attacker")}
               role="attacker"
@@ -240,103 +245,103 @@ export default function DamageCalcPage() {
             />
           </Box>
 
-      {/* Field Conditions */}
-      <SurfaceCard sx={{ px: 6, py: 3, mb: 3 }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
-          {t("damageCalc.field")}
-        </Typography>
-
-        <Stack
-          direction={{ xs: "column", md: "row" }}
-          spacing={2}
-          sx={{ alignItems: "flex-start" }}
-        >
-          {/* Weather */}
-          <Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
-            >
-              {t("damageCalc.weather")}
+          {/* Field Conditions */}
+          <SurfaceCard sx={{ px: 6, py: 3, mb: 3 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
+              {t("damageCalc.field")}
             </Typography>
-            <ToggleButtonGroup
-              value={weather === "none" ? null : weather}
-              exclusive
-              onChange={(_, v) => {
-                setWeather(v === null ? "none" : (v as Weather));
-              }}
-              size="small"
-              sx={{ flexWrap: "wrap", gap: 0.5 }}
+
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={2}
+              sx={{ alignItems: "flex-start" }}
             >
-              {weatherOptions.map((opt) => (
-                <ToggleButton
-                  key={opt.value}
-                  value={opt.value}
-                  sx={activeColorSx(WEATHER_COLORS[opt.value], weather === opt.value)}
+              {/* Weather */}
+              <Box>
+                <Typography
+                  variant="caption"
+                  sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
                 >
-                  {opt.label}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </Box>
-
-          {/* Terrain */}
-          <Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
-            >
-              {t("damageCalc.terrain")}
-            </Typography>
-            <ToggleButtonGroup
-              value={terrain === "none" ? null : terrain}
-              exclusive
-              onChange={(_, v) => {
-                setTerrain(v === null ? "none" : (v as Terrain));
-              }}
-              size="small"
-              sx={{ flexWrap: "wrap", gap: 0.5 }}
-            >
-              {terrainOptions.map((opt) => (
-                <ToggleButton
-                  key={opt.value}
-                  value={opt.value}
-                  sx={activeColorSx(TERRAIN_COLORS[opt.value], terrain === opt.value)}
+                  {t("damageCalc.weather")}
+                </Typography>
+                <ToggleButtonGroup
+                  value={weather === "none" ? null : weather}
+                  exclusive
+                  onChange={(_, v) => {
+                    setWeather(v === null ? "none" : (v as Weather));
+                  }}
+                  size="small"
+                  sx={{ flexWrap: "wrap", gap: 0.5 }}
                 >
-                  {opt.label}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </Box>
+                  {weatherOptions.map((opt) => (
+                    <ToggleButton
+                      key={opt.value}
+                      value={opt.value}
+                      sx={activeColorSx(WEATHER_COLORS[opt.value], weather === opt.value)}
+                    >
+                      {opt.label}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              </Box>
 
-          {/* Field Effects — same height as weather/terrain via ToggleButton rows */}
-          <Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
-            >
-              {t("damageCalc.fieldEffects")}
-            </Typography>
-            <Stack direction="row" sx={{ gap: 0.5, flexWrap: "wrap" }}>
-              {fieldEffectOptions.map((opt) => {
-                const color = FIELD_EFFECT_COLORS[opt.key];
-                return (
-                  <ToggleButton
-                    key={opt.key}
-                    value={opt.key}
-                    selected={opt.active}
-                    onChange={opt.onToggle}
-                    size="small"
-                    sx={activeColorSx(color, opt.active)}
-                  >
-                    {opt.label}
-                  </ToggleButton>
-                );
-              })}
+              {/* Terrain */}
+              <Box>
+                <Typography
+                  variant="caption"
+                  sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
+                >
+                  {t("damageCalc.terrain")}
+                </Typography>
+                <ToggleButtonGroup
+                  value={terrain === "none" ? null : terrain}
+                  exclusive
+                  onChange={(_, v) => {
+                    setTerrain(v === null ? "none" : (v as Terrain));
+                  }}
+                  size="small"
+                  sx={{ flexWrap: "wrap", gap: 0.5 }}
+                >
+                  {terrainOptions.map((opt) => (
+                    <ToggleButton
+                      key={opt.value}
+                      value={opt.value}
+                      sx={activeColorSx(TERRAIN_COLORS[opt.value], terrain === opt.value)}
+                    >
+                      {opt.label}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              </Box>
+
+              {/* Field Effects — same height as weather/terrain via ToggleButton rows */}
+              <Box>
+                <Typography
+                  variant="caption"
+                  sx={{ fontWeight: 600, mb: 0.75, display: "block", color: "text.secondary" }}
+                >
+                  {t("damageCalc.fieldEffects")}
+                </Typography>
+                <Stack direction="row" sx={{ gap: 0.5, flexWrap: "wrap" }}>
+                  {fieldEffectOptions.map((opt) => {
+                    const color = FIELD_EFFECT_COLORS[opt.key];
+                    return (
+                      <ToggleButton
+                        key={opt.key}
+                        value={opt.key}
+                        selected={opt.active}
+                        onChange={opt.onToggle}
+                        size="small"
+                        sx={activeColorSx(color, opt.active)}
+                      >
+                        {opt.label}
+                      </ToggleButton>
+                    );
+                  })}
+                </Stack>
+              </Box>
             </Stack>
-          </Box>
-        </Stack>
-      </SurfaceCard>
+          </SurfaceCard>
         </Box>
 
         {/* ── Right Column: Sticky Result ── */}

@@ -5,7 +5,6 @@ import {
   createFilterOptions,
   Divider,
   FormControlLabel,
-  InputAdornment,
   Stack,
   TextField,
   Typography,
@@ -223,7 +222,9 @@ export function PokemonPanel({
     onChange((prev) => ({ ...prev, conditions: { ...prev.conditions, [key]: checked } }));
 
   return (
-    <SurfaceCard sx={[{ px: { xs: 2, md: 6 }, py: 3 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}>
+    <SurfaceCard
+      sx={[{ px: { xs: 2, md: 6 }, py: 3 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+    >
       <Stack spacing={2}>
         {/* Header */}
         <Stack direction="row" spacing={1} sx={flexRowCenter}>
@@ -391,100 +392,104 @@ export function PokemonPanel({
               : undefined;
             const showRank = rankStat === statKey;
             return (
-              <Stack key={statKey} direction="row" sx={{ alignItems: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "nowrap" }}>
+              <Stack
+                key={statKey}
+                direction="row"
+                sx={{ alignItems: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "nowrap" }}
+              >
                 <EvField
                   statLabel={t(meta.labelKey)}
                   label={t("damageCalc.ev", "EV")}
                   value={ev}
                   statValue={actual}
                   onChange={(v) => setEv(meta.evKey, v)}
-                    grow={true}
-                    natureValue={statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : undefined}
-                    onNatureChange={
-                      statKey !== "hp"
-                        ? (n) =>
-                            onChange((prev) => ({
-                              ...prev,
-                              natures: { ...prev.natures, [statKey]: n },
-                            }))
-                        : undefined
-                    }
-                    onStatChange={
-                      pokemon
-                        ? (targetStat) => {
-                            const base = pokemon.status[meta.index];
-                            const currentNature =
-                              statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : 1.0;
+                  grow={true}
+                  natureValue={statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : undefined}
+                  onNatureChange={
+                    statKey !== "hp"
+                      ? (n) =>
+                          onChange((prev) => ({
+                            ...prev,
+                            natures: { ...prev.natures, [statKey]: n },
+                          }))
+                      : undefined
+                  }
+                  onStatChange={
+                    pokemon
+                      ? (targetStat) => {
+                          const base = pokemon.status[meta.index];
+                          const currentNature =
+                            statKey !== "hp" ? (value.natures?.[statKey] ?? 1.0) : 1.0;
 
-                            if (statKey === "hp") {
-                              const validEvs = Array.from({ length: 33 }, (_, i) => i).filter(
-                                (testEv) => calcHp(base, testEv) === targetStat,
-                              );
-                              if (validEvs.length > 0) {
-                                setEv(meta.evKey, validEvs[0]);
-                                return true;
-                              }
-                              return false;
-                            } else {
-                              // First, try with the current nature
-                              const validWithCurrent = Array.from({ length: 33 }, (_, i) => i).filter(
-                                (testEv) => calcStatus(base, testEv, currentNature) === targetStat,
-                              );
-                              if (validWithCurrent.length > 0) {
-                                setEv(meta.evKey, validWithCurrent[0]);
-                                return true;
-                              }
-
-                              // If not found, try other natures
-                              const allNatures = [1.1, 1.0, 0.9];
-                              for (const n of allNatures) {
-                                if (n === currentNature) continue;
-                                const validWithN = Array.from({ length: 33 }, (_, i) => i).filter(
-                                  (testEv) => calcStatus(base, testEv, n) === targetStat,
-                                );
-                                if (validWithN.length > 0) {
-                                  onChange((prev) => ({
-                                    ...prev,
-                                    [meta.evKey]: validWithN[0],
-                                    natures: { ...prev.natures, [statKey]: n },
-                                  }));
-                                  return true;
-                                }
-                              }
-                              return false;
+                          if (statKey === "hp") {
+                            const validEvs = Array.from({ length: 33 }, (_, i) => i).filter(
+                              (testEv) => calcHp(base, testEv) === targetStat,
+                            );
+                            if (validEvs.length > 0) {
+                              setEv(meta.evKey, validEvs[0]);
+                              return true;
                             }
+                            return false;
+                          } else {
+                            // First, try with the current nature
+                            const validWithCurrent = Array.from({ length: 33 }, (_, i) => i).filter(
+                              (testEv) => calcStatus(base, testEv, currentNature) === targetStat,
+                            );
+                            if (validWithCurrent.length > 0) {
+                              setEv(meta.evKey, validWithCurrent[0]);
+                              return true;
+                            }
+
+                            // If not found, try other natures
+                            const allNatures = [1.1, 1.0, 0.9];
+                            for (const n of allNatures) {
+                              if (n === currentNature) continue;
+                              const validWithN = Array.from({ length: 33 }, (_, i) => i).filter(
+                                (testEv) => calcStatus(base, testEv, n) === targetStat,
+                              );
+                              if (validWithN.length > 0) {
+                                onChange((prev) => ({
+                                  ...prev,
+                                  [meta.evKey]: validWithN[0],
+                                  natures: { ...prev.natures, [statKey]: n },
+                                }));
+                                return true;
+                              }
+                            }
+                            return false;
                           }
-                        : undefined
+                        }
+                      : undefined
+                  }
+                />
+                {showHpPercent && statKey === "hp" && (
+                  <NumberField
+                    value={value.hpPercent}
+                    label={t("damageCalc.hpPercent")}
+                    min={1}
+                    max={100}
+                    step={1}
+                    size="small"
+                    width={{ xs: 72, md: 140 }}
+                    onValueChange={(v) =>
+                      onChange((prev) => ({ ...prev, hpPercent: v == null ? 100 : v }))
                     }
                   />
-                  {showHpPercent && statKey === "hp" && (
-                    <NumberField
-                      value={value.hpPercent}
-                      label={t("damageCalc.hpPercent")}
-                      min={1}
-                      max={100}
-                      step={1}
-                      size="small"
-                      width={{ xs: 72, md: 140 }}
-                      onValueChange={(v) =>
-                        onChange((prev) => ({ ...prev, hpPercent: v == null ? 100 : v }))
-                      }
-                    />
-                  )}
-                  {showRank && (
-                    <NumberField
-                      value={value.boost}
-                      label={t("damageCalc.rank")}
-                      min={-6}
-                      max={6}
-                      step={1}
-                      size="small"
-                      width={{ xs: 72, md: 96 }}
-                      format={{ signDisplay: "exceptZero" }}
-                      onValueChange={(v) => onChange((prev) => ({ ...prev, boost: v || 0 }))}
-                    />
-                  )}
-                </Stack>
+                )}
+                {showRank && (
+                  <NumberField
+                    value={value.boost}
+                    label={t("damageCalc.rank")}
+                    min={-6}
+                    max={6}
+                    step={1}
+                    size="small"
+                    width={{ xs: 72, md: 96 }}
+                    format={{ signDisplay: "exceptZero" }}
+                    onValueChange={(v) => onChange((prev) => ({ ...prev, boost: v || 0 }))}
+                  />
+                )}
+              </Stack>
             );
           })}
         </Stack>
@@ -603,13 +608,17 @@ function EvField({
   }, [value, natureValue, formattedValue, localValue]);
 
   // EV の増減（+1 / -1）、nature suffix を保持
-  const handleStepEv = (delta: 1 | -1) => {
-    const next = Math.max(0, Math.min(32, value + delta));
-    onChange(next);
-  };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, md: 1 }, flexGrow: grow ? 1 : 0, flexWrap: "nowrap" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: { xs: 0.5, md: 1 },
+        flexGrow: grow ? 1 : 0,
+        flexWrap: "nowrap",
+      }}
+    >
       {/* ── 1. Actual Stat (Moved to leftmost) ── */}
       <TextField
         label={statLabel ?? t("damageCalc.actualStat", "実数値")}
