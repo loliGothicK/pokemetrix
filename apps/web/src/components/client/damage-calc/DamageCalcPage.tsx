@@ -79,7 +79,6 @@ export default function DamageCalcPage() {
   } = useDamageCalcPage();
 
   const weatherOptions: { value: Weather; label: string }[] = [
-    { value: "none", label: t("damageCalc.weatherNone") },
     { value: "sun", label: t("damageCalc.weatherSun") },
     { value: "rain", label: t("damageCalc.weatherRain") },
     { value: "snow", label: t("damageCalc.weatherSnow") },
@@ -87,7 +86,6 @@ export default function DamageCalcPage() {
   ];
 
   const terrainOptions: { value: Terrain; label: string }[] = [
-    { value: "none", label: t("damageCalc.weatherNone") },
     { value: "electric", label: t("damageCalc.terrainElectric") },
     { value: "grassy", label: t("damageCalc.terrainGrassy") },
     { value: "misty", label: t("damageCalc.terrainMisty") },
@@ -262,10 +260,10 @@ export default function DamageCalcPage() {
               {t("damageCalc.weather")}
             </Typography>
             <ToggleButtonGroup
-              value={weather}
+              value={weather === "none" ? null : weather}
               exclusive
               onChange={(_, v) => {
-                if (v !== null) setWeather(v as Weather);
+                setWeather(v === null ? "none" : (v as Weather));
               }}
               size="small"
               sx={{ flexWrap: "wrap", gap: 0.5 }}
@@ -291,10 +289,10 @@ export default function DamageCalcPage() {
               {t("damageCalc.terrain")}
             </Typography>
             <ToggleButtonGroup
-              value={terrain}
+              value={terrain === "none" ? null : terrain}
               exclusive
               onChange={(_, v) => {
-                if (v !== null) setTerrain(v as Terrain);
+                setTerrain(v === null ? "none" : (v as Terrain));
               }}
               size="small"
               sx={{ flexWrap: "wrap", gap: 0.5 }}

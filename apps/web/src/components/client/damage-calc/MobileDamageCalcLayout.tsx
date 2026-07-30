@@ -104,7 +104,6 @@ function MobileFieldConditionsPanel({
       : { px: 1.5, py: 0.5, fontSize: 12, lineHeight: 1.4 };
 
   const weatherOptions: { value: Weather; label: string }[] = [
-    { value: "none", label: t("damageCalc.weatherNone") },
     { value: "sun", label: t("damageCalc.weatherSun") },
     { value: "rain", label: t("damageCalc.weatherRain") },
     { value: "snow", label: t("damageCalc.weatherSnow") },
@@ -112,7 +111,6 @@ function MobileFieldConditionsPanel({
   ];
 
   const terrainOptions: { value: Terrain; label: string }[] = [
-    { value: "none", label: t("damageCalc.weatherNone") },
     { value: "electric", label: t("damageCalc.terrainElectric") },
     { value: "grassy", label: t("damageCalc.terrainGrassy") },
     { value: "misty", label: t("damageCalc.terrainMisty") },
@@ -169,10 +167,10 @@ function MobileFieldConditionsPanel({
           {t("damageCalc.weather")}
         </Typography>
         <ToggleButtonGroup
-          value={weather}
+          value={weather === "none" ? null : weather}
           exclusive
           onChange={(_, v) => {
-            if (v !== null) setWeather(v as Weather);
+            setWeather(v === null ? "none" : (v as Weather));
           }}
           size="small"
           sx={{ flexWrap: "wrap", gap: 0.5 }}
@@ -198,10 +196,10 @@ function MobileFieldConditionsPanel({
           {t("damageCalc.terrain")}
         </Typography>
         <ToggleButtonGroup
-          value={terrain}
+          value={terrain === "none" ? null : terrain}
           exclusive
           onChange={(_, v) => {
-            if (v !== null) setTerrain(v as Terrain);
+            setTerrain(v === null ? "none" : (v as Terrain));
           }}
           size="small"
           sx={{ flexWrap: "wrap", gap: 0.5 }}
