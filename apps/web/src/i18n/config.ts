@@ -26,7 +26,7 @@ void i18n.use(initReactI18next).init({
   },
   lng: defaultLanguage,
   fallbackLng: defaultLanguage,
-  returnEmptyString: false,
+  returnEmptyString: true,
   supportedLngs: Object.keys(supportedLngs),
   debug: process.env.NODE_ENV === "development",
   interpolation: {
