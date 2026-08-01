@@ -136,6 +136,13 @@ export function MoveSelectionDrawer({
 
     if (!isError && !!battleData && battleData.isOk()) {
       const popularMoves: MoveEntry[] = battleData.value.moves
+        .filter((info) => {
+          if (!moveByIdentifier.has(info.name)) {
+            console.error("MISSING MOVE IN BATTLE DATA:", info.name);
+            return false;
+          }
+          return true;
+        })
         .map((info) => ({
           ...moveByIdentifier.get(info.name)!,
           rank: info.rank,

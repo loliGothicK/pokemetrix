@@ -31,7 +31,7 @@ export type PokemonPanelState = {
   readonly move: string | null;
   readonly ability: string | null;
   readonly item: string | null;
-  readonly boost: number;
+  readonly boosts: Partial<Record<StatKey, number>>;
   readonly evHp: number;
   readonly evAtk: number;
   readonly evDef: number;
@@ -72,7 +72,7 @@ const defaultPanel: PokemonPanelState = {
   move: null,
   ability: null,
   item: null,
-  boost: 0,
+  boosts: {},
   evHp: 0,
   evAtk: 0,
   evDef: 0,
@@ -86,11 +86,52 @@ const defaultPanel: PokemonPanelState = {
   natures: {},
 };
 
-/** Speed after Tailwind (×2) / Paralysis (÷2). */
-function effectiveSpeed(base: number, conditions: Readonly<Record<string, boolean>>): number {
+/** Speed after Rank, Item, Ability, Tailwind, and Paralysis. */
+function effectiveSpeed(
+  base: number,
+  boost: number,
+  item: string | null,
+  ability: string | null,
+  weather: Weather,
+  terrain: Terrain,
+  conditions: Readonly<Record<string, boolean>>
+): number {
   let s = base;
-  if (conditions.tailwind) s *= 2;
-  if (conditions.paralysis) s = Math.floor(s / 2);
+  // 1. Apply stat rank
+  const num = Math.max(2, 2 + boost);
+  const den = Math.max(2, 2 - boost);
+  s = Math.floor((s * num) / den);
+
+  // 2. Apply weather/terrain/abilities
+  if (ability === "chlorophyll" && weather === "sun") {
+    s = Math.floor((s * 8192) / 4096);
+  } else if (ability === "swift-swim" && weather === "rain") {
+    s = Math.floor((s * 8192) / 4096);
+  } else if (ability === "sand-rush" && weather === "sandstorm") {
+    s = Math.floor((s * 8192) / 4096);
+  } else if (ability === "slush-rush" && weather === "snow") {
+    s = Math.floor((s * 8192) / 4096);
+  } else if (ability === "surge-surfer" && terrain === "electric") {
+    s = Math.floor((s * 8192) / 4096);
+  } else if (ability === "quick-feet" && (conditions.paralysis || conditions.burn || conditions.poison || conditions.sleep)) {
+    s = Math.floor((s * 6144) / 4096);
+  }
+
+  // 3. Apply item
+  if (item === "choice-scarf") {
+    s = Math.floor((s * 6144) / 4096); // 1.5x
+  } else if (item === "iron-ball" || item === "macho-brace" || item === "power-weight" || item === "power-bracer" || item === "power-belt" || item === "power-lens" || item === "power-band" || item === "power-anklet") {
+    s = Math.floor((s * 2048) / 4096); // 0.5x
+  }
+
+  // 4. Apply field conditions
+  if (conditions.tailwind) {
+    s = Math.floor((s * 8192) / 4096); // 2.0x
+  }
+  if (conditions.paralysis && ability !== "quick-feet") {
+    s = Math.floor((s * 2048) / 4096); // 0.5x
+  }
+
   return s;
 }
 
@@ -167,8 +208,24 @@ export function useDamageCalcPage() {
     const stat = (pokemon: typeof atkPokemon, idx: number, ev: number, nature: number = 1.0) =>
       calcStatus(pokemon.status[idx], ev, nature);
 
-    const atkSpe = effectiveSpeed(stat(atkPokemon, 5, attacker.evSpe, attacker.natures?.spe), ac);
-    const defSpe = effectiveSpeed(stat(defPokemon, 5, defender.evSpe, defender.natures?.spe), dc);
+    const atkSpe = effectiveSpeed(
+      stat(atkPokemon, 5, attacker.evSpe, attacker.natures?.spe),
+      attacker.boosts["spe"] ?? 0,
+      attacker.item,
+      attacker.ability,
+      weather,
+      terrain,
+      ac
+    );
+    const defSpe = effectiveSpeed(
+      stat(defPokemon, 5, defender.evSpe, defender.natures?.spe),
+      defender.boosts["spe"] ?? 0,
+      defender.item,
+      defender.ability,
+      weather,
+      terrain,
+      dc
+    );
 
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
     const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
@@ -253,21 +310,21 @@ export function useDamageCalcPage() {
     if (mechanics.useTargetAttack) {
       // Foul Play: uses the defender's (post-Power-Trick) Attack stat + rank.
       atkStat = effDefAtk;
-      attackBoost = defender.boost;
+      attackBoost = defender.boosts["atk"] ?? 0;
     } else if (mechanics.offensiveStat === "def") {
       // Body Press: uses the user's Defense stat.
       atkStat = effAtkDef;
-      attackBoost = attacker.boost;
-    } else if (mechanics.offensiveStat === "spa") {
-      atkStat = atkSpaVal;
-      attackBoost = attacker.boost;
+      attackBoost = attacker.boosts["def"] ?? 0;
     } else {
-      atkStat = effAtkAtk;
-      attackBoost = attacker.boost;
+      atkStat = mechanics.offensiveStat === "spa" ? atkSpaVal : effAtkAtk;
+      attackBoost = attacker.boosts[mechanics.offensiveStat === "spa" ? "spa" : "atk"] ?? 0;
     }
 
     // --- Defensive stat resolution ---
     const defStat = mechanics.defensiveStat === "spd" ? effDefSpd : effDefDef;
+    const defenseBoost = mechanics.ignoresTargetDefenseBoosts 
+      ? 0 
+      : (defender.boosts[mechanics.defensiveStat === "spd" ? "spd" : "def"] ?? 0);
 
     // --- Attack / Defense stat modifiers ---
     const attackModifiers: number[] = [];
@@ -349,7 +406,7 @@ export function useDamageCalcPage() {
       attackBoost,
       attackModifiers: attackModifiers.length > 0 ? attackModifiers : undefined,
       defense: defStat,
-      defenseBoost: defender.boost,
+      defenseBoost,
       defenseModifiers: defenseModifiers.length > 0 ? defenseModifiers : undefined,
       isPhysical,
       moveType,

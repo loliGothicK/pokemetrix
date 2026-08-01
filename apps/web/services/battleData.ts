@@ -103,14 +103,14 @@ export async function fetchBattleData(
       heldItems: rows
         .filter(({ category }) => category === "held_item")
         .map((row) => ({
-          name: row.name.toLowerCase().split(" ").join("-"),
+          name: row.name.replace(/'/g, "").toLowerCase().split(" ").join("-"),
           rank: row.rank,
           percentage: row.percentage_value!,
         })),
       moves: rows
         .filter(({ category }) => category === "move")
         .map((row) => ({
-          name: row.name.toLowerCase().split(" ").join("-"),
+          name: row.name.replace(/'/g, "").toLowerCase().split(" ").join("-"),
           rank: row.rank,
           percentage: row.percentage_value!,
         })),

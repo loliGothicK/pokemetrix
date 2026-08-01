@@ -110,6 +110,8 @@ export type MoveMechanics = {
    * without multiplying the raw roll numbers again.
    */
   readonly hitCountAlreadyMerged?: boolean;
+  /** Ignores target's defense boosts. */
+  readonly ignoresTargetDefenseBoosts?: boolean;
 };
 
 // ---------------------------------------------------------------------------
@@ -416,6 +418,10 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       .with(P.union("psyshock", "psystrike", "secret-sword"), () => ({
         ...base,
         defensiveStat: "def" as const,
+      }))
+      .with(P.union("darkest-lariat", "sacred-sword", "chip-away"), () => ({
+        ...base,
+        ignoresTargetDefenseBoosts: true,
       }))
 
       // --- Conditional doublers (checkbox) ---

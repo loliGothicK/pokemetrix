@@ -390,7 +390,10 @@ export function PokemonPanel({
                 ? calcHp(pokemon.status[0], ev)
                 : calcStatus(pokemon.status[meta.index], ev, value.natures?.[statKey] ?? 1.0)
               : undefined;
-            const showRank = rankStat === statKey;
+            const isExtraStat = isAttacker
+              ? mechanics?.attackerExtraStats?.includes(statKey)
+              : mechanics?.defenderExtraStats?.includes(statKey);
+            const showRank = rankStat === statKey || isExtraStat;
             return (
               <Stack
                 key={statKey}
@@ -478,7 +481,7 @@ export function PokemonPanel({
                 )}
                 {showRank && (
                   <NumberField
-                    value={value.boost}
+                    value={value.boosts?.[statKey] ?? 0}
                     label={t("damageCalc.rank")}
                     min={-6}
                     max={6}
@@ -486,7 +489,12 @@ export function PokemonPanel({
                     size="small"
                     width={{ xs: 72, md: 96 }}
                     format={{ signDisplay: "exceptZero" }}
-                    onValueChange={(v) => onChange((prev) => ({ ...prev, boost: v || 0 }))}
+                    onValueChange={(v) =>
+                      onChange((prev) => ({
+                        ...prev,
+                        boosts: { ...prev.boosts, [statKey]: v || 0 },
+                      }))
+                    }
                   />
                 )}
               </Stack>
