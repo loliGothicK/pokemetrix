@@ -68,7 +68,7 @@ export default function Home() {
       <Container maxWidth="lg">
         {/* Hero Section */}
         <Stack spacing={6} sx={{ alignItems: "center" }}>
-          <Stack direction={"row"} sx={{ alignItems: "center" }}>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 2, md: 0 }} sx={{ alignItems: "center" }}>
             <PokemetrixIcon
               sx={{
                 width: { xs: 120, md: 200 },
@@ -111,13 +111,15 @@ export default function Home() {
                   elevation={0}
                   sx={{
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: { xs: "row", md: "column" },
+                    alignItems: { xs: "center", md: "normal" },
                     justifyContent: "space-between",
                     height: "100%",
-                    minHeight: tool.primary ? 240 : 180,
+                    minHeight: { xs: "auto", md: tool.primary ? 240 : 180 },
                     textDecoration: "none",
                     borderRadius: 4,
-                    p: 5,
+                    p: { xs: 3, md: 5 },
+                    gap: { xs: 2, md: 0 },
                     bgcolor: alpha(theme.palette.background.paperTint, tool.primary ? 0.8 : 0.4),
                     backdropFilter: "blur(12px)",
                     border: "1px solid",
@@ -141,30 +143,52 @@ export default function Home() {
                   >
                     <Box
                       sx={{
-                        p: 1.5,
+                        p: { xs: 1, md: 1.5 },
                         borderRadius: 3,
                         bgcolor: alpha(theme.palette.background.paper, 0.5),
                         boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.05)}`,
+                        display: "flex",
                       }}
                     >
-                      {tool.icon}
+                      {/* Scale down the icon slightly on mobile */}
+                      <Box sx={{ transform: { xs: "scale(0.8)", md: "scale(1)" }, display: "flex" }}>
+                        {tool.icon}
+                      </Box>
                     </Box>
                     <ArrowForwardIosRoundedIcon
                       className="arrow-icon"
-                      sx={{ color: "text.disabled", fontSize: 20, transition: "0.2s" }}
+                      sx={{ display: { xs: "none", md: "block" }, color: "text.disabled", fontSize: 20, transition: "0.2s" }}
                     />
                   </Stack>
-                  <Stack spacing={1} sx={{ pl: 2 }}>
+                  <Stack spacing={{ xs: 0.5, md: 1 }} sx={{ pl: { xs: 0, md: 2 }, flexGrow: 1 }}>
                     <Typography
                       variant={tool.primary ? "h4" : "h6"}
-                      sx={{ fontWeight: 700, color: "text.primary" }}
+                      sx={{ 
+                        fontWeight: 700, 
+                        color: "text.primary",
+                        fontSize: { xs: tool.primary ? "1.25rem" : "1rem", md: undefined }
+                      }}
                     >
                       {tool.title}
                     </Typography>
-                    <Typography color="text.secondary" variant="body2">
+                    <Typography 
+                      color="text.secondary" 
+                      variant="body2"
+                      sx={{
+                        fontSize: { xs: "0.75rem", md: "0.875rem" },
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden"
+                      }}
+                    >
                       {tool.desc}
                     </Typography>
                   </Stack>
+                  <ArrowForwardIosRoundedIcon
+                    className="arrow-icon"
+                    sx={{ display: { xs: "block", md: "none" }, color: "text.disabled", fontSize: 16, transition: "0.2s", flexShrink: 0 }}
+                  />
                 </Paper>
               </Grid>
             ))}
