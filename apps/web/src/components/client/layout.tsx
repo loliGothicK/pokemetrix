@@ -16,6 +16,7 @@ import {
   AppBar,
   Badge,
   Box,
+  Button,
   CssBaseline,
   Divider,
   Drawer,
@@ -45,6 +46,7 @@ import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
 import { Footer } from "@/components/client/Footer";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
 import { createAppTheme } from "../../../theme";
@@ -403,6 +405,16 @@ function ResponsiveAppBar({
               </Typography>
             </Box>
           </Box>
+
+          {/* Docs / Blog Links (Desktop) */}
+          <Stack direction="row" spacing={0.5} sx={{ display: { xs: "none", md: "flex" }, ml: 2 }}>
+            <Button component={Link} href="/docs" color="inherit" sx={{ fontWeight: 600, color: "text.secondary", "&:hover": { color: "text.primary" } }}>
+              Docs
+            </Button>
+            <Button component={Link} href="/blog" color="inherit" sx={{ fontWeight: 600, color: "text.secondary", "&:hover": { color: "text.primary" } }}>
+              Blog
+            </Button>
+          </Stack>
         </Box>
 
         {/* ===== 右: コントロール ===== */}
@@ -427,6 +439,12 @@ function MobileDrawerContent({
   readonly onLanguageChange: (language: string) => void;
 }) {
   const { t } = useTranslation();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  let currentSection = "pokemetrix";
+  if (pathname.startsWith("/docs")) currentSection = "docs";
+  if (pathname.startsWith("/blog")) currentSection = "blog";
 
   return (
     <>
@@ -438,7 +456,24 @@ function MobileDrawerContent({
           py: 1,
         }}
       >
-        <Typography sx={{ fontWeight: 700, px: 1 }}>{t("teamBuilder.title")}</Typography>
+        <FormControl size="small" variant="standard" sx={{ ml: 1 }}>
+          <Select
+            value={currentSection}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "docs") router.push("/docs");
+              else if (value === "blog") router.push("/blog");
+              else router.push("/");
+              onClose();
+            }}
+            disableUnderline
+            sx={{ fontWeight: 800, fontSize: "1.1rem" }}
+          >
+            <MenuItem value="pokemetrix" sx={{ fontWeight: 600 }}>POKÉMETRIX</MenuItem>
+            <MenuItem value="docs" sx={{ fontWeight: 600 }}>DOCS</MenuItem>
+            <MenuItem value="blog" sx={{ fontWeight: 600 }}>BLOG</MenuItem>
+          </Select>
+        </FormControl>
         <IconButton onClick={onClose} aria-label="close navigation">
           <ChevronLeftIcon />
         </IconButton>
