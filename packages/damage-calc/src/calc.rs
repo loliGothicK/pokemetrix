@@ -160,7 +160,7 @@ fn matchup_shift(matchup: u32) -> Option<i32> {
 
 fn combined_immune(attack_type: Type, type1: Type, type2: Option<Type>) -> bool {
     single_matchup(attack_type, type1) == 0
-        || type2.map_or(false, |t| single_matchup(attack_type, t) == 0)
+        || type2.is_some_and(|t| single_matchup(attack_type, t) == 0)
 }
 
 fn combined_shift(attack_type: Type, type1: Type, type2: Option<Type>) -> i32 {
