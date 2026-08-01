@@ -37,6 +37,21 @@ export function terrainModifier(terrain: Terrain, moveType: Type): number {
   return M.NEUTRAL;
 }
 
+/**
+ * Terrain defensive modifier for a move.
+ * Grassy Terrain halves Earthquake, Bulldoze, Magnitude against grounded targets.
+ * Misty Terrain halves Dragon moves against grounded targets.
+ */
+export function terrainDefensiveModifier(terrain: Terrain, moveType: Type, moveId: string): number {
+  if (terrain === "grassy" && (moveId === "earthquake" || moveId === "bulldoze" || moveId === "magnitude")) {
+    return M.WEATHER_PENALTY; // 0.5x
+  }
+  if (terrain === "misty" && moveType === "dragon") {
+    return M.WEATHER_PENALTY; // 0.5x
+  }
+  return M.NEUTRAL;
+}
+
 /** STAB modifier: 1.5x normally, 2x with Adaptability, 1x if not matching. */
 export function stabModifier(
   attackerTypes: readonly Type[],

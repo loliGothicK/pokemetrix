@@ -648,6 +648,7 @@ function getKOLabel(
   ohkoChance: number,
   t: (key: string, opts?: Record<string, unknown>) => string,
 ): string {
+  if (minHits === Infinity) return t("damageCalc.immune");
   if (minHits === 1 && ohkoChance === 1) return t("damageCalc.ohko");
   if (minHits === 1 && ohkoChance > 0)
     return t("damageCalc.ohkoChance", { chance: Math.round(ohkoChance * 100) });

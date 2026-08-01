@@ -52,10 +52,18 @@ export type PowerContext = {
   readonly defenderWeight: number;
   /** Active field terrain. */
   readonly terrain: Terrain;
+  /** Active weather. */
+  readonly weather: "none" | "sun" | "rain" | "snow" | "sandstorm";
+  /** Whether the attacker is grounded. */
+  readonly attackerGrounded: boolean;
+  /** Whether the defender is grounded. */
+  readonly defenderGrounded: boolean;
   /** Whether the defender is holding a (removable) item — for Knock Off. */
   readonly defenderHasItem: boolean;
   /** Whether the attacker is holding an item — for Acrobatics. */
   readonly attackerHasItem: boolean;
+  /** The specific item identifier the attacker is holding, if any. */
+  readonly attackerItem: string | null;
   /** Move-condition checkbox/numeric states (keyed by MoveConditionDef.key). */
   readonly conditions: Readonly<Record<string, boolean | number>>;
   /** Whether gravity is active. */
@@ -225,16 +233,79 @@ const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
   conditions: [],
 });
 
+function flingPower(item: string | null): number {
+  if (!item) return 0;
+  if (item === "iron-ball" || item.endsWith("-tr")) return 130;
+  if (item.endsWith("-plate") || item === "hard-stone" || item === "thick-club") return 90;
+  if (item === "dusk-stone" || item === "shiny-stone" || item === "dawn-stone" || item === "oval-stone" || item === "ice-stone" || item === "heavy-duty-boots" || item === "assault-vest" || item === "weakness-policy" || item === "blunder-policy") return 80;
+  if (item === "poison-barb" || item === "dragon-fang") return 70;
+  if (item === "rocky-helmet" || item === "macho-brace") return 60;
+  if (item === "light-clay" || item === "flame-orb" || item === "toxic-orb" || item === "light-ball" || item === "kings-rock" || item === "life-orb" || item === "expert-belt" || item === "black-glasses" || item === "charcoal" || item === "mystic-water" || item === "magnet" || item === "miracle-seed" || item === "never-melt-ice" || item === "spell-tag" || item === "twisted-spoon" || item === "silver-powder" || item === "soft-sand" || item === "metal-coat" || item === "silk-scarf" || item === "sharp-beak" || item === "black-belt") return 30;
+  if (item.endsWith("-berry") || item.startsWith("choice-") || item === "focus-sash" || item === "focus-band" || item === "leftovers" || item === "black-sludge" || item === "white-herb" || item === "mental-herb" || item === "power-herb") return 10;
+  return 30; // Default fallback
+}
+
 /**
  * Resolve the mechanics for a move by identifier + category.
  */
 export function getMoveMechanics(identifier: string, category: MoveCategory): MoveMechanics {
   const base = DEFAULTS(category);
 
-  return (
-    match(identifier)
+  return match(identifier)
       // --- Base Power Modifiers (Last Respects, Rage Fist) ---
       .with("last-respects", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "faintedAllies",
+            labelKey: "damageCalc.condFaintedAllies",
+            type: "number" as const,
+            min: 0,
+            max: 5,
+            defaultVal: 0,
+          },
+        ],
+        computeBasePower: (ctx: PowerContext) => {
+          const fainted = (ctx.conditions["faintedAllies"] as number) ?? 0;
+          return 50 + 50 * fainted;
+        },
+      }))
+      .with(P.union("stored-power", "power-trip"), () => ({
+        ...base,
+        conditions: [
+          {
+            key: "totalBoosts",
+            labelKey: "damageCalc.condTotalBoosts",
+            type: "number" as const,
+            min: 0,
+            max: 42,
+            defaultVal: 0,
+          },
+        ],
+        computeBasePower: (ctx: PowerContext) => {
+          const boosts = (ctx.conditions["totalBoosts"] as number) ?? 0;
+          return 20 + 20 * boosts;
+        },
+      }))
+      // --- Base Power Overrides ---
+      .with(P.union("flail", "reversal"), () => ({
+        ...base,
+        usesAttackerHp: true,
+        computeBasePower: (ctx: PowerContext) => {
+          const p = ctx.attackerHpPercent;
+          if (p <= 4.17) return 200;
+          if (p <= 10.42) return 150;
+          if (p <= 20.84) return 100;
+          if (p <= 35.42) return 80;
+          if (p <= 68.75) return 40;
+          return 20;
+        },
+      }))
+      .with("fling", () => ({
+        ...base,
+        computeBasePower: (ctx: PowerContext) => flingPower(ctx.attackerItem),
+      }))
+      .with("eruption", "water-spout", "dragon-energy", () => ({
         ...base,
         conditions: [
           {
@@ -356,6 +427,15 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
         bpModifiers: condDouble("targetMinimized"),
       }))
+      .with(P.union("solar-beam", "solar-blade"), () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => {
+          if (ctx.weather === "rain" || ctx.weather === "sandstorm" || ctx.weather === "snow") {
+            return [M.WEATHER_PENALTY]; // 0.5x
+          }
+          return [];
+        },
+      }))
       .with(P.union("stomping-tantrum", "temper-flare"), () => ({
         ...base,
         conditions: [{ key: "prevMoveFailed", labelKey: "damageCalc.condPrevMoveFailed" }],
@@ -417,15 +497,15 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       }))
       .with("rising-voltage", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" ? [M.DOUBLE] : []),
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" && ctx.defenderGrounded ? [M.DOUBLE] : []),
       }))
       .with("expanding-force", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" && ctx.attackerGrounded ? [M.EXPANDING_FORCE] : []),
       }))
       .with("misty-explosion", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "misty" ? [M.TERRAIN_OFFENSIVE] : []),
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "misty" && ctx.attackerGrounded ? [M.TERRAIN_OFFENSIVE] : []),
       }))
 
       // --- Type effectiveness override ---
@@ -485,8 +565,7 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       // Population Bomb
       .with("population-bomb", () => ({ ...base, hitCount: { min: 1, max: 10 } }))
 
-      .otherwise(() => base)
-  );
+      .otherwise(() => base);
 }
 
 /**

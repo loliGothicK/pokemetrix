@@ -8,6 +8,7 @@ export {
   screenModifier,
   spreadModifier,
   terrainModifier,
+  terrainDefensiveModifier,
 } from "./modifiers";
 export type { Weather, Terrain, ScreenState } from "./modifiers";
 export { analyze } from "./analysis";

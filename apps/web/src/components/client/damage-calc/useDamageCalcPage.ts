@@ -3,6 +3,7 @@ import { useDamageCalc, type UseDamageCalcResult } from "@/hooks/useDamageCalc";
 import {
   weatherModifier,
   terrainModifier,
+  terrainDefensiveModifier,
   stabModifier,
   screenModifier,
   spreadModifier,
@@ -172,6 +173,9 @@ export function useDamageCalcPage() {
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
     const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
 
+    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability, gravity);
+    const defenderGrounded = isGrounded(defPokemon.types, defender.ability, gravity);
+
     // --- Effective base power ---
     const powerCtx: PowerContext = {
       basePower: staticPower,
@@ -182,8 +186,12 @@ export function useDamageCalcPage() {
       attackerWeight: atkWeight,
       defenderWeight: defWeight,
       terrain,
+      weather,
+      attackerGrounded,
+      defenderGrounded,
       defenderHasItem: defender.item !== null,
       attackerHasItem: attacker.item !== null,
+      attackerItem: attacker.item,
       conditions: attacker.moveConditions,
       gravity,
     };
@@ -193,13 +201,13 @@ export function useDamageCalcPage() {
 
     if (basePower <= 0) return null;
 
-    // Terrain only boosts a grounded attacker.
-    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability, gravity);
-
     // --- Base-power modifiers ---
     const bpModifiers: number[] = [];
     if (attackerGrounded && terrainModifier(terrain, moveType) !== M.NEUTRAL) {
       bpModifiers.push(terrainModifier(terrain, moveType));
+    }
+    if (defenderGrounded && terrainDefensiveModifier(terrain, moveType, move.identifier) !== M.NEUTRAL) {
+      bpModifiers.push(terrainDefensiveModifier(terrain, moveType, move.identifier));
     }
     if (attacker.item === "type-boost") bpModifiers.push(M.TYPE_ITEM);
     if (ateBoost) bpModifiers.push(M.ATE_BOOST);
