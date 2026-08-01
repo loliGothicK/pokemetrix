@@ -112,6 +112,8 @@ export type MoveMechanics = {
   readonly hitCountAlreadyMerged?: boolean;
   /** Ignores target's defense boosts. */
   readonly ignoresTargetDefenseBoosts?: boolean;
+  /** Always results in a critical hit. */
+  readonly alwaysCrit?: boolean;
 };
 
 // ---------------------------------------------------------------------------
@@ -423,6 +425,10 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         ...base,
         ignoresTargetDefenseBoosts: true,
       }))
+      .with(
+        P.union("wicked-blow", "surging-strikes", "flower-trick", "frost-breath", "storm-throw", "zippy-zap"),
+        () => ({ ...base, alwaysCrit: true }),
+      )
 
       // --- Conditional doublers (checkbox) ---
       .with(P.union("hex", "infernal-parade"), () => ({

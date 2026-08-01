@@ -77,6 +77,7 @@ export default function DamageCalcPage() {
     setIsDoubles,
     isCrit,
     setIsCrit,
+    critDisabled,
     result,
   } = useDamageCalcPage();
 
@@ -364,7 +365,7 @@ export default function DamageCalcPage() {
             overflowY: "auto",
           }}
         >
-          <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
+          <ResultPanel result={result} isCrit={isCrit} critDisabled={critDisabled} onCritChange={setIsCrit} summary={summary} />
         </Box>
       </Box>
     </Box>

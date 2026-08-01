@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useDamageCalc, type UseDamageCalcResult } from "@/hooks/useDamageCalc";
 import {
   weatherModifier,
@@ -158,6 +158,23 @@ export function useDamageCalcPage() {
   }>({ reflect: false, lightScreen: false, auroraVeil: false });
   const [isDoubles, setIsDoubles] = useState(true);
   const [isCrit, setIsCrit] = useState(false);
+  const critDisabled = defender.ability === "shell-armor" || defender.ability === "battle-armor";
+
+  useEffect(() => {
+    if (critDisabled) {
+      setIsCrit(false);
+    } else if (attacker.move) {
+      const move = moveByIdentifier.get(attacker.move);
+      if (move && move.category !== "status") {
+        const mechanics = getMoveMechanics(move.identifier, move.category);
+        if (mechanics.alwaysCrit) {
+          setIsCrit(true);
+        } else {
+          setIsCrit(false);
+        }
+      }
+    }
+  }, [attacker.move, critDisabled]);
 
   const damageInput = useMemo((): DamageInput | null => {
     if (!attacker.identifier) return null;
@@ -493,6 +510,7 @@ export function useDamageCalcPage() {
     setIsDoubles,
     isCrit,
     setIsCrit,
+    critDisabled,
     result,
   };
 }

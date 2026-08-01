@@ -441,6 +441,7 @@ type MobileDamageCalcLayoutProps = {
   readonly isDoubles: boolean;
   readonly setIsDoubles: (v: boolean) => void;
   readonly isCrit: boolean;
+  readonly critDisabled?: boolean;
   readonly setIsCrit: (v: boolean) => void;
   readonly result: DamageCalcResult;
   readonly summary: CalcSummary;
@@ -468,6 +469,7 @@ export function MobileDamageCalcLayout({
   isDoubles,
   setIsDoubles,
   isCrit,
+  critDisabled,
   setIsCrit,
   result,
   summary,
@@ -593,7 +595,7 @@ export function MobileDamageCalcLayout({
           }}
         />
         <Box sx={{ px: 2, pb: 2, overflowY: "auto" }}>
-          <ResultPanel result={result} isCrit={isCrit} onCritChange={setIsCrit} summary={summary} />
+          <ResultPanel result={result} isCrit={isCrit} critDisabled={critDisabled} onCritChange={setIsCrit} summary={summary} />
         </Box>
       </Drawer>
 

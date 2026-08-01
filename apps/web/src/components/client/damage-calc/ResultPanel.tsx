@@ -40,11 +40,12 @@ type CalcSummary = {
 type ResultPanelProps = {
   readonly result: DamageCalcResult;
   readonly isCrit: boolean;
+  readonly critDisabled?: boolean;
   readonly onCritChange: (v: boolean) => void;
   readonly summary?: CalcSummary;
 };
 
-export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPanelProps) {
+export function ResultPanel({ result, isCrit, critDisabled, onCritChange, summary }: ResultPanelProps) {
   const { t } = useTranslation();
   const { output, analysis, isLoading, isError, missingReason } = result;
 
@@ -59,7 +60,7 @@ export function ResultPanel({ result, isCrit, onCritChange, summary }: ResultPan
   }, [hitMax]);
 
   const critToggle = (
-    <CritToggle isCrit={isCrit} onChange={onCritChange} label={t("damageCalc.isCrit")} />
+    <CritToggle isCrit={isCrit} disabled={critDisabled} onChange={onCritChange} label={t("damageCalc.isCrit")} />
   );
 
   if (isLoading) {
@@ -621,10 +622,12 @@ export function HpBar({
 
 function CritToggle({
   isCrit,
+  disabled,
   onChange,
   label,
 }: {
   readonly isCrit: boolean;
+  readonly disabled?: boolean;
   readonly onChange: (v: boolean) => void;
   readonly label: string;
 }) {
@@ -632,6 +635,7 @@ function CritToggle({
     <ToggleButton
       value="crit"
       selected={isCrit}
+      disabled={disabled}
       onChange={() => onChange(!isCrit)}
       size="small"
       color="warning"
