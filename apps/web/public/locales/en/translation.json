@@ -432,6 +432,7 @@
     "condAllyRound": "Ally already used Round",
     "condTargetMinimized": "Target is Minimized",
     "condTotalBoosts": "Total Positive Stat Boosts",
+    "condBeatUpBP": "Base Power per hit",
     "condPrevMoveFailed": "Previous move failed",
     "condTargetDamaged": "Target already took damage",
     "condMovesAfterTarget": "Moves after the target",

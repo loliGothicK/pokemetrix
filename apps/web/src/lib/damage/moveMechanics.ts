@@ -287,6 +287,23 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
           return 20 + 20 * boosts;
         },
       }))
+      .with("beat-up", () => ({
+        ...base,
+        hitCount: { min: 1, max: 6 },
+        conditions: [
+          {
+            key: "beatUpBP",
+            labelKey: "damageCalc.condBeatUpBP",
+            type: "number" as const,
+            min: 5,
+            max: 25,
+            defaultVal: 15, // average
+          },
+        ],
+        computeBasePower: (ctx: PowerContext) => {
+          return (ctx.conditions["beatUpBP"] as number) ?? 15;
+        },
+      }))
       // --- Base Power Overrides ---
       .with(P.union("flail", "reversal"), () => ({
         ...base,
