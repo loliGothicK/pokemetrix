@@ -69,6 +69,8 @@ export default function DamageCalcPage() {
     setFairyAura,
     wonderRoom,
     setWonderRoom,
+    gravity,
+    setGravity,
     screens,
     setScreens,
     isDoubles,
@@ -104,6 +106,12 @@ export default function DamageCalcPage() {
       label: t("damageCalc.wonderRoom"),
       active: wonderRoom,
       onToggle: () => setWonderRoom(!wonderRoom),
+    },
+    {
+      key: "gravity",
+      label: t("damageCalc.condGravity"),
+      active: gravity,
+      onToggle: () => setGravity(!gravity),
     },
   ];
 

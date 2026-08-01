@@ -94,7 +94,8 @@ function effectiveSpeed(base: number, conditions: Readonly<Record<string, boolea
 }
 
 /** Whether a Pokémon is grounded (affected by Terrain). Levitate / Flying float. */
-function isGrounded(types: readonly Type[], ability: string | null): boolean {
+function isGrounded(types: readonly Type[], ability: string | null, gravity: boolean): boolean {
+  if (gravity) return true;
   if (ability === "levitate") return false;
   if (types.includes("flying")) return false;
   return true;
@@ -107,6 +108,7 @@ export function useDamageCalcPage() {
   const [terrain, setTerrain] = useState<Terrain>("none");
   const [fairyAura, setFairyAura] = useState(false);
   const [wonderRoom, setWonderRoom] = useState(false);
+  const [gravity, setGravity] = useState(false);
   const [screens, setScreens] = useState<{
     reflect: boolean;
     lightScreen: boolean;
@@ -183,6 +185,7 @@ export function useDamageCalcPage() {
       defenderHasItem: defender.item !== null,
       attackerHasItem: attacker.item !== null,
       conditions: attacker.moveConditions,
+      gravity,
     };
     const basePower = mechanics.computeBasePower
       ? mechanics.computeBasePower(powerCtx)
@@ -191,7 +194,7 @@ export function useDamageCalcPage() {
     if (basePower <= 0) return null;
 
     // Terrain only boosts a grounded attacker.
-    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability);
+    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability, gravity);
 
     // --- Base-power modifiers ---
     const bpModifiers: number[] = [];
@@ -203,6 +206,7 @@ export function useDamageCalcPage() {
     if (ac.helpingHand) bpModifiers.push(M.HELPING_HAND);
     if (ac.charge && moveType === "electric") bpModifiers.push(M.CHARGE);
     if (ac.steelySpirit && moveType === "steel") bpModifiers.push(M.STEELY_SPIRIT);
+    if (attacker.ability === "fire-mane" && moveType === "fire") bpModifiers.push(M.STEELY_SPIRIT); // 1.5x base power
     if (ac.powerSpot) bpModifiers.push(M.POWER_SPOT);
     if (ac.battery && !isPhysical) bpModifiers.push(M.BATTERY);
     if (fairyAura && moveType === "fairy") bpModifiers.push(M.FAIRY_AURA);
@@ -304,10 +308,14 @@ export function useDamageCalcPage() {
       effectivenessOverride = tarShotFireOverride(defType1, defType2);
     }
 
-    // --- Immunity override (Levitate vs Ground) ---
+    // --- Immunity override (Levitate / Gravity vs Ground) ---
     let immuneOverride: boolean | null = null;
-    if (defender.ability === "levitate" && moveType === "ground") {
-      immuneOverride = true;
+    if (moveType === "ground") {
+      if (gravity) {
+        immuneOverride = false; // Forces hit against Flying / Levitate
+      } else if (defender.ability === "levitate") {
+        immuneOverride = true; // Blocked by Levitate
+      }
     }
 
     // --- Protect ---
@@ -350,7 +358,7 @@ export function useDamageCalcPage() {
       protectModifier,
       isBurned,
     };
-  }, [attacker, defender, weather, terrain, fairyAura, wonderRoom, screens, isDoubles, isCrit]);
+  }, [attacker, defender, weather, terrain, fairyAura, wonderRoom, gravity, screens, isDoubles, isCrit]);
 
   const defenderMaxHp = useMemo(() => {
     if (!defender.identifier) return undefined;
@@ -412,6 +420,8 @@ export function useDamageCalcPage() {
     setFairyAura,
     wonderRoom,
     setWonderRoom,
+    gravity,
+    setGravity,
     screens,
     setScreens,
     isDoubles,

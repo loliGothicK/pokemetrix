@@ -58,6 +58,8 @@ export type PowerContext = {
   readonly attackerHasItem: boolean;
   /** Move-condition checkbox/numeric states (keyed by MoveConditionDef.key). */
   readonly conditions: Readonly<Record<string, boolean | number>>;
+  /** Whether gravity is active. */
+  readonly gravity: boolean;
 };
 
 export type MoveMechanics = {
@@ -399,6 +401,10 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         conditions: [{ key: "statsLowered", labelKey: "damageCalc.condStatsLowered" }],
         bpModifiers: condDouble("statsLowered"),
       }))
+      .with("grav-apple", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (ctx.gravity ? [M.TERRAIN_OFFENSIVE] : []),
+      }))
 
       // --- Conditional doublers / boosters (auto from field & item) ---
       .with("knock-off", () => ({
@@ -416,6 +422,10 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       .with("expanding-force", () => ({
         ...base,
         bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" ? [M.EXPANDING_FORCE] : []),
+      }))
+      .with("misty-explosion", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "misty" ? [M.TERRAIN_OFFENSIVE] : []),
       }))
 
       // --- Type effectiveness override ---
@@ -516,6 +526,7 @@ const ATE_TYPES: Readonly<Record<string, Type>> = {
   aerilate: "flying",
   refrigerate: "ice",
   galvanize: "electric",
+  dragonize: "dragon",
 };
 
 /**

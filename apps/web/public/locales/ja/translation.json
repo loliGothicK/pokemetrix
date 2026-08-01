@@ -439,6 +439,7 @@
     "condTargetSwitching": "相手が交代する",
     "condAllyFainted": "前のターンに味方が倒された",
     "condTargetDamagedUser": "このターンに相手からダメージを受けた",
+    "condGravity": "じゅうりょく状態",
     "abilityTypeChanged": "特性で {{type}} タイプに変化",
     "fieldEffects": "場の効果",
     "fairyAura": "フェアリーオーラ",

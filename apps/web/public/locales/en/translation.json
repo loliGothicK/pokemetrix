@@ -439,6 +439,7 @@
     "condTargetSwitching": "Target is switching out",
     "condAllyFainted": "Ally fainted last turn",
     "condTargetDamagedUser": "Target damaged user this turn",
+    "condGravity": "Gravity is active",
     "abilityTypeChanged": "Ability changes type to {{type}}",
     "fieldEffects": "Field effects",
     "fairyAura": "Fairy Aura",
