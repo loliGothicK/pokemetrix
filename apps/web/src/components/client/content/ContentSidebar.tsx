@@ -66,11 +66,7 @@ function SidebarList({ items, basePath, label, searchBar }: ContentSidebarProps)
         {label}
       </Typography>
 
-      {searchBar && (
-        <Box sx={{ px: 1.5, mb: 2 }}>
-          {searchBar}
-        </Box>
-      )}
+      {searchBar && <Box sx={{ px: 1.5, mb: 2 }}>{searchBar}</Box>}
 
       {groupNames.map((groupName) => (
         <Box key={groupName} sx={{ mb: 1.5 }}>

@@ -43,7 +43,10 @@ export function DocsSearchBar() {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf("MAC") >= 0 || navigator.userAgent.toUpperCase().indexOf("MAC") >= 0);
+    setIsMac(
+      navigator.platform.toUpperCase().indexOf("MAC") >= 0 ||
+        navigator.userAgent.toUpperCase().indexOf("MAC") >= 0,
+    );
   }, []);
 
   useHotkeys("mod+k", (e) => {
@@ -169,7 +172,16 @@ export function DocsSearchBar() {
           },
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 1.5, borderBottom: "1px solid", borderColor: "divider" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            px: 2,
+            py: 1.5,
+            borderBottom: "1px solid",
+            borderColor: "divider",
+          }}
+        >
           <SearchIcon sx={{ color: "primary.main", mr: 1.5 }} />
           <InputBase
             autoFocus
@@ -212,11 +224,15 @@ export function DocsSearchBar() {
         <Box sx={{ maxHeight: "60vh", overflowY: "auto", py: 1 }}>
           {inputValue.length < searchThreshold ? (
             <Box sx={{ p: 4, textAlign: "center", color: "text.disabled" }}>
-              <Typography variant="body2">{t("docs.search.minChars", "Type at least 3 characters to search")}</Typography>
+              <Typography variant="body2">
+                {t("docs.search.minChars", "Type at least 3 characters to search")}
+              </Typography>
             </Box>
           ) : options.length === 0 && !isFetching ? (
             <Box sx={{ p: 4, textAlign: "center", color: "text.disabled" }}>
-              <Typography variant="body2">{t("docs.search.noResults", "No results found for your query")}</Typography>
+              <Typography variant="body2">
+                {t("docs.search.noResults", "No results found for your query")}
+              </Typography>
             </Box>
           ) : (
             <List disablePadding>
@@ -243,7 +259,9 @@ export function DocsSearchBar() {
                       },
                     }}
                   >
-                    <Box sx={{ mr: 2, mt: 0.5, color: isSelected ? "primary.main" : "text.secondary" }}>
+                    <Box
+                      sx={{ mr: 2, mt: 0.5, color: isSelected ? "primary.main" : "text.secondary" }}
+                    >
                       <ArticleOutlinedIcon fontSize="small" />
                     </Box>
                     <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
@@ -272,7 +290,8 @@ export function DocsSearchBar() {
                               color: "primary.main",
                               fontWeight: "bold",
                               textDecoration: "underline",
-                              textDecorationColor: (theme) => alpha(theme.palette.primary.main, 0.4),
+                              textDecorationColor: (theme) =>
+                                alpha(theme.palette.primary.main, 0.4),
                               textDecorationThickness: "2px",
                               textUnderlineOffset: "2px",
                             },
@@ -283,7 +302,14 @@ export function DocsSearchBar() {
                       )}
                     </Box>
                     {isSelected && (
-                      <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", ml: 2, color: "primary.main" }}>
+                      <Box
+                        sx={{
+                          display: { xs: "none", sm: "flex" },
+                          alignItems: "center",
+                          ml: 2,
+                          color: "primary.main",
+                        }}
+                      >
                         <KeyboardReturnIcon fontSize="small" />
                       </Box>
                     )}
