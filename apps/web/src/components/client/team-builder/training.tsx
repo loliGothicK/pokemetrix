@@ -495,12 +495,12 @@ export function Training({
 
                 <Autocomplete
                   options={["male", "female"] as const}
-                  value={ongoing.gender.fixed ? "male" : ongoing.gender.specified}
+                  value={ongoing.gender.fixed ? "male" : (ongoing.gender.specified ?? null)}
                   getOptionLabel={(option) => t(`gender.${option}`)}
                   onChange={(_, newValue) =>
                     handleUpdate({
                       ...ongoing,
-                      gender: { fixed: false, specified: newValue || "male" },
+                      gender: { fixed: false, specified: newValue || undefined },
                     })
                   }
                   renderInput={(params) => (
