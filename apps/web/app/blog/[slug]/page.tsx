@@ -1,19 +1,19 @@
 import { allPosts } from "content-collections";
-import { MDXContent } from "@content-collections/mdx/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Box, Chip, Container, Stack, Typography } from "@mui/material";
+import { BlogPostClient } from "./BlogPostClient";
 
 type PageParams = {
   readonly slug: string;
 };
 
 export function generateStaticParams(): PageParams[] {
-  return allPosts.filter((post) => !post.draft).map((post) => ({ slug: post.slug }));
+  const slugs = new Set(allPosts.filter((post) => !post.draft).map((post) => post.slug));
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
-function getPost(slug: string) {
-  return allPosts.find((post) => post.slug === slug && !post.draft);
+function getPost(slug: string, locale: string) {
+  return allPosts.find((post) => post.slug === slug && post.locale === locale && !post.draft) || allPosts.find((post) => post.slug === slug && !post.draft);
 }
 
 export async function generateMetadata({
@@ -22,7 +22,7 @@ export async function generateMetadata({
   readonly params: Promise<PageParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPost(slug, "ja");
   if (!post) {
     return {};
   }
@@ -34,45 +34,36 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: { readonly params: Promise<PageParams> }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const postsForSlug = allPosts.filter((post) => post.slug === slug && !post.draft);
 
-  if (!post) {
+  if (postsForSlug.length === 0) {
     notFound();
   }
 
+  const uniqueSlugs = Array.from(new Set(allPosts.filter(p => !p.draft).map(p => p.slug)));
+  const sidebarItemsEn = uniqueSlugs.map(s => getPost(s, "en")).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sidebarItemsJa = uniqueSlugs.map(s => getPost(s, "ja")).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // We map them so the client component can pick by active language
+  const localizedContent = postsForSlug.map(p => ({
+    locale: p.locale,
+    title: p.title,
+    description: p.description,
+    date: p.date.toISOString(),
+    tags: p.tags,
+    headings: p.headings,
+    mdx: p.mdx,
+  }));
+
+  const localizedSidebar = {
+    en: sidebarItemsEn.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
+    ja: sidebarItemsJa.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
+  };
+
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <Stack spacing={4}>
-        <Stack spacing={1}>
-          <Typography variant="overline" color="text.secondary">
-            {new Date(post.date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </Typography>
-          <Typography variant="h3" sx={{ fontWeight: 800 }}>
-            {post.title}
-          </Typography>
-          {post.tags.length > 0 ? (
-            <Stack direction="row" spacing={1}>
-              {post.tags.map((tag) => (
-                <Chip key={tag} label={tag} size="small" />
-              ))}
-            </Stack>
-          ) : null}
-        </Stack>
-        <Box
-          sx={{
-            "& h2": { mt: 4, mb: 2, fontWeight: 700 },
-            "& h3": { mt: 3, mb: 1.5, fontWeight: 700 },
-            "& p": { mb: 2, lineHeight: 1.8 },
-            "& ul, & ol": { mb: 2, pl: 3 },
-          }}
-        >
-          <MDXContent code={post.mdx} />
-        </Box>
-      </Stack>
-    </Container>
+    <BlogPostClient
+      localizedSidebar={localizedSidebar}
+      localizedContent={localizedContent}
+    />
   );
 }

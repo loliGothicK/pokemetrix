@@ -1,7 +1,6 @@
 import { allPosts } from "content-collections";
 import type { Metadata } from "next";
-import { Container, Stack, Typography } from "@mui/material";
-import { BlogList } from "@/components/client/content/BlogList";
+import { BlogIndexClient } from "./BlogIndexClient";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -9,25 +8,22 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
-  const posts = allPosts
-    .filter((post) => !post.draft)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      description: post.description,
-      date: post.date.toISOString(),
-      tags: post.tags,
-    }));
+  const uniqueSlugs = Array.from(new Set(allPosts.filter((post) => !post.draft).map((p) => p.slug)));
+  
+  const postsEn = uniqueSlugs.map((s) => allPosts.find((p) => p.slug === s && p.locale === "en" && !p.draft)).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const postsJa = uniqueSlugs.map((s) => allPosts.find((p) => p.slug === s && p.locale === "ja" && !p.draft)).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const localizedSidebar = {
+    en: postsEn.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
+    ja: postsJa.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
+  };
+
+  const localizedPosts = {
+    en: postsEn.map((p) => ({ slug: p.slug, title: p.title, description: p.description, date: p.date.toISOString(), tags: p.tags })),
+    ja: postsJa.map((p) => ({ slug: p.slug, title: p.title, description: p.description, date: p.date.toISOString(), tags: p.tags })),
+  };
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <Stack spacing={4}>
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>
-          Blog
-        </Typography>
-        <BlogList posts={posts} />
-      </Stack>
-    </Container>
+    <BlogIndexClient localizedSidebar={localizedSidebar} localizedPosts={localizedPosts} />
   );
 }

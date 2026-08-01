@@ -1,7 +1,6 @@
 import { allDocs } from "content-collections";
 import type { Metadata } from "next";
-import { Container, Stack, Typography } from "@mui/material";
-import { DocsList } from "@/components/client/content/DocsList";
+import { DocsIndexClient } from "./DocsIndexClient";
 
 export const metadata: Metadata = {
   title: "Docs",
@@ -9,16 +8,21 @@ export const metadata: Metadata = {
 };
 
 export default function DocsIndexPage() {
-  const docs = [...allDocs].sort((a, b) => a.order - b.order);
+  const uniqueSlugs = Array.from(new Set(allDocs.map((d) => d.slug)));
+  const docsEn = uniqueSlugs.map((s) => allDocs.find((d) => d.slug === s && d.locale === "en")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
+  const docsJa = uniqueSlugs.map((s) => allDocs.find((d) => d.slug === s && d.locale === "ja")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
+
+  const localizedSidebar = {
+    en: docsEn.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
+    ja: docsJa.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
+  };
+
+  const localizedDocs = {
+    en: docsEn,
+    ja: docsJa,
+  };
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <Stack spacing={4}>
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>
-          Docs
-        </Typography>
-        <DocsList docs={docs} />
-      </Stack>
-    </Container>
+    <DocsIndexClient localizedSidebar={localizedSidebar} localizedDocs={localizedDocs} />
   );
 }

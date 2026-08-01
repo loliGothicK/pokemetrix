@@ -1,19 +1,19 @@
 import { allDocs } from "content-collections";
-import { MDXContent } from "@content-collections/mdx/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { DocPageClient } from "./DocPageClient";
 
 type PageParams = {
   readonly slug: string;
 };
 
 export function generateStaticParams(): PageParams[] {
-  return allDocs.map((doc) => ({ slug: doc.slug }));
+  const slugs = new Set(allDocs.map((doc) => doc.slug));
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
-function getDoc(slug: string) {
-  return allDocs.find((doc) => doc.slug === slug);
+function getDoc(slug: string, locale: string) {
+  return allDocs.find((doc) => doc.slug === slug && doc.locale === locale) || allDocs.find((doc) => doc.slug === slug);
 }
 
 export async function generateMetadata({
@@ -22,7 +22,7 @@ export async function generateMetadata({
   readonly params: Promise<PageParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const doc = getDoc(slug);
+  const doc = getDoc(slug, "ja");
   if (!doc) {
     return {};
   }
@@ -34,34 +34,34 @@ export async function generateMetadata({
 
 export default async function DocPage({ params }: { readonly params: Promise<PageParams> }) {
   const { slug } = await params;
-  const doc = getDoc(slug);
+  const docsForSlug = allDocs.filter((doc) => doc.slug === slug);
 
-  if (!doc) {
+  if (docsForSlug.length === 0) {
     notFound();
   }
 
+  const uniqueSlugs = Array.from(new Set(allDocs.map(d => d.slug)));
+  const sidebarItemsEn = uniqueSlugs.map(s => getDoc(s, "en")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
+  const sidebarItemsJa = uniqueSlugs.map(s => getDoc(s, "ja")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
+
+  // We map them so the client component can pick by active language
+  const localizedContent = docsForSlug.map(d => ({
+    locale: d.locale,
+    title: d.title,
+    description: d.description,
+    headings: d.headings,
+    mdx: d.mdx,
+  }));
+
+  const localizedSidebar = {
+    en: sidebarItemsEn.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
+    ja: sidebarItemsJa.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
+  };
+
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
-      <Stack spacing={4}>
-        <Stack spacing={1}>
-          <Typography variant="h3" sx={{ fontWeight: 800 }}>
-            {doc.title}
-          </Typography>
-          {doc.description ? (
-            <Typography color="text.secondary">{doc.description}</Typography>
-          ) : null}
-        </Stack>
-        <Box
-          sx={{
-            "& h2": { mt: 4, mb: 2, fontWeight: 700 },
-            "& h3": { mt: 3, mb: 1.5, fontWeight: 700 },
-            "& p": { mb: 2, lineHeight: 1.8 },
-            "& ul, & ol": { mb: 2, pl: 3 },
-          }}
-        >
-          <MDXContent code={doc.mdx} />
-        </Box>
-      </Stack>
-    </Container>
+    <DocPageClient
+      localizedSidebar={localizedSidebar}
+      localizedContent={localizedContent}
+    />
   );
 }

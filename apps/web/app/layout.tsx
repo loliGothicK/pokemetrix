@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import "./globals.css";
 import { AppLayout } from "@/components/client/layout";
+import { ContentLayoutProvider } from "@/components/client/content/ContentLayoutContext";
 import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -64,10 +65,12 @@ export default function RootLayout({
           }}
         />
         <AppRouterCacheProvider>
-          <AppLayout>
-            {children}
-            <Analytics />
-          </AppLayout>
+          <ContentLayoutProvider>
+            <AppLayout>
+              {children}
+              <Analytics />
+            </AppLayout>
+          </ContentLayoutProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
