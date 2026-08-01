@@ -1,14 +1,74 @@
 ---
 title: "Battle Analytics"
-description: "Review and analyze your overall battle performance."
+description: "Visualize your win rates and trends based on your battle logs."
 order: 5
 ---
 
 ## Overview
 
-In the Battle Analytics section, you can review aggregated statistics from your recorded battles.
-It visualizes your win rate and other key metrics across multiple matches.
+Battle Analytics is a tool that visualizes your win rates and behavioral trends based on the data saved in your Battle Records.
+It provides two main views: Winrate Insights and a Custom Dashboard.
 
-## Key Features
+## Winrate Insights
 
-**Winrate Insights**: Visually track your performance over time and against specific opponents.
+The **Winrate Insights** tab allows you to quickly check your overall battle data for the season.
+
+### Displayed Metrics
+
+| Metric | Description |
+|---|---|
+| Total Matches | The total number of games played in the season |
+| Win Rate | Calculated as Wins / (Wins + Losses) |
+| Common Matchups | The Pokémon that appeared most frequently on the opponent's team |
+
+## Dashboard
+
+> The Custom Dashboard is only available on desktop environments (PC).
+
+The **Dashboard** allows you to build your own custom analytics view by freely placing widgets.
+
+### Widget Types
+
+| Widget | Description |
+|---|---|
+| **Win Rate Summary** | Displays the win rate as a single prominent number |
+| **Result Breakdown** | A chart showing Wins, Losses, and Draws |
+| **Leads Analysis** | Win rates categorized by your lead Pokémon |
+| **Rating History** | A line graph showing your rating changes over matches |
+| **Peak Rating** | Your highest rating achieved in the season |
+| **Recent Matches** | A list of your last 10 matches |
+| **Current Streak** | Your current winning or losing streak |
+| **Matchup Heatmap** | A heatmap showing win rates of your leads vs. opponent leads |
+| **Win/Loss Causes** | Analysis of which opponent Pokémon impacted your win/loss ratio the most |
+
+### Adding Widgets
+
+1. Switch the dashboard to Edit mode by clicking "Edit".
+2. Click **"Add Widget"**.
+3. Select the type of widget you want to add.
+4. Set the data source (Season or Variable).
+5. Choose a graph type in the Visualize tab.
+
+### Variables
+
+Using Variables allows you to easily switch the active season for the entire dashboard via a dropdown menu.
+This is especially useful when you want to compare your performance across different seasons.
+
+### Transformers
+
+Transformers allow you to apply custom logic to the raw SQL query results before passing the data to the charts.
+
+| Transformer | Description |
+|---|---|
+| None | Pass raw data |
+| Win Rate | Calculate win percentages |
+| Streak | Calculate current win/loss streaks |
+| Leads Win Rate | Win rates per lead Pokémon |
+| Rating Diff | Add rating change differences |
+| Matchup Pivot | Create a pivot table for lead matchups |
+| Win/Loss Causes | Analyze factors contributing to match outcomes |
+
+## Saving and Sharing Dashboards
+
+Dashboards are saved to the cloud (requires login).
+You can create multiple dashboards and set one as your default view.

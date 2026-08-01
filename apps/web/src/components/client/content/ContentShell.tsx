@@ -51,6 +51,9 @@ function MobileContentBar({
     <Box
       sx={{
         display: { xs: "flex", md: "none" },
+        position: "sticky",
+        top: 0,
+        zIndex: 10,
         alignItems: "center",
         gap: 0.5,
         px: 1,
@@ -173,6 +176,8 @@ export function ContentShell({
             minWidth: 0,
             display: "flex",
             flexDirection: "column",
+            height: { xs: "auto", md: "calc(100dvh - 68px)" },
+            overflowY: { xs: "visible", md: "auto" },
           }}
         >
           {/* Mobile bar (sidebar + ToC toggles + breadcrumbs) */}
@@ -182,16 +187,7 @@ export function ContentShell({
         </Box>
 
         {/* Right ToC — desktop */}
-        {toc ? (
-          <Box
-            sx={{
-              borderLeft: "1px solid",
-              borderColor: theme.palette.divider,
-            }}
-          >
-            {toc}
-          </Box>
-        ) : null}
+        {toc}
       </Box>
     </>
   );

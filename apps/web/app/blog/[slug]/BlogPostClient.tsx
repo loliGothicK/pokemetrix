@@ -9,6 +9,7 @@ import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } 
 import { TableOfContentsDesktop, TableOfContentsBottomSheet, type TocHeading } from "@/components/client/content/TableOfContents";
 import type { BreadcrumbItem } from "@/components/client/content/ContentLayoutContext";
 import { useEffect, useState } from "react";
+import { defaultLanguage } from "@/i18n/config";
 
 type LocalizedSidebar = {
   readonly en: readonly ContentSidebarItem[];
@@ -34,7 +35,7 @@ export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
   const { isSidebarOpen, setIsSidebarOpen, isTocOpen, setIsTocOpen } = useContentLayout();
   const { i18n } = useTranslation();
   
-  const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
+  const [activeLang, setActiveLang] = useState<"en" | "ja">(defaultLanguage as "en" | "ja");
 
   useEffect(() => {
     if (i18n.resolvedLanguage === "en" || i18n.resolvedLanguage === "ja") {

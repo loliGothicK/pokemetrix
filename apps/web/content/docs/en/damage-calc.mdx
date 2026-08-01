@@ -1,15 +1,59 @@
 ---
 title: "Damage Calculator"
-description: "Calculate damage ranges and simulate battles."
+description: "Calculate damage ranges and simulate exact battle scenarios."
 order: 3
 ---
 
 ## Overview
 
-The Damage Calculator allows you to accurately predict the outcome of attacks and find guaranteed KO scenarios.
-It takes into account stats, items, abilities, and field conditions.
+The Damage Calculator allows you to predict damage ranges and KO probabilities for any matchup.
+It is highly accurate and takes into account field conditions, weather, screens, and stat modifiers.
 
-## Key Features
+## Basic Usage
 
-1. **Attacker/Defender** setup
-2. **Move** selection and damage rolls
+1. Select the **Attacker** Pokémon.
+2. Select the **Move** to be used.
+3. Select the **Defender** Pokémon.
+4. The damage range and KO probability will be calculated automatically.
+
+## Configuring Pokémon Stats
+
+You can configure the following for both the Attacker and Defender:
+
+| Field | Description |
+|---|---|
+| Pokémon | The target Pokémon (search by name) |
+| EVs | Effort Values for each stat (0–252) |
+| Nature | The nature modifying the Pokémon's stats |
+| Item | Damage-boosting items, Choice items, etc. |
+| Ability | Abilities that affect damage calculations |
+| Stat Drops/Boosts | Rank modifiers from -6 to +6 |
+| Status Conditions | Burn, Paralysis, etc. |
+
+## Field Conditions
+
+From the "Field" tab, you can set various environmental conditions:
+
+### Weather
+- Sun / Rain / Snow / Sandstorm
+
+### Terrain
+- Electric / Grassy / Misty / Psychic
+
+### Screens & Others
+- Reflect / Light Screen / Aurora Veil
+- Helping Hand / Charge / Fairy Aura, etc.
+
+## Understanding Results
+
+The calculation results include the following data:
+
+- **Damage Range**: The minimum to maximum raw damage.
+- **HP %**: The minimum to maximum percentage of the defender's HP.
+- **KO Chance**: Guaranteed OHKO, possible OHKO, guaranteed 2HKO, etc.
+- **Damage Rolls**: All 16 possible random rolls for the move.
+
+## Doubles Format
+
+You can toggle between **Single** and **Double** battles at the top of the screen.
+When set to Double, spread moves will correctly apply the 0.75x damage reduction modifier.

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Drawer, List, ListItemButton, ListItemText, Typography, alpha } from "@mui/material";
+import { Box, Drawer, List, ListItemButton, ListItemText, Typography, alpha, Stepper, Step, StepLabel, StepContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,6 +13,24 @@ export type TocHeading = {
 type TableOfContentsProps = {
   readonly headings: readonly TocHeading[];
 };
+
+type GroupedHeading = TocHeading & { readonly children: TocHeading[] };
+
+function groupHeadings(headings: readonly TocHeading[]): GroupedHeading[] {
+  const result: GroupedHeading[] = [];
+  for (const h of headings) {
+    if (h.level === 2) {
+      result.push({ ...h, children: [] });
+    } else if (h.level >= 3) {
+      if (result.length > 0) {
+        result[result.length - 1].children.push(h);
+      } else {
+        result.push({ ...h, children: [] });
+      }
+    }
+  }
+  return result;
+}
 
 function TocList({
   headings,
@@ -29,45 +47,134 @@ function TocList({
     );
   }
 
+  const grouped = groupHeadings(headings);
+
+  const handleClick = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onItemClick) onItemClick();
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+    window.history.pushState(null, "", `#${id}`);
+  };
+
   return (
-    <List disablePadding sx={{ px: 1 }}>
-      {headings.map((h) => (
-        <ListItemButton
-          key={h.id}
-          component="a"
-          href={`#${h.id}`}
-          onClick={onItemClick}
-          sx={{
-            borderRadius: 2,
-            mb: 0.25,
-            minHeight: 36,
-            pl: h.level === 3 ? 3 : 1.5,
-            pr: 1.5,
-            py: 0.5,
-            transition: "background 0.15s ease",
-            color: activeId === h.id ? "primary.main" : "text.secondary",
-            borderLeft: activeId === h.id ? `2px solid ${theme.palette.primary.main}` : "2px solid transparent",
-            "&:hover": {
-              bgcolor: alpha(theme.palette.primary.main, 0.06),
-              color: "text.primary",
-            },
-          }}
-        >
-          <ListItemText
-            primary={h.text}
-            slotProps={{
-              primary: {
-                style: {
-                  fontWeight: activeId === h.id ? 700 : 400,
-                  fontSize: h.level === 3 ? 12 : 13,
-                  lineHeight: 1.4,
-                },
-              },
-            }}
-          />
-        </ListItemButton>
-      ))}
-    </List>
+    <Box sx={{ px: 1.5, py: 1 }}>
+      <Stepper
+        orientation="vertical"
+        nonLinear
+        connector={null}
+        sx={{
+          "& .MuiStep-root": {
+            mb: 0.5,
+          },
+        }}
+      >
+        {grouped.map((group) => {
+          const isGroupActive = activeId === group.id;
+          const isChildActive = group.children.some((c) => c.id === activeId);
+          const isExpanded = isGroupActive || isChildActive;
+          const isGroupOrChildActive = isGroupActive || isChildActive;
+
+          return (
+            <Step key={group.id} expanded={isExpanded} active={isGroupOrChildActive}>
+              <StepLabel
+                onClick={handleClick(group.id)}
+                icon={
+                  <Box
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      bgcolor: isGroupOrChildActive ? "primary.main" : "divider",
+                      transition: "all 0.2s ease",
+                      boxShadow: isGroupOrChildActive
+                        ? `0 0 0 3px ${alpha(theme.palette.primary.main, 0.2)}`
+                        : "none",
+                    }}
+                  />
+                }
+                sx={{
+                  py: 0.5,
+                  cursor: "pointer",
+                  borderRadius: 1,
+                  transition: "background-color 0.15s ease",
+                  "&:hover": {
+                    bgcolor: alpha(theme.palette.text.primary, 0.04),
+                    "& .MuiStepLabel-label": { color: "text.primary" },
+                  },
+                  "& .MuiStepLabel-label": {
+                    fontSize: 13,
+                    fontWeight: isGroupActive ? 700 : 500,
+                    color: isGroupActive ? "primary.main" : "text.secondary",
+                    transition: "color 0.2s ease",
+                  },
+                  "& .MuiStepLabel-iconContainer": {
+                    pr: 1.5,
+                  },
+                }}
+              >
+                {group.text}
+              </StepLabel>
+              {group.children.length > 0 && (
+                <StepContent
+                  sx={{
+                    borderLeft: `1px solid ${theme.palette.divider}`,
+                    ml: 0.5,
+                    pl: 2.25,
+                    py: 0.25,
+                  }}
+                >
+                  <List disablePadding>
+                    {group.children.map((child) => {
+                      const isChildCurrent = activeId === child.id;
+                      return (
+                        <ListItemButton
+                          key={child.id}
+                          onClick={handleClick(child.id)}
+                          sx={{
+                            borderRadius: 1,
+                            py: 0.25,
+                            px: 1,
+                            mb: 0.25,
+                            minHeight: 28,
+                            color: isChildCurrent ? "primary.main" : "text.secondary",
+                            bgcolor: isChildCurrent
+                              ? alpha(theme.palette.primary.main, 0.08)
+                              : "transparent",
+                            "&:hover": {
+                              bgcolor: isChildCurrent
+                                ? alpha(theme.palette.primary.main, 0.12)
+                                : alpha(theme.palette.text.primary, 0.04),
+                              color: isChildCurrent ? "primary.main" : "text.primary",
+                            },
+                          }}
+                        >
+                          <ListItemText
+                            primary={child.text}
+                            slotProps={{
+                              primary: {
+                                sx: {
+                                  fontSize: 12,
+                                  fontWeight: isChildCurrent ? 600 : 400,
+                                  lineHeight: 1.4,
+                                },
+                              },
+                            }}
+                          />
+                        </ListItemButton>
+                      );
+                    })}
+                  </List>
+                </StepContent>
+              )}
+            </Step>
+          );
+        })}
+      </Stepper>
+    </Box>
   );
 }
 
@@ -117,10 +224,10 @@ export function TableOfContentsDesktop({ headings }: TableOfContentsProps) {
         flexDirection: "column",
         width: 200,
         flexShrink: 0,
-        position: "sticky",
-        top: 0,
-        maxHeight: "calc(100vh - 68px)",
+        height: "calc(100dvh - 68px)",
         overflowY: "auto",
+        borderLeft: "1px solid",
+        borderColor: "divider",
         pb: 4,
       }}
     >

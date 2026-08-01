@@ -7,6 +7,7 @@ import { ContentShell } from "@/components/client/content/ContentShell";
 import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } from "@/components/client/content/ContentSidebar";
 import { BlogList } from "@/components/client/content/BlogList";
 import { useEffect, useState } from "react";
+import { defaultLanguage } from "@/i18n/config";
 
 type BlogListItem = {
   readonly slug: string;
@@ -35,7 +36,7 @@ export function BlogIndexClient({ localizedSidebar, localizedPosts }: Props) {
   const { isSidebarOpen, setIsSidebarOpen } = useContentLayout();
   const { i18n } = useTranslation();
   
-  const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
+  const [activeLang, setActiveLang] = useState<"en" | "ja">(defaultLanguage as "en" | "ja");
 
   useEffect(() => {
     if (i18n.resolvedLanguage === "en" || i18n.resolvedLanguage === "ja") {

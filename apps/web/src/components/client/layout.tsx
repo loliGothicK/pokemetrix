@@ -605,7 +605,8 @@ export function AppLayout({
           sx={{
             display: "flex",
             flexDirection: "column",
-            minHeight: "100vh",
+            minHeight: "100dvh",
+            height: "100dvh",
             overflow: "hidden",
             width: "100%",
             bgcolor: "background.default",
