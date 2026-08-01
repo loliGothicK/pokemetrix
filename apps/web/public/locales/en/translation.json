@@ -1,4 +1,11 @@
 {
+  "docs": {
+    "groups": {
+      "Basic": "Basic",
+      "Tools": "Tools",
+      "Analytics": "Analytics"
+    }
+  },
   "moveClassification": {
     "contact": "Contact",
     "sound-based": "Sound",

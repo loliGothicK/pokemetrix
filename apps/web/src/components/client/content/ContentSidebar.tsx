@@ -4,6 +4,7 @@ import { Box, Drawer, List, ListItemButton, ListItemText, Typography, alpha } fr
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export type ContentSidebarItem = {
   readonly slug: string;
@@ -21,6 +22,7 @@ type ContentSidebarProps = {
 function SidebarList({ items, basePath, label }: ContentSidebarProps) {
   const pathname = usePathname();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const groupedItems = items.reduce<Record<string, ContentSidebarItem[]>>((acc, item) => {
     const groupName = item.group ?? "";
@@ -78,7 +80,7 @@ function SidebarList({ items, basePath, label }: ContentSidebarProps) {
                 textTransform: "uppercase",
               }}
             >
-              {groupName}
+              {t(`docs.groups.${groupName}`, groupName)}
             </Typography>
           )}
           <List disablePadding sx={{ px: 1 }}>

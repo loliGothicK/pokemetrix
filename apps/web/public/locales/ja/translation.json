@@ -1,4 +1,11 @@
 {
+  "docs": {
+    "groups": {
+      "Basic": "基本",
+      "Tools": "構築・検証",
+      "Analytics": "対戦・分析"
+    }
+  },
   "moveClassification": {
     "contact": "接触",
     "sound-based": "音",
