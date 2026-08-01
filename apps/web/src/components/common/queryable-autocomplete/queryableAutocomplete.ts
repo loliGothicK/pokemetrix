@@ -17,6 +17,8 @@
  * result set live, which is the expected behaviour for a name search.
  */
 
+import { normalizeForSearch } from "@/utils/text";
+
 export const QUERY_PREFIX = "@";
 export const QUERY_SEPARATOR = ":";
 
@@ -72,7 +74,7 @@ export interface QuerySuggestion {
   readonly committable: boolean;
 }
 
-const normalize = (value: string): string => value.trim().toLowerCase();
+const normalize = (value: string): string => normalizeForSearch(value);
 
 const fieldValueString = (key: string, value: string): string =>
   `${QUERY_PREFIX}${key}${QUERY_SEPARATOR}${value}`;

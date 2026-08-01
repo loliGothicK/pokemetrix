@@ -7,6 +7,7 @@ import { itemList } from "@/data/items";
 import { abilityById } from "@/data/abilities";
 import { moveById } from "@/data/moves";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
+import { normalizeForSearch } from "@/utils/text";
 
 /** slug と表示ラベルの組 */
 export interface SlugOption<T extends object = {}> {
@@ -15,10 +16,20 @@ export interface SlugOption<T extends object = {}> {
   readonly metadata?: T;
 }
 
-const filterOptions = createFilterOptions<SlugOption>({
+const defaultFilterOptions = createFilterOptions<SlugOption>({
   limit: 50,
-  stringify: (option) => `${option.label} ${option.slug}`,
+  stringify: (option) => normalizeForSearch(`${option.label} ${option.slug}`),
 });
+
+const filterOptions = (
+  options: SlugOption[],
+  state: Parameters<typeof defaultFilterOptions>[1],
+) => {
+  return defaultFilterOptions(options, {
+    ...state,
+    inputValue: normalizeForSearch(state.inputValue),
+  });
+};
 
 /** 持ち物の選択肢（ローカライズ済みラベル付き） */
 export const useItemOptions = (): readonly SlugOption[] => {
