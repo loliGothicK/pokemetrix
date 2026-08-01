@@ -371,7 +371,10 @@ export function Training({
                 placement="top"
               >
                 <Box
-                  onClick={() => setUseForm(!useForm)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setUseForm(!useForm);
+                  }}
                   sx={{
                     position: "absolute",
                     bottom: 6,
