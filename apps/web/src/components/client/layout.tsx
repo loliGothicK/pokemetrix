@@ -361,7 +361,10 @@ function ResponsiveAppBar({
             <Box
               className="brand-text"
               sx={{
-                display: "flex",
+                display: {
+                  xs: "none",
+                  md: "flex",
+                },
                 flexDirection: "column",
                 opacity: 0.9,
                 transition: "opacity 0.2s ease",

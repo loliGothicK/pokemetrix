@@ -6,7 +6,6 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   IconButton,
   ListItemIcon,
@@ -127,18 +126,18 @@ export function AuthButton() {
   // ── 未ログイン ────────────────────────────
   return (
     <>
-      <Button
-        variant="outlined"
+      <IconButton
         size="small"
-        startIcon={<PersonRoundedIcon />}
         onClick={(e) => setAnchorEl(e.currentTarget)}
         aria-label="login menu"
         aria-controls="login-menu"
         aria-haspopup="true"
         aria-expanded={Boolean(anchorEl)}
       >
-        {t("auth.login")}
-      </Button>
+        <Avatar sx={{ width: 32, height: 32, fontSize: 14 }}>
+          <PersonRoundedIcon />
+        </Avatar>
+      </IconButton>
 
       <Menu
         id="login-menu"
