@@ -1,5 +1,10 @@
 {
   "docs": {
+    "search": {
+      "placeholder": "Search docs",
+      "minChars": "Type at least 3 characters",
+      "noResults": "No results found"
+    },
     "groups": {
       "Basic": "Basic",
       "Tools": "Tools",

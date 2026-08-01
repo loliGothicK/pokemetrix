@@ -4,7 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Container, Stack, Typography } from "@mui/material";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
-import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } from "@/components/client/content/ContentSidebar";
+import {
+  ContentSidebarDesktop,
+  ContentSidebarMobile,
+  type ContentSidebarItem,
+} from "@/components/client/content/ContentSidebar";
 import { BlogList } from "@/components/client/content/BlogList";
 import { useEffect, useState } from "react";
 import { defaultLanguage } from "@/i18n/config";
@@ -35,7 +39,7 @@ type Props = {
 export function BlogIndexClient({ localizedSidebar, localizedPosts }: Props) {
   const { isSidebarOpen, setIsSidebarOpen } = useContentLayout();
   const { i18n } = useTranslation();
-  
+
   const [activeLang, setActiveLang] = useState<"en" | "ja">(defaultLanguage as "en" | "ja");
 
   useEffect(() => {
@@ -50,9 +54,7 @@ export function BlogIndexClient({ localizedSidebar, localizedPosts }: Props) {
   return (
     <ContentShell
       breadcrumbs={[{ label: "Blog", href: "/blog" }]}
-      sidebar={
-        <ContentSidebarDesktop items={sidebarItems} basePath="/blog" label="Blog" />
-      }
+      sidebar={<ContentSidebarDesktop items={sidebarItems} basePath="/blog" label="Blog" />}
       sidebarDrawer={
         <ContentSidebarMobile
           items={sidebarItems}

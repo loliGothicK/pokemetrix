@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Breadcrumbs,
-  IconButton,
-  Link as MuiLink,
-  Typography,
-  alpha,
-} from "@mui/material";
+import { Box, Breadcrumbs, IconButton, Link as MuiLink, Typography, alpha } from "@mui/material";
 
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
@@ -104,7 +97,13 @@ function MobileBreadcrumbsDisplay() {
       {breadcrumbs.map((crumb, i) => {
         const isLast = i === breadcrumbs.length - 1;
         return isLast || !crumb.href ? (
-          <Typography key={crumb.label} variant="caption" color="text.primary" sx={{ fontWeight: 600 }} noWrap>
+          <Typography
+            key={crumb.label}
+            variant="caption"
+            color="text.primary"
+            sx={{ fontWeight: 600 }}
+            noWrap
+          >
             {crumb.label}
           </Typography>
         ) : (
@@ -150,7 +149,6 @@ export function ContentShell({
   breadcrumbs,
   children,
 }: ContentShellProps) {
-
   return (
     <>
       <BreadcrumbSync breadcrumbs={breadcrumbs} />

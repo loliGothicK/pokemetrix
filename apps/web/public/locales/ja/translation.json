@@ -1,5 +1,10 @@
 {
   "docs": {
+    "search": {
+      "placeholder": "検索",
+      "minChars": "3文字以上入力してください",
+      "noResults": "見つかりませんでした"
+    },
     "groups": {
       "Basic": "基本",
       "Tools": "構築・検証",

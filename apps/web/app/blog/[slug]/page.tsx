@@ -13,7 +13,10 @@ export function generateStaticParams(): PageParams[] {
 }
 
 function getPost(slug: string, locale: string) {
-  return allPosts.find((post) => post.slug === slug && post.locale === locale && !post.draft) || allPosts.find((post) => post.slug === slug && !post.draft);
+  return (
+    allPosts.find((post) => post.slug === slug && post.locale === locale && !post.draft) ||
+    allPosts.find((post) => post.slug === slug && !post.draft)
+  );
 }
 
 export async function generateMetadata({
@@ -40,12 +43,18 @@ export default async function BlogPostPage({ params }: { readonly params: Promis
     notFound();
   }
 
-  const uniqueSlugs = Array.from(new Set(allPosts.filter(p => !p.draft).map(p => p.slug)));
-  const sidebarItemsEn = uniqueSlugs.map(s => getPost(s, "en")).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  const sidebarItemsJa = uniqueSlugs.map(s => getPost(s, "ja")).filter((p) => p !== undefined).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const uniqueSlugs = Array.from(new Set(allPosts.filter((p) => !p.draft).map((p) => p.slug)));
+  const sidebarItemsEn = uniqueSlugs
+    .map((s) => getPost(s, "en"))
+    .filter((p) => p !== undefined)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sidebarItemsJa = uniqueSlugs
+    .map((s) => getPost(s, "ja"))
+    .filter((p) => p !== undefined)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // We map them so the client component can pick by active language
-  const localizedContent = postsForSlug.map(p => ({
+  const localizedContent = postsForSlug.map((p) => ({
     locale: p.locale,
     title: p.title,
     description: p.description,
@@ -60,10 +69,5 @@ export default async function BlogPostPage({ params }: { readonly params: Promis
     ja: sidebarItemsJa.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
   };
 
-  return (
-    <BlogPostClient
-      localizedSidebar={localizedSidebar}
-      localizedContent={localizedContent}
-    />
-  );
+  return <BlogPostClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />;
 }

@@ -5,10 +5,19 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { MDXContent } from "@content-collections/mdx/react";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
-import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } from "@/components/client/content/ContentSidebar";
-import { TableOfContentsDesktop, TableOfContentsBottomSheet, type TocHeading } from "@/components/client/content/TableOfContents";
+import {
+  ContentSidebarDesktop,
+  ContentSidebarMobile,
+  type ContentSidebarItem,
+} from "@/components/client/content/ContentSidebar";
+import {
+  TableOfContentsDesktop,
+  TableOfContentsBottomSheet,
+  type TocHeading,
+} from "@/components/client/content/TableOfContents";
 import type { BreadcrumbItem } from "@/components/client/content/ContentLayoutContext";
 import { useEffect, useState } from "react";
+import { DocsSearchBar } from "@/components/client/content/DocsSearchBar";
 
 type LocalizedSidebar = {
   readonly en: readonly ContentSidebarItem[];
@@ -31,7 +40,7 @@ type Props = {
 export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
   const { isSidebarOpen, setIsSidebarOpen, isTocOpen, setIsTocOpen } = useContentLayout();
   const { i18n } = useTranslation();
-  
+
   // Use a state to avoid hydration mismatch, falling back to Japanese for initial render
   const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
 
@@ -42,7 +51,9 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
   }, [i18n.resolvedLanguage]);
 
   const sidebarItems = localizedSidebar[activeLang];
-  const activeContent = localizedContent.find((c) => c.locale === activeLang) || localizedContent.find((c) => c.locale === "ja");
+  const activeContent =
+    localizedContent.find((c) => c.locale === activeLang) ||
+    localizedContent.find((c) => c.locale === "ja");
 
   if (!activeContent) return null;
 
@@ -57,7 +68,12 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
       hasToc
       headings={activeContent.headings}
       sidebar={
-        <ContentSidebarDesktop items={sidebarItems} basePath="/docs" label="Docs" />
+        <ContentSidebarDesktop
+          items={sidebarItems}
+          basePath="/docs"
+          label="Docs"
+          searchBar={<DocsSearchBar />}
+        />
       }
       sidebarDrawer={
         <ContentSidebarMobile
@@ -66,6 +82,7 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
           label="Docs"
           open={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          searchBar={<DocsSearchBar />}
         />
       }
       toc={<TableOfContentsDesktop headings={activeContent.headings} />}
@@ -94,10 +111,28 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
               "& p": { mb: 2, lineHeight: 1.8 },
               "& ul, & ol": { mb: 2, pl: 3 },
               "& table": { width: "100%", borderCollapse: "collapse", mb: 2 },
-              "& th, & td": { border: "1px solid", borderColor: "divider", px: 2, py: 1, textAlign: "left" },
+              "& th, & td": {
+                border: "1px solid",
+                borderColor: "divider",
+                px: 2,
+                py: 1,
+                textAlign: "left",
+              },
               "& th": { bgcolor: "action.hover", fontWeight: 700 },
-              "& blockquote": { borderLeft: "4px solid", borderColor: "primary.main", pl: 2, ml: 0, color: "text.secondary" },
-              "& code": { bgcolor: "action.hover", px: 0.5, py: 0.25, borderRadius: 1, fontSize: "0.875em" },
+              "& blockquote": {
+                borderLeft: "4px solid",
+                borderColor: "primary.main",
+                pl: 2,
+                ml: 0,
+                color: "text.secondary",
+              },
+              "& code": {
+                bgcolor: "action.hover",
+                px: 0.5,
+                py: 0.25,
+                borderRadius: 1,
+                fontSize: "0.875em",
+              },
             }}
           >
             <MDXContent code={activeContent.mdx} />

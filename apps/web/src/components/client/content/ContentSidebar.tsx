@@ -17,9 +17,10 @@ type ContentSidebarProps = {
   readonly items: readonly ContentSidebarItem[];
   readonly basePath: string; // e.g. "/docs" or "/blog"
   readonly label: string;
+  readonly searchBar?: React.ReactNode;
 };
 
-function SidebarList({ items, basePath, label }: ContentSidebarProps) {
+function SidebarList({ items, basePath, label, searchBar }: ContentSidebarProps) {
   const pathname = usePathname();
   const theme = useTheme();
   const { t } = useTranslation();
@@ -64,6 +65,12 @@ function SidebarList({ items, basePath, label }: ContentSidebarProps) {
       >
         {label}
       </Typography>
+
+      {searchBar && (
+        <Box sx={{ px: 1.5, mb: 2 }}>
+          {searchBar}
+        </Box>
+      )}
 
       {groupNames.map((groupName) => (
         <Box key={groupName} sx={{ mb: 1.5 }}>

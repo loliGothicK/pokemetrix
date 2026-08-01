@@ -13,7 +13,10 @@ export function generateStaticParams(): PageParams[] {
 }
 
 function getDoc(slug: string, locale: string) {
-  return allDocs.find((doc) => doc.slug === slug && doc.locale === locale) || allDocs.find((doc) => doc.slug === slug);
+  return (
+    allDocs.find((doc) => doc.slug === slug && doc.locale === locale) ||
+    allDocs.find((doc) => doc.slug === slug)
+  );
 }
 
 export async function generateMetadata({
@@ -40,12 +43,18 @@ export default async function DocPage({ params }: { readonly params: Promise<Pag
     notFound();
   }
 
-  const uniqueSlugs = Array.from(new Set(allDocs.map(d => d.slug)));
-  const sidebarItemsEn = uniqueSlugs.map(s => getDoc(s, "en")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
-  const sidebarItemsJa = uniqueSlugs.map(s => getDoc(s, "ja")).filter((d) => d !== undefined).sort((a, b) => a.order - b.order);
+  const uniqueSlugs = Array.from(new Set(allDocs.map((d) => d.slug)));
+  const sidebarItemsEn = uniqueSlugs
+    .map((s) => getDoc(s, "en"))
+    .filter((d) => d !== undefined)
+    .sort((a, b) => a.order - b.order);
+  const sidebarItemsJa = uniqueSlugs
+    .map((s) => getDoc(s, "ja"))
+    .filter((d) => d !== undefined)
+    .sort((a, b) => a.order - b.order);
 
   // We map them so the client component can pick by active language
-  const localizedContent = docsForSlug.map(d => ({
+  const localizedContent = docsForSlug.map((d) => ({
     locale: d.locale,
     title: d.title,
     description: d.description,
@@ -54,14 +63,19 @@ export default async function DocPage({ params }: { readonly params: Promise<Pag
   }));
 
   const localizedSidebar = {
-    en: sidebarItemsEn.map((d) => ({ slug: d.slug, title: d.title, description: d.description, group: d.group })),
-    ja: sidebarItemsJa.map((d) => ({ slug: d.slug, title: d.title, description: d.description, group: d.group })),
+    en: sidebarItemsEn.map((d) => ({
+      slug: d.slug,
+      title: d.title,
+      description: d.description,
+      group: d.group,
+    })),
+    ja: sidebarItemsJa.map((d) => ({
+      slug: d.slug,
+      title: d.title,
+      description: d.description,
+      group: d.group,
+    })),
   };
 
-  return (
-    <DocPageClient
-      localizedSidebar={localizedSidebar}
-      localizedContent={localizedContent}
-    />
-  );
+  return <DocPageClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />;
 }

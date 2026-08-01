@@ -25,7 +25,14 @@ export function ContentLayoutProvider({ children }: { readonly children: ReactNo
 
   return (
     <ContentLayoutContext.Provider
-      value={{ breadcrumbs, setBreadcrumbs, isSidebarOpen, setIsSidebarOpen, isTocOpen, setIsTocOpen }}
+      value={{
+        breadcrumbs,
+        setBreadcrumbs,
+        isSidebarOpen,
+        setIsSidebarOpen,
+        isTocOpen,
+        setIsTocOpen,
+      }}
     >
       {children}
     </ContentLayoutContext.Provider>

@@ -5,8 +5,16 @@ import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 import { MDXContent } from "@content-collections/mdx/react";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
-import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } from "@/components/client/content/ContentSidebar";
-import { TableOfContentsDesktop, TableOfContentsBottomSheet, type TocHeading } from "@/components/client/content/TableOfContents";
+import {
+  ContentSidebarDesktop,
+  ContentSidebarMobile,
+  type ContentSidebarItem,
+} from "@/components/client/content/ContentSidebar";
+import {
+  TableOfContentsDesktop,
+  TableOfContentsBottomSheet,
+  type TocHeading,
+} from "@/components/client/content/TableOfContents";
 import type { BreadcrumbItem } from "@/components/client/content/ContentLayoutContext";
 import { useEffect, useState } from "react";
 import { defaultLanguage } from "@/i18n/config";
@@ -34,7 +42,7 @@ type Props = {
 export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
   const { isSidebarOpen, setIsSidebarOpen, isTocOpen, setIsTocOpen } = useContentLayout();
   const { i18n } = useTranslation();
-  
+
   const [activeLang, setActiveLang] = useState<"en" | "ja">(defaultLanguage as "en" | "ja");
 
   useEffect(() => {
@@ -44,7 +52,9 @@ export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
   }, [i18n.resolvedLanguage]);
 
   const sidebarItems = localizedSidebar[activeLang];
-  const activeContent = localizedContent.find((c) => c.locale === activeLang) || localizedContent.find((c) => c.locale === "ja");
+  const activeContent =
+    localizedContent.find((c) => c.locale === activeLang) ||
+    localizedContent.find((c) => c.locale === "ja");
 
   if (!activeContent) return null;
 
@@ -58,9 +68,7 @@ export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
       breadcrumbs={breadcrumbs}
       hasToc
       headings={activeContent.headings}
-      sidebar={
-        <ContentSidebarDesktop items={sidebarItems} basePath="/blog" label="Blog" />
-      }
+      sidebar={<ContentSidebarDesktop items={sidebarItems} basePath="/blog" label="Blog" />}
       sidebarDrawer={
         <ContentSidebarMobile
           items={sidebarItems}
@@ -83,11 +91,14 @@ export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
         <Stack spacing={4}>
           <Stack spacing={1}>
             <Typography variant="overline" color="text.secondary">
-              {new Date(activeContent.date).toLocaleDateString(activeLang === "ja" ? "ja-JP" : "en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {new Date(activeContent.date).toLocaleDateString(
+                activeLang === "ja" ? "ja-JP" : "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                },
+              )}
             </Typography>
             <Typography variant="h3" sx={{ fontWeight: 800 }}>
               {activeContent.title}
@@ -107,10 +118,28 @@ export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
               "& p": { mb: 2, lineHeight: 1.8 },
               "& ul, & ol": { mb: 2, pl: 3 },
               "& table": { width: "100%", borderCollapse: "collapse", mb: 2 },
-              "& th, & td": { border: "1px solid", borderColor: "divider", px: 2, py: 1, textAlign: "left" },
+              "& th, & td": {
+                border: "1px solid",
+                borderColor: "divider",
+                px: 2,
+                py: 1,
+                textAlign: "left",
+              },
               "& th": { bgcolor: "action.hover", fontWeight: 700 },
-              "& blockquote": { borderLeft: "4px solid", borderColor: "primary.main", pl: 2, ml: 0, color: "text.secondary" },
-              "& code": { bgcolor: "action.hover", px: 0.5, py: 0.25, borderRadius: 1, fontSize: "0.875em" },
+              "& blockquote": {
+                borderLeft: "4px solid",
+                borderColor: "primary.main",
+                pl: 2,
+                ml: 0,
+                color: "text.secondary",
+              },
+              "& code": {
+                bgcolor: "action.hover",
+                px: 0.5,
+                py: 0.25,
+                borderRadius: 1,
+                fontSize: "0.875em",
+              },
             }}
           >
             <MDXContent code={activeContent.mdx} />

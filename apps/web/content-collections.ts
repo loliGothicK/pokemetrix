@@ -47,7 +47,8 @@ const posts = defineCollection({
     });
     const parts = document._meta.path.replace(/\\/g, "/").split("/");
     const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug = parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
+    const slug =
+      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
 
     return {
       ...document,
@@ -77,7 +78,8 @@ const docs = defineCollection({
     });
     const parts = document._meta.path.replace(/\\/g, "/").split("/");
     const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug = parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
+    const slug =
+      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
 
     return {
       ...document,

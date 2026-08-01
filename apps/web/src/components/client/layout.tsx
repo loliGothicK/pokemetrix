@@ -408,10 +408,28 @@ function ResponsiveAppBar({
 
           {/* Docs / Blog Links (Desktop) */}
           <Stack direction="row" spacing={0.5} sx={{ display: { xs: "none", md: "flex" }, ml: 2 }}>
-            <Button component={Link} href="/docs" color="inherit" sx={{ fontWeight: 600, color: "text.secondary", "&:hover": { color: "text.primary" } }}>
+            <Button
+              component={Link}
+              href="/docs"
+              color="inherit"
+              sx={{
+                fontWeight: 600,
+                color: "text.secondary",
+                "&:hover": { color: "text.primary" },
+              }}
+            >
               Docs
             </Button>
-            <Button component={Link} href="/blog" color="inherit" sx={{ fontWeight: 600, color: "text.secondary", "&:hover": { color: "text.primary" } }}>
+            <Button
+              component={Link}
+              href="/blog"
+              color="inherit"
+              sx={{
+                fontWeight: 600,
+                color: "text.secondary",
+                "&:hover": { color: "text.primary" },
+              }}
+            >
               Blog
             </Button>
           </Stack>
@@ -469,9 +487,15 @@ function MobileDrawerContent({
             disableUnderline
             sx={{ fontWeight: 800, fontSize: "1.1rem" }}
           >
-            <MenuItem value="pokemetrix" sx={{ fontWeight: 600 }}>POKÉMETRIX</MenuItem>
-            <MenuItem value="docs" sx={{ fontWeight: 600 }}>DOCS</MenuItem>
-            <MenuItem value="blog" sx={{ fontWeight: 600 }}>BLOG</MenuItem>
+            <MenuItem value="pokemetrix" sx={{ fontWeight: 600 }}>
+              POKÉMETRIX
+            </MenuItem>
+            <MenuItem value="docs" sx={{ fontWeight: 600 }}>
+              DOCS
+            </MenuItem>
+            <MenuItem value="blog" sx={{ fontWeight: 600 }}>
+              BLOG
+            </MenuItem>
           </Select>
         </FormControl>
         <IconButton onClick={onClose} aria-label="close navigation">

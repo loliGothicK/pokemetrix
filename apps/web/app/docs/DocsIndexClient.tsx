@@ -4,8 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Container, Stack, Typography } from "@mui/material";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
-import { ContentSidebarDesktop, ContentSidebarMobile, type ContentSidebarItem } from "@/components/client/content/ContentSidebar";
+import {
+  ContentSidebarDesktop,
+  ContentSidebarMobile,
+  type ContentSidebarItem,
+} from "@/components/client/content/ContentSidebar";
 import { DocsList } from "@/components/client/content/DocsList";
+import { DocsSearchBar } from "@/components/client/content/DocsSearchBar";
 import { useEffect, useState } from "react";
 import type { Doc } from "content-collections";
 
@@ -27,7 +32,7 @@ type Props = {
 export function DocsIndexClient({ localizedSidebar, localizedDocs }: Props) {
   const { isSidebarOpen, setIsSidebarOpen } = useContentLayout();
   const { i18n } = useTranslation();
-  
+
   const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
 
   useEffect(() => {
@@ -43,7 +48,12 @@ export function DocsIndexClient({ localizedSidebar, localizedDocs }: Props) {
     <ContentShell
       breadcrumbs={[{ label: "Docs", href: "/docs" }]}
       sidebar={
-        <ContentSidebarDesktop items={sidebarItems} basePath="/docs" label="Docs" />
+        <ContentSidebarDesktop
+          items={sidebarItems}
+          basePath="/docs"
+          label="Docs"
+          searchBar={<DocsSearchBar />}
+        />
       }
       sidebarDrawer={
         <ContentSidebarMobile
@@ -52,6 +62,7 @@ export function DocsIndexClient({ localizedSidebar, localizedDocs }: Props) {
           label="Docs"
           open={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          searchBar={<DocsSearchBar />}
         />
       }
     >

@@ -68,7 +68,11 @@ export default function Home() {
       <Container maxWidth="lg">
         {/* Hero Section */}
         <Stack spacing={6} sx={{ alignItems: "center" }}>
-          <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 2, md: 0 }} sx={{ alignItems: "center" }}>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 2, md: 0 }}
+            sx={{ alignItems: "center" }}
+          >
             <PokemetrixIcon
               sx={{
                 width: { xs: 120, md: 200 },
@@ -151,35 +155,42 @@ export default function Home() {
                       }}
                     >
                       {/* Scale down the icon slightly on mobile */}
-                      <Box sx={{ transform: { xs: "scale(0.8)", md: "scale(1)" }, display: "flex" }}>
+                      <Box
+                        sx={{ transform: { xs: "scale(0.8)", md: "scale(1)" }, display: "flex" }}
+                      >
                         {tool.icon}
                       </Box>
                     </Box>
                     <ArrowForwardIosRoundedIcon
                       className="arrow-icon"
-                      sx={{ display: { xs: "none", md: "block" }, color: "text.disabled", fontSize: 20, transition: "0.2s" }}
+                      sx={{
+                        display: { xs: "none", md: "block" },
+                        color: "text.disabled",
+                        fontSize: 20,
+                        transition: "0.2s",
+                      }}
                     />
                   </Stack>
                   <Stack spacing={{ xs: 0.5, md: 1 }} sx={{ pl: { xs: 0, md: 2 }, flexGrow: 1 }}>
                     <Typography
                       variant={tool.primary ? "h4" : "h6"}
-                      sx={{ 
-                        fontWeight: 700, 
+                      sx={{
+                        fontWeight: 700,
                         color: "text.primary",
-                        fontSize: { xs: tool.primary ? "1.25rem" : "1rem", md: undefined }
+                        fontSize: { xs: tool.primary ? "1.25rem" : "1rem", md: undefined },
                       }}
                     >
                       {tool.title}
                     </Typography>
-                    <Typography 
-                      color="text.secondary" 
+                    <Typography
+                      color="text.secondary"
                       variant="body2"
                       sx={{
                         fontSize: { xs: "0.75rem", md: "0.875rem" },
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
-                        overflow: "hidden"
+                        overflow: "hidden",
                       }}
                     >
                       {tool.desc}
@@ -187,7 +198,13 @@ export default function Home() {
                   </Stack>
                   <ArrowForwardIosRoundedIcon
                     className="arrow-icon"
-                    sx={{ display: { xs: "block", md: "none" }, color: "text.disabled", fontSize: 16, transition: "0.2s", flexShrink: 0 }}
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      color: "text.disabled",
+                      fontSize: 16,
+                      transition: "0.2s",
+                      flexShrink: 0,
+                    }}
                   />
                 </Paper>
               </Grid>

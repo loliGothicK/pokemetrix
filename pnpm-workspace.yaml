@@ -1,12 +1,14 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "workers/*"
 
 allowBuilds:
   '@sentry/cli': true
   '@swc/core': true
   esbuild: true
   sharp: false
+  workerd: true
 ignoredBuiltDependencies:
   - unrs-resolver
 minimumReleaseAgeExclude:
@@ -88,3 +90,4 @@ minimumReleaseAgeExclude:
   - '@supabase/ssr@0.12.4'
   - enhanced-resolve@5.24.4
   - i18next-http-backend@4.0.1
+  - '@cloudflare/workers-types@5.20260801.1'
