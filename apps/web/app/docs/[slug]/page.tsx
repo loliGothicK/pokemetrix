@@ -54,8 +54,8 @@ export default async function DocPage({ params }: { readonly params: Promise<Pag
   }));
 
   const localizedSidebar = {
-    en: sidebarItemsEn.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
-    ja: sidebarItemsJa.map((d) => ({ slug: d.slug, title: d.title, description: d.description })),
+    en: sidebarItemsEn.map((d) => ({ slug: d.slug, title: d.title, description: d.description, group: d.group })),
+    ja: sidebarItemsJa.map((d) => ({ slug: d.slug, title: d.title, description: d.description, group: d.group })),
   };
 
   return (

@@ -8,7 +8,7 @@ import {
   Typography,
   alpha,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -150,7 +150,6 @@ export function ContentShell({
   breadcrumbs,
   children,
 }: ContentShellProps) {
-  const theme = useTheme();
 
   return (
     <>

@@ -9,6 +9,7 @@ export type ContentSidebarItem = {
   readonly slug: string;
   readonly title: string;
   readonly description?: string;
+  readonly group?: string;
 };
 
 type ContentSidebarProps = {
@@ -20,6 +21,22 @@ type ContentSidebarProps = {
 function SidebarList({ items, basePath, label }: ContentSidebarProps) {
   const pathname = usePathname();
   const theme = useTheme();
+
+  const groupedItems = items.reduce<Record<string, ContentSidebarItem[]>>((acc, item) => {
+    const groupName = item.group ?? "";
+    if (!acc[groupName]) acc[groupName] = [];
+    acc[groupName].push(item);
+    return acc;
+  }, {});
+
+  const groupNames = Object.keys(groupedItems).sort((a, b) => {
+    if (a === "") return -1;
+    if (b === "") return 1;
+    // items配列における最初の要素のインデックスを使ってソートする
+    const aIndex = items.findIndex((item) => item.group === a);
+    const bIndex = items.findIndex((item) => item.group === b);
+    return aIndex - bIndex;
+  });
 
   return (
     <Box
@@ -45,46 +62,67 @@ function SidebarList({ items, basePath, label }: ContentSidebarProps) {
       >
         {label}
       </Typography>
-      <List disablePadding sx={{ px: 1 }}>
-        {items.map((item) => {
-          const href = `${basePath}/${item.slug}`;
-          const isActive = pathname === href;
-          return (
-            <ListItemButton
-              key={item.slug}
-              component={Link}
-              href={href}
-              selected={isActive}
+
+      {groupNames.map((groupName) => (
+        <Box key={groupName} sx={{ mb: 1.5 }}>
+          {groupName && (
+            <Typography
+              variant="subtitle2"
               sx={{
-                borderRadius: 2,
-                mb: 0.25,
-                minHeight: 40,
-                px: 1.5,
-                py: 0.75,
-                transition: "background 0.15s ease",
-                "&.Mui-selected": {
-                  bgcolor: alpha(theme.palette.primary.main, 0.12),
-                  color: "primary.main",
-                  "& .MuiListItemText-primary": {
-                    fontWeight: 700,
-                    color: "primary.main",
-                  },
-                },
-                "&:hover:not(.Mui-selected)": {
-                  bgcolor: alpha(theme.palette.primary.main, 0.06),
-                },
+                px: 2,
+                pt: 1,
+                pb: 0.5,
+                fontWeight: 700,
+                color: "text.secondary",
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
               }}
             >
-              <ListItemText
-                primary={item.title}
-                slotProps={{
-                  primary: { style: { fontSize: 14, fontWeight: isActive ? 700 : 500 } },
-                }}
-              />
-            </ListItemButton>
-          );
-        })}
-      </List>
+              {groupName}
+            </Typography>
+          )}
+          <List disablePadding sx={{ px: 1 }}>
+            {groupedItems[groupName].map((item) => {
+              const href = `${basePath}/${item.slug}`;
+              const isActive = pathname === href;
+              return (
+                <ListItemButton
+                  key={item.slug}
+                  component={Link}
+                  href={href}
+                  selected={isActive}
+                  sx={{
+                    borderRadius: 2,
+                    mb: 0.25,
+                    minHeight: 40,
+                    px: 1.5,
+                    py: 0.75,
+                    transition: "background 0.15s ease",
+                    "&.Mui-selected": {
+                      bgcolor: alpha(theme.palette.primary.main, 0.12),
+                      color: "primary.main",
+                      "& .MuiListItemText-primary": {
+                        fontWeight: 700,
+                        color: "primary.main",
+                      },
+                    },
+                    "&:hover:not(.Mui-selected)": {
+                      bgcolor: alpha(theme.palette.primary.main, 0.06),
+                    },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.title}
+                    slotProps={{
+                      primary: { style: { fontSize: 14, fontWeight: isActive ? 700 : 500 } },
+                    }}
+                  />
+                </ListItemButton>
+              );
+            })}
+          </List>
+        </Box>
+      ))}
     </Box>
   );
 }

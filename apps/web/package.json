@@ -67,6 +67,7 @@
     "react-i18next": "17.0.11",
     "react-resizable": "4.0.2",
     "rehype-slug": "6.0.0",
+    "remark-gfm": "^4.0.1",
     "ts-pattern": "5.9.0",
     "ulid": "3.0.2",
     "zod-validation-error": "5.0.0"

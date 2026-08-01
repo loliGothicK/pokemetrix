@@ -1,6 +1,7 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 import { z } from "zod";
 
 export type Heading = {
@@ -40,7 +41,10 @@ const posts = defineCollection({
     content: z.string(),
   }),
   transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, { rehypePlugins: [rehypeSlug] });
+    const mdx = await compileMDX(context, document, {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug],
+    });
     const parts = document._meta.path.replace(/\\/g, "/").split("/");
     const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
     const slug = parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
@@ -63,10 +67,14 @@ const docs = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     order: z.number().default(0),
+    group: z.string().optional(),
     content: z.string(),
   }),
   transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, { rehypePlugins: [rehypeSlug] });
+    const mdx = await compileMDX(context, document, {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug],
+    });
     const parts = document._meta.path.replace(/\\/g, "/").split("/");
     const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
     const slug = parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
