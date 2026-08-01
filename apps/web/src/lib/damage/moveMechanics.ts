@@ -54,6 +54,8 @@ export type PowerContext = {
   readonly terrain: Terrain;
   /** Whether the defender is holding a (removable) item — for Knock Off. */
   readonly defenderHasItem: boolean;
+  /** Whether the attacker is holding an item — for Acrobatics. */
+  readonly attackerHasItem: boolean;
   /** Move-condition checkbox/numeric states (keyed by MoveConditionDef.key). */
   readonly conditions: Readonly<Record<string, boolean | number>>;
 };
@@ -310,6 +312,8 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         ...base,
         usesWeight: true,
         computeBasePower: weightRatioPower,
+        conditions: [{ key: "targetMinimized", labelKey: "damageCalc.condTargetMinimized" }],
+        bpModifiers: condDouble("targetMinimized"),
       }))
 
       // --- Stat reference morphing ---
@@ -325,7 +329,7 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       }))
 
       // --- Conditional doublers (checkbox) ---
-      .with("hex", () => ({
+      .with(P.union("hex", "infernal-parade"), () => ({
         ...base,
         conditions: [{ key: "targetStatus", labelKey: "damageCalc.condTargetStatus" }],
         bpModifiers: condDouble("targetStatus"),
@@ -335,7 +339,7 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         conditions: [{ key: "userStatus", labelKey: "damageCalc.condUserStatus" }],
         bpModifiers: condDouble("userStatus"),
       }))
-      .with("venoshock", () => ({
+      .with(P.union("venoshock", "barb-barrage"), () => ({
         ...base,
         conditions: [{ key: "targetPoisoned", labelKey: "damageCalc.condTargetPoisoned" }],
         bpModifiers: condDouble("targetPoisoned"),
@@ -370,11 +374,40 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         conditions: [{ key: "targetUnderground", labelKey: "damageCalc.condTargetUnderground" }],
         bpModifiers: condDouble("targetUnderground"),
       }))
+      .with(P.union("surf", "whirlpool"), () => ({
+        ...base,
+        conditions: [{ key: "targetSubmerged", labelKey: "damageCalc.condTargetSubmerged" }],
+        bpModifiers: condDouble("targetSubmerged"),
+      }))
+      .with("avalanche", () => ({
+        ...base,
+        conditions: [{ key: "targetDamagedUser", labelKey: "damageCalc.condTargetDamagedUser" }],
+        bpModifiers: condDouble("targetDamagedUser"),
+      }))
+      .with("retaliate", () => ({
+        ...base,
+        conditions: [{ key: "allyFainted", labelKey: "damageCalc.condAllyFainted" }],
+        bpModifiers: condDouble("allyFainted"),
+      }))
+      .with("pursuit", () => ({
+        ...base,
+        conditions: [{ key: "targetSwitching", labelKey: "damageCalc.condTargetSwitching" }],
+        bpModifiers: condDouble("targetSwitching"),
+      }))
+      .with("lash-out", () => ({
+        ...base,
+        conditions: [{ key: "statsLowered", labelKey: "damageCalc.condStatsLowered" }],
+        bpModifiers: condDouble("statsLowered"),
+      }))
 
       // --- Conditional doublers / boosters (auto from field & item) ---
       .with("knock-off", () => ({
         ...base,
         bpModifiers: (ctx: PowerContext) => (ctx.defenderHasItem ? [M.KNOCK_OFF] : []),
+      }))
+      .with("acrobatics", () => ({
+        ...base,
+        bpModifiers: (ctx: PowerContext) => (!ctx.attackerHasItem ? [M.DOUBLE] : []),
       }))
       .with("rising-voltage", () => ({
         ...base,

@@ -181,6 +181,7 @@ export function useDamageCalcPage() {
       defenderWeight: defWeight,
       terrain,
       defenderHasItem: defender.item !== null,
+      attackerHasItem: attacker.item !== null,
       conditions: attacker.moveConditions,
     };
     const basePower = mechanics.computeBasePower
