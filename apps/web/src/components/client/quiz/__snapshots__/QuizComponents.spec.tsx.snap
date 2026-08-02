@@ -1,0 +1,182 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizQuestionCard matches snapshot 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-4zx87h-MuiPaper-root-MuiCard-root"
+    style="--Paper-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);"
+  >
+    <div
+      class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-overline css-173m9dt-MuiTypography-root"
+      >
+        Question 
+        1
+         / 
+        10
+      </span>
+      <h5
+        class="MuiTypography-root MuiTypography-h5 css-1fc0fcm-MuiTypography-root"
+      >
+        test.question
+      </h5>
+      <div
+        class="MuiBox-root css-16m3aou"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeMedium MuiButton-colorPrimary css-1iokstq-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          pokemon.A.name
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeMedium MuiButton-colorPrimary css-9z34oj-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          pokemon.B.name
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizResultScreen matches snapshot 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-1mqpb3a-MuiPaper-root-MuiCard-root"
+    style="--Paper-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);"
+  >
+    <div
+      class="MuiCardContent-root css-1n75wsv-MuiCardContent-root"
+    >
+      <h4
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-4dddof-MuiTypography-root"
+      >
+        quiz.ui.result
+      </h4>
+      <div
+        class="MuiBox-root css-zitybv"
+      >
+        <h1
+          class="MuiTypography-root MuiTypography-h1 css-kwwftu-MuiTypography-root"
+        >
+          10
+           
+          <span
+            class="MuiTypography-root MuiTypography-h4 css-uxrm34-MuiTypography-root"
+          >
+            / 
+            10
+          </span>
+        </h1>
+        <h5
+          class="MuiTypography-root MuiTypography-h5 css-16rnsch-MuiTypography-root"
+        >
+          あなたのランクは...
+        </h5>
+        <h3
+          class="MuiTypography-root MuiTypography-h3 css-151usdm-MuiTypography-root"
+        >
+          チャンピオン級
+        </h3>
+      </div>
+      <div
+        class="MuiStack-root css-t14vr-MuiStack-root"
+      >
+        <a
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-1phpxl4-MuiButtonBase-root-MuiButton-root"
+          href="https://twitter.com/intent/tweet?text=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%90%E3%83%88%E3%83%AB%E6%A4%9C%E5%AE%9A%20(quiz.difficulty.basics)%20%E3%81%A7%2010%2F10%E5%95%8F%E6%AD%A3%E8%A7%A3%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81%0A%E7%A7%81%E3%81%AE%E3%83%A9%E3%83%B3%E3%82%AF%E3%81%AF%E3%80%90%E3%83%81%E3%83%A3%E3%83%B3%E3%83%94%E3%82%AA%E3%83%B3%E7%B4%9A%E3%80%91%E3%81%A7%E3%81%99%EF%BC%81%0A%0A%23%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%90%E3%83%88%E3%83%AB%E6%A4%9C%E5%AE%9A%20%23Pokemetrix%0A&url=http%3A%2F%2Flocalhost%3A3000%2F"
+          rel="noopener noreferrer"
+          tabindex="0"
+          target="_blank"
+        >
+          <span
+            class="MuiButton-icon MuiButton-startIcon css-1lxyhll-MuiButton-startIcon"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+              data-testid="XIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </span>
+          quiz.result.share
+        </a>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-sizeLarge MuiButton-colorPrimary css-1cg7qmj-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          quiz.ui.play_again
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizStartScreen matches snapshot 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-4zx87h-MuiPaper-root-MuiCard-root"
+    style="--Paper-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);"
+  >
+    <div
+      class="MuiCardContent-root css-wjx1ff-MuiCardContent-root"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom css-wsxegj-MuiTypography-root"
+      >
+        quiz.title
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-1c4yolp-MuiTypography-root"
+      >
+        quiz.ui.choose_difficulty
+      </p>
+      <div
+        class="MuiStack-root css-6rg9iv-MuiStack-root"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorSuccess css-odzm5j-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          quiz.difficulty.basics
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorInfo css-1603no5-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          quiz.difficulty.advanced
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorWarning css-4c1vsf-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          quiz.difficulty.expert
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorError css-5drbb2-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          quiz.difficulty.master
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

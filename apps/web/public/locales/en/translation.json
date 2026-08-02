@@ -5779,5 +5779,39 @@
     "physical": "Physical",
     "special": "Special",
     "status": "Status"
+  },
+  "quiz": {
+    "title": "Pokémon Battle Proficiency Test",
+    "start": "Start",
+    "difficulty": {
+      "basics": "Basics",
+      "advanced": "Advanced",
+      "expert": "Expert",
+      "master": "Master"
+    },
+    "questions": {
+      "higher_hp": "Which Pokémon has higher base HP?",
+      "higher_spe": "Which Pokémon has higher base Speed?",
+      "highest_bst": "Which Pokémon has the highest base stat total?"
+    },
+    "explanations": {
+      "higher_hp": "{{correct}} has {{correctVal}} HP, and {{incorrect}} has {{incorrectVal}}.",
+      "higher_spe": "{{correct}} has {{correctVal}} Speed, and {{incorrect}} has {{incorrectVal}}.",
+      "highest_bst": "{{correct}} has a base stat total of {{correctVal}}."
+    },
+    "result": {
+      "score": "Score: {{score}} / {{total}}",
+      "rank": "Rank: {{rank}}",
+      "share": "Share on X"
+    },
+    "ui": {
+      "correct": "✅ Correct!",
+      "incorrect": "❌ Incorrect...",
+      "result": "Result",
+      "play_again": "Play Again",
+      "choose_difficulty": "Choose a difficulty to start!",
+      "see_results": "See Results",
+      "next": "Next"
+    }
   }
 }

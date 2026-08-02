@@ -5754,5 +5754,39 @@
     "physical": "物理",
     "special": "特殊",
     "status": "変化"
+  },
+  "quiz": {
+    "title": "ポケモンバトル検定",
+    "start": "スタート",
+    "difficulty": {
+      "basics": "ベーシック",
+      "advanced": "アドバンス",
+      "expert": "エキスパート",
+      "master": "マスター"
+    },
+    "questions": {
+      "higher_hp": "HP種族値が高いのはどっち？",
+      "higher_spe": "素早さ種族値が高いのはどっち？",
+      "highest_bst": "合計種族値が一番高いのはどれ？"
+    },
+    "explanations": {
+      "higher_hp": "{{correct}}はHP{{correctVal}}、{{incorrect}}はHP{{incorrectVal}}です。",
+      "higher_spe": "{{correct}}の素早さは{{correctVal}}、{{incorrect}}は{{incorrectVal}}です。",
+      "highest_bst": "{{correct}}の合計種族値は{{correctVal}}です。"
+    },
+    "result": {
+      "score": "スコア: {{score}} / {{total}}",
+      "rank": "ランク: {{rank}}",
+      "share": "結果をXでシェア"
+    },
+    "ui": {
+      "correct": "✅ 正解！",
+      "incorrect": "❌ 不正解...",
+      "result": "結果発表",
+      "play_again": "もう一度遊ぶ",
+      "choose_difficulty": "難易度を選んでクイズを始めよう！",
+      "see_results": "結果を見る",
+      "next": "次の問題へ"
+    }
   }
 }
