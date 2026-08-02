@@ -99,6 +99,8 @@ jobs:
           cargo nextest run --profile ci
 
       - name: Test Next.js (Vitest)
+        env:
+          NODE_ENV: test
         run: pnpm --filter @pokemetrix/app run test:ci
 
       - name: Publish Test Report
