@@ -241,11 +241,56 @@ function flingPower(item: string | null): number {
   if (!item) return 0;
   if (item === "iron-ball" || item.endsWith("-tr")) return 130;
   if (item.endsWith("-plate") || item === "hard-stone" || item === "thick-club") return 90;
-  if (item === "dusk-stone" || item === "shiny-stone" || item === "dawn-stone" || item === "oval-stone" || item === "ice-stone" || item === "heavy-duty-boots" || item === "assault-vest" || item === "weakness-policy" || item === "blunder-policy") return 80;
+  if (
+    item === "dusk-stone" ||
+    item === "shiny-stone" ||
+    item === "dawn-stone" ||
+    item === "oval-stone" ||
+    item === "ice-stone" ||
+    item === "heavy-duty-boots" ||
+    item === "assault-vest" ||
+    item === "weakness-policy" ||
+    item === "blunder-policy"
+  )
+    return 80;
   if (item === "poison-barb" || item === "dragon-fang") return 70;
   if (item === "rocky-helmet" || item === "macho-brace") return 60;
-  if (item === "light-clay" || item === "flame-orb" || item === "toxic-orb" || item === "light-ball" || item === "kings-rock" || item === "life-orb" || item === "expert-belt" || item === "black-glasses" || item === "charcoal" || item === "mystic-water" || item === "magnet" || item === "miracle-seed" || item === "never-melt-ice" || item === "spell-tag" || item === "twisted-spoon" || item === "silver-powder" || item === "soft-sand" || item === "metal-coat" || item === "silk-scarf" || item === "sharp-beak" || item === "black-belt") return 30;
-  if (item.endsWith("-berry") || item.startsWith("choice-") || item === "focus-sash" || item === "focus-band" || item === "leftovers" || item === "black-sludge" || item === "white-herb" || item === "mental-herb" || item === "power-herb") return 10;
+  if (
+    item === "light-clay" ||
+    item === "flame-orb" ||
+    item === "toxic-orb" ||
+    item === "light-ball" ||
+    item === "kings-rock" ||
+    item === "life-orb" ||
+    item === "expert-belt" ||
+    item === "black-glasses" ||
+    item === "charcoal" ||
+    item === "mystic-water" ||
+    item === "magnet" ||
+    item === "miracle-seed" ||
+    item === "never-melt-ice" ||
+    item === "spell-tag" ||
+    item === "twisted-spoon" ||
+    item === "silver-powder" ||
+    item === "soft-sand" ||
+    item === "metal-coat" ||
+    item === "silk-scarf" ||
+    item === "sharp-beak" ||
+    item === "black-belt"
+  )
+    return 30;
+  if (
+    item.endsWith("-berry") ||
+    item.startsWith("choice-") ||
+    item === "focus-sash" ||
+    item === "focus-band" ||
+    item === "leftovers" ||
+    item === "black-sludge" ||
+    item === "white-herb" ||
+    item === "mental-herb" ||
+    item === "power-herb"
+  )
+    return 10;
   return 30; // Default fallback
 }
 
@@ -255,8 +300,40 @@ function flingPower(item: string | null): number {
 export function getMoveMechanics(identifier: string, category: MoveCategory): MoveMechanics {
   const base = DEFAULTS(category);
 
-  return match(identifier)
-      // --- Base Power Modifiers (Last Respects, Rage Fist) ---
+  return (
+    match(identifier)
+      // --- Base Power Modifiers (Last Respects, Rage Fist, Spit Up, Fickle Beam) ---
+      .with("spit-up", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "stockpileTurns",
+            labelKey: "damageCalc.condStockpileTurns",
+            type: "number" as const,
+            min: 1,
+            max: 3,
+            defaultValue: 3,
+          },
+        ],
+        computeBasePower: (ctx: PowerContext) => {
+          const turns = (ctx.conditions["stockpileTurns"] as number) ?? 3;
+          return turns * 100;
+        },
+      }))
+      .with("fickle-beam", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "fickleBeamFullPower",
+            labelKey: "damageCalc.condFickleBeamFullPower",
+            type: "boolean" as const,
+          },
+        ],
+        computeBasePower: (ctx: PowerContext) => {
+          const isFull = ctx.conditions["fickleBeamFullPower"] === true;
+          return isFull ? 160 : ctx.basePower;
+        },
+      }))
       .with("last-respects", () => ({
         ...base,
         conditions: [
@@ -426,7 +503,14 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         ignoresTargetDefenseBoosts: true,
       }))
       .with(
-        P.union("wicked-blow", "surging-strikes", "flower-trick", "frost-breath", "storm-throw", "zippy-zap"),
+        P.union(
+          "wicked-blow",
+          "surging-strikes",
+          "flower-trick",
+          "frost-breath",
+          "storm-throw",
+          "zippy-zap",
+        ),
         () => ({ ...base, alwaysCrit: true }),
       )
 
@@ -526,15 +610,18 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       }))
       .with("rising-voltage", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "electric" && ctx.defenderGrounded ? [M.DOUBLE] : []),
+        bpModifiers: (ctx: PowerContext) =>
+          ctx.terrain === "electric" && ctx.defenderGrounded ? [M.DOUBLE] : [],
       }))
       .with("expanding-force", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "psychic" && ctx.attackerGrounded ? [M.EXPANDING_FORCE] : []),
+        bpModifiers: (ctx: PowerContext) =>
+          ctx.terrain === "psychic" && ctx.attackerGrounded ? [M.EXPANDING_FORCE] : [],
       }))
       .with("misty-explosion", () => ({
         ...base,
-        bpModifiers: (ctx: PowerContext) => (ctx.terrain === "misty" && ctx.attackerGrounded ? [M.TERRAIN_OFFENSIVE] : []),
+        bpModifiers: (ctx: PowerContext) =>
+          ctx.terrain === "misty" && ctx.attackerGrounded ? [M.TERRAIN_OFFENSIVE] : [],
       }))
 
       // --- Type effectiveness override ---
@@ -594,7 +681,8 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
       // Population Bomb
       .with("population-bomb", () => ({ ...base, hitCount: { min: 1, max: 10 } }))
 
-      .otherwise(() => base);
+      .otherwise(() => base)
+  );
 }
 
 /**

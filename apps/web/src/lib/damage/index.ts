@@ -21,3 +21,5 @@ export {
 } from "./moveMechanics";
 export { isImmune, effectivenessShift, freezeDryOverride, tarShotFireOverride } from "./typeChart";
 export type { MoveMechanics, MoveConditionDef, PowerContext, StatKey } from "./moveMechanics";
+export { resolveDamageInput } from "./resolve";
+export type { PokemonPanelState, ResolveContext } from "./resolve";

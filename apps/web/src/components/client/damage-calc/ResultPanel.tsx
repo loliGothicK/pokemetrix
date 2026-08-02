@@ -45,7 +45,13 @@ type ResultPanelProps = {
   readonly summary?: CalcSummary;
 };
 
-export function ResultPanel({ result, isCrit, critDisabled, onCritChange, summary }: ResultPanelProps) {
+export function ResultPanel({
+  result,
+  isCrit,
+  critDisabled,
+  onCritChange,
+  summary,
+}: ResultPanelProps) {
   const { t } = useTranslation();
   const { output, analysis, isLoading, isError, missingReason } = result;
 
@@ -60,7 +66,12 @@ export function ResultPanel({ result, isCrit, critDisabled, onCritChange, summar
   }, [hitMax]);
 
   const critToggle = (
-    <CritToggle isCrit={isCrit} disabled={critDisabled} onChange={onCritChange} label={t("damageCalc.isCrit")} />
+    <CritToggle
+      isCrit={isCrit}
+      disabled={critDisabled}
+      onChange={onCritChange}
+      label={t("damageCalc.isCrit")}
+    />
   );
 
   if (isLoading) {

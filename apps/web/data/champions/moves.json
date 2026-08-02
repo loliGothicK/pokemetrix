@@ -1912,7 +1912,7 @@
       "id": 255,
       "identifier": "spit-up",
       "type": "Normal",
-      "category": "status",
+      "category": "special",
       "power": null,
       "accuracy": 100,
       "range": "single-target",

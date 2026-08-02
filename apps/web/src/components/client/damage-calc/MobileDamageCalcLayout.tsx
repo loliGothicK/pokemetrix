@@ -595,7 +595,13 @@ export function MobileDamageCalcLayout({
           }}
         />
         <Box sx={{ px: 2, pb: 2, overflowY: "auto" }}>
-          <ResultPanel result={result} isCrit={isCrit} critDisabled={critDisabled} onCritChange={setIsCrit} summary={summary} />
+          <ResultPanel
+            result={result}
+            isCrit={isCrit}
+            critDisabled={critDisabled}
+            onCritChange={setIsCrit}
+            summary={summary}
+          />
         </Box>
       </Drawer>
 
