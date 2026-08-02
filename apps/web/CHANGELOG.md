@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/loliGothicK/pokemetrix/compare/app-v0.4.0...app-v0.4.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* PMX-21 [damage-calc] ([446af7b](https://github.com/loliGothicK/pokemetrix/commit/446af7be985b9e9b695f071243326bc748683b96))
+
 ## [0.4.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.3.1...app-v0.4.0) (2026-08-01)
 
 ### Features
