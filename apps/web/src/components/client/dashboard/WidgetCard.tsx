@@ -248,8 +248,7 @@ export function WidgetCard({
 
   const title = isSeedKey
     ? t(`dashboard.template.${widget.title === "leadAnalysis" ? "leadsAnalysis" : widget.title}`)
-    : widget.title ||
-      (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled", "New Widget"));
+    : widget.title || (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled"));
 
   const cardContent = (
     <SurfaceCard

@@ -21,6 +21,43 @@
     "wind": "風",
     "powder": "粉"
   },
+  "quiz": {
+    "scenarioData": "シナリオデータ",
+    "attacker": "攻撃側",
+    "defender": "防御側",
+    "move": "技",
+    "boardState": "盤面状況 (詰めポケ)",
+    "yourActive": "自分の場",
+    "opponentActive": "相手の場",
+    "item": "持ち物",
+    "field": "フィールド/天候",
+    "title": "ポケモンバトル検定",
+    "noQuestions": "この難易度の問題はまだありません。",
+    "correct": "正解！",
+    "incorrect": "不正解...",
+    "viewResults": "結果を見る",
+    "results": "結果発表",
+    "shareOnTwitter": "X でシェア",
+    "category": {
+      "academic": "学科",
+      "damage_calc": "ダメージ計算",
+      "tsume": "詰めポケ",
+      "practical": "実技"
+    },
+    "difficulty": {
+      "basics": "基礎級",
+      "advanced": "応用級",
+      "expert": "エキスパート級",
+      "master": "マスター級"
+    },
+    "rank": {
+      "youngster": "たんぱんこぞう級",
+      "aceTrainer": "エリートトレーナー級",
+      "veteran": "四天王級",
+      "champion": "チャンピオン級"
+    },
+    "rankLabel": "認定ランク"
+  },
   "common": {
     "close": "閉じる",
     "cancel": "キャンセル",
@@ -35,7 +72,10 @@
     "done": "完了",
     "back": "戻る",
     "or": "または",
-    "preview": "プレビュー"
+    "preview": "プレビュー",
+    "next": "次へ",
+    "submit": "回答する",
+    "backToMenu": "メニューに戻る"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -71,7 +111,8 @@
         "content": "メモ内容"
       },
       "notConfigured": "Visualize が設定されていません",
-      "openSettings": "設定を開く"
+      "openSettings": "設定を開く",
+      "untitled": "新規ウィジェット"
     },
     "variable": {
       "add": "変数を追加",
@@ -490,7 +531,8 @@
     "noItem": "持ち物なし",
     "delete": "BOXから削除",
     "saveToBox": "BOXに保存",
-    "savedToBox": "BOXに保存しました"
+    "savedToBox": "BOXに保存しました",
+    "addPokemon": "ポケモンを追加"
   },
   "teamBuilder": {
     "title": "チーム作成",
@@ -590,7 +632,9 @@
       "range": "範囲",
       "category": "分類",
       "type": "タイプ"
-    }
+    },
+    "forgetMove": "技を忘れる",
+    "dragToReorder": "ドラッグで並び替え"
   },
   "range": {
     "self": {
@@ -708,7 +752,10 @@
       "nature": "性格",
       "moves": "技",
       "evs": "努力値"
-    }
+    },
+    "slotDiffDetected": "スロットに差分があります",
+    "onlyInServer": "サーバーのみ",
+    "onlyInLocal": "ローカルのみ"
   },
   "moves": {
     "accelerock": {
@@ -3931,7 +3978,8 @@
     "floette-eternal": {
       "name": "フラエッテ",
       "formName": "えいえんのはな"
-    }
+    },
+    "unknown": "不明なポケモン"
   },
   "items": {
     "abomasite": {
@@ -5754,39 +5802,5 @@
     "physical": "物理",
     "special": "特殊",
     "status": "変化"
-  },
-  "quiz": {
-    "title": "ポケモンバトル検定",
-    "start": "スタート",
-    "difficulty": {
-      "basics": "ベーシック",
-      "advanced": "アドバンス",
-      "expert": "エキスパート",
-      "master": "マスター"
-    },
-    "questions": {
-      "higher_hp": "HP種族値が高いのはどっち？",
-      "higher_spe": "素早さ種族値が高いのはどっち？",
-      "highest_bst": "合計種族値が一番高いのはどれ？"
-    },
-    "explanations": {
-      "higher_hp": "{{correct}}はHP{{correctVal}}、{{incorrect}}はHP{{incorrectVal}}です。",
-      "higher_spe": "{{correct}}の素早さは{{correctVal}}、{{incorrect}}は{{incorrectVal}}です。",
-      "highest_bst": "{{correct}}の合計種族値は{{correctVal}}です。"
-    },
-    "result": {
-      "score": "スコア: {{score}} / {{total}}",
-      "rank": "ランク: {{rank}}",
-      "share": "結果をXでシェア"
-    },
-    "ui": {
-      "correct": "✅ 正解！",
-      "incorrect": "❌ 不正解...",
-      "result": "結果発表",
-      "play_again": "もう一度遊ぶ",
-      "choose_difficulty": "難易度を選んでクイズを始めよう！",
-      "see_results": "結果を見る",
-      "next": "次の問題へ"
-    }
   }
 }

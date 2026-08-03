@@ -240,7 +240,7 @@ export function WidgetEditDrawer({
             placeholder={
               widgetTypeLabelKey(widget.templateId)
                 ? t(widgetTypeLabelKey(widget.templateId) as string)
-                : t("dashboard.widget.untitled", "New Widget")
+                : t("dashboard.widget.untitled")
             }
           />
         </Stack>

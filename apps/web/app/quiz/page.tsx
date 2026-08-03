@@ -1,36 +1,39 @@
-import { Metadata } from 'next';
-import { QuizContainer } from '../../src/components/client/quiz/QuizContainer';
+import { Metadata } from "next";
+import { QuizApp } from "@/components/client/quiz/QuizApp";
+import { Box } from "@mui/material";
 
 export const metadata: Metadata = {
-  title: 'Pokémon Battle Proficiency Test | Pokemetrix',
-  description: 'Test your competitive Pokémon knowledge! Can you reach Champion rank?',
+  title: "Pokémon Battle Proficiency Test | Pokemetrix",
+  description: "Test your competitive Pokémon knowledge!",
   openGraph: {
-    title: 'Pokémon Battle Proficiency Test | Pokemetrix',
-    description: 'Test your competitive Pokémon knowledge! Can you reach Champion rank?',
-    url: 'https://pokemetrix.com/quiz',
-    siteName: 'Pokemetrix',
+    title: "Pokémon Battle Proficiency Test | Pokemetrix",
+    description: "Test your competitive Pokémon knowledge!",
+    url: "https://pokemetrix.com/quiz",
+    siteName: "Pokemetrix",
     images: [
       {
-        url: 'https://pokemetrix.com/ogp/quiz.png', // Fallback or standard OGP
+        url: "https://pokemetrix.com/ogp/quiz.png",
         width: 1200,
         height: 630,
-      }
+      },
     ],
-    locale: 'ja_JP',
-    type: 'website',
+    locale: "ja_JP",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Pokémon Battle Proficiency Test | Pokemetrix',
-    description: 'Test your competitive Pokémon knowledge! Can you reach Champion rank?',
-    images: ['https://pokemetrix.com/ogp/quiz.png'],
+    card: "summary_large_image",
+    title: "Pokémon Battle Proficiency Test | Pokemetrix",
+    description: "Test your competitive Pokémon knowledge!",
+    images: ["https://pokemetrix.com/ogp/quiz.png"],
   },
 };
 
+import { allQuizzes } from "content-collections";
+
 export default function QuizPage() {
   return (
-    <main>
-      <QuizContainer />
-    </main>
+    <Box style={{ minHeight: "100vh", padding: "2rem 0" }}>
+      <QuizApp initialQuestions={allQuizzes} />
+    </Box>
   );
 }

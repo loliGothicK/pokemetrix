@@ -94,7 +94,7 @@ function effectiveSpeed(
   ability: string | null,
   weather: Weather,
   terrain: Terrain,
-  conditions: Readonly<Record<string, boolean>>
+  conditions: Readonly<Record<string, boolean>>,
 ): number {
   let s = base;
   // 1. Apply stat rank
@@ -113,14 +113,26 @@ function effectiveSpeed(
     s = Math.floor((s * 8192) / 4096);
   } else if (ability === "surge-surfer" && terrain === "electric") {
     s = Math.floor((s * 8192) / 4096);
-  } else if (ability === "quick-feet" && (conditions.paralysis || conditions.burn || conditions.poison || conditions.sleep)) {
+  } else if (
+    ability === "quick-feet" &&
+    (conditions.paralysis || conditions.burn || conditions.poison || conditions.sleep)
+  ) {
     s = Math.floor((s * 6144) / 4096);
   }
 
   // 3. Apply item
   if (item === "choice-scarf") {
     s = Math.floor((s * 6144) / 4096); // 1.5x
-  } else if (item === "iron-ball" || item === "macho-brace" || item === "power-weight" || item === "power-bracer" || item === "power-belt" || item === "power-lens" || item === "power-band" || item === "power-anklet") {
+  } else if (
+    item === "iron-ball" ||
+    item === "macho-brace" ||
+    item === "power-weight" ||
+    item === "power-bracer" ||
+    item === "power-belt" ||
+    item === "power-lens" ||
+    item === "power-band" ||
+    item === "power-anklet"
+  ) {
     s = Math.floor((s * 2048) / 4096); // 0.5x
   }
 
@@ -232,7 +244,7 @@ export function useDamageCalcPage() {
       attacker.ability,
       weather,
       terrain,
-      ac
+      ac,
     );
     const defSpe = effectiveSpeed(
       stat(defPokemon, 5, defender.evSpe, defender.natures?.spe),
@@ -241,7 +253,7 @@ export function useDamageCalcPage() {
       defender.ability,
       weather,
       terrain,
-      dc
+      dc,
     );
 
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
@@ -280,7 +292,10 @@ export function useDamageCalcPage() {
     if (attackerGrounded && terrainModifier(terrain, moveType) !== M.NEUTRAL) {
       bpModifiers.push(terrainModifier(terrain, moveType));
     }
-    if (defenderGrounded && terrainDefensiveModifier(terrain, moveType, move.identifier) !== M.NEUTRAL) {
+    if (
+      defenderGrounded &&
+      terrainDefensiveModifier(terrain, moveType, move.identifier) !== M.NEUTRAL
+    ) {
       bpModifiers.push(terrainDefensiveModifier(terrain, moveType, move.identifier));
     }
     if (attacker.item === "type-boost") bpModifiers.push(M.TYPE_ITEM);
@@ -339,8 +354,8 @@ export function useDamageCalcPage() {
 
     // --- Defensive stat resolution ---
     const defStat = mechanics.defensiveStat === "spd" ? effDefSpd : effDefDef;
-    const defenseBoost = mechanics.ignoresTargetDefenseBoosts 
-      ? 0 
+    const defenseBoost = mechanics.ignoresTargetDefenseBoosts
+      ? 0
       : (defender.boosts[mechanics.defensiveStat === "spd" ? "spd" : "def"] ?? 0);
 
     // --- Attack / Defense stat modifiers ---
@@ -440,7 +455,18 @@ export function useDamageCalcPage() {
       protectModifier,
       isBurned,
     };
-  }, [attacker, defender, weather, terrain, fairyAura, wonderRoom, gravity, screens, isDoubles, isCrit]);
+  }, [
+    attacker,
+    defender,
+    weather,
+    terrain,
+    fairyAura,
+    wonderRoom,
+    gravity,
+    screens,
+    isDoubles,
+    isCrit,
+  ]);
 
   const defenderMaxHp = useMemo(() => {
     if (!defender.identifier) return undefined;

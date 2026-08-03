@@ -25,7 +25,8 @@
     "db:seed": "tsx src/lib/db/seed.ts",
     "d1:migrate": "drizzle-kit migrate --config drizzle.d1.config.ts",
     "d1:index": "tsx --env-file=../../.env script/index-docs.ts",
-    "renovate": "ncu -u && pnpm install"
+    "renovate": "ncu -u && pnpm install",
+    "i18n:check": "pnpm exec tsx script/check-i18n.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.6.0",
@@ -54,12 +55,12 @@
     "date-fns": "4.4.0",
     "drizzle-orm": "0.45.2",
     "fp-ts": "2.16.11",
-    "html-react-parser": "^6.1.5",
+    "html-react-parser": "6.1.5",
     "i18next": "26.3.6",
     "i18next-browser-languagedetector": "8.2.1",
     "i18next-http-backend": "4.0.1",
     "jotai": "2.20.2",
-    "marked": "^18.0.7",
+    "marked": "18.0.7",
     "monocle-ts": "2.3.13",
     "neverthrow": "8.2.0",
     "next": "16.2.12",
@@ -71,9 +72,9 @@
     "react-i18next": "17.0.11",
     "react-resizable": "4.0.2",
     "rehype-slug": "6.0.0",
-    "remark": "^15.0.1",
-    "remark-gfm": "^4.0.1",
-    "strip-markdown": "^6.0.0",
+    "remark": "15.0.1",
+    "remark-gfm": "4.0.1",
+    "strip-markdown": "6.0.0",
     "ts-pattern": "5.9.0",
     "ulid": "3.0.2",
     "zod-validation-error": "5.0.0"

@@ -43,7 +43,10 @@ export function terrainModifier(terrain: Terrain, moveType: Type): number {
  * Misty Terrain halves Dragon moves against grounded targets.
  */
 export function terrainDefensiveModifier(terrain: Terrain, moveType: Type, moveId: string): number {
-  if (terrain === "grassy" && (moveId === "earthquake" || moveId === "bulldoze" || moveId === "magnitude")) {
+  if (
+    terrain === "grassy" &&
+    (moveId === "earthquake" || moveId === "bulldoze" || moveId === "magnitude")
+  ) {
     return M.WEATHER_PENALTY; // 0.5x
   }
   if (terrain === "misty" && moveType === "dragon") {

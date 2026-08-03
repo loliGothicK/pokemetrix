@@ -91,6 +91,42 @@ const docs = defineCollection({
   },
 });
 
+const quizzes = defineCollection({
+  name: "quizzes",
+  directory: "content/quiz",
+  include: "**/*.mdx",
+  schema: z.object({
+    id: z.string(),
+    difficulty: z.enum(["basics", "advanced", "expert", "master"]),
+    category: z.enum(["academic", "damage_calc", "tsume"]),
+    format: z.enum(["choices", "input"]),
+    question: z.string(),
+    options: z.array(z.string()).optional(),
+    correctAnswer: z.string(),
+    prerequisites: z.array(z.string()).default([]),
+    practicalData: z.any().optional(),
+    tsumeData: z.any().optional(),
+    content: z.string(),
+  }),
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document, {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug],
+    });
+    const parts = document._meta.path.replace(/\\/g, "/").split("/");
+    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
+    const slug =
+      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
+
+    return {
+      ...document,
+      slug,
+      locale,
+      mdx,
+    };
+  },
+});
+
 export default defineConfig({
-  content: [posts, docs],
+  content: [posts, docs, quizzes],
 });

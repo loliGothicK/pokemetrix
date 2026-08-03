@@ -122,7 +122,7 @@ export function DocsSearchBar() {
       >
         <SearchIcon fontSize="small" sx={{ color: "text.secondary" }} />
         <Typography variant="body2" sx={{ flexGrow: 1, textAlign: "left", fontWeight: 500 }}>
-          {t("docs.search.placeholder", "Search documentation...")}
+          {t("docs.search.placeholder")}
         </Typography>
         <Box
           component="span"
@@ -186,7 +186,7 @@ export function DocsSearchBar() {
           <InputBase
             autoFocus
             fullWidth
-            placeholder={t("docs.search.placeholder", "Search documentation...")}
+            placeholder={t("docs.search.placeholder")}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -224,15 +224,11 @@ export function DocsSearchBar() {
         <Box sx={{ maxHeight: "60vh", overflowY: "auto", py: 1 }}>
           {inputValue.length < searchThreshold ? (
             <Box sx={{ p: 4, textAlign: "center", color: "text.disabled" }}>
-              <Typography variant="body2">
-                {t("docs.search.minChars", "Type at least 3 characters to search")}
-              </Typography>
+              <Typography variant="body2">{t("docs.search.minChars")}</Typography>
             </Box>
           ) : options.length === 0 && !isFetching ? (
             <Box sx={{ p: 4, textAlign: "center", color: "text.disabled" }}>
-              <Typography variant="body2">
-                {t("docs.search.noResults", "No results found for your query")}
-              </Typography>
+              <Typography variant="body2">{t("docs.search.noResults")}</Typography>
             </Box>
           ) : (
             <List disablePadding>

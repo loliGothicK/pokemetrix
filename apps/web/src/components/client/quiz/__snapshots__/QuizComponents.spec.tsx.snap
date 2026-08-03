@@ -3,7 +3,7 @@
 exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizQuestionCard matches snapshot 1`] = `
 <div>
   <div
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-4zx87h-MuiPaper-root-MuiCard-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-175vvbj-MuiPaper-root-MuiCard-root"
     style="--Paper-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);"
   >
     <div
@@ -48,7 +48,7 @@ exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizQuestionCard ma
 exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizResultScreen matches snapshot 1`] = `
 <div>
   <div
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-1mqpb3a-MuiPaper-root-MuiCard-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 MuiCard-root css-1s1px2d-MuiPaper-root-MuiCard-root"
     style="--Paper-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);"
   >
     <div
@@ -77,12 +77,12 @@ exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizResultScreen ma
         <h5
           class="MuiTypography-root MuiTypography-h5 css-16rnsch-MuiTypography-root"
         >
-          あなたのランクは...
+          quiz.result.your_rank
         </h5>
         <h3
           class="MuiTypography-root MuiTypography-h3 css-151usdm-MuiTypography-root"
         >
-          チャンピオン級
+          quiz.ranks.champion
         </h3>
       </div>
       <div
@@ -90,7 +90,7 @@ exports[`Quiz Components Snapshot Tests (Desktop Baseline) > QuizResultScreen ma
       >
         <a
           class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-1phpxl4-MuiButtonBase-root-MuiButton-root"
-          href="https://twitter.com/intent/tweet?text=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%90%E3%83%88%E3%83%AB%E6%A4%9C%E5%AE%9A%20(quiz.difficulty.basics)%20%E3%81%A7%2010%2F10%E5%95%8F%E6%AD%A3%E8%A7%A3%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81%0A%E7%A7%81%E3%81%AE%E3%83%A9%E3%83%B3%E3%82%AF%E3%81%AF%E3%80%90%E3%83%81%E3%83%A3%E3%83%B3%E3%83%94%E3%82%AA%E3%83%B3%E7%B4%9A%E3%80%91%E3%81%A7%E3%81%99%EF%BC%81%0A%0A%23%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%90%E3%83%88%E3%83%AB%E6%A4%9C%E5%AE%9A%20%23Pokemetrix%0A&url=http%3A%2F%2Flocalhost%3A3000%2F"
+          href="https://twitter.com/intent/tweet?text=quiz.result.share_text&url=http%3A%2F%2Flocalhost%3A3000%2F"
           rel="noopener noreferrer"
           tabindex="0"
           target="_blank"

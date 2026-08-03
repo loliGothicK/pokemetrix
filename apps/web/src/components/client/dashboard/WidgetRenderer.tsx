@@ -182,7 +182,7 @@ export function WidgetRenderer({
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>
-            {t("dashboard.widget.notConfigured", "Visualize is not configured")}
+            {t("dashboard.widget.notConfigured")}
           </Typography>
           {editing && onEditClick && (
             <Button
@@ -194,7 +194,7 @@ export function WidgetRenderer({
                 onEditClick();
               }}
             >
-              {t("dashboard.widget.openSettings", "Open Settings")}
+              {t("dashboard.widget.openSettings")}
             </Button>
           )}
         </Stack>

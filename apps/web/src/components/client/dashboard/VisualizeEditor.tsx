@@ -386,7 +386,7 @@ export function VisualizeEditor({
                   {widget.title ||
                     (widgetTypeLabelKey(widget.templateId)
                       ? t(widgetTypeLabelKey(widget.templateId) as string)
-                      : t("dashboard.widget.untitled", "New Widget"))}
+                      : t("dashboard.widget.untitled"))}
                 </Typography>
                 <Box sx={{ height: "calc(100% - 32px)", overflow: "hidden" }}>
                   <WidgetRenderer widget={widget} editing={false} variableValues={variableValues} />

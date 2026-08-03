@@ -127,7 +127,7 @@ function HeatCell({
             lineHeight: 1,
           }}
         >
-          {confidence === "low" ? t("dashboard.heatmap.confidence.low", "Low") : `n=${cell.total}`}
+          {confidence === "low" ? t("dashboard.heatmap.confidence.low") : `n=${cell.total}`}
         </Typography>
       </Box>
     </Tooltip>
@@ -150,7 +150,7 @@ function HeatmapGrid({
   if (matrix.myLeads.length === 0 || matrix.rows.length === 0) {
     return (
       <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", py: 4 }}>
-        {t("dashboard.heatmap.noData", "データが足りません")}
+        {t("dashboard.heatmap.noData")}
       </Typography>
     );
   }
@@ -176,7 +176,7 @@ function HeatmapGrid({
             color="text.secondary"
             sx={{ fontWeight: 600, fontSize: "0.65rem" }}
           >
-            {t("dashboard.heatmap.oppLead", "相手 ↓")} / {t("dashboard.heatmap.myLead", "自分 →")}
+            {t("dashboard.heatmap.oppLead")} / {t("dashboard.heatmap.myLead")}
           </Typography>
         </Box>
 
@@ -277,7 +277,7 @@ export function HeatmapVisualizer({ data }: { readonly data: readonly Record<str
   if (!heatmapData) {
     return (
       <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", py: 3 }}>
-        {t("dashboard.visualize.noData", "No data")}
+        {t("dashboard.visualize.noData")}
       </Typography>
     );
   }
@@ -311,10 +311,10 @@ export function HeatmapVisualizer({ data }: { readonly data: readonly Record<str
           sx={{ "& .MuiToggleButton-root": { px: 1.5, py: 0.25, fontSize: "0.72rem" } }}
         >
           <ToggleButton value="singles" disabled={!singlesHasData}>
-            {t("dashboard.heatmap.singles", "Singles")}
+            {t("dashboard.heatmap.singles")}
           </ToggleButton>
           <ToggleButton value="doubles" disabled={!doublesHasData}>
-            {t("dashboard.heatmap.doubles", "Doubles")}
+            {t("dashboard.heatmap.doubles")}
           </ToggleButton>
         </ToggleButtonGroup>
 
@@ -322,7 +322,7 @@ export function HeatmapVisualizer({ data }: { readonly data: readonly Record<str
         <Stack direction="row" spacing={0.75} sx={{ alignItems: "center", ml: "auto" }}>
           <Box sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "hsl(0, 70%, 38%)" }} />
           <Typography variant="caption" color="text.secondary">
-            {t("dashboard.heatmap.legendLow", "負け")}
+            {t("dashboard.heatmap.legendLow")}
           </Typography>
           <Box
             sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "rgba(128,128,128,0.3)" }}
@@ -332,7 +332,7 @@ export function HeatmapVisualizer({ data }: { readonly data: readonly Record<str
           </Typography>
           <Box sx={{ width: 28, height: 10, borderRadius: 0.25, bgcolor: "hsl(130, 60%, 34%)" }} />
           <Typography variant="caption" color="text.secondary">
-            {t("dashboard.heatmap.legendHigh", "勝ち")}
+            {t("dashboard.heatmap.legendHigh")}
           </Typography>
         </Stack>
       </Stack>
