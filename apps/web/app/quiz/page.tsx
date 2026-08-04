@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pokémon Battle Proficiency Test | Pokemetrix",
     description: "Test your competitive Pokémon knowledge!",
-    url: "https://pokemetrix.com/quiz",
+    url: "https://pokemetrix.mitama.io/quiz",
     siteName: "Pokemetrix",
     images: [
       {
-        url: "https://pokemetrix.com/ogp/quiz.png",
+        url: "https://pokemetrix.mitama.io/ogp/quiz.png",
         width: 1200,
         height: 630,
       },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pokémon Battle Proficiency Test | Pokemetrix",
     description: "Test your competitive Pokémon knowledge!",
-    images: ["https://pokemetrix.com/ogp/quiz.png"],
+    images: ["https://pokemetrix.mitama.io/ogp/quiz.png"],
   },
 };
 

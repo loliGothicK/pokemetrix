@@ -19,7 +19,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import type { QuizQuestion, TsumePokemon } from "../../../types/quiz";
+import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
 
 interface QuizAppProps {
   initialQuestions: QuizQuestion[];
@@ -64,10 +64,10 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   ];
 
   const difficulties: { id: Difficulty; color: string }[] = [
-    { id: "basics", color: "#ff5252" },     // Poke Ball (Red)
-    { id: "advanced", color: "#448aff" },   // Great Ball (Blue)
-    { id: "expert", color: "#ffc107" },     // Ultra Ball (Yellow/Gold)
-    { id: "master", color: "#aa00ff" },     // Master Ball (Purple)
+    { id: "basics", color: "#ff5252" }, // Poke Ball (Red)
+    { id: "advanced", color: "#448aff" }, // Great Ball (Blue)
+    { id: "expert", color: "#ffc107" }, // Ultra Ball (Yellow/Gold)
+    { id: "master", color: "#aa00ff" }, // Master Ball (Purple)
   ];
 
   const handleSelectDifficulty = (diff: Difficulty) => {
@@ -182,7 +182,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
         : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokemetrix\n`;
 
     const url =
-      typeof window !== "undefined" ? window.location.href : "https://pokemetrix.com/quiz";
+      typeof window !== "undefined" ? window.location.href : "https://pokemetrix.mitama.io/quiz";
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");
@@ -302,7 +302,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                     <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.yourActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.playerSide.map((pkmn: TsumePokemon, i: number) => (
+                    {activeQuestion.tsumeData.playerSide.map((poke: TsumePokemon, i: number) => (
                       <Box
                         key={i}
                         sx={{
@@ -315,29 +315,29 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                         }}
                       >
                         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                          {getPokemonName(pkmn.species)}
+                          {getPokemonName(poke.species)}
                         </Typography>
                         <Typography
                           variant="caption"
                           sx={{ display: "block", color: "text.secondary" }}
                         >
-                          HP: {pkmn.hpCurrent} / {pkmn.hpMax}
+                          HP: {poke.hpCurrent} / {poke.hpMax}
                         </Typography>
-                        {pkmn.item && (
+                        {poke.item && (
                           <Typography
                             variant="caption"
                             sx={{ display: "block", color: "text.secondary" }}
                           >
-                            {t("quiz.item")}: {pkmn.item}
+                            {t("quiz.item")}: {poke.item}
                           </Typography>
                         )}
-                        {pkmn.status && (
+                        {poke.status && (
                           <Typography
                             variant="caption"
                             color="error"
                             sx={{ display: "block", fontWeight: "bold" }}
                           >
-                            {pkmn.status.toUpperCase()}
+                            {poke.status.toUpperCase()}
                           </Typography>
                         )}
                       </Box>
@@ -347,7 +347,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                     <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.opponentActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.opponentSide.map((pkmn: TsumePokemon, i: number) => (
+                    {activeQuestion.tsumeData.opponentSide.map((poke: TsumePokemon, i: number) => (
                       <Box
                         key={i}
                         sx={{
@@ -360,29 +360,29 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                         }}
                       >
                         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                          {getPokemonName(pkmn.species)}
+                          {getPokemonName(poke.species)}
                         </Typography>
                         <Typography
                           variant="caption"
                           sx={{ display: "block", color: "text.secondary" }}
                         >
-                          HP: {pkmn.hpCurrent} / {pkmn.hpMax}
+                          HP: {poke.hpCurrent} / {poke.hpMax}
                         </Typography>
-                        {pkmn.item && (
+                        {poke.item && (
                           <Typography
                             variant="caption"
                             sx={{ display: "block", color: "text.secondary" }}
                           >
-                            {t("quiz.item")}: {pkmn.item}
+                            {t("quiz.item")}: {poke.item}
                           </Typography>
                         )}
-                        {pkmn.status && (
+                        {poke.status && (
                           <Typography
                             variant="caption"
                             color="error"
                             sx={{ display: "block", fontWeight: "bold" }}
                           >
-                            {pkmn.status.toUpperCase()}
+                            {poke.status.toUpperCase()}
                           </Typography>
                         )}
                       </Box>

@@ -1,4 +1,4 @@
-import { allDocs } from "../.content-collections/generated/index.js";
+import { allDocs, allPosts } from "content-collections";
 import { marked } from "marked";
 
 async function executeD1Query(
@@ -33,17 +33,17 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Starting to index ${allDocs.length} documents to D1...`);
+  console.log(`Starting to index ${allDocs.length + allPosts.length} documents to D1...`);
 
-  // Transform markdown to plain text safely using marked
+  // Transform Markdown to plain text safely using marked
   const cleanContent = async (content: string) => {
     // 1. Remove frontmatter
     const withoutFrontmatter = content.replace(/^---[\s\S]*?---\n/g, "");
 
-    // 2. Parse markdown into HTML using marked (this handles tables, lists, links, etc.)
+    // 2. Parse Markdown into HTML using marked (this handles tables, lists, links, etc.)
     const html = await marked.parse(withoutFrontmatter);
 
-    // 3. Strip all HTML tags and normalize whitespace
+    // 3. Strip all HTML tags and normalise whitespace
     return html
       .replace(/<[^>]+>/g, " ")
       .replace(/\s+/g, " ")
@@ -56,8 +56,9 @@ async function main() {
 
     console.log("Inserting new index...");
     // FTS5 bulk insert
-    for (let i = 0; i < allDocs.length; i += 10) {
-      const batch = allDocs.slice(i, i + 10);
+    let len = allDocs.length + allPosts.length;
+    for (let i = 0; i < len; i += 10) {
+      const batch = [...allDocs, ...allPosts].slice(i, i + 10);
       const placeholders = batch.map(() => "(?, ?, ?, ?, ?)").join(", ");
 
       const params = [];
