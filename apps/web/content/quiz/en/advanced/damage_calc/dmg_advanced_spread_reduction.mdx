@@ -1,0 +1,16 @@
+---
+id: dmg_advanced_spread_reduction
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "In a Double Battle, Sylveon uses Hyper Voice, which hits both opposing Pokémon. What is the spread damage modifier applied to the move?"
+options:
+  - "The damage is reduced by 25% (0.75x multiplier)."
+  - "The damage is reduced by 50% (0.50x multiplier)."
+  - "There is no reduction; it deals 100% damage to both."
+  - "The damage is increased by 25%."
+correctAnswer: "The damage is reduced by 25% (0.75x multiplier)."
+practicalData: {"attacker":{"species":"sylveon","evs":"C32+","item":"life-orb","nature":"modest"},"defender":{"species":"garchomp","evs":"H0","item":"focus-sash","nature":"jolly"},"ally":{"species":"arcanine","item":"sitrus-berry"},"opponentAlly":{"species":"gengar","item":"focus-sash"},"move":"Hyper Voice"}
+---
+
+In Double Battles, moves that target multiple Pokémon (like Earthquake, Hyper Voice, Heat Wave) have their damage reduced to 75% of their normal power against each target.

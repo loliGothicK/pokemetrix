@@ -1,0 +1,16 @@
+---
+id: dmg_advanced_intimidate
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "In a Double Battle, you send out Incineroar. The opponent has two physical attackers on the field. How does Incineroar's Intimidate ability affect them?"
+options:
+  - "It lowers the Attack of both opponents by 1 stage."
+  - "It lowers the Attack of one random opponent by 1 stage."
+  - "It lowers the Attack of the opponent directly across from it by 1 stage."
+  - "It lowers the Attack of both opponents by 2 stages."
+correctAnswer: "It lowers the Attack of both opponents by 1 stage."
+practicalData: {"attacker":{"species":"incineroar","evs":"H32 B32+","item":"sitrus-berry","nature":"impish"},"defender":{"species":"kangaskhan-mega","evs":"A32+","item":"kangaskhanite","nature":"jolly"},"ally":{"species":"clefable","item":"leftovers"},"opponentAlly":{"species":"garchomp","item":"life-orb"},"move":"Fake Out"}
+---
+
+Intimidate triggers upon entering the battle and affects all adjacent opponents. In a standard Double Battle, this means both opposing Pokémon will have their Attack stat lowered by one stage.
