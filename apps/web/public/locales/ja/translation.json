@@ -24,7 +24,9 @@
   "quiz": {
     "scenarioData": "シナリオデータ",
     "attacker": "攻撃側",
+    "ally": "味方",
     "defender": "防御側",
+    "opponentAlly": "相手の隣",
     "move": "技",
     "boardState": "盤面状況 (詰めポケ)",
     "yourActive": "自分の場",

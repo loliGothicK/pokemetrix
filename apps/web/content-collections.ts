@@ -91,6 +91,65 @@ const docs = defineCollection({
   },
 });
 
+const tsumePokemonSchema = z.object({
+  species: z.string(),
+  hpCurrent: z.number(),
+  hpMax: z.number(),
+  moves: z.array(z.string()).optional(),
+  item: z.string().optional(),
+  status: z.string().optional(),
+});
+
+const practicalDataSchema = z.object({
+  attacker: z.object({
+    species: z.string(),
+    evs: z.string(),
+    item: z.string(),
+    nature: z.string(),
+    boosts: z.string().optional(),
+  }),
+  defender: z.object({
+    species: z.string(),
+    evs: z.string(),
+    item: z.string(),
+    nature: z.string(),
+    hpPercent: z.number().optional(),
+  }),
+  ally: z
+    .object({
+      species: z.string(),
+      item: z.string().optional(),
+    })
+    .optional(),
+  opponentAlly: z
+    .object({
+      species: z.string(),
+      item: z.string().optional(),
+    })
+    .optional(),
+  move: z.string(),
+  field: z
+    .object({
+      weather: z.string().optional(),
+      terrain: z.string().optional(),
+    })
+    .optional(),
+});
+
+const tsumeDataSchema = z.object({
+  playerSide: z.array(tsumePokemonSchema),
+  opponentSide: z.array(tsumePokemonSchema),
+  playerParty: z.array(tsumePokemonSchema).optional(),
+  field: z
+    .object({
+      weather: z.string().optional(),
+      terrain: z.string().optional(),
+      trickRoom: z.boolean().optional(),
+    })
+    .optional(),
+  correctMoves: z.array(z.string()),
+});
+
 const quizzes = defineCollection({
   name: "quizzes",
   directory: "content/quiz",
@@ -104,8 +163,8 @@ const quizzes = defineCollection({
     options: z.array(z.string()).optional(),
     correctAnswer: z.string(),
     prerequisites: z.array(z.string()).default([]),
-    practicalData: z.any().optional(),
-    tsumeData: z.any().optional(),
+    practicalData: practicalDataSchema.optional(),
+    tsumeData: tsumeDataSchema.optional(),
     content: z.string(),
   }),
   transform: async (document, context) => {

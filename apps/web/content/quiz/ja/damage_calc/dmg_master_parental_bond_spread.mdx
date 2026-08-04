@@ -1,0 +1,24 @@
+---
+id: dmg_master_parental_bond_spread
+difficulty: master
+category: damage_calc
+format: choices
+question: "ダブルバトルにおいて、メガガルーラが相手2体に対して全体技の「じしん」を使いました。特性「おやこあい」はこの攻撃にどう影響しますか？"
+options:
+  - "2体それぞれに2回ずつ当たり、1発目が75%、2発目が37.5%の威力になる。"
+  - "全体技の威力減衰を無視し、2体に1回ずつ100%の威力で当たる。"
+  - "全体技には「おやこあい」が発動せず、2体に1回ずつ75%の威力で当たる。"
+  - "ランダムな1体には2回、もう1体には1回当たる。"
+correctAnswer: "全体技には「おやこあい」が発動せず、2体に1回ずつ75%の威力で当たる。"
+practicalData:
+  {
+    "attacker":
+      { "species": "kangaskhan-mega", "evs": "A32+", "item": "kangaskhanite", "nature": "adamant" },
+    "defender": { "species": "tyranitar", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
+    "ally": { "species": "rotom-wash", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
+    "move": "Earthquake",
+  }
+---
+
+特性「おやこあい」は、対象が複数いる全体技（じしん、いわなだれ等）には発動しません。そのため、通常のポケモンが使う「じしん」と全く同じように、相手2体に対して1回ずつ、威力0.75倍でダメージを与えます。

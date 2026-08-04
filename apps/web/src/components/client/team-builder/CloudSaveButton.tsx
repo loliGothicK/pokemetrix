@@ -28,7 +28,7 @@ type CloudSaveButtonProps = {
   asSpeedDialAction?: boolean;
 } & Partial<SpeedDialActionProps>;
 
-export const CloudSaveButton = React.forwardRef<HTMLDivElement, CloudSaveButtonProps>(
+export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButtonProps>(
   ({ asSpeedDialAction, ...props }, ref) => {
     const { t } = useTranslation();
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
@@ -97,18 +97,18 @@ export const CloudSaveButton = React.forwardRef<HTMLDivElement, CloudSaveButtonP
     const button = asSpeedDialAction ? (
       <SpeedDialAction
         {...(props as SpeedDialActionProps)}
-        ref={ref}
+        ref={ref as React.Ref<HTMLDivElement>}
         icon={actionIcon}
         title={actionText}
         onClick={() => saveMutation.mutate()}
         slotProps={{
           tooltip: { title: actionText, open: true },
-          fab: { disabled: isLoading || isSaved || isDraft } as any,
+          fab: { disabled: isLoading || isSaved || isDraft },
         }}
       />
     ) : (
       <Button
-        ref={ref as any}
+        ref={ref}
         variant={hasUnsavedChanges ? "contained" : "outlined"}
         disableElevation
         color={hasUnsavedChanges ? (isDraft ? "warning" : "primary") : "inherit"}

@@ -551,7 +551,9 @@ export function Training({
                         ),
                       },
                     }}
-                    onClick={(e) => setNatureAnchorEl(e.currentTarget as any)}
+                    onClick={(e) =>
+                      setNatureAnchorEl(e.currentTarget as unknown as HTMLButtonElement)
+                    }
                     sx={{
                       width: "100%",
                       cursor: "pointer",
@@ -1002,7 +1004,7 @@ export function Training({
                           max={MAX_EV_PER_STAT}
                           disabled={maxAvailable <= 0 && currentEv === 0}
                           onChange={(_, value) => updateEv(value as number)}
-                          marks={efficientMarks as any}
+                          marks={efficientMarks || false}
                           sx={{
                             gridArea: "slider",
                             color: "primary.main",

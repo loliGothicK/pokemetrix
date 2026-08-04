@@ -18,7 +18,10 @@ import type { DashboardWidget } from "@/store/dashboard/dashboard";
 export const widgetTypeLabelKey = (type?: string) =>
   type ? (`dashboard.template.${type}` as const) : null;
 
-const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
+const ResizableWrapper = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof Box> & { isResizing?: boolean }
+>((props, ref) => {
   const { style, className, children, isResizing, ...rest } = props;
   return (
     <Box
@@ -46,7 +49,10 @@ const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
 });
 ResizableWrapper.displayName = "ResizableWrapper";
 
-const ResizeHandle = React.forwardRef<HTMLDivElement, any>((props, ref) => {
+const ResizeHandle = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof Box> & { handleAxis?: string }
+>((props, ref) => {
   const { handleAxis: _, ...rest } = props;
   return (
     <Box
@@ -282,7 +288,8 @@ export function WidgetCard({
           maxWidth: "calc(100% - 32px)",
           transform: "translateY(-50%)",
           bgcolor: (theme) =>
-            (theme.palette.background as any).paperRaised || theme.palette.background.paper,
+            (theme.palette.background as unknown as { paperRaised?: string }).paperRaised ||
+            theme.palette.background.paper,
           px: 1,
           alignItems: "center",
           zIndex: 10,

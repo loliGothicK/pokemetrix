@@ -43,7 +43,7 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
       flex: 1,
       minWidth: 100,
       valueFormatter: isDate
-        ? (value: any) => {
+        ? (value: unknown) => {
             const dateObj =
               value instanceof Date ? value : isIsoDateString(value) ? parseISO(value) : null;
             if (dateObj && isValid(dateObj)) {

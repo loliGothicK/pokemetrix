@@ -103,7 +103,7 @@ function CustomQueryWidget({
 
   // Auto-detect heatmap data to avoid breakage on existing widgets
   const actualVis =
-    resultData.length > 0 && (resultData[0] as any)?._type === "heatmap"
+    resultData.length > 0 && (resultData[0] as Record<string, unknown>)?._type === "heatmap"
       ? "heatmap"
       : visualization;
 

@@ -183,7 +183,7 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 const ImportMenu = React.forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   {
     readonly createTeamAction: (team: { readonly members: Team["members"] }) => void;
     readonly onError: (diagnostics: Diagnostics) => void;
@@ -207,8 +207,8 @@ const ImportMenu = React.forwardRef<
     <>
       {asSpeedDialAction ? (
         <SpeedDialAction
-          {...(props as any)}
-          ref={ref}
+          {...(props as import("@mui/material").SpeedDialActionProps)}
+          ref={ref as React.Ref<HTMLDivElement>}
           icon={<DownloadIcon />}
           title={t("teamBuilder.importAction")}
           slotProps={{ tooltip: { title: t("teamBuilder.importAction"), open: true } }}
@@ -216,7 +216,7 @@ const ImportMenu = React.forwardRef<
         />
       ) : (
         <Button
-          ref={ref as any}
+          ref={ref}
           variant="contained"
           disableElevation
           onClick={handleClick}
@@ -267,7 +267,7 @@ const ImportMenu = React.forwardRef<
 });
 
 const ExportMenu = React.forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   {
     readonly asSpeedDialAction?: boolean;
   } & Partial<import("@mui/material").SpeedDialActionProps>
@@ -312,8 +312,8 @@ const ExportMenu = React.forwardRef<
     <>
       {asSpeedDialAction ? (
         <SpeedDialAction
-          {...(props as any)}
-          ref={ref}
+          {...(props as import("@mui/material").SpeedDialActionProps)}
+          ref={ref as React.Ref<HTMLDivElement>}
           icon={<UploadIcon />}
           title={t("teamBuilder.exportAction")}
           slotProps={{ tooltip: { title: t("teamBuilder.exportAction"), open: true } }}
@@ -321,7 +321,7 @@ const ExportMenu = React.forwardRef<
         />
       ) : (
         <Button
-          ref={ref as any}
+          ref={ref}
           variant="contained"
           disableElevation
           onClick={handleClick}

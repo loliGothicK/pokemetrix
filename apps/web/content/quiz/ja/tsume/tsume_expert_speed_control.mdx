@@ -1,0 +1,41 @@
+---
+id: tsume_expert_speed_control
+difficulty: expert
+category: tsume
+format: choices
+question: "相手のポケモン2体がこちらのガルーラより素早い絶望的な対面です。ファイアローは「おいかぜ」を持っています。安全に素早さ関係を逆転させるにはどう動くべきですか？"
+options:
+  - "ファイアローで「おいかぜ」、ガルーラで攻撃"
+  - "ファイアローで「おいかぜ」、ガルーラで「まもる」"
+  - "ガルーラを交代し、ファイアローで攻撃"
+  - "ファイアローで「ブレイブバード」、ガルーラで「まもる」"
+correctAnswer: "ファイアローで「おいかぜ」、ガルーラで「まもる」"
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "talonflame",
+          "hpCurrent": 153,
+          "hpMax": 153,
+          "item": "life-orb",
+          "moves": ["Tailwind", "Brave Bird", "Flare Blitz", "Protect"],
+        },
+        {
+          "species": "kangaskhan-mega",
+          "hpCurrent": 180,
+          "hpMax": 180,
+          "item": "kangaskhanite",
+          "moves": ["Fake Out", "Double-Edge", "Sucker Punch", "Protect"],
+        },
+      ],
+    "opponentSide":
+      [
+        { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "lum-berry" },
+      ],
+    "correctMoves": ["Tailwind + Protect"],
+  }
+---
+
+「おいかぜ」は4ターンの間味方の素早さを2倍にしますが、発動ターンの行動順は変わりません。そのため、相手の攻撃が集中しそうなアタッカー（ガルーラ）は「まもる」でそのターンを凌ぐのがセオリーです。次のターンからはガルーラが上から制圧できます。

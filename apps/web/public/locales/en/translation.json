@@ -5793,7 +5793,9 @@
   "quiz": {
     "scenarioData": "Scenario Data",
     "attacker": "Attacker",
+    "ally": "Ally",
     "defender": "Defender",
+    "opponentAlly": "Opponent Ally",
     "move": "Move",
     "boardState": "Board State (Tsume)",
     "yourActive": "Your Active",

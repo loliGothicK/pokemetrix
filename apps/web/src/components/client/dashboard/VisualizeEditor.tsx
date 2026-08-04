@@ -53,7 +53,7 @@ function VisualizeOptionsPanel({
 
   const handleVisChange = (newVis: string) => {
     onChange({
-      visualization: newVis as any,
+      visualization: newVis as DashboardWidget["visualization"],
       query: widget.query ?? "SELECT * FROM records LIMIT 10",
     });
   };

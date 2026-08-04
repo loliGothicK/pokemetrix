@@ -1,0 +1,38 @@
+---
+id: tsume_master_sucker_punch_mindgame
+difficulty: master
+category: tsume
+format: choices
+question: "You have Kangaskhan and Clefable against a single Aegislash at 10% HP. You know Aegislash has King's Shield. Why is Sucker Punch a bad idea here?"
+options:
+  - "Sucker Punch fails if the target uses a status move like King's Shield, leaving Aegislash unharmed."
+  - "Sucker Punch is resisted by Aegislash."
+  - "Clefable's Follow Me will redirect your own Sucker Punch."
+  - "Aegislash is immune to Sucker Punch."
+correctAnswer: "Sucker Punch fails if the target uses a status move like King's Shield, leaving Aegislash unharmed."
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "kangaskhan-mega",
+          "hpCurrent": 100,
+          "hpMax": 180,
+          "item": "kangaskhanite",
+          "moves": ["Return", "Sucker Punch", "Power-Up Punch", "Fake Out"],
+        },
+        {
+          "species": "clefable",
+          "hpCurrent": 200,
+          "hpMax": 202,
+          "item": "sitrus-berry",
+          "moves": ["Moonblast", "Follow Me", "Protect", "Helping Hand"],
+        },
+      ],
+    "opponentSide":
+      [{ "species": "aegislash-blade", "hpCurrent": 16, "hpMax": 167, "item": "leftovers" }],
+    "correctMoves": ["Return + Moonblast"],
+  }
+---
+
+Sucker Punch only succeeds if the target has selected a damaging attack. If Aegislash selects King's Shield, Sucker Punch simply fails, stalling out its PP and giving the opponent free turns.

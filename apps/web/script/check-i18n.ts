@@ -65,11 +65,9 @@ function main() {
       if (!key || key.trim() === "" || key.includes(" ") || key.includes("\\n")) continue;
 
       let checkKey = key;
-      let isDynamic = false;
-      if (key.includes('${')) {
-        isDynamic = true;
-        checkKey = key.split('${')[0];
-        if (checkKey.endsWith('.')) {
+      if (key.includes("${")) {
+        checkKey = key.split("${")[0];
+        if (checkKey.endsWith(".")) {
           checkKey = checkKey.slice(0, -1);
         }
       }

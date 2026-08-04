@@ -1,0 +1,24 @@
+---
+id: dmg_basics_spread
+difficulty: basics
+category: damage_calc
+format: choices
+question: "ダブルバトルにおいて、ガブリアスが「じしん」を使いました。相手のバンギラスに対するダメージ計算はどうなりますか？"
+options:
+  - "通常の100%のダメージを与える。"
+  - "全体技であるため、通常の75%のダメージを与える。"
+  - "相手2体に当たるため、通常の50%のダメージになる。"
+  - "タイプ一致ボーナスで150%のダメージを与える。"
+correctAnswer: "全体技であるため、通常の75%のダメージを与える。"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "tyranitar", "evs": "H32", "item": "expert-belt", "nature": "adamant" },
+    "ally": { "species": "rotom-wash", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
+    "move": "Earthquake",
+  }
+---
+
+ダブルバトルでは、「じしん」や「いわなだれ」、「ねっぷう」など複数の対象に当たる技は、威力が本来の75%（3/4）に減衰します。これはダブルバトルの極めて基本的な仕様です。

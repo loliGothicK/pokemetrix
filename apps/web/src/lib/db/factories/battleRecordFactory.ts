@@ -17,26 +17,26 @@ export class BattleRecordFactory<
 
   withUserId(userId: string): BattleRecordFactory<true, THasSeasonId, THasResult, THasMyTeam> {
     this.data.userId = userId;
-    return this as any;
+    return this as unknown as BattleRecordFactory<true, THasSeasonId, THasResult, THasMyTeam>;
   }
 
   withSeasonId(seasonId: string): BattleRecordFactory<THasUserId, true, THasResult, THasMyTeam> {
     this.data.seasonId = seasonId;
-    return this as any;
+    return this as unknown as BattleRecordFactory<THasUserId, true, THasResult, THasMyTeam>;
   }
 
   withResult(
     result: BattleResult,
   ): BattleRecordFactory<THasUserId, THasSeasonId, true, THasMyTeam> {
     this.data.result = result;
-    return this as any;
+    return this as unknown as BattleRecordFactory<THasUserId, THasSeasonId, true, THasMyTeam>;
   }
 
   withMyTeam(
     myTeam: readonly TrainedPokemon[],
   ): BattleRecordFactory<THasUserId, THasSeasonId, THasResult, true> {
     this.data.myTeam = myTeam;
-    return this as any;
+    return this as unknown as BattleRecordFactory<THasUserId, THasSeasonId, THasResult, true>;
   }
 
   withTeamId(teamId: string | null): this {

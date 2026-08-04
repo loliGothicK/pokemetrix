@@ -1,21 +1,31 @@
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
-import { Box, Typography, Button, Stack, Card, CardContent, Grid, Paper, LinearProgress, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Stack,
+  Card,
+  CardContent,
+  Grid,
+  Paper,
+  LinearProgress,
+  IconButton,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { MDXContent } from "@content-collections/mdx/react";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
-import ExtensionIcon from "@mui/icons-material/Extension";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import type { QuizQuestion, TsumePokemon } from "../../../types/quiz";
 
 interface QuizAppProps {
-  initialQuestions: any[];
+  initialQuestions: QuizQuestion[];
 }
 
 type QuizMode = "menu" | "playing" | "results";
-type Category = "academic" | "damage_calc" | "tsume";
 type UICategory = "academic" | "practical";
 type Difficulty = "basics" | "advanced" | "expert" | "master";
 
@@ -28,18 +38,18 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   const [menuStep, setMenuStep] = useState<MenuStep>("category");
   const [selectedCategory, setSelectedCategory] = useState<UICategory | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null);
-  
-  const [sessionQuestions, setSessionQuestions] = useState<any[]>([]);
+
+  const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
 
   // Filter questions by current language
-  const currentLang = i18n.language.startsWith('en') ? 'en' : 'ja';
-  
+  const currentLang = i18n.language.startsWith("en") ? "en" : "ja";
+
   const localizedQuestions = useMemo(() => {
-    return initialQuestions.filter(q => q.locale === currentLang);
+    return initialQuestions.filter((q) => q.locale === currentLang);
   }, [initialQuestions, currentLang]);
 
   // Restart if language changes during play
@@ -61,7 +71,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   };
 
   const handleStartQuiz = (difficulty: Difficulty) => {
-    const questionsForDiff = localizedQuestions.filter(q => {
+    const questionsForDiff = localizedQuestions.filter((q) => {
       if (q.difficulty !== difficulty) return false;
       if (selectedCategory === "academic") return q.category === "academic";
       if (selectedCategory === "practical") {
@@ -73,7 +83,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       }
       return false;
     });
-    
+
     // Shuffle and pick up to 10
     const shuffled = [...questionsForDiff].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 10);
@@ -101,16 +111,16 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
 
   const handleSubmit = () => {
     if (!activeQuestion || !selectedOption) return;
-    
+
     if (selectedOption === activeQuestion.correctAnswer) {
-      setScore(s => s + 1);
+      setScore((s) => s + 1);
     }
     setShowExplanation(true);
   };
 
   const handleNext = () => {
     if (currentIndex < sessionQuestions.length - 1) {
-      setCurrentIndex(i => i + 1);
+      setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setShowExplanation(false);
     } else {
@@ -142,15 +152,15 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     const name = t(nameKey);
     if (i18n.exists(formKey)) {
       const formName = t(formKey);
-      
+
       const megaSuffixMatch = formName.match(/^(Mega|メガ)\s?([XY])$/i);
       if (megaSuffixMatch) {
         const prefix = megaSuffixMatch[1];
         const suffix = megaSuffixMatch[2].toUpperCase();
-        return currentLang === 'ja' ? `${prefix}${name}${suffix}` : `${prefix} ${name} ${suffix}`;
+        return currentLang === "ja" ? `${prefix}${name}${suffix}` : `${prefix} ${name} ${suffix}`;
       }
 
-      return currentLang === 'ja' ? `${formName}${name}` : `${formName} ${name}`;
+      return currentLang === "ja" ? `${formName}${name}` : `${formName} ${name}`;
     }
     return name;
   };
@@ -160,25 +170,29 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     const categoryName = t(`quiz.category.${selectedCategory}`);
     const rankKey = getRankKey(score, sessionQuestions.length);
     const rankName = t(`quiz.rank.${rankKey}`);
-    
-    const text = currentLang === 'ja'
-      ? `ポケモンバトル検定（${categoryName} - ${difficultyName}）で ${score}/${sessionQuestions.length} 点を獲得し、「${rankName}」に認定されました！\n#Pokemetrix\n`
-      : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokemetrix\n`;
-    
-    const url = typeof window !== 'undefined' ? window.location.href : "https://pokemetrix.com/quiz";
-    
+
+    const text =
+      currentLang === "ja"
+        ? `ポケモンバトル検定（${categoryName} - ${difficultyName}）で ${score}/${sessionQuestions.length} 点を獲得し、「${rankName}」に認定されました！\n#Pokemetrix\n`
+        : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokemetrix\n`;
+
+    const url =
+      typeof window !== "undefined" ? window.location.href : "https://pokemetrix.com/quiz";
+
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
+    window.open(shareUrl, "_blank");
   };
 
   if (mode === "playing" && activeQuestion) {
     const isCorrect = selectedOption === activeQuestion.correctAnswer;
-    const progress = ((currentIndex) / sessionQuestions.length) * 100;
+    const progress = (currentIndex / sessionQuestions.length) * 100;
 
     return (
       <Box sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
         <Box sx={{ mb: 4 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}
+          >
             <Button onClick={handleBackToMenu} color="inherit" startIcon={<ArrowBackIcon />}>
               {t("common.back")}
             </Button>
@@ -186,29 +200,68 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
               {currentIndex + 1} / {sessionQuestions.length}
             </Typography>
           </Box>
-          <LinearProgress variant="determinate" value={progress} sx={{ height: 8, borderRadius: 4 }} />
+          <LinearProgress
+            variant="determinate"
+            value={progress}
+            sx={{ height: 8, borderRadius: 4 }}
+          />
         </Box>
 
-        <Card variant="outlined" sx={{ mb: 3, borderRadius: 3, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', border: 'none' }}>
+        <Card
+          variant="outlined"
+          sx={{ mb: 3, borderRadius: 3, boxShadow: "0 8px 24px rgba(0,0,0,0.12)", border: "none" }}
+        >
           <CardContent sx={{ p: 4 }}>
             {activeQuestion.practicalData && (
-              <Box sx={{ mb: 4, p: 3, bgcolor: "background.default", borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
-                <Typography variant="subtitle2" color="primary" gutterBottom sx={{ fontWeight: 'bold' }}>
+              <Box
+                sx={{
+                  mb: 4,
+                  p: 3,
+                  bgcolor: "background.default",
+                  borderRadius: 2,
+                  border: "1px solid",
+                  borderColor: "divider",
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  color="primary"
+                  gutterBottom
+                  sx={{ fontWeight: "bold" }}
+                >
                   {t("quiz.scenarioData")}
                 </Typography>
                 <Stack spacing={1.5}>
                   <Typography variant="body2">
-                    <strong>{t("quiz.attacker")}:</strong> {getPokemonName(activeQuestion.practicalData.attacker.species)} (
+                    <strong>{t("quiz.attacker")}:</strong>{" "}
+                    {getPokemonName(activeQuestion.practicalData.attacker.species)} (
                     {activeQuestion.practicalData.attacker.evs},{" "}
                     {activeQuestion.practicalData.attacker.item},{" "}
                     {activeQuestion.practicalData.attacker.nature})
                   </Typography>
+                  {activeQuestion.practicalData.ally && (
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>{t("quiz.ally")}:</strong>{" "}
+                      {getPokemonName(activeQuestion.practicalData.ally.species)}{" "}
+                      {activeQuestion.practicalData.ally.item &&
+                        `(${activeQuestion.practicalData.ally.item})`}
+                    </Typography>
+                  )}
                   <Typography variant="body2">
-                    <strong>{t("quiz.defender")}:</strong> {getPokemonName(activeQuestion.practicalData.defender.species)} (
+                    <strong>{t("quiz.defender")}:</strong>{" "}
+                    {getPokemonName(activeQuestion.practicalData.defender.species)} (
                     {activeQuestion.practicalData.defender.evs},{" "}
                     {activeQuestion.practicalData.defender.item},{" "}
                     {activeQuestion.practicalData.defender.nature})
                   </Typography>
+                  {activeQuestion.practicalData.opponentAlly && (
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>{t("quiz.opponentAlly")}:</strong>{" "}
+                      {getPokemonName(activeQuestion.practicalData.opponentAlly.species)}{" "}
+                      {activeQuestion.practicalData.opponentAlly.item &&
+                        `(${activeQuestion.practicalData.opponentAlly.item})`}
+                    </Typography>
+                  )}
                   <Typography variant="body2">
                     <strong>{t("quiz.move")}:</strong> {activeQuestion.practicalData.move}
                   </Typography>
@@ -217,8 +270,22 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
             )}
 
             {activeQuestion.tsumeData && (
-              <Box sx={{ mb: 4, p: 3, bgcolor: "background.default", borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
-                <Typography variant="subtitle2" color="primary" gutterBottom sx={{ fontWeight: 'bold' }}>
+              <Box
+                sx={{
+                  mb: 4,
+                  p: 3,
+                  bgcolor: "background.default",
+                  borderRadius: 2,
+                  border: "1px solid",
+                  borderColor: "divider",
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  color="primary"
+                  gutterBottom
+                  sx={{ fontWeight: "bold" }}
+                >
                   {t("quiz.boardState")}
                 </Typography>
                 <Stack
@@ -230,34 +297,98 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                     <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.yourActive")}
                     </Typography>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                      {getPokemonName(activeQuestion.tsumeData.playerActive.species)}
-                    </Typography>
-                    <Typography variant="caption" sx={{ display: "block", color: 'text.secondary' }}>
-                      HP: {activeQuestion.tsumeData.playerActive.hpCurrent} /{" "}
-                      {activeQuestion.tsumeData.playerActive.hpMax}
-                    </Typography>
-                    <Typography variant="caption" sx={{ display: "block", color: 'text.secondary' }}>
-                      {t("quiz.item")}: {activeQuestion.tsumeData.playerActive.item}
-                    </Typography>
+                    {activeQuestion.tsumeData.playerSide.map((pkmn: TsumePokemon, i: number) => (
+                      <Box
+                        key={i}
+                        sx={{
+                          mb: 2,
+                          p: 1.5,
+                          bgcolor: "background.paper",
+                          borderRadius: 1,
+                          border: "1px solid",
+                          borderColor: "divider",
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                          {getPokemonName(pkmn.species)}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ display: "block", color: "text.secondary" }}
+                        >
+                          HP: {pkmn.hpCurrent} / {pkmn.hpMax}
+                        </Typography>
+                        {pkmn.item && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            {t("quiz.item")}: {pkmn.item}
+                          </Typography>
+                        )}
+                        {pkmn.status && (
+                          <Typography
+                            variant="caption"
+                            color="error"
+                            sx={{ display: "block", fontWeight: "bold" }}
+                          >
+                            {pkmn.status.toUpperCase()}
+                          </Typography>
+                        )}
+                      </Box>
+                    ))}
                   </Box>
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.opponentActive")}
                     </Typography>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                      {getPokemonName(activeQuestion.tsumeData.opponentActive.species)}
-                    </Typography>
-                    <Typography variant="caption" sx={{ display: "block", color: 'text.secondary' }}>
-                      HP: {activeQuestion.tsumeData.opponentActive.hpCurrent} /{" "}
-                      {activeQuestion.tsumeData.opponentActive.hpMax}
-                    </Typography>
+                    {activeQuestion.tsumeData.opponentSide.map((pkmn: TsumePokemon, i: number) => (
+                      <Box
+                        key={i}
+                        sx={{
+                          mb: 2,
+                          p: 1.5,
+                          bgcolor: "background.paper",
+                          borderRadius: 1,
+                          border: "1px solid",
+                          borderColor: "divider",
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                          {getPokemonName(pkmn.species)}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ display: "block", color: "text.secondary" }}
+                        >
+                          HP: {pkmn.hpCurrent} / {pkmn.hpMax}
+                        </Typography>
+                        {pkmn.item && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            {t("quiz.item")}: {pkmn.item}
+                          </Typography>
+                        )}
+                        {pkmn.status && (
+                          <Typography
+                            variant="caption"
+                            color="error"
+                            sx={{ display: "block", fontWeight: "bold" }}
+                          >
+                            {pkmn.status.toUpperCase()}
+                          </Typography>
+                        )}
+                      </Box>
+                    ))}
                   </Box>
                 </Stack>
                 {activeQuestion.tsumeData.field && (
-                  <Box sx={{ mt: 2, pt: 2, borderTop: '1px dashed', borderColor: 'divider' }}>
+                  <Box sx={{ mt: 2, pt: 2, borderTop: "1px dashed", borderColor: "divider" }}>
                     <Typography variant="caption" color="text.secondary">
-                      <strong>{t("quiz.field")}:</strong> {activeQuestion.tsumeData.field.terrain || "None"} /{" "}
+                      <strong>{t("quiz.field")}:</strong>{" "}
+                      {activeQuestion.tsumeData.field.terrain || "None"} /{" "}
                       {activeQuestion.tsumeData.field.weather || "None"}
                     </Typography>
                   </Box>
@@ -284,15 +415,15 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                   }
                   onClick={() => handleOptionSelect(opt)}
                   disabled={showExplanation}
-                  sx={{ 
-                    justifyContent: "flex-start", 
-                    textAlign: "left", 
-                    textTransform: "none", 
-                    py: 1.5, 
-                    px: 3, 
+                  sx={{
+                    justifyContent: "flex-start",
+                    textAlign: "left",
+                    textTransform: "none",
+                    py: 1.5,
+                    px: 3,
                     borderRadius: 2,
-                    fontSize: '1rem',
-                    borderWidth: selectedOption === opt ? 0 : 1
+                    fontSize: "1rem",
+                    borderWidth: selectedOption === opt ? 0 : 1,
                   }}
                 >
                   {opt}
@@ -305,7 +436,14 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                 color="primary"
                 onClick={handleSubmit}
                 disabled={!selectedOption}
-                sx={{ mt: 4, width: "100%", py: 1.5, borderRadius: 2, fontWeight: 'bold', fontSize: '1.1rem' }}
+                sx={{
+                  mt: 4,
+                  width: "100%",
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                }}
               >
                 {t("common.submit")}
               </Button>
@@ -314,21 +452,41 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
         </Card>
 
         {showExplanation && (
-          <Card variant="outlined" sx={{ borderColor: isCorrect ? "success.main" : "error.main", borderRadius: 3, boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }}>
+          <Card
+            variant="outlined"
+            sx={{
+              borderColor: isCorrect ? "success.main" : "error.main",
+              borderRadius: 3,
+              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+            }}
+          >
             <CardContent sx={{ p: 4 }}>
               <Typography
                 variant="h5"
                 color={isCorrect ? "success.main" : "error.main"}
                 gutterBottom
-                sx={{ fontWeight: 'bold' }}
+                sx={{ fontWeight: "bold" }}
               >
                 {isCorrect ? t("quiz.correct") : t("quiz.incorrect")}
               </Typography>
-              <Box sx={{ mt: 2, '& p': { lineHeight: 1.7 } }}>
-                <MDXContent code={activeQuestion.mdx} />
+              <Box sx={{ mt: 2, "& p": { lineHeight: 1.7 } }}>
+                {activeQuestion.mdx && <MDXContent code={activeQuestion.mdx} />}
               </Box>
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 4, width: "100%", py: 1.5, borderRadius: 2, fontWeight: 'bold', fontSize: '1.1rem' }}>
-                {currentIndex < sessionQuestions.length - 1 ? t("common.next") : t("quiz.viewResults")}
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{
+                  mt: 4,
+                  width: "100%",
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                }}
+              >
+                {currentIndex < sessionQuestions.length - 1
+                  ? t("common.next")
+                  : t("quiz.viewResults")}
               </Button>
             </CardContent>
           </Card>
@@ -341,54 +499,90 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     const rankKey = getRankKey(score, sessionQuestions.length);
 
     return (
-      <Box sx={{ maxWidth: 600, mx: "auto", p: 4, textAlign: 'center' }}>
-        <Paper elevation={6} sx={{ p: { xs: 4, md: 6 }, borderRadius: 4, background: 'linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)', color: '#fff' }}>
-          <Typography variant="h3" gutterBottom sx={{ fontWeight: '900', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
+      <Box sx={{ maxWidth: 600, mx: "auto", p: 4, textAlign: "center" }}>
+        <Paper
+          elevation={6}
+          sx={{
+            p: { xs: 4, md: 6 },
+            borderRadius: 4,
+            background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)",
+            color: "#fff",
+          }}
+        >
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontWeight: "900", textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+          >
             {t("quiz.results")}
           </Typography>
           <Typography variant="h6" sx={{ opacity: 0.8 }} gutterBottom>
             {t(`quiz.category.${selectedCategory}`)} - {t(`quiz.difficulty.${selectedDifficulty}`)}
           </Typography>
-          
-          <Box sx={{ my: 4, position: 'relative' }}>
-            <Typography variant="h1" sx={{ fontWeight: '900', color: '#4facfe', textShadow: '0 0 20px rgba(79, 172, 254, 0.4)' }}>
-              {score} <Typography component="span" variant="h3" sx={{ color: '#fff', opacity: 0.5 }}>/ {sessionQuestions.length}</Typography>
+
+          <Box sx={{ my: 4, position: "relative" }}>
+            <Typography
+              variant="h1"
+              sx={{
+                fontWeight: "900",
+                color: "#4facfe",
+                textShadow: "0 0 20px rgba(79, 172, 254, 0.4)",
+              }}
+            >
+              {score}{" "}
+              <Typography component="span" variant="h3" sx={{ color: "#fff", opacity: 0.5 }}>
+                / {sessionQuestions.length}
+              </Typography>
             </Typography>
           </Box>
 
           <Box sx={{ mb: 6 }}>
-            <Typography variant="subtitle1" sx={{ color: '#aaa', textTransform: 'uppercase', letterSpacing: 2 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "#aaa", textTransform: "uppercase", letterSpacing: 2 }}
+            >
               {t("quiz.rankLabel")}
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#f093fb', textShadow: '0 0 10px rgba(240, 147, 251, 0.5)' }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: "bold",
+                color: "#f093fb",
+                textShadow: "0 0 10px rgba(240, 147, 251, 0.5)",
+              }}
+            >
               {t(`quiz.rank.${rankKey}`)}
             </Typography>
           </Box>
 
-          <Button 
-            variant="contained" 
-            size="large" 
+          <Button
+            variant="contained"
+            size="large"
             startIcon={<TwitterIcon />}
             onClick={handleShareTwitter}
-            sx={{ 
-              bgcolor: '#1DA1F2', 
-              '&:hover': { bgcolor: '#1a91da', transform: 'scale(1.02)' }, 
-              mb: 3, 
-              px: 4, 
-              py: 2, 
-              borderRadius: 50, 
-              textTransform: 'none', 
-              fontWeight: 'bold', 
-              fontSize: '1.1rem',
-              boxShadow: '0 4px 14px 0 rgba(29, 161, 242, 0.39)',
-              transition: 'all 0.2s ease-in-out'
+            sx={{
+              bgcolor: "#1DA1F2",
+              "&:hover": { bgcolor: "#1a91da", transform: "scale(1.02)" },
+              mb: 3,
+              px: 4,
+              py: 2,
+              borderRadius: 50,
+              textTransform: "none",
+              fontWeight: "bold",
+              fontSize: "1.1rem",
+              boxShadow: "0 4px 14px 0 rgba(29, 161, 242, 0.39)",
+              transition: "all 0.2s ease-in-out",
             }}
           >
             {t("quiz.shareOnTwitter")}
           </Button>
 
           <Box sx={{ mt: 2 }}>
-            <Button variant="text" onClick={handleBackToMenu} sx={{ color: '#fff', opacity: 0.7, '&:hover': { opacity: 1 } }}>
+            <Button
+              variant="text"
+              onClick={handleBackToMenu}
+              sx={{ color: "#fff", opacity: 0.7, "&:hover": { opacity: 1 } }}
+            >
               {t("common.backToMenu")}
             </Button>
           </Box>
@@ -400,40 +594,60 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   // Menu Mode
   return (
     <Box sx={{ maxWidth: 900, mx: "auto", p: { xs: 2, md: 4 } }}>
-      <Typography variant="h3" gutterBottom sx={{ fontWeight: "900", textAlign: "center", mb: 6, background: 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{
+          fontWeight: "900",
+          textAlign: "center",
+          mb: 6,
+          background: "linear-gradient(to right, #4facfe 0%, #00f2fe 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
         {t("quiz.title")}
       </Typography>
 
       {menuStep === "category" && (
         <Box>
-          <Typography variant="h5" sx={{ textAlign: "center", mb: 4, fontWeight: "bold", color: "text.secondary" }}>
+          <Typography
+            variant="h5"
+            sx={{ textAlign: "center", mb: 4, fontWeight: "bold", color: "text.secondary" }}
+          >
             Select a Category
           </Typography>
           <Grid container spacing={3} sx={{ justifyContent: "center" }}>
             {categories.map((cat) => (
               <Grid size={{ xs: 12, md: 4 }} key={cat.id}>
-                <Card 
-                  sx={{ 
-                    cursor: 'pointer',
+                <Card
+                  sx={{
+                    cursor: "pointer",
                     borderRadius: 4,
-                    height: '100%',
+                    height: "100%",
                     background: `linear-gradient(135deg, ${cat.color}22 0%, ${cat.color}11 100%)`,
-                    border: '1px solid',
+                    border: "1px solid",
                     borderColor: `${cat.color}44`,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    "&:hover": {
+                      transform: "translateY(-8px)",
                       boxShadow: `0 12px 24px ${cat.color}33`,
-                      borderColor: cat.color
-                    }
+                      borderColor: cat.color,
+                    },
                   }}
                   onClick={() => handleSelectCategory(cat.id)}
                 >
-                  <CardContent sx={{ textAlign: 'center', py: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Box sx={{ color: cat.color, mb: 2 }}>
-                      {cat.icon}
-                    </Box>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                  <CardContent
+                    sx={{
+                      textAlign: "center",
+                      py: 6,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box sx={{ color: cat.color, mb: 2 }}>{cat.icon}</Box>
+                    <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                       {t(`quiz.category.${cat.id}`)}
                     </Typography>
                   </CardContent>
@@ -445,8 +659,8 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       )}
 
       {menuStep === "difficulty" && (
-        <Box sx={{ animation: 'fadeIn 0.5s ease-out' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <Box sx={{ animation: "fadeIn 0.5s ease-out" }}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
             <IconButton onClick={() => setMenuStep("category")} sx={{ mr: 2 }}>
               <ArrowBackIcon />
             </IconButton>
@@ -454,28 +668,28 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
               {t(`quiz.category.${selectedCategory}`)} - Select Difficulty
             </Typography>
           </Box>
-          
+
           <Grid container spacing={3} sx={{ justifyContent: "center" }}>
             {difficulties.map((diff) => (
               <Grid size={{ xs: 12, sm: 6 }} key={diff}>
-                <Card 
-                  variant="outlined" 
-                  sx={{ 
-                    cursor: 'pointer',
+                <Card
+                  variant="outlined"
+                  sx={{
+                    cursor: "pointer",
                     borderRadius: 3,
                     borderWidth: 2,
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      transform: 'scale(1.02)',
+                    transition: "all 0.2s ease-in-out",
+                    "&:hover": {
+                      transform: "scale(1.02)",
                       boxShadow: 4,
-                      borderColor: 'primary.main',
-                      bgcolor: 'action.hover'
-                    }
+                      borderColor: "primary.main",
+                      bgcolor: "action.hover",
+                    },
                   }}
                   onClick={() => handleStartQuiz(diff)}
                 >
-                  <CardContent sx={{ textAlign: 'center', py: 4 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                  <CardContent sx={{ textAlign: "center", py: 4 }}>
+                    <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                       {t(`quiz.difficulty.${diff}`)}
                     </Typography>
                   </CardContent>

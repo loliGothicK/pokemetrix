@@ -1,0 +1,24 @@
+---
+id: dmg_basics_spread
+difficulty: basics
+category: damage_calc
+format: choices
+question: "In a Double Battle, Garchomp uses Earthquake. How is the damage calculated against the opponent's Tyranitar?"
+options:
+  - "It deals 100% of its normal damage."
+  - "It deals 75% of its normal damage because it is a spread move."
+  - "It deals 50% of its normal damage because it hits both opponents."
+  - "It deals 150% of its normal damage due to STAB."
+correctAnswer: "It deals 75% of its normal damage because it is a spread move."
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "tyranitar", "evs": "H32", "item": "expert-belt", "nature": "adamant" },
+    "ally": { "species": "rotom-wash", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
+    "move": "Earthquake",
+  }
+---
+
+In Double Battles, moves that hit multiple targets (like Earthquake, Rock Slide, and Heat Wave) have their damage reduced to 75% of their original power. This is a fundamental mechanic of spread damage.

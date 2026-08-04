@@ -16,12 +16,12 @@ export class DashboardFactory<
 
   withUserId(userId: string): DashboardFactory<true, THasName> {
     this.data.userId = userId;
-    return this as any;
+    return this as unknown as DashboardFactory<true, THasName>;
   }
 
   withName(name: string): DashboardFactory<THasUserId, true> {
     this.data.name = name;
-    return this as any;
+    return this as unknown as DashboardFactory<THasUserId, true>;
   }
 
   withIsDefault(isDefault: boolean): this {
@@ -30,12 +30,12 @@ export class DashboardFactory<
   }
 
   withLayout(layout: unknown[]): this {
-    this.data.layout = layout as any;
+    this.data.layout = layout as InsertDashboard["layout"];
     return this;
   }
 
   withVariables(variables: unknown[]): this {
-    this.data.variables = variables as any;
+    this.data.variables = variables as InsertDashboard["variables"];
     return this;
   }
 

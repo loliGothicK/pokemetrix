@@ -3,6 +3,15 @@ export type QuizDifficulty = "basics" | "advanced" | "expert" | "master";
 export type QuizCategory = "academic" | "damage_calc" | "tsume";
 export type QuizQuestionFormat = "choices" | "input";
 
+export interface TsumePokemon {
+  species: string;
+  hpCurrent: number;
+  hpMax: number;
+  moves?: string[];
+  item?: string;
+  status?: string;
+}
+
 export interface QuizQuestion {
   id: string;
   difficulty: QuizDifficulty;
@@ -19,22 +28,17 @@ export interface QuizQuestion {
   practicalData?: {
     attacker: { species: string; evs: string; item: string; nature: string; boosts?: string };
     defender: { species: string; evs: string; item: string; nature: string; hpPercent?: number };
+    ally?: { species: string; item?: string };
+    opponentAlly?: { species: string; item?: string };
     move: string;
     field?: { weather?: string; terrain?: string };
   };
 
   // For tsume (checkmate) questions
   tsumeData?: {
-    playerActive: {
-      species: string;
-      hpCurrent: number;
-      hpMax: number;
-      moves: string[];
-      item: string;
-      status?: string;
-    };
-    opponentActive: { species: string; hpCurrent: number; hpMax: number; status?: string };
-    playerParty?: { species: string; hpCurrent: number; hpMax: number; status?: string }[];
+    playerSide: TsumePokemon[];
+    opponentSide: TsumePokemon[];
+    playerParty?: TsumePokemon[];
     field?: { weather?: string; terrain?: string; trickRoom?: boolean };
     correctMoves: string[]; // List of valid winning moves for this turn
   };
