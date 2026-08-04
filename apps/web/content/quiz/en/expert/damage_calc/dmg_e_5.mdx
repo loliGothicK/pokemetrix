@@ -1,0 +1,23 @@
+---
+id: dmg_e_5
+difficulty: expert
+category: damage_calc
+format: choices
+question: "If you hit an opponent with a spread move (0.75x) but one of the opposing Pokémon faints before your attack hits, what is the modifier?"
+options:
+  - "1.0x"
+  - "0.75x"
+  - "1.5x"
+  - "0.5x"
+correctAnswer: "1.0x"
+practicalData:
+  {
+    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
+    "defender": { "species": "garchomp", "evs": "H0", "item": "focus-sash", "nature": "jolly" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "arcanine" },
+    "move": "Hyper Voice",
+  }
+---
+
+If there is only one target on the field when the spread move hits, it receives the full 1.0x single-target damage.

@@ -1,0 +1,25 @@
+---
+id: dmg_e_8
+difficulty: expert
+category: damage_calc
+format: choices
+question: "Does the Helping Hand boost stack if multiple allies use it on the same Pokémon?"
+options:
+  - "Yes, multiplicatively (e.g. 1.5 * 1.5)."
+  - "No, it only works once."
+  - "Yes, additively (e.g. +50% + 50%)."
+  - "It fails on the second use."
+correctAnswer: "Yes, multiplicatively (e.g. 1.5 * 1.5)."
+practicalData:
+  {
+    "attacker":
+      { "species": "charizard-mega-y", "evs": "C32+", "item": "charizardite-y", "nature": "timid" },
+    "defender":
+      { "species": "kangaskhan-mega", "evs": "H0", "item": "kangaskhanite", "nature": "jolly" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Heat Wave",
+  }
+---
+
+In formats with 3+ Pokémon on a side or mechanics that allow it, Helping Hand stacks multiplicatively.

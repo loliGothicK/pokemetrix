@@ -35,7 +35,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   const { t, i18n } = useTranslation();
 
   const [mode, setMode] = useState<QuizMode>("menu");
-  const [menuStep, setMenuStep] = useState<MenuStep>("category");
+  const [menuStep, setMenuStep] = useState<MenuStep>("difficulty");
   const [selectedCategory, setSelectedCategory] = useState<UICategory | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null);
 
@@ -55,7 +55,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   // Restart if language changes during play
   useEffect(() => {
     setMode("menu");
-    setMenuStep("category");
+    setMenuStep("difficulty");
   }, [currentLang]);
 
   const categories: { id: UICategory; icon: React.ReactNode; color: string }[] = [
@@ -63,19 +63,24 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     { id: "practical", icon: <CalculateIcon sx={{ fontSize: 60 }} />, color: "#f093fb" },
   ];
 
-  const difficulties: Difficulty[] = ["basics", "advanced", "expert", "master"];
+  const difficulties: { id: Difficulty; color: string }[] = [
+    { id: "basics", color: "#ff5252" },     // Poke Ball (Red)
+    { id: "advanced", color: "#448aff" },   // Great Ball (Blue)
+    { id: "expert", color: "#ffc107" },     // Ultra Ball (Yellow/Gold)
+    { id: "master", color: "#aa00ff" },     // Master Ball (Purple)
+  ];
 
-  const handleSelectCategory = (cat: UICategory) => {
-    setSelectedCategory(cat);
-    setMenuStep("difficulty");
+  const handleSelectDifficulty = (diff: Difficulty) => {
+    setSelectedDifficulty(diff);
+    setMenuStep("category");
   };
 
-  const handleStartQuiz = (difficulty: Difficulty) => {
+  const handleStartQuiz = (cat: UICategory) => {
     const questionsForDiff = localizedQuestions.filter((q) => {
-      if (q.difficulty !== difficulty) return false;
-      if (selectedCategory === "academic") return q.category === "academic";
-      if (selectedCategory === "practical") {
-        if (difficulty === "basics" || difficulty === "advanced") {
+      if (q.difficulty !== selectedDifficulty) return false;
+      if (cat === "academic") return q.category === "academic";
+      if (cat === "practical") {
+        if (selectedDifficulty === "basics" || selectedDifficulty === "advanced") {
           return q.category === "damage_calc";
         } else {
           return q.category === "damage_calc" || q.category === "tsume";
@@ -93,7 +98,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       return;
     }
 
-    setSelectedDifficulty(difficulty);
+    setSelectedCategory(cat);
     setSessionQuestions(selected);
     setCurrentIndex(0);
     setScore(0);
@@ -609,14 +614,57 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
         {t("quiz.title")}
       </Typography>
 
-      {menuStep === "category" && (
+      {menuStep === "difficulty" && (
         <Box>
           <Typography
             variant="h5"
             sx={{ textAlign: "center", mb: 4, fontWeight: "bold", color: "text.secondary" }}
           >
-            Select a Category
+            Select Difficulty
           </Typography>
+          <Grid container spacing={3} sx={{ justifyContent: "center" }}>
+            {difficulties.map((diff) => (
+              <Grid size={{ xs: 12, sm: 6 }} key={diff.id}>
+                <Card
+                  sx={{
+                    cursor: "pointer",
+                    borderRadius: 4,
+                    background: `linear-gradient(135deg, ${diff.color}22 0%, ${diff.color}11 100%)`,
+                    border: "1px solid",
+                    borderColor: `${diff.color}44`,
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    "&:hover": {
+                      transform: "translateY(-4px)",
+                      boxShadow: `0 8px 16px ${diff.color}33`,
+                      borderColor: diff.color,
+                    },
+                  }}
+                  onClick={() => handleSelectDifficulty(diff.id)}
+                >
+                  <CardContent sx={{ textAlign: "center", py: 4 }}>
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: diff.color }}>
+                      {t(`quiz.difficulty.${diff.id}`)}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
+
+      {menuStep === "category" && (
+        <Box sx={{ animation: "fadeIn 0.5s ease-out" }}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+            <IconButton onClick={() => setMenuStep("difficulty")} sx={{ mr: 2 }}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h5" sx={{ fontWeight: "bold", color: "text.secondary" }}>
+              {selectedDifficulty ? t(`quiz.difficulty.${selectedDifficulty}`) : ""} - Select
+              Category
+            </Typography>
+          </Box>
+
           <Grid container spacing={3} sx={{ justifyContent: "center" }}>
             {categories.map((cat) => (
               <Grid size={{ xs: 12, md: 4 }} key={cat.id}>
@@ -635,7 +683,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                       borderColor: cat.color,
                     },
                   }}
-                  onClick={() => handleSelectCategory(cat.id)}
+                  onClick={() => handleStartQuiz(cat.id)}
                 >
                   <CardContent
                     sx={{
@@ -649,48 +697,6 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                     <Box sx={{ color: cat.color, mb: 2 }}>{cat.icon}</Box>
                     <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                       {t(`quiz.category.${cat.id}`)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      )}
-
-      {menuStep === "difficulty" && (
-        <Box sx={{ animation: "fadeIn 0.5s ease-out" }}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-            <IconButton onClick={() => setMenuStep("category")} sx={{ mr: 2 }}>
-              <ArrowBackIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "text.secondary" }}>
-              {t(`quiz.category.${selectedCategory}`)} - Select Difficulty
-            </Typography>
-          </Box>
-
-          <Grid container spacing={3} sx={{ justifyContent: "center" }}>
-            {difficulties.map((diff) => (
-              <Grid size={{ xs: 12, sm: 6 }} key={diff}>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    cursor: "pointer",
-                    borderRadius: 3,
-                    borderWidth: 2,
-                    transition: "all 0.2s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.02)",
-                      boxShadow: 4,
-                      borderColor: "primary.main",
-                      bgcolor: "action.hover",
-                    },
-                  }}
-                  onClick={() => handleStartQuiz(diff)}
-                >
-                  <CardContent sx={{ textAlign: "center", py: 4 }}>
-                    <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                      {t(`quiz.difficulty.${diff}`)}
                     </Typography>
                   </CardContent>
                 </Card>

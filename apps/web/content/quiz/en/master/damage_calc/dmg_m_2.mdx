@@ -1,0 +1,24 @@
+---
+id: dmg_m_2
+difficulty: master
+category: damage_calc
+format: choices
+question: "If an attack is 4x Super Effective (4.0) with STAB (1.5) and Life Orb (1.3), what is the total modifier?"
+options:
+  - "7.8x"
+  - "6.0x"
+  - "8.0x"
+  - "5.2x"
+correctAnswer: "7.8x"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "charizard-mega-y", "evs": "H0", "item": "charizardite-y", "nature": "timid" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "tyranitar" },
+    "move": "Rock Slide",
+  }
+---
+
+4.0 _ 1.5 _ 1.3 = 7.8x damage multiplier.

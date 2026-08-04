@@ -1,0 +1,23 @@
+---
+id: dmg_a_5
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "What is the modifier for a Double Target move like Earthquake if it hits all other Pokémon?"
+options:
+  - "0.75x"
+  - "0.5x"
+  - "1.0x"
+  - "0.66x"
+correctAnswer: "0.75x"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender": { "species": "tyranitar", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
+    "ally": { "species": "rotom-wash" },
+    "opponentAlly": { "species": "arcanine" },
+    "move": "Earthquake",
+  }
+---
+
+All spread moves, even those hitting allies, receive the 0.75x modifier in Double Battles.

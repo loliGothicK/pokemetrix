@@ -10,7 +10,44 @@ options:
   - "「ふいうち」は命中するが、ダメージが半減する。"
   - "「おにび」が必ず外れる。"
 correctAnswer: "「ふいうち」は失敗し、ゲンガーが「おにび」を使用する。"
-tsumeData: {"playerSide":[{"species":"gengar","hpCurrent":135,"hpMax":135,"item":"focus-sash","moves":["Sludge Bomb","Shadow Ball","Will-O-Wisp","Protect"]},{"species":"clefable","hpCurrent":202,"hpMax":202,"item":"sitrus-berry","moves":["Follow Me","Moonblast"]}],"opponentSide":[{"species":"kangaskhan-mega","hpCurrent":212,"hpMax":212,"item":"kangaskhanite","moves":["Return","Sucker Punch"]},{"species":"garchomp","hpCurrent":183,"hpMax":183,"item":"life-orb","moves":["Earthquake"]}],"correctMoves":["Will-O-Wisp (Target: Kangaskhan)"]}
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "gengar",
+          "hpCurrent": 135,
+          "hpMax": 135,
+          "item": "focus-sash",
+          "moves": ["Sludge Bomb", "Shadow Ball", "Will-O-Wisp", "Protect"],
+        },
+        {
+          "species": "clefable",
+          "hpCurrent": 202,
+          "hpMax": 202,
+          "item": "sitrus-berry",
+          "moves": ["Follow Me", "Moonblast"],
+        },
+      ],
+    "opponentSide":
+      [
+        {
+          "species": "kangaskhan-mega",
+          "hpCurrent": 212,
+          "hpMax": 212,
+          "item": "kangaskhanite",
+          "moves": ["Return", "Sucker Punch"],
+        },
+        {
+          "species": "garchomp",
+          "hpCurrent": 183,
+          "hpMax": 183,
+          "item": "life-orb",
+          "moves": ["Earthquake"],
+        },
+      ],
+    "correctMoves": ["Will-O-Wisp (Target: Kangaskhan)"],
+  }
 ---
 
 「ふいうち」は、相手が攻撃技を選択していないと失敗する仕様があります。「おにび」や「まもる」などの変化技を選択している相手に対しては無効化されてしまいます。

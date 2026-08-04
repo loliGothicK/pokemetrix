@@ -1,0 +1,21 @@
+---
+id: tsume_b_1
+difficulty: basics
+category: tsume
+format: choices
+question: "Your opponent leads with Tyranitar. You lead with Charizard-Mega-Y. Both abilities activate. Whose weather will stay on the field?"
+options:
+  - "The slower Pokémon's weather."
+  - "The faster Pokémon's weather."
+  - "Neither, they cancel out."
+  - "Random."
+correctAnswer: "The slower Pokémon's weather."
+tsumeData:
+  {
+    "playerSide": [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153 }],
+    "opponentSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
+    "correctMoves": ["Focus Blast"],
+  }
+---
+
+Weather abilities activate in Speed order. The slower Pokémon activates its ability last, overwriting the faster one's weather.

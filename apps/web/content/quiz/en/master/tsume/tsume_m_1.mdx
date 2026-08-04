@@ -1,0 +1,22 @@
+---
+id: tsume_m_1
+difficulty: master
+category: tsume
+format: choices
+question: "Your Gengar uses Destiny Bond. The opponent knocks it out. Then, another opponent knocks out your remaining Pokémon. Who wins?"
+options:
+  - "The player who has Pokémon remaining in the back, or based on specific fainting order tiebreakers."
+  - "Gengar's owner always wins."
+  - "The opponent always wins."
+  - "It's a draw."
+correctAnswer: "The player who has Pokémon remaining in the back, or based on specific fainting order tiebreakers."
+tsumeData:
+  {
+    "playerSide":
+      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond"] }],
+    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
+    "correctMoves": ["Destiny Bond"],
+  }
+---
+
+Destiny Bond forces the attacker to faint simultaneously. The game resolves wins based on who has reserve Pokémon, or by the specific order of fainting.

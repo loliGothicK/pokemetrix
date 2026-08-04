@@ -1,0 +1,25 @@
+---
+id: tsume_m_8
+difficulty: master
+category: tsume
+format: choices
+question: "If both your Pokémon faint to an opponent's Earthquake, and the opponent also faints due to Life Orb recoil from that Earthquake, who wins the battle?"
+options:
+  - "The player who used Earthquake (Opponent)."
+  - "You win."
+  - "It's a draw."
+  - "The host wins."
+correctAnswer: "The player who used Earthquake (Opponent)."
+tsumeData:
+  {
+    "playerSide":
+      [
+        { "species": "gengar", "hpCurrent": 13, "hpMax": 135 },
+        { "species": "sylveon", "hpCurrent": 15, "hpMax": 202 },
+      ],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 1, "hpMax": 183 }],
+    "correctMoves": ["Earthquake"],
+  }
+---
+
+Self-inflicted recoil (like Life Orb) is processed AFTER the damage resolves. If the damage causes the final opponent(s) to faint, the attacker wins before the recoil is even applied.

@@ -1,0 +1,29 @@
+---
+id: tsume_e_4
+difficulty: expert
+category: tsume
+format: choices
+question: "If you have a Choice Scarf Garchomp and you use Protect, what happens on the next turn?"
+options:
+  - "You are forced to use Protect or Struggle, effectively meaning you must switch out."
+  - "You can choose a new move."
+  - "Protect fails on the next turn."
+  - "You lose the Choice Scarf."
+correctAnswer: "You are forced to use Protect or Struggle, effectively meaning you must switch out."
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "garchomp",
+          "hpCurrent": 183,
+          "hpMax": 183,
+          "moves": ["Earthquake", "Protect"],
+        },
+      ],
+    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 }],
+    "correctMoves": ["Earthquake"],
+  }
+---
+
+Using a status move with a Choice item locks you into that move. Since Protect fails on consecutive uses, you will have to switch out or spam a failing move.

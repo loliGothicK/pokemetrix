@@ -1,0 +1,24 @@
+---
+id: dmg_b_5
+difficulty: basics
+category: damage_calc
+format: choices
+question: "HPが最大値の半分（50%）以下になった時に発動する「オボンのみ」の回復量はどれくらいですか？"
+options:
+  - "最大HPの25%（1/4）"
+  - "最大HPの50%（1/2）"
+  - "最大HPの33%（1/3）"
+  - "最大HPの12.5%（1/8）"
+correctAnswer: "最大HPの25%（1/4）"
+practicalData:
+  {
+    "attacker": { "species": "scizor", "evs": "A32+", "item": "life-orb", "nature": "adamant" },
+    "defender":
+      { "species": "tyranitar", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
+    "ally": { "species": "garchomp" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Bullet Punch",
+  }
+---
+
+オボンのみは発動時に最大HPの1/4を回復します。

@@ -10,7 +10,14 @@ options:
   - "Yes, it receives a 2.0x damage boost."
   - "No, Pixilate removes STAB entirely."
 correctAnswer: "Yes, it receives a 1.5x damage boost because the move becomes Fairy-type."
-practicalData: {"attacker":{"species":"sylveon","evs":"C32+","item":"life-orb","nature":"modest"},"defender":{"species":"garchomp","evs":"H0","item":"focus-sash","nature":"jolly"},"ally":{"species":"arcanine","item":"sitrus-berry"},"opponentAlly":{"species":"gengar","item":"focus-sash"},"move":"Hyper Voice"}
+practicalData:
+  {
+    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
+    "defender": { "species": "garchomp", "evs": "H0", "item": "focus-sash", "nature": "jolly" },
+    "ally": { "species": "arcanine", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
+    "move": "Hyper Voice",
+  }
 ---
 
 Pixilate changes Normal-type moves into Fairy-type moves BEFORE damage is calculated. Because Sylveon is a Fairy-type, it will receive the 1.5x Same-Type Attack Bonus (STAB) for the now-Fairy-type Hyper Voice.

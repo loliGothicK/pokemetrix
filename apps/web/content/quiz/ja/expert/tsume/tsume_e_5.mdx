@@ -1,0 +1,25 @@
+---
+id: tsume_e_5
+difficulty: expert
+category: tsume
+format: choices
+question: "あなたが「ワイドガード」を使いました。相手は全体技の「ふぶき」と単体技の「れいとうビーム」を撃ってきました。ワイドガードはどれを防ぎますか？"
+options:
+  - "「ふぶき」を味方2体とも防ぐ。「れいとうビーム」は防げない。"
+  - "両方の技を防ぐ。"
+  - "「ふぶき」をワイドガードを使った自身のみ防ぐ。"
+  - "どちらも防げない。"
+correctAnswer: "「ふぶき」を味方2体とも防ぐ。「れいとうビーム」は防げない。"
+tsumeData:
+  {
+    "playerSide":
+      [
+        { "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167, "moves": ["Wide Guard"] },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183 },
+      ],
+    "opponentSide": [{ "species": "politoed", "hpCurrent": 197, "hpMax": 197 }],
+    "correctMoves": ["Wide Guard"],
+  }
+---
+
+ワイドガードは「全体技」のみを味方全体に対して無効化します。単体攻撃はそのまま通してしまいます。

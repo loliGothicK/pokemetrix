@@ -1,0 +1,24 @@
+---
+id: dmg_m_1
+difficulty: master
+category: damage_calc
+format: choices
+question: "Calculate the modifier: Spread Move (0.75x) + STAB (1.5x) + Harsh Sunlight (1.5x) + Rain? Wait, Sun and Rain can't coexist. STAB (1.5) + Sun (1.5) + Spread (0.75)."
+options:
+  - "1.68x"
+  - "1.5x"
+  - "2.25x"
+  - "1.12x"
+correctAnswer: "1.68x"
+practicalData:
+  {
+    "attacker":
+      { "species": "charizard-mega-y", "evs": "C32+", "item": "charizardite-y", "nature": "timid" },
+    "defender": { "species": "garchomp", "evs": "H0", "item": "life-orb", "nature": "jolly" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Heat Wave",
+  }
+---
+
+1.5 (STAB) _ 1.5 (Sun) _ 0.75 (Spread) = 1.6875x.

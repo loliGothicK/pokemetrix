@@ -1,0 +1,29 @@
+---
+id: tsume_a_1
+difficulty: advanced
+category: tsume
+format: choices
+question: "Your opponent has Aegislash. It uses King's Shield. Which of your moves will cause your Attack to drop by 2 stages if it hits the shield?"
+options:
+  - "Earthquake (Spread)"
+  - "Flare Blitz (Contact)"
+  - "Heat Wave (Special)"
+  - "Shadow Ball (Special)"
+correctAnswer: "Flare Blitz (Contact)"
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "arcanine",
+          "hpCurrent": 197,
+          "hpMax": 197,
+          "moves": ["Flare Blitz", "Will-O-Wisp"],
+        },
+      ],
+    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 }],
+    "correctMoves": ["Will-O-Wisp"],
+  }
+---
+
+King's Shield only drops Attack if it is hit by a move that makes contact.

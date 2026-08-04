@@ -1,0 +1,29 @@
+---
+id: tsume_m_5
+difficulty: master
+category: tsume
+format: choices
+question: "Your Aegislash is in Blade Forme. You use Shadow Sneak, and the opponent hits you with Earthquake on the same turn. If you survive, what forme are you in at the end of the turn?"
+options:
+  - "Blade Forme"
+  - "Shield Forme"
+  - "Base Forme"
+  - "Fainted"
+correctAnswer: "Blade Forme"
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "aegislash-shield",
+          "hpCurrent": 167,
+          "hpMax": 167,
+          "moves": ["Shadow Sneak"],
+        },
+      ],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 }],
+    "correctMoves": ["Shadow Sneak"],
+  }
+---
+
+Aegislash remains in Blade Forme until it uses King's Shield or is switched out.

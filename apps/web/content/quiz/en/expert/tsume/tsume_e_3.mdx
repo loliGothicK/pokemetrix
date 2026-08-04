@@ -1,0 +1,21 @@
+---
+id: tsume_e_3
+difficulty: expert
+category: tsume
+format: choices
+question: "Your opponent's Kangaskhan used Fake Out last turn. Can it use Fake Out again this turn without switching?"
+options:
+  - "No, Fake Out only works on the first turn out."
+  - "Yes, but it will deal less damage."
+  - "Yes, but it won't flinch."
+  - "Yes, if it has Scrappy."
+correctAnswer: "No, Fake Out only works on the first turn out."
+tsumeData:
+  {
+    "playerSide": [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135 }],
+    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
+    "correctMoves": ["Sludge Bomb"],
+  }
+---
+
+Fake Out strictly fails if used on any turn other than the user's first turn on the field.
