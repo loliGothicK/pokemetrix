@@ -1,84 +1,10 @@
-import { z } from "zod";
-import { unstable_cache } from "next/cache";
 import { ok, err, Result } from "neverthrow";
 import { Lens } from "monocle-ts";
-import { withChildSpan } from "@/lib/otel";
-
-// 1. 厳格なZodスキーマ（未知のプロパティは無視、カテゴリは実データに基づくこと）
-const rowSchema = z
-  .object({
-    category: z.enum(["move", "held_item", "teammate", "stat_alignment", "stat_points", "ability"]),
-    rank: z.number(),
-    name: z.string(),
-    percentage_value: z.number().nullable(),
-  })
-  .readonly();
-
-const pokemonSchema = z
-  .object({
-    name: z.string(),
-    battleName: z.string(),
-    slug: z.string(),
-    summary: z.object({
-      battleSummary: z.object({
-        Current: z.object({
-          Doubles: z.object({
-            rows: z.array(rowSchema),
-          }),
-          Singles: z.object({
-            rows: z.array(rowSchema),
-          }),
-        }),
-      }),
-    }),
-  })
-  .readonly();
+import { fetchAndParseBattleData, type PokemonCacheData } from "@services/battleDataCache";
 
 const rowsLenz = (format: "Singles" | "Doubles") => {
-  return Lens.fromPath<z.infer<typeof pokemonSchema>>()([
-    "summary",
-    "battleSummary",
-    "Current",
-    format,
-    "rows",
-  ]);
+  return Lens.fromPath<PokemonCacheData>()(["summary", "battleSummary", "Current", format, "rows"]);
 };
-
-// 2. キャッシュ層（ここではEitherを使わず、失敗時は必ずthrowする）
-const fetchAndParseBattleData = unstable_cache(
-  async (format: string, slug: string, season: string = "Current") => {
-    const params = new URLSearchParams({
-      format,
-      season,
-    });
-
-    const res = await withChildSpan(
-      "battle.fetch-external-data",
-      async (span) => {
-        span.setAttribute("battle.slug", slug);
-        span.setAttribute("battle.format", format);
-        const response = await fetch(
-          `https://championsbattledata.com/api/pokemon/${slug}?${params}`,
-          { next: { revalidate: 3600 } },
-        );
-        span.setAttribute("http.response_status_code", response.status);
-        return response;
-      },
-      { op: "http.client" },
-    );
-
-    if (!res.ok) {
-      // 意図的にthrowすることで、Next.jsのキャッシュ更新を失敗させ、古いキャッシュを維持させる
-      throw new Error(`API returned ${res.status}`);
-    }
-
-    const rawJson = await res.json();
-    // Zodでパース（失敗時はZodErrorがthrowされ、これもキャッシュ更新をキャンセルさせる）
-    return pokemonSchema.parse(rawJson);
-  },
-  ["battle-data-cache"], // キャッシュキー
-  { revalidate: 3600 },
-);
 
 export type Info = {
   readonly name: string;
@@ -91,7 +17,7 @@ export type FetchResponse = {
   readonly moves: readonly Info[];
 };
 
-// 3. サービス層（ここで初めてEither/Resultに変換し、UIに安全に渡す）
+// サービス層（ここで初めてEither/Resultに変換し、UIに安全に渡す）
 export async function fetchBattleData(
   slug: string,
   format: "Singles" | "Doubles",

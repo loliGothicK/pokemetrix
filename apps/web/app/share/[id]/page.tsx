@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+
+export const instant = false;
 import { sharedTeams } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { PartySharePage } from "@/components/client/share/PartySharePage";

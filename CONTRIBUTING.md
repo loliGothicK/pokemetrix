@@ -7,10 +7,11 @@ Pokemetrixにおけるクイズコンテンツの作成方法とフォーマッ�
 クイズファイルは、言語とカテゴリーごとに分類されたディレクトリに配置します。
 
 ```text
-apps/web/content/quiz/[locale]/[category]/[quiz_id].mdx
+apps/web/content/quiz/[locale]/[difficulty]/[category]/[quiz_id].mdx
 ```
 
 - **`[locale]`**: `ja` (日本語) または `en` (英語)
+- **`[difficulty]`**: `basics`, `advanced`, `expert`, `master` のいずれか 
 - **`[category]`**: `academic`, `damage_calc`, `tsume` のいずれか
 - **`[quiz_id]`**: クイズの一意なID。ファイル名にはこのIDを使用します（例: `basic_mega_item.mdx`）。
 

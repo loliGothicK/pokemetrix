@@ -38,9 +38,12 @@ export async function GET(req: NextRequest) {
       const data = await res.json();
       return NextResponse.json(data);
     } catch (error: any) {
-      console.error("Failed to search docs:", error);
+      // Re-throw Next.js prerender interruption signals so the route handler
+      // correctly bails out of prerendering instead of returning empty results.
+      if (error?.digest === "NEXT_PRERENDER_INTERRUPTED") {
+        throw error;
+      }
       span.setAttribute("error", true);
-      // We don't throw to client to prevent crashing, just return empty
       return NextResponse.json({ results: [] });
     }
   });

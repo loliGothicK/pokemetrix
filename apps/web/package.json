@@ -96,7 +96,7 @@
     "drizzle-kit": "0.31.10",
     "happy-dom": "20.11.1",
     "inquirer": "14.0.2",
-    "monaco-editor": "^0.56.0",
+    "monaco-editor": "0.56.0",
     "oxfmt": "0.62.0",
     "oxlint": "1.77.0",
     "oxlint-tsgolint": "7.0.2001",
