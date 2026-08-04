@@ -1,0 +1,41 @@
+---
+id: speed_control
+difficulty: expert
+category: tsume
+format: choices
+question: "Your team is slower than the opponent's. You have Talonflame (with Tailwind) and Kangaskhan. How do you safely swing the speed advantage in your favor for the next turn?"
+options:
+  - "Use Tailwind with Talonflame and attack with Kangaskhan."
+  - "Use Tailwind with Talonflame and Protect with Kangaskhan."
+  - "Switch Kangaskhan and attack with Talonflame."
+  - "Use Brave Bird with Talonflame and Protect with Kangaskhan."
+correctAnswer: "Use Tailwind with Talonflame and Protect with Kangaskhan."
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "talonflame",
+          "hpCurrent": 153,
+          "hpMax": 153,
+          "item": "life-orb",
+          "moves": ["Tailwind", "Brave Bird", "Flare Blitz", "Protect"],
+        },
+        {
+          "species": "kangaskhan-mega",
+          "hpCurrent": 180,
+          "hpMax": 180,
+          "item": "kangaskhanite",
+          "moves": ["Fake Out", "Double-Edge", "Sucker Punch", "Protect"],
+        },
+      ],
+    "opponentSide":
+      [
+        { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "lum-berry" },
+      ],
+    "correctMoves": ["Tailwind + Protect"],
+  }
+---
+
+Tailwind doubles the speed of your team for 4 turns, but it takes effect _after_ it is cast. By using Protect on Kangaskhan on the turn Tailwind is set, Kangaskhan avoids taking damage from the faster opponents. On the next turn, Kangaskhan will be faster than both opponents.

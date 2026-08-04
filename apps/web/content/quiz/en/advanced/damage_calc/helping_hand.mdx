@@ -1,0 +1,23 @@
+---
+id: helping_hand
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "Sylveon is planning to use Hyper Voice, a spread move. Its ally Clefable uses Helping Hand on it. What is the final power multiplier of Hyper Voice?"
+options:
+  - "0.75x"
+  - "1.125x (75% * 1.5)"
+  - "1.5x"
+  - "1.0x"
+correctAnswer: "1.125x (75% * 1.5)"
+practicalData:
+  {
+    "attacker": { "species": "sylveon", "evs": "C32+", "item": "expert-belt", "nature": "modest" },
+    "defender": { "species": "garchomp", "evs": "H0 D0", "item": "focus-sash", "nature": "jolly" },
+    "ally": { "species": "clefable", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gyarados", "item": "lum-berry" },
+    "move": "Hyper Voice",
+  }
+---
+
+First, Hyper Voice suffers the 0.75x spread damage reduction. Then, Helping Hand applies a 1.5x boost. `0.75 * 1.5 = 1.125`. So a Helping Hand spread move deals slightly more than a single-target unboosted hit!

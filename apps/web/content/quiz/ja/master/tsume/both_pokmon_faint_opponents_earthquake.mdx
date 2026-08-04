@@ -1,0 +1,25 @@
+---
+id: both_pokmon_faint_opponents_earthquake
+difficulty: master
+category: tsume
+format: choices
+question: "相手の「じしん」でこちらの最後の2匹が同時に倒れました。しかし、相手も「いのちのたま」の反動ダメージで倒れ、両者全滅しました。勝つのはどちらですか？"
+options:
+  - "「じしん」を使った相手の勝ち。"
+  - "あなたの勝ち。"
+  - "引き分け。"
+  - "ホスト側の勝ち。"
+correctAnswer: "「じしん」を使った相手の勝ち。"
+tsumeData:
+  {
+    "playerSide":
+      [
+        { "species": "gengar", "hpCurrent": 13, "hpMax": 135 },
+        { "species": "sylveon", "hpCurrent": 15, "hpMax": 202 },
+      ],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 1, "hpMax": 183 }],
+    "correctMoves": ["Earthquake"],
+  }
+---
+
+いのちのたま等の反動ダメージは攻撃の処理が終わった後に計算されます。攻撃によって相手を全滅させた時点で勝敗が決するため、反動で倒れても攻撃側の勝利となります。

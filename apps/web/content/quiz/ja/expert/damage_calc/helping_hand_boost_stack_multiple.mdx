@@ -1,0 +1,25 @@
+---
+id: helping_hand_boost_stack_multiple
+difficulty: expert
+category: damage_calc
+format: choices
+question: "複数の味方が同じポケモンに「てだすけ」を重ね掛けした場合、倍率はどうなりますか？"
+options:
+  - "重複して乗算される（1.5 × 1.5）"
+  - "重複しない（1回分のみ）"
+  - "加算される（+50% + 50%）"
+  - "2回目は失敗する"
+correctAnswer: "重複して乗算される（1.5 × 1.5）"
+practicalData:
+  {
+    "attacker":
+      { "species": "charizard-mega-y", "evs": "C32+", "item": "charizardite-y", "nature": "timid" },
+    "defender":
+      { "species": "kangaskhan-mega", "evs": "H0", "item": "kangaskhanite", "nature": "jolly" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Heat Wave",
+  }
+---
+
+トリプルバトル等の環境において、てだすけは掛けた分だけ乗算（1.5×1.5...）されます。

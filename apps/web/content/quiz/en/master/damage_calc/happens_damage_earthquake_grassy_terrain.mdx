@@ -1,0 +1,24 @@
+---
+id: happens_damage_earthquake_grassy_terrain
+difficulty: master
+category: damage_calc
+format: choices
+question: "What happens to the damage of an Earthquake if Grassy Terrain is active?"
+options:
+  - "It is halved (0.5x)"
+  - "It is boosted by 50%"
+  - "Nothing changes"
+  - "It heals the opponent"
+correctAnswer: "It is halved (0.5x)"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "arcanine", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "kangaskhan-mega" },
+    "move": "Earthquake",
+  }
+---
+
+Grassy Terrain halves the damage of Earthquake, Bulldoze, and Magnitude.

@@ -1,0 +1,25 @@
+---
+id: spread_burn
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "ウォッシュロトムがメガガルーラに「おにび」を当てて「やけど」状態にしました。やけど状態はメガガルーラの物理攻撃のダメージにどう影響しますか？"
+options:
+  - "物理技で与えるダメージが半分（50%）になる。"
+  - "ターン終了時に定数ダメージを受けるだけで、攻撃のダメージは変わらない。"
+  - "物理技のダメージが25%減少する。"
+  - "特性「おやこあい」が発動しなくなる。"
+correctAnswer: "物理技で与えるダメージが半分（50%）になる。"
+practicalData:
+  {
+    "attacker":
+      { "species": "kangaskhan-mega", "evs": "A32+", "item": "kangaskhanite", "nature": "jolly" },
+    "defender":
+      { "species": "rotom-wash", "evs": "H32 B32+", "item": "sitrus-berry", "nature": "bold" },
+    "ally": { "species": "clefable", "item": "leftovers" },
+    "opponentAlly": { "species": "garchomp", "item": "life-orb" },
+    "move": "Return",
+  }
+---
+
+やけど状態の最大の効果は、「物理技で与えるダメージが半減する」ことです。メガガルーラのような強力な物理アタッカーを無力化するための最も効果的な手段の1つが「おにび」です。

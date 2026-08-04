@@ -1,0 +1,24 @@
+---
+id: weather_water
+difficulty: master
+category: damage_calc
+format: choices
+question: "Pelipper's Drizzle ability sets up Rain. How does Rain affect Water-type moves?"
+options:
+  - "It boosts the damage of Water-type moves by 1.5x (50%)."
+  - "It boosts the damage of Water-type moves by 2.0x (100%)."
+  - "It reduces the damage of Fire-type moves, but does not boost Water."
+  - "It causes Water-type moves to always result in a critical hit."
+correctAnswer: "It boosts the damage of Water-type moves by 1.5x (50%)."
+practicalData:
+  {
+    "attacker": { "species": "pelipper", "evs": "C32", "item": "focus-sash", "nature": "modest" },
+    "defender":
+      { "species": "arcanine", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
+    "ally": { "species": "garchomp", "item": "life-orb" },
+    "opponentAlly": { "species": "clefable", "item": "leftovers" },
+    "move": "Scald",
+  }
+---
+
+Rain boosts the power of all Water-type attacks by 50%. It also halves the power of Fire-type attacks.

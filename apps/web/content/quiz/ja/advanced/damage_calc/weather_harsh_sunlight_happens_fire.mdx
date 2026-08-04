@@ -1,0 +1,25 @@
+---
+id: weather_harsh_sunlight_happens_fire
+difficulty: advanced
+category: damage_calc
+format: choices
+question: "天候が「にほんばれ（日差しが強い）」の時、ほのお・みずタイプの技の威力はどうなりますか？"
+options:
+  - "ほのおは1.5倍、みずは0.5倍になる。"
+  - "ほのおは2.0倍、みずは0.0倍になる。"
+  - "ほのおは1.5倍、みずは変化なし。"
+  - "両方とも1.5倍になる。"
+correctAnswer: "ほのおは1.5倍、みずは0.5倍になる。"
+practicalData:
+  {
+    "attacker":
+      { "species": "charizard-mega-y", "evs": "C32+", "item": "charizardite-y", "nature": "timid" },
+    "defender":
+      { "species": "rotom-wash", "evs": "H32", "item": "sitrus-berry", "nature": "modest" },
+    "ally": { "species": "garchomp" },
+    "opponentAlly": { "species": "clefable" },
+    "move": "Heat Wave",
+  }
+---
+
+日差しが強いと炎技が1.5倍に強化され、水技は半減（0.5倍）されます。

@@ -1,0 +1,24 @@
+---
+id: modifier_spread_move_075_hitting
+difficulty: master
+category: damage_calc
+format: choices
+question: "「じしん」のような味方にも当たる全体技において、味方へのダメージ倍率はどうなりますか？（相手が2体いる場合）"
+options:
+  - "0.75倍"
+  - "1.0倍"
+  - "0.5倍"
+  - "0.0倍"
+correctAnswer: "0.75倍"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "arcanine", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Earthquake",
+  }
+---
+
+相手味方問わず、複数の対象に当たる技は全ての対象へのダメージが0.75倍になります。

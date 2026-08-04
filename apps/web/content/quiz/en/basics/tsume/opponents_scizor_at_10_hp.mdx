@@ -1,0 +1,23 @@
+---
+id: opponents_scizor_at_10_hp
+difficulty: basics
+category: tsume
+format: choices
+question: "The opponent's Scizor is at 10% HP. You have Arcanine out. Which move guarantees a knockout despite Scizor's Bullet Punch?"
+options:
+  - "Extreme Speed"
+  - "Flare Blitz"
+  - "Will-O-Wisp"
+  - "Protect"
+correctAnswer: "Extreme Speed"
+tsumeData:
+  {
+    "playerSide":
+      [{ "species": "arcanine", "hpCurrent": 197, "hpMax": 197, "moves": ["Extreme Speed"] }],
+    "opponentSide":
+      [{ "species": "scizor", "hpCurrent": 17, "hpMax": 175, "moves": ["Bullet Punch"] }],
+    "correctMoves": ["Extreme Speed"],
+  }
+---
+
+Extreme Speed has +2 priority, which is faster than Bullet Punch's +1 priority.

@@ -1,0 +1,23 @@
+---
+id: uses_protect_reduces_damage_z-moves
+difficulty: master
+category: damage_calc
+format: choices
+question: "「まもる」をしている相手にZワザ（通常のダメージから約2.0倍の威力）を撃ちました。「まもる」はZワザのダメージを25%に減らします。最終的なダメージ量は通常技と比較してどうなりますか？"
+options:
+  - "約0.5倍になる"
+  - "約0.25倍になる"
+  - "約1.0倍になる"
+  - "約1.5倍になる"
+correctAnswer: "約0.5倍になる"
+practicalData:
+  {
+    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
+    "defender": { "species": "garchomp", "evs": "H0", "item": "focus-sash", "nature": "jolly" },
+    "ally": { "species": "clefable" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Hyper Voice",
+  }
+---
+
+2.0倍（Zワザ） × 0.25倍（まもる貫通） ＝ 0.5倍 となり、通常の技を生身で受けるより低いダメージに抑えられます。

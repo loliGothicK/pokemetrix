@@ -1,0 +1,23 @@
+---
+id: stab
+difficulty: basics
+category: damage_calc
+format: choices
+question: "フェアリータイプのニンフィアがノーマル技の「ハイパーボイス」を使いました。特性「フェアリースキン」によってこの技はフェアリータイプになります。この時、タイプ一致ボーナス（STAB）は乗りますか？"
+options:
+  - "乗る。技がフェアリータイプになるため、威力が1.5倍される。"
+  - "乗らない。タイプ一致ボーナスは技の元のタイプで計算されるため。"
+  - "乗る。威力が2.0倍される。"
+  - "乗らない。スキン系の特性はタイプ一致ボーナスを無効化するため。"
+correctAnswer: "乗る。技がフェアリータイプになるため、威力が1.5倍される。"
+practicalData:
+  {
+    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
+    "defender": { "species": "garchomp", "evs": "H0", "item": "focus-sash", "nature": "jolly" },
+    "ally": { "species": "arcanine", "item": "sitrus-berry" },
+    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
+    "move": "Hyper Voice",
+  }
+---
+
+「フェアリースキン」などの特性は、ダメージ計算の前に技のタイプを変化させます。ニンフィアはフェアリータイプであり、技もフェアリータイプに変化しているため、通常のタイプ一致ボーナス（威力が1.5倍）が適用されます。（※厳密にはスキン特性自体のわずかな威力上昇も別で加わります）

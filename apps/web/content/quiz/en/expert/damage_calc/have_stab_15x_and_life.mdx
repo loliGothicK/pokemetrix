@@ -1,0 +1,24 @@
+---
+id: have_stab_15x_and_life
+difficulty: expert
+category: damage_calc
+format: choices
+question: "If you have STAB (1.5x) and a Life Orb (1.3x), what is the total modifier before effectiveness?"
+options:
+  - "1.95x"
+  - "1.8x"
+  - "2.0x"
+  - "1.5x"
+correctAnswer: "1.95x"
+practicalData:
+  {
+    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
+    "defender":
+      { "species": "clefable", "evs": "H32 B32+", "item": "sitrus-berry", "nature": "bold" },
+    "ally": { "species": "gengar" },
+    "opponentAlly": { "species": "arcanine" },
+    "move": "Earthquake",
+  }
+---
+
+1.5 \* 1.3 = 1.95.

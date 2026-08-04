@@ -1,0 +1,24 @@
+---
+id: attack_2_and_land_critical
+difficulty: master
+category: damage_calc
+format: choices
+question: "If your Attack is +2 and you land a Critical Hit (1.5x), what is the total physical damage multiplier?"
+options:
+  - "3.0x"
+  - "2.0x"
+  - "2.5x"
+  - "4.0x"
+correctAnswer: "3.0x"
+practicalData:
+  {
+    "attacker": { "species": "scizor", "evs": "A32+", "item": "life-orb", "nature": "adamant" },
+    "defender":
+      { "species": "kangaskhan-mega", "evs": "H0", "item": "kangaskhanite", "nature": "jolly" },
+    "ally": { "species": "gengar" },
+    "opponentAlly": { "species": "clefable" },
+    "move": "Bullet Punch",
+  }
+---
+
+Attack +2 equals 2.0x damage. Critical hit is 1.5x damage. 2.0 \* 1.5 = 3.0x total.

@@ -1,0 +1,24 @@
+---
+id: at_exactly_50_hp_or
+difficulty: basics
+category: damage_calc
+format: choices
+question: "At exactly 50% HP or less, what does a Sitrus Berry do?"
+options:
+  - "Restores 25% of max HP"
+  - "Restores 50% of max HP"
+  - "Restores 33% of max HP"
+  - "Restores 12.5% of max HP"
+correctAnswer: "Restores 25% of max HP"
+practicalData:
+  {
+    "attacker": { "species": "scizor", "evs": "A32+", "item": "life-orb", "nature": "adamant" },
+    "defender":
+      { "species": "tyranitar", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
+    "ally": { "species": "garchomp" },
+    "opponentAlly": { "species": "gengar" },
+    "move": "Bullet Punch",
+  }
+---
+
+Sitrus Berry restores exactly 25% (1/4) of a Pokémon's maximum HP when it drops to or below 50% HP.

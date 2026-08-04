@@ -1,0 +1,41 @@
+---
+id: trick_room
+difficulty: expert
+category: tsume
+format: choices
+question: "相手が「トリックルーム」を発動しており、素早さの遅いポケモンから行動する状態です。相手の場には鈍足のバンギラスがいます。こちらのシャンデラは「トリックルーム」を覚えています。素早さの有利を取り戻す最適な行動はどれですか？"
+options:
+  - "シャンデラで「トリックルーム」を使い、効果を解除して通常の素早さ順に戻す。"
+  - "シャンデラをもっと遅いポケモンに交代する。"
+  - "シャンデラで「まもる」を使いターンを稼ぐ。"
+  - "シャンデラでバンギラスを攻撃する。"
+correctAnswer: "シャンデラで「トリックルーム」を使い、効果を解除して通常の素早さ順に戻す。"
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "chandelure",
+          "hpCurrent": 135,
+          "hpMax": 135,
+          "item": "focus-sash",
+          "moves": ["Trick Room", "Shadow Ball", "Heat Wave", "Protect"],
+        },
+        {
+          "species": "garchomp",
+          "hpCurrent": 183,
+          "hpMax": 183,
+          "item": "life-orb",
+          "moves": ["Earthquake"],
+        },
+      ],
+    "opponentSide":
+      [
+        { "species": "tyranitar", "hpCurrent": 207, "hpMax": 207, "item": "lum-berry" },
+        { "species": "slowbro", "hpCurrent": 202, "hpMax": 202, "item": "sitrus-berry" },
+      ],
+    "correctMoves": ["Trick Room"],
+  }
+---
+
+トリックルームがすでに展開されている状態で再度トリックルームを使うと、空間が元に戻り、効果が即座に解除されます。これはトリックルームパーティに対する代表的な対抗策（トリル返し）です。

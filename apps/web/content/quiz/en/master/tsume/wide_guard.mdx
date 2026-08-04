@@ -1,0 +1,41 @@
+---
+id: wide_guard
+difficulty: master
+category: tsume
+format: choices
+question: "The opponent has Charizard-Mega-Y and Garchomp, threatening double spread moves (Heat Wave and Earthquake). You have Aegislash-Shield. You used Wide Guard last turn. What happens if you use Wide Guard again?"
+options:
+  - "It protects both your Pokémon from spread moves, as Wide Guard does not fail on consecutive uses."
+  - "It has a 33% chance to succeed, like Protect."
+  - "It fails completely because it was used last turn."
+  - "It protects only Aegislash."
+correctAnswer: "It protects both your Pokémon from spread moves, as Wide Guard does not fail on consecutive uses."
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "aegislash-shield",
+          "hpCurrent": 167,
+          "hpMax": 167,
+          "item": "leftovers",
+          "moves": ["Wide Guard", "King's Shield", "Shadow Ball", "Flash Cannon"],
+        },
+        {
+          "species": "gengar",
+          "hpCurrent": 135,
+          "hpMax": 135,
+          "item": "focus-sash",
+          "moves": ["Sludge Bomb"],
+        },
+      ],
+    "opponentSide":
+      [
+        { "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "item": "charizardite-y" },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "life-orb" },
+      ],
+    "correctMoves": ["Wide Guard"],
+  }
+---
+
+Unlike Protect or Detect, Wide Guard can be used consecutively without its success rate dropping. It is a powerful tool against teams heavily reliant on spread damage like Heat Wave and Earthquake.

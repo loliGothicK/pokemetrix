@@ -1,0 +1,21 @@
+---
+id: can_pokmon_with_prankster_gen
+difficulty: master
+category: tsume
+format: choices
+question: "Can a Pokémon with Prankster (Gen 7+) use a priority status move on its own Dark-type ally?"
+options:
+  - "Yes, Prankster immunity only applies to opponents."
+  - "No, it fails."
+  - "Only if it is a healing move."
+  - "Yes, but the priority is +0."
+correctAnswer: "No, it fails."
+tsumeData:
+  {
+    "playerSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
+    "opponentSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 }],
+    "correctMoves": ["Rock Slide"],
+  }
+---
+
+Dark-types are immune to ALL Prankster-boosted moves, even beneficial ones from allies.

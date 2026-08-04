@@ -1,0 +1,41 @@
+---
+id: fake_out
+difficulty: basics
+category: tsume
+format: choices
+question: "Both your Kangaskhan and the opponent's Gengar have just been sent out. Gengar is threatening to use Hypnosis. How do you stop this?"
+options:
+  - "Use Protect on both your Pokémon."
+  - "Use Fake Out on Gengar and attack it with your ally."
+  - "Use Sucker Punch on Gengar."
+  - "Switch out both your Pokémon."
+correctAnswer: "Use Fake Out on Gengar and attack it with your ally."
+tsumeData:
+  {
+    "playerSide":
+      [
+        {
+          "species": "kangaskhan-mega",
+          "hpCurrent": 180,
+          "hpMax": 180,
+          "item": "kangaskhanite",
+          "moves": ["Fake Out", "Return", "Sucker Punch", "Power-Up Punch"],
+        },
+        {
+          "species": "sylveon",
+          "hpCurrent": 170,
+          "hpMax": 170,
+          "item": "expert-belt",
+          "moves": ["Hyper Voice"],
+        },
+      ],
+    "opponentSide":
+      [
+        { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" },
+        { "species": "talonflame", "hpCurrent": 153, "hpMax": 153, "item": "life-orb" },
+      ],
+    "correctMoves": ["Fake Out (Target: Gengar) + Hyper Voice"],
+  }
+---
+
+Fake Out is a +3 priority move that always causes a flinch on the first turn the user is out (Thanks to Scrappy, Kangaskhan can hit Ghost types with it before Mega Evolving!). By using Fake Out on Gengar, you deny its Hypnosis while your ally gets a free attack.

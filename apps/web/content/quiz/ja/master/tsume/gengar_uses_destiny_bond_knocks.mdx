@@ -1,0 +1,22 @@
+---
+id: gengar_uses_destiny_bond_knocks
+difficulty: master
+category: tsume
+format: choices
+question: "ゲンガーが「みちづれ」を使い、相手の攻撃で倒されました。その直後、もう一体の味方も倒され、お互いの場が全滅しました。勝敗はどう決まりますか？"
+options:
+  - "控えにポケモンが残っているか、または倒れた順番の厳密な仕様によって決まる。"
+  - "みちづれを使った側が必ず勝つ。"
+  - "相手が必ず勝つ。"
+  - "引き分けになる。"
+correctAnswer: "控えにポケモンが残っているか、または倒れた順番の厳密な仕様によって決まる。"
+tsumeData:
+  {
+    "playerSide":
+      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond"] }],
+    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
+    "correctMoves": ["Destiny Bond"],
+  }
+---
+
+同時に全滅した場合、基本的には「最後にダメージを与えた側（みちづれの処理が後ならみちづれ側）」の敗北等のルールに従いますが、まずは控えの有無が優先されます。
