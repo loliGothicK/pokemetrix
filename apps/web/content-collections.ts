@@ -1,8 +1,32 @@
-import { defineCollection, defineConfig } from "@content-collections/core";
+import { defineCollection, defineConfig, type Context } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
+
+type MDXDocument = Parameters<typeof compileMDX>[1];
+
+const transformer =
+  ({ withHeadings }: { withHeadings: boolean } = { withHeadings: true }) =>
+  async <T extends MDXDocument>(document: T, context: Context) => {
+    const mdx = await compileMDX(context, document, {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug],
+    });
+
+    const parts = document._meta.path.replace(/\\/g, "/").split("/");
+    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
+    const slug =
+      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
+
+    return {
+      ...document,
+      slug,
+      locale,
+      mdx,
+      ...(withHeadings && { headings: extractHeadings(document.content) }),
+    };
+  };
 
 export type Heading = {
   readonly id: string;
@@ -40,24 +64,7 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     content: z.string(),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug],
-    });
-    const parts = document._meta.path.replace(/\\/g, "/").split("/");
-    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug =
-      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
-
-    return {
-      ...document,
-      slug,
-      locale,
-      headings: extractHeadings(document.content),
-      mdx,
-    };
-  },
+  transform: transformer({ withHeadings: true }),
 });
 
 const docs = defineCollection({
@@ -71,24 +78,7 @@ const docs = defineCollection({
     group: z.string().optional(),
     content: z.string(),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug],
-    });
-    const parts = document._meta.path.replace(/\\/g, "/").split("/");
-    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug =
-      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
-
-    return {
-      ...document,
-      slug,
-      locale,
-      headings: extractHeadings(document.content),
-      mdx,
-    };
-  },
+  transform: transformer({ withHeadings: true }),
 });
 
 const tsumePokemonSchema = z.object({
@@ -167,23 +157,7 @@ const quizzes = defineCollection({
     tsumeData: tsumeDataSchema.optional(),
     content: z.string(),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug],
-    });
-    const parts = document._meta.path.replace(/\\/g, "/").split("/");
-    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug =
-      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
-
-    return {
-      ...document,
-      slug,
-      locale,
-      mdx,
-    };
-  },
+  transform: transformer({ withHeadings: false }),
 });
 
 export default defineConfig({
