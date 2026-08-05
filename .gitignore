@@ -45,7 +45,7 @@ yarn-error.log*
 *.tsbuildinfo
 apps/web/next-env.d.ts
 
-apps/web/scripts/
+apps/web/scraping/
 
 # Sentry Config File
 .env.sentry-build-plugin

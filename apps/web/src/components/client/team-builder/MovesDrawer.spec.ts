@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { MoveList } from "@/data/moves";
-import enTranslation from "../../../../public/locales/en/translation.json";
-import jaTranslation from "../../../../public/locales/ja/translation.json";
+import enTranslation from "@locales/en/translation.json";
+import jaTranslation from "@locales/ja/translation.json";
 
 const enMoves = (enTranslation as Record<string, unknown>).moves as Record<string, { readonly name: string }>;
 const jaMoves = (jaTranslation as Record<string, unknown>).moves as Record<string, { readonly name: string }>;

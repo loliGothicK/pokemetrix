@@ -15,7 +15,7 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, useColorScheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import SportsKabaddiRoundedIcon from "@mui/icons-material/SportsKabaddiRounded";
@@ -476,7 +476,8 @@ export function MobileDamageCalcLayout({
 }: MobileDamageCalcLayoutProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
+  const { mode } = useColorScheme();
+  const isDark = mode === "dark";
 
   const [activeTab, setActiveTab] = useState(TAB_ATTACKER);
   const [isResultDrawerOpen, setIsResultDrawerOpen] = useState(false);

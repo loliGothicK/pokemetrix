@@ -58,34 +58,29 @@ export default function Home() {
       sx={{
         minHeight: "100vh",
         background: [
-          `radial-gradient(circle at 15% 10%, ${alpha(theme.palette.primary.main, 0.22)}, transparent 40%)`,
-          `radial-gradient(circle at 85% 90%, ${alpha(theme.palette.secondary.main, 0.16)}, transparent 40%)`,
-          `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.defaultAlt} 100%)`,
+          `radial-gradient(circle at 15% 10%, rgba(var(--mui-palette-primary-mainChannel) / 0.22), transparent 40%)`,
+          `radial-gradient(circle at 85% 90%, rgba(var(--mui-palette-secondary-mainChannel) / 0.16), transparent 40%)`,
+          `linear-gradient(180deg, var(--mui-palette-background-default) 0%, var(--mui-palette-background-defaultAlt) 100%)`,
         ].join(", "),
         py: { xs: 4, md: 8 },
       }}
     >
       <Container maxWidth="lg">
         {/* Hero Section */}
-        <Stack spacing={6} sx={{ alignItems: "center" }}>
+        <Stack spacing={6} sx={{ alignItems: "flex-start" }}>
           <Stack
             direction={{ xs: "column", md: "row" }}
             spacing={{ xs: 2, md: 0 }}
-            sx={{ alignItems: "center" }}
+            sx={{ alignItems: "center", gap: 4 }}
           >
             <PokemetrixIcon
               sx={{
                 width: { xs: 120, md: 200 },
                 height: { xs: 120, md: 200 },
+                flexShrink: 0,
               }}
             />
             <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
-              <Typography
-                variant="overline"
-                sx={{ color: "primary.main", fontWeight: 800, letterSpacing: "0.2em" }}
-              >
-                {t("app.subtitle")}
-              </Typography>
               <Typography
                 variant="h1"
                 sx={{
@@ -97,10 +92,10 @@ export default function Home() {
                 {t("home.title")}
               </Typography>
               <Typography
-                color="text.secondary"
-                sx={{ fontSize: "1.1rem", display: { xs: "none", md: "block" } }}
+                variant="overline"
+                sx={{ color: "primary.main", fontWeight: 800, letterSpacing: "0.2em" }}
               >
-                {t("home.description")}
+                {t("app.subtitle")}
               </Typography>
             </Stack>
           </Stack>
@@ -124,18 +119,14 @@ export default function Home() {
                     borderRadius: 4,
                     p: { xs: 3, md: 5 },
                     gap: { xs: 2, md: 0 },
-                    bgcolor: alpha(theme.palette.background.paperTint, tool.primary ? 0.8 : 0.4),
+                    bgcolor: tool.primary ? "background.paperRaised" : "background.paperTint",
                     backdropFilter: "blur(12px)",
                     border: "1px solid",
-                    borderColor: tool.primary
-                      ? alpha(theme.palette.primary.main, 0.3)
-                      : theme.palette.dividerSoft,
+                    borderColor: tool.primary ? "rgba(21, 101, 192, 0.3)" : "dividerSoft",
                     transition: "all 0.2s ease-in-out",
                     "&:hover": {
                       transform: "translateY(-4px)",
-                      borderColor: tool.primary
-                        ? theme.palette.primary.main
-                        : theme.palette.divider,
+                      borderColor: tool.primary ? "primary.main" : "divider",
                       boxShadow: `0 8px 24px ${alpha(theme.palette.primary.main, 0.1)}`,
                       "& .arrow-icon": { transform: "translateX(4px)", color: "primary.main" },
                     },
@@ -149,9 +140,10 @@ export default function Home() {
                       sx={{
                         p: { xs: 1, md: 1.5 },
                         borderRadius: 3,
-                        bgcolor: alpha(theme.palette.background.paper, 0.5),
-                        boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.05)}`,
+                        bgcolor: "rgba(var(--mui-palette-background-paperChannel) / 0.5)",
+                        boxShadow: `0 4px 12px rgba(0,0,0, 0.05)`,
                         display: "flex",
+                        flexShrink: 0,
                       }}
                     >
                       {/* Scale down the icon slightly on mobile */}

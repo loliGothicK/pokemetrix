@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "@mui/material/styles";
+import { useColorScheme } from "@mui/material/styles";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import type { typescript } from "monaco-editor";
 import { Box, CircularProgress } from "@mui/material";
@@ -17,7 +17,7 @@ export function SqlEditor({
   readonly language?: "sql" | "javascript" | "typescript";
   readonly rowTypeDeclaration?: string;
 }) {
-  const theme = useTheme();
+  const { mode } = useColorScheme();
   const monaco = useMonaco();
   const id = useId();
 
@@ -96,7 +96,7 @@ export function SqlEditor({
         path={`model-${id.replace(/:/g, "")}.${language === "typescript" ? "ts" : language === "javascript" ? "js" : "sql"}`}
         height="100%"
         language={language}
-        theme={theme.palette.mode === "dark" ? "vs-dark" : "vs"}
+        theme={mode === "dark" ? "vs-dark" : "vs"}
         value={value}
         onChange={(val) => onChange(val || "")}
         loading={

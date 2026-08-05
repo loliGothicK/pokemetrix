@@ -33,7 +33,7 @@ jobs:
         run: pnpm install
       
       - name: Generate Blog Post
-        run: pnpm exec tsx apps/web/script/generate-blog.ts
+        run: pnpm exec tsx apps/web/scripts/generate-blog.ts
         
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7

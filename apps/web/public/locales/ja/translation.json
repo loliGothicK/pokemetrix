@@ -40,11 +40,16 @@
     "viewResults": "結果を見る",
     "results": "結果発表",
     "shareOnTwitter": "X でシェア",
+    "dragToReorder": "ドラッグして並べ替える",
+    "unassigned": "未分類",
+    "assignAllItems": "すべての項目を分類してください",
+    "selectMultiple": "複数選択可",
     "category": {
       "academic": "学科",
       "damage_calc": "ダメージ計算",
       "tsume": "詰めポケ",
-      "practical": "実技"
+      "practical": "実技",
+      "speed_compare": "素早さ比較"
     },
     "difficulty": {
       "basics": "基礎級",
@@ -330,7 +335,7 @@
     "subtitle": "Analytics Workspace"
   },
   "home": {
-    "title": "POKÉMETRIX",
+    "title": "PokéMetriX",
     "description": "ポケモン対戦をサポートするツールのコレクションです。",
     "tools": {
       "teamBuilder": {

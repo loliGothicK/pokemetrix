@@ -42,7 +42,7 @@ MUI の `theme.palette` とは完全に独立した並行の型・値だった�
 ### 実装箇所
 
 - `apps/web/src/theme/palette.ts`: light/dark それぞれの拡張パレット値定義（`declare module` の型拡張を含む）はここに残すが、`getAppPalette` 関数と `appPalette` エクスポートは廃止。
-- `apps/web/theme.ts`: `createTheme()` にライト/ダーク両方の全パレット値を渡す。`cssVariables: true` を使っているため、ダークモード用の値は `colorSchemes.dark.palette` に渡す（MUI v5 の CSS変数モードの標準的な書き方）。
+- `../apps/web/src/theme/theme.ts`: `createTheme()` にライト/ダーク両方の全パレット値を渡す。`cssVariables: true` を使っているため、ダークモード用の値は `colorSchemes.dark.palette` に渡す（MUI v5 の CSS変数モードの標準的な書き方）。
 - 呼び出し側: `const palette = getAppPalette(theme.palette.mode)` の行を削除し、`theme.palette.background.paper` 等に直接置き換える。`useTheme()` のみで完結させる。
 
 ### 移行の注意

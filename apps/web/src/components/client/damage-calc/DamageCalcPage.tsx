@@ -10,7 +10,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, useColorScheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { preloadDamageEngine } from "@/lib/damage";
@@ -49,7 +49,8 @@ const FIELD_EFFECT_COLORS: Record<string, string> = {
 export default function DamageCalcPage() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
+  const { mode } = useColorScheme();
+  const isDark = mode === "dark";
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {

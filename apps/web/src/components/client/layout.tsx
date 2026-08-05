@@ -35,12 +35,11 @@ import {
   Tooltip,
   Typography,
   alpha,
-  type PaletteMode,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, useColorScheme } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthSync } from "@/hooks/useAuthSync";
 import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
@@ -49,7 +48,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
-import { createAppTheme } from "../../../theme";
+import { theme } from "@/theme/theme";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -58,7 +57,6 @@ const SIDE_MENU_WIDTH = 240;
 
 const STORAGE_KEYS = {
   language: "pokemetrix-language",
-  mode: "pokemetrix-color-mode",
 } as const;
 
 type SideMenuItem = {
@@ -219,17 +217,22 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
 
 function AppControls({
   language,
-  mode,
   onLanguageChange,
-  onToggleMode,
 }: {
   readonly language: string;
-  readonly mode: PaletteMode;
   readonly onLanguageChange: (language: string) => void;
-  readonly onToggleMode: () => void;
 }) {
+  const { mode, setMode } = useColorScheme();
   const { t } = useTranslation();
-  const theme = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !mode) return <Box sx={{ width: 190 }} />; // placeholder width to prevent layout shift
+
+  const onToggleMode = () => setMode(mode === "dark" ? "light" : "dark");
 
   return (
     <Stack direction="row" spacing={{ xs: 0.75, md: 1.25 }} sx={flexRowCenter}>
@@ -240,7 +243,7 @@ function AppControls({
           label={t("preferences.language")}
           value={language}
           onChange={(event) => onLanguageChange(event.target.value)}
-          sx={{ bgcolor: theme.palette.background.paper }}
+          sx={{ bgcolor: "background.paper" }}
         >
           {supportedLanguageOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -255,7 +258,7 @@ function AppControls({
           onClick={onToggleMode}
           size="small"
           aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
-          sx={iconButtonBordered(theme)}
+          sx={iconButtonBordered()}
         >
           {mode === "dark" ? (
             <LightModeRoundedIcon fontSize="small" />
@@ -271,31 +274,15 @@ function AppControls({
 
 function ResponsiveAppBar({
   language,
-  mode,
   onLanguageChange,
-  onToggleMode,
   onOpenNav,
 }: {
   readonly language: string;
-  readonly mode: PaletteMode;
   readonly onLanguageChange: (language: string) => void;
-  readonly onToggleMode: () => void;
   readonly onOpenNav: () => void;
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
-
-  // モードに応じたグラデーション背景
-  const appBarBg =
-    mode === "dark"
-      ? "linear-gradient(135deg, rgba(13,20,39,0.92) 0%, rgba(11,18,32,0.88) 100%)"
-      : "linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(243,246,251,0.86) 100%)";
-
-  // ロゴエリアの輝きアクセント
-  const logoGlow =
-    mode === "dark"
-      ? `drop-shadow(0 0 10px ${alpha(theme.palette.primary.main, 0.28)})`
-      : `drop-shadow(0 2px 6px ${alpha(theme.palette.primary.main, 0.22)})`;
 
   return (
     <AppBar
@@ -305,8 +292,12 @@ function ResponsiveAppBar({
       sx={{
         top: 0,
         borderBottom: "1px solid",
-        borderColor: theme.palette.divider,
-        background: appBarBg,
+        borderColor: "divider",
+        background:
+          "linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(243,246,251,0.86) 100%)",
+        '[data-mui-color-scheme="dark"] &': {
+          background: "linear-gradient(135deg, rgba(13,20,39,0.92) 0%, rgba(11,18,32,0.88) 100%)",
+        },
         backdropFilter: "blur(20px) saturate(180%)",
         WebkitBackdropFilter: "blur(20px) saturate(180%)",
       }}
@@ -342,7 +333,13 @@ function ResponsiveAppBar({
               ...flexRowCenter,
               gap: 1.25,
               textDecoration: "none",
-              "&:hover .logo-icon": { filter: logoGlow, transform: "scale(1.06)" },
+              "&:hover .logo-icon": {
+                filter: `drop-shadow(0 2px 6px ${alpha(theme.palette.primary.main, 0.22)})`,
+                transform: "scale(1.06)",
+              },
+              '[data-mui-color-scheme="dark"] &:hover .logo-icon': {
+                filter: `drop-shadow(0 0 10px ${alpha(theme.palette.primary.main, 0.28)})`,
+              },
               "&:hover .brand-text": { opacity: 1 },
             }}
           >
@@ -379,16 +376,16 @@ function ResponsiveAppBar({
                   fontWeight: 800,
                   letterSpacing: "0.16em",
                   lineHeight: 1,
-                  background:
-                    mode === "dark"
-                      ? "linear-gradient(90deg, #60a5fa 0%, #7dd8e0 100%)"
-                      : "linear-gradient(90deg, #1565c0 0%, #00897b 100%)",
+                  backgroundImage: "linear-gradient(90deg, #1565c0 0%, #00897b 100%)",
+                  '[data-mui-color-scheme="dark"] &': {
+                    backgroundImage: "linear-gradient(90deg, #60a5fa 0%, #7dd8e0 100%)",
+                  },
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}
               >
-                POKEMETRIX
+                PokéMetriX
               </Typography>
               <Typography
                 component="span"
@@ -436,12 +433,7 @@ function ResponsiveAppBar({
         </Box>
 
         {/* ===== 右: コントロール ===== */}
-        <AppControls
-          language={language}
-          mode={mode}
-          onLanguageChange={onLanguageChange}
-          onToggleMode={onToggleMode}
-        />
+        <AppControls language={language} onLanguageChange={onLanguageChange} />
       </Toolbar>
     </AppBar>
   );
@@ -488,7 +480,7 @@ function MobileDrawerContent({
             sx={{ fontWeight: 800, fontSize: "1.1rem" }}
           >
             <MenuItem value="pokemetrix" sx={{ fontWeight: 600 }}>
-              POKÉMETRIX
+              PokéMetriX
             </MenuItem>
             <MenuItem value="docs" sx={{ fontWeight: 600 }}>
               DOCS
@@ -547,7 +539,6 @@ export function AppLayout({
 }: Readonly<{
   readonly children: ReactNode;
 }>) {
-  const [mode, setMode] = useState<PaletteMode>("light");
   const [language, setLanguage] = useState<string>(defaultLanguage);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [queryClient] = useState(
@@ -564,7 +555,6 @@ export function AppLayout({
         },
       }),
   );
-  const theme = useMemo(() => createAppTheme(mode), [mode]);
 
   useEffect(() => {
     const storedLanguage =
@@ -578,26 +568,12 @@ export function AppLayout({
       : defaultLanguage;
     setLanguage(normalizedLanguage);
     void i18n.changeLanguage(normalizedLanguage);
-
-    const storedMode = window.localStorage.getItem(STORAGE_KEYS.mode);
-    if (storedMode === "dark" || storedMode === "light") {
-      setMode(storedMode);
-      return;
-    }
-
-    setMode(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   }, []);
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEYS.language, language);
     document.documentElement.lang = language;
   }, [language]);
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.mode, mode);
-    document.documentElement.style.colorScheme = mode;
-  }, [mode]);
-
   useEffect(() => {
     const handleLanguageChanged = (nextLanguage: string) => {
       if (supportedLanguageOptions.some((option) => option.value === nextLanguage)) {
@@ -616,13 +592,9 @@ export function AppLayout({
     void i18n.changeLanguage(nextLanguage);
   };
 
-  const handleToggleMode = () => {
-    setMode((currentMode) => (currentMode === "dark" ? "light" : "dark"));
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} defaultMode="system">
         <CssBaseline />
         <AuthSyncEffect />
         <Box
@@ -638,9 +610,7 @@ export function AppLayout({
         >
           <ResponsiveAppBar
             language={language}
-            mode={mode}
             onLanguageChange={handleLanguageChange}
-            onToggleMode={handleToggleMode}
             onOpenNav={() => setMobileNavOpen(true)}
           />
           <Box

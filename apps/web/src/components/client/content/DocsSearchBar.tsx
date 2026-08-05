@@ -16,7 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { useTranslation } from "react-i18next";
-import { searchDocs } from "../../../../services/docsSearch";
+import { searchDocs } from "@services/docsSearch";
 import { useRouter } from "next/navigation";
 import parse from "html-react-parser";
 import { useQuery } from "@tanstack/react-query";

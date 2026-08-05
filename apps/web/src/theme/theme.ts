@@ -1,11 +1,13 @@
 "use client";
 
 import { createTheme } from "@mui/material/styles";
-import type { PaletteMode } from "@mui/material";
+
 import { brandColors, darkPalette, lightPalette } from "@/theme/palette";
 
 const sharedThemeOptions = {
-  cssVariables: true,
+  cssVariables: {
+    colorSchemeSelector: "data-mui-color-scheme",
+  },
   shape: {
     borderRadius: 18,
   },
@@ -47,27 +49,42 @@ const sharedThemeOptions = {
   },
 } as const;
 
-export function createAppTheme(mode: PaletteMode) {
-  const modePalette = mode === "dark" ? darkPalette : lightPalette;
-
-  return createTheme({
-    ...sharedThemeOptions,
-    palette: {
-      mode,
-      primary: {
-        main: brandColors.primary,
-      },
-      secondary: {
-        main: brandColors.secondary,
-      },
-      background: modePalette.background,
-      divider: modePalette.divider,
-      dividerSoft: modePalette.dividerSoft,
-      text: {
-        primary: modePalette.text.primary,
+export const theme = createTheme({
+  ...sharedThemeOptions,
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          main: brandColors.primary,
+        },
+        secondary: {
+          main: brandColors.secondary,
+        },
+        background: lightPalette.background,
+        divider: lightPalette.divider,
+        dividerSoft: lightPalette.dividerSoft,
+        text: {
+          primary: lightPalette.text.primary,
+        },
       },
     },
-  });
-}
+    dark: {
+      palette: {
+        primary: {
+          main: brandColors.primary,
+        },
+        secondary: {
+          main: brandColors.secondary,
+        },
+        background: darkPalette.background,
+        divider: darkPalette.divider,
+        dividerSoft: darkPalette.dividerSoft,
+        text: {
+          primary: darkPalette.text.primary,
+        },
+      },
+    },
+  },
+});
 
-export default createAppTheme("light");
+export default theme;

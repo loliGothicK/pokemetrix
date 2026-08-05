@@ -1,7 +1,13 @@
 export type QuizDifficulty = "basics" | "advanced" | "expert" | "master";
 
-export type QuizCategory = "academic" | "damage_calc" | "tsume";
-export type QuizQuestionFormat = "choices" | "input";
+export type QuizCategory = "academic" | "damage_calc" | "tsume" | "speed_compare";
+export type QuizQuestionFormat =
+  | "choices"
+  | "multi_select"
+  | "ordering"
+  | "grouping"
+  | "one_way"
+  | "input";
 
 export interface TsumePokemon {
   species: string;
@@ -18,8 +24,11 @@ export interface QuizQuestion {
   category: QuizCategory;
   format: QuizQuestionFormat;
   question: string;
-  options?: string[]; // Used if format === 'choices'
-  correctAnswer: string;
+  options?: string[]; // Used if format !== 'input'
+  correctAnswer?: string; // for choices, one_way, input
+  correctAnswers?: string[]; // for multi_select
+  correctOrder?: string[]; // for ordering
+  correctGroups?: Record<string, string[]>; // for grouping
   prerequisites?: string[]; // Array of question IDs that must be answered correctly before this question is unlocked
   mdx?: string; // MDX content from content-collections
   locale?: string;
@@ -41,6 +50,13 @@ export interface QuizQuestion {
     playerParty?: TsumePokemon[];
     field?: { weather?: string; terrain?: string; trickRoom?: boolean };
     correctMoves: string[]; // List of valid winning moves for this turn
+  };
+
+  // For speed comparison questions
+  speedCompareData?: {
+    pokemonA: string;
+    pokemonB: string;
+    context: string;
   };
 }
 

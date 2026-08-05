@@ -19,14 +19,19 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SpeedIcon from "@mui/icons-material/Speed";
 import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
+import { ChoicesFormat } from "./formats/ChoicesFormat";
+import { MultiSelectFormat } from "./formats/MultiSelectFormat";
+import { OrderingFormat } from "./formats/OrderingFormat";
+import { GroupingFormat } from "./formats/GroupingFormat";
 
 interface QuizAppProps {
   initialQuestions: QuizQuestion[];
 }
 
 type QuizMode = "menu" | "playing" | "results";
-type UICategory = "academic" | "practical";
+type UICategory = "academic" | "practical" | "speed_compare";
 type Difficulty = "basics" | "advanced" | "expert" | "master";
 
 type MenuStep = "category" | "difficulty";
@@ -41,9 +46,15 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
 
   const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // States for different quiz formats
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [orderedOptions, setOrderedOptions] = useState<string[]>([]);
+  const [groupedItems, setGroupedItems] = useState<Record<string, string[]>>({});
 
   // Filter questions by current language
   const currentLang = i18n.language.startsWith("en") ? "en" : "ja";
@@ -61,6 +72,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   const categories: { id: UICategory; icon: React.ReactNode; color: string }[] = [
     { id: "academic", icon: <MenuBookIcon sx={{ fontSize: 60 }} />, color: "#4facfe" },
     { id: "practical", icon: <CalculateIcon sx={{ fontSize: 60 }} />, color: "#f093fb" },
+    { id: "speed_compare", icon: <SpeedIcon sx={{ fontSize: 60 }} />, color: "#ff9a9e" },
   ];
 
   const difficulties: { id: Difficulty; color: string }[] = [
@@ -75,19 +87,37 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     setMenuStep("category");
   };
 
-  const handleStartQuiz = (cat: UICategory) => {
-    const questionsForDiff = localizedQuestions.filter((q) => {
-      if (q.difficulty !== selectedDifficulty) return false;
-      if (cat === "academic") return q.category === "academic";
-      if (cat === "practical") {
-        if (selectedDifficulty === "basics" || selectedDifficulty === "advanced") {
-          return q.category === "damage_calc";
-        } else {
-          return q.category === "damage_calc" || q.category === "tsume";
-        }
+  const handleStartQuiz = async (cat: UICategory) => {
+    setSelectedCategory(cat);
+    let questionsForDiff: QuizQuestion[] = [];
+
+    if (cat === "speed_compare") {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `/api/quizzes/speed_compare?locale=${currentLang}&difficulty=${selectedDifficulty}`,
+        );
+        const apiQuizzes = await res.json();
+        questionsForDiff = apiQuizzes;
+      } catch (e) {
+        console.error("Failed to load speed compare quizzes", e);
+      } finally {
+        setIsLoading(false);
       }
-      return false;
-    });
+    } else {
+      questionsForDiff = localizedQuestions.filter((q) => {
+        if (q.difficulty !== selectedDifficulty) return false;
+        if (cat === "academic") return q.category === "academic";
+        if (cat === "practical") {
+          if (selectedDifficulty === "basics" || selectedDifficulty === "advanced") {
+            return q.category === "damage_calc";
+          } else {
+            return q.category === "damage_calc" || q.category === "tsume";
+          }
+        }
+        return false;
+      });
+    }
 
     // Shuffle and pick up to 10
     const shuffled = [...questionsForDiff].sort(() => 0.5 - Math.random());
@@ -103,21 +133,78 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     setCurrentIndex(0);
     setScore(0);
     setSelectedOption(null);
+    setSelectedOptions([]);
+    setOrderedOptions([]);
+    setGroupedItems({});
     setShowExplanation(false);
     setMode("playing");
   };
 
   const activeQuestion = sessionQuestions[currentIndex];
 
-  const handleOptionSelect = (option: string) => {
-    if (showExplanation) return;
-    setSelectedOption(option);
+  useEffect(() => {
+    if (activeQuestion) {
+      if (activeQuestion.format === "ordering" && activeQuestion.options) {
+        setOrderedOptions([...activeQuestion.options]);
+      } else if (
+        activeQuestion.format === "grouping" &&
+        activeQuestion.options &&
+        activeQuestion.correctGroups
+      ) {
+        const groups = Object.keys(activeQuestion.correctGroups);
+        const initialGroups: Record<string, string[]> = { unassigned: [...activeQuestion.options] };
+        groups.forEach((g) => {
+          initialGroups[g] = [];
+        });
+        setGroupedItems(initialGroups);
+      }
+    }
+  }, [activeQuestion]);
+
+  const isSubmitDisabled = () => {
+    if (!activeQuestion) return true;
+    if (activeQuestion.format === "choices" || activeQuestion.format === "one_way")
+      return !selectedOption;
+    if (activeQuestion.format === "multi_select") return selectedOptions.length === 0;
+    if (activeQuestion.format === "ordering") return orderedOptions.length === 0;
+    if (activeQuestion.format === "grouping") return (groupedItems["unassigned"]?.length || 0) > 0;
+    return true;
   };
 
   const handleSubmit = () => {
-    if (!activeQuestion || !selectedOption) return;
+    if (!activeQuestion) return;
 
-    if (selectedOption === activeQuestion.correctAnswer) {
+    let isCorrect = false;
+
+    if (activeQuestion.format === "choices" || activeQuestion.format === "one_way") {
+      isCorrect = selectedOption === activeQuestion.correctAnswer;
+    } else if (activeQuestion.format === "multi_select") {
+      const correct = activeQuestion.correctAnswers || [];
+      isCorrect =
+        correct.length === selectedOptions.length &&
+        correct.every((ans) => selectedOptions.includes(ans));
+    } else if (activeQuestion.format === "ordering") {
+      const correct = activeQuestion.correctOrder || [];
+      isCorrect =
+        correct.length === orderedOptions.length &&
+        correct.every((ans, i) => orderedOptions[i] === ans);
+    } else if (activeQuestion.format === "grouping") {
+      const correct = activeQuestion.correctGroups || {};
+      isCorrect = true;
+      for (const group of Object.keys(correct)) {
+        const expected = correct[group] || [];
+        const actual = groupedItems[group] || [];
+        if (expected.length !== actual.length || !expected.every((ans) => actual.includes(ans))) {
+          isCorrect = false;
+          break;
+        }
+      }
+      if ((groupedItems["unassigned"]?.length || 0) > 0) {
+        isCorrect = false;
+      }
+    }
+
+    if (isCorrect) {
       setScore((s) => s + 1);
     }
     setShowExplanation(true);
@@ -127,6 +214,9 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     if (currentIndex < sessionQuestions.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
+      setSelectedOptions([]);
+      setOrderedOptions([]);
+      setGroupedItems({});
       setShowExplanation(false);
     } else {
       setMode("results");
@@ -189,7 +279,33 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   };
 
   if (mode === "playing" && activeQuestion) {
-    const isCorrect = selectedOption === activeQuestion.correctAnswer;
+    let isCorrect = false;
+    if (activeQuestion.format === "choices" || activeQuestion.format === "one_way") {
+      isCorrect = selectedOption === activeQuestion.correctAnswer;
+    } else if (activeQuestion.format === "multi_select") {
+      const correct = activeQuestion.correctAnswers || [];
+      isCorrect =
+        correct.length === selectedOptions.length &&
+        correct.every((ans) => selectedOptions.includes(ans));
+    } else if (activeQuestion.format === "ordering") {
+      const correct = activeQuestion.correctOrder || [];
+      isCorrect =
+        correct.length === orderedOptions.length &&
+        correct.every((ans, i) => orderedOptions[i] === ans);
+    } else if (activeQuestion.format === "grouping") {
+      const correct = activeQuestion.correctGroups || {};
+      isCorrect = true;
+      for (const group of Object.keys(correct)) {
+        const expected = correct[group] || [];
+        const actual = groupedItems[group] || [];
+        if (expected.length !== actual.length || !expected.every((ans) => actual.includes(ans))) {
+          isCorrect = false;
+          break;
+        }
+      }
+      if ((groupedItems["unassigned"]?.length || 0) > 0) isCorrect = false;
+    }
+
     const progress = (currentIndex / sessionQuestions.length) * 100;
 
     return (
@@ -404,43 +520,55 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
             <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", lineHeight: 1.4 }}>
               {activeQuestion.question}
             </Typography>
-            <Stack spacing={2} sx={{ mt: 4 }}>
-              {activeQuestion.options?.map((opt: string, idx: number) => (
-                <Button
-                  key={idx}
-                  variant={selectedOption === opt ? "contained" : "outlined"}
-                  color={
-                    showExplanation
-                      ? opt === activeQuestion.correctAnswer
-                        ? "success"
-                        : selectedOption === opt
-                          ? "error"
-                          : "inherit"
-                      : "primary"
-                  }
-                  onClick={() => handleOptionSelect(opt)}
-                  disabled={showExplanation}
-                  sx={{
-                    justifyContent: "flex-start",
-                    textAlign: "left",
-                    textTransform: "none",
-                    py: 1.5,
-                    px: 3,
-                    borderRadius: 2,
-                    fontSize: "1rem",
-                    borderWidth: selectedOption === opt ? 0 : 1,
-                  }}
-                >
-                  {opt}
-                </Button>
-              ))}
-            </Stack>
+            {(activeQuestion.format === "choices" || activeQuestion.format === "one_way") && (
+              <ChoicesFormat
+                options={activeQuestion.options || []}
+                selectedOption={selectedOption}
+                onOptionSelect={setSelectedOption}
+                showExplanation={showExplanation}
+                correctAnswer={activeQuestion.correctAnswer}
+              />
+            )}
+
+            {activeQuestion.format === "multi_select" && (
+              <MultiSelectFormat
+                options={activeQuestion.options || []}
+                selectedOptions={selectedOptions}
+                onOptionToggle={(opt) =>
+                  setSelectedOptions((prev) =>
+                    prev.includes(opt) ? prev.filter((o) => o !== opt) : [...prev, opt],
+                  )
+                }
+                showExplanation={showExplanation}
+                correctAnswers={activeQuestion.correctAnswers}
+              />
+            )}
+
+            {activeQuestion.format === "ordering" && (
+              <OrderingFormat
+                orderedOptions={orderedOptions}
+                onOrderChange={setOrderedOptions}
+                showExplanation={showExplanation}
+                correctOrder={activeQuestion.correctOrder}
+              />
+            )}
+
+            {activeQuestion.format === "grouping" && (
+              <GroupingFormat
+                groups={Object.keys(activeQuestion.correctGroups || {})}
+                groupedItems={groupedItems}
+                onGroupChange={setGroupedItems}
+                showExplanation={showExplanation}
+                correctGroups={activeQuestion.correctGroups}
+              />
+            )}
+
             {!showExplanation && (
               <Button
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
-                disabled={!selectedOption}
+                disabled={isSubmitDisabled()}
                 sx={{
                   mt: 4,
                   width: "100%",
@@ -670,13 +798,15 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
               <Grid size={{ xs: 12, md: 4 }} key={cat.id}>
                 <Card
                   sx={{
-                    cursor: "pointer",
+                    cursor: isLoading ? "wait" : "pointer",
                     borderRadius: 4,
                     height: "100%",
                     background: `linear-gradient(135deg, ${cat.color}22 0%, ${cat.color}11 100%)`,
                     border: "1px solid",
                     borderColor: `${cat.color}44`,
                     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    opacity: isLoading ? 0.5 : 1,
+                    pointerEvents: isLoading ? "none" : "auto",
                     "&:hover": {
                       transform: "translateY(-8px)",
                       boxShadow: `0 12px 24px ${cat.color}33`,

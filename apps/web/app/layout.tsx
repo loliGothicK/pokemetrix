@@ -43,14 +43,17 @@ export const metadata: Metadata = {
   },
 };
 
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   readonly children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        <InitColorSchemeScript />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script
           dangerouslySetInnerHTML={{

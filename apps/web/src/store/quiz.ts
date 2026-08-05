@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import type { QuizState, QuizQuestion } from "../types/quiz";
+import type { QuizState, QuizQuestion } from "@/types/quiz";
 
 export const initialQuizState: QuizState = {
   difficulty: null,

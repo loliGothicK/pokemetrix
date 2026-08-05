@@ -144,19 +144,104 @@ const quizzes = defineCollection({
   name: "quizzes",
   directory: "content/quiz",
   include: "**/*.mdx",
-  schema: z.object({
-    id: z.string(),
-    difficulty: z.enum(["basics", "advanced", "expert", "master"]),
-    category: z.enum(["academic", "damage_calc", "tsume"]),
-    format: z.enum(["choices", "input"]),
-    question: z.string(),
-    options: z.array(z.string()).optional(),
-    correctAnswer: z.string(),
-    prerequisites: z.array(z.string()).default([]),
-    practicalData: practicalDataSchema.optional(),
-    tsumeData: tsumeDataSchema.optional(),
-    content: z.string(),
-  }),
+  schema: z
+    .object({
+      id: z.string(),
+      difficulty: z.enum(["basics", "advanced", "expert", "master"]),
+      category: z.enum(["academic", "damage_calc", "tsume"]),
+      format: z.enum(["choices", "multi_select", "ordering", "grouping", "one_way", "input"]),
+      question: z.string(),
+      options: z.array(z.string()).optional(),
+
+      // Answer fields (all optional; validated by refinements below)
+      correctAnswer: z.string().optional(),
+      correctAnswers: z.array(z.string()).optional(),
+      correctOrder: z.array(z.string()).optional(),
+      correctGroups: z.record(z.string(), z.array(z.string())).optional(),
+
+      prerequisites: z.array(z.string()).default([]),
+      practicalData: practicalDataSchema.optional(),
+      tsumeData: tsumeDataSchema.optional(),
+      content: z.string(),
+    })
+    // Refinement 1: Answer field must be present and correct for the format
+    .refine(
+      (data) => {
+        switch (data.format) {
+          case "multi_select":
+            return data.correctAnswers !== undefined && data.correctAnswers.length > 0;
+          case "ordering":
+            return data.correctOrder !== undefined && data.correctOrder.length === 4;
+          case "grouping":
+            return data.correctGroups !== undefined && Object.keys(data.correctGroups).length >= 2;
+          case "choices":
+          case "one_way":
+          case "input":
+            return data.correctAnswer !== undefined && data.correctAnswer.length > 0;
+          default:
+            return false;
+        }
+      },
+      { message: "Answer field must match format type" },
+    )
+    // Refinement 2: Options count must satisfy per-format constraints
+    .refine(
+      (data) => {
+        if (data.format === "input") {
+          return true; // input format does not require options
+        }
+
+        if (!data.options || data.options.length === 0) {
+          return false;
+        }
+
+        const count = data.options.length;
+
+        switch (data.format) {
+          case "multi_select":
+            return count >= 3 && count <= 4;
+          case "ordering":
+            return count === 4;
+          case "grouping":
+            return count >= 3 && count <= 5;
+          case "one_way":
+            return count >= 2 && count <= 6;
+          case "choices":
+            return count >= 2 && count <= 4;
+          default:
+            return false;
+        }
+      },
+      { message: "Options count must match format requirements", path: ["options"] },
+    )
+    // Refinement 3: Only certain formats are allowed per difficulty level
+    .refine(
+      (data) => {
+        const { difficulty, format } = data;
+
+        if (difficulty === "basics" || difficulty === "advanced") {
+          return format === "choices";
+        }
+
+        if (difficulty === "expert") {
+          return ["choices", "multi_select", "ordering"].includes(format);
+        }
+
+        if (difficulty === "master") {
+          return ["choices", "multi_select", "ordering", "grouping", "one_way"].includes(format);
+        }
+
+        return false;
+      },
+      {
+        message:
+          "Format not allowed for this difficulty level. " +
+          "Basics/Advanced: choices only. " +
+          "Expert: choices, multi_select, ordering. " +
+          "Master: all formats allowed.",
+        path: ["format"],
+      },
+    ),
   transform: transformer({ withHeadings: false }),
 });
 

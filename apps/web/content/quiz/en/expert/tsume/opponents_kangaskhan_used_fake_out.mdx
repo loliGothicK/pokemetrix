@@ -3,13 +3,13 @@ id: opponents_kangaskhan_used_fake_out
 difficulty: expert
 category: tsume
 format: choices
-question: "Your opponent's Kangaskhan used Fake Out last turn. Can it use Fake Out again this turn without switching?"
+question: "Your opponent's Kangaskhan used Fake Out last turn. If your Pokémon uses Encore to force Kangaskhan to use Fake Out again this turn, what happens when it attacks?"
 options:
-  - "No, Fake Out only works on the first turn out."
-  - "Yes, but it will deal less damage."
-  - "Yes, but it won't flinch."
-  - "Yes, if it has Scrappy."
-correctAnswer: "No, Fake Out only works on the first turn out."
+  - "It fails (it only works on the first turn out)."
+  - "It deals damage, but the power is reduced."
+  - "It deals damage, but won't flinch."
+  - "It succeeds if Kangaskhan has Scrappy."
+correctAnswer: "It fails (it only works on the first turn out)."
 tsumeData:
   {
     "playerSide": [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135 }],
@@ -18,4 +18,4 @@ tsumeData:
   }
 ---
 
-Fake Out strictly fails if used on any turn other than the user's first turn on the field.
+Fake Out strictly fails if used on any turn other than the user's first turn on the field. In modern games, you cannot even select Fake Out after the first turn, but if forced to use it via Encore, it will simply fail.

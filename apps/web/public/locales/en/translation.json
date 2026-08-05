@@ -292,8 +292,8 @@
     "subtitle": "Analytics Workspace"
   },
   "home": {
-    "title": "POKÉMETRIX",
-    "description": "This is a collection of tools designed to support Pokémon battles.",
+    "title": "PokéMetriX",
+    "description": "This is a collection of tools to support Pokémon battles.",
     "tools": {
       "teamBuilder": {
         "title": "Team Builder",
@@ -5809,11 +5809,16 @@
     "viewResults": "View Results",
     "results": "Results",
     "shareOnTwitter": "Share on X",
+    "dragToReorder": "Drag to reorder",
+    "unassigned": "Unassigned",
+    "assignAllItems": "Please assign all items",
+    "selectMultiple": "Select all that apply",
     "category": {
       "academic": "Academic",
       "damage_calc": "Damage Calc",
       "tsume": "Tsume",
-      "practical": "Practical"
+      "practical": "Practical",
+      "speed_compare": "Speed Compare"
     },
     "difficulty": {
       "basics": "Basics",

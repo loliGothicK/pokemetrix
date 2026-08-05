@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { useColorScheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
@@ -484,9 +484,9 @@ export function HpBar({
   readonly minPercent: number;
   readonly maxPercent: number;
 }) {
-  const theme = useTheme();
+  const { mode } = useColorScheme();
+  const isDark = mode === "dark";
   const { t } = useTranslation();
-  const isDark = theme.palette.mode === "dark";
 
   const minDmg = Math.min(100, Math.max(0, minPercent));
   const maxDmg = Math.min(100, Math.max(0, maxPercent));

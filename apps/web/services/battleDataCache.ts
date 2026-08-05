@@ -54,9 +54,7 @@ export async function fetchAndParseBattleData(
     async (span) => {
       span.setAttribute("battle.slug", slug);
       span.setAttribute("battle.format", format);
-      const response = await fetch(
-        `https://championsbattledata.com/api/pokemon/${slug}?${params}`,
-      );
+      const response = await fetch(`https://championsbattledata.com/api/pokemon/${slug}?${params}`);
       span.setAttribute("http.response_status_code", response.status);
       return response;
     },
