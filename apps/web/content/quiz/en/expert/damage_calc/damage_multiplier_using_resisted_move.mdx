@@ -3,13 +3,13 @@ id: damage_multiplier_using_resisted_move
 difficulty: expert
 category: damage_calc
 format: choices
-question: "What is the damage multiplier when using a resisted move (-2) against a dual-type that resists both?"
+question: "What is the damage multiplier when using a resisted move against a dual-type Pokémon that resists it from both typings?"
 options:
-  - "0.25x"
-  - "0.5x"
-  - "0.125x"
-  - "0.0x"
-correctAnswer: "0.25x"
+  - "0.25x, because the resistance multipliers from both types are multiplied together."
+  - "0.5x, as dual-type resistances are capped at a single tier in modern generations."
+  - "0.25x, unless the attacker has STAB, which overrides one resistance to make it 0.5x."
+  - "0.125x, because dual resistances apply an additional penalty against non-STAB moves."
+correctAnswer: "0.25x, because the resistance multipliers from both types are multiplied together."
 practicalData:
   {
     "attacker":
@@ -21,4 +21,4 @@ practicalData:
   }
 ---
 
-If both typings resist the move, the multiplier is 0.5 \* 0.5 = 0.25x.
+If both typings resist the move, the multiplier is 0.5 * 0.5 = 0.25x. STAB and other modifiers apply independently and do not override type effectiveness.

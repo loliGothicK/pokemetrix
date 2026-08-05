@@ -3,13 +3,13 @@ id: modifier_combining_stab_15x_and
 difficulty: expert
 category: damage_calc
 format: choices
-question: "What is the modifier when combining STAB (1.5x) and a Super Effective hit (2.0x)?"
+question: "What is the final damage modifier when combining standard STAB and a 2x Super Effective hit?"
 options:
-  - "3.0x"
-  - "3.5x"
-  - "4.0x"
-  - "2.5x"
-correctAnswer: "3.0x"
+  - "3.0x, calculated as a standard 1.5x STAB multiplied by 2.0x type effectiveness."
+  - "3.5x, because super effective hits add a flat +2.0 to the STAB multiplier."
+  - "2.25x, because type effectiveness is calculated prior to STAB applying."
+  - "4.0x, because STAB matches the super effective modifier in type-advantage calculations."
+correctAnswer: "3.0x, calculated as a standard 1.5x STAB multiplied by 2.0x type effectiveness."
 practicalData:
   {
     "attacker": { "species": "gengar", "evs": "C32+", "item": "life-orb", "nature": "timid" },
@@ -20,4 +20,4 @@ practicalData:
   }
 ---
 
-1.5 (STAB) \* 2.0 (Effectiveness) = 3.0x.
+1.5 (STAB) * 2.0 (Effectiveness) = 3.0x. Modifiers in Pokémon generally multiply together.

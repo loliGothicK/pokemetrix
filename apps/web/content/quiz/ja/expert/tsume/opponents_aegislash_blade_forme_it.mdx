@@ -2,19 +2,13 @@
 id: opponents_aegislash_blade_forme_it
 difficulty: expert
 category: tsume
-format: choices
-question: "ブレードフォルムのギルガルドが「キングシールド」を使用しました。あなたのポケモンの攻撃が当たる時、ギルガルドはどのフォルムですか？"
-options:
-  - "シールドフォルム（優先度+4で先に変化する）"
-  - "ブレードフォルム（ターン終了時に変化する）"
-  - "同時にダメージが入る"
-  - "変化しない"
-correctAnswer: "シールドフォルム（優先度+4で先に変化する）"
+format: tsume_action
+question: "勝利を確実にする最適な技と対象を選択してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake"] }],
-    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 }],
+      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Earthquake"],
   }
 ---

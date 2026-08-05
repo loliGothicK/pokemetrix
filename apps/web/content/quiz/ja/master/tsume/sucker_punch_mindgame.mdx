@@ -2,14 +2,8 @@
 id: sucker_punch_mindgame
 difficulty: master
 category: tsume
-format: choices
-question: "こちらの場にはメガガルーラとピクシー、相手は残りHP10%のギルガルド1体のみです。ギルガルドは「キングシールド」を持っています。ここでガルーラが「ふいうち」を選ぶのが悪手である最大の理由はなんですか？"
-options:
-  - "相手がキングシールドなどの変化技を選んだ場合、ふいうちは失敗に終わるから。"
-  - "ふいうちはギルガルドに半減されるから。"
-  - "味方のこのゆびとまれで、自分のふいうちが吸われてしまうから。"
-  - "ギルガルドにはふいうちが無効だから。"
-correctAnswer: "相手がキングシールドなどの変化技を選んだ場合、ふいうちは失敗に終わるから。"
+format: tsume_action
+question: "この状況で最適な技と対象を選択して勝利してください。"
 tsumeData:
   {
     "playerSide":
@@ -30,8 +24,8 @@ tsumeData:
         },
       ],
     "opponentSide":
-      [{ "species": "aegislash-blade", "hpCurrent": 16, "hpMax": 167, "item": "leftovers" }],
-    "correctMoves": ["Return + Moonblast"],
+      [{ "species": "aegislash-blade", "hpCurrent": 16, "hpMax": 167, "item": "leftovers" , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Return (Target: Aegislash-Blade)", "Moonblast (Target: Aegislash-Blade)"],
   }
 ---
 

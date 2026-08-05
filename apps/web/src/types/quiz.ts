@@ -7,7 +7,8 @@ export type QuizQuestionFormat =
   | "ordering"
   | "grouping"
   | "one_way"
-  | "input";
+  | "input"
+  | "tsume_action";
 
 export interface TsumePokemon {
   species: string;

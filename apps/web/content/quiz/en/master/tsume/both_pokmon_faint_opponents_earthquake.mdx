@@ -2,14 +2,8 @@
 id: both_pokmon_faint_opponents_earthquake
 difficulty: master
 category: tsume
-format: choices
-question: "If both your Pokémon faint to an opponent's Earthquake, and the opponent also faints due to Life Orb recoil from that Earthquake, who wins the battle?"
-options:
-  - "The player who used Earthquake (Opponent)."
-  - "You win."
-  - "It's a draw."
-  - "The host wins."
-correctAnswer: "The player who used Earthquake (Opponent)."
+format: tsume_action
+question: "Select the optimal move(s) and target(s) for your Pokémon."
 tsumeData:
   {
     "playerSide":
@@ -17,7 +11,7 @@ tsumeData:
         { "species": "gengar", "hpCurrent": 13, "hpMax": 135 },
         { "species": "sylveon", "hpCurrent": 15, "hpMax": 202 },
       ],
-    "opponentSide": [{ "species": "garchomp", "hpCurrent": 1, "hpMax": 183 }],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 1, "hpMax": 183 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Earthquake"],
   }
 ---

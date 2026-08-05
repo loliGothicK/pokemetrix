@@ -2,24 +2,18 @@
 id: use_wide_guard_uses_blizzard
 difficulty: expert
 category: tsume
-format: choices
-question: "あなたが「ワイドガード」を使いました。相手は全体技の「ふぶき」と単体技の「れいとうビーム」を撃ってきました。ワイドガードはどれを防ぎますか？"
-options:
-  - "「ふぶき」を味方2体とも防ぐ。「れいとうビーム」は防げない。"
-  - "両方の技を防ぐ。"
-  - "「ふぶき」をワイドガードを使った自身のみ防ぐ。"
-  - "どちらも防げない。"
-correctAnswer: "「ふぶき」を味方2体とも防ぐ。「れいとうビーム」は防げない。"
+format: tsume_action
+question: "相手のユキノオーが全体技の「ふぶき」を使用しようとしています。ギルガルドとガブリアスの両方を守るための最適な技を選択してください。"
 tsumeData:
   {
     "playerSide":
       [
-        { "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167, "moves": ["Wide Guard"] },
+        { "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167, "moves": ["Wide Guard", "King's Shield", "Protect", "Substitute"] },
         { "species": "garchomp", "hpCurrent": 183, "hpMax": 183 },
       ],
-    "opponentSide": [{ "species": "politoed", "hpCurrent": 197, "hpMax": 197 }],
+    "opponentSide": [{ "species": "abomasnow", "hpCurrent": 197, "hpMax": 197 , "moves": ["Blizzard", "Protect", "Wood Hammer"] }],
     "correctMoves": ["Wide Guard"],
   }
 ---
 
-ワイドガードは「全体技」のみを味方全体に対して無効化します。単体攻撃はそのまま通してしまいます。
+「ワイドガード」は味方全体を「ふぶき」のような全体技から守ることができます。「キングシールド」や「まもる」はギルガルド自身を守ることはできますが、味方のガブリアスまで守ることはできず、大きなダメージを受けてしまいます。

@@ -2,14 +2,8 @@
 id: aegislash_blade_forme_use_shadow
 difficulty: master
 category: tsume
-format: choices
-question: "Your Aegislash is in Blade Forme. You use Shadow Sneak, and the opponent hits you with Earthquake on the same turn. If you survive, what forme are you in at the end of the turn?"
-options:
-  - "Blade Forme"
-  - "Shield Forme"
-  - "Base Forme"
-  - "Fainted"
-correctAnswer: "Blade Forme"
+format: tsume_action
+question: "Select the optimal move(s) and target(s) for your Pokémon."
 tsumeData:
   {
     "playerSide":
@@ -18,11 +12,11 @@ tsumeData:
           "species": "aegislash-shield",
           "hpCurrent": 167,
           "hpMax": 167,
-          "moves": ["Shadow Sneak"],
+          "moves": ["Shadow Sneak", "Protect", "Substitute"],
         },
       ],
-    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 }],
-    "correctMoves": ["Shadow Sneak"],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Shadow Sneak (Target: Garchomp)"],
   }
 ---
 

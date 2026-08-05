@@ -2,14 +2,8 @@
 id: sucker_punch_fail
 difficulty: expert
 category: tsume
-format: choices
-question: "Your opponent's Mega Kangaskhan uses Sucker Punch targeting your Gengar. Sucker Punch is a Dark-type priority attack. However, you selected Will-O-Wisp (a status move) with Gengar. What happens?"
-options:
-  - "Sucker Punch fails entirely, and Gengar uses Will-O-Wisp."
-  - "Sucker Punch hits Gengar first."
-  - "Sucker Punch hits, but its damage is halved."
-  - "Will-O-Wisp misses."
-correctAnswer: "Sucker Punch fails entirely, and Gengar uses Will-O-Wisp."
+format: tsume_action
+question: "Your opponent's Mega Kangaskhan is about to use Sucker Punch against your Gengar. Select the optimal move and target to nullify this attack and cripple Kangaskhan."
 tsumeData:
   {
     "playerSide":
@@ -43,7 +37,7 @@ tsumeData:
           "hpCurrent": 183,
           "hpMax": 183,
           "item": "life-orb",
-          "moves": ["Earthquake"],
+          "moves": ["Earthquake", "Protect", "Substitute"],
         },
       ],
     "correctMoves": ["Will-O-Wisp (Target: Kangaskhan)"],

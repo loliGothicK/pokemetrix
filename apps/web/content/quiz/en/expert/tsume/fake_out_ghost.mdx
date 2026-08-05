@@ -2,14 +2,8 @@
 id: fake_out_ghost
 difficulty: expert
 category: tsume
-format: choices
-question: "The opponent sends out Gengar and Tyranitar. You send out Incineroar and Sylveon. You want to stop Gengar from moving. Why is using Fake Out on Gengar a terrible play?"
-options:
-  - "Gengar is a Ghost-type and is immune to Fake Out, a Normal-type move."
-  - "Gengar is faster than Fake Out."
-  - "Tyranitar's Sand Stream blocks Fake Out."
-  - "Sylveon's presence prevents Fake Out."
-correctAnswer: "Gengar is a Ghost-type and is immune to Fake Out, a Normal-type move."
+format: tsume_action
+question: "Select the optimal moves and targets to secure the win."
 tsumeData:
   {
     "playerSide":
@@ -26,15 +20,15 @@ tsumeData:
           "hpCurrent": 170,
           "hpMax": 170,
           "item": "life-orb",
-          "moves": ["Hyper Voice"],
+          "moves": ["Hyper Voice", "Protect", "Substitute"],
         },
       ],
     "opponentSide":
       [
-        { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" },
-        { "species": "tyranitar", "hpCurrent": 207, "hpMax": 207, "item": "lum-berry" },
+        { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" , "moves": ["Protect", "Substitute", "Hidden Power"] },
+        { "species": "tyranitar", "hpCurrent": 207, "hpMax": 207, "item": "lum-berry" , "moves": ["Protect", "Substitute", "Hidden Power"] },
       ],
-    "correctMoves": ["Knock Off (Target: Gengar)"],
+    "correctMoves": ["Knock Off (Target: Gengar)", "Hyper Voice"],
   }
 ---
 

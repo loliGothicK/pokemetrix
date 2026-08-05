@@ -5,11 +5,11 @@ category: damage_calc
 format: choices
 question: "What is the exact damage multiplier of a Critical Hit in Generation 6 and beyond?"
 options:
-  - "1.5x"
-  - "2.0x"
-  - "1.25x"
-  - "1.33x"
-correctAnswer: "1.5x"
+  - "1.5x, ignoring the defender's positive stat changes and defensive screens."
+  - "2.0x, ignoring all of the defender's stat changes."
+  - "1.5x, but it uses the user's base offensive stats instead of modified stats."
+  - "1.5x, ignoring both the user's and defender's negative stat changes."
+correctAnswer: "1.5x, ignoring the defender's positive stat changes and defensive screens."
 practicalData:
   {
     "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
@@ -20,4 +20,4 @@ practicalData:
   }
 ---
 
-Starting in Generation 6, the damage multiplier for a critical hit was reduced from 2.0x down to 1.5x.
+Starting in Generation 6, the damage multiplier for a critical hit was reduced from 2.0x down to 1.5x. It also ignores the attacker's negative stat changes, the defender's positive stat changes, and defensive screens (like Reflect or Light Screen).

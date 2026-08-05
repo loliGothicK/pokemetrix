@@ -2,19 +2,13 @@
 id: opponents_sylveon_pixilate_use_skill
 difficulty: master
 category: tsume
-format: choices
-question: "特性「フェアリースキン」を持つ相手のニンフィアに「スキルスワップ」を使いました。ニンフィアの「ハイパーボイス」はどうなりますか？"
-options:
-  - "ノーマルタイプのままになり、威力アップもなくなる。"
-  - "フェアリータイプのまま威力が下がる。"
-  - "スキルスワップが失敗する。"
-  - "ダメージを与えられなくなる。"
-correctAnswer: "ノーマルタイプのままになり、威力アップもなくなる。"
+format: tsume_action
+question: "この状況で最適な技と対象を選択して勝利してください。"
 tsumeData:
   {
     "playerSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 }],
-    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 }],
-    "correctMoves": ["Moonblast"],
+    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Moonblast (Target: Sylveon)"],
   }
 ---
 

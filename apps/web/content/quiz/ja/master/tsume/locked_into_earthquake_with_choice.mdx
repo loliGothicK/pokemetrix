@@ -2,19 +2,13 @@
 id: locked_into_earthquake_with_choice
 difficulty: master
 category: tsume
-format: choices
-question: "こだわりスカーフを持ったポケモンで「じしん」に固定されています。相手がウォッシュロトム（ふゆう）に交代してきました。次のターンの最善手はどれですか？"
-options:
-  - "別のポケモンに交代する。"
-  - "そのまま「じしん」を撃ち続ける。"
-  - "「まもる」を使う。"
-  - "別の攻撃技を選ぶ。"
-correctAnswer: "別のポケモンに交代する。"
+format: tsume_action
+question: "最適な技とターゲットを選択してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake"] }],
-    "opponentSide": [{ "species": "rotom-wash", "hpCurrent": 157, "hpMax": 157 }],
+      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "rotom-wash", "hpCurrent": 157, "hpMax": 157 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Switch"],
   }
 ---

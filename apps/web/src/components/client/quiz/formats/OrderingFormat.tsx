@@ -24,12 +24,13 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 interface SortableItemProps {
   id: string;
   item: string;
+  index: number;
   disabled: boolean;
   isCorrect?: boolean;
   showExplanation: boolean;
 }
 
-function SortableItem({ id, item, disabled, isCorrect, showExplanation }: SortableItemProps) {
+function SortableItem({ id, item, index, disabled, isCorrect, showExplanation }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     disabled,
@@ -73,7 +74,13 @@ function SortableItem({ id, item, disabled, isCorrect, showExplanation }: Sortab
       {...attributes}
       {...listeners}
     >
-      <DragIndicatorIcon sx={{ color: "text.secondary", mr: 2 }} />
+      <DragIndicatorIcon sx={{ color: "text.secondary", mr: 1 }} />
+      <Typography
+        variant="h6"
+        sx={{ mr: 2, color: "primary.main", fontWeight: "bold", width: 28, textAlign: "center" }}
+      >
+        {index + 1}
+      </Typography>
       <Typography sx={{ flexGrow: 1, fontWeight: "medium" }}>{item}</Typography>
     </Paper>
   );
@@ -132,6 +139,7 @@ export function OrderingFormat({
                 key={opt}
                 id={opt}
                 item={opt}
+                index={index}
                 disabled={showExplanation}
                 showExplanation={showExplanation}
                 isCorrect={isCorrect}

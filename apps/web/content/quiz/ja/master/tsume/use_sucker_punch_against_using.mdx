@@ -2,21 +2,15 @@
 id: use_sucker_punch_against_using
 difficulty: master
 category: tsume
-format: choices
-question: "お互いに「ふいうち」を選択した場合、どう処理されますか？"
-options:
-  - "素早さが速い方の「ふいうち」が成功し、遅い方は失敗する。"
-  - "両方とも成功する。"
-  - "両方とも失敗する。"
-  - "遅い方が成功する。"
-correctAnswer: "素早さが速い方の「ふいうち」が成功し、遅い方は失敗する。"
+format: tsume_action
+question: "この状況で最適な技と対象を選択して勝利してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch"] }],
+      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch", "Protect", "Substitute"] }],
     "opponentSide":
-      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch"] }],
-    "correctMoves": ["Sucker Punch"],
+      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch", "Protect", "Substitute"] }],
+    "correctMoves": ["Sucker Punch (Target: Kangaskhan-Mega)"],
   }
 ---
 

@@ -2,21 +2,15 @@
 id: use_sucker_punch_against_using
 difficulty: master
 category: tsume
-format: choices
-question: "If you use Sucker Punch against an opponent using Sucker Punch, who succeeds?"
-options:
-  - "The faster Pokémon succeeds; the slower one fails."
-  - "Both succeed."
-  - "Both fail."
-  - "The slower Pokémon succeeds."
-correctAnswer: "The faster Pokémon succeeds; the slower one fails."
+format: tsume_action
+question: "Select the optimal move and target to win this scenario."
 tsumeData:
   {
     "playerSide":
-      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch"] }],
+      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch", "Protect", "Substitute"] }],
     "opponentSide":
-      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch"] }],
-    "correctMoves": ["Sucker Punch"],
+      [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212, "moves": ["Sucker Punch", "Protect", "Substitute"] }],
+    "correctMoves": ["Sucker Punch (Target: Kangaskhan-Mega)"],
   }
 ---
 

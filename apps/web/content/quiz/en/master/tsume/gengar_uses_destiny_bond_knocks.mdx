@@ -2,19 +2,13 @@
 id: gengar_uses_destiny_bond_knocks
 difficulty: master
 category: tsume
-format: choices
-question: "Your Gengar uses Destiny Bond. The opponent knocks it out. Then, another opponent knocks out your remaining Pokémon. Who wins?"
-options:
-  - "The player who has Pokémon remaining in the back, or based on specific fainting order tiebreakers."
-  - "Gengar's owner always wins."
-  - "The opponent always wins."
-  - "It's a draw."
-correctAnswer: "The player who has Pokémon remaining in the back, or based on specific fainting order tiebreakers."
+format: tsume_action
+question: "Select the optimal move(s) and target(s) for your Pokémon."
 tsumeData:
   {
     "playerSide":
-      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond"] }],
-    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
+      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond", "Shadow Ball", "Sludge Bomb"] }],
+    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Destiny Bond"],
   }
 ---

@@ -2,14 +2,8 @@
 id: have_choice_scarf_garchomp_and
 difficulty: expert
 category: tsume
-format: choices
-question: "「こだわりスカーフ」を持ったガブリアスで「まもる」を選択しました。次のターンはどうなりますか？"
-options:
-  - "「まもる」しか選べなくなり、実質的に交代するか失敗し続けることになる。"
-  - "新しい技を選び直せる。"
-  - "「まもる」が確定で失敗するようになる。"
-  - "スカーフの効果が消える。"
-correctAnswer: "「まもる」しか選べなくなり、実質的に交代するか失敗し続けることになる。"
+format: tsume_action
+question: "勝利を確実にする最適な技と対象を選択してください。"
 tsumeData:
   {
     "playerSide":
@@ -21,7 +15,7 @@ tsumeData:
           "moves": ["Earthquake", "Protect"],
         },
       ],
-    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 }],
+    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Earthquake"],
   }
 ---

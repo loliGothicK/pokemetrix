@@ -2,14 +2,8 @@
 id: have_choice_scarf_garchomp_and
 difficulty: expert
 category: tsume
-format: choices
-question: "If you have a Choice Scarf Garchomp and you use Protect, what happens on the next turn?"
-options:
-  - "You are forced to use Protect or Struggle, effectively meaning you must switch out."
-  - "You can choose a new move."
-  - "Protect fails on the next turn."
-  - "You lose the Choice Scarf."
-correctAnswer: "You are forced to use Protect or Struggle, effectively meaning you must switch out."
+format: tsume_action
+question: "Select the optimal moves and targets to secure the win."
 tsumeData:
   {
     "playerSide":
@@ -21,7 +15,7 @@ tsumeData:
           "moves": ["Earthquake", "Protect"],
         },
       ],
-    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 }],
+    "opponentSide": [{ "species": "sylveon", "hpCurrent": 202, "hpMax": 202 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Earthquake"],
   }
 ---

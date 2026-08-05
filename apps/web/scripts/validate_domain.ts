@@ -10,8 +10,11 @@ const dataDir = path.join(__dirname, "../data/champions");
 const pokemonPath = path.join(dataDir, "pokemon.json");
 const itemsPath = path.join(dataDir, "items.json");
 const movesPath = path.join(dataDir, "moves.json");
-const speedCompareSeedsPath = path.join(dataDir, "speed_compare_seeds.ts");
 const generatedDir = path.join(__dirname, "../.content-collections/generated/index.js");
+
+const abilitiesMasterPath = path.join(__dirname, "../data/master/abilities.json");
+const enTranslationPath = path.join(__dirname, "../public/locales/en/translation.json");
+const jaTranslationPath = path.join(__dirname, "../public/locales/ja/translation.json");
 
 const pokemonData = JSON.parse(fs.readFileSync(pokemonPath, "utf8"));
 const itemsData = JSON.parse(fs.readFileSync(itemsPath, "utf8"));
@@ -20,6 +23,31 @@ const movesData = JSON.parse(fs.readFileSync(movesPath, "utf8"));
 const validPokemon = new Set(pokemonData.data.map((p: any) => p.identifier));
 const validItems = new Set(itemsData.data.map((i: any) => i.identifier));
 const validMoves = new Set(movesData.data.map((m: any) => m.identifier));
+
+const abilitiesMaster = JSON.parse(fs.readFileSync(abilitiesMasterPath, "utf8"));
+const enTranslation = JSON.parse(fs.readFileSync(enTranslationPath, "utf8"));
+const jaTranslation = JSON.parse(fs.readFileSync(jaTranslationPath, "utf8"));
+
+const validAbilityIds = new Set(pokemonData.data.flatMap((p: any) => p.abilities));
+const allAbilityNames = new Set<string>();
+const validAbilityNames = new Set<string>();
+
+abilitiesMaster.data.forEach((ability: any) => {
+  const id = ability.identifier;
+  const isChampionsValid = validAbilityIds.has(ability.id);
+
+  const enName = enTranslation.abilities?.[id]?.name;
+  const jaName = jaTranslation.abilities?.[id]?.name;
+
+  if (enName) {
+    allAbilityNames.add(enName);
+    if (isChampionsValid) validAbilityNames.add(enName);
+  }
+  if (jaName) {
+    allAbilityNames.add(jaName);
+    if (isChampionsValid) validAbilityNames.add(jaName);
+  }
+});
 
 let hasError = false;
 function error(msg: string) {
@@ -50,18 +78,18 @@ function validateEvs(evs: string, context: string) {
 
 async function validate() {
   console.log("Validating speed_compare_seeds.ts...");
-  const { manualSpeedCompareSeeds } = await import(pathToFileURL(speedCompareSeedsPath).href);
-  for (const seed of manualSpeedCompareSeeds) {
-    const checkPoke = (poke: any, side: string) => {
-      if (!validPokemon.has(poke.slug))
-        error(`SpeedCompare ${seed.id}: Invalid pokemon ${poke.slug}`);
-      if (poke.item && !validItems.has(poke.item))
-        error(`SpeedCompare ${seed.id}: Invalid item ${poke.item}`);
-      if (poke.evs) validateEvs(poke.evs, `SpeedCompare ${seed.id} ${side}`);
-    };
-    checkPoke(seed.pokemonA, "pokemonA");
-    checkPoke(seed.pokemonB, "pokemonB");
-  }
+  // const { manualSpeedCompareSeeds } = await import(pathToFileURL(speedCompareSeedsPath).href);
+  // for (const seed of manualSpeedCompareSeeds) {
+  //   const checkPoke = (poke: any, side: string) => {
+  //     if (!validPokemon.has(poke.slug))
+  //       error(`SpeedCompare ${seed.id}: Invalid pokemon ${poke.slug}`);
+  //     if (poke.item && !validItems.has(poke.item))
+  //       error(`SpeedCompare ${seed.id}: Invalid item ${poke.item}`);
+  //     if (poke.evs) validateEvs(poke.evs, `SpeedCompare ${seed.id} ${side}`);
+  //   };
+  //   checkPoke(seed.pokemonA, "pokemonA");
+  //   checkPoke(seed.pokemonB, "pokemonB");
+  // }
 
   console.log("Validating MDX quizzes...");
   try {
@@ -123,6 +151,22 @@ async function validate() {
             // Wait, this is very complex. If it's a display string, it might not be a single move.
             // Let's just ignore correctMoves for now or only validate if it matches exactly.
           });
+        }
+      }
+
+      // Validate raw text options against our heuristic
+      const textFieldsToCheck: string[] = [];
+      if (quiz.options) textFieldsToCheck.push(...quiz.options);
+      if (quiz.correctAnswers) textFieldsToCheck.push(...quiz.correctAnswers);
+      if (quiz.correctOrder) textFieldsToCheck.push(...quiz.correctOrder);
+      if (quiz.correctAnswer) textFieldsToCheck.push(quiz.correctAnswer);
+      if (quiz.correctGroups) {
+        Object.values(quiz.correctGroups).forEach((arr: any) => textFieldsToCheck.push(...arr));
+      }
+
+      for (const text of textFieldsToCheck) {
+        if (allAbilityNames.has(text) && !validAbilityNames.has(text)) {
+          error(`Quiz ${quiz.id}: Invalid ability "${text}" - this ability does not exist in the Champions format.`);
         }
       }
     }

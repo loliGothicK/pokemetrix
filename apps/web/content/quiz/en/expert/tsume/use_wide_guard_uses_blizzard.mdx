@@ -2,24 +2,18 @@
 id: use_wide_guard_uses_blizzard
 difficulty: expert
 category: tsume
-format: choices
-question: "You use Wide Guard. The opponent uses Blizzard (Spread) and Ice Beam (Single). What does Wide Guard block?"
-options:
-  - "It blocks Blizzard for both of your Pokémon. It does not block Ice Beam."
-  - "It blocks both attacks."
-  - "It only blocks Blizzard for the user."
-  - "It blocks neither."
-correctAnswer: "It blocks Blizzard for both of your Pokémon. It does not block Ice Beam."
+format: tsume_action
+question: "The opposing Abomasnow is preparing to use Blizzard, a spread move. Select the optimal move for Aegislash to protect both itself and Garchomp."
 tsumeData:
   {
     "playerSide":
       [
-        { "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167, "moves": ["Wide Guard"] },
+        { "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167, "moves": ["Wide Guard", "King's Shield", "Protect", "Substitute"] },
         { "species": "garchomp", "hpCurrent": 183, "hpMax": 183 },
       ],
-    "opponentSide": [{ "species": "politoed", "hpCurrent": 197, "hpMax": 197 }],
+    "opponentSide": [{ "species": "abomasnow", "hpCurrent": 197, "hpMax": 197 , "moves": ["Blizzard", "Protect", "Wood Hammer"] }],
     "correctMoves": ["Wide Guard"],
   }
 ---
 
-Wide Guard protects your entire side of the field from moves that strike multiple targets, but provides no defense against single-target attacks.
+Wide Guard protects your entire side of the field from spread moves like Blizzard. While King's Shield or Protect would keep Aegislash safe, they offer no defense for Garchomp, who would still take heavy damage from the spread attack.

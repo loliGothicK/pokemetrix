@@ -2,19 +2,13 @@
 id: opponents_aegislash_blade_forme_it
 difficulty: expert
 category: tsume
-format: choices
-question: "The opponent's Aegislash is in Blade Forme. It uses King's Shield. Does it return to Shield Forme before or after your attacks hit it?"
-options:
-  - "Before. King's Shield has +4 priority."
-  - "After. Forme change happens at the end of the turn."
-  - "Simultaneously."
-  - "It does not change forme."
-correctAnswer: "Before. King's Shield has +4 priority."
+format: tsume_action
+question: "Select the optimal moves and targets to secure the win."
 tsumeData:
   {
     "playerSide":
-      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake"] }],
-    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 }],
+      [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "moves": ["Earthquake", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Earthquake"],
   }
 ---

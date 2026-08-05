@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import {
   Box,
   Typography,
@@ -12,6 +12,7 @@ import {
   Paper,
   LinearProgress,
   IconButton,
+  Alert,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { MDXContent } from "@content-collections/mdx/react";
@@ -25,6 +26,7 @@ import { ChoicesFormat } from "./formats/ChoicesFormat";
 import { MultiSelectFormat } from "./formats/MultiSelectFormat";
 import { OrderingFormat } from "./formats/OrderingFormat";
 import { GroupingFormat } from "./formats/GroupingFormat";
+import { TsumeActionFormat } from "./formats/TsumeActionFormat";
 
 interface QuizAppProps {
   initialQuestions: QuizQuestion[];
@@ -47,6 +49,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [tsumeActions, setTsumeActions] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -55,6 +58,16 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [orderedOptions, setOrderedOptions] = useState<string[]>([]);
   const [groupedItems, setGroupedItems] = useState<Record<string, string[]>>({});
+
+  const explanationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showExplanation && explanationRef.current) {
+      setTimeout(() => {
+        explanationRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  }, [showExplanation]);
 
   // Filter questions by current language
   const currentLang = i18n.language.startsWith("en") ? "en" : "ja";
@@ -119,9 +132,12 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       });
     }
 
-    // Shuffle and pick up to 10
+    // Shuffle and pick up to 10, also shuffle the options for each question
     const shuffled = [...questionsForDiff].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 10);
+    const selected = shuffled.slice(0, 10).map((q) => ({
+      ...q,
+      options: q.options ? [...q.options].sort(() => 0.5 - Math.random()) : undefined,
+    }));
 
     if (selected.length === 0) {
       alert(t("quiz.noQuestions"));
@@ -136,6 +152,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     setSelectedOptions([]);
     setOrderedOptions([]);
     setGroupedItems({});
+    setTsumeActions([]);
     setShowExplanation(false);
     setMode("playing");
   };
@@ -168,7 +185,11 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     if (activeQuestion.format === "multi_select") return selectedOptions.length === 0;
     if (activeQuestion.format === "ordering") return orderedOptions.length === 0;
     if (activeQuestion.format === "grouping") return (groupedItems["unassigned"]?.length || 0) > 0;
-    return true;
+    if (activeQuestion.format === "tsume_action") {
+      // Need at least as many actions as correctMoves to not be disabled
+      return tsumeActions.length === 0;
+    }
+    return false;
   };
 
   const handleSubmit = () => {
@@ -202,6 +223,13 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       if ((groupedItems["unassigned"]?.length || 0) > 0) {
         isCorrect = false;
       }
+    } else if (activeQuestion.format === "tsume_action") {
+      const correct = activeQuestion.tsumeData?.correctMoves || [];
+      // To be correct, every required action must be present.
+      // Usually length match is good enough if the user selects them properly.
+      isCorrect =
+        correct.length === tsumeActions.length &&
+        correct.every((ans) => tsumeActions.includes(ans));
     }
 
     if (isCorrect) {
@@ -217,6 +245,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       setSelectedOptions([]);
       setOrderedOptions([]);
       setGroupedItems({});
+      setTsumeActions([]);
       setShowExplanation(false);
     } else {
       setMode("results");
@@ -304,6 +333,11 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
         }
       }
       if ((groupedItems["unassigned"]?.length || 0) > 0) isCorrect = false;
+    } else if (activeQuestion.format === "tsume_action") {
+      const correct = activeQuestion.tsumeData?.correctMoves || [];
+      isCorrect =
+        correct.length === tsumeActions.length &&
+        correct.every((ans) => tsumeActions.includes(ans));
     }
 
     const progress = (currentIndex / sessionQuestions.length) * 100;
@@ -563,6 +597,16 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
               />
             )}
 
+            {activeQuestion.format === "tsume_action" && activeQuestion.tsumeData && (
+              <TsumeActionFormat
+                tsumeData={activeQuestion.tsumeData}
+                selectedActions={tsumeActions}
+                onActionsChange={setTsumeActions}
+                showExplanation={showExplanation}
+                correctMoves={activeQuestion.tsumeData.correctMoves}
+              />
+            )}
+
             {!showExplanation && (
               <Button
                 variant="contained"
@@ -586,41 +630,41 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
 
         {showExplanation && (
           <Card
+            ref={explanationRef}
             variant="outlined"
             sx={{
               borderColor: isCorrect ? "success.main" : "error.main",
               borderRadius: 3,
               boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+              scrollMarginTop: "24px",
             }}
           >
             <CardContent sx={{ p: 4 }}>
-              <Typography
-                variant="h5"
-                color={isCorrect ? "success.main" : "error.main"}
-                gutterBottom
-                sx={{ fontWeight: "bold" }}
-              >
-                {isCorrect ? t("quiz.correct") : t("quiz.incorrect")}
-              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
+                <Typography
+                  variant="h5"
+                  color={isCorrect ? "success.main" : "error.main"}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {isCorrect ? t("quiz.correct") : t("quiz.incorrect")}
+                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{
+                    borderRadius: 2,
+                    fontWeight: "bold",
+                    minWidth: "120px",
+                  }}
+                >
+                  {currentIndex < sessionQuestions.length - 1
+                    ? t("common.next")
+                    : t("quiz.viewResults")}
+                </Button>
+              </Box>
               <Box sx={{ mt: 2, "& p": { lineHeight: 1.7 } }}>
                 {activeQuestion.mdx && <MDXContent code={activeQuestion.mdx} />}
               </Box>
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{
-                  mt: 4,
-                  width: "100%",
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                }}
-              >
-                {currentIndex < sessionQuestions.length - 1
-                  ? t("common.next")
-                  : t("quiz.viewResults")}
-              </Button>
             </CardContent>
           </Card>
         )}
@@ -741,6 +785,12 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
       >
         {t("quiz.title")}
       </Typography>
+
+      <Alert severity="info" sx={{ mb: 4, borderRadius: 2, "& .MuiAlert-message": { width: "100%", textAlign: "center" } }}>
+        <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+          {t("quiz.championsNotice")}
+        </Typography>
+      </Alert>
 
       {menuStep === "difficulty" && (
         <Box>

@@ -3,13 +3,13 @@ id: speed_control
 difficulty: expert
 category: tsume
 format: choices
-question: "Your team is slower than the opponent's. You have Talonflame (with Tailwind) and Kangaskhan. How do you safely swing the speed advantage in your favor for the next turn?"
+question: "Under modern generation mechanics (Gen 8+), how does Talonflame's Gale Wings Tailwind affect Mega Kangaskhan's move order on the turn it is used?"
 options:
-  - "Use Tailwind with Talonflame and attack with Kangaskhan."
-  - "Use Tailwind with Talonflame and Protect with Kangaskhan."
-  - "Switch Kangaskhan and attack with Talonflame."
-  - "Use Brave Bird with Talonflame and Protect with Kangaskhan."
-correctAnswer: "Use Tailwind with Talonflame and Protect with Kangaskhan."
+  - "Move order is calculated at the beginning of the turn, so despite Tailwind activating, Kangaskhan will still move after Gengar and Garchomp on this turn."
+  - "Tailwind doubles Kangaskhan's speed immediately, but because Mega Evolution speed changes are delayed, it will not outspeed them until the next turn."
+  - "Because Tailwind is a field effect, its speed multiplier is only applied at the end of the turn during the residual effects phase."
+  - "Due to dynamic speed, Kangaskhan's speed doubles immediately upon Tailwind resolving, allowing it to outspeed Gengar and Garchomp on that same turn."
+correctAnswer: "Due to dynamic speed, Kangaskhan's speed doubles immediately upon Tailwind resolving, allowing it to outspeed Gengar and Garchomp on that same turn."
 tsumeData:
   {
     "playerSide":
@@ -34,8 +34,8 @@ tsumeData:
         { "species": "gengar", "hpCurrent": 135, "hpMax": 135, "item": "focus-sash" },
         { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "lum-berry" },
       ],
-    "correctMoves": ["Tailwind + Protect"],
+    "correctMoves": ["Tailwind", "Double-Edge"],
   }
 ---
 
-Tailwind doubles the speed of your team for 4 turns, but it takes effect _after_ it is cast. By using Protect on Kangaskhan on the turn Tailwind is set, Kangaskhan avoids taking damage from the faster opponents. On the next turn, Kangaskhan will be faster than both opponents.
+In modern formats (Generation 8 onwards), dynamic speed mechanics mean that speed changes take effect immediately mid-turn. When Talonflame sets priority Tailwind, Kangaskhan's speed is instantly doubled. This instantly updates the turn order, allowing Kangaskhan to act before Gengar and Garchomp. (In Generation 7 and older, move order was locked at the start of the turn, forcing slower Pokémon to often use Protect while Tailwind was being set).

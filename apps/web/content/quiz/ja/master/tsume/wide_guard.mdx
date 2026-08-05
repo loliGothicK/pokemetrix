@@ -2,14 +2,8 @@
 id: wide_guard
 difficulty: master
 category: tsume
-format: choices
-question: "相手の場にメガリザードンYとガブリアスがおり、「ねっぷう」と「じしん」の全体技連打が予想されます。こちらのギルガルドは前のターンに「ワイドガード」を使いました。このターンも連続で「ワイドガード」を使った場合どうなりますか？"
-options:
-  - "ワイドガードは連続で使っても失敗しないため、味方全体を全体技から守れる。"
-  - "「まもる」と同じように、成功率は約33%になる。"
-  - "連続使用になるため必ず失敗する。"
-  - "ギルガルド自身だけを守る。"
-correctAnswer: "ワイドガードは連続で使っても失敗しないため、味方全体を全体技から守れる。"
+format: tsume_action
+question: "この状況で最適な技と対象を選択して勝利してください。"
 tsumeData:
   {
     "playerSide":
@@ -26,13 +20,13 @@ tsumeData:
           "hpCurrent": 135,
           "hpMax": 135,
           "item": "focus-sash",
-          "moves": ["Sludge Bomb"],
+          "moves": ["Sludge Bomb", "Protect", "Substitute"],
         },
       ],
     "opponentSide":
       [
-        { "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "item": "charizardite-y" },
-        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "life-orb" },
+        { "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "item": "charizardite-y" , "moves": ["Protect", "Substitute", "Hidden Power"] },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "life-orb" , "moves": ["Protect", "Substitute", "Hidden Power"] },
       ],
     "correctMoves": ["Wide Guard"],
   }

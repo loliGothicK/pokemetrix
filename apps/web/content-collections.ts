@@ -149,7 +149,7 @@ const quizzes = defineCollection({
       id: z.string(),
       difficulty: z.enum(["basics", "advanced", "expert", "master"]),
       category: z.enum(["academic", "damage_calc", "tsume"]),
-      format: z.enum(["choices", "multi_select", "ordering", "grouping", "one_way", "input"]),
+      format: z.enum(["choices", "multi_select", "ordering", "grouping", "one_way", "input", "tsume_action"]),
       question: z.string(),
       options: z.array(z.string()).optional(),
 
@@ -178,6 +178,8 @@ const quizzes = defineCollection({
           case "one_way":
           case "input":
             return data.correctAnswer !== undefined && data.correctAnswer.length > 0;
+          case "tsume_action":
+            return true; // validated by tsumeData.correctMoves
           default:
             return false;
         }
@@ -187,8 +189,8 @@ const quizzes = defineCollection({
     // Refinement 2: Options count must satisfy per-format constraints
     .refine(
       (data) => {
-        if (data.format === "input") {
-          return true; // input format does not require options
+        if (data.format === "input" || data.format === "tsume_action") {
+          return true; // these formats do not require options
         }
 
         if (!data.options || data.options.length === 0) {
@@ -224,11 +226,11 @@ const quizzes = defineCollection({
         }
 
         if (difficulty === "expert") {
-          return ["choices", "multi_select", "ordering"].includes(format);
+          return ["choices", "multi_select", "ordering", "tsume_action"].includes(format);
         }
 
         if (difficulty === "master") {
-          return ["choices", "multi_select", "ordering", "grouping", "one_way"].includes(format);
+          return ["choices", "multi_select", "ordering", "grouping", "one_way", "tsume_action"].includes(format);
         }
 
         return false;
@@ -241,6 +243,16 @@ const quizzes = defineCollection({
           "Master: all formats allowed.",
         path: ["format"],
       },
+    )
+    // Refinement 4: tsume_action format requirements
+    .refine(
+      (data) => {
+        if (data.format === "tsume_action") {
+          return data.category === "tsume" && data.tsumeData !== undefined;
+        }
+        return true;
+      },
+      { message: "tsume_action format requires category to be 'tsume' and tsumeData to be provided" }
     ),
   transform: transformer({ withHeadings: false }),
 });

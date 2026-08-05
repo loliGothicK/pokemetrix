@@ -2,19 +2,13 @@
 id: can_pokmon_with_prankster_gen
 difficulty: master
 category: tsume
-format: choices
-question: "第7世代以降、「いたずらごころ」を持つポケモンが、味方のあくタイプに優先度+1の変化技（てだすけ等）を使おうとするとどうなりますか？"
-options:
-  - "失敗する（味方からの技でも無効化される）。"
-  - "成功する（味方の技は無効化しない）。"
-  - "回復技なら成功する。"
-  - "成功するが優先度は+0になる。"
-correctAnswer: "失敗する（味方からの技でも無効化される）。"
+format: tsume_action
+question: "最適な技とターゲットを選択してください。"
 tsumeData:
   {
     "playerSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
-    "opponentSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 }],
-    "correctMoves": ["Rock Slide"],
+    "opponentSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Rock Slide (Target: Clefable)"],
   }
 ---
 

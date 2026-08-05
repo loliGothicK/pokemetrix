@@ -2,14 +2,8 @@
 id: wide_guard
 difficulty: master
 category: tsume
-format: choices
-question: "The opponent has Mega Charizard Y and Garchomp, threatening double spread moves (Heat Wave and Earthquake). You have Aegislash-Shield. You used Wide Guard last turn. What happens if you use Wide Guard again?"
-options:
-  - "It protects both your Pokémon from spread moves, as Wide Guard does not fail on consecutive uses."
-  - "It has a 33% chance to succeed, like Protect."
-  - "It fails completely because it was used last turn."
-  - "It protects only Aegislash."
-correctAnswer: "It protects both your Pokémon from spread moves, as Wide Guard does not fail on consecutive uses."
+format: tsume_action
+question: "Select the optimal move and target to win this scenario."
 tsumeData:
   {
     "playerSide":
@@ -26,13 +20,13 @@ tsumeData:
           "hpCurrent": 135,
           "hpMax": 135,
           "item": "focus-sash",
-          "moves": ["Sludge Bomb"],
+          "moves": ["Sludge Bomb", "Protect", "Substitute"],
         },
       ],
     "opponentSide":
       [
-        { "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "item": "charizardite-y" },
-        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "life-orb" },
+        { "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "item": "charizardite-y" , "moves": ["Protect", "Substitute", "Hidden Power"] },
+        { "species": "garchomp", "hpCurrent": 183, "hpMax": 183, "item": "life-orb" , "moves": ["Protect", "Substitute", "Hidden Power"] },
       ],
     "correctMoves": ["Wide Guard"],
   }

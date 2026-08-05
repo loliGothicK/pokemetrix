@@ -2,20 +2,14 @@
 id: scizor_have_charizard-mega-y_uses_protect
 difficulty: master
 category: tsume
-format: choices
-question: "相手のハッサムが「まもる」を使いました。あなたのメガリザードンY（晴れ状態）が「ねっぷう」を撃ちました。どうなりますか？"
-options:
-  - "「まもる」で完全にダメージを無効化される。"
-  - "「まもる」を貫通してダメージを与える。"
-  - "25%のダメージが貫通する。"
-  - "リザードンがやけどする。"
-correctAnswer: "「まもる」で完全にダメージを無効化される。"
+format: tsume_action
+question: "この状況で最適な技と対象を選択して勝利してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "moves": ["Heat Wave"] }],
-    "opponentSide": [{ "species": "scizor", "hpCurrent": 175, "hpMax": 175 }],
-    "correctMoves": ["Heat Wave"],
+      [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "moves": ["Heat Wave", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "scizor", "hpCurrent": 175, "hpMax": 175 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Heat Wave (Target: Scizor)"],
   }
 ---
 

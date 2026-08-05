@@ -2,19 +2,13 @@
 id: gengar_uses_destiny_bond_knocks
 difficulty: master
 category: tsume
-format: choices
-question: "ゲンガーが「みちづれ」を使い、相手の攻撃で倒されました。その直後、もう一体の味方も倒され、お互いの場が全滅しました。勝敗はどう決まりますか？"
-options:
-  - "控えにポケモンが残っているか、または倒れた順番の厳密な仕様によって決まる。"
-  - "みちづれを使った側が必ず勝つ。"
-  - "相手が必ず勝つ。"
-  - "引き分けになる。"
-correctAnswer: "控えにポケモンが残っているか、または倒れた順番の厳密な仕様によって決まる。"
+format: tsume_action
+question: "最適な技とターゲットを選択してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond"] }],
-    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
+      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Destiny Bond", "Shadow Ball", "Sludge Bomb"] }],
+    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
     "correctMoves": ["Destiny Bond"],
   }
 ---

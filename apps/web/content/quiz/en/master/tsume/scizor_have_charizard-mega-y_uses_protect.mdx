@@ -2,20 +2,14 @@
 id: scizor_have_charizard-mega-y_uses_protect
 difficulty: master
 category: tsume
-format: choices
-question: "Opponent has a Scizor. You have Mega Charizard Y. The opponent uses Protect. You use Heat Wave. The sun is up. What happens?"
-options:
-  - "Protect completely negates the damage."
-  - "Heat Wave breaks Protect."
-  - "Heat Wave deals 25% damage."
-  - "Charizard is burned."
-correctAnswer: "Protect completely negates the damage."
+format: tsume_action
+question: "Select the optimal move and target to win this scenario."
 tsumeData:
   {
     "playerSide":
-      [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "moves": ["Heat Wave"] }],
-    "opponentSide": [{ "species": "scizor", "hpCurrent": 175, "hpMax": 175 }],
-    "correctMoves": ["Heat Wave"],
+      [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153, "moves": ["Heat Wave", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "scizor", "hpCurrent": 175, "hpMax": 175 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Heat Wave (Target: Scizor)"],
   }
 ---
 

@@ -2,14 +2,8 @@
 id: sucker_punch_fail
 difficulty: expert
 category: tsume
-format: choices
-question: "相手のメガガルーラがゲンガーに対して「ふいうち」を選択しました。「ふいうち」は悪タイプの先制技です。しかし、ゲンガーは変化技の「おにび」を選択していました。この時どうなりますか？"
-options:
-  - "「ふいうち」は失敗し、ゲンガーが「おにび」を使用する。"
-  - "「ふいうち」がゲンガーに命中する。"
-  - "「ふいうち」は命中するが、ダメージが半減する。"
-  - "「おにび」が必ず外れる。"
-correctAnswer: "「ふいうち」は失敗し、ゲンガーが「おにび」を使用する。"
+format: tsume_action
+question: "相手のメガガルーラはゲンガーに「ふいうち」を撃とうとしています。これを無効化しつつ、相手を機能停止させるための最適な行動を選択してください。"
 tsumeData:
   {
     "playerSide":
@@ -43,7 +37,7 @@ tsumeData:
           "hpCurrent": 183,
           "hpMax": 183,
           "item": "life-orb",
-          "moves": ["Earthquake"],
+          "moves": ["Earthquake", "Protect", "Substitute"],
         },
       ],
     "correctMoves": ["Will-O-Wisp (Target: Kangaskhan)"],

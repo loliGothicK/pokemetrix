@@ -2,20 +2,14 @@
 id: rotom-wash_levitate_uses_gravity_happens
 difficulty: expert
 category: tsume
-format: choices
-question: "ウォッシュロトム（特性ふゆう）が場にいる時に、相手が「じゅうりょく」を使いました。どうなりますか？"
-options:
-  - "ロトムが地面に落ち、「じしん」などの地面技が当たるようになる。"
-  - "ふゆうのまま変わらない。"
-  - "ロトムがダメージを受ける。"
-  - "じゅうりょくが失敗する。"
-correctAnswer: "ロトムが地面に落ち、「じしん」などの地面技が当たるようになる。"
+format: tsume_action
+question: "最適な技とターゲットを選択してください。"
 tsumeData:
   {
     "playerSide":
-      [{ "species": "rotom-wash", "hpCurrent": 157, "hpMax": 157, "moves": ["Hydro Pump"] }],
-    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 }],
-    "correctMoves": ["Hydro Pump"],
+      [{ "species": "rotom-wash", "hpCurrent": 157, "hpMax": 157, "moves": ["Hydro Pump", "Protect", "Substitute"] }],
+    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
+    "correctMoves": ["Hydro Pump (Target: Garchomp)"],
   }
 ---
 
