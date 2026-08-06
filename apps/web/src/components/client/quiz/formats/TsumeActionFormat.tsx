@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Stack, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
-
-// Extracted from schema structure
-interface TsumePokemon {
-  species: string;
-  moves?: string[];
-  hpCurrent: number;
-  hpMax: number;
-}
-
-interface TsumeData {
-  playerSide: TsumePokemon[];
-  opponentSide: TsumePokemon[];
-}
+import type { TsumeData, TsumePokemon } from "@/types/quiz";
 
 interface TsumeActionFormatProps {
   tsumeData: TsumeData;
@@ -37,19 +25,17 @@ export function TsumeActionFormat({
     Record<number, { move: string; target: string }>
   >({});
 
-  // Heads-up: only one opponent on the field — target is implicit
   const singleOpponent =
-    tsumeData.opponentSide.length === 1
-      ? tsumeData.opponentSide[0].species
+    tsumeData.opponentSide.active.length === 1
+      ? tsumeData.opponentSide.active[0].species
       : null;
 
-  // All selectable targets on the field
+  // All selectable targets on the field and bench
   const allTargets = [
-    ...tsumeData.playerSide.map((p) => ({ species: p.species, label: "Ally" })),
-    ...tsumeData.opponentSide.map((p) => ({
-      species: p.species,
-      label: "Opponent",
-    })),
+    ...tsumeData.playerSide.active.map((p: TsumePokemon) => ({ species: p.species, label: "Ally Active" })),
+    ...(tsumeData.playerSide.bench || []).map((p: TsumePokemon) => ({ species: p.species, label: "Ally Bench" })),
+    ...tsumeData.opponentSide.active.map((p: TsumePokemon) => ({ species: p.species, label: "Opponent Active" })),
+    ...(tsumeData.opponentSide.bench || []).map((p: TsumePokemon) => ({ species: p.species, label: "Opponent Bench" })),
   ];
 
   const handleMoveChange = (playerIndex: number, move: string) => {
@@ -96,9 +82,9 @@ export function TsumeActionFormat({
   }, [selections, onActionsChange, singleOpponent, correctMoves]);
 
   // Only render cards for players that actually have moves
-  const activePlayers = tsumeData.playerSide
-    .map((poke, index) => ({ poke, index }))
-    .filter(({ poke }) => poke.moves && poke.moves.length > 0);
+  const activePlayers = tsumeData.playerSide.active
+    .map((poke: TsumePokemon, index: number) => ({ poke, index }))
+    .filter(({ poke }: { poke: TsumePokemon }) => poke.moves && poke.moves.length > 0);
 
   // Skip pokemon name label when only one player pokemon has moves
   const isHeadsUp = activePlayers.length === 1;
@@ -130,7 +116,7 @@ export function TsumeActionFormat({
                   label="Move"
                   onChange={(e) => handleMoveChange(index, e.target.value)}
                 >
-                  {(poke.moves ?? []).map((move) => (
+                  {(poke.moves ?? []).map((move: string) => (
                     <MenuItem key={move} value={move}>
                       {move}
                     </MenuItem>

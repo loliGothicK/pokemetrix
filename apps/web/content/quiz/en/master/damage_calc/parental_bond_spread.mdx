@@ -3,22 +3,39 @@ id: parental_bond_spread
 difficulty: master
 category: damage_calc
 format: choices
-question: "In a Double Battle, Mega Kangaskhan uses Earthquake (a spread move) against two opponents. How does its Parental Bond ability affect this attack?"
+question: >-
+  In a Double Battle, Mega Kangaskhan uses Earthquake (a spread move) against
+  two opponents. How does its Parental Bond ability affect this attack?
 options:
-  - "It hits both opponents twice, dealing 75% on the first hit and 37.5% on the second."
-  - "It hits both opponents once for 100% damage, bypassing spread reduction."
-  - "Parental Bond does not activate on spread moves; it hits both opponents once for 75% damage."
-  - "It hits one random opponent twice, and the other once."
-correctAnswer: "Parental Bond does not activate on spread moves; it hits both opponents once for 75% damage."
+  - >-
+    It hits both opponents twice, dealing 75% on the first hit and 37.5% on the
+    second.
+  - 'It hits both opponents once for 100% damage, bypassing spread reduction.'
+  - >-
+    Parental Bond does not activate on spread moves; it hits both opponents once
+    for 75% damage.
+  - 'It hits one random opponent twice, and the other once.'
+correctAnswer: >-
+  Parental Bond does not activate on spread moves; it hits both opponents once
+  for 75% damage.
 practicalData:
-  {
-    "attacker":
-      { "species": "kangaskhan-mega", "evs": "A32+", "item": "kangaskhanite", "nature": "adamant" },
-    "defender": { "species": "tyranitar", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
-    "ally": { "species": "rotom-wash", "item": "sitrus-berry" },
-    "opponentAlly": { "species": "gengar", "item": "focus-sash" },
-    "move": "Earthquake",
-  }
+  attacker:
+    species: kangaskhan-mega
+    evs: A32+
+    item: kangaskhanite
+    nature: adamant
+  defender:
+    species: tyranitar
+    evs: H32
+    item: lum-berry
+    nature: adamant
+  ally:
+    species: rotom-wash
+    item: sitrus-berry
+  opponentAlly:
+    species: gengar
+    item: focus-sash
+  move: Earthquake
 ---
 
 Parental Bond only activates on single-target moves. When Mega Kangaskhan uses a spread move like Earthquake or Rock Slide in a Double Battle against multiple targets, it only strikes once per target and still suffers the standard 0.75x spread damage reduction.

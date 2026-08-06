@@ -3,13 +3,31 @@ id: can_pokmon_with_prankster_gen
 difficulty: master
 category: tsume
 format: tsume_action
-question: "最適な技とターゲットを選択してください。"
+question: 相手のレパルダスが攻撃しようとしています。これを防ぐ最適な技を選択してください。
 tsumeData:
-  {
-    "playerSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
-    "opponentSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
-    "correctMoves": ["Rock Slide (Target: Clefable)"],
-  }
+  playerSide:
+    active:
+      - species: whimsicott
+        hpCurrent: 135
+        hpMax: 135
+        ability: prankster
+        moves:
+          - Moonblast
+          - Taunt
+          - Tailwind
+          - Protect
+  opponentSide:
+    active:
+      - species: liepard
+        hpCurrent: 140
+        hpMax: 140
+        moves:
+          - Foul Play
+          - Thunder Wave
+          - Encore
+          - Protect
+  correctMoves:
+    - Moonblast
 ---
 
-あくタイプの「いたずらごころ無効」は相手からの技だけでなく、味方からのサポート技（てだすけ、いばる等）にも適用され失敗します。
+あくタイプのポケモンは、相手から受ける「いたずらごころ」によって優先度が上がった変化技を無効化します。したがって、いたずらごころによる「ちょうはつ」はレパルダスには失敗してしまいます。安全にダメージを与えるためには、いたずらごころの対象外である攻撃技の「ムーンフォース」を選択する必要があります。

@@ -3,22 +3,29 @@ id: damage_multiplier_using_resisted_move
 difficulty: expert
 category: damage_calc
 format: choices
-question: "複合タイプの両方で半減できる技（例：くさ・むしタイプに対するくさ技）を受けた場合のダメージ倍率はいくつですか？"
+question: 複合タイプの両方で半減できる技（例：くさ・むしタイプに対するくさ技）を受けた場合のダメージ倍率はいくつですか？
 options:
-  - "0.25倍（両方のタイプの半減が掛け合わされるため）"
-  - "0.5倍（複合タイプの耐性は1段階までに制限されているため）"
-  - "0.25倍（ただし、攻撃側がタイプ一致技の場合は相殺されて0.5倍になる）"
-  - "0.125倍（タイプ一致ではない技に対する追加の耐性ペナルティが適用されるため）"
-correctAnswer: "0.25倍（両方のタイプの半減が掛け合わされるため）"
+  - 0.25倍（両方のタイプの半減が掛け合わされるため）
+  - 0.5倍（複合タイプの耐性は1段階までに制限されているため）
+  - 0.25倍（ただし、攻撃側がタイプ一致技の場合は相殺されて0.5倍になる）
+  - 0.125倍（タイプ一致ではない技に対する追加の耐性ペナルティが適用されるため）
+correctAnswer: 0.25倍（両方のタイプの半減が掛け合わされるため）
 practicalData:
-  {
-    "attacker":
-      { "species": "rotom-wash", "evs": "C32+", "item": "sitrus-berry", "nature": "modest" },
-    "defender": { "species": "scizor", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
-    "ally": { "species": "clefable" },
-    "opponentAlly": { "species": "tyranitar" },
-    "move": "Thunderbolt",
-  }
+  attacker:
+    species: rotom-wash
+    evs: C32+
+    item: sitrus-berry
+    nature: modest
+  defender:
+    species: scizor
+    evs: H32
+    item: lum-berry
+    nature: adamant
+  ally:
+    species: clefable
+  opponentAlly:
+    species: tyranitar
+  move: Thunderbolt
 ---
 
 両方のタイプで半減できるため、0.5 × 0.5 ＝ 0.25倍 になります。タイプ一致ボーナスなどは独立して計算され、タイプ相性を上書きすることはありません。

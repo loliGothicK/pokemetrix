@@ -3,22 +3,29 @@ id: parental_bond_second_hit_mega
 difficulty: advanced
 category: damage_calc
 format: choices
-question: "Does the parental bond second hit of Mega Kangaskhan have a modifier?"
+question: Does the parental bond second hit of Mega Kangaskhan have a modifier?
 options:
-  - "Yes, the second hit deals 25% damage."
-  - "No, it deals 100% damage."
-  - "It deals 1.5x damage."
-  - "It deals zero damage."
-correctAnswer: "Yes, the second hit deals 25% damage."
+  - 'Yes, the second hit deals 25% damage.'
+  - 'No, it deals 100% damage.'
+  - It deals 1.5x damage.
+  - It deals zero damage.
+correctAnswer: 'Yes, the second hit deals 25% damage.'
 practicalData:
-  {
-    "attacker":
-      { "species": "kangaskhan-mega", "evs": "A32+", "item": "kangaskhanite", "nature": "jolly" },
-    "defender": { "species": "garchomp", "evs": "H0", "item": "life-orb", "nature": "jolly" },
-    "ally": { "species": "gengar" },
-    "opponentAlly": { "species": "clefable" },
-    "move": "Return",
-  }
+  attacker:
+    species: kangaskhan-mega
+    evs: A32+
+    item: kangaskhanite
+    nature: jolly
+  defender:
+    species: garchomp
+    evs: H0
+    item: life-orb
+    nature: jolly
+  ally:
+    species: gengar
+  opponentAlly:
+    species: clefable
+  move: Return
 ---
 
 Parental Bond attacks twice. The second hit deals reduced damage.

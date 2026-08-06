@@ -3,20 +3,45 @@ id: anticipate_using_will-o-wisp_kangaskhan_safest
 difficulty: advanced
 category: tsume
 format: choices
-question: "相手がメガガルーラに対して「おにび」を撃ってくると予想しました。最も安全な対応はどれですか？"
+question: 相手がメガガルーラに対して「おにび」を撃ってくると予想しました。最も安全な対応はどれですか？
 options:
-  - "ウインディ（ほのお）に交代する"
-  - "ねこだましを撃つ"
-  - "ガブリアスに交代する"
-  - "おんがえしを撃つ"
-correctAnswer: "ウインディ（ほのお）に交代する"
+  - ウインディ（ほのお）に交代する
+  - ねこだましを撃つ
+  - ガブリアスに交代する
+  - おんがえしを撃つ
+correctAnswer: ウインディ（ほのお）に交代する
 tsumeData:
-  {
-    "playerSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 }],
-    "playerParty": [{ "species": "arcanine", "hpCurrent": 197, "hpMax": 197 }],
-    "opponentSide": [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135 }],
-    "correctMoves": ["Switch to Arcanine"],
-  }
+  playerSide:
+    active:
+      - species: kangaskhan-mega
+        hpCurrent: 212
+        hpMax: 212
+        moves:
+          - Fake Out
+          - Last Resort
+          - Double-Edge
+          - Ice Punch
+  playerParty:
+    - species: arcanine
+      hpCurrent: 197
+      hpMax: 197
+      moves:
+        - Flare Blitz
+        - Extreme Speed
+        - Protect
+        - Will-O-Wisp
+  opponentSide:
+    active:
+      - species: gengar
+        hpCurrent: 135
+        hpMax: 135
+        moves:
+          - Shadow Ball
+          - Protect
+          - Perish Song
+          - Sludge Bomb
+  correctMoves:
+    - Switch to Arcanine
 ---
 
 ほのおタイプのウインディに交代すれば、おにびを完全に無効化して無傷で盤面を作れます。

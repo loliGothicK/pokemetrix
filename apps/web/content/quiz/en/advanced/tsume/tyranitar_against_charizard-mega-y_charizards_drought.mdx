@@ -3,19 +3,38 @@ id: tyranitar_against_charizard-mega-y_charizards_drought
 difficulty: advanced
 category: tsume
 format: choices
-question: "Your Tyranitar is against a Mega Charizard Y. Charizard's Drought set Harsh Sunlight. If you switch Tyranitar out and back in, what happens?"
+question: >-
+  Your Tyranitar is against a Mega Charizard Y. Charizard's Drought set Harsh
+  Sunlight. If you switch Tyranitar out and back in, what happens?
 options:
-  - "Tyranitar's Sand Stream replaces the Sunlight with Sandstorm."
-  - "The weather stays Sunlight."
-  - "The weather becomes normal."
-  - "Tyranitar loses its ability."
-correctAnswer: "Tyranitar's Sand Stream replaces the Sunlight with Sandstorm."
+  - Tyranitar's Sand Stream replaces the Sunlight with Sandstorm.
+  - The weather stays Sunlight.
+  - The weather becomes normal.
+  - Tyranitar loses its ability.
+correctAnswer: Tyranitar's Sand Stream replaces the Sunlight with Sandstorm.
 tsumeData:
-  {
-    "playerSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
-    "opponentSide": [{ "species": "charizard-mega-y", "hpCurrent": 153, "hpMax": 153 }],
-    "correctMoves": ["Rock Slide"],
-  }
+  playerSide:
+    active:
+      - species: tyranitar
+        hpCurrent: 207
+        hpMax: 207
+        moves:
+          - Rock Slide
+          - Knock Off
+          - Protect
+          - Low Kick
+  opponentSide:
+    active:
+      - species: charizard-mega-y
+        hpCurrent: 153
+        hpMax: 153
+        moves:
+          - Protect
+          - Heat Wave
+          - Solar Beam
+          - Weather Ball
+  correctMoves:
+    - Rock Slide
 ---
 
 Abilities like Sand Stream activate every time the Pokémon enters the field, overriding the current weather.

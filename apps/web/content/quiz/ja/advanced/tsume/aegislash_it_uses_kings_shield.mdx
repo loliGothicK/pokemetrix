@@ -3,27 +3,36 @@ id: aegislash_it_uses_kings_shield
 difficulty: advanced
 category: tsume
 format: choices
-question: "相手のギルガルドが「キングシールド」を使用しました。どの技で攻撃すると、自分の攻撃が2段階下がってしまいますか？"
+question: 相手のギルガルドが「キングシールド」を使用しました。どの技で攻撃すると、自分の攻撃が2段階下がってしまいますか？
 options:
-  - "フレアドライブ（接触技）"
-  - "じしん（非接触技）"
-  - "ねっぷう（特殊技）"
-  - "シャドーボール（特殊技）"
-correctAnswer: "フレアドライブ（接触技）"
+  - フレアドライブ（接触技）
+  - じしん（非接触技）
+  - ねっぷう（特殊技）
+  - シャドーボール（特殊技）
+correctAnswer: フレアドライブ（接触技）
 tsumeData:
-  {
-    "playerSide":
-      [
-        {
-          "species": "arcanine",
-          "hpCurrent": 197,
-          "hpMax": 197,
-          "moves": ["Flare Blitz", "Will-O-Wisp"],
-        },
-      ],
-    "opponentSide": [{ "species": "aegislash-shield", "hpCurrent": 167, "hpMax": 167 }],
-    "correctMoves": ["Will-O-Wisp"],
-  }
+  playerSide:
+    active:
+      - species: arcanine
+        hpCurrent: 197
+        hpMax: 197
+        moves:
+          - Flare Blitz
+          - Extreme Speed
+          - Protect
+          - Will-O-Wisp
+  opponentSide:
+    active:
+      - species: aegislash-shield
+        hpCurrent: 167
+        hpMax: 167
+        moves:
+          - King's Shield
+          - Iron Head
+          - Shadow Sneak
+          - Poltergeist
+  correctMoves:
+    - Will-O-Wisp
 ---
 
 キングシールドは、攻撃を防ぎつつ「接触技」を当ててきた相手の攻撃を2段階下げる効果があります。

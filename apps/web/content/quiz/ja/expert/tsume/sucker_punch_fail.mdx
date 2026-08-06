@@ -3,45 +3,50 @@ id: sucker_punch_fail
 difficulty: expert
 category: tsume
 format: tsume_action
-question: "相手のメガガルーラはゲンガーに「ふいうち」を撃とうとしています。これを無効化しつつ、相手を機能停止させるための最適な行動を選択してください。"
+question: 相手のメガガルーラはゲンガーに「ふいうち」を撃とうとしています。これを無効化しつつ、相手を機能停止させるための最適な行動を選択してください。
 tsumeData:
-  {
-    "playerSide":
-      [
-        {
-          "species": "gengar",
-          "hpCurrent": 135,
-          "hpMax": 135,
-          "item": "focus-sash",
-          "moves": ["Sludge Bomb", "Shadow Ball", "Will-O-Wisp", "Protect"],
-        },
-        {
-          "species": "clefable",
-          "hpCurrent": 202,
-          "hpMax": 202,
-          "item": "sitrus-berry",
-          "moves": ["Follow Me", "Moonblast"],
-        },
-      ],
-    "opponentSide":
-      [
-        {
-          "species": "kangaskhan-mega",
-          "hpCurrent": 212,
-          "hpMax": 212,
-          "item": "kangaskhanite",
-          "moves": ["Return", "Sucker Punch"],
-        },
-        {
-          "species": "garchomp",
-          "hpCurrent": 183,
-          "hpMax": 183,
-          "item": "life-orb",
-          "moves": ["Earthquake", "Protect", "Substitute"],
-        },
-      ],
-    "correctMoves": ["Will-O-Wisp (Target: Kangaskhan)"],
-  }
+  playerSide:
+    active:
+      - species: gengar
+        hpCurrent: 135
+        hpMax: 135
+        item: focus-sash
+        moves:
+          - Shadow Ball
+          - Protect
+          - Will-O-Wisp
+          - Sludge Bomb
+      - species: clefable
+        hpCurrent: 202
+        hpMax: 202
+        item: sitrus-berry
+        moves:
+          - Follow Me
+          - Moonblast
+          - Protect
+          - Life Dew
+  opponentSide:
+    active:
+      - species: kangaskhan-mega
+        hpCurrent: 212
+        hpMax: 212
+        item: kangaskhanite
+        moves:
+          - Fake Out
+          - Last Resort
+          - Double-Edge
+          - Ice Punch
+      - species: garchomp
+        hpCurrent: 183
+        hpMax: 183
+        item: life-orb
+        moves:
+          - Dragon Claw
+          - Earthquake
+          - Rock Slide
+          - Protect
+  correctMoves:
+    - 'Will-O-Wisp (Target: Kangaskhan-Mega)'
 ---
 
 「ふいうち」は、相手が攻撃技を選択していないと失敗する仕様があります。「おにび」や「まもる」などの変化技を選択している相手に対しては無効化されてしまいます。

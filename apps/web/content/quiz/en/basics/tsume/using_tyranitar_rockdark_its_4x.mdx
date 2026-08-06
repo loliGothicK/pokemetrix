@@ -3,20 +3,36 @@ id: using_tyranitar_rockdark_its_4x
 difficulty: basics
 category: tsume
 format: choices
-question: "Opponent is using Tyranitar (Rock/Dark). What is its 4x weakness?"
+question: Opponent is using Tyranitar (Rock/Dark). What is its 4x weakness?
 options:
-  - "Fighting"
-  - "Water"
-  - "Ground"
-  - "Bug"
-correctAnswer: "Fighting"
+  - Fighting
+  - Water
+  - Ground
+  - Bug
+correctAnswer: Fighting
 tsumeData:
-  {
-    "playerSide":
-      [{ "species": "scizor", "hpCurrent": 175, "hpMax": 175, "moves": ["Superpower", "Protect", "Substitute"] }],
-    "opponentSide": [{ "species": "tyranitar", "hpCurrent": 207, "hpMax": 207 }],
-    "correctMoves": ["Superpower"],
-  }
+  playerSide:
+    active:
+      - species: scizor
+        hpCurrent: 175
+        hpMax: 175
+        moves:
+          - Bullet Punch
+          - Protect
+          - Bug Bite
+          - Swords Dance
+  opponentSide:
+    active:
+      - species: tyranitar
+        hpCurrent: 207
+        hpMax: 207
+        moves:
+          - Rock Slide
+          - Knock Off
+          - Protect
+          - Low Kick
+  correctMoves:
+    - Superpower
 ---
 
 Both Rock and Dark are weak to Fighting, making Tyranitar 4x weak to Fighting moves.

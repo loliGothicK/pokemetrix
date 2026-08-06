@@ -3,21 +3,29 @@ id: hit_with_spread_move_075x
 difficulty: expert
 category: damage_calc
 format: choices
-question: "全体技を撃つ直前に相手の1体が倒れ、相手の場が1体だけになった場合、その技の威力補正はどうなりますか？"
+question: 全体技を撃つ直前に相手の1体が倒れ、相手の場が1体だけになった場合、その技の威力補正はどうなりますか？
 options:
-  - "1.0倍（ダメージ計算時に単体対象となるため）"
-  - "0.75倍（技を選択した時点で補正が固定されるため）"
-  - "0.5倍（対象が1体減ることで全体への分散ダメージが半減するため）"
-  - "1.5倍（2体分のダメージが1体に集中するため）"
-correctAnswer: "1.0倍（ダメージ計算時に単体対象となるため）"
+  - 1.0倍（ダメージ計算時に単体対象となるため）
+  - 0.75倍（技を選択した時点で補正が固定されるため）
+  - 0.5倍（対象が1体減ることで全体への分散ダメージが半減するため）
+  - 1.5倍（2体分のダメージが1体に集中するため）
+correctAnswer: 1.0倍（ダメージ計算時に単体対象となるため）
 practicalData:
-  {
-    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
-    "defender": { "species": "garchomp", "evs": "H0", "item": "focus-sash", "nature": "jolly" },
-    "ally": { "species": "clefable" },
-    "opponentAlly": { "species": "arcanine" },
-    "move": "Hyper Voice",
-  }
+  attacker:
+    species: sylveon
+    evs: C32+
+    item: life-orb
+    nature: modest
+  defender:
+    species: garchomp
+    evs: H0
+    item: focus-sash
+    nature: jolly
+  ally:
+    species: clefable
+  opponentAlly:
+    species: arcanine
+  move: Hyper Voice
 ---
 
 技が命中する時点で対象が1体のみであれば、全体技の威力減少ペナルティは適用されず1.0倍のダメージになります。

@@ -3,21 +3,29 @@ id: ability_pixilate_affect_normal-type_moves
 difficulty: expert
 category: damage_calc
 format: choices
-question: "特性「フェアリースキン」はノーマルタイプの技にどのような影響を与えますか？"
+question: 特性「フェアリースキン」はノーマルタイプの技にどのような影響を与えますか？
 options:
-  - "フェアリータイプになり、威力が1.2倍になる。"
-  - "フェアリータイプになり、威力が1.3倍になる。"
-  - "フェアリータイプになり、タイプ一致と同等の1.5倍の補正がかかる。"
-  - "技にフェアリータイプが追加され、ノーマルとフェアリーの複合ダメージになる。"
-correctAnswer: "フェアリータイプになり、威力が1.2倍になる。"
+  - フェアリータイプになり、威力が1.2倍になる。
+  - フェアリータイプになり、威力が1.3倍になる。
+  - フェアリータイプになり、タイプ一致と同等の1.5倍の補正がかかる。
+  - 技にフェアリータイプが追加され、ノーマルとフェアリーの複合ダメージになる。
+correctAnswer: フェアリータイプになり、威力が1.2倍になる。
 practicalData:
-  {
-    "attacker": { "species": "sylveon", "evs": "C32+", "item": "life-orb", "nature": "modest" },
-    "defender": { "species": "scizor", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
-    "ally": { "species": "arcanine" },
-    "opponentAlly": { "species": "gengar" },
-    "move": "Hyper Voice",
-  }
+  attacker:
+    species: sylveon
+    evs: C32+
+    item: life-orb
+    nature: modest
+  defender:
+    species: scizor
+    evs: H32
+    item: lum-berry
+    nature: adamant
+  ally:
+    species: arcanine
+  opponentAlly:
+    species: gengar
+  move: Hyper Voice
 ---
 
 スキン系特性はノーマルタイプの技をフェアリータイプに変化させ、さらに威力を1.2倍（第7世代以降）にします。

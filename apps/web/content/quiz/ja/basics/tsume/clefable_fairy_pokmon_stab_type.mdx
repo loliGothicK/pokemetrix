@@ -3,20 +3,36 @@ id: clefable_fairy_pokmon_stab_type
 difficulty: basics
 category: tsume
 format: choices
-question: "相手の場にピクシー（フェアリー）がいます。タイプ一致で弱点を突ける味方ポケモンは誰ですか？"
+question: 相手の場にピクシー（フェアリー）がいます。タイプ一致で弱点を突ける味方ポケモンは誰ですか？
 options:
-  - "ゲンガー（どく/ゴースト）"
-  - "ガブリアス（ドラゴン/じめん）"
-  - "バンギラス（いわ/あく）"
-  - "ウォッシュロトム（でんき/みず）"
-correctAnswer: "ゲンガー（どく/ゴースト）"
+  - ゲンガー（どく/ゴースト）
+  - ガブリアス（ドラゴン/じめん）
+  - バンギラス（いわ/あく）
+  - ウォッシュロトム（でんき/みず）
+correctAnswer: ゲンガー（どく/ゴースト）
 tsumeData:
-  {
-    "playerSide":
-      [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135, "moves": ["Sludge Bomb", "Protect", "Substitute"] }],
-    "opponentSide": [{ "species": "clefable", "hpCurrent": 202, "hpMax": 202 }],
-    "correctMoves": ["Sludge Bomb"],
-  }
+  playerSide:
+    active:
+      - species: gengar
+        hpCurrent: 135
+        hpMax: 135
+        moves:
+          - Shadow Ball
+          - Protect
+          - Perish Song
+          - Sludge Bomb
+  opponentSide:
+    active:
+      - species: clefable
+        hpCurrent: 202
+        hpMax: 202
+        moves:
+          - Follow Me
+          - Moonblast
+          - Protect
+          - Life Dew
+  correctMoves:
+    - Sludge Bomb
 ---
 
 フェアリータイプの弱点は「どく」と「はがね」です。どくタイプを持つゲンガーが有利です。

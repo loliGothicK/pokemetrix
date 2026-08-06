@@ -3,21 +3,29 @@ id: attack_guaranteed_critical_hit_but
 difficulty: master
 category: damage_calc
 format: choices
-question: "自身の攻撃ランクが -2 の状態で急所に当てた場合、最終的なダメージはどうなりますか？"
+question: 自身の攻撃ランクが -2 の状態で急所に当てた場合、最終的なダメージはどうなりますか？
 options:
-  - "通常時の1.5倍"
-  - "通常時の0.75倍"
-  - "通常時と同じ（1.0倍）"
-  - "通常時の2.0倍"
-correctAnswer: "通常時の1.5倍"
+  - 通常時の1.5倍
+  - 通常時の0.75倍
+  - 通常時と同じ（1.0倍）
+  - 通常時の2.0倍
+correctAnswer: 通常時の1.5倍
 practicalData:
-  {
-    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
-    "defender": { "species": "clefable", "evs": "H32", "item": "sitrus-berry", "nature": "bold" },
-    "ally": { "species": "arcanine" },
-    "opponentAlly": { "species": "kangaskhan-mega" },
-    "move": "Earthquake",
-  }
+  attacker:
+    species: garchomp
+    evs: A32+
+    item: life-orb
+    nature: jolly
+  defender:
+    species: clefable
+    evs: H32
+    item: sitrus-berry
+    nature: bold
+  ally:
+    species: arcanine
+  opponentAlly:
+    species: kangaskhan-mega
+  move: Earthquake
 ---
 
 急所は「自分にとって不利なランク変化（-2など）」を全て無視するため、そのまま基本ダメージの1.5倍を与えます。

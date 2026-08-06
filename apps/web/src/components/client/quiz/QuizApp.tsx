@@ -30,6 +30,8 @@ import { TsumeActionFormat } from "./formats/TsumeActionFormat";
 
 interface QuizAppProps {
   initialQuestions: QuizQuestion[];
+  directPlay?: boolean;
+  onReturnToMenu?: () => void;
 }
 
 type QuizMode = "menu" | "playing" | "results";
@@ -38,15 +40,15 @@ type Difficulty = "basics" | "advanced" | "expert" | "master";
 
 type MenuStep = "category" | "difficulty";
 
-export function QuizApp({ initialQuestions }: QuizAppProps) {
+export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAppProps) {
   const { t, i18n } = useTranslation();
 
-  const [mode, setMode] = useState<QuizMode>("menu");
+  const [mode, setMode] = useState<QuizMode>(directPlay ? "playing" : "menu");
   const [menuStep, setMenuStep] = useState<MenuStep>("difficulty");
   const [selectedCategory, setSelectedCategory] = useState<UICategory | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null);
 
-  const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>([]);
+  const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>(directPlay ? initialQuestions : []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
   const [tsumeActions, setTsumeActions] = useState<string[]>([]);
@@ -76,11 +78,13 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
     return initialQuestions.filter((q) => q.locale === currentLang);
   }, [initialQuestions, currentLang]);
 
-  // Restart if language changes during play
+  // Restart if language changes during play (only if not in direct play)
   useEffect(() => {
-    setMode("menu");
-    setMenuStep("difficulty");
-  }, [currentLang]);
+    if (!directPlay) {
+      setMode("menu");
+      setMenuStep("difficulty");
+    }
+  }, [currentLang, directPlay]);
 
   const categories: { id: UICategory; icon: React.ReactNode; color: string }[] = [
     { id: "academic", icon: <MenuBookIcon sx={{ fontSize: 60 }} />, color: "#4facfe" },
@@ -439,9 +443,9 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                   variant="subtitle2"
                   color="primary"
                   gutterBottom
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", display: "flex", justifyContent: "space-between" }}
                 >
-                  {t("quiz.boardState")}
+                  <span>{t("quiz.boardState")}</span>
                 </Typography>
                 <Stack
                   spacing={3}
@@ -452,7 +456,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                     <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.yourActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.playerSide.map((poke: TsumePokemon, i: number) => (
+                    {activeQuestion.tsumeData.playerSide.active.map((poke: TsumePokemon, i: number) => (
                       <Box
                         key={i}
                         sx={{
@@ -481,6 +485,22 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                             {t("quiz.item")}: {poke.item}
                           </Typography>
                         )}
+                        {poke.ability && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            Ability: {poke.ability}
+                          </Typography>
+                        )}
+                        {poke.stats?.spe && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            Speed: {poke.stats.spe}
+                          </Typography>
+                        )}
                         {poke.status && (
                           <Typography
                             variant="caption"
@@ -490,14 +510,56 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                             {poke.status.toUpperCase()}
                           </Typography>
                         )}
+                        {poke.volatiles && poke.volatiles.length > 0 && (
+                          <Typography
+                            variant="caption"
+                            color="info.main"
+                            sx={{ display: "block" }}
+                          >
+                            {poke.volatiles.join(", ")}
+                          </Typography>
+                        )}
                       </Box>
                     ))}
+                    {activeQuestion.tsumeData.playerSide.bench && activeQuestion.tsumeData.playerSide.bench.length > 0 && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}>
+                          Bench
+                        </Typography>
+                        {activeQuestion.tsumeData.playerSide.bench.map((poke: TsumePokemon, i: number) => (
+                          <Box
+                            key={i}
+                            sx={{
+                              mb: 1,
+                              p: 1,
+                              bgcolor: "background.paper",
+                              borderRadius: 1,
+                              border: "1px dashed",
+                              borderColor: "divider",
+                              opacity: 0.8,
+                            }}
+                          >
+                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                              {getPokemonName(poke.species)}
+                            </Typography>
+                            {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
+                              <Typography
+                                variant="caption"
+                                sx={{ display: "block", color: "text.secondary" }}
+                              >
+                                HP: {poke.hpCurrent} / {poke.hpMax}
+                              </Typography>
+                            )}
+                          </Box>
+                        ))}
+                      </Box>
+                    )}
                   </Box>
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.opponentActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.opponentSide.map((poke: TsumePokemon, i: number) => (
+                    {activeQuestion.tsumeData.opponentSide.active.map((poke: TsumePokemon, i: number) => (
                       <Box
                         key={i}
                         sx={{
@@ -526,6 +588,22 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                             {t("quiz.item")}: {poke.item}
                           </Typography>
                         )}
+                        {poke.ability && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            Ability: {poke.ability}
+                          </Typography>
+                        )}
+                        {poke.stats?.spe && (
+                          <Typography
+                            variant="caption"
+                            sx={{ display: "block", color: "text.secondary" }}
+                          >
+                            Speed: {poke.stats.spe}
+                          </Typography>
+                        )}
                         {poke.status && (
                           <Typography
                             variant="caption"
@@ -535,8 +613,50 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
                             {poke.status.toUpperCase()}
                           </Typography>
                         )}
+                        {poke.volatiles && poke.volatiles.length > 0 && (
+                          <Typography
+                            variant="caption"
+                            color="info.main"
+                            sx={{ display: "block" }}
+                          >
+                            {poke.volatiles.join(", ")}
+                          </Typography>
+                        )}
                       </Box>
                     ))}
+                    {activeQuestion.tsumeData.opponentSide.bench && activeQuestion.tsumeData.opponentSide.bench.length > 0 && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}>
+                          Bench
+                        </Typography>
+                        {activeQuestion.tsumeData.opponentSide.bench.map((poke: TsumePokemon, i: number) => (
+                          <Box
+                            key={i}
+                            sx={{
+                              mb: 1,
+                              p: 1,
+                              bgcolor: "background.paper",
+                              borderRadius: 1,
+                              border: "1px dashed",
+                              borderColor: "divider",
+                              opacity: 0.8,
+                            }}
+                          >
+                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                              {getPokemonName(poke.species)}
+                            </Typography>
+                            {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
+                              <Typography
+                                variant="caption"
+                                sx={{ display: "block", color: "text.secondary" }}
+                              >
+                                HP: {poke.hpCurrent} / {poke.hpMax}
+                              </Typography>
+                            )}
+                          </Box>
+                        ))}
+                      </Box>
+                    )}
                   </Box>
                 </Stack>
                 {activeQuestion.tsumeData.field && (
@@ -670,7 +790,18 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
         )}
       </Box>
     );
-  }
+  };
+
+  const handleReturnMenu = () => {
+    if (onReturnToMenu) {
+      onReturnToMenu();
+    } else {
+      setMode("menu");
+      setMenuStep("difficulty");
+      setSelectedCategory(null);
+      setSelectedDifficulty(null);
+    }
+  };
 
   if (mode === "results") {
     const rankKey = getRankKey(score, sessionQuestions.length);
@@ -694,7 +825,7 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
             {t("quiz.results")}
           </Typography>
           <Typography variant="h6" sx={{ opacity: 0.8 }} gutterBottom>
-            {t(`quiz.category.${selectedCategory}`)} - {t(`quiz.difficulty.${selectedDifficulty}`)}
+            {selectedCategory && t(`quiz.category.${selectedCategory}`)} - {selectedDifficulty && t(`quiz.difficulty.${selectedDifficulty}`)}
           </Typography>
 
           <Box sx={{ my: 4, position: "relative" }}>
@@ -757,10 +888,10 @@ export function QuizApp({ initialQuestions }: QuizAppProps) {
           <Box sx={{ mt: 2 }}>
             <Button
               variant="text"
-              onClick={handleBackToMenu}
+              onClick={handleReturnMenu}
               sx={{ color: "#fff", opacity: 0.7, "&:hover": { opacity: 1 } }}
             >
-              {t("common.backToMenu")}
+              {t("quiz.backToMenu")}
             </Button>
           </Box>
         </Paper>

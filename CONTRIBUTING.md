@@ -125,42 +125,68 @@ prerequisites: []
 ダメージ計算の状況を定義するために `practicalData` を追加します。
 
 ```yaml
-practicalData: {
-  "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "adamant" },
-  "defender": { "species": "tyranitar", "evs": "H32", "item": "expert-belt", "nature": "adamant" },
-  "ally": { "species": "rotom-wash", "item": "sitrus-berry" },
-  "opponentAlly": { "species": "gengar", "item": "focus-sash" },
-  "move": "earthquake"
-}
+practicalData:
+  attacker:
+    species: garchomp
+    evs: A32+
+    item: life-orb
+    nature: adamant
+  defender:
+    species: tyranitar
+    evs: H32
+    item: expert-belt
+    nature: adamant
+  ally:
+    species: rotom-wash
+    item: sitrus-berry
+  opponentAlly:
+    species: gengar
+    item: focus-sash
+  move: earthquake
 ```
 
 ### `tsume` の場合 (`tsumeData`)
 フィールド状況やポケモンの状態を定義するために `tsumeData` を追加します。
 
 ```yaml
-tsumeData: {
-  "field": { "weather": "rain" },
-  "playerSide": [
-    { "species": "scizor-mega", "hpCurrent": 145, "hpMax": 145, "moves": ["bullet-punch", "close-combat", "sword-dance", "protect"], "item": "scizorite" },
-    { "species": "azmarill", "hpCurrent": 175, "hpMax": 175, "item": "sitrus-berry" }
-  ],
-  "opponentSide": [
-    { "species": "staraptor-mega", "hpCurrent": 40, "hpMax": 160 },
-    { "species": "tyranitar", "hpCurrent": 175, "hpMax": 175 }
-  ],
-  "correctMoves": ["Bullet Punch + Aqua Jet"]
-}
+tsumeData:
+  field:
+    weather: rain
+  playerSide:
+    active:
+      - species: scizor-mega
+        hpCurrent: 145
+        hpMax: 145
+        moves:
+          - bullet-punch
+          - close-combat
+          - sword-dance
+          - protect
+        item: scizorite
+      - species: azumarill
+        hpCurrent: 175
+        hpMax: 175
+        item: sitrus-berry
+  opponentSide:
+    active:
+      - species: staraptor-mega
+        hpCurrent: 40
+        hpMax: 160
+      - species: tyranitar
+        hpCurrent: 175
+        hpMax: 175
+  correctMoves:
+    - Bullet Punch + Aqua Jet
 ```
 
 ### `speed_compare` の場合 (`speedCompareData`)
 素早さ比較の状況を定義するために `speedCompareData` を追加します（オプション）。
 
 ```yaml
-speedCompareData: {
-  "pokemonA": "garchomp",
-  "pokemonB": "delphox-mega",
-  "context": "ガブリアスは S32 こだわりスカーフ、メガマフォクシーは S32+"
-}
+speedCompareData:
+  pokemonA: garchomp
+  pokemonB: delphox-mega
+  context: ガブリアスは S32 こだわりスカーフ、メガマフォクシーは S32+
 ```
 
 **プロパティ詳細:**

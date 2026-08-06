@@ -3,21 +3,32 @@ id: helping_hand
 difficulty: advanced
 category: damage_calc
 format: choices
-question: "ニンフィアが全体技の「ハイパーボイス」を使います。その際、味方のピクシーがニンフィアに「てだすけ」を使いました。「ハイパーボイス」の最終的な威力補正はどうなりますか？"
+question: >-
+  ニンフィアが全体技の「ハイパーボイス」を使います。その際、味方のピクシーがニンフィアに「てだすけ」を使いました。「ハイパーボイス」の最終的な威力補正はどうなりますか？
 options:
-  - "0.75倍"
-  - "1.125倍 (75% * 1.5)"
-  - "1.5倍"
-  - "1.0倍"
-correctAnswer: "1.125倍 (75% * 1.5)"
+  - 0.75倍
+  - 1.125倍 (75% * 1.5)
+  - 1.5倍
+  - 1.0倍
+correctAnswer: 1.125倍 (75% * 1.5)
 practicalData:
-  {
-    "attacker": { "species": "sylveon", "evs": "C32+", "item": "expert-belt", "nature": "modest" },
-    "defender": { "species": "garchomp", "evs": "H0 D0", "item": "focus-sash", "nature": "jolly" },
-    "ally": { "species": "clefable", "item": "sitrus-berry" },
-    "opponentAlly": { "species": "gyarados", "item": "lum-berry" },
-    "move": "Hyper Voice",
-  }
+  attacker:
+    species: sylveon
+    evs: C32+
+    item: expert-belt
+    nature: modest
+  defender:
+    species: garchomp
+    evs: H0 D0
+    item: focus-sash
+    nature: jolly
+  ally:
+    species: clefable
+    item: sitrus-berry
+  opponentAlly:
+    species: gyarados
+    item: lum-berry
+  move: Hyper Voice
 ---
 
 まず「ハイパーボイス」は全体技なので威力が0.75倍になります。そこに「てだすけ」の1.5倍補正が乗るため、最終的な補正は `0.75 × 1.5 = 1.125` となります。てだすけを乗せた全体技は、本来の単体威力よりもわずかに高くなります！

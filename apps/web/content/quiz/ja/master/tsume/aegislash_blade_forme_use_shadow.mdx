@@ -3,21 +3,30 @@ id: aegislash_blade_forme_use_shadow
 difficulty: master
 category: tsume
 format: tsume_action
-question: "最適な技とターゲットを選択してください。"
+question: 最適な技とターゲットを選択してください。
 tsumeData:
-  {
-    "playerSide":
-      [
-        {
-          "species": "aegislash-shield",
-          "hpCurrent": 167,
-          "hpMax": 167,
-          "moves": ["Shadow Sneak", "Protect", "Substitute"],
-        },
-      ],
-    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
-    "correctMoves": ["Shadow Sneak (Target: Garchomp)"],
-  }
+  playerSide:
+    active:
+      - species: aegislash-blade
+        hpCurrent: 167
+        hpMax: 167
+        moves:
+          - King's Shield
+          - Iron Head
+          - Shadow Sneak
+          - Poltergeist
+  opponentSide:
+    active:
+      - species: garchomp
+        hpCurrent: 1
+        hpMax: 183
+        moves:
+          - Dragon Claw
+          - Earthquake
+          - Rock Slide
+          - Protect
+  correctMoves:
+    - 'Shadow Sneak (Target: Garchomp)'
 ---
 
 キングシールドを使うか交代しない限り、ギルガルドは耐久の低いブレードフォルムのまま場に残ります。

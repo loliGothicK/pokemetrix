@@ -3,22 +3,29 @@ id: item_prevents_pokmon_from_being
 difficulty: basics
 category: damage_calc
 format: choices
-question: "HPが満タンの時に、一撃で倒される技を受けても必ずHPが1残るアイテムはどれですか？"
+question: HPが満タンの時に、一撃で倒される技を受けても必ずHPが1残るアイテムはどれですか？
 options:
-  - "きあいのタスキ"
-  - "きあいのハチマキ"
-  - "ゴツゴツメット"
-  - "オボンのみ"
-correctAnswer: "きあいのタスキ"
+  - きあいのタスキ
+  - きあいのハチマキ
+  - ゴツゴツメット
+  - オボンのみ
+correctAnswer: きあいのタスキ
 practicalData:
-  {
-    "attacker":
-      { "species": "charizard-mega-y", "evs": "C32+", "item": "charizardite-y", "nature": "timid" },
-    "defender": { "species": "gengar", "evs": "H0", "item": "focus-sash", "nature": "timid" },
-    "ally": { "species": "garchomp" },
-    "opponentAlly": { "species": "arcanine" },
-    "move": "Overheat",
-  }
+  attacker:
+    species: charizard-mega-y
+    evs: C32+
+    item: charizardite-y
+    nature: timid
+  defender:
+    species: gengar
+    evs: H0
+    item: focus-sash
+    nature: timid
+  ally:
+    species: garchomp
+  opponentAlly:
+    species: arcanine
+  move: Overheat
 ---
 
 きあいのタスキは、HPが最大の時に発動し必ず1残して耐えることができます。

@@ -3,23 +3,29 @@ id: reflect_and_light_screen_reduce
 difficulty: expert
 category: damage_calc
 format: choices
-question: "ダブルバトルにおいて「リフレクター」や「ひかりのかべ」のダメージ軽減率はいくつですか？"
+question: ダブルバトルにおいて「リフレクター」や「ひかりのかべ」のダメージ軽減率はいくつですか？
 options:
-  - "約33%軽減（0.66倍）"
-  - "50%軽減（0.5倍）"
-  - "25%軽減（0.75倍）"
-  - "無効化"
-correctAnswer: "約33%軽減（0.66倍）"
+  - 約33%軽減（0.66倍）
+  - 50%軽減（0.5倍）
+  - 25%軽減（0.75倍）
+  - 無効化
+correctAnswer: 約33%軽減（0.66倍）
 practicalData:
-  {
-    "attacker":
-      { "species": "rotom-wash", "evs": "C32+", "item": "sitrus-berry", "nature": "modest" },
-    "defender":
-      { "species": "kangaskhan-mega", "evs": "H0", "item": "kangaskhanite", "nature": "jolly" },
-    "ally": { "species": "clefable" },
-    "opponentAlly": { "species": "gengar" },
-    "move": "Hydro Pump",
-  }
+  attacker:
+    species: rotom-wash
+    evs: C32+
+    item: sitrus-berry
+    nature: modest
+  defender:
+    species: kangaskhan-mega
+    evs: H0
+    item: kangaskhanite
+    nature: jolly
+  ally:
+    species: clefable
+  opponentAlly:
+    species: gengar
+  move: Hydro Pump
 ---
 
 シングルではダメージが半分になりますが、ダブルでは2/3（0.66倍）に軽減されます。

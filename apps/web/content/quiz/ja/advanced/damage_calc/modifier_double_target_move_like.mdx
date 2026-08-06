@@ -3,21 +3,29 @@ id: modifier_double_target_move_like
 difficulty: advanced
 category: damage_calc
 format: choices
-question: "「じしん」のような自分以外全員に当たる技の威力補正はどうなりますか？"
+question: 「じしん」のような自分以外全員に当たる技の威力補正はどうなりますか？
 options:
-  - "0.75倍"
-  - "0.5倍"
-  - "1.0倍"
-  - "0.66倍"
-correctAnswer: "0.75倍"
+  - 0.75倍
+  - 0.5倍
+  - 1.0倍
+  - 0.66倍
+correctAnswer: 0.75倍
 practicalData:
-  {
-    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
-    "defender": { "species": "tyranitar", "evs": "H32", "item": "lum-berry", "nature": "adamant" },
-    "ally": { "species": "rotom-wash" },
-    "opponentAlly": { "species": "arcanine" },
-    "move": "Earthquake",
-  }
+  attacker:
+    species: garchomp
+    evs: A32+
+    item: life-orb
+    nature: jolly
+  defender:
+    species: tyranitar
+    evs: H32
+    item: lum-berry
+    nature: adamant
+  ally:
+    species: rotom-wash
+  opponentAlly:
+    species: arcanine
+  move: Earthquake
 ---
 
 味方を含め複数の対象に当たる技は、対象ごとに威力が0.75倍になります。

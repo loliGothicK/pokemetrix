@@ -3,13 +3,30 @@ id: opponents_kangaskhan_used_fake_out
 difficulty: expert
 category: tsume
 format: tsume_action
-question: "Select the optimal moves and targets to secure the win."
+question: Select the optimal moves and targets to secure the win.
 tsumeData:
-  {
-    "playerSide": [{ "species": "gengar", "hpCurrent": 135, "hpMax": 135 }],
-    "opponentSide": [{ "species": "kangaskhan-mega", "hpCurrent": 212, "hpMax": 212 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
-    "correctMoves": ["Sludge Bomb (Target: Kangaskhan-Mega)"],
-  }
+  playerSide:
+    active:
+      - species: gengar
+        hpCurrent: 135
+        hpMax: 135
+        moves:
+          - Shadow Ball
+          - Protect
+          - Perish Song
+          - Sludge Bomb
+  opponentSide:
+    active:
+      - species: kangaskhan-mega
+        hpCurrent: 212
+        hpMax: 212
+        moves:
+          - Fake Out
+          - Last Resort
+          - Double-Edge
+          - Ice Punch
+  correctMoves:
+    - 'Sludge Bomb (Target: Kangaskhan-Mega)'
 ---
 
 Fake Out strictly fails if used on any turn other than the user's first turn on the field. In modern games, you cannot even select Fake Out after the first turn, but if forced to use it via Encore, it will simply fail.

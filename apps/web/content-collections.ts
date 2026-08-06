@@ -83,11 +83,14 @@ const docs = defineCollection({
 
 const tsumePokemonSchema = z.object({
   species: z.string(),
-  hpCurrent: z.number(),
-  hpMax: z.number(),
+  hpCurrent: z.number().optional(), // Make optional if some puzzles don't strictly require HP to be tracked
+  hpMax: z.number().optional(),
+  stats: z.object({ spe: z.number().optional() }).optional(),
   moves: z.array(z.string()).optional(),
   item: z.string().optional(),
+  ability: z.string().optional(),
   status: z.string().optional(),
+  volatiles: z.array(z.string()).optional(),
 });
 
 const practicalDataSchema = z.object({
@@ -126,10 +129,14 @@ const practicalDataSchema = z.object({
     .optional(),
 });
 
+const tsumeSideSchema = z.object({
+  active: z.array(tsumePokemonSchema),
+  bench: z.array(tsumePokemonSchema).optional(),
+});
+
 const tsumeDataSchema = z.object({
-  playerSide: z.array(tsumePokemonSchema),
-  opponentSide: z.array(tsumePokemonSchema),
-  playerParty: z.array(tsumePokemonSchema).optional(),
+  playerSide: tsumeSideSchema,
+  opponentSide: tsumeSideSchema,
   field: z
     .object({
       weather: z.string().optional(),
@@ -150,6 +157,7 @@ const quizzes = defineCollection({
       difficulty: z.enum(["basics", "advanced", "expert", "master"]),
       category: z.enum(["academic", "damage_calc", "tsume"]),
       format: z.enum(["choices", "multi_select", "ordering", "grouping", "one_way", "input", "tsume_action"]),
+      generation: z.number().optional(),
       question: z.string(),
       options: z.array(z.string()).optional(),
 
@@ -161,7 +169,7 @@ const quizzes = defineCollection({
 
       prerequisites: z.array(z.string()).default([]),
       practicalData: practicalDataSchema.optional(),
-      tsumeData: tsumeDataSchema.optional(),
+      tsumeData: z.optional(tsumeDataSchema),
       content: z.string(),
     })
     // Refinement 1: Answer field must be present and correct for the format

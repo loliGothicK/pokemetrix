@@ -3,21 +3,31 @@ id: attack_guaranteed_critical_hit_but
 difficulty: master
 category: damage_calc
 format: choices
-question: "If an attack has a guaranteed critical hit but you are at -2 Attack, how much damage do you deal compared to normal?"
+question: >-
+  If an attack has a guaranteed critical hit but you are at -2 Attack, how much
+  damage do you deal compared to normal?
 options:
-  - "1.5x"
-  - "0.75x"
-  - "1.0x"
-  - "2.0x"
-correctAnswer: "1.5x"
+  - 1.5x
+  - 0.75x
+  - 1.0x
+  - 2.0x
+correctAnswer: 1.5x
 practicalData:
-  {
-    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
-    "defender": { "species": "clefable", "evs": "H32", "item": "sitrus-berry", "nature": "bold" },
-    "ally": { "species": "arcanine" },
-    "opponentAlly": { "species": "kangaskhan-mega" },
-    "move": "Earthquake",
-  }
+  attacker:
+    species: garchomp
+    evs: A32+
+    item: life-orb
+    nature: jolly
+  defender:
+    species: clefable
+    evs: H32
+    item: sitrus-berry
+    nature: bold
+  ally:
+    species: arcanine
+  opponentAlly:
+    species: kangaskhan-mega
+  move: Earthquake
 ---
 
 Critical hits ignore your own negative stat drops. So -2 Attack is ignored, and the crit multiplier (1.5x) applies to your base stat.

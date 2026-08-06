@@ -3,14 +3,30 @@ id: rotom-wash_levitate_uses_gravity_happens
 difficulty: expert
 category: tsume
 format: tsume_action
-question: "最適な技とターゲットを選択してください。"
+question: 最適な技とターゲットを選択してください。
 tsumeData:
-  {
-    "playerSide":
-      [{ "species": "rotom-wash", "hpCurrent": 157, "hpMax": 157, "moves": ["Hydro Pump", "Protect", "Substitute"] }],
-    "opponentSide": [{ "species": "garchomp", "hpCurrent": 183, "hpMax": 183 , "moves": ["Protect", "Substitute", "Hidden Power"] }],
-    "correctMoves": ["Hydro Pump (Target: Garchomp)"],
-  }
+  playerSide:
+    active:
+      - species: rotom-wash
+        hpCurrent: 157
+        hpMax: 157
+        moves:
+          - Hydro Pump
+          - Thunderbolt
+          - Will-O-Wisp
+          - Protect
+  opponentSide:
+    active:
+      - species: garchomp
+        hpCurrent: 183
+        hpMax: 183
+        moves:
+          - Dragon Claw
+          - Earthquake
+          - Rock Slide
+          - Protect
+  correctMoves:
+    - 'Hydro Pump (Target: Garchomp)'
 ---
 
 じゅうりょく状態では、すべての飛行タイプや「ふゆう」のポケモンが地面に落ち、地面技が必中レベルで当たるようになります。

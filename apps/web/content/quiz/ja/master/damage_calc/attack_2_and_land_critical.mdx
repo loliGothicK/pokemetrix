@@ -3,22 +3,29 @@ id: attack_2_and_land_critical
 difficulty: master
 category: damage_calc
 format: choices
-question: "攻撃ランクが+2の状態で、急所（1.5倍）に当てた場合、最終的なダメージ倍率はどうなりますか？"
+question: 攻撃ランクが+2の状態で、急所（1.5倍）に当てた場合、最終的なダメージ倍率はどうなりますか？
 options:
-  - "3.0倍"
-  - "2.0倍"
-  - "2.5倍"
-  - "4.0倍"
-correctAnswer: "3.0倍"
+  - 3.0倍
+  - 2.0倍
+  - 2.5倍
+  - 4.0倍
+correctAnswer: 3.0倍
 practicalData:
-  {
-    "attacker": { "species": "scizor", "evs": "A32+", "item": "life-orb", "nature": "adamant" },
-    "defender":
-      { "species": "kangaskhan-mega", "evs": "H0", "item": "kangaskhanite", "nature": "jolly" },
-    "ally": { "species": "gengar" },
-    "opponentAlly": { "species": "clefable" },
-    "move": "Bullet Punch",
-  }
+  attacker:
+    species: scizor
+    evs: A32+
+    item: life-orb
+    nature: adamant
+  defender:
+    species: kangaskhan-mega
+    evs: H0
+    item: kangaskhanite
+    nature: jolly
+  ally:
+    species: gengar
+  opponentAlly:
+    species: clefable
+  move: Bullet Punch
 ---
 
 攻撃+2（2.0倍） × 急所（1.5倍） ＝ 3.0倍もの超高火力になります。

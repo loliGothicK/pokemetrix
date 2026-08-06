@@ -3,22 +3,31 @@ id: modifier_spread_move_075_hitting
 difficulty: master
 category: damage_calc
 format: choices
-question: "What is the modifier for a Spread move (0.75) hitting an ally while both opponents are alive?"
+question: >-
+  What is the modifier for a Spread move (0.75) hitting an ally while both
+  opponents are alive?
 options:
-  - "0.75x"
-  - "1.0x"
-  - "0.5x"
-  - "0.0x"
-correctAnswer: "0.75x"
+  - 0.75x
+  - 1.0x
+  - 0.5x
+  - 0.0x
+correctAnswer: 0.75x
 practicalData:
-  {
-    "attacker": { "species": "garchomp", "evs": "A32+", "item": "life-orb", "nature": "jolly" },
-    "defender":
-      { "species": "arcanine", "evs": "H32", "item": "sitrus-berry", "nature": "adamant" },
-    "ally": { "species": "clefable" },
-    "opponentAlly": { "species": "gengar" },
-    "move": "Earthquake",
-  }
+  attacker:
+    species: garchomp
+    evs: A32+
+    item: life-orb
+    nature: jolly
+  defender:
+    species: arcanine
+    evs: H32
+    item: sitrus-berry
+    nature: adamant
+  ally:
+    species: clefable
+  opponentAlly:
+    species: gengar
+  move: Earthquake
 ---
 
 Spread moves like Earthquake or Surf that hit everyone deal 0.75x damage to ALL targets, including allies.
