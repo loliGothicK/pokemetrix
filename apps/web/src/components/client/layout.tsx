@@ -252,12 +252,12 @@ function AppControls({
           ))}
         </Select>
       </FormControl>
-      <Tooltip title={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}>
+      <Tooltip title={mode === "dark" ? t("preferences.lightMode") : t("preferences.darkMode")}>
         <IconButton
           color="primary"
           onClick={onToggleMode}
           size="small"
-          aria-label={mode === "dark" ? t("preferences.darkMode") : t("preferences.lightMode")}
+          aria-label={mode === "dark" ? t("preferences.lightMode") : t("preferences.darkMode")}
           sx={iconButtonBordered()}
         >
           {mode === "dark" ? (

@@ -48,7 +48,9 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   const [selectedCategory, setSelectedCategory] = useState<UICategory | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null);
 
-  const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>(directPlay ? initialQuestions : []);
+  const [sessionQuestions, setSessionQuestions] = useState<QuizQuestion[]>(
+    directPlay ? initialQuestions : [],
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
   const [tsumeActions, setTsumeActions] = useState<string[]>([]);
@@ -456,207 +458,225 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                     <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.yourActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.playerSide.active.map((poke: TsumePokemon, i: number) => (
-                      <Box
-                        key={i}
-                        sx={{
-                          mb: 2,
-                          p: 1.5,
-                          bgcolor: "background.paper",
-                          borderRadius: 1,
-                          border: "1px solid",
-                          borderColor: "divider",
-                        }}
-                      >
-                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                          {getPokemonName(poke.species)}
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          sx={{ display: "block", color: "text.secondary" }}
+                    {activeQuestion.tsumeData.playerSide.active.map(
+                      (poke: TsumePokemon, i: number) => (
+                        <Box
+                          key={i}
+                          sx={{
+                            mb: 2,
+                            p: 1.5,
+                            bgcolor: "background.paper",
+                            borderRadius: 1,
+                            border: "1px solid",
+                            borderColor: "divider",
+                          }}
                         >
-                          HP: {poke.hpCurrent} / {poke.hpMax}
-                        </Typography>
-                        {poke.item && (
+                          <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                            {getPokemonName(poke.species)}
+                          </Typography>
                           <Typography
                             variant="caption"
                             sx={{ display: "block", color: "text.secondary" }}
                           >
-                            {t("quiz.item")}: {poke.item}
+                            HP: {poke.hpCurrent} / {poke.hpMax}
                           </Typography>
-                        )}
-                        {poke.ability && (
-                          <Typography
-                            variant="caption"
-                            sx={{ display: "block", color: "text.secondary" }}
-                          >
-                            Ability: {poke.ability}
-                          </Typography>
-                        )}
-                        {poke.stats?.spe && (
-                          <Typography
-                            variant="caption"
-                            sx={{ display: "block", color: "text.secondary" }}
-                          >
-                            Speed: {poke.stats.spe}
-                          </Typography>
-                        )}
-                        {poke.status && (
-                          <Typography
-                            variant="caption"
-                            color="error"
-                            sx={{ display: "block", fontWeight: "bold" }}
-                          >
-                            {poke.status.toUpperCase()}
-                          </Typography>
-                        )}
-                        {poke.volatiles && poke.volatiles.length > 0 && (
-                          <Typography
-                            variant="caption"
-                            color="info.main"
-                            sx={{ display: "block" }}
-                          >
-                            {poke.volatiles.join(", ")}
-                          </Typography>
-                        )}
-                      </Box>
-                    ))}
-                    {activeQuestion.tsumeData.playerSide.bench && activeQuestion.tsumeData.playerSide.bench.length > 0 && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography variant="body2" color="primary" sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}>
-                          Bench
-                        </Typography>
-                        {activeQuestion.tsumeData.playerSide.bench.map((poke: TsumePokemon, i: number) => (
-                          <Box
-                            key={i}
-                            sx={{
-                              mb: 1,
-                              p: 1,
-                              bgcolor: "background.paper",
-                              borderRadius: 1,
-                              border: "1px dashed",
-                              borderColor: "divider",
-                              opacity: 0.8,
-                            }}
-                          >
-                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                              {getPokemonName(poke.species)}
+                          {poke.item && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              {t("quiz.item")}: {poke.item}
                             </Typography>
-                            {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
-                              <Typography
-                                variant="caption"
-                                sx={{ display: "block", color: "text.secondary" }}
-                              >
-                                HP: {poke.hpCurrent} / {poke.hpMax}
-                              </Typography>
-                            )}
-                          </Box>
-                        ))}
-                      </Box>
+                          )}
+                          {poke.ability && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              Ability: {poke.ability}
+                            </Typography>
+                          )}
+                          {poke.stats?.spe && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              Speed: {poke.stats.spe}
+                            </Typography>
+                          )}
+                          {poke.status && (
+                            <Typography
+                              variant="caption"
+                              color="error"
+                              sx={{ display: "block", fontWeight: "bold" }}
+                            >
+                              {poke.status.toUpperCase()}
+                            </Typography>
+                          )}
+                          {poke.volatiles && poke.volatiles.length > 0 && (
+                            <Typography
+                              variant="caption"
+                              color="info.main"
+                              sx={{ display: "block" }}
+                            >
+                              {poke.volatiles.join(", ")}
+                            </Typography>
+                          )}
+                        </Box>
+                      ),
                     )}
+                    {activeQuestion.tsumeData.playerSide.bench &&
+                      activeQuestion.tsumeData.playerSide.bench.length > 0 && (
+                        <Box sx={{ mt: 2 }}>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}
+                          >
+                            Bench
+                          </Typography>
+                          {activeQuestion.tsumeData.playerSide.bench.map(
+                            (poke: TsumePokemon, i: number) => (
+                              <Box
+                                key={i}
+                                sx={{
+                                  mb: 1,
+                                  p: 1,
+                                  bgcolor: "background.paper",
+                                  borderRadius: 1,
+                                  border: "1px dashed",
+                                  borderColor: "divider",
+                                  opacity: 0.8,
+                                }}
+                              >
+                                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                                  {getPokemonName(poke.species)}
+                                </Typography>
+                                {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
+                                  <Typography
+                                    variant="caption"
+                                    sx={{ display: "block", color: "text.secondary" }}
+                                  >
+                                    HP: {poke.hpCurrent} / {poke.hpMax}
+                                  </Typography>
+                                )}
+                              </Box>
+                            ),
+                          )}
+                        </Box>
+                      )}
                   </Box>
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1 }}>
                       {t("quiz.opponentActive")}
                     </Typography>
-                    {activeQuestion.tsumeData.opponentSide.active.map((poke: TsumePokemon, i: number) => (
-                      <Box
-                        key={i}
-                        sx={{
-                          mb: 2,
-                          p: 1.5,
-                          bgcolor: "background.paper",
-                          borderRadius: 1,
-                          border: "1px solid",
-                          borderColor: "divider",
-                        }}
-                      >
-                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                          {getPokemonName(poke.species)}
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          sx={{ display: "block", color: "text.secondary" }}
+                    {activeQuestion.tsumeData.opponentSide.active.map(
+                      (poke: TsumePokemon, i: number) => (
+                        <Box
+                          key={i}
+                          sx={{
+                            mb: 2,
+                            p: 1.5,
+                            bgcolor: "background.paper",
+                            borderRadius: 1,
+                            border: "1px solid",
+                            borderColor: "divider",
+                          }}
                         >
-                          HP: {poke.hpCurrent} / {poke.hpMax}
-                        </Typography>
-                        {poke.item && (
+                          <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                            {getPokemonName(poke.species)}
+                          </Typography>
                           <Typography
                             variant="caption"
                             sx={{ display: "block", color: "text.secondary" }}
                           >
-                            {t("quiz.item")}: {poke.item}
+                            HP: {poke.hpCurrent} / {poke.hpMax}
                           </Typography>
-                        )}
-                        {poke.ability && (
-                          <Typography
-                            variant="caption"
-                            sx={{ display: "block", color: "text.secondary" }}
-                          >
-                            Ability: {poke.ability}
-                          </Typography>
-                        )}
-                        {poke.stats?.spe && (
-                          <Typography
-                            variant="caption"
-                            sx={{ display: "block", color: "text.secondary" }}
-                          >
-                            Speed: {poke.stats.spe}
-                          </Typography>
-                        )}
-                        {poke.status && (
-                          <Typography
-                            variant="caption"
-                            color="error"
-                            sx={{ display: "block", fontWeight: "bold" }}
-                          >
-                            {poke.status.toUpperCase()}
-                          </Typography>
-                        )}
-                        {poke.volatiles && poke.volatiles.length > 0 && (
-                          <Typography
-                            variant="caption"
-                            color="info.main"
-                            sx={{ display: "block" }}
-                          >
-                            {poke.volatiles.join(", ")}
-                          </Typography>
-                        )}
-                      </Box>
-                    ))}
-                    {activeQuestion.tsumeData.opponentSide.bench && activeQuestion.tsumeData.opponentSide.bench.length > 0 && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography variant="body2" color="error" sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}>
-                          Bench
-                        </Typography>
-                        {activeQuestion.tsumeData.opponentSide.bench.map((poke: TsumePokemon, i: number) => (
-                          <Box
-                            key={i}
-                            sx={{
-                              mb: 1,
-                              p: 1,
-                              bgcolor: "background.paper",
-                              borderRadius: 1,
-                              border: "1px dashed",
-                              borderColor: "divider",
-                              opacity: 0.8,
-                            }}
-                          >
-                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                              {getPokemonName(poke.species)}
+                          {poke.item && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              {t("quiz.item")}: {poke.item}
                             </Typography>
-                            {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
-                              <Typography
-                                variant="caption"
-                                sx={{ display: "block", color: "text.secondary" }}
-                              >
-                                HP: {poke.hpCurrent} / {poke.hpMax}
-                              </Typography>
-                            )}
-                          </Box>
-                        ))}
-                      </Box>
+                          )}
+                          {poke.ability && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              Ability: {poke.ability}
+                            </Typography>
+                          )}
+                          {poke.stats?.spe && (
+                            <Typography
+                              variant="caption"
+                              sx={{ display: "block", color: "text.secondary" }}
+                            >
+                              Speed: {poke.stats.spe}
+                            </Typography>
+                          )}
+                          {poke.status && (
+                            <Typography
+                              variant="caption"
+                              color="error"
+                              sx={{ display: "block", fontWeight: "bold" }}
+                            >
+                              {poke.status.toUpperCase()}
+                            </Typography>
+                          )}
+                          {poke.volatiles && poke.volatiles.length > 0 && (
+                            <Typography
+                              variant="caption"
+                              color="info.main"
+                              sx={{ display: "block" }}
+                            >
+                              {poke.volatiles.join(", ")}
+                            </Typography>
+                          )}
+                        </Box>
+                      ),
                     )}
+                    {activeQuestion.tsumeData.opponentSide.bench &&
+                      activeQuestion.tsumeData.opponentSide.bench.length > 0 && (
+                        <Box sx={{ mt: 2 }}>
+                          <Typography
+                            variant="body2"
+                            color="error"
+                            sx={{ fontWeight: "bold", mb: 1, opacity: 0.8 }}
+                          >
+                            Bench
+                          </Typography>
+                          {activeQuestion.tsumeData.opponentSide.bench.map(
+                            (poke: TsumePokemon, i: number) => (
+                              <Box
+                                key={i}
+                                sx={{
+                                  mb: 1,
+                                  p: 1,
+                                  bgcolor: "background.paper",
+                                  borderRadius: 1,
+                                  border: "1px dashed",
+                                  borderColor: "divider",
+                                  opacity: 0.8,
+                                }}
+                              >
+                                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                                  {getPokemonName(poke.species)}
+                                </Typography>
+                                {poke.hpCurrent !== undefined && poke.hpMax !== undefined && (
+                                  <Typography
+                                    variant="caption"
+                                    sx={{ display: "block", color: "text.secondary" }}
+                                  >
+                                    HP: {poke.hpCurrent} / {poke.hpMax}
+                                  </Typography>
+                                )}
+                              </Box>
+                            ),
+                          )}
+                        </Box>
+                      )}
                   </Box>
                 </Stack>
                 {activeQuestion.tsumeData.field && (
@@ -760,7 +780,14 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             }}
           >
             <CardContent sx={{ p: 4 }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  mb: 2,
+                }}
+              >
                 <Typography
                   variant="h5"
                   color={isCorrect ? "success.main" : "error.main"}
@@ -790,7 +817,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         )}
       </Box>
     );
-  };
+  }
 
   const handleReturnMenu = () => {
     if (onReturnToMenu) {
@@ -825,7 +852,8 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             {t("quiz.results")}
           </Typography>
           <Typography variant="h6" sx={{ opacity: 0.8 }} gutterBottom>
-            {selectedCategory && t(`quiz.category.${selectedCategory}`)} - {selectedDifficulty && t(`quiz.difficulty.${selectedDifficulty}`)}
+            {selectedCategory && t(`quiz.category.${selectedCategory}`)} -{" "}
+            {selectedDifficulty && t(`quiz.difficulty.${selectedDifficulty}`)}
           </Typography>
 
           <Box sx={{ my: 4, position: "relative" }}>
@@ -917,7 +945,14 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         {t("quiz.title")}
       </Typography>
 
-      <Alert severity="info" sx={{ mb: 4, borderRadius: 2, "& .MuiAlert-message": { width: "100%", textAlign: "center" } }}>
+      <Alert
+        severity="info"
+        sx={{
+          mb: 4,
+          borderRadius: 2,
+          "& .MuiAlert-message": { width: "100%", textAlign: "center" },
+        }}
+      >
         <Typography variant="body1" sx={{ fontWeight: "medium" }}>
           {t("quiz.championsNotice")}
         </Typography>

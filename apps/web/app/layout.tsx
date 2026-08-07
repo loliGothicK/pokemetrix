@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 };
 
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -55,7 +56,9 @@ export default function RootLayout({
       <body>
         <InitColorSchemeScript />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <script
+        <Script
+          id="suppress-cancelation"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.addEventListener('unhandledrejection', function(event) {

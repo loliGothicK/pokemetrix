@@ -49,6 +49,7 @@ export interface QuizQuestion {
   content?: string; // Raw markdown text (for display)
   mdx?: string; // Compiled MDX bundle (for rendering)
   locale?: string;
+  reviewed?: boolean;
 
   // For practical (damage_calc) questions
   practicalData?: {

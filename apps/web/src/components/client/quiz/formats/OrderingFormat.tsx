@@ -30,7 +30,14 @@ interface SortableItemProps {
   showExplanation: boolean;
 }
 
-function SortableItem({ id, item, index, disabled, isCorrect, showExplanation }: SortableItemProps) {
+function SortableItem({
+  id,
+  item,
+  index,
+  disabled,
+  isCorrect,
+  showExplanation,
+}: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     disabled,

@@ -156,7 +156,15 @@ const quizzes = defineCollection({
       id: z.string(),
       difficulty: z.enum(["basics", "advanced", "expert", "master"]),
       category: z.enum(["academic", "damage_calc", "tsume"]),
-      format: z.enum(["choices", "multi_select", "ordering", "grouping", "one_way", "input", "tsume_action"]),
+      format: z.enum([
+        "choices",
+        "multi_select",
+        "ordering",
+        "grouping",
+        "one_way",
+        "input",
+        "tsume_action",
+      ]),
       generation: z.number().optional(),
       question: z.string(),
       options: z.array(z.string()).optional(),
@@ -170,6 +178,7 @@ const quizzes = defineCollection({
       prerequisites: z.array(z.string()).default([]),
       practicalData: practicalDataSchema.optional(),
       tsumeData: z.optional(tsumeDataSchema),
+      reviewed: z.boolean().default(false),
       content: z.string(),
     })
     // Refinement 1: Answer field must be present and correct for the format
@@ -238,7 +247,14 @@ const quizzes = defineCollection({
         }
 
         if (difficulty === "master") {
-          return ["choices", "multi_select", "ordering", "grouping", "one_way", "tsume_action"].includes(format);
+          return [
+            "choices",
+            "multi_select",
+            "ordering",
+            "grouping",
+            "one_way",
+            "tsume_action",
+          ].includes(format);
         }
 
         return false;
@@ -260,7 +276,9 @@ const quizzes = defineCollection({
         }
         return true;
       },
-      { message: "tsume_action format requires category to be 'tsume' and tsumeData to be provided" }
+      {
+        message: "tsume_action format requires category to be 'tsume' and tsumeData to be provided",
+      },
     ),
   transform: transformer({ withHeadings: false }),
 });

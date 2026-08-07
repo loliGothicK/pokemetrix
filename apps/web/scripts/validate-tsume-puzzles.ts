@@ -39,11 +39,13 @@ files.forEach((file) => {
       tsumeData.correctMoves.forEach((moveStr: string) => {
         // e.g., "Sucker Punch (Target: Kangaskhan-Mega)" -> "Sucker Punch"
         const moveName = moveStr.split(" (Target:")[0];
-        
+
         if (moveName === "Switch") {
           // Rule 4: Switch requires bench
           if (!tsumeData.playerSide.bench || tsumeData.playerSide.bench.length === 0) {
-            console.error(`[ERROR] ${fileId}: 'Switch' is a correct move but no bench pokemon provided.`);
+            console.error(
+              `[ERROR] ${fileId}: 'Switch' is a correct move but no bench pokemon provided.`,
+            );
             errors++;
           }
         } else {
@@ -55,16 +57,20 @@ files.forEach((file) => {
             }
           });
           if (!hasMove) {
-            console.error(`[ERROR] ${fileId}: Correct move '${moveName}' not found in any player's active pokemon moves.`);
+            console.error(
+              `[ERROR] ${fileId}: Correct move '${moveName}' not found in any player's active pokemon moves.`,
+            );
             errors++;
           }
         }
-        
+
         if (moveName === "Destiny Bond") {
-            if (!tsumeData.playerSide.bench || tsumeData.playerSide.bench.length === 0) {
-                console.error(`[ERROR] ${fileId}: 'Destiny Bond' requires a bench pokemon to determine winner.`);
-                errors++;
-            }
+          if (!tsumeData.playerSide.bench || tsumeData.playerSide.bench.length === 0) {
+            console.error(
+              `[ERROR] ${fileId}: 'Destiny Bond' requires a bench pokemon to determine winner.`,
+            );
+            errors++;
+          }
         }
       });
     }

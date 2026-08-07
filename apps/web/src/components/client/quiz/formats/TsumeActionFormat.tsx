@@ -11,8 +11,7 @@ interface TsumeActionFormatProps {
 }
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-const formatSpeciesName = (speciesId: string) =>
-  speciesId.split("-").map(capitalize).join("-");
+const formatSpeciesName = (speciesId: string) => speciesId.split("-").map(capitalize).join("-");
 
 export function TsumeActionFormat({
   tsumeData,
@@ -21,21 +20,31 @@ export function TsumeActionFormat({
   correctMoves,
 }: TsumeActionFormatProps) {
   // Local state: Record<playerIndex, { move, target }>
-  const [selections, setSelections] = useState<
-    Record<number, { move: string; target: string }>
-  >({});
+  const [selections, setSelections] = useState<Record<number, { move: string; target: string }>>(
+    {},
+  );
 
   const singleOpponent =
-    tsumeData.opponentSide.active.length === 1
-      ? tsumeData.opponentSide.active[0].species
-      : null;
+    tsumeData.opponentSide.active.length === 1 ? tsumeData.opponentSide.active[0].species : null;
 
   // All selectable targets on the field and bench
   const allTargets = [
-    ...tsumeData.playerSide.active.map((p: TsumePokemon) => ({ species: p.species, label: "Ally Active" })),
-    ...(tsumeData.playerSide.bench || []).map((p: TsumePokemon) => ({ species: p.species, label: "Ally Bench" })),
-    ...tsumeData.opponentSide.active.map((p: TsumePokemon) => ({ species: p.species, label: "Opponent Active" })),
-    ...(tsumeData.opponentSide.bench || []).map((p: TsumePokemon) => ({ species: p.species, label: "Opponent Bench" })),
+    ...tsumeData.playerSide.active.map((p: TsumePokemon) => ({
+      species: p.species,
+      label: "Ally Active",
+    })),
+    ...(tsumeData.playerSide.bench || []).map((p: TsumePokemon) => ({
+      species: p.species,
+      label: "Ally Bench",
+    })),
+    ...tsumeData.opponentSide.active.map((p: TsumePokemon) => ({
+      species: p.species,
+      label: "Opponent Active",
+    })),
+    ...(tsumeData.opponentSide.bench || []).map((p: TsumePokemon) => ({
+      species: p.species,
+      label: "Opponent Bench",
+    })),
   ];
 
   const handleMoveChange = (playerIndex: number, move: string) => {
@@ -68,7 +77,7 @@ export function TsumeActionFormat({
         // When there's only 1 opponent, auto-assign that opponent as target
         const effectiveTarget = singleOpponent ?? sel.target;
         let actionStr = compileActionString(sel.move, effectiveTarget);
-        
+
         // If the un-targeted move is explicitly listed in correctMoves (e.g. Protect, Destiny Bond),
         // use it without a target.
         if (correctMoves?.includes(sel.move)) {
@@ -139,9 +148,7 @@ export function TsumeActionFormat({
                     {allTargets.map((target) => (
                       <MenuItem key={target.species} value={target.species}>
                         {formatSpeciesName(target.species)}{" "}
-                        <em style={{ marginLeft: 4, opacity: 0.6 }}>
-                          ({target.label})
-                        </em>
+                        <em style={{ marginLeft: 4, opacity: 0.6 }}>({target.label})</em>
                       </MenuItem>
                     ))}
                   </Select>
@@ -154,4 +161,3 @@ export function TsumeActionFormat({
     </Box>
   );
 }
-

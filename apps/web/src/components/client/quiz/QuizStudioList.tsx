@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { PatchDiff, File as DiffsFile } from "@pierre/diffs/react";
+import { useRouter } from "next/navigation";
+import { PatchDiff, File as DiffsFile, EditProvider } from "@pierre/diffs/react";
+import { Editor } from "@pierre/diffs/edit";
 import type { FileContents } from "@pierre/diffs";
 import { QuizApp } from "./QuizApp";
 import type { QuizQuestion } from "@/types/quiz";
@@ -24,11 +26,16 @@ export interface QuizFileMetadata {
   gitLog: GitLogEntry[];
 }
 
+export interface QuizGroup {
+  ja?: QuizQuestion;
+  en?: QuizQuestion;
+}
+
 interface FileTreeNode {
   name: string;
   fullPath: string;
   children: Record<string, FileTreeNode>;
-  quiz?: QuizQuestion;
+  quizzes?: QuizGroup;
 }
 
 type EditorTab = "source" | "preview";
@@ -38,7 +45,7 @@ type EditorTab = "source" | "preview";
 function buildFileTree(quizzes: QuizQuestion[]): FileTreeNode {
   const root: FileTreeNode = { name: "", fullPath: "", children: {} };
   for (const quiz of quizzes) {
-    const parts = [quiz.locale ?? "??", quiz.difficulty, quiz.category, quiz.id];
+    const parts = [quiz.difficulty, quiz.category, quiz.id];
     let node = root;
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
@@ -47,25 +54,33 @@ function buildFileTree(quizzes: QuizQuestion[]): FileTreeNode {
           name: part,
           fullPath: parts.slice(0, i + 1).join("/"),
           children: {},
-          quiz: i === parts.length - 1 ? quiz : undefined,
+          quizzes: i === parts.length - 1 ? {} : undefined,
         };
       }
       node = node.children[part];
+    }
+    if (node.quizzes && (quiz.locale === "ja" || quiz.locale === "en")) {
+      node.quizzes[quiz.locale] = quiz;
     }
   }
   return root;
 }
 
-/** Flatten all leaf quizzes in tree order for keyboard navigation */
-function flattenLeaves(node: FileTreeNode): QuizQuestion[] {
-  const results: QuizQuestion[] = [];
-  if (node.quiz) {
-    results.push(node.quiz);
+/** Flatten all leaf groups in tree order for keyboard navigation */
+function flattenLeaves(node: FileTreeNode): QuizGroup[] {
+  const results: QuizGroup[] = [];
+  if (node.quizzes) {
+    results.push(node.quizzes);
   }
   for (const child of Object.values(node.children)) {
     results.push(...flattenLeaves(child));
   }
   return results;
+}
+
+function groupKey(g: QuizGroup) {
+  const q = g.ja || g.en;
+  return q ? q.id : "";
 }
 
 function quizToFilePath(q: QuizQuestion): string {
@@ -140,43 +155,87 @@ const S = {
 function TreeNode({
   node,
   depth,
-  selected,
+  selectedGroup,
   onSelect,
   searchTerm,
+  filterNeedsReview,
   expandedPaths,
   onToggle,
+  localReviewedMap,
 }: {
   node: FileTreeNode;
   depth: number;
-  selected: QuizQuestion | null;
-  onSelect: (q: QuizQuestion) => void;
+  selectedGroup: QuizGroup | null;
+  onSelect: (g: QuizGroup) => void;
   searchTerm: string;
+  filterNeedsReview: boolean;
   expandedPaths: Set<string>;
   onToggle: (path: string) => void;
+  localReviewedMap: Record<string, boolean>;
 }) {
-  const isLeaf = !!node.quiz;
-  const isSelected = isLeaf && selected && quizKey(selected) === quizKey(node.quiz!);
+  const isLeaf = !!node.quizzes;
+  const isSelected = isLeaf && selectedGroup && groupKey(selectedGroup) === groupKey(node.quizzes!);
+
+  const qGroup = node.quizzes;
+  let nodeNeedsReview = false;
+  let allReviewed = false;
+  if (qGroup) {
+    const hasJa = !!qGroup.ja;
+    const hasEn = !!qGroup.en;
+    const jaPath = qGroup.ja ? quizToFilePath(qGroup.ja) : "";
+    const enPath = qGroup.en ? quizToFilePath(qGroup.en) : "";
+    const jaRev =
+      jaPath && localReviewedMap[jaPath] !== undefined
+        ? localReviewedMap[jaPath]
+        : (qGroup.ja?.reviewed ?? false);
+    const enRev =
+      enPath && localReviewedMap[enPath] !== undefined
+        ? localReviewedMap[enPath]
+        : (qGroup.en?.reviewed ?? false);
+    nodeNeedsReview = (hasJa && !jaRev) || (hasEn && !enRev);
+    allReviewed = (hasJa ? jaRev : true) && (hasEn ? enRev : true) && (hasJa || hasEn);
+  }
 
   const matchesSearch = useCallback(
     (n: FileTreeNode): boolean => {
-      if (n.quiz) {
+      if (n.quizzes) {
+        const qJa = n.quizzes.ja;
+        const qEn = n.quizzes.en;
+        const jaPath = qJa ? quizToFilePath(qJa) : "";
+        const enPath = qEn ? quizToFilePath(qEn) : "";
+        const revJa =
+          jaPath && localReviewedMap[jaPath] !== undefined
+            ? localReviewedMap[jaPath]
+            : (qJa?.reviewed ?? false);
+        const revEn =
+          enPath && localReviewedMap[enPath] !== undefined
+            ? localReviewedMap[enPath]
+            : (qEn?.reviewed ?? false);
+        const needsRev = (qJa && !revJa) || (qEn && !revEn);
+
+        if (filterNeedsReview && !needsRev) return false;
+
+        const q = qJa || qEn;
+        if (!searchTerm) return true;
         return (
-          n.name.toLowerCase().includes(searchTerm) ||
-          n.quiz.question.toLowerCase().includes(searchTerm)
+          !!q &&
+          (n.name.toLowerCase().includes(searchTerm) ||
+            q.question.toLowerCase().includes(searchTerm))
         );
       }
       return Object.values(n.children).some(matchesSearch);
     },
-    [searchTerm],
+    [searchTerm, filterNeedsReview, localReviewedMap],
   );
 
   if (searchTerm && !matchesSearch(node)) return null;
 
   if (isLeaf) {
+    const q = (node.quizzes!.ja || node.quizzes!.en)!;
     return (
       <button
-        data-quiz-key={quizKey(node.quiz!)}
-        onClick={() => onSelect(node.quiz!)}
+        data-quiz-key={groupKey(node.quizzes!)}
+        onClick={() => onSelect(node.quizzes!)}
         style={{
           display: "flex",
           alignItems: "center",
@@ -195,7 +254,9 @@ function TreeNode({
           fontFamily: S.font,
         }}
       >
-        <span style={{ color: S.fgMuted, flexShrink: 0, fontSize: 11 }}>📄</span>
+        <span style={{ color: S.fgMuted, flexShrink: 0, fontSize: 11 }}>
+          {allReviewed ? "✅" : nodeNeedsReview ? "📝" : "📄"}
+        </span>
         <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {node.name}
         </span>
@@ -206,11 +267,11 @@ function TreeNode({
             fontSize: 9,
             padding: "1px 4px",
             borderRadius: 3,
-            background: formatColor(node.quiz!.format) + "22",
-            color: formatColor(node.quiz!.format),
+            background: formatColor(q.format) + "22",
+            color: formatColor(q.format),
           }}
         >
-          {node.quiz!.format.replace("_", " ")}
+          {q.format.replace("_", " ")}
         </span>
       </button>
     );
@@ -220,7 +281,7 @@ function TreeNode({
   const isLocale = ["ja", "en"].includes(node.name);
   const open = expandedPaths.has(node.fullPath);
   const childCount = Object.values(node.children).reduce(
-    (acc, c) => acc + (c.quiz ? 1 : Object.keys(c.children).length),
+    (acc, c) => acc + (c.quizzes ? 1 : Object.keys(c.children).length),
     0,
   );
 
@@ -271,11 +332,13 @@ function TreeNode({
               key={child.fullPath}
               node={child}
               depth={depth + 1}
-              selected={selected}
+              selectedGroup={selectedGroup}
               onSelect={onSelect}
               searchTerm={searchTerm}
+              filterNeedsReview={filterNeedsReview}
               expandedPaths={expandedPaths}
               onToggle={onToggle}
+              localReviewedMap={localReviewedMap}
             />
           ))}
         </div>
@@ -345,11 +408,20 @@ function GitLogPanel({ entries }: { entries: GitLogEntry[] }) {
   );
 }
 
-function SourcePane({ quiz }: { quiz: QuizQuestion }) {
+function SourcePane({
+  quiz,
+  onSaved,
+}: {
+  quiz: QuizQuestion;
+  onSaved?: (filePath: string, reviewed: boolean) => void;
+}) {
   const [meta, setMeta] = useState<QuizFileMetadata | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showRaw, setShowRaw] = useState(false);
+  const [editedContent, setEditedContent] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const router = useRouter();
 
   const filePath = quizToFilePath(quiz);
 
@@ -358,8 +430,9 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
     setLoading(true);
     setError(null);
     setShowRaw(false);
+    setEditedContent(null);
 
-    fetch(`/api/quiz-debug?file=${encodeURIComponent(filePath)}`)
+    fetch(`/api/quiz-studio?file=${encodeURIComponent(filePath)}`)
       .then((r) => r.json())
       .then((data) => {
         setMeta(data);
@@ -374,6 +447,37 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
 
   const hasPatch = !!meta?.patch;
 
+  const handleSave = async () => {
+    if (!editedContent) return;
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/quiz-studio?file=${encodeURIComponent(filePath)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: editedContent }),
+      });
+      if (res.ok) {
+        const { reviewed } = await res.json();
+        setEditedContent(null);
+        if (onSaved) onSaved(filePath, reviewed);
+        // Refresh meta and hot-reload Server Components (allQuizzes)
+        const data = await (
+          await fetch(`/api/quiz-studio?file=${encodeURIComponent(filePath)}`)
+        ).json();
+        setMeta(data);
+        setShowRaw(!data.patch);
+        router.refresh();
+      } else {
+        const d = await res.json();
+        alert(d.error || "Save failed");
+      }
+    } catch (e) {
+      alert(String(e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Diff/File sub-header */}
@@ -382,7 +486,8 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
           display: "flex",
           alignItems: "center",
           gap: 8,
-          padding: "4px 12px",
+          padding: "0 12px",
+          height: 34,
           background: S.bgPanel,
           borderBottom: `1px solid ${S.border}`,
           flexShrink: 0,
@@ -393,7 +498,6 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
             fontSize: 11,
             color: S.fgMuted,
             fontFamily: S.mono,
-            flex: 1,
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -401,6 +505,25 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
         >
           {filePath}
         </span>
+        <div style={{ flex: 1 }} />
+        {process.env.NODE_ENV === "development" && editedContent !== null && (
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            style={{
+              background: "#238636",
+              color: "#fff",
+              border: "none",
+              borderRadius: 4,
+              padding: "4px 12px",
+              cursor: saving ? "not-allowed" : "pointer",
+              fontWeight: 600,
+              fontSize: 11,
+            }}
+          >
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+        )}
         {hasPatch && (
           <div style={{ display: "flex", gap: 2, flexShrink: 0 }}>
             {(["Diff", "File"] as const).map((label) => {
@@ -428,7 +551,15 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
       </div>
 
       {/* Content */}
-      <div style={{ flex: 1, overflow: "auto", background: S.bg }}>
+      <div
+        style={{
+          flex: 1,
+          overflow: "auto",
+          background: S.bg,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {loading && (
           <div
             style={{
@@ -447,62 +578,56 @@ function SourcePane({ quiz }: { quiz: QuizQuestion }) {
         {!loading && meta && (
           <>
             <div
-              style={{ "--diffs-dark-bg": S.bg, "--diffs-light-bg": S.bg } as React.CSSProperties}
+              className="diff-editor-container"
+              style={
+                {
+                  "--diffs-dark-bg": S.bg,
+                  "--diffs-light-bg": S.bg,
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: 0,
+                } as React.CSSProperties
+              }
+              onKeyDown={(e) => e.stopPropagation()}
             >
               {!showRaw && hasPatch ? (
-                <PatchDiff
-                  patch={meta.patch!}
-                  options={{ diffStyle: "unified", overflow: "wrap" }}
-                />
-              ) : meta.fileContent ? (
-                <DiffsFile
-                  file={
-                    {
-                      name: meta.filePath.split("/").pop() ?? "file.mdx",
-                      contents: meta.fileContent,
-                    } satisfies FileContents
+                <EditProvider
+                  createEditor={(opts) =>
+                    new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
                   }
-                  options={{ overflow: "wrap" }}
-                />
+                >
+                  <PatchDiff
+                    patch={meta.patch!}
+                    options={{ diffStyle: "unified", overflow: "wrap" }}
+                    edit={true}
+                    style={{ flex: 1, overflow: "auto" }}
+                  />
+                </EditProvider>
+              ) : meta.fileContent ? (
+                <EditProvider
+                  createEditor={(opts) =>
+                    new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                  }
+                >
+                  <DiffsFile
+                    file={
+                      {
+                        name: meta.filePath.split("/").pop() ?? "file.mdx",
+                        contents: meta.fileContent,
+                      } satisfies FileContents
+                    }
+                    options={{ overflow: "wrap" }}
+                    edit={true}
+                    style={{ flex: 1, overflow: "auto" }}
+                  />
+                </EditProvider>
               ) : (
                 <div style={{ padding: 16, color: S.fgMuted, fontSize: 12 }}>
                   File not found on disk.
                 </div>
               )}
             </div>
-            {quiz.content && (
-              <div
-                style={{
-                  margin: "0 16px 24px",
-                  borderTop: `1px solid ${S.border}`,
-                  paddingTop: 16,
-                }}
-              >
-                <p
-                  style={{
-                    margin: "0 0 8px",
-                    fontSize: 11,
-                    color: S.fgMuted,
-                    textTransform: "uppercase",
-                    letterSpacing: 1,
-                  }}
-                >
-                  Explanation
-                </p>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: 13,
-                    color: "#8b949e",
-                    lineHeight: 1.7,
-                    whiteSpace: "pre-wrap",
-                    fontFamily: S.font,
-                  }}
-                >
-                  {quiz.content}
-                </p>
-              </div>
-            )}
             <GitLogPanel entries={meta.gitLog} />
           </>
         )}
@@ -585,11 +710,13 @@ function TabButton({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
-  const [selectedQuiz, setSelectedQuiz] = useState<QuizQuestion | null>(null);
+export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
+  const [selectedQuizGroup, setSelectedQuizGroup] = useState<QuizGroup | null>(null);
   const [activeTab, setActiveTab] = useState<EditorTab>("source");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterNeedsReview, setFilterNeedsReview] = useState(false);
+  const [localReviewedMap, setLocalReviewedMap] = useState<Record<string, boolean>>({});
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => {
     // Auto-expand first 2 levels
     const set = new Set<string>();
@@ -604,7 +731,7 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
   });
 
   const tree = useMemo(() => buildFileTree(allQuizzes), [allQuizzes]);
-  const flatQuizzes = useMemo(() => flattenLeaves(tree), [tree]);
+  const flatGroups = useMemo(() => flattenLeaves(tree), [tree]);
   const normalizedSearch = searchTerm.toLowerCase().trim();
   const searchRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -651,10 +778,14 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
         }
       }
 
-      // Don't navigate if focused on input
+      // Don't navigate if focused on input or editor
+      const target = e.target as HTMLElement;
       if (
-        document.activeElement?.tagName === "INPUT" ||
-        document.activeElement?.tagName === "TEXTAREA"
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.isContentEditable ||
+        target?.closest(".diff-editor-container") ||
+        target?.closest("[data-code-view-id]") // @pierre/diffs uses code views
       ) {
         return;
       }
@@ -662,26 +793,26 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
       // ↑/↓ navigate files
       if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "j" || e.key === "k") {
         e.preventDefault();
-        if (!flatQuizzes.length) return;
-        const currentIdx = selectedQuiz
-          ? flatQuizzes.findIndex((q) => quizKey(q) === quizKey(selectedQuiz))
+        if (!flatGroups.length) return;
+        const currentIdx = selectedQuizGroup
+          ? flatGroups.findIndex((g) => groupKey(g) === groupKey(selectedQuizGroup))
           : -1;
         let nextIdx: number;
         if (e.key === "ArrowDown" || e.key === "j") {
-          nextIdx = currentIdx < flatQuizzes.length - 1 ? currentIdx + 1 : 0;
+          nextIdx = currentIdx < flatGroups.length - 1 ? currentIdx + 1 : 0;
         } else {
-          nextIdx = currentIdx > 0 ? currentIdx - 1 : flatQuizzes.length - 1;
+          nextIdx = currentIdx > 0 ? currentIdx - 1 : flatGroups.length - 1;
         }
-        const nextQuiz = flatQuizzes[nextIdx];
-        setSelectedQuiz(nextQuiz);
+        const nextGroup = flatGroups[nextIdx];
+        setSelectedQuizGroup(nextGroup);
         // Scroll into view
-        const el = containerRef.current?.querySelector(`[data-quiz-key="${quizKey(nextQuiz)}"]`);
+        const el = containerRef.current?.querySelector(`[data-quiz-key="${groupKey(nextGroup)}"]`);
         el?.scrollIntoView({ block: "nearest" });
         return;
       }
 
-      // Enter → open preview
-      if (e.key === "Enter" && selectedQuiz) {
+      // Ctrl/Cmd+Enter → open preview
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && selectedQuizGroup) {
         e.preventDefault();
         openPreview();
         return;
@@ -689,7 +820,7 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selectedQuiz, flatQuizzes, previewOpen, closePreview, openPreview, searchTerm]);
+  }, [selectedQuizGroup, flatGroups, previewOpen, closePreview, openPreview, searchTerm]);
 
   return (
     <div
@@ -717,7 +848,7 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
           userSelect: "none",
         }}
       >
-        <span style={{ fontSize: 14, fontWeight: 700, color: S.fg }}>🎮 Quiz Debug</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: S.fg }}>🎮 Quiz Studio</span>
         <span style={{ fontSize: 11, color: S.fgDim }}>{allQuizzes.length} files</span>
         <div style={{ flex: 1 }} />
         <div style={{ position: "relative" }}>
@@ -780,9 +911,29 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
               letterSpacing: 1,
               borderBottom: `1px solid ${S.border}`,
               userSelect: "none",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            Explorer
+            <span>Explorer</span>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                cursor: "pointer",
+                textTransform: "none",
+                fontSize: 10,
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={filterNeedsReview}
+                onChange={(e) => setFilterNeedsReview(e.target.checked)}
+              />
+              Needs Review
+            </label>
           </div>
           <div style={{ flex: 1, overflowY: "auto", paddingTop: 4, paddingBottom: 8 }}>
             {Object.values(tree.children).map((child) => (
@@ -790,14 +941,16 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                 key={child.fullPath}
                 node={child}
                 depth={0}
-                selected={selectedQuiz}
-                onSelect={(q) => {
-                  setSelectedQuiz(q);
+                selectedGroup={selectedQuizGroup}
+                onSelect={(g) => {
+                  setSelectedQuizGroup(g);
                   setActiveTab("source");
                 }}
                 searchTerm={normalizedSearch}
+                filterNeedsReview={filterNeedsReview}
                 expandedPaths={expandedPaths}
                 onToggle={togglePath}
+                localReviewedMap={localReviewedMap}
               />
             ))}
           </div>
@@ -805,7 +958,7 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
 
         {/* ── Editor Area ── */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          {selectedQuiz ? (
+          {selectedQuizGroup ? (
             <>
               {/* ── Editor Tabs ── */}
               <div
@@ -832,7 +985,7 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                   <TabButton
                     active={activeTab === "source"}
                     icon="📄"
-                    label={`${selectedQuiz.id}.mdx`}
+                    label={`${groupKey(selectedQuizGroup)}.mdx`}
                     onClick={() => setActiveTab("source")}
                   />
                   {previewOpen && (
@@ -891,64 +1044,94 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                   fontFamily: S.font,
                 }}
               >
-                {[
-                  selectedQuiz.locale,
-                  selectedQuiz.difficulty,
-                  selectedQuiz.category,
-                  selectedQuiz.id + ".mdx",
-                ].map((part, i, arr) => (
-                  <React.Fragment key={i}>
-                    <span
-                      style={{
-                        color: i === arr.length - 1 ? S.fg : S.fgMuted,
-                        fontWeight: i === arr.length - 1 ? 600 : 400,
-                      }}
-                    >
-                      {part}
-                    </span>
-                    {i < arr.length - 1 && <span style={{ color: S.fgDim, fontSize: 10 }}>›</span>}
-                  </React.Fragment>
-                ))}
-                <div style={{ flex: 1 }} />
-                <span
-                  style={{
-                    fontSize: 10,
-                    padding: "1px 6px",
-                    borderRadius: 10,
-                    background: difficultyColor(selectedQuiz.difficulty) + "22",
-                    color: difficultyColor(selectedQuiz.difficulty),
-                  }}
-                >
-                  {selectedQuiz.difficulty}
-                </span>
-                <span
-                  style={{
-                    fontSize: 10,
-                    padding: "1px 6px",
-                    borderRadius: 10,
-                    background: formatColor(selectedQuiz.format) + "22",
-                    color: formatColor(selectedQuiz.format),
-                  }}
-                >
-                  {selectedQuiz.format}
-                </span>
+                {(() => {
+                  const repQuiz = (selectedQuizGroup.ja || selectedQuizGroup.en)!;
+                  return (
+                    <>
+                      {[repQuiz.difficulty, repQuiz.category, repQuiz.id + ".mdx"].map(
+                        (part, i, arr) => (
+                          <React.Fragment key={i}>
+                            <span
+                              style={{
+                                color: i === arr.length - 1 ? S.fg : S.fgMuted,
+                                fontWeight: i === arr.length - 1 ? 600 : 400,
+                              }}
+                            >
+                              {part}
+                            </span>
+                            {i < arr.length - 1 && (
+                              <span style={{ color: S.fgDim, fontSize: 10 }}>›</span>
+                            )}
+                          </React.Fragment>
+                        ),
+                      )}
+                      <div style={{ flex: 1 }} />
+                      <span
+                        style={{
+                          fontSize: 10,
+                          padding: "1px 6px",
+                          borderRadius: 10,
+                          background: difficultyColor(repQuiz.difficulty) + "22",
+                          color: difficultyColor(repQuiz.difficulty),
+                        }}
+                      >
+                        {repQuiz.difficulty}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          padding: "1px 6px",
+                          borderRadius: 10,
+                          background: formatColor(repQuiz.format) + "22",
+                          color: formatColor(repQuiz.format),
+                        }}
+                      >
+                        {repQuiz.format}
+                      </span>
+                    </>
+                  );
+                })()}
               </div>
 
               {/* ── Question Banner ── */}
               <div
                 style={{
-                  padding: "8px 14px",
+                  display: "flex",
                   background: S.bg,
                   borderBottom: `1px solid ${S.border}`,
                   flexShrink: 0,
                 }}
               >
-                <p style={{ margin: 0, fontSize: 13, color: "#c9d1d9", lineHeight: 1.5 }}>
-                  <span style={{ color: S.fgMuted, marginRight: 6, fontSize: 11, fontWeight: 600 }}>
-                    Q
-                  </span>
-                  {selectedQuiz.question}
-                </p>
+                {selectedQuizGroup.ja && (
+                  <div
+                    style={{
+                      flex: 1,
+                      padding: "8px 14px",
+                      borderRight: selectedQuizGroup.en ? `1px solid ${S.border}` : "none",
+                    }}
+                  >
+                    <p style={{ margin: 0, fontSize: 13, color: "#c9d1d9", lineHeight: 1.5 }}>
+                      <span
+                        style={{ color: S.fgMuted, marginRight: 6, fontSize: 11, fontWeight: 600 }}
+                      >
+                        Q
+                      </span>
+                      {selectedQuizGroup.ja.question}
+                    </p>
+                  </div>
+                )}
+                {selectedQuizGroup.en && (
+                  <div style={{ flex: 1, padding: "8px 14px" }}>
+                    <p style={{ margin: 0, fontSize: 13, color: "#c9d1d9", lineHeight: 1.5 }}>
+                      <span
+                        style={{ color: S.fgMuted, marginRight: 6, fontSize: 11, fontWeight: 600 }}
+                      >
+                        Q
+                      </span>
+                      {selectedQuizGroup.en.question}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* ── Tab Content ── */}
@@ -958,30 +1141,163 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                   style={{
                     flex: 1,
                     display: activeTab === "source" ? "flex" : "none",
-                    flexDirection: "column",
                     overflow: "hidden",
                   }}
                 >
-                  <SourcePane key={quizKey(selectedQuiz)} quiz={selectedQuiz} />
+                  {selectedQuizGroup.ja && (
+                    <div
+                      style={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRight: `1px solid ${S.border}`,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: "4px 12px",
+                          background: "#1c2128",
+                          fontSize: 11,
+                          fontWeight: 600,
+                          color: S.fgMuted,
+                          borderBottom: `1px solid ${S.border}`,
+                          flexShrink: 0,
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span>🇯🇵</span>
+                        {(localReviewedMap[quizToFilePath(selectedQuizGroup.ja)] ??
+                        selectedQuizGroup.ja.reviewed) ? (
+                          <span style={{ color: S.accentGreen }}>✅ Reviewed</span>
+                        ) : (
+                          <span style={{ color: "#f59e0b" }}>
+                            📝 Needs Review (add `reviewed: true` to frontmatter)
+                          </span>
+                        )}
+                      </div>
+                      <SourcePane
+                        key={`ja-${quizKey(selectedQuizGroup.ja)}`}
+                        quiz={selectedQuizGroup.ja}
+                        onSaved={(filePath, reviewed) =>
+                          setLocalReviewedMap((p) => ({ ...p, [filePath]: reviewed }))
+                        }
+                      />
+                    </div>
+                  )}
+                  {selectedQuizGroup.en && (
+                    <div
+                      style={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: "4px 12px",
+                          background: "#1c2128",
+                          fontSize: 11,
+                          fontWeight: 600,
+                          color: S.fgMuted,
+                          borderBottom: `1px solid ${S.border}`,
+                          flexShrink: 0,
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span>🇺🇸</span>
+                        {(localReviewedMap[quizToFilePath(selectedQuizGroup.en)] ??
+                        selectedQuizGroup.en.reviewed) ? (
+                          <span style={{ color: S.accentGreen }}>✅ Reviewed</span>
+                        ) : (
+                          <span style={{ color: "#f59e0b" }}>
+                            📝 Needs Review (add `reviewed: true` to frontmatter)
+                          </span>
+                        )}
+                      </div>
+                      <SourcePane
+                        key={`en-${quizKey(selectedQuizGroup.en)}`}
+                        quiz={selectedQuizGroup.en}
+                        onSaved={(filePath, reviewed) =>
+                          setLocalReviewedMap((p) => ({ ...p, [filePath]: reviewed }))
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
 
-                {/* Preview tab — QuizApp inside, NOT replacing the whole page */}
+                {/* Preview tab */}
                 {previewOpen && (
                   <div
                     style={{
                       flex: 1,
                       display: activeTab === "preview" ? "flex" : "none",
-                      flexDirection: "column",
-                      overflow: "auto",
+                      overflow: "hidden",
                       background: "#1a1a2e",
                     }}
                   >
-                    <QuizApp
-                      key={quizKey(selectedQuiz)}
-                      initialQuestions={[selectedQuiz]}
-                      directPlay={true}
-                      onReturnToMenu={closePreview}
-                    />
+                    {selectedQuizGroup.ja && (
+                      <div
+                        style={{
+                          flex: 1,
+                          borderRight: `1px solid ${S.border}`,
+                          position: "relative",
+                          overflow: "auto",
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: 8,
+                            left: 8,
+                            zIndex: 10,
+                            padding: "2px 6px",
+                            background: "rgba(0,0,0,0.5)",
+                            borderRadius: 4,
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: "#fff",
+                          }}
+                        >
+                          🇯🇵
+                        </div>
+                        <QuizApp
+                          key={`ja-${quizKey(selectedQuizGroup.ja)}`}
+                          initialQuestions={[selectedQuizGroup.ja]}
+                          directPlay={true}
+                          onReturnToMenu={closePreview}
+                        />
+                      </div>
+                    )}
+                    {selectedQuizGroup.en && (
+                      <div style={{ flex: 1, position: "relative", overflow: "auto" }}>
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: 8,
+                            left: 8,
+                            zIndex: 10,
+                            padding: "2px 6px",
+                            background: "rgba(0,0,0,0.5)",
+                            borderRadius: 4,
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: "#fff",
+                          }}
+                        >
+                          🇺🇸
+                        </div>
+                        <QuizApp
+                          key={`en-${quizKey(selectedQuizGroup.en)}`}
+                          initialQuestions={[selectedQuizGroup.en]}
+                          directPlay={true}
+                          onReturnToMenu={closePreview}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -1024,12 +1340,15 @@ export function QuizDebugList({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
           fontFamily: S.font,
         }}
       >
-        <span>Quiz Debug</span>
+        <span>Quiz Studio</span>
         <span style={{ opacity: 0.8 }}>{allQuizzes.length} files</span>
-        {selectedQuiz && (
+        {selectedQuizGroup && (
           <>
             <span style={{ opacity: 0.8 }}>
-              {selectedQuiz.locale}/{selectedQuiz.difficulty}/{selectedQuiz.id}
+              {(() => {
+                const repQuiz = (selectedQuizGroup.ja || selectedQuizGroup.en)!;
+                return `${repQuiz.difficulty}/${repQuiz.category}/${repQuiz.id}`;
+              })()}
             </span>
             {previewOpen && <span style={{ opacity: 0.8 }}>▶ Playing</span>}
           </>

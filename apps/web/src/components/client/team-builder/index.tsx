@@ -767,7 +767,7 @@ export default function TeamBuilderPage({
                   width: drawerWidth,
                   boxSizing: "border-box",
                   position: "absolute",
-                  bgcolor: theme.palette.background.paper,
+                  bgcolor: "background.paper",
                   borderRight: "1px solid",
                   borderColor: theme.palette.divider,
                 },
@@ -810,7 +810,7 @@ export default function TeamBuilderPage({
                         sx={{
                           mx: 1,
                           mb: 0.5,
-                          "&.Mui-selected": { bgcolor: theme.palette.background.paperRaised },
+                          "&.Mui-selected": { bgcolor: "background.paperRaised" },
                           borderRadius: 2,
                           py: 2,
                           px: 4,

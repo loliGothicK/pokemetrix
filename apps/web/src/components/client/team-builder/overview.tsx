@@ -87,7 +87,7 @@ function SortableSlotItem({
           bgcolor: isActive
             ? alpha(theme.palette.primary.main, 0.08)
             : member
-              ? theme.palette.background.paper
+              ? "background.paper"
               : "transparent",
           position: "relative",
           ...flexRowCenter,
@@ -177,7 +177,7 @@ function SortableSlotItem({
                           width: 28,
                           height: 28,
                           borderRadius: "50%",
-                          bgcolor: alpha(theme.palette.background.paperRaised, 0.5),
+                          bgcolor: "background.paperTint",
                           boxShadow: 2,
                           ...flexRowCenter,
                           justifyContent: "center",

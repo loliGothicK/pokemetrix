@@ -166,7 +166,9 @@ async function validate() {
 
       for (const text of textFieldsToCheck) {
         if (allAbilityNames.has(text) && !validAbilityNames.has(text)) {
-          error(`Quiz ${quiz.id}: Invalid ability "${text}" - this ability does not exist in the Champions format.`);
+          error(
+            `Quiz ${quiz.id}: Invalid ability "${text}" - this ability does not exist in the Champions format.`,
+          );
         }
       }
     }
