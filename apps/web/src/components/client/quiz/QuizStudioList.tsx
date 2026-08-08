@@ -228,7 +228,7 @@ function TreeNode({
     [searchTerm, filterNeedsReview, localReviewedMap],
   );
 
-  if (searchTerm && !matchesSearch(node)) return null;
+  if ((searchTerm || filterNeedsReview) && !matchesSearch(node)) return null;
 
   if (isLeaf) {
     const q = (node.quizzes!.ja || node.quizzes!.en)!;
@@ -554,7 +554,7 @@ function SourcePane({
       <div
         style={{
           flex: 1,
-          overflow: "auto",
+          overflow: "hidden",
           background: S.bg,
           display: "flex",
           flexDirection: "column",
@@ -576,8 +576,7 @@ function SourcePane({
         )}
         {error && <div style={{ padding: 16, color: "#f85149", fontSize: 12 }}>{error}</div>}
         {!loading && meta && (
-          <>
-            <div
+          <div
               className="diff-editor-container"
               style={
                 {
@@ -601,7 +600,7 @@ function SourcePane({
                     patch={meta.patch!}
                     options={{ diffStyle: "unified", overflow: "wrap" }}
                     edit={true}
-                    style={{ flex: 1, overflow: "auto" }}
+                    style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
                   />
                 </EditProvider>
               ) : meta.fileContent ? (
@@ -619,7 +618,7 @@ function SourcePane({
                     }
                     options={{ overflow: "wrap" }}
                     edit={true}
-                    style={{ flex: 1, overflow: "auto" }}
+                    style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
                   />
                 </EditProvider>
               ) : (
@@ -628,11 +627,10 @@ function SourcePane({
                 </div>
               )}
             </div>
-            <GitLogPanel entries={meta.gitLog} />
-          </>
-        )}
+          )}
+        </div>
+        {!loading && meta && <GitLogPanel entries={meta.gitLog} />}
       </div>
-    </div>
   );
 }
 
@@ -711,6 +709,7 @@ function TabButton({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
+  const router = useRouter();
   const [selectedQuizGroup, setSelectedQuizGroup] = useState<QuizGroup | null>(null);
   const [activeTab, setActiveTab] = useState<EditorTab>("source");
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -1088,6 +1087,91 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                       >
                         {repQuiz.format}
                       </span>
+                      
+                      <div style={{ width: 1, height: 16, background: S.border, margin: "0 8px" }} />
+
+                      <select
+                        style={{
+                          background: S.bgPanel,
+                          color: S.fg,
+                          border: `1px solid ${S.border}`,
+                          borderRadius: 4,
+                          fontSize: 10,
+                          padding: "2px 4px",
+                          cursor: "pointer",
+                        }}
+                        value=""
+                        onChange={async (e) => {
+                          const newDiff = e.target.value;
+                          if (!newDiff) return;
+                          if (!confirm(`Move this quiz to ${newDiff}?`)) return;
+                          
+                          const files = [];
+                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
+                          
+                          try {
+                            const res = await fetch("/api/quiz-studio", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ action: "move", newDifficulty: newDiff, files })
+                            });
+                            if (res.ok) {
+                              setSelectedQuizGroup(null);
+                              router.refresh();
+                            } else {
+                              const d = await res.json();
+                              alert(d.error || "Move failed");
+                            }
+                          } catch (err) {
+                            alert(String(err));
+                          }
+                        }}
+                      >
+                        <option value="">Move to...</option>
+                        {["basics", "advanced", "expert", "master"]
+                          .filter(d => d !== repQuiz.difficulty)
+                          .map(d => <option key={d} value={d}>{d}</option>)
+                        }
+                      </select>
+
+                      <button
+                        style={{
+                          background: "transparent",
+                          color: "#f85149",
+                          border: `1px solid #f85149`,
+                          borderRadius: 4,
+                          fontSize: 10,
+                          padding: "2px 6px",
+                          cursor: "pointer",
+                          marginLeft: 4,
+                        }}
+                        onClick={async () => {
+                          if (!confirm("Are you sure you want to delete this quiz (both languages)?")) return;
+                          const files = [];
+                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
+                          
+                          try {
+                            const res = await fetch("/api/quiz-studio", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ action: "delete", files })
+                            });
+                            if (res.ok) {
+                              setSelectedQuizGroup(null);
+                              router.refresh();
+                            } else {
+                              const d = await res.json();
+                              alert(d.error || "Delete failed");
+                            }
+                          } catch (err) {
+                            alert(String(err));
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
                     </>
                   );
                 })()}

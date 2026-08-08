@@ -25,9 +25,3 @@ a {
   text-decoration: none;
 }
 
-.diff-editor-container .diff-file,
-.diff-editor-container textarea {
-  flex: 1;
-  height: 100%;
-  min-height: 100%;
-}

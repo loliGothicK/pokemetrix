@@ -106,19 +106,66 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Only available in development" }, { status: 403 });
   }
 
-  const { searchParams } = req.nextUrl;
-  const filePath = searchParams.get("file");
-
-  if (!filePath) {
-    return NextResponse.json({ error: "Missing ?file= param" }, { status: 400 });
-  }
-
-  if (!filePath.startsWith("apps/web/content/quiz/")) {
-    return NextResponse.json({ error: "Invalid file path" }, { status: 403 });
-  }
-
   try {
     const body = await req.json();
+
+    if (body.action === "delete") {
+      if (!Array.isArray(body.files)) return NextResponse.json({ error: "Invalid files" }, { status: 400 });
+      for (const f of body.files) {
+        if (!f.startsWith("apps/web/content/quiz/")) continue;
+        try {
+          await fs.unlink(path.join(REPO_ROOT, f));
+        } catch (e) {
+          // Ignore if file doesn't exist
+        }
+      }
+      return NextResponse.json({ success: true });
+    }
+
+    if (body.action === "move") {
+      if (!Array.isArray(body.files) || !body.newDifficulty) {
+        return NextResponse.json({ error: "Invalid parameters" }, { status: 400 });
+      }
+      for (const f of body.files) {
+        if (!f.startsWith("apps/web/content/quiz/")) continue;
+        const absPath = path.join(REPO_ROOT, f);
+        let content;
+        try {
+          content = await fs.readFile(absPath, "utf-8");
+        } catch (e) {
+          continue;
+        }
+
+        const parsed = matter(content);
+        parsed.data.difficulty = body.newDifficulty;
+        const newContent = matter.stringify(parsed.content, parsed.data);
+
+        const parts = f.split("/");
+        // parts[4] is locale, parts[5] is difficulty, parts[6] is category
+        parts[5] = body.newDifficulty;
+        const newFilePath = parts.join("/");
+        const newAbsPath = path.join(REPO_ROOT, newFilePath);
+
+        await fs.mkdir(path.dirname(newAbsPath), { recursive: true });
+        await fs.writeFile(newAbsPath, newContent, "utf-8");
+
+        if (newAbsPath !== absPath) {
+          await fs.unlink(absPath);
+        }
+      }
+      return NextResponse.json({ success: true });
+    }
+
+    const { searchParams } = req.nextUrl;
+    const filePath = searchParams.get("file");
+
+    if (!filePath) {
+      return NextResponse.json({ error: "Missing ?file= param" }, { status: 400 });
+    }
+
+    if (!filePath.startsWith("apps/web/content/quiz/")) {
+      return NextResponse.json({ error: "Invalid file path" }, { status: 403 });
+    }
     if (typeof body.content !== "string") {
       return NextResponse.json({ error: "Missing or invalid content" }, { status: 400 });
     }
