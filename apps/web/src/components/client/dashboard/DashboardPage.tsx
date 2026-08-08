@@ -535,8 +535,9 @@ export default function DashboardPage() {
                             borderTop: "1px dashed",
                             borderLeft: "1px dashed",
                             borderRight: "1px dashed",
-                            borderColor: (theme) => alpha(theme.palette.divider, 0.4),
+                            borderColor: "divider",
                             pointerEvents: "none",
+                            opacity: 0.4,
                           },
                         }}
                       >
@@ -546,7 +547,8 @@ export default function DashboardPage() {
                             sx={{
                               borderRight: "1px dashed",
                               borderBottom: "1px dashed",
-                              borderColor: (theme) => alpha(theme.palette.divider, 0.4),
+                              borderColor: "divider",
+                              opacity: 0.4,
                             }}
                           />
                         ))}

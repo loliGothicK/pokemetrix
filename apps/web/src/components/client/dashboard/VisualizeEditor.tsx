@@ -348,7 +348,7 @@ export function VisualizeEditor({
               flex: 2,
               display: "flex",
               flexDirection: "column",
-              bgcolor: alpha(theme.palette.background.paper, 0.5),
+              bgcolor: "background.paperTint",
               borderBottom: "1px solid",
               borderColor: "divider",
               minHeight: 0,

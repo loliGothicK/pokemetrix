@@ -81,8 +81,8 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                 sx={{
                   position: "relative",
                   border: "2px solid",
-                  borderColor: color ?? theme.palette.divider,
-                  bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
+                  borderColor: color ?? "divider",
+                  bgcolor: color ? alpha(color, 0.12) : "background.paper",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -113,7 +113,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                       borderRadius: "50%",
                       bgcolor: color,
                       border: "2px solid",
-                      borderColor: theme.palette.background.paper,
+                      borderColor: "background.paper",
                     }}
                   />
                 )}

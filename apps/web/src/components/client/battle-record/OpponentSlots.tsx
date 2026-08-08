@@ -113,7 +113,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 sx={{
                   aspectRatio: "1 / 1",
                   border: "1px dashed",
-                  borderColor: theme.palette.divider,
+                  borderColor: "divider",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -122,8 +122,8 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   "&:hover": {
                     borderColor:
                       opponents.length < MAX_OPPONENTS
-                        ? theme.palette.primary.main
-                        : theme.palette.divider,
+                        ? "primary.main"
+                        : "divider",
                   },
                   borderRadius: 2,
                 }}
@@ -147,8 +147,8 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                 position: "relative",
                 aspectRatio: "1 / 1",
                 border: "2px solid",
-                borderColor: color ?? theme.palette.divider,
-                bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
+                borderColor: color ?? "divider",
+                bgcolor: color ? alpha(color, 0.12) : "background.paper",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -177,7 +177,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                     borderRadius: "50%",
                     bgcolor: color,
                     border: "2px solid",
-                    borderColor: theme.palette.background.paper,
+                    borderColor: "background.paper",
                   }}
                 />
               )}
@@ -197,13 +197,13 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   transform: "translateX(-50%)",
                   opacity: { xs: 1, sm: 0 },
                   transition: "opacity 0.15s",
-                  bgcolor: theme.palette.background.paperRaised,
+                  bgcolor: "background.paperRaised",
                   border: "1px solid",
-                  borderColor: theme.palette.divider,
+                  borderColor: "divider",
                   width: 22,
                   height: 22,
                   color: hasDetail ? theme.palette.success.main : "text.secondary",
-                  "&:hover": { bgcolor: theme.palette.background.paperRaised },
+                  "&:hover": { bgcolor: "background.paperRaised" },
                 }}
               >
                 <EditNote sx={{ fontSize: 15 }} />
@@ -223,11 +223,11 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   right: -8,
                   opacity: { xs: 1, sm: 0 },
                   transition: "opacity 0.15s",
-                  bgcolor: theme.palette.error.main,
+                  bgcolor: "error.main",
                   color: "#fff",
                   width: 20,
                   height: 20,
-                  "&:hover": { bgcolor: theme.palette.error.dark },
+                  "&:hover": { bgcolor: "error.dark" },
                 }}
               >
                 <Close sx={{ fontSize: 14 }} />

@@ -287,14 +287,13 @@ export function WidgetCard({
           left: 16,
           maxWidth: "calc(100% - 32px)",
           transform: "translateY(-50%)",
-          bgcolor: (theme) =>
-            (theme.palette.background as unknown as { paperRaised?: string }).paperRaised ||
-            theme.palette.background.paper,
+          bgcolor: "background.paperRaised",
           px: 1,
           alignItems: "center",
           zIndex: 10,
           borderRadius: 1,
-          border: (theme) => `1px solid ${theme.palette.divider}`,
+          border: "1px solid",
+          borderColor: "divider",
           boxShadow: 1,
         }}
       >

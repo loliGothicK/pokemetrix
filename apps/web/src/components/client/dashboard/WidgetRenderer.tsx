@@ -174,7 +174,7 @@ export function WidgetRenderer({
             bottom: 0,
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
+            bgcolor: "background.paperTint",
             backdropFilter: "blur(4px)",
             borderRadius: 1,
             py: 1,
