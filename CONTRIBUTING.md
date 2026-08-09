@@ -98,7 +98,6 @@ options:
   - "できる"
   - "できない"
 correctAnswer: "できない"
-prerequisites: []
 ---
 ```
 

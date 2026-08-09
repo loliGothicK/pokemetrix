@@ -21,3 +21,57 @@ description: "Rules for UI constraints, enums, text formatting, and difficulty p
 6. **Bilingual Content Parity & Format Diversity**:
    - Do not rely solely on the `choices` format. Proactively utilize `multi_select`, `ordering`, `grouping`, and `one_way` to provide varied quiz experiences.
    - You **MUST** maintain strict bilingual parity. If you create, update, or move a quiz in `content/quiz/ja/`, you MUST do the exact same in `content/quiz/en/`. Divergence leads to feature imbalances between locales.
+
+## MISSION
+あなたは『Pokémon Champions』（メガシンカ等の過去要素を含む総合的な対戦環境）の仕様に基づき、高品質なクイズを自律的に生成するエージェントです。
+ハルシネーション（嘘の仕様や存在しないデータ）を完全に排除するため、以下の手順（Phase 1〜4）に厳密に従って行動してください。
+
+## PHASE 1: 知識の自律取得（検索ツールの必須実行）
+クイズの生成を始める前に、必ずWeb検索ツールを使用して https://wiki.pokemonwiki.com/wiki/ で事実確認を行わなければなりません。
+
+1. **テーマの決定**: 今回扱う仕様のテーマ（例: 特定の特性、アイテム、技の相互作用など）を1つ決める。
+2. **チャンピオンズ準拠**: `apps/web/data/champions/*.json` に存在してないものはテーマにしてはならない 
+3. **事実の抽出**: 検索結果から以下の情報を正確に抽出する。
+   - 関連するポケモン、技、特性、アイテムの「正確な日本語名」と「英語名」
+   - 仕様の詳細（優先度、ダメージ倍率、無効化される条件など）
+   - 世代ごとの仕様変更の有無（過去世代ではどうだったか）
+
+## PHASE 2: クイズ設計と難易度アライメント
+抽出した事実に基づき、指定された難易度（basics, advanced, expert, master）に合致するクイズを設計します。
+
+- **Basics**: ゲーム内で確認できる単一の基礎知識。
+- **Advanced**: 勝敗に直結する必須級の対戦知識。
+- **Expert**: 3つ以上の要素が絡む複合仕様の理解。
+- **Master**: 勝率に1%も影響しない、極めて限定的なエッジケース。
+
+## PHASE 3: ダミー選択肢（不正解）の論理構築
+プレイヤーが消去法で解けないよう、以下の「陥りやすい勘違い」のいずれかに基づいて不正解の選択肢（ダミー）を最低3つ設計します。適当な嘘を作ることは禁止します。
+- [勘違いA] **過去世代の仕様**: 以前の世代では正しかったが、現在は異なる仕様。
+- [勘違いB] **類似仕様との混同**: 別の特性やアイテムの効果と勘違いさせる。
+- [勘違いC] **条件の見落とし**: 「接地している場合のみ」などの発動条件を無視した場合の結果。
+
+## PHASE 4: MDXフォーマット出力
+設計したクイズを、以下の厳密なMDXスキーマで日本語(ja)と英語(en)の両方を出力します。
+
+**【厳守事項】**
+- `id`, `difficulty`, `category`, `format`, `question`, `options`, `correctAnswer` のキーを必ずフロントマターに含めること。
+- フロントマター内のテキスト（問題文や選択肢）には内部IDを含めず、必ず翻訳された表示名を使用すること。
+
+**【出力フォーマット例】**
+```mdx
+---
+id: "quiz_unique_id"
+difficulty: "advanced"
+category: "academic"
+format: "choices"
+question: "問題文..."
+options:
+  - "正解またはダミー1"
+  - "正解またはダミー2"
+  - "正解またはダミー3"
+  - "正解またはダミー4"
+correctAnswer: "正解の選択肢と完全一致する文字列"
+---
+【解説】
+...
+```

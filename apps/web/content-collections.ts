@@ -3,6 +3,7 @@ import { compileMDX } from "@content-collections/mdx";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
+import { P, match } from "ts-pattern";
 
 type MDXDocument = Parameters<typeof compileMDX>[1];
 
@@ -175,7 +176,6 @@ const quizzes = defineCollection({
       correctOrder: z.array(z.string()).optional(),
       correctGroups: z.record(z.string(), z.array(z.string())).optional(),
 
-      prerequisites: z.array(z.string()).default([]),
       practicalData: practicalDataSchema.optional(),
       tsumeData: z.optional(tsumeDataSchema),
       reviewed: z.boolean().default(false),
@@ -183,24 +183,23 @@ const quizzes = defineCollection({
     })
     // Refinement 1: Answer field must be present and correct for the format
     .refine(
-      (data) => {
-        switch (data.format) {
-          case "multi_select":
-            return data.correctAnswers !== undefined && data.correctAnswers.length > 0;
-          case "ordering":
-            return data.correctOrder !== undefined && data.correctOrder.length === 4;
-          case "grouping":
-            return data.correctGroups !== undefined && Object.keys(data.correctGroups).length >= 2;
-          case "choices":
-          case "one_way":
-          case "input":
-            return data.correctAnswer !== undefined && data.correctAnswer.length > 0;
-          case "tsume_action":
-            return true; // validated by tsumeData.correctMoves
-          default:
-            return false;
-        }
-      },
+      (data) =>
+        match(data.format)
+          .with(
+            "multi_select",
+            () => data.correctAnswers !== undefined && data.correctAnswers.length > 0,
+          )
+          .with("ordering", () => data.correctOrder !== undefined && data.correctOrder.length === 4)
+          .with(
+            "grouping",
+            () => data.correctGroups !== undefined && Object.keys(data.correctGroups).length >= 2,
+          )
+          .with(
+            P.union("choices", "one_way", "input"),
+            () => data.correctAnswer !== undefined && data.correctAnswer.length > 0,
+          )
+          .with("tsume_action", () => true)
+          .exhaustive(),
       { message: "Answer field must match format type" },
     )
     // Refinement 2: Options count must satisfy per-format constraints
@@ -216,20 +215,13 @@ const quizzes = defineCollection({
 
         const count = data.options.length;
 
-        switch (data.format) {
-          case "multi_select":
-            return count >= 3 && count <= 4;
-          case "ordering":
-            return count === 4;
-          case "grouping":
-            return count >= 3 && count <= 5;
-          case "one_way":
-            return count >= 2 && count <= 6;
-          case "choices":
-            return count >= 2 && count <= 4;
-          default:
-            return false;
-        }
+        return match({ format: data.format, count })
+          .with({ format: "multi_select", count: P.number.between(3, 4) }, () => true)
+          .with({ format: "ordering", count: 4 }, () => true)
+          .with({ format: "grouping", count: P.number.between(3, 5) }, () => true)
+          .with({ format: "one_way", count: P.number.between(2, 6) }, () => true)
+          .with({ format: "choices", count: P.number.between(2, 4) }, () => true)
+          .otherwise(() => false);
       },
       { message: "Options count must match format requirements", path: ["options"] },
     )

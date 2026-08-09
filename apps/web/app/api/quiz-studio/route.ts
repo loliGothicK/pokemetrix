@@ -156,6 +156,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    if (body.action === "approve") {
+      if (!Array.isArray(body.files)) return NextResponse.json({ error: "Invalid files" }, { status: 400 });
+      for (const f of body.files) {
+        if (!f.startsWith("apps/web/content/quiz/")) continue;
+        const absPath = path.join(REPO_ROOT, f);
+        let content;
+        try {
+          content = await fs.readFile(absPath, "utf-8");
+        } catch (e) {
+          continue;
+        }
+
+        const parsed = matter(content);
+        if (!parsed.data.reviewed) {
+          parsed.data.reviewed = true;
+          const newContent = matter.stringify(parsed.content, parsed.data);
+          await fs.writeFile(absPath, newContent, "utf-8");
+        }
+      }
+      return NextResponse.json({ success: true });
+    }
+
     const { searchParams } = req.nextUrl;
     const filePath = searchParams.get("file");
 

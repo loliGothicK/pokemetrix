@@ -280,10 +280,7 @@ function TreeNode({
   const isDifficulty = ["basics", "advanced", "expert", "master"].includes(node.name);
   const isLocale = ["ja", "en"].includes(node.name);
   const open = expandedPaths.has(node.fullPath);
-  const childCount = Object.values(node.children).reduce(
-    (acc, c) => acc + (c.quizzes ? 1 : Object.keys(c.children).length),
-    0,
-  );
+  const childCount = flattenLeaves(node).length;
 
   return (
     <div>
@@ -310,20 +307,18 @@ function TreeNode({
           {isLocale ? "🌐" : isDifficulty ? "🏆" : "📁"}
         </span>
         <span style={{ fontWeight: isDifficulty ? 600 : 400 }}>{node.name}</span>
-        {isDifficulty && (
-          <span
-            style={{
-              fontSize: 9,
-              padding: "1px 4px",
-              borderRadius: 3,
-              background: difficultyColor(node.name) + "22",
-              color: difficultyColor(node.name),
-              marginLeft: 4,
-            }}
-          >
-            {childCount}
-          </span>
-        )}
+        <span
+          style={{
+            fontSize: 9,
+            padding: "1px 4px",
+            borderRadius: 3,
+            background: difficultyColor(node.name) + "22",
+            color: difficultyColor(node.name),
+            marginLeft: 4,
+          }}
+        >
+          {childCount}
+        </span>
       </button>
       {open && (
         <div>
@@ -716,18 +711,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterNeedsReview, setFilterNeedsReview] = useState(false);
   const [localReviewedMap, setLocalReviewedMap] = useState<Record<string, boolean>>({});
-  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => {
-    // Auto-expand first 2 levels
-    const set = new Set<string>();
-    const tree = buildFileTree(allQuizzes);
-    for (const l1 of Object.values(tree.children)) {
-      set.add(l1.fullPath);
-      for (const l2 of Object.values(l1.children)) {
-        set.add(l2.fullPath);
-      }
-    }
-    return set;
-  });
+  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => new Set());
 
   const tree = useMemo(() => buildFileTree(allQuizzes), [allQuizzes]);
   const flatGroups = useMemo(() => flattenLeaves(tree), [tree]);
@@ -1138,6 +1122,47 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                       <button
                         style={{
                           background: "transparent",
+                          color: "#10b981",
+                          border: `1px solid #10b981`,
+                          borderRadius: 4,
+                          fontSize: 10,
+                          padding: "2px 6px",
+                          cursor: "pointer",
+                          marginLeft: 4,
+                        }}
+                        onClick={async () => {
+                          if (!confirm("Are you sure you want to approve this quiz?")) return;
+                          const files = [];
+                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
+                          
+                          try {
+                            const res = await fetch("/api/quiz-studio", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ action: "approve", files })
+                            });
+                            if (res.ok) {
+                              setLocalReviewedMap((p) => {
+                                const next = { ...p };
+                                files.forEach(f => { next[f] = true; });
+                                return next;
+                              });
+                              router.refresh();
+                            } else {
+                              const d = await res.json();
+                              alert(d.error || "Approve failed");
+                            }
+                          } catch (err) {
+                            alert(String(err));
+                          }
+                        }}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        style={{
+                          background: "transparent",
                           color: "#f85149",
                           border: `1px solid #f85149`,
                           borderRadius: 4,
@@ -1262,7 +1287,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         )}
                       </div>
                       <SourcePane
-                        key={`ja-${quizKey(selectedQuizGroup.ja)}`}
+                        key={`ja-${quizKey(selectedQuizGroup.ja)}-${localReviewedMap[quizToFilePath(selectedQuizGroup.ja)] ?? selectedQuizGroup.ja.reviewed}`}
                         quiz={selectedQuizGroup.ja}
                         onSaved={(filePath, reviewed) =>
                           setLocalReviewedMap((p) => ({ ...p, [filePath]: reviewed }))
@@ -1303,7 +1328,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         )}
                       </div>
                       <SourcePane
-                        key={`en-${quizKey(selectedQuizGroup.en)}`}
+                        key={`en-${quizKey(selectedQuizGroup.en)}-${localReviewedMap[quizToFilePath(selectedQuizGroup.en)] ?? selectedQuizGroup.en.reviewed}`}
                         quiz={selectedQuizGroup.en}
                         onSaved={(filePath, reviewed) =>
                           setLocalReviewedMap((p) => ({ ...p, [filePath]: reviewed }))

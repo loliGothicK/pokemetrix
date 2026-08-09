@@ -55,20 +55,10 @@ export const submitAnswerAtom = atom(
       newAnsweredCorrectlyIds.push(payload.questionId);
     }
 
-    // Unlock logic: a question is unlocked if all its prerequisites are in newAnsweredCorrectlyIds
-    // Initially, questions with 0 prerequisites are unlocked.
-    const newUnlockedQuestionIds = state.questions
-      .filter((q) => {
-        if (!q.prerequisites || q.prerequisites.length === 0) return true;
-        return q.prerequisites.every((prereqId) => newAnsweredCorrectlyIds.includes(prereqId));
-      })
-      .map((q) => q.id);
-
     set(quizStateAtom, {
       ...state,
       answers: newAnswers,
       answeredCorrectlyIds: newAnsweredCorrectlyIds,
-      unlockedQuestionIds: newUnlockedQuestionIds,
     });
   },
 );
