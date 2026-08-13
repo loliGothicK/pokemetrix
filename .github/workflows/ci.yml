@@ -76,7 +76,7 @@ jobs:
         run: pnpm lint
 
       - name: Check i18n keys
-        run: pnpm run i18n:check
+        run: pnpm --filter @pokemetrix/app run i18n:check
 
       - name: Build Next.js App
         env:

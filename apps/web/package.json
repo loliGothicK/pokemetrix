@@ -27,7 +27,7 @@
     "d1:migrate": "drizzle-kit migrate --config drizzle.d1.config.ts",
     "d1:index": "tsx --env-file=../../.env scripts/index-docs.ts",
     "renovate": "ncu -u && pnpm install",
-    "i18n:check": "pnpm exec tsx scripts/check-i18n.ts",
+    "i18n:check": "pnpx tsx scripts/check-i18n.ts",
     "generate:quizzes": "pnpm dlx tsx scripts/generate_speed_quizzes.ts",
     "validate:domain": "pnpx tsx scripts/validate_domain.ts"
   },
