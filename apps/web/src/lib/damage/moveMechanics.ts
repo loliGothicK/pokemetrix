@@ -224,6 +224,7 @@ export const VARIABLE_POWER_MOVES: ReadonlySet<string> = new Set([
   "heavy-slam",
   "heat-crash",
   "triple-axel",
+  "spit-up",
 ]);
 
 const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
@@ -405,6 +406,36 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         computeBasePower: (ctx: PowerContext) => {
           const hits = typeof ctx.conditions.timesHit === "number" ? ctx.conditions.timesHit : 0;
           return ctx.basePower + 50 * Math.min(6, hits);
+        },
+      }))
+      .with("fickle-beam", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "fickleBeamFullPower",
+            labelKey: "damageCalc.condFickleBeamFullPower",
+            type: "boolean",
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          return ctx.conditions["fickleBeamFullPower"] ? ctx.basePower * 2 : ctx.basePower;
+        },
+      }))
+      .with("spit-up", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "stockpileTurns",
+            labelKey: "damageCalc.condStockpileTurns",
+            type: "number",
+            min: 1,
+            max: 3,
+            defaultValue: 1,
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          const turns = typeof ctx.conditions.stockpileTurns === "number" ? ctx.conditions.stockpileTurns : 0;
+          return 100 * Math.max(1, Math.min(3, turns));
         },
       }))
 
