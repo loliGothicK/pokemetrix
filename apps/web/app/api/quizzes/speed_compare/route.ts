@@ -366,7 +366,7 @@ function generateQuizFromSeed(seed: any, locale: "ja" | "en") {
     format: "choices",
     question,
     options,
-    correctAnswer,
+    correctAnswerIndex: options.indexOf(correctAnswer),
     content,
   };
 }

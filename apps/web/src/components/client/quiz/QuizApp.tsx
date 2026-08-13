@@ -21,6 +21,8 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SpeedIcon from "@mui/icons-material/Speed";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import * as Sentry from "@sentry/nextjs";
 import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
 import { ChoicesFormat } from "./formats/ChoicesFormat";
 import { MultiSelectFormat } from "./formats/MultiSelectFormat";
@@ -64,6 +66,21 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   const [groupedItems, setGroupedItems] = useState<Record<string, string[]>>({});
 
   const explanationRef = useRef<HTMLDivElement>(null);
+  const handleReportFeedback = async () => {
+    const feedback = Sentry.getFeedback();
+    if (!feedback) return;
+    const form = await feedback.createForm({
+      formTitle: t("quiz.reportError"),
+    });
+    form.appendToDom();
+    form.open();
+    // Clean up after form is closed
+    const observer = new MutationObserver(() => {
+      if (!document.contains(form.el as Node)) {
+        observer.disconnect();
+      }
+    });
+  };
 
   useEffect(() => {
     if (showExplanation && explanationRef.current) {
@@ -140,10 +157,42 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
 
     // Shuffle and pick up to 10, also shuffle the options for each question
     const shuffled = [...questionsForDiff].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 10).map((q) => ({
-      ...q,
-      options: q.options ? [...q.options].sort(() => 0.5 - Math.random()) : undefined,
-    }));
+    const selected = shuffled.slice(0, 10).map((q) => {
+      let newOptions = q.options;
+      let newCorrectAnswerIndex = q.correctAnswerIndex;
+      let newCorrectAnswerIndices = q.correctAnswerIndices;
+      let newCorrectOrderIndices = q.correctOrderIndices;
+
+      if (q.options) {
+        const mappedOptions = q.options.map((opt, index) => ({ opt, index }));
+        mappedOptions.sort(() => 0.5 - Math.random());
+        newOptions = mappedOptions.map((m) => m.opt);
+
+        if (q.correctAnswerIndex !== undefined) {
+          newCorrectAnswerIndex = mappedOptions.findIndex(
+            (m) => m.index === q.correctAnswerIndex,
+          );
+        }
+        if (q.correctAnswerIndices) {
+          newCorrectAnswerIndices = q.correctAnswerIndices.map((oldIdx) =>
+            mappedOptions.findIndex((m) => m.index === oldIdx),
+          );
+        }
+        if (q.correctOrderIndices) {
+          newCorrectOrderIndices = q.correctOrderIndices.map((oldIdx) =>
+            mappedOptions.findIndex((m) => m.index === oldIdx),
+          );
+        }
+      }
+
+      return {
+        ...q,
+        options: newOptions,
+        correctAnswerIndex: newCorrectAnswerIndex,
+        correctAnswerIndices: newCorrectAnswerIndices,
+        correctOrderIndices: newCorrectOrderIndices,
+      };
+    });
 
     if (selected.length === 0) {
       alert(t("quiz.noQuestions"));
@@ -164,6 +213,12 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   };
 
   const activeQuestion = sessionQuestions[currentIndex];
+
+  useEffect(() => {
+    if (activeQuestion) {
+      Sentry.setTag("quiz_id", activeQuestion.id);
+    }
+  }, [activeQuestion]);
 
   useEffect(() => {
     if (activeQuestion) {
@@ -204,17 +259,21 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     let isCorrect = false;
 
     if (activeQuestion.format === "choices" || activeQuestion.format === "one_way") {
-      isCorrect = selectedOption === activeQuestion.correctAnswer;
+      isCorrect =
+        selectedOption !== null &&
+        activeQuestion.options?.indexOf(selectedOption) === activeQuestion.correctAnswerIndex;
     } else if (activeQuestion.format === "multi_select") {
-      const correct = activeQuestion.correctAnswers || [];
+      const correctIndices = activeQuestion.correctAnswerIndices || [];
+      const selectedIndices = selectedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
       isCorrect =
-        correct.length === selectedOptions.length &&
-        correct.every((ans) => selectedOptions.includes(ans));
+        correctIndices.length === selectedIndices.length &&
+        correctIndices.every((idx) => selectedIndices.includes(idx));
     } else if (activeQuestion.format === "ordering") {
-      const correct = activeQuestion.correctOrder || [];
+      const correctIndices = activeQuestion.correctOrderIndices || [];
+      const selectedIndices = orderedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
       isCorrect =
-        correct.length === orderedOptions.length &&
-        correct.every((ans, i) => orderedOptions[i] === ans);
+        correctIndices.length === selectedIndices.length &&
+        correctIndices.every((ans, i) => selectedIndices[i] === ans);
     } else if (activeQuestion.format === "grouping") {
       const correct = activeQuestion.correctGroups || {};
       isCorrect = true;
@@ -316,17 +375,21 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   if (mode === "playing" && activeQuestion) {
     let isCorrect = false;
     if (activeQuestion.format === "choices" || activeQuestion.format === "one_way") {
-      isCorrect = selectedOption === activeQuestion.correctAnswer;
+      isCorrect =
+        selectedOption !== null &&
+        activeQuestion.options?.indexOf(selectedOption) === activeQuestion.correctAnswerIndex;
     } else if (activeQuestion.format === "multi_select") {
-      const correct = activeQuestion.correctAnswers || [];
+      const correctIndices = activeQuestion.correctAnswerIndices || [];
+      const selectedIndices = selectedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
       isCorrect =
-        correct.length === selectedOptions.length &&
-        correct.every((ans) => selectedOptions.includes(ans));
+        correctIndices.length === selectedIndices.length &&
+        correctIndices.every((idx) => selectedIndices.includes(idx));
     } else if (activeQuestion.format === "ordering") {
-      const correct = activeQuestion.correctOrder || [];
+      const correctIndices = activeQuestion.correctOrderIndices || [];
+      const selectedIndices = orderedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
       isCorrect =
-        correct.length === orderedOptions.length &&
-        correct.every((ans, i) => orderedOptions[i] === ans);
+        correctIndices.length === selectedIndices.length &&
+        correctIndices.every((ans, i) => selectedIndices[i] === ans);
     } else if (activeQuestion.format === "grouping") {
       const correct = activeQuestion.correctGroups || {};
       isCorrect = true;
@@ -357,9 +420,20 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             <Button onClick={handleBackToMenu} color="inherit" startIcon={<ArrowBackIcon />}>
               {t("common.back")}
             </Button>
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} color="text.secondary">
-              {currentIndex + 1} / {sessionQuestions.length}
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <IconButton
+                onClick={handleReportFeedback}
+                size="small"
+                color="inherit"
+                sx={{ opacity: 0.5, "&:hover": { opacity: 1 } }}
+                title={t("quiz.reportError")}
+              >
+                <ReportProblemIcon fontSize="small" />
+              </IconButton>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} color="text.secondary">
+                {currentIndex + 1} / {sessionQuestions.length}
+              </Typography>
+            </Box>
           </Box>
           <LinearProgress
             variant="determinate"
@@ -700,7 +774,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                 selectedOption={selectedOption}
                 onOptionSelect={setSelectedOption}
                 showExplanation={showExplanation}
-                correctAnswer={activeQuestion.correctAnswer}
+                correctAnswerIndex={activeQuestion.correctAnswerIndex}
               />
             )}
 
@@ -714,16 +788,17 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                   )
                 }
                 showExplanation={showExplanation}
-                correctAnswers={activeQuestion.correctAnswers}
+                correctAnswerIndices={activeQuestion.correctAnswerIndices}
               />
             )}
 
             {activeQuestion.format === "ordering" && (
               <OrderingFormat
+                options={activeQuestion.options || []}
                 orderedOptions={orderedOptions}
                 onOrderChange={setOrderedOptions}
                 showExplanation={showExplanation}
-                correctOrder={activeQuestion.correctOrder}
+                correctOrderIndices={activeQuestion.correctOrderIndices}
               />
             )}
 

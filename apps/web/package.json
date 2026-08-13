@@ -17,6 +17,7 @@
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
     "pretty": "oxlint --fix-dangerously . && oxfmt .",
+    "typecheck": "npx tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "supabase migration up",
     "db:push": "supabase db push",

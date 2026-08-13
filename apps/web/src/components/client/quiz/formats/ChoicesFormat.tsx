@@ -6,7 +6,7 @@ interface ChoicesFormatProps {
   selectedOption: string | null;
   onOptionSelect: (option: string) => void;
   showExplanation: boolean;
-  correctAnswer?: string;
+  correctAnswerIndex?: number;
 }
 
 export function ChoicesFormat({
@@ -14,7 +14,7 @@ export function ChoicesFormat({
   selectedOption,
   onOptionSelect,
   showExplanation,
-  correctAnswer,
+  correctAnswerIndex,
 }: ChoicesFormatProps) {
   return (
     <Stack spacing={2} sx={{ mt: 4 }}>
@@ -24,7 +24,7 @@ export function ChoicesFormat({
           variant={selectedOption === opt ? "contained" : "outlined"}
           color={
             showExplanation
-              ? opt === correctAnswer
+              ? idx === correctAnswerIndex
                 ? "success"
                 : selectedOption === opt
                   ? "error"

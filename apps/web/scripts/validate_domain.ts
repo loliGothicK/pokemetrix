@@ -157,9 +157,9 @@ async function validate() {
       // Validate raw text options against our heuristic
       const textFieldsToCheck: string[] = [];
       if (quiz.options) textFieldsToCheck.push(...quiz.options);
-      if (quiz.correctAnswers) textFieldsToCheck.push(...quiz.correctAnswers);
-      if (quiz.correctOrder) textFieldsToCheck.push(...quiz.correctOrder);
-      if (quiz.correctAnswer) textFieldsToCheck.push(quiz.correctAnswer);
+      if (quiz.format === "input" && quiz.correctAnswer) {
+        textFieldsToCheck.push(quiz.correctAnswer);
+      }
       if (quiz.correctGroups) {
         Object.values(quiz.correctGroups).forEach((arr: any) => textFieldsToCheck.push(...arr));
       }

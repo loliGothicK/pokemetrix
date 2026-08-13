@@ -5,8 +5,8 @@ description: "Rules for housekeeping, testing, and cleanup before reporting task
 
 Before concluding any task or reporting completion to the user, you MUST perform the following cleanup steps:
 
-1. **NEVER Report Completion Prematurely (ZERO ERROR POLICY)**: You are strictly prohibited from reporting a task as complete or claiming a fix is successful without FIRST executing `tsc --noEmit` (or equivalent) and ensuring **0 errors**. Never blindly claim a UI looks "beautiful" or functions correctly without absolute verification.
-2. **Run Static Analysis & Typechecks**: Always run the project's linter (e.g., `pnpm lint`) and TypeScript compiler (e.g., `pnpm tsc --noEmit` or equivalent) to detect unused variables, missing imports, or syntax/type warnings introduced by your edits. Fix all warnings and errors you caused before stopping.
+1. **NEVER Report Completion Prematurely (ZERO ERROR POLICY)**: You are strictly prohibited from reporting a task as complete or claiming a fix is successful without FIRST executing `pnpm typecheck` (or `tsc --noEmit`) AND `pnpm build` (to verify Next.js and Contentlayer Zod schemas), ensuring **0 errors**. Never blindly claim a UI looks "beautiful" or functions correctly without absolute verification.
+2. **Run Static Analysis & Typechecks**: Always run the project's linter (e.g., `pnpm lint`), TypeScript compiler (`pnpm typecheck`), and the build command (`pnpm build`) to detect unused variables, missing imports, Zod schema violations, or build failures introduced by your edits (including MDX content changes). Fix all warnings and errors you caused before stopping.
 3. **Execute and Test**: Run the relevant code or tests to verify your implementation actually works in practice, rather than assuming it works based on the source code.
 4. **STRICT Workspace Isolation for Scratch Scripts**:
    - **Mandatory Location**: Whenever you write a Node.js, Python, or shell script to automate a task, migrate data, or run quick tests, you **MUST** create it exclusively inside your dedicated agent scratch directory: `<appDataDir>\brain\<conversation-id>\scratch\`.

@@ -154,9 +154,6 @@ const quizzes = defineCollection({
   include: "**/*.mdx",
   schema: z
     .object({
-      id: z.string(),
-      difficulty: z.enum(["basics", "advanced", "expert", "master"]),
-      category: z.enum(["academic", "damage_calc", "tsume"]),
       format: z.enum([
         "choices",
         "multi_select",
@@ -171,9 +168,10 @@ const quizzes = defineCollection({
       options: z.array(z.string()).optional(),
 
       // Answer fields (all optional; validated by refinements below)
-      correctAnswer: z.string().optional(),
-      correctAnswers: z.array(z.string()).optional(),
-      correctOrder: z.array(z.string()).optional(),
+      correctAnswerIndex: z.number().optional(),
+      correctAnswerIndices: z.array(z.number()).optional(),
+      correctAnswer: z.string().optional(), // only for 'input' format
+      correctOrderIndices: z.array(z.number()).optional(),
       correctGroups: z.record(z.string(), z.array(z.string())).optional(),
 
       practicalData: practicalDataSchema.optional(),
@@ -187,17 +185,18 @@ const quizzes = defineCollection({
         match(data.format)
           .with(
             "multi_select",
-            () => data.correctAnswers !== undefined && data.correctAnswers.length > 0,
+            () => data.correctAnswerIndices !== undefined && data.correctAnswerIndices.length > 0,
           )
-          .with("ordering", () => data.correctOrder !== undefined && data.correctOrder.length === 4)
+          .with("ordering", () => data.correctOrderIndices !== undefined && data.correctOrderIndices.length === 4)
           .with(
             "grouping",
             () => data.correctGroups !== undefined && Object.keys(data.correctGroups).length >= 2,
           )
           .with(
-            P.union("choices", "one_way", "input"),
-            () => data.correctAnswer !== undefined && data.correctAnswer.length > 0,
+            P.union("choices", "one_way"),
+            () => data.correctAnswerIndex !== undefined && data.correctAnswerIndex >= 0,
           )
+          .with("input", () => data.correctAnswer !== undefined && data.correctAnswer.length > 0)
           .with("tsume_action", () => true)
           .exhaustive(),
       { message: "Answer field must match format type" },
@@ -224,55 +223,45 @@ const quizzes = defineCollection({
           .otherwise(() => false);
       },
       { message: "Options count must match format requirements", path: ["options"] },
-    )
-    // Refinement 3: Only certain formats are allowed per difficulty level
-    .refine(
-      (data) => {
-        const { difficulty, format } = data;
-
-        if (difficulty === "basics" || difficulty === "advanced") {
-          return format === "choices";
-        }
-
-        if (difficulty === "expert") {
-          return ["choices", "multi_select", "ordering", "tsume_action"].includes(format);
-        }
-
-        if (difficulty === "master") {
-          return [
-            "choices",
-            "multi_select",
-            "ordering",
-            "grouping",
-            "one_way",
-            "tsume_action",
-          ].includes(format);
-        }
-
-        return false;
-      },
-      {
-        message:
-          "Format not allowed for this difficulty level. " +
-          "Basics/Advanced: choices only. " +
-          "Expert: choices, multi_select, ordering. " +
-          "Master: all formats allowed.",
-        path: ["format"],
-      },
-    )
-    // Refinement 4: tsume_action format requirements
-    .refine(
-      (data) => {
-        if (data.format === "tsume_action") {
-          return data.category === "tsume" && data.tsumeData !== undefined;
-        }
-        return true;
-      },
-      {
-        message: "tsume_action format requires category to be 'tsume' and tsumeData to be provided",
-      },
     ),
-  transform: transformer({ withHeadings: false }),
+  transform: async (document, context) => {
+    const transformed = await transformer({ withHeadings: false })(document, context);
+    const parts = document._meta.path.replace(/\\/g, "/").split("/");
+    const difficulty = parts[1] as "basics" | "advanced" | "expert" | "master";
+    const category = parts[2] as "academic" | "damage_calc" | "tsume";
+    const id = parts[parts.length - 1].replace(/\.mdx$/, "");
+
+    // Refinement 3: Only certain formats are allowed per difficulty level
+    if (difficulty === "basics" || difficulty === "advanced") {
+      if (document.format !== "choices") {
+        throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}. choices only.`);
+      }
+    } else if (difficulty === "expert") {
+      if (!["choices", "multi_select", "ordering", "tsume_action"].includes(document.format)) {
+        throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}.`);
+      }
+    } else if (difficulty === "master") {
+      if (!["choices", "multi_select", "ordering", "grouping", "one_way", "tsume_action"].includes(document.format)) {
+        throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}.`);
+      }
+    } else {
+       throw new Error(`Unknown difficulty: ${difficulty}`);
+    }
+
+    // Refinement 4: tsume_action format requirements
+    if (document.format === "tsume_action") {
+      if (category !== "tsume" || document.tsumeData === undefined) {
+        throw new Error("tsume_action format requires category to be 'tsume' and tsumeData to be provided");
+      }
+    }
+
+    return {
+      ...transformed,
+      id,
+      difficulty,
+      category,
+    };
+  },
 });
 
 export default defineConfig({

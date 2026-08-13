@@ -7,7 +7,7 @@ interface MultiSelectFormatProps {
   selectedOptions: string[];
   onOptionToggle: (option: string) => void;
   showExplanation: boolean;
-  correctAnswers?: string[];
+  correctAnswerIndices?: number[];
 }
 
 export function MultiSelectFormat({
@@ -15,7 +15,7 @@ export function MultiSelectFormat({
   selectedOptions,
   onOptionToggle,
   showExplanation,
-  correctAnswers,
+  correctAnswerIndices,
 }: MultiSelectFormatProps) {
   const { t } = useTranslation();
 
@@ -27,7 +27,7 @@ export function MultiSelectFormat({
       <Stack spacing={2}>
         {options.map((opt, idx) => {
           const isSelected = selectedOptions.includes(opt);
-          const isCorrect = correctAnswers?.includes(opt);
+          const isCorrect = correctAnswerIndices?.includes(idx);
 
           let color: "primary" | "success" | "error" | "inherit" = "primary";
           if (showExplanation) {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { PatchDiff, File as DiffsFile, EditProvider } from "@pierre/diffs/react";
 import { Editor } from "@pierre/diffs/edit";
 import type { FileContents } from "@pierre/diffs";
@@ -280,7 +280,12 @@ function TreeNode({
   const isDifficulty = ["basics", "advanced", "expert", "master"].includes(node.name);
   const isLocale = ["ja", "en"].includes(node.name);
   const open = expandedPaths.has(node.fullPath);
-  const childCount = flattenLeaves(node).length;
+  
+  const getVisibleLeafCount = (n: FileTreeNode): number => {
+    if (n.quizzes) return matchesSearch(n) ? 1 : 0;
+    return Object.values(n.children).reduce((acc, child) => acc + getVisibleLeafCount(child), 0);
+  };
+  const childCount = getVisibleLeafCount(node);
 
   return (
     <div>
@@ -705,11 +710,30 @@ function TabButton({
 
 export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  
   const [selectedQuizGroup, setSelectedQuizGroup] = useState<QuizGroup | null>(null);
   const [activeTab, setActiveTab] = useState<EditorTab>("source");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterNeedsReview, setFilterNeedsReview] = useState(false);
+  
+  const initialNeedsReview = searchParams.get("needsReview") === "true";
+  const [filterNeedsReview, setFilterNeedsReview] = useState(initialNeedsReview);
+  
+  useEffect(() => {
+    const current = searchParams.get("needsReview") === "true";
+    if (current !== filterNeedsReview) {
+      const params = new URLSearchParams(searchParams.toString());
+      if (filterNeedsReview) {
+        params.set("needsReview", "true");
+      } else {
+        params.delete("needsReview");
+      }
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  }, [filterNeedsReview, pathname, router, searchParams]);
+
   const [localReviewedMap, setLocalReviewedMap] = useState<Record<string, boolean>>({});
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => new Set());
 
@@ -727,6 +751,30 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
       return next;
     });
   }, []);
+
+  useEffect(() => {
+    if (selectedQuizGroup && filterNeedsReview) {
+      const qJa = selectedQuizGroup.ja;
+      const qEn = selectedQuizGroup.en;
+      const jaPath = qJa ? quizToFilePath(qJa) : "";
+      const enPath = qEn ? quizToFilePath(qEn) : "";
+
+      const revJa =
+        jaPath && localReviewedMap[jaPath] !== undefined
+          ? localReviewedMap[jaPath]
+          : (qJa?.reviewed ?? false);
+      const revEn =
+        enPath && localReviewedMap[enPath] !== undefined
+          ? localReviewedMap[enPath]
+          : (qEn?.reviewed ?? false);
+
+      const needsRev = (qJa && !revJa) || (qEn && !revEn);
+
+      if (!needsRev) {
+        setSelectedQuizGroup(null);
+      }
+    }
+  }, [selectedQuizGroup, filterNeedsReview, localReviewedMap]);
 
   const openPreview = useCallback(() => {
     setPreviewOpen(true);
@@ -1132,7 +1180,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         }}
                         onClick={async () => {
                           if (!confirm("Are you sure you want to approve this quiz?")) return;
-                          const files = [];
+                          const files: string[] = [];
                           if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
                           if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
                           

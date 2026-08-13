@@ -68,7 +68,9 @@
       "veteran": "四天王級",
       "champion": "チャンピオン級"
     },
-    "rankLabel": "認定ランク"
+    "rankLabel": "認定ランク",
+    "reportError": "フィードバックを送る",
+    "backToMenu": "メニューに戻る"
   },
   "common": {
     "close": "閉じる",

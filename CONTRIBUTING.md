@@ -55,22 +55,24 @@ Pokemetrixにおけるクイズコンテンツの作成方法とフォーマッ�
 
 ## 1. ファイルの配置場所
 
-クイズファイルは、言語とカテゴリーごとに分類されたディレクトリに配置します。
+クイズファイルは、言語とカテゴリーごとに分類されたディレクトリに配置します。ファイルパスから難易度やカテゴリなどのメタデータが自動推論されます。
 
 ```text
-apps/web/content/quiz/[locale]/[difficulty]/[category]/[quiz_id].mdx
+apps/web/content/quiz/[locale]/[difficulty]/[category]/[id].mdx
 ```
-
-## 2. フロントマター (Frontmatter) の定義
 
 - **`[locale]`**: `ja` (日本語) または `en` (英語)
 - **`[difficulty]`**: `basics`, `advanced`, `expert`, `master` のいずれか
 - **`[category]`**: `academic`, `damage_calc`, `tsume`, `speed_compare` のいずれか
-- **`[quiz_id]`**: クイズの一意なID。ファイル名にはこのIDを使用します（例: `basic_mega_item.mdx`）。
+- **`[id]`**: クイズの一意なID（ファイル名から拡張子を除いたもの）。
+
+## 2. フロントマター (Frontmatter) の定義
+
+MDXファイルの先頭には、必ずYAML形式でメタデータを記述します。システム(`content-collections.ts`) によって厳密に型チェックされます。
 
 ### 2.1 データ入力ルール（ドメインルール）
 
-1. **カテゴリーと難易度のIDは固定**: `basics`, `advanced`, `expert`, `master` や `academic`, `damage_calc`, `tsume`, `speed_compare` などの内部IDは、コードやフロントマターで絶対にリネームしないでください。ローカライズ（表示名）の変更は、UI側の翻訳JSONファイル（例: `ja/translation.json`）でのみ行います。
+1. **カテゴリーと難易度のIDは固定**: `basics`, `advanced`, `expert`, `master` や `academic`, `damage_calc`, `tsume`, `speed_compare` などの内部IDは、コード内で絶対にリネームしないでください。ローカライズ（表示名）の変更は、UI側の翻訳JSONファイル（例: `ja/translation.json`）でのみ行います。
 2. **データソース**: ポケモン/もちもの/技は日本語や英語の問題にかかわらず `identifier` を使わなければならない、必ず `apps/web/data/champions/{pokemon, items, moves}.json` などのJSONデータを真として参照してください。
 3. **努力値のスケール**: 努力値はクイズ本文・フロントマターで努力値を記述する際は必ず次の記法を使用してください（例: `S32+`, `H32 B32+`）。
 
@@ -83,21 +85,16 @@ apps/web/content/quiz/[locale]/[difficulty]/[category]/[quiz_id].mdx
 <nature> ::= "+" | "-"
 ```
 
-MDXファイルの先頭には、必ずYAML形式でメタデータを記述します。システム(`content-collections.ts`) によって厳密に型チェックされます。
-
 ### 2.1 基本スキーマ
 
 ```yaml
 ---
-id: "basic_mega_item"
-difficulty: "basics"
-category: "academic"
 format: "choices"
 question: "メガストーンを持たせたポケモンは、きあいのタスキやオボンのみなどの他のどうぐを同時に持つことができるか？"
 options:
   - "できる"
   - "できない"
-correctAnswer: "できない"
+correctAnswerIndex: 1
 ---
 ```
 
@@ -105,9 +102,6 @@ correctAnswer: "できない"
 
 | プロパティ名         | 型                         | 必須 | 説明                                                                                                                                                           |
 |:---------------------|:---------------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`id`**             | `string`                   |  ✅  | クイズの一意なID。ファイル名と一致させるのが推奨です。                                                                                                         |
-| **`difficulty`**     | `enum`                     |  ✅  | 難易度。必ず **`basics`, `advanced`, `expert`, `master`** のいずれかを使用してください（※コード内で別名に変更することは禁止されています）。                    |
-| **`category`**       | `enum`                     |  ✅  | カテゴリー。必ず **`academic`, `damage_calc`, `tsume`, `speed_compare`** のいずれかを使用してください。                                                        |
 | **`format`**         | `enum`                     |  ✅  | 回答形式。`choices` (選択式), `multi_select` (一問多答), `ordering` (順番当て), `grouping` (グループ分け), `one_way` (一方通行), `input` (入力式) のいずれか。 |
 | **`question`**       | `string`                   |  ✅  | 問題文。                                                                                                                                                       |
 | **`options`**        | `string[]`                 |  ⚠️  | 選択肢の配列（`format: "choices"` の場合は必須。各フォーマットの必要数については難易度設定セクションを参照）。                                                 |
@@ -213,4 +207,4 @@ id: "example"
 
 - **同一ファイルの多言語対応**: クイズを作成・追加する際は、必ず `en` (英語) と `ja` (日本語) の両方のディレクトリに**同一ファイル名の `*.mdx` ファイルを配置**する必要があります。
   - 例: `ja/basics/academic/type_matchup.mdx` を作成した場合、対応する `en/basics/academic/type_matchup.mdx` も作成し、問題文や解説をそれぞれの言語で記述してください。
-  - フロントマターの `id`, `difficulty`, `category`, `format` などのメタデータは両言語で完全に一致させる必要があります。
+  - フロントマターの `format`, `correctAnswerIndex` などのクイズ構成データは両言語で完全に一致させる必要があります。ファイル名と配置パスを同一にすることで、システム上同じ問題として紐付けられます。

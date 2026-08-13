@@ -94,17 +94,19 @@ function SortableItem({
 }
 
 interface OrderingFormatProps {
+  options: string[];
   orderedOptions: string[];
   onOrderChange: (newOrder: string[]) => void;
   showExplanation: boolean;
-  correctOrder?: string[];
+  correctOrderIndices?: number[];
 }
 
 export function OrderingFormat({
+  options,
   orderedOptions,
   onOrderChange,
   showExplanation,
-  correctOrder,
+  correctOrderIndices,
 }: OrderingFormatProps) {
   const { t } = useTranslation();
 
@@ -140,7 +142,7 @@ export function OrderingFormat({
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={orderedOptions} strategy={verticalListSortingStrategy}>
           {orderedOptions.map((opt, index) => {
-            const isCorrect = correctOrder ? correctOrder[index] === opt : false;
+            const isCorrectPosition = correctOrderIndices?.[index] === options.indexOf(opt);
             return (
               <SortableItem
                 key={opt}
@@ -149,7 +151,9 @@ export function OrderingFormat({
                 index={index}
                 disabled={showExplanation}
                 showExplanation={showExplanation}
-                isCorrect={isCorrect}
+                isCorrect={
+                  showExplanation ? isCorrectPosition : undefined
+                }
               />
             );
           })}

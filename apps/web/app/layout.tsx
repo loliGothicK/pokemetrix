@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
-import Script from "next/script";
+import { SuppressCancelation } from "@/components/client/SuppressCancelation";
 
 export default function RootLayout({
   children,
@@ -56,20 +56,7 @@ export default function RootLayout({
       <body>
         <InitColorSchemeScript />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <Script
-          id="suppress-cancelation"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener('unhandledrejection', function(event) {
-                if (event.reason && (event.reason.name === 'Canceled' || event.reason.type === 'cancelation')) {
-                  event.preventDefault();
-                  event.stopImmediatePropagation();
-                }
-              });
-            `,
-          }}
-        />
+        <SuppressCancelation />
         <AppRouterCacheProvider>
           <ContentLayoutProvider>
             <AppLayout>

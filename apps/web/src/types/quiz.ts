@@ -41,9 +41,10 @@ export interface QuizQuestion {
   format: QuizQuestionFormat;
   question: string;
   options?: string[]; // Used if format !== 'input'
-  correctAnswer?: string; // for choices, one_way, input
-  correctAnswers?: string[]; // for multi_select
-  correctOrder?: string[]; // for ordering
+  correctAnswerIndex?: number; // for choices, one_way
+  correctAnswerIndices?: number[]; // for multi_select
+  correctAnswer?: string; // for input
+  correctOrderIndices?: number[]; // for ordering
   correctGroups?: Record<string, string[]>; // for grouping
   prerequisites?: string[]; // Array of question IDs that must be answered correctly before this question is unlocked
   content?: string; // Raw markdown text (for display)

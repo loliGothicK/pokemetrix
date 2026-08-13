@@ -5837,6 +5837,8 @@
       "veteran": "Elite Four Class",
       "champion": "Champion Class"
     },
-    "rankLabel": "Certified Rank"
+    "rankLabel": "Certified Rank",
+    "reportError": "Send Feedback",
+    "backToMenu": "Back to Menu"
   }
 }
