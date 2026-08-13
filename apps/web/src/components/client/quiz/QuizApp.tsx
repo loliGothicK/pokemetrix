@@ -169,9 +169,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         newOptions = mappedOptions.map((m) => m.opt);
 
         if (q.correctAnswerIndex !== undefined) {
-          newCorrectAnswerIndex = mappedOptions.findIndex(
-            (m) => m.index === q.correctAnswerIndex,
-          );
+          newCorrectAnswerIndex = mappedOptions.findIndex((m) => m.index === q.correctAnswerIndex);
         }
         if (q.correctAnswerIndices) {
           newCorrectAnswerIndices = q.correctAnswerIndices.map((oldIdx) =>
@@ -264,13 +262,17 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         activeQuestion.options?.indexOf(selectedOption) === activeQuestion.correctAnswerIndex;
     } else if (activeQuestion.format === "multi_select") {
       const correctIndices = activeQuestion.correctAnswerIndices || [];
-      const selectedIndices = selectedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
+      const selectedIndices = selectedOptions.map(
+        (opt) => activeQuestion.options?.indexOf(opt) ?? -1,
+      );
       isCorrect =
         correctIndices.length === selectedIndices.length &&
         correctIndices.every((idx) => selectedIndices.includes(idx));
     } else if (activeQuestion.format === "ordering") {
       const correctIndices = activeQuestion.correctOrderIndices || [];
-      const selectedIndices = orderedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
+      const selectedIndices = orderedOptions.map(
+        (opt) => activeQuestion.options?.indexOf(opt) ?? -1,
+      );
       isCorrect =
         correctIndices.length === selectedIndices.length &&
         correctIndices.every((ans, i) => selectedIndices[i] === ans);
@@ -380,13 +382,17 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         activeQuestion.options?.indexOf(selectedOption) === activeQuestion.correctAnswerIndex;
     } else if (activeQuestion.format === "multi_select") {
       const correctIndices = activeQuestion.correctAnswerIndices || [];
-      const selectedIndices = selectedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
+      const selectedIndices = selectedOptions.map(
+        (opt) => activeQuestion.options?.indexOf(opt) ?? -1,
+      );
       isCorrect =
         correctIndices.length === selectedIndices.length &&
         correctIndices.every((idx) => selectedIndices.includes(idx));
     } else if (activeQuestion.format === "ordering") {
       const correctIndices = activeQuestion.correctOrderIndices || [];
-      const selectedIndices = orderedOptions.map(opt => activeQuestion.options?.indexOf(opt) ?? -1);
+      const selectedIndices = orderedOptions.map(
+        (opt) => activeQuestion.options?.indexOf(opt) ?? -1,
+      );
       isCorrect =
         correctIndices.length === selectedIndices.length &&
         correctIndices.every((ans, i) => selectedIndices[i] === ans);

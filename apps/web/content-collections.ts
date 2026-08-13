@@ -187,7 +187,10 @@ const quizzes = defineCollection({
             "multi_select",
             () => data.correctAnswerIndices !== undefined && data.correctAnswerIndices.length > 0,
           )
-          .with("ordering", () => data.correctOrderIndices !== undefined && data.correctOrderIndices.length === 4)
+          .with(
+            "ordering",
+            () => data.correctOrderIndices !== undefined && data.correctOrderIndices.length === 4,
+          )
           .with(
             "grouping",
             () => data.correctGroups !== undefined && Object.keys(data.correctGroups).length >= 2,
@@ -234,24 +237,32 @@ const quizzes = defineCollection({
     // Refinement 3: Only certain formats are allowed per difficulty level
     if (difficulty === "basics" || difficulty === "advanced") {
       if (document.format !== "choices") {
-        throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}. choices only.`);
+        throw new Error(
+          `Format ${document.format} not allowed for difficulty ${difficulty}. choices only.`,
+        );
       }
     } else if (difficulty === "expert") {
       if (!["choices", "multi_select", "ordering", "tsume_action"].includes(document.format)) {
         throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}.`);
       }
     } else if (difficulty === "master") {
-      if (!["choices", "multi_select", "ordering", "grouping", "one_way", "tsume_action"].includes(document.format)) {
+      if (
+        !["choices", "multi_select", "ordering", "grouping", "one_way", "tsume_action"].includes(
+          document.format,
+        )
+      ) {
         throw new Error(`Format ${document.format} not allowed for difficulty ${difficulty}.`);
       }
     } else {
-       throw new Error(`Unknown difficulty: ${difficulty}`);
+      throw new Error(`Unknown difficulty: ${String(difficulty)}`);
     }
 
     // Refinement 4: tsume_action format requirements
     if (document.format === "tsume_action") {
       if (category !== "tsume" || document.tsumeData === undefined) {
-        throw new Error("tsume_action format requires category to be 'tsume' and tsumeData to be provided");
+        throw new Error(
+          "tsume_action format requires category to be 'tsume' and tsumeData to be provided",
+        );
       }
     }
 

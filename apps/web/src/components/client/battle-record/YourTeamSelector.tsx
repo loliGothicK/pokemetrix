@@ -2,7 +2,7 @@
 
 import { alpha, Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useTheme } from "@mui/material/styles";
+
 import { useTranslation } from "react-i18next";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { BattleFormat } from "@/store/battle-record/battleRecord";
@@ -36,7 +36,7 @@ const stateColor = (state: MemberSelectionState): string | null =>
  */
 export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTeamSelectorProps) {
   const { t } = useTranslation();
-  const theme = useTheme();
+
   const limits = selectionLimits(format);
 
   return (

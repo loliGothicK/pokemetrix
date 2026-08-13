@@ -120,10 +120,7 @@ export function OpponentSlots({ opponents, onChange, format }: OpponentSlotsProp
                   cursor: opponents.length < MAX_OPPONENTS ? "pointer" : "default",
                   color: "text.disabled",
                   "&:hover": {
-                    borderColor:
-                      opponents.length < MAX_OPPONENTS
-                        ? "primary.main"
-                        : "divider",
+                    borderColor: opponents.length < MAX_OPPONENTS ? "primary.main" : "divider",
                   },
                   borderRadius: 2,
                 }}

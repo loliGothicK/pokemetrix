@@ -22,7 +22,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+
 import { useTranslation } from "react-i18next";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -289,7 +289,7 @@ export function VisualizeEditor({
   onChange,
 }: VisualizeEditorProps) {
   const { t } = useTranslation();
-  const theme = useTheme();
+
   const [tabIndex, setTabIndex] = useState(0);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 

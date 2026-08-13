@@ -110,12 +110,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     if (body.action === "delete") {
-      if (!Array.isArray(body.files)) return NextResponse.json({ error: "Invalid files" }, { status: 400 });
+      if (!Array.isArray(body.files))
+        return NextResponse.json({ error: "Invalid files" }, { status: 400 });
       for (const f of body.files) {
         if (!f.startsWith("apps/web/content/quiz/")) continue;
         try {
           await fs.unlink(path.join(REPO_ROOT, f));
-        } catch (e) {
+        } catch {
           // Ignore if file doesn't exist
         }
       }
@@ -132,7 +133,7 @@ export async function POST(req: NextRequest) {
         let content;
         try {
           content = await fs.readFile(absPath, "utf-8");
-        } catch (e) {
+        } catch {
           continue;
         }
 
@@ -157,14 +158,15 @@ export async function POST(req: NextRequest) {
     }
 
     if (body.action === "approve") {
-      if (!Array.isArray(body.files)) return NextResponse.json({ error: "Invalid files" }, { status: 400 });
+      if (!Array.isArray(body.files))
+        return NextResponse.json({ error: "Invalid files" }, { status: 400 });
       for (const f of body.files) {
         if (!f.startsWith("apps/web/content/quiz/")) continue;
         const absPath = path.join(REPO_ROOT, f);
         let content;
         try {
           content = await fs.readFile(absPath, "utf-8");
-        } catch (e) {
+        } catch {
           continue;
         }
 

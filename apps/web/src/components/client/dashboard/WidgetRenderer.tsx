@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { alpha, Box, CircularProgress, Stack, Typography, Skeleton, Button } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography, Skeleton, Button } from "@mui/material";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";

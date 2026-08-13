@@ -57,7 +57,7 @@ type ResultFilter = "all" | BattleResult;
 // デスクトップ用：元の詳細なパーティ表示
 function PartyPanel({ team }: { readonly team: Team | null }) {
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
+
   const members = (team?.members ?? []).filter((m): m is TrainedPokemon => m !== null);
 
   return (

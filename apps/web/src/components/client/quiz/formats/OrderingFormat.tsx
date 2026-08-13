@@ -151,9 +151,7 @@ export function OrderingFormat({
                 index={index}
                 disabled={showExplanation}
                 showExplanation={showExplanation}
-                isCorrect={
-                  showExplanation ? isCorrectPosition : undefined
-                }
+                isCorrect={showExplanation ? isCorrectPosition : undefined}
               />
             );
           })}

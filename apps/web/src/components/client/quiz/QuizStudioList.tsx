@@ -280,7 +280,7 @@ function TreeNode({
   const isDifficulty = ["basics", "advanced", "expert", "master"].includes(node.name);
   const isLocale = ["ja", "en"].includes(node.name);
   const open = expandedPaths.has(node.fullPath);
-  
+
   const getVisibleLeafCount = (n: FileTreeNode): number => {
     if (n.quizzes) return matchesSearch(n) ? 1 : 0;
     return Object.values(n.children).reduce((acc, child) => acc + getVisibleLeafCount(child), 0);
@@ -577,60 +577,60 @@ function SourcePane({
         {error && <div style={{ padding: 16, color: "#f85149", fontSize: 12 }}>{error}</div>}
         {!loading && meta && (
           <div
-              className="diff-editor-container"
-              style={
-                {
-                  "--diffs-dark-bg": S.bg,
-                  "--diffs-light-bg": S.bg,
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: 0,
-                } as React.CSSProperties
-              }
-              onKeyDown={(e) => e.stopPropagation()}
-            >
-              {!showRaw && hasPatch ? (
-                <EditProvider
-                  createEditor={(opts) =>
-                    new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+            className="diff-editor-container"
+            style={
+              {
+                "--diffs-dark-bg": S.bg,
+                "--diffs-light-bg": S.bg,
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                minHeight: 0,
+              } as React.CSSProperties
+            }
+            onKeyDown={(e) => e.stopPropagation()}
+          >
+            {!showRaw && hasPatch ? (
+              <EditProvider
+                createEditor={(opts) =>
+                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                }
+              >
+                <PatchDiff
+                  patch={meta.patch!}
+                  options={{ diffStyle: "unified", overflow: "wrap" }}
+                  edit={true}
+                  style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
+                />
+              </EditProvider>
+            ) : meta.fileContent ? (
+              <EditProvider
+                createEditor={(opts) =>
+                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                }
+              >
+                <DiffsFile
+                  file={
+                    {
+                      name: meta.filePath.split("/").pop() ?? "file.mdx",
+                      contents: meta.fileContent,
+                    } satisfies FileContents
                   }
-                >
-                  <PatchDiff
-                    patch={meta.patch!}
-                    options={{ diffStyle: "unified", overflow: "wrap" }}
-                    edit={true}
-                    style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
-                  />
-                </EditProvider>
-              ) : meta.fileContent ? (
-                <EditProvider
-                  createEditor={(opts) =>
-                    new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
-                  }
-                >
-                  <DiffsFile
-                    file={
-                      {
-                        name: meta.filePath.split("/").pop() ?? "file.mdx",
-                        contents: meta.fileContent,
-                      } satisfies FileContents
-                    }
-                    options={{ overflow: "wrap" }}
-                    edit={true}
-                    style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
-                  />
-                </EditProvider>
-              ) : (
-                <div style={{ padding: 16, color: S.fgMuted, fontSize: 12 }}>
-                  File not found on disk.
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-        {!loading && meta && <GitLogPanel entries={meta.gitLog} />}
+                  options={{ overflow: "wrap" }}
+                  edit={true}
+                  style={{ flex: 1, overflowX: "hidden", overflowY: "auto" }}
+                />
+              </EditProvider>
+            ) : (
+              <div style={{ padding: 16, color: S.fgMuted, fontSize: 12 }}>
+                File not found on disk.
+              </div>
+            )}
+          </div>
+        )}
       </div>
+      {!loading && meta && <GitLogPanel entries={meta.gitLog} />}
+    </div>
   );
 }
 
@@ -712,15 +712,15 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  
+
   const [selectedQuizGroup, setSelectedQuizGroup] = useState<QuizGroup | null>(null);
   const [activeTab, setActiveTab] = useState<EditorTab>("source");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const initialNeedsReview = searchParams.get("needsReview") === "true";
   const [filterNeedsReview, setFilterNeedsReview] = useState(initialNeedsReview);
-  
+
   useEffect(() => {
     const current = searchParams.get("needsReview") === "true";
     if (current !== filterNeedsReview) {
@@ -1119,8 +1119,10 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                       >
                         {repQuiz.format}
                       </span>
-                      
-                      <div style={{ width: 1, height: 16, background: S.border, margin: "0 8px" }} />
+
+                      <div
+                        style={{ width: 1, height: 16, background: S.border, margin: "0 8px" }}
+                      />
 
                       <select
                         style={{
@@ -1137,16 +1139,22 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                           const newDiff = e.target.value;
                           if (!newDiff) return;
                           if (!confirm(`Move this quiz to ${newDiff}?`)) return;
-                          
+
                           const files = [];
-                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
-                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
-                          
+                          if (selectedQuizGroup.ja)
+                            files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en)
+                            files.push(quizToFilePath(selectedQuizGroup.en));
+
                           try {
                             const res = await fetch("/api/quiz-studio", {
                               method: "POST",
                               headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ action: "move", newDifficulty: newDiff, files })
+                              body: JSON.stringify({
+                                action: "move",
+                                newDifficulty: newDiff,
+                                files,
+                              }),
                             });
                             if (res.ok) {
                               setSelectedQuizGroup(null);
@@ -1162,9 +1170,12 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                       >
                         <option value="">Move to...</option>
                         {["basics", "advanced", "expert", "master"]
-                          .filter(d => d !== repQuiz.difficulty)
-                          .map(d => <option key={d} value={d}>{d}</option>)
-                        }
+                          .filter((d) => d !== repQuiz.difficulty)
+                          .map((d) => (
+                            <option key={d} value={d}>
+                              {d}
+                            </option>
+                          ))}
                       </select>
 
                       <button
@@ -1181,19 +1192,23 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         onClick={async () => {
                           if (!confirm("Are you sure you want to approve this quiz?")) return;
                           const files: string[] = [];
-                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
-                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
-                          
+                          if (selectedQuizGroup.ja)
+                            files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en)
+                            files.push(quizToFilePath(selectedQuizGroup.en));
+
                           try {
                             const res = await fetch("/api/quiz-studio", {
                               method: "POST",
                               headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ action: "approve", files })
+                              body: JSON.stringify({ action: "approve", files }),
                             });
                             if (res.ok) {
                               setLocalReviewedMap((p) => {
                                 const next = { ...p };
-                                files.forEach(f => { next[f] = true; });
+                                files.forEach((f) => {
+                                  next[f] = true;
+                                });
                                 return next;
                               });
                               router.refresh();
@@ -1220,16 +1235,21 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                           marginLeft: 4,
                         }}
                         onClick={async () => {
-                          if (!confirm("Are you sure you want to delete this quiz (both languages)?")) return;
+                          if (
+                            !confirm("Are you sure you want to delete this quiz (both languages)?")
+                          )
+                            return;
                           const files = [];
-                          if (selectedQuizGroup.ja) files.push(quizToFilePath(selectedQuizGroup.ja));
-                          if (selectedQuizGroup.en) files.push(quizToFilePath(selectedQuizGroup.en));
-                          
+                          if (selectedQuizGroup.ja)
+                            files.push(quizToFilePath(selectedQuizGroup.ja));
+                          if (selectedQuizGroup.en)
+                            files.push(quizToFilePath(selectedQuizGroup.en));
+
                           try {
                             const res = await fetch("/api/quiz-studio", {
                               method: "POST",
                               headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ action: "delete", files })
+                              body: JSON.stringify({ action: "delete", files }),
                             });
                             if (res.ok) {
                               setSelectedQuizGroup(null);
