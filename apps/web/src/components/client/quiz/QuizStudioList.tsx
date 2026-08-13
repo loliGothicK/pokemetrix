@@ -857,6 +857,9 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
     <div
       ref={containerRef}
       style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
         display: "flex",
         flexDirection: "column",
         height: "100vh",
