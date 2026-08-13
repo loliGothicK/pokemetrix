@@ -434,7 +434,8 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
           },
         ] as const,
         computeBasePower: (ctx: PowerContext) => {
-          const turns = typeof ctx.conditions.stockpileTurns === "number" ? ctx.conditions.stockpileTurns : 0;
+          const turns =
+            typeof ctx.conditions.stockpileTurns === "number" ? ctx.conditions.stockpileTurns : 0;
           return 100 * Math.max(1, Math.min(3, turns));
         },
       }))

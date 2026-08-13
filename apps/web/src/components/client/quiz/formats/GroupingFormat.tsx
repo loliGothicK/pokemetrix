@@ -11,6 +11,7 @@ import {
   useSensors,
   DragEndEvent,
   DragOverEvent,
+  useDroppable,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -76,6 +77,15 @@ function SortableGroupItem({ id, item, disabled, isCorrect, showExplanation }: G
       <DragIndicatorIcon sx={{ color: "text.secondary", mr: 1, fontSize: 20 }} />
       <Typography sx={{ flexGrow: 1, fontSize: "0.95rem" }}>{item}</Typography>
     </Paper>
+  );
+}
+
+function DroppableContainer({ id, children }: { id: string; children: React.ReactNode }) {
+  const { setNodeRef } = useDroppable({ id });
+  return (
+    <Box ref={setNodeRef} sx={{ flexGrow: 1, minHeight: 100 }}>
+      {children}
+    </Box>
   );
 }
 
@@ -168,7 +178,7 @@ export function GroupingFormat({
     }
   };
 
-  const allContainers = ["unassigned", ...groups];
+  const allContainers = [...groups];
 
   return (
     <Box sx={{ mt: 4 }}>
@@ -184,10 +194,7 @@ export function GroupingFormat({
       >
         <Grid container spacing={2}>
           {allContainers.map((containerId) => (
-            <Grid
-              size={{ xs: 12, md: containerId === "unassigned" ? 12 : 12 / groups.length }}
-              key={containerId}
-            >
+            <Grid size={{ xs: 12, md: 12 / groups.length }} key={containerId}>
               <Paper
                 variant="outlined"
                 sx={{
@@ -199,7 +206,7 @@ export function GroupingFormat({
                 }}
               >
                 <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: "bold" }}>
-                  {containerId === "unassigned" ? t("quiz.unassigned") : containerId}
+                  {containerId}
                 </Typography>
 
                 <SortableContext
@@ -207,7 +214,7 @@ export function GroupingFormat({
                   items={groupedItems[containerId] || []}
                   strategy={verticalListSortingStrategy}
                 >
-                  <Box sx={{ flexGrow: 1, minHeight: 100 }}>
+                  <DroppableContainer id={containerId}>
                     {(groupedItems[containerId] || []).map((item) => {
                       let isCorrect: boolean | undefined = undefined;
                       if (showExplanation && correctGroups) {
@@ -219,12 +226,12 @@ export function GroupingFormat({
                           id={item}
                           item={item}
                           disabled={showExplanation}
-                          showExplanation={showExplanation && containerId !== "unassigned"}
+                          showExplanation={showExplanation}
                           isCorrect={isCorrect}
                         />
                       );
                     })}
-                  </Box>
+                  </DroppableContainer>
                 </SortableContext>
               </Paper>
             </Grid>

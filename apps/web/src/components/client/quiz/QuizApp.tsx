@@ -228,9 +228,9 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         activeQuestion.correctGroups
       ) {
         const groups = Object.keys(activeQuestion.correctGroups);
-        const initialGroups: Record<string, string[]> = { unassigned: [...activeQuestion.options] };
-        groups.forEach((g) => {
-          initialGroups[g] = [];
+        const initialGroups: Record<string, string[]> = {};
+        groups.forEach((g, index) => {
+          initialGroups[g] = index === 0 ? [...activeQuestion.options!] : [];
         });
         setGroupedItems(initialGroups);
       }
@@ -243,7 +243,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       return !selectedOption;
     if (activeQuestion.format === "multi_select") return selectedOptions.length === 0;
     if (activeQuestion.format === "ordering") return orderedOptions.length === 0;
-    if (activeQuestion.format === "grouping") return (groupedItems["unassigned"]?.length || 0) > 0;
+    if (activeQuestion.format === "grouping") return false;
     if (activeQuestion.format === "tsume_action") {
       // Need at least as many actions as correctMoves to not be disabled
       return tsumeActions.length === 0;
