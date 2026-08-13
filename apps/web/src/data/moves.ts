@@ -36,7 +36,11 @@ const schema = zod
 type Move = zod.infer<typeof schema>;
 
 export const MoveList: readonly Move[] = data.map((move) => {
-  return schema.parse({ ...move, type: move.type.toLocaleLowerCase() });
+  // Override spit-up to be a special move (since it's erroneously marked as status with null power in pokeapi)
+  const isSpitUp = move.identifier === "spit-up";
+  const category = isSpitUp ? "special" : move.category;
+
+  return schema.parse({ ...move, type: move.type.toLocaleLowerCase(), category });
 });
 
 export const moveById = new Map(MoveList.map((move) => [move.id, move]));

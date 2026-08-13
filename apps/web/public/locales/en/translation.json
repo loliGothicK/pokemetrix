@@ -427,6 +427,8 @@
     "condFaintedAllies": "Fainted allies",
     "condTimesHit": "Times hit",
     "condMetronomeTurns": "Consecutive uses",
+    "condStockpileTurns": "Stockpile uses",
+    "condFickleBeamFullPower": "All heads attacked (Full Power)",
     "rank": "Rank",
     "hpPercent": "Current HP (%)",
     "burn": "Burn",

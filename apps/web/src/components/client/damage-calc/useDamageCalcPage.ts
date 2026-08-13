@@ -151,8 +151,7 @@ function effectiveSpeed(
 function isGrounded(types: readonly Type[], ability: string | null, gravity: boolean): boolean {
   if (gravity) return true;
   if (ability === "levitate") return false;
-  if (types.includes("flying")) return false;
-  return true;
+  return !types.includes("flying");
 }
 
 export function useDamageCalcPage() {
