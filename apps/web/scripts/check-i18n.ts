@@ -52,12 +52,22 @@ function main() {
 
   // Regex to match t("some.key") or t('some.key') or t(`some.key${var}`)
   const regex = /\bt\(\s*(['"`])(.*?)\1/g;
+  
+  // Regex to match t("key", "fallback")
+  const fallbackRegex = /\bt\(\s*(['"`]).*?\1\s*,\s*(['"`]).*?\2/g;
 
   const missingKeys = new Set<string>();
   const allKeys = new Set<string>();
+  const fallbackUsages: { file: string; match: string }[] = [];
 
   for (const file of files) {
     const content = fs.readFileSync(file, "utf8");
+    
+    let fallbackMatch;
+    while ((fallbackMatch = fallbackRegex.exec(content)) !== null) {
+      fallbackUsages.push({ file, match: fallbackMatch[0] });
+    }
+
     let match;
     while ((match = regex.exec(content)) !== null) {
       const key = match[2];
@@ -81,6 +91,15 @@ function main() {
         missingKeys.add(checkKey);
       }
     }
+  }
+
+  if (fallbackUsages.length > 0) {
+    console.error(`\x1b[31mFound ${fallbackUsages.length} usages of i18n fallback arguments:\x1b[0m`);
+    fallbackUsages.forEach((usage) => {
+      console.error(`  - ${usage.file}: ${usage.match}`);
+    });
+    console.error(`\x1b[33mPlease remove the fallback arguments and add the translations to the locale files instead.\x1b[0m`);
+    process.exit(1);
   }
 
   if (missingKeys.size > 0) {

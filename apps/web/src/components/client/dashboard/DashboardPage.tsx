@@ -291,10 +291,7 @@ export default function DashboardPage() {
         }}
       >
         <EmptyState
-          message={t(
-            "dashboard.desktopOnly",
-            "ダッシュボードはPC環境（デスクトップ）でのみご利用いただけます。",
-          )}
+          message={t("dashboard.desktopOnly")}
         />
       </Box>
     );
