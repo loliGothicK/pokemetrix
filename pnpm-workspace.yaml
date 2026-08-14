@@ -105,3 +105,5 @@ minimumReleaseAgeExclude:
   - next@16.3.0 || 16.3.1
   - html-dom-parser@8.0.2
   - html-react-parser@6.1.7
+  - miniflare@5.20260811.1-alpha
+  - wrangler@4.123.0
