@@ -10,12 +10,12 @@ export class TeamFactory<THasUserId extends boolean = false, THasName extends bo
 
   withUserId(userId: string): TeamFactory<true, THasName> {
     this.data.userId = userId;
-    return this as any;
+    return this as unknown as TeamFactory<true, THasName>;
   }
 
   withName(name: string): TeamFactory<THasUserId, true> {
     this.data.name = name;
-    return this as any;
+    return this as unknown as TeamFactory<THasUserId, true>;
   }
 
   build(this: TeamFactory<true, true>): InsertTeam {

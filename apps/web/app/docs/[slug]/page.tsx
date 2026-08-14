@@ -58,7 +58,7 @@ export default async function DocPage({ params }: { readonly params: Promise<Pag
     locale: d.locale,
     title: d.title,
     description: d.description,
-    headings: d.headings,
+    headings: d.headings ?? [],
     mdx: d.mdx,
   }));
 

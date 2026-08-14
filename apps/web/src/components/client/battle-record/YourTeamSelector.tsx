@@ -2,7 +2,7 @@
 
 import { alpha, Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useTheme } from "@mui/material/styles";
+
 import { useTranslation } from "react-i18next";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { BattleFormat } from "@/store/battle-record/battleRecord";
@@ -36,7 +36,7 @@ const stateColor = (state: MemberSelectionState): string | null =>
  */
 export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTeamSelectorProps) {
   const { t } = useTranslation();
-  const theme = useTheme();
+
   const limits = selectionLimits(format);
 
   return (
@@ -81,8 +81,8 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                 sx={{
                   position: "relative",
                   border: "2px solid",
-                  borderColor: color ?? theme.palette.divider,
-                  bgcolor: color ? alpha(color, 0.12) : theme.palette.background.paper,
+                  borderColor: color ?? "divider",
+                  bgcolor: color ? alpha(color, 0.12) : "background.paper",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -113,7 +113,7 @@ export function YourTeamSelector({ myTeam, selection, onChange, format }: YourTe
                       borderRadius: "50%",
                       bgcolor: color,
                       border: "2px solid",
-                      borderColor: theme.palette.background.paper,
+                      borderColor: "background.paper",
                     }}
                   />
                 )}

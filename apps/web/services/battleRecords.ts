@@ -1,4 +1,3 @@
-// services/battleRecords.ts (フロントエンドで実行される)
 import type {
   BattleRecord,
   BattleRecordInput,
@@ -21,7 +20,7 @@ export const fetchBattleRecordsFromServer = async (filter?: {
 export const fetchBattleRecordFromServer = async (id: string): Promise<BattleRecord> => {
   const res = await fetch(`/api/battle-records/${id}`);
   if (!res.ok) throw new Error("Failed to fetch battle record");
-  return res.json() as Promise<BattleRecord>;
+  return (await res.json()) as Promise<BattleRecord>;
 };
 
 export const createBattleRecordOnServer = async (
@@ -33,7 +32,7 @@ export const createBattleRecordOnServer = async (
     body: JSON.stringify(input),
   });
   if (!res.ok) throw new Error("Failed to create battle record");
-  return res.json() as Promise<BattleRecord>;
+  return (await res.json()) as Promise<BattleRecord>;
 };
 
 export const updateBattleRecordOnServer = async (
@@ -46,7 +45,7 @@ export const updateBattleRecordOnServer = async (
     body: JSON.stringify(input),
   });
   if (!res.ok) throw new Error("Failed to update battle record");
-  return res.json() as Promise<BattleRecord>;
+  return (await res.json()) as Promise<BattleRecord>;
 };
 
 export const deleteBattleRecordFromServer = async (id: string): Promise<void> => {

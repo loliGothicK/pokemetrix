@@ -18,7 +18,10 @@ import type { DashboardWidget } from "@/store/dashboard/dashboard";
 export const widgetTypeLabelKey = (type?: string) =>
   type ? (`dashboard.template.${type}` as const) : null;
 
-const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
+const ResizableWrapper = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof Box> & { isResizing?: boolean }
+>((props, ref) => {
   const { style, className, children, isResizing, ...rest } = props;
   return (
     <Box
@@ -46,7 +49,10 @@ const ResizableWrapper = React.forwardRef<HTMLDivElement, any>((props, ref) => {
 });
 ResizableWrapper.displayName = "ResizableWrapper";
 
-const ResizeHandle = React.forwardRef<HTMLDivElement, any>((props, ref) => {
+const ResizeHandle = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof Box> & { handleAxis?: string }
+>((props, ref) => {
   const { handleAxis: _, ...rest } = props;
   return (
     <Box
@@ -248,8 +254,7 @@ export function WidgetCard({
 
   const title = isSeedKey
     ? t(`dashboard.template.${widget.title === "leadAnalysis" ? "leadsAnalysis" : widget.title}`)
-    : widget.title ||
-      (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled", "New Widget"));
+    : widget.title || (defaultTitleKey ? t(defaultTitleKey) : t("dashboard.widget.untitled"));
 
   const cardContent = (
     <SurfaceCard
@@ -282,13 +287,13 @@ export function WidgetCard({
           left: 16,
           maxWidth: "calc(100% - 32px)",
           transform: "translateY(-50%)",
-          bgcolor: (theme) =>
-            (theme.palette.background as any).paperRaised || theme.palette.background.paper,
+          bgcolor: "background.paperRaised",
           px: 1,
           alignItems: "center",
           zIndex: 10,
           borderRadius: 1,
-          border: (theme) => `1px solid ${theme.palette.divider}`,
+          border: "1px solid",
+          borderColor: "divider",
           boxShadow: 1,
         }}
       >

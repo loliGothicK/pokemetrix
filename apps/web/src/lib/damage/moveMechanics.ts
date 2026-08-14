@@ -224,6 +224,7 @@ export const VARIABLE_POWER_MOVES: ReadonlySet<string> = new Set([
   "heavy-slam",
   "heat-crash",
   "triple-axel",
+  "spit-up",
 ]);
 
 const DEFAULTS = (category: MoveCategory): MoveMechanics => ({
@@ -302,38 +303,7 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
 
   return (
     match(identifier)
-      // --- Base Power Modifiers (Last Respects, Rage Fist, Spit Up, Fickle Beam) ---
-      .with("spit-up", () => ({
-        ...base,
-        conditions: [
-          {
-            key: "stockpileTurns",
-            labelKey: "damageCalc.condStockpileTurns",
-            type: "number" as const,
-            min: 1,
-            max: 3,
-            defaultValue: 3,
-          },
-        ],
-        computeBasePower: (ctx: PowerContext) => {
-          const turns = (ctx.conditions["stockpileTurns"] as number) ?? 3;
-          return turns * 100;
-        },
-      }))
-      .with("fickle-beam", () => ({
-        ...base,
-        conditions: [
-          {
-            key: "fickleBeamFullPower",
-            labelKey: "damageCalc.condFickleBeamFullPower",
-            type: "boolean" as const,
-          },
-        ],
-        computeBasePower: (ctx: PowerContext) => {
-          const isFull = ctx.conditions["fickleBeamFullPower"] === true;
-          return isFull ? 160 : ctx.basePower;
-        },
-      }))
+      // --- Base Power Modifiers (Last Respects, Rage Fist) ---
       .with("last-respects", () => ({
         ...base,
         conditions: [
@@ -436,6 +406,37 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         computeBasePower: (ctx: PowerContext) => {
           const hits = typeof ctx.conditions.timesHit === "number" ? ctx.conditions.timesHit : 0;
           return ctx.basePower + 50 * Math.min(6, hits);
+        },
+      }))
+      .with("fickle-beam", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "fickleBeamFullPower",
+            labelKey: "damageCalc.condFickleBeamFullPower",
+            type: "boolean",
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          return ctx.conditions["fickleBeamFullPower"] ? ctx.basePower * 2 : ctx.basePower;
+        },
+      }))
+      .with("spit-up", () => ({
+        ...base,
+        conditions: [
+          {
+            key: "stockpileTurns",
+            labelKey: "damageCalc.condStockpileTurns",
+            type: "number",
+            min: 1,
+            max: 3,
+            defaultValue: 1,
+          },
+        ] as const,
+        computeBasePower: (ctx: PowerContext) => {
+          const turns =
+            typeof ctx.conditions.stockpileTurns === "number" ? ctx.conditions.stockpileTurns : 0;
+          return 100 * Math.max(1, Math.min(3, turns));
         },
       }))
 

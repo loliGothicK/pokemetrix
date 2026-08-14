@@ -74,7 +74,7 @@ export function ShareButton() {
         try {
           const parsed = JSON.parse(errorText);
           if (parsed.error && Array.isArray(parsed.error)) {
-            errorMsg = parsed.error.map((e: any) => e.message).join(", ");
+            errorMsg = parsed.error.map((e: { message: string }) => e.message).join(", ");
           }
         } catch {
           errorMsg = errorText;
@@ -92,9 +92,10 @@ export function ShareButton() {
         router.push(`/share/${id}`);
         setShareState("idle");
       }, 800);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setShareState("error");
-      setSnackMessage(e.message || t("share.shareError"));
+      const errorMsg = e instanceof Error ? e.message : t("share.shareError");
+      setSnackMessage(errorMsg);
       setSnackSeverity("error");
       setSnackOpen(true);
       setTimeout(() => setShareState("idle"), 2000);

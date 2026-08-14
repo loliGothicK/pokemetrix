@@ -43,27 +43,20 @@ export const metadata: Metadata = {
   },
 };
 
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import { SuppressCancelation } from "@/components/client/SuppressCancelation";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   readonly children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        <InitColorSchemeScript />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener('unhandledrejection', function(event) {
-                if (event.reason && (event.reason.name === 'Canceled' || event.reason.type === 'cancelation')) {
-                  event.preventDefault();
-                  event.stopImmediatePropagation();
-                }
-              });
-            `,
-          }}
-        />
+        <SuppressCancelation />
         <AppRouterCacheProvider>
           <ContentLayoutProvider>
             <AppLayout>

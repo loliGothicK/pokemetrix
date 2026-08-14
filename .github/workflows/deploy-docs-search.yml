@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'apps/web/content/docs/**'
-      - 'apps/web/script/index-docs.ts'
+      - '../../apps/web/scripts/index-docs.ts'
       - '.github/workflows/deploy-docs-search.yml'
 
 jobs:

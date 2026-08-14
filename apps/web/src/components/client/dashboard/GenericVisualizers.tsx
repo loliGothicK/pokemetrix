@@ -28,7 +28,7 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
   if (data.length === 0) {
     return (
       <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", py: 3 }}>
-        {t("dashboard.visualize.noData", "No data")}
+        {t("dashboard.visualize.noData")}
       </Typography>
     );
   }
@@ -43,7 +43,7 @@ export function TableVisualizer({ data }: { readonly data: readonly Record<strin
       flex: 1,
       minWidth: 100,
       valueFormatter: isDate
-        ? (value: any) => {
+        ? (value: unknown) => {
             const dateObj =
               value instanceof Date ? value : isIsoDateString(value) ? parseISO(value) : null;
             if (dateObj && isValid(dateObj)) {
@@ -102,7 +102,7 @@ export function StatVisualizer({ data }: { readonly data: readonly Record<string
   if (data.length === 0) {
     return (
       <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", py: 3 }}>
-        {t("dashboard.visualize.noData", "No data")}
+        {t("dashboard.visualize.noData")}
       </Typography>
     );
   }

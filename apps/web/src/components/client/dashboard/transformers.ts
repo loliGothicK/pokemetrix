@@ -102,8 +102,9 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
 
     // opponentのleadを抽出
     const oppLeads = opponents
-      .filter((o: any) => o && o.selectionRole === "lead")
-      .map((o: any) => String(o.pokemonSlug))
+      .filter((o): o is Record<string, unknown> => typeof o === "object" && o !== null)
+      .filter((o) => o.selectionRole === "lead")
+      .map((o) => String(o.pokemonSlug))
       .sort(); // 順序を一定にするためソート
 
     // シングルかダブルかを推測する
@@ -124,9 +125,11 @@ function calcLeadsWinRate(rows: Record<string, unknown>[]): Record<string, unkno
     const myLeadIndices = row.mySelection.slice(0, leadCount);
 
     const myLeads = myLeadIndices
-      .map((idx: any) => {
-        const p = (row.myTeam as any[])[idx as number];
-        return p && typeof p === "object" && "slug" in p ? String(p.slug) : null;
+      .map((idx) => {
+        const p = Array.isArray(row.myTeam) ? row.myTeam[idx as number] : null;
+        return p && typeof p === "object" && "slug" in p
+          ? String((p as Record<string, unknown>).slug)
+          : null;
       })
       .filter(Boolean) as string[];
 
@@ -204,7 +207,9 @@ function detectFormat(row: Record<string, unknown>): "singles" | "doubles" | nul
 
   // 推測: 相手の選出リードが 2体以上ならダブル、1体ならシングル
   if (Array.isArray(row.opponents)) {
-    const oppLeads = row.opponents.filter((o: any) => o && o.selectionRole === "lead");
+    const oppLeads = row.opponents
+      .filter((o): o is Record<string, unknown> => typeof o === "object" && o !== null)
+      .filter((o) => o.selectionRole === "lead");
     if (oppLeads.length >= 2) return "doubles";
     if (oppLeads.length === 1) return "singles";
   }
@@ -232,8 +237,9 @@ function buildMatrix(rows: Record<string, unknown>[], leadCount: number): Heatma
 
     const opponents = Array.isArray(row.opponents) ? row.opponents : [];
     const oppLeads = opponents
-      .filter((o: any) => o && o.selectionRole === "lead")
-      .map((o: any) => String(o.pokemonSlug))
+      .filter((o): o is Record<string, unknown> => typeof o === "object" && o !== null)
+      .filter((o) => o.selectionRole === "lead")
+      .map((o) => String(o.pokemonSlug))
       .sort();
 
     if (leadCount === 2 && oppLeads.length < 2) continue;
@@ -241,9 +247,11 @@ function buildMatrix(rows: Record<string, unknown>[], leadCount: number): Heatma
 
     const myLeadIndices = row.mySelection.slice(0, leadCount);
     const myLeads = myLeadIndices
-      .map((idx: any) => {
-        const p = (row.myTeam as any[])[idx as number];
-        return p && typeof p === "object" && "slug" in p ? String(p.slug) : null;
+      .map((idx) => {
+        const p = Array.isArray(row.myTeam) ? row.myTeam[idx as number] : null;
+        return p && typeof p === "object" && "slug" in p
+          ? String((p as Record<string, unknown>).slug)
+          : null;
       })
       .filter(Boolean) as string[];
 

@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: { readonly params: Promis
     description: p.description,
     date: p.date.toISOString(),
     tags: p.tags,
-    headings: p.headings,
+    headings: p.headings ?? [],
     mdx: p.mdx,
   }));
 

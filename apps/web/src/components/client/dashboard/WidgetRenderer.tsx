@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { alpha, Box, CircularProgress, Stack, Typography, Skeleton, Button } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography, Skeleton, Button } from "@mui/material";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import type { DashboardWidget } from "@/store/dashboard/dashboard";
@@ -103,7 +103,7 @@ function CustomQueryWidget({
 
   // Auto-detect heatmap data to avoid breakage on existing widgets
   const actualVis =
-    resultData.length > 0 && (resultData[0] as any)?._type === "heatmap"
+    resultData.length > 0 && (resultData[0] as Record<string, unknown>)?._type === "heatmap"
       ? "heatmap"
       : visualization;
 
@@ -174,7 +174,7 @@ export function WidgetRenderer({
             bottom: 0,
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: (theme) => alpha(theme.palette.background.paper, 0.7),
+            bgcolor: "background.paperTint",
             backdropFilter: "blur(4px)",
             borderRadius: 1,
             py: 1,
@@ -182,7 +182,7 @@ export function WidgetRenderer({
           }}
         >
           <Typography variant="body2" sx={{ fontWeight: 700, color: "text.secondary" }}>
-            {t("dashboard.widget.notConfigured", "Visualize is not configured")}
+            {t("dashboard.widget.notConfigured")}
           </Typography>
           {editing && onEditClick && (
             <Button
@@ -194,7 +194,7 @@ export function WidgetRenderer({
                 onEditClick();
               }}
             >
-              {t("dashboard.widget.openSettings", "Open Settings")}
+              {t("dashboard.widget.openSettings")}
             </Button>
           )}
         </Stack>

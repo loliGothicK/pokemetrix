@@ -20,17 +20,17 @@ export class SeasonFactory<
 
   withUserId(userId: string): SeasonFactory<true, THasName, THasFormat> {
     this.data.userId = userId;
-    return this as any;
+    return this as unknown as SeasonFactory<true, THasName, THasFormat>;
   }
 
   withName(name: string): SeasonFactory<THasUserId, true, THasFormat> {
     this.data.name = name;
-    return this as any;
+    return this as unknown as SeasonFactory<THasUserId, true, THasFormat>;
   }
 
   withFormat(format: BattleFormat): SeasonFactory<THasUserId, THasName, true> {
     this.data.format = format;
-    return this as any;
+    return this as unknown as SeasonFactory<THasUserId, THasName, true>;
   }
 
   withRuleMark(ruleMark: string | null): this {

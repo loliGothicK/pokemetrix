@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, useColorScheme } from "@mui/material/styles";
 import { moveById, moveByIdentifier } from "@/data/moves";
 import { typeIcon } from "@/lib/image";
 import { TrainedPokemon } from "@/store/team/team";
@@ -65,6 +65,7 @@ export function MoveSelectionDrawer({
 }: MoveSelectionDrawerProps) {
   const { t } = useTranslation();
   const theme = useTheme();
+  const { mode } = useColorScheme();
 
   // クエリトークン（QueryableAutocomplete が管理する）
   const [tokens, setTokens] = useState<QueryToken[]>([]);
@@ -339,8 +340,8 @@ export function MoveSelectionDrawer({
                             width: 24,
                             height: 24,
                             bgcolor: "transparent",
-                            filter: theme.palette.mode === "light" ? "invert(1)" : "none",
-                            opacity: theme.palette.mode === "light" ? 0.7 : 1,
+                            filter: mode !== "dark" ? "invert(1)" : "none",
+                            opacity: mode !== "dark" ? 0.7 : 1,
                           }}
                           variant="square"
                         />
@@ -500,8 +501,8 @@ export function MoveSelectionDrawer({
                               width: 24,
                               height: 24,
                               bgcolor: "transparent",
-                              filter: theme.palette.mode === "light" ? "invert(1)" : "none",
-                              opacity: theme.palette.mode === "light" ? 0.7 : 1,
+                              filter: mode !== "dark" ? "invert(1)" : "none",
+                              opacity: mode !== "dark" ? 0.7 : 1,
                             }}
                             variant="square"
                           />

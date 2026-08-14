@@ -35,7 +35,10 @@
     "done": "Done",
     "back": "Back",
     "or": "or",
-    "preview": "Preview"
+    "preview": "Preview",
+    "next": "Next",
+    "submit": "Submit",
+    "backToMenu": "Back to Menu"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -70,7 +73,8 @@
         "content": "Note content"
       },
       "notConfigured": "Visualize is not configured",
-      "openSettings": "Open Settings"
+      "openSettings": "Open Settings",
+      "untitled": "New Widget"
     },
     "variable": {
       "add": "Add variable",
@@ -167,7 +171,8 @@
       "pokemon": "Pokémon",
       "rating": "Rating",
       "opponent": "Opponent"
-    }
+    },
+    "desktopOnly": "The dashboard is only available on desktop."
   },
   "battleRecord": {
     "title": "Battle Record",
@@ -287,8 +292,8 @@
     "subtitle": "Analytics Workspace"
   },
   "home": {
-    "title": "POKÉMETRIX",
-    "description": "This is a collection of tools designed to support Pokémon battles.",
+    "title": "PokéMetriX",
+    "description": "This is a collection of tools to support Pokémon battles.",
     "tools": {
       "teamBuilder": {
         "title": "Team Builder",
@@ -492,7 +497,8 @@
     "noItem": "No Item",
     "delete": "Remove from BOX",
     "saveToBox": "Save to BOX",
-    "savedToBox": "Saved to BOX"
+    "savedToBox": "Saved to BOX",
+    "addPokemon": "Add Pokémon"
   },
   "teamBuilder": {
     "title": "Team Builder",
@@ -1280,7 +1286,10 @@
       "nature": "Nature",
       "moves": "Moves",
       "evs": "EVs"
-    }
+    },
+    "slotDiffDetected": "Differences detected in slot",
+    "onlyInServer": "Only in Server",
+    "onlyInLocal": "Only in Local"
   },
   "moves": {
     "accelerock": {
@@ -4518,7 +4527,8 @@
     "decidueye-hisui": {
       "name": "Decidueye",
       "formName": "Hisuian Form"
-    }
+    },
+    "unknown": "Unknown Pokémon"
   },
   "abilities": {
     "stench": {
@@ -5781,5 +5791,68 @@
     "physical": "Physical",
     "special": "Special",
     "status": "Status"
+  },
+  "quiz": {
+    "scenarioData": "Scenario Data",
+    "attacker": "Attacker",
+    "ally": "Ally",
+    "defender": "Defender",
+    "opponentAlly": "Opponent Ally",
+    "move": "Move",
+    "boardState": "Board State (Tsume)",
+    "yourActive": "Your Active",
+    "opponentActive": "Opponent Active",
+    "item": "Item",
+    "field": "Field",
+    "title": "Pokémon Battle Proficiency Test",
+    "championsNotice": "Note: All questions assume the latest Pokémon Champions environment mechanics.",
+    "selectMoveAndTarget": "Select a move and its target.",
+    "targetAlly": "Ally",
+    "targetOpponent": "Opponent",
+    "cancelAction": "Cancel",
+    "noQuestions": "No questions available for this difficulty yet.",
+    "correct": "Correct!",
+    "incorrect": "Incorrect...",
+    "viewResults": "View Results",
+    "results": "Results",
+    "shareOnTwitter": "Share on X",
+    "dragToReorder": "Drag to reorder",
+    "unassigned": "Unassigned",
+    "assignAllItems": "Please assign all items",
+    "selectMultiple": "Select all that apply",
+    "category": {
+      "academic": "Academic",
+      "damage_calc": "Damage Calc",
+      "tsume": "Tsume",
+      "practical": "Practical"
+    },
+    "difficulty": {
+      "basics": "Basics",
+      "advanced": "Advanced",
+      "expert": "Expert",
+      "master": "Master"
+    },
+    "rank": {
+      "youngster": "Youngster Class",
+      "aceTrainer": "Ace Trainer Class",
+      "veteran": "Elite Four Class",
+      "champion": "Champion Class"
+    },
+    "rankLabel": "Certified Rank",
+    "reportError": "Send Feedback",
+    "backToMenu": "Back to Menu",
+    "oneWay": {
+      "select": "Select this!",
+      "pass": "Pass / Next",
+      "cannotPass": "Cannot Pass",
+      "optionIndicator": "Option {{current}} / {{total}}"
+    },
+    "grouping": {
+      "tapGroupToAssign": "Tap a group to assign",
+      "tapItemToSelect": "Tap an item to select",
+      "empty": "Empty"
+    },
+    "selectDifficulty": "Select Difficulty",
+    "selectCategory": "Select Category"
   }
 }

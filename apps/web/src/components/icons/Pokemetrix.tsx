@@ -1,4 +1,3 @@
-import { useTheme } from "@mui/material/styles";
 import { SvgIcon } from "@mui/material";
 import { SystemCssProperties } from "@mui/system";
 
@@ -12,16 +11,18 @@ export default function PokemetrixIcon({
     height: 200,
   },
 }: PokemetrixIconProps) {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
-
-  // ダーク: 明るいインク (#c8d8f0) / ライト: 深いネイビー (#2c2c54)
-  const inkColor = isDark ? "#c8d8f0" : "#2c2c54";
-  // アクセントカラーはモードによって彩度を調整
-  const accentColor = isDark ? "#7dd8e0" : "#66C5D0";
-
   return (
-    <SvgIcon sx={sx}>
+    <SvgIcon
+      sx={{
+        ...sx,
+        "--ink-color": "#2c2c54",
+        "--accent-color": "#66C5D0",
+        '[data-mui-color-scheme="dark"] &': {
+          "--ink-color": "#c8d8f0",
+          "--accent-color": "#7dd8e0",
+        },
+      }}
+    >
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         {/* 外周リング — ダーク側弧 */}
         <circle
@@ -29,7 +30,7 @@ export default function PokemetrixIcon({
           cy="100"
           r="84"
           fill="none"
-          stroke={inkColor}
+          stroke="var(--ink-color)"
           strokeWidth="12"
           strokeLinecap="round"
           pathLength="100"
@@ -43,7 +44,7 @@ export default function PokemetrixIcon({
           cy="100"
           r="84"
           fill="none"
-          stroke={accentColor}
+          stroke="var(--accent-color)"
           strokeWidth="12"
           strokeLinecap="round"
           pathLength="100"
@@ -53,10 +54,10 @@ export default function PokemetrixIcon({
         />
 
         {/* 棒グラフバー */}
-        <rect x="47" y="55" width="16" height="33" rx="6" fill={accentColor} />
-        <rect x="77" y="35" width="16" height="48" rx="6" fill={accentColor} />
-        <rect x="107" y="45" width="16" height="38" rx="6" fill={accentColor} />
-        <rect x="137" y="65" width="16" height="23" rx="6" fill={accentColor} />
+        <rect x="47" y="55" width="16" height="33" rx="6" fill="var(--accent-color)" />
+        <rect x="77" y="35" width="16" height="48" rx="6" fill="var(--accent-color)" />
+        <rect x="107" y="45" width="16" height="38" rx="6" fill="var(--accent-color)" />
+        <rect x="137" y="65" width="16" height="23" rx="6" fill="var(--accent-color)" />
 
         {/* 水平の基準線 */}
         <line
@@ -64,7 +65,7 @@ export default function PokemetrixIcon({
           y1="100.794"
           x2="165.374"
           y2="100.197"
-          stroke={inkColor}
+          stroke="var(--ink-color)"
           strokeWidth="11.865"
           strokeLinecap="round"
           strokeDasharray="40.4 60.4"
@@ -72,8 +73,8 @@ export default function PokemetrixIcon({
         />
 
         {/* 中央のポークボール風リング */}
-        <circle cx="100" cy="100" r="24" fill="none" stroke={inkColor} strokeWidth="12" />
-        <circle cx="100" cy="100" r="8" fill={inkColor} />
+        <circle cx="100" cy="100" r="24" fill="none" stroke="var(--ink-color)" strokeWidth="12" />
+        <circle cx="100" cy="100" r="8" fill="var(--ink-color)" />
       </svg>
     </SvgIcon>
   );

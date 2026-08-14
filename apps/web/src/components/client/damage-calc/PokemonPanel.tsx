@@ -355,7 +355,7 @@ export function PokemonPanel({
         />
         {value.item === "metronome" && isAttacker && (
           <TextField
-            label={t("damageCalc.condMetronomeTurns", "Consecutive uses")}
+            label={t("damageCalc.condMetronomeTurns")}
             type="number"
             size="small"
             slotProps={{ htmlInput: { min: 0, max: 5 } }}
@@ -402,7 +402,7 @@ export function PokemonPanel({
               >
                 <EvField
                   statLabel={t(meta.labelKey)}
-                  label={t("damageCalc.ev", "EV")}
+                  label={t("damageCalc.ev")}
                   value={ev}
                   statValue={actual}
                   onChange={(v) => setEv(meta.evKey, v)}
@@ -629,7 +629,7 @@ function EvField({
     >
       {/* ── 1. Actual Stat (Moved to leftmost) ── */}
       <TextField
-        label={statLabel ?? t("damageCalc.actualStat", "実数値")}
+        label={statLabel ?? t("damageCalc.actualStat")}
         value={localStat}
         size="small"
         error={statError}

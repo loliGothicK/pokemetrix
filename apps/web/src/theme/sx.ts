@@ -15,11 +15,9 @@ export function surfaceCard(
 ): SxProps<Theme> {
   return {
     border: "1px solid",
-    borderColor: theme.palette.divider,
+    borderColor: "divider",
     borderRadius: options?.borderRadius ?? 3,
-    bgcolor: options?.raised
-      ? theme.palette.background.paperRaised
-      : theme.palette.background.paper,
+    bgcolor: options?.raised ? "background.paperRaised" : "background.paper",
   };
 }
 
@@ -50,11 +48,11 @@ export const truncateText: SystemStyleObject<Theme> = {
 };
 
 /** 枠線 + 背景色付きの丸型IconButton（テーマ切り替えボタン等）。 */
-export function iconButtonBordered(theme: Theme): SxProps<Theme> {
+export function iconButtonBordered(): SxProps<Theme> {
   return {
     border: "1px solid",
-    borderColor: theme.palette.divider,
-    bgcolor: theme.palette.background.paper,
+    borderColor: "divider",
+    bgcolor: "background.paper",
     borderRadius: 2.5,
   };
 }

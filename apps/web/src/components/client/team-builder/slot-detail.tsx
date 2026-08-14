@@ -107,7 +107,7 @@ export default function TeamSlotDetail({
           position: "sticky",
           top: 0,
           zIndex: 10,
-          bgcolor: theme.palette.background.paper,
+          bgcolor: "background.paper",
         }}
       >
         {showBackButton && (

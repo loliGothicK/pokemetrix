@@ -21,6 +21,69 @@
     "wind": "風",
     "powder": "粉"
   },
+  "quiz": {
+    "scenarioData": "シナリオデータ",
+    "attacker": "攻撃側",
+    "ally": "味方",
+    "defender": "防御側",
+    "opponentAlly": "相手の隣",
+    "move": "技",
+    "boardState": "盤面状況 (詰めポケ)",
+    "yourActive": "自分の場",
+    "opponentActive": "相手の場",
+    "item": "持ち物",
+    "field": "フィールド/天候",
+    "title": "ポケモンバトル検定",
+    "championsNotice": "※ 全ての問題は最新のPokémon Champions環境に準拠しています。",
+    "selectMoveAndTarget": "ポケモンの技と対象を選択してください。",
+    "targetAlly": "味方",
+    "targetOpponent": "相手",
+    "cancelAction": "キャンセル",
+    "noQuestions": "この難易度の問題はまだありません。",
+    "correct": "正解！",
+    "incorrect": "不正解...",
+    "viewResults": "結果を見る",
+    "results": "結果発表",
+    "shareOnTwitter": "X でシェア",
+    "dragToReorder": "ドラッグして並べ替える",
+    "unassigned": "未分類",
+    "assignAllItems": "すべての項目を分類してください",
+    "selectMultiple": "複数選択可",
+    "category": {
+      "academic": "学科",
+      "damage_calc": "ダメージ計算",
+      "tsume": "詰めポケ",
+      "practical": "実技"
+    },
+    "difficulty": {
+      "basics": "基礎級",
+      "advanced": "応用級",
+      "expert": "エキスパート級",
+      "master": "マスター級"
+    },
+    "rank": {
+      "youngster": "たんぱんこぞう級",
+      "aceTrainer": "エリートトレーナー級",
+      "veteran": "四天王級",
+      "champion": "チャンピオン級"
+    },
+    "rankLabel": "認定ランク",
+    "reportError": "フィードバックを送る",
+    "backToMenu": "メニューに戻る",
+    "oneWay": {
+      "select": "これだ！",
+      "pass": "パス / 次へ",
+      "cannotPass": "パス不可",
+      "optionIndicator": "選択肢 {{current}} / {{total}}"
+    },
+    "grouping": {
+      "tapGroupToAssign": "グループをタップして割り当て",
+      "tapItemToSelect": "項目をタップして選択",
+      "empty": "空"
+    },
+    "selectDifficulty": "難易度を選択",
+    "selectCategory": "カテゴリーを選択"
+  },
   "common": {
     "close": "閉じる",
     "cancel": "キャンセル",
@@ -35,7 +98,10 @@
     "done": "完了",
     "back": "戻る",
     "or": "または",
-    "preview": "プレビュー"
+    "preview": "プレビュー",
+    "next": "次へ",
+    "submit": "回答する",
+    "backToMenu": "メニューに戻る"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -71,7 +137,8 @@
         "content": "メモ内容"
       },
       "notConfigured": "Visualize が設定されていません",
-      "openSettings": "設定を開く"
+      "openSettings": "設定を開く",
+      "untitled": "新規ウィジェット"
     },
     "variable": {
       "add": "変数を追加",
@@ -287,7 +354,7 @@
     "subtitle": "Analytics Workspace"
   },
   "home": {
-    "title": "POKÉMETRIX",
+    "title": "PokéMetriX",
     "description": "ポケモン対戦をサポートするツールのコレクションです。",
     "tools": {
       "teamBuilder": {
@@ -492,7 +559,8 @@
     "noItem": "持ち物なし",
     "delete": "BOXから削除",
     "saveToBox": "BOXに保存",
-    "savedToBox": "BOXに保存しました"
+    "savedToBox": "BOXに保存しました",
+    "addPokemon": "ポケモンを追加"
   },
   "teamBuilder": {
     "title": "チーム作成",
@@ -592,7 +660,9 @@
       "range": "範囲",
       "category": "分類",
       "type": "タイプ"
-    }
+    },
+    "forgetMove": "技を忘れる",
+    "dragToReorder": "ドラッグで並び替え"
   },
   "range": {
     "self": {
@@ -710,7 +780,10 @@
       "nature": "性格",
       "moves": "技",
       "evs": "努力値"
-    }
+    },
+    "slotDiffDetected": "スロットに差分があります",
+    "onlyInServer": "サーバーのみ",
+    "onlyInLocal": "ローカルのみ"
   },
   "moves": {
     "accelerock": {
@@ -3933,7 +4006,8 @@
     "floette-eternal": {
       "name": "フラエッテ",
       "formName": "えいえんのはな"
-    }
+    },
+    "unknown": "不明なポケモン"
   },
   "items": {
     "abomasite": {

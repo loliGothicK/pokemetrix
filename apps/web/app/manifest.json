@@ -1,6 +1,6 @@
 {
-  "name": "Pokémetrix",
-  "short_name": "Pokémetrix",
+  "name": "PokéMetriX",
+  "short_name": "PokéMetriX",
   "description": "Analytics Workspace for Pokémon Battle",
   "start_url": "/",
   "display": "standalone",

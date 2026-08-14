@@ -75,6 +75,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Check i18n keys
+        run: pnpm --filter @pokemetrix/app run i18n:check
+
       - name: Build Next.js App
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

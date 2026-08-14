@@ -22,7 +22,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+
 import { useTranslation } from "react-i18next";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -53,7 +53,7 @@ function VisualizeOptionsPanel({
 
   const handleVisChange = (newVis: string) => {
     onChange({
-      visualization: newVis as any,
+      visualization: newVis as DashboardWidget["visualization"],
       query: widget.query ?? "SELECT * FROM records LIMIT 10",
     });
   };
@@ -289,7 +289,7 @@ export function VisualizeEditor({
   onChange,
 }: VisualizeEditorProps) {
   const { t } = useTranslation();
-  const theme = useTheme();
+
   const [tabIndex, setTabIndex] = useState(0);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -348,7 +348,7 @@ export function VisualizeEditor({
               flex: 2,
               display: "flex",
               flexDirection: "column",
-              bgcolor: alpha(theme.palette.background.paper, 0.5),
+              bgcolor: "background.paperTint",
               borderBottom: "1px solid",
               borderColor: "divider",
               minHeight: 0,
@@ -386,7 +386,7 @@ export function VisualizeEditor({
                   {widget.title ||
                     (widgetTypeLabelKey(widget.templateId)
                       ? t(widgetTypeLabelKey(widget.templateId) as string)
-                      : t("dashboard.widget.untitled", "New Widget"))}
+                      : t("dashboard.widget.untitled"))}
                 </Typography>
                 <Box sx={{ height: "calc(100% - 32px)", overflow: "hidden" }}>
                   <WidgetRenderer widget={widget} editing={false} variableValues={variableValues} />

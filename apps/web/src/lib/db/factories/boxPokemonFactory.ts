@@ -15,17 +15,17 @@ export class BoxPokemonFactory<
 
   withUserId(userId: string): BoxPokemonFactory<true, THasSlug, THasData> {
     this.data.userId = userId;
-    return this as any;
+    return this as unknown as BoxPokemonFactory<true, THasSlug, THasData>;
   }
 
   withSlug(slug: string): BoxPokemonFactory<THasUserId, true, THasData> {
     this.data.slug = slug;
-    return this as any;
+    return this as unknown as BoxPokemonFactory<THasUserId, true, THasData>;
   }
 
   withData(data: unknown): BoxPokemonFactory<THasUserId, THasSlug, true> {
     this.data.data = data;
-    return this as any;
+    return this as unknown as BoxPokemonFactory<THasUserId, THasSlug, true>;
   }
 
   withInBox(inBox: boolean): this {

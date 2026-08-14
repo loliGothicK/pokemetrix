@@ -18,7 +18,7 @@ export function Footer() {
         mt: "auto",
         borderTop: "1px solid",
         borderColor: theme.palette.divider,
-        bgcolor: theme.palette.background.paper,
+        bgcolor: "transparent",
       }}
     >
       <Container maxWidth="lg">
@@ -41,6 +41,15 @@ export function Footer() {
               underline="hover"
             >
               {t("navigation.items.blog")}
+            </Link>
+            <Link
+              component={NextLink}
+              href="/quiz"
+              color="text.secondary"
+              variant="body2"
+              underline="hover"
+            >
+              Quiz
             </Link>
             <Link
               component={NextLink}

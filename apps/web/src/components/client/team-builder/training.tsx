@@ -300,7 +300,7 @@ export function Training({
               height: 144,
               minWidth: 144,
               borderRadius: 4,
-              bgcolor: theme.palette.background.paper,
+              bgcolor: "background.paper",
               display: "grid",
               placeItems: "center",
               position: "relative",
@@ -317,7 +317,7 @@ export function Training({
                 left: 10,
                 width: "100%",
                 height: "100%",
-                bgcolor: alpha(theme.palette.background.paper, 0.5),
+                bgcolor: "background.paperTint",
                 backdropFilter: "blur(2px)",
               }}
             >
@@ -341,7 +341,7 @@ export function Training({
                       width: 50,
                       height: 50,
                       borderRadius: "50%",
-                      bgcolor: alpha(theme.palette.background.paperRaised, 0.7),
+                      bgcolor: "background.paperTint",
                       boxShadow: 2,
                       ...flexRowCenter,
                       justifyContent: "center",
@@ -388,7 +388,7 @@ export function Training({
                     justifyContent: "center",
                     bgcolor: useForm
                       ? alpha(theme.palette.primary.main, 0.1)
-                      : alpha(theme.palette.background.paperRaised, 0.7),
+                      : "background.paperTint",
                     borderColor: useForm ? theme.palette.primary.main : theme.palette.dividerSoft,
                     transition: "all 0.2s",
                     backdropFilter: "blur(2px)",
@@ -551,7 +551,9 @@ export function Training({
                         ),
                       },
                     }}
-                    onClick={(e) => setNatureAnchorEl(e.currentTarget as any)}
+                    onClick={(e) =>
+                      setNatureAnchorEl(e.currentTarget as unknown as HTMLButtonElement)
+                    }
                     sx={{
                       width: "100%",
                       cursor: "pointer",
@@ -585,7 +587,7 @@ export function Training({
                           mt: 0.5,
                           maxWidth: "95vw",
                           overflowX: "auto",
-                          bgcolor: theme.palette.background.paperRaised,
+                          bgcolor: "background.paperRaised",
                           border: "1px solid",
                           borderColor: theme.palette.divider,
                           boxShadow: theme.shadows[4],
@@ -611,7 +613,7 @@ export function Training({
                             <TableCell
                               sx={{
                                 fontWeight: "bold",
-                                bgcolor: alpha(theme.palette.background.paper, 0.5),
+                                bgcolor: "background.paperTint",
                               }}
                             >
                               <Typography
@@ -902,7 +904,7 @@ export function Training({
                               : theme.palette.dividerSoft,
                           bgcolor: {
                             xs: "transparent",
-                            md: alpha(theme.palette.background.paper, 0.4),
+                            md: "background.paperTint",
                           },
                           transition: "border-color 0.2s, background-color 0.2s",
                           p: { xs: 1, md: 2 },
@@ -1002,7 +1004,7 @@ export function Training({
                           max={MAX_EV_PER_STAT}
                           disabled={maxAvailable <= 0 && currentEv === 0}
                           onChange={(_, value) => updateEv(value as number)}
-                          marks={efficientMarks as any}
+                          marks={efficientMarks || false}
                           sx={{
                             gridArea: "slider",
                             color: "primary.main",

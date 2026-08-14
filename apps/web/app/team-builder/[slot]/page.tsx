@@ -1,5 +1,7 @@
 import Index from "@/components/client/team-builder/index";
 
+export const instant = false;
+
 export default async function TeamBuilderSlotPage({
   params,
 }: {

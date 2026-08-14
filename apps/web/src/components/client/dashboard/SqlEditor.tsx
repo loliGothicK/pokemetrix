@@ -1,7 +1,8 @@
 "use client";
 
-import { useTheme } from "@mui/material/styles";
+import { useColorScheme } from "@mui/material/styles";
 import Editor, { useMonaco } from "@monaco-editor/react";
+import type { typescript } from "monaco-editor";
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useId } from "react";
 
@@ -16,14 +17,14 @@ export function SqlEditor({
   readonly language?: "sql" | "javascript" | "typescript";
   readonly rowTypeDeclaration?: string;
 }) {
-  const theme = useTheme();
+  const { mode } = useColorScheme();
   const monaco = useMonaco();
   const id = useId();
 
   useEffect(() => {
     if (monaco && (language === "javascript" || language === "typescript")) {
       // eslint-disable-next-line typescript/no-deprecated
-      const ts = monaco.languages.typescript as any;
+      const ts = monaco.languages.typescript as unknown as typeof typescript;
       const defaults = language === "typescript" ? ts.typescriptDefaults : ts.javascriptDefaults;
 
       defaults.setDiagnosticsOptions({
@@ -55,7 +56,7 @@ export function SqlEditor({
           readonly seasonId: string;
           readonly teamId: string | null;
           readonly result: "win" | "loss" | "draw";
-          readonly myTeam: readonly any[];
+          readonly myTeam: readonly Record<string, unknown>[];
           readonly mySelection: readonly number[] | null;
           readonly rating: number | null;
           readonly notes: string | null;
@@ -65,7 +66,7 @@ export function SqlEditor({
           readonly updatedAt: string;
         }
 
-        type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : any;
+        type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : unknown;
 
         /** 
          * The type of the input records from the SQL query.
@@ -95,7 +96,7 @@ export function SqlEditor({
         path={`model-${id.replace(/:/g, "")}.${language === "typescript" ? "ts" : language === "javascript" ? "js" : "sql"}`}
         height="100%"
         language={language}
-        theme={theme.palette.mode === "dark" ? "vs-dark" : "vs"}
+        theme={mode === "dark" ? "vs-dark" : "vs"}
         value={value}
         onChange={(val) => onChange(val || "")}
         loading={

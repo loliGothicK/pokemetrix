@@ -1,0 +1,42 @@
+---
+id: low-kick-power-order
+difficulty: master
+category: academic
+format: ordering
+question: >-
+  Order the following Pokémon from LOWEST to HIGHEST effective base power taken
+  when hit by the Fighting-type move 'Low Kick', factoring in both weight and
+  type effectiveness.
+options:
+  - Gyarados
+  - Castform
+  - Klefki
+  - Gardevoir
+correctOrderIndices:
+  - 3
+  - 2
+  - 1
+  - 0
+reviewed: true
+---
+
+【Explanation】
+The base power of "Low Kick" scales in stages based on the target Pokémon's weight, and then the Fighting-type effectiveness multiplier is applied.
+
+- Under 10.0 kg: 20 BP
+- 10.0 kg to under 25.0 kg: 40 BP
+- 25.0 kg to under 50.0 kg: 60 BP
+- 50.0 kg to under 100.0 kg: 80 BP
+- 100.0 kg to under 200.0 kg: 100 BP
+- 200.0 kg or more: 120 BP
+
+Calculating the effective power (Base Power × Type Multiplier) for each:
+
+1. Gardevoir: 48.4 kg (60 BP) × 0.25x (1/4x as Psychic/Fairy) = 15 Effective BP
+2. Klefki: 3.0 kg (20 BP) × 1.0x (2x as Steel, 1/2x as Fairy) = 20 Effective BP
+3. Castform: 0.8 kg (20 BP) × 2.0x (2x as Normal) = 40 Effective BP
+4. Gyarados: 235.0 kg (120 BP) × 0.5x (1/2x as Flying) = 60 Effective BP
+
+If you only look at type matchups, you might easily assume the order is "Gardevoir (0.25x) < Gyarados (0.5x) < Klefki (1.0x) < Castform (2.0x)". However, Castform and Klefki are so light that their base power is the minimum of 20, whereas Gyarados is so heavy that its base power is maxed out at 120. As a result, Gyarados actually takes the MOST damage out of these four despite resisting the attack, and Castform takes less damage than Gyarados despite being weak to it!
+
+Therefore, the correct order from lowest to highest effective power is: Gardevoir (15) → Klefki (20) → Castform (40) → Gyarados (60).
