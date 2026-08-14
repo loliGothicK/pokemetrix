@@ -282,13 +282,8 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
           break;
         }
       }
-      if ((groupedItems["unassigned"]?.length || 0) > 0) {
-        isCorrect = false;
-      }
     } else if (activeQuestion.format === "tsume_action") {
       const correct = activeQuestion.tsumeData?.correctMoves || [];
-      // To be correct, every required action must be present.
-      // Usually length match is good enough if the user selects them properly.
       isCorrect =
         correct.length === tsumeActions.length &&
         correct.every((ans) => tsumeActions.includes(ans));
@@ -309,8 +304,10 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       setGroupedItems({});
       setTsumeActions([]);
       setShowExplanation(false);
+      window.scrollTo(0, 0);
     } else {
       setMode("results");
+      window.scrollTo(0, 0);
     }
   };
 
@@ -427,7 +424,6 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
           break;
         }
       }
-      if ((groupedItems["unassigned"]?.length || 0) > 0) isCorrect = false;
     } else if (activeQuestion.format === "tsume_action") {
       const correct = activeQuestion.tsumeData?.correctMoves || [];
       isCorrect =
@@ -812,7 +808,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
               </Box>
             )}
 
-            <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", lineHeight: 1.4 }}>
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", lineHeight: 1.4, whiteSpace: "pre-line" }}>
               {activeQuestion.question}
             </Typography>
             {activeQuestion.format === "choices" && (

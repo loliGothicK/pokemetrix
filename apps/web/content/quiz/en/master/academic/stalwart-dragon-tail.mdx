@@ -1,0 +1,47 @@
+---
+id: stalwart-dragon-tail
+difficulty: master
+category: academic
+format: choices
+question: >
+  In a Double Battle, you have Garchomp (Left) and Archaludon (Right, Ability:
+  Stalwart). The opponent has Incineroar (Left) and Alakazam (Right).
+
+  Your Garchomp selects Dragon Tail targeting the opponent's Alakazam (Right),
+  and your Archaludon selects Dragon Tail targeting Incineroar (Left). (Assume
+  Garchomp is faster).
+
+  During that turn, the following events occur:
+
+  1. The opponent manually switches their left Incineroar out for Tyranitar.
+
+  2. The opponent's right Alakazam uses Ally Switch, swapping positions with
+  Tyranitar.
+
+  3. Garchomp uses Dragon Tail on the right slot, hitting Tyranitar. Tyranitar
+  is forced out, and the original Incineroar is dragged back onto the field in
+  the right slot.
+
+  What happens to Archaludon's Dragon Tail afterwards?
+options:
+  - >-
+    It hits Incineroar on the right (individual tracking is maintained because
+    the original target returned, and Stalwart tracks it to its new position).
+  - >-
+    It hits Alakazam on the left (individual tracking is reset by the switch, so
+    it reverts to attacking the selected left slot).
+  - >-
+    It hits Incineroar on the right (Ally Switch automatically swaps the target
+    of the move).
+  - The move fails because the original target temporarily left the field.
+correctAnswerIndex: 0
+reviewed: true
+---
+
+【Explanation】
+The target redirection immunity of the "Stalwart" Ability activates against the specific **"Pokémon (individual)"** that was selected, rather than the "Location (slot)".
+
+Normally, when a targeted Pokémon leaves the field via switching, Stalwart's individual tracking effect is reset, and the move reverts to attacking the selected slot. 
+However, if the original target is dragged back onto the field during the exact same turn via a forced switch move like Dragon Tail or Roar, **the target is re-recognized by the game state and the individual tracking effect is restored**. 
+
+In this case, even though Incineroar was dragged into the right slot instead of the original left slot due to Ally Switch, Stalwart's tracking applies to the specific individual Pokemon, so Archaludon successfully tracks and hits Incineroar on the right slot.
