@@ -5,6 +5,10 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { PatchDiff, File as DiffsFile, EditProvider } from "@pierre/diffs/react";
 import { Editor } from "@pierre/diffs/edit";
 import type { FileContents } from "@pierre/diffs";
+import i18next from "i18next";
+import { initReactI18next, I18nextProvider } from "react-i18next";
+import enTranslation from "@locales/en/translation.json";
+import jaTranslation from "@locales/ja/translation.json";
 import { QuizApp } from "./QuizApp";
 import type { QuizQuestion } from "@/types/quiz";
 
@@ -39,6 +43,48 @@ interface FileTreeNode {
 }
 
 type EditorTab = "source" | "preview";
+
+// ─── Localized Preview Wrapper ────────────────────────────────────────────────
+
+/**
+ * Wraps QuizApp with a locale-specific i18n instance so that the Studio
+ * preview always shows UI strings in the correct language, independent of
+ * the app's global i18next language setting.
+ */
+function LocalizedQuizPreview({
+  locale,
+  questions,
+  onReturnToMenu,
+}: {
+  locale: string;
+  questions: QuizQuestion[];
+  onReturnToMenu: () => void;
+}) {
+  const localI18n = useMemo(() => {
+    const instance = i18next.createInstance();
+    void instance.use(initReactI18next).init({
+      resources: {
+        en: { translation: enTranslation },
+        ja: { translation: jaTranslation },
+      },
+      lng: locale,
+      fallbackLng: "en",
+      returnEmptyString: true,
+      interpolation: { escapeValue: false },
+    });
+    return instance;
+  }, [locale]);
+
+  return (
+    <I18nextProvider i18n={localI18n}>
+      <QuizApp
+        initialQuestions={questions}
+        directPlay={true}
+        onReturnToMenu={onReturnToMenu}
+      />
+    </I18nextProvider>
+  );
+}
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
@@ -1444,10 +1490,10 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         >
                           🇯🇵
                         </div>
-                        <QuizApp
+                        <LocalizedQuizPreview
                           key={`ja-${quizKey(selectedQuizGroup.ja)}`}
-                          initialQuestions={[selectedQuizGroup.ja]}
-                          directPlay={true}
+                          locale="ja"
+                          questions={[selectedQuizGroup.ja]}
                           onReturnToMenu={closePreview}
                         />
                       </div>
@@ -1470,10 +1516,10 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         >
                           🇺🇸
                         </div>
-                        <QuizApp
+                        <LocalizedQuizPreview
                           key={`en-${quizKey(selectedQuizGroup.en)}`}
-                          initialQuestions={[selectedQuizGroup.en]}
-                          directPlay={true}
+                          locale="en"
+                          questions={[selectedQuizGroup.en]}
                           onReturnToMenu={closePreview}
                         />
                       </div>
