@@ -21,9 +21,6 @@ export const metadata: Metadata = {
     title: siteName,
     description,
     url,
-    images: [
-      "https://raw.githubusercontent.com/loliGothicK/pokemetrix/master/apps/web/public/opengraph-image.png",
-    ],
     siteName,
     locale: "ja_JP",
     type: "website",
@@ -32,9 +29,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description,
-    images: [
-      "https://raw.githubusercontent.com/loliGothicK/pokemetrix/master/apps/web/public/opengraph-image.png",
-    ],
     site: "@mitama_rs",
     creator: "@mitama_rs",
   },

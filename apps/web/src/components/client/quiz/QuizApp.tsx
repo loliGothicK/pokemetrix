@@ -22,6 +22,8 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import * as Sentry from "@sentry/nextjs";
+import parse from "html-react-parser";
+import { marked } from "marked";
 import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
 import { ChoicesFormat } from "./formats/ChoicesFormat";
 import { OneWayFormat } from "./formats/OneWayFormat";
@@ -811,9 +813,23 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             <Typography
               variant="h5"
               gutterBottom
-              sx={{ fontWeight: "bold", lineHeight: 1.4, whiteSpace: "pre-line" }}
+              sx={{
+                fontWeight: "bold",
+                lineHeight: 1.4,
+                whiteSpace: "pre-line",
+                "& code": {
+                  bgcolor: "rgba(127, 127, 127, 0.2)",
+                  px: 0.5,
+                  py: 0.2,
+                  borderRadius: 1,
+                  fontFamily: "monospace",
+                },
+                "& strong": {
+                  color: "primary.main",
+                },
+              }}
             >
-              {activeQuestion.question}
+              {parse(marked.parseInline(activeQuestion.question) as string)}
             </Typography>
             {activeQuestion.format === "choices" && (
               <ChoicesFormat
