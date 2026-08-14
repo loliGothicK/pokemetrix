@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.5.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.4.0...app-v0.5.0) (2026-08-14)
+
+
+### Features
+
+* add quizzes ([7b4d7a4](https://github.com/loliGothicK/pokemetrix/commit/7b4d7a45b3aff1762781013101db475e8ae8443e))
+* add quizzes ([6163eaa](https://github.com/loliGothicK/pokemetrix/commit/6163eaa90446a92346e6e7b5c74d7b9f2c38b0f2))
+* add quizzes ([203f7b4](https://github.com/loliGothicK/pokemetrix/commit/203f7b48ebbdce7905bbe2f60901b2b351d801ad))
+* add quizzes ([561a46e](https://github.com/loliGothicK/pokemetrix/commit/561a46e5ffd54560478787d85392c669e1325e41))
+* add quizzes ([bee49e1](https://github.com/loliGothicK/pokemetrix/commit/bee49e1c2fc69848c4a96da274288b1a92b744f3))
+* add quizzes ([3918549](https://github.com/loliGothicK/pokemetrix/commit/3918549c2fbdde18a8570ac6fd2c4e1c71293b12))
+* add quizzes ([ee29873](https://github.com/loliGothicK/pokemetrix/commit/ee29873b2ed57161825c06fd7e5ac175f7f57324))
+* add quizzes ([de801ef](https://github.com/loliGothicK/pokemetrix/commit/de801ef22b3ae4fb1f86625db8e354f1d5e811fb))
+* migrate Next.js to v16.3.0 ([75fbf8e](https://github.com/loliGothicK/pokemetrix/commit/75fbf8ef6cf5989861b624482e7917e46912361d))
+* **package:** update ([8dcb135](https://github.com/loliGothicK/pokemetrix/commit/8dcb135c5ca2a82c40c0507a7cc23eb37feb2ace))
+* quiz debug ([34b9168](https://github.com/loliGothicK/pokemetrix/commit/34b9168be7d95614e5d951d01a2f03790ac68562))
+* quiz wip ([11e82cc](https://github.com/loliGothicK/pokemetrix/commit/11e82cc98976b6f663d3c2c0db417b8c3e722bdb))
+* quiz wip ([f0d9714](https://github.com/loliGothicK/pokemetrix/commit/f0d971451ac65d9823448300a465d7f6d6daebc3))
+* quiz wip ([a0dd401](https://github.com/loliGothicK/pokemetrix/commit/a0dd4014d105bc0498522e20217e942f603eabe7))
+* quiz wip ([d2f0916](https://github.com/loliGothicK/pokemetrix/commit/d2f0916a8fb0f051bc0d79a45749eb42f3f910ad))
+* quiz wip ([83e12d9](https://github.com/loliGothicK/pokemetrix/commit/83e12d9645d08320039c4155f367919e2aea7bb0))
+* quiz wip ([7fd01dc](https://github.com/loliGothicK/pokemetrix/commit/7fd01dcd122e2b783eac8e3895f2887269d879a7))
+* quiz wip ([7e87c41](https://github.com/loliGothicK/pokemetrix/commit/7e87c41a1d8ee6ae7c44d303e55305762b08d720))
+* quiz wip ([d5c9f28](https://github.com/loliGothicK/pokemetrix/commit/d5c9f2879c7b13fb09056350681d0d02fc91d97b))
+* quiz wip ([144d56d](https://github.com/loliGothicK/pokemetrix/commit/144d56dc2a53b92b79f0c20e0578de5e1338eb5d))
+* quiz wip ([d6a33b6](https://github.com/loliGothicK/pokemetrix/commit/d6a33b62ad1e742e413d94a2d1c8e311144391b7))
+* quiz wip ([1f63e1e](https://github.com/loliGothicK/pokemetrix/commit/1f63e1ea11a127d99612c4bf2bde31d4d7b33396))
+* quiz wip ([b75d70c](https://github.com/loliGothicK/pokemetrix/commit/b75d70c6689550e82f476f352f2ef227589ebe9f))
+* **quiz:** basics/academic ([4546848](https://github.com/loliGothicK/pokemetrix/commit/45468483e38c6cb60ff8fa2f4a9831e7dd9b450f))
+* **quiz:** expert/academic ([70e7ea6](https://github.com/loliGothicK/pokemetrix/commit/70e7ea651f927692c06170079679e4864c5fae07))
+* **quiz:** expert/academic ([4127ea7](https://github.com/loliGothicK/pokemetrix/commit/4127ea72349e936bee1455a509cb719cbf2c8a3d))
+* wip ([15575d9](https://github.com/loliGothicK/pokemetrix/commit/15575d9ba083bf64c7914dc9706ec5df737421d5))
+
+
+### Bug Fixes
+
+* bg ([cd7df72](https://github.com/loliGothicK/pokemetrix/commit/cd7df72df977457eeffbd547a83a9b4a3360b5c6))
+* fix ci ([1cd8d6a](https://github.com/loliGothicK/pokemetrix/commit/1cd8d6a0ca366abb1fb0752334252a45d609c03c))
+* fix ci ([b8f796f](https://github.com/loliGothicK/pokemetrix/commit/b8f796f89b8fa00bbb4422e0692c376a4eb4b755))
+* PMX-21 [damage-calc] ([446af7b](https://github.com/loliGothicK/pokemetrix/commit/446af7be985b9e9b695f071243326bc748683b96))
+
 ## [0.4.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.3.1...app-v0.4.0) (2026-08-01)
 
 ### Features
