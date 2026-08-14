@@ -75,7 +75,14 @@
       "pass": "パス / 次へ",
       "cannotPass": "パス不可",
       "optionIndicator": "選択肢 {{current}} / {{total}}"
-    }
+    },
+    "grouping": {
+      "tapGroupToAssign": "グループをタップして割り当て",
+      "tapItemToSelect": "項目をタップして選択",
+      "empty": "空"
+    },
+    "selectDifficulty": "難易度を選択",
+    "selectCategory": "カテゴリーを選択"
   },
   "common": {
     "close": "閉じる",

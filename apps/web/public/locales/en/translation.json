@@ -5846,6 +5846,13 @@
       "pass": "Pass / Next",
       "cannotPass": "Cannot Pass",
       "optionIndicator": "Option {{current}} / {{total}}"
-    }
+    },
+    "grouping": {
+      "tapGroupToAssign": "Tap a group to assign",
+      "tapItemToSelect": "Tap an item to select",
+      "empty": "Empty"
+    },
+    "selectDifficulty": "Select Difficulty",
+    "selectCategory": "Select Category"
   }
 }
