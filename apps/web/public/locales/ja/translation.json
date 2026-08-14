@@ -70,7 +70,13 @@
     },
     "rankLabel": "認定ランク",
     "reportError": "フィードバックを送る",
-    "backToMenu": "メニューに戻る"
+    "backToMenu": "メニューに戻る",
+    "oneWay": {
+      "select": "これだ！",
+      "pass": "パス / 次へ",
+      "cannotPass": "パス不可",
+      "optionIndicator": "選択肢 {{current}} / {{total}}"
+    }
   },
   "common": {
     "close": "閉じる",

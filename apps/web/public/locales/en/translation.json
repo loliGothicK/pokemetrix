@@ -5841,6 +5841,12 @@
     },
     "rankLabel": "Certified Rank",
     "reportError": "Send Feedback",
-    "backToMenu": "Back to Menu"
+    "backToMenu": "Back to Menu",
+    "oneWay": {
+      "select": "Select this!",
+      "pass": "Pass / Next",
+      "cannotPass": "Cannot Pass",
+      "optionIndicator": "Option {{current}} / {{total}}"
+    }
   }
 }

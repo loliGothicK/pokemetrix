@@ -25,6 +25,7 @@ import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import * as Sentry from "@sentry/nextjs";
 import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
 import { ChoicesFormat } from "./formats/ChoicesFormat";
+import { OneWayFormat } from "./formats/OneWayFormat";
 import { MultiSelectFormat } from "./formats/MultiSelectFormat";
 import { OrderingFormat } from "./formats/OrderingFormat";
 import { GroupingFormat } from "./formats/GroupingFormat";
@@ -238,9 +239,8 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   }, [activeQuestion]);
 
   const isSubmitDisabled = () => {
-    if (!activeQuestion) return true;
-    if (activeQuestion.format === "choices" || activeQuestion.format === "one_way")
-      return !selectedOption;
+    if (activeQuestion.format === "choices") return selectedOption === null;
+    if (activeQuestion.format === "one_way") return selectedOption === null;
     if (activeQuestion.format === "multi_select") return selectedOptions.length === 0;
     if (activeQuestion.format === "ordering") return orderedOptions.length === 0;
     if (activeQuestion.format === "grouping") return false;
@@ -774,11 +774,22 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", lineHeight: 1.4 }}>
               {activeQuestion.question}
             </Typography>
-            {(activeQuestion.format === "choices" || activeQuestion.format === "one_way") && (
+            {activeQuestion.format === "choices" && (
               <ChoicesFormat
                 options={activeQuestion.options || []}
                 selectedOption={selectedOption}
                 onOptionSelect={setSelectedOption}
+                showExplanation={showExplanation}
+                correctAnswerIndex={activeQuestion.correctAnswerIndex}
+              />
+            )}
+
+            {activeQuestion.format === "one_way" && (
+              <OneWayFormat
+                options={activeQuestion.options || []}
+                selectedOption={selectedOption}
+                onOptionSelect={setSelectedOption}
+                onSubmit={handleSubmit}
                 showExplanation={showExplanation}
                 correctAnswerIndex={activeQuestion.correctAnswerIndex}
               />
@@ -828,7 +839,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
               />
             )}
 
-            {!showExplanation && (
+            {!showExplanation && activeQuestion.format !== "one_way" && (
               <Button
                 variant="contained"
                 color="primary"

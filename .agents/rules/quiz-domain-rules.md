@@ -16,7 +16,7 @@ description: "Rules for UI constraints, enums, text formatting, and difficulty p
    - **Advanced**: Essential competitive mechanics (e.g., Weather stat boosts, Prankster Dark immunity).
    - **Expert**: Must strictly focus on highly complex, 3+ element interactions (e.g., Unaware scaling, Foul Play stat modifiers). Do NOT overlap with fundamental mechanics that belong in Basics/Advanced.
    - **Master**: Strictly reserved for completely obscure, ultra-rare edge cases and useless trivia that would not affect a player's win rate by even 1% (e.g., Knock Off damage boosts on a mismatched Mega Stone, bizarre glitch interactions).
-   - **Choice Obfuscation (Expert & Master)**: Do not make the options too obvious or easy to eliminate by process of elimination. Design the choices such that players must actually know the underlying mechanic to distinguish the correct answer from plausible distractors. Avoid making choices excessively "user-friendly" or spoon-fed at these high difficulties.
+   - **Choice Obfuscation (Expert & Master)**: Do not make the options too obvious or easy to eliminate by process of elimination. Do NOT use "throwaway" distractors that reduce a 4-choice question into a 2-choice question. Every single option must require genuine domain knowledge to rule out. Avoid making choices excessively "user-friendly" or spoon-fed at these high difficulties.
 5. **No Internal Slugs in Text**:
    - Never leak internal data slugs (e.g., `charizard-mega-y`, `Charizard-Mega-Y`) into the user-facing text of MDX files (`question`, `options`, `correctAnswer`, or explanations). Always use the proper, localized display name (e.g., `Mega Charizard Y` or `メガリザードンY`).
 6. **Bilingual Content Parity & Format Diversity**:
