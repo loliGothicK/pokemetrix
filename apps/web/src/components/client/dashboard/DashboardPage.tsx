@@ -290,9 +290,7 @@ export default function DashboardPage() {
           justifyContent: "center",
         }}
       >
-        <EmptyState
-          message={t("dashboard.desktopOnly")}
-        />
+        <EmptyState message={t("dashboard.desktopOnly")} />
       </Box>
     );
   }

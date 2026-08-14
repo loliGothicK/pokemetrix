@@ -808,7 +808,11 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
               </Box>
             )}
 
-            <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", lineHeight: 1.4, whiteSpace: "pre-line" }}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ fontWeight: "bold", lineHeight: 1.4, whiteSpace: "pre-line" }}
+            >
               {activeQuestion.question}
             </Typography>
             {activeQuestion.format === "choices" && (

@@ -52,7 +52,7 @@ function main() {
 
   // Regex to match t("some.key") or t('some.key') or t(`some.key${var}`)
   const regex = /\bt\(\s*(['"`])(.*?)\1/g;
-  
+
   // Regex to match t("key", "fallback")
   const fallbackRegex = /\bt\(\s*(['"`]).*?\1\s*,\s*(['"`]).*?\2/g;
 
@@ -62,7 +62,7 @@ function main() {
 
   for (const file of files) {
     const content = fs.readFileSync(file, "utf8");
-    
+
     let fallbackMatch;
     while ((fallbackMatch = fallbackRegex.exec(content)) !== null) {
       fallbackUsages.push({ file, match: fallbackMatch[0] });
@@ -94,11 +94,15 @@ function main() {
   }
 
   if (fallbackUsages.length > 0) {
-    console.error(`\x1b[31mFound ${fallbackUsages.length} usages of i18n fallback arguments:\x1b[0m`);
+    console.error(
+      `\x1b[31mFound ${fallbackUsages.length} usages of i18n fallback arguments:\x1b[0m`,
+    );
     fallbackUsages.forEach((usage) => {
       console.error(`  - ${usage.file}: ${usage.match}`);
     });
-    console.error(`\x1b[33mPlease remove the fallback arguments and add the translations to the locale files instead.\x1b[0m`);
+    console.error(
+      `\x1b[33mPlease remove the fallback arguments and add the translations to the locale files instead.\x1b[0m`,
+    );
     process.exit(1);
   }
 

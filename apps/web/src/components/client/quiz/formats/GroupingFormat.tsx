@@ -211,45 +211,45 @@ export function GroupingFormat({
             return (
               <Grid size={{ xs: 12, md: gridCols as any }} key={containerId}>
                 <Paper
-                variant="outlined"
-                sx={{
-                  p: 2,
-                  minHeight: 150,
-                  bgcolor: "background.default",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: "bold" }}>
-                  {containerId}
-                </Typography>
-
-                <SortableContext
-                  id={containerId}
-                  items={groupedItems[containerId] || []}
-                  strategy={verticalListSortingStrategy}
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    minHeight: 150,
+                    bgcolor: "background.default",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
-                  <DroppableContainer id={containerId}>
-                    {(groupedItems[containerId] || []).map((item) => {
-                      let isCorrect: boolean | undefined = undefined;
-                      if (showExplanation && correctGroups) {
-                        isCorrect = correctGroups[containerId]?.includes(item) ?? false;
-                      }
-                      return (
-                        <SortableGroupItem
-                          key={item}
-                          id={item}
-                          item={item}
-                          disabled={showExplanation}
-                          showExplanation={showExplanation}
-                          isCorrect={isCorrect}
-                        />
-                      );
-                    })}
-                  </DroppableContainer>
-                </SortableContext>
-              </Paper>
-            </Grid>
+                  <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: "bold" }}>
+                    {containerId}
+                  </Typography>
+
+                  <SortableContext
+                    id={containerId}
+                    items={groupedItems[containerId] || []}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <DroppableContainer id={containerId}>
+                      {(groupedItems[containerId] || []).map((item) => {
+                        let isCorrect: boolean | undefined = undefined;
+                        if (showExplanation && correctGroups) {
+                          isCorrect = correctGroups[containerId]?.includes(item) ?? false;
+                        }
+                        return (
+                          <SortableGroupItem
+                            key={item}
+                            id={item}
+                            item={item}
+                            disabled={showExplanation}
+                            showExplanation={showExplanation}
+                            isCorrect={isCorrect}
+                          />
+                        );
+                      })}
+                    </DroppableContainer>
+                  </SortableContext>
+                </Paper>
+              </Grid>
             );
           })}
         </Grid>
