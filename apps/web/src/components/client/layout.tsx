@@ -429,6 +429,18 @@ function ResponsiveAppBar({
             >
               Blog
             </Button>
+            <Button
+              component={Link}
+              href="/quiz"
+              color="inherit"
+              sx={{
+                fontWeight: 600,
+                color: "text.secondary",
+                "&:hover": { color: "text.primary" },
+              }}
+            >
+              Quiz
+            </Button>
           </Stack>
         </Box>
 
@@ -455,6 +467,7 @@ function MobileDrawerContent({
   let currentSection = "pokemetrix";
   if (pathname.startsWith("/docs")) currentSection = "docs";
   if (pathname.startsWith("/blog")) currentSection = "blog";
+  if (pathname.startsWith("/quiz")) currentSection = "quiz";
 
   return (
     <>
@@ -473,6 +486,7 @@ function MobileDrawerContent({
               const value = e.target.value;
               if (value === "docs") router.push("/docs");
               else if (value === "blog") router.push("/blog");
+              else if (value === "quiz") router.push("/quiz");
               else router.push("/");
               onClose();
             }}
@@ -487,6 +501,9 @@ function MobileDrawerContent({
             </MenuItem>
             <MenuItem value="blog" sx={{ fontWeight: 600 }}>
               BLOG
+            </MenuItem>
+            <MenuItem value="quiz" sx={{ fontWeight: 600 }}>
+              QUIZ
             </MenuItem>
           </Select>
         </FormControl>

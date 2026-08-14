@@ -20,7 +20,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SpeedIcon from "@mui/icons-material/Speed";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import * as Sentry from "@sentry/nextjs";
 import type { QuizQuestion, TsumePokemon } from "@/types/quiz";
@@ -38,7 +37,7 @@ interface QuizAppProps {
 }
 
 type QuizMode = "menu" | "playing" | "results";
-type UICategory = "academic" | "practical" | "speed_compare";
+type UICategory = "academic" | "practical";
 type Difficulty = "basics" | "advanced" | "expert" | "master";
 
 type MenuStep = "category" | "difficulty";
@@ -58,7 +57,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   const [showExplanation, setShowExplanation] = useState(false);
   const [tsumeActions, setTsumeActions] = useState<string[]>([]);
   const [score, setScore] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   // States for different quiz formats
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -106,10 +105,19 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     }
   }, [currentLang, directPlay]);
 
-  const categories: { id: UICategory; icon: React.ReactNode; color: string }[] = [
+  const categories: {
+    id: UICategory;
+    icon: React.ReactNode;
+    color: string;
+    disabled?: boolean;
+  }[] = [
     { id: "academic", icon: <MenuBookIcon sx={{ fontSize: 60 }} />, color: "#4facfe" },
-    { id: "practical", icon: <CalculateIcon sx={{ fontSize: 60 }} />, color: "#f093fb" },
-    { id: "speed_compare", icon: <SpeedIcon sx={{ fontSize: 60 }} />, color: "#ff9a9e" },
+    {
+      id: "practical",
+      icon: <CalculateIcon sx={{ fontSize: 60 }} />,
+      color: "#f093fb",
+      disabled: true,
+    },
   ];
 
   const difficulties: { id: Difficulty; color: string }[] = [
@@ -122,39 +130,24 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   const handleSelectDifficulty = (diff: Difficulty) => {
     setSelectedDifficulty(diff);
     setMenuStep("category");
+    history.pushState({ quizStep: "category" }, "");
   };
 
   const handleStartQuiz = async (cat: UICategory) => {
     setSelectedCategory(cat);
-    let questionsForDiff: QuizQuestion[] = [];
-
-    if (cat === "speed_compare") {
-      setIsLoading(true);
-      try {
-        const res = await fetch(
-          `/api/quizzes/speed_compare?locale=${currentLang}&difficulty=${selectedDifficulty}`,
-        );
-        const apiQuizzes = await res.json();
-        questionsForDiff = apiQuizzes;
-      } catch (e) {
-        console.error("Failed to load speed compare quizzes", e);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      questionsForDiff = localizedQuestions.filter((q) => {
-        if (q.difficulty !== selectedDifficulty) return false;
-        if (cat === "academic") return q.category === "academic";
-        if (cat === "practical") {
-          if (selectedDifficulty === "basics" || selectedDifficulty === "advanced") {
-            return q.category === "damage_calc";
-          } else {
-            return q.category === "damage_calc" || q.category === "tsume";
-          }
+    // reserved for future practical server-side fetching if needed
+    let questionsForDiff: QuizQuestion[] = localizedQuestions.filter((q) => {
+      if (q.difficulty !== selectedDifficulty) return false;
+      if (cat === "academic") return q.category === "academic";
+      if (cat === "practical") {
+        if (selectedDifficulty === "basics" || selectedDifficulty === "advanced") {
+          return q.category === "damage_calc";
+        } else {
+          return q.category === "damage_calc" || q.category === "tsume";
         }
-        return false;
-      });
-    }
+      }
+      return false;
+    });
 
     // Shuffle and pick up to 10, also shuffle the options for each question
     const shuffled = [...questionsForDiff].sort(() => 0.5 - Math.random());
@@ -209,6 +202,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     setTsumeActions([]);
     setShowExplanation(false);
     setMode("playing");
+    history.pushState({ quizStep: "playing" }, "");
   };
 
   const activeQuestion = sessionQuestions[currentIndex];
@@ -239,6 +233,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   }, [activeQuestion]);
 
   const isSubmitDisabled = () => {
+    if (!activeQuestion) return true;
     if (activeQuestion.format === "choices") return selectedOption === null;
     if (activeQuestion.format === "one_way") return selectedOption === null;
     if (activeQuestion.format === "multi_select") return selectedOptions.length === 0;
@@ -324,6 +319,26 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     setMenuStep("category");
   };
 
+  // Browser back button support
+  useEffect(() => {
+    const onPopState = (e: PopStateEvent) => {
+      const step = e.state?.quizStep as string | undefined;
+      if (step === "playing") {
+        // back from results or mid-quiz → back to category menu
+        setMode("menu");
+        setMenuStep("category");
+      } else if (step === "category") {
+        // back from category → back to difficulty
+        setMenuStep("difficulty");
+        setMode("menu");
+      } else {
+        // back from difficulty or no state → let browser navigate normally
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   const getRankKey = (s: number, total: number) => {
     const ratio = total > 0 ? s / total : 0;
     if (ratio === 1) return "champion";
@@ -374,7 +389,12 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     window.open(shareUrl, "_blank");
   };
 
-  if (mode === "playing" && activeQuestion) {
+  const renderPlayingMode = () => {
+    if (!activeQuestion) return null;
+
+    const progress = (currentIndex / sessionQuestions.length) * 100;
+
+    // Compute correctness from current answer state (mirrors handleSubmit logic)
     let isCorrect = false;
     if (activeQuestion.format === "choices" || activeQuestion.format === "one_way") {
       isCorrect =
@@ -415,44 +435,65 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         correct.every((ans) => tsumeActions.includes(ans));
     }
 
-    const progress = (currentIndex / sessionQuestions.length) * 100;
-
     return (
-      <Box sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
-        <Box sx={{ mb: 4 }}>
+      <Box
+        sx={{
+          maxWidth: 800,
+          mx: "auto",
+          p: { xs: 1, sm: 2 },
+          pb: { xs: showExplanation ? 2 : 10, sm: 2 },
+        }}
+      >
+        <Box
+          sx={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            bgcolor: "background.default",
+            pt: 1,
+            pb: 0.75,
+            mb: 1.5,
+          }}
+        >
           <Box
-            sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}
+            sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5 }}
           >
-            <Button onClick={handleBackToMenu} color="inherit" startIcon={<ArrowBackIcon />}>
-              {t("common.back")}
+            <Button
+              onClick={handleBackToMenu}
+              color="inherit"
+              startIcon={<ArrowBackIcon />}
+              size="small"
+              sx={{ minWidth: 0, px: 1 }}
+            >
+              <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+                {t("common.back")}
+              </Box>
             </Button>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <IconButton
-                onClick={handleReportFeedback}
-                size="small"
-                color="inherit"
-                sx={{ opacity: 0.5, "&:hover": { opacity: 1 } }}
-                title={t("quiz.reportError")}
-              >
-                <ReportProblemIcon fontSize="small" />
-              </IconButton>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }} color="text.secondary">
-                {currentIndex + 1} / {sessionQuestions.length}
-              </Typography>
-            </Box>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold" }} color="text.secondary">
+              {currentIndex + 1} / {sessionQuestions.length}
+            </Typography>
+            <IconButton
+              onClick={handleReportFeedback}
+              size="small"
+              color="inherit"
+              sx={{ opacity: 0.5, "&:hover": { opacity: 1 } }}
+              title={t("quiz.reportError")}
+            >
+              <ReportProblemIcon fontSize="small" />
+            </IconButton>
           </Box>
           <LinearProgress
             variant="determinate"
             value={progress}
-            sx={{ height: 8, borderRadius: 4 }}
+            sx={{ height: 6, borderRadius: 4 }}
           />
         </Box>
 
         <Card
           variant="outlined"
-          sx={{ mb: 3, borderRadius: 3, boxShadow: "0 8px 24px rgba(0,0,0,0.12)", border: "none" }}
+          sx={{ mb: 2, borderRadius: 3, boxShadow: "0 4px 16px rgba(0,0,0,0.08)", border: "none" }}
         >
-          <CardContent sx={{ p: 4 }}>
+          <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
             {activeQuestion.practicalData && (
               <Box
                 sx={{
@@ -840,22 +881,53 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             )}
 
             {!showExplanation && activeQuestion.format !== "one_way" && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disabled={isSubmitDisabled()}
-                sx={{
-                  mt: 4,
-                  width: "100%",
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                }}
-              >
-                {t("common.submit")}
-              </Button>
+              <>
+                {/* Desktop: inline submit button */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  disabled={isSubmitDisabled()}
+                  sx={{
+                    display: { xs: "none", sm: "flex" },
+                    mt: 3,
+                    width: "100%",
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: "bold",
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  {t("common.submit")}
+                </Button>
+                {/* Mobile: sticky bottom bar */}
+                <Box
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 20,
+                    p: 1.5,
+                    bgcolor: "background.paper",
+                    borderTop: "1px solid",
+                    borderColor: "divider",
+                    boxShadow: "0 -4px 16px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                    disabled={isSubmitDisabled()}
+                    fullWidth
+                    sx={{ py: 1.5, borderRadius: 2, fontWeight: "bold", fontSize: "1rem" }}
+                  >
+                    {t("common.submit")}
+                  </Button>
+                </Box>
+              </>
             )}
           </CardContent>
         </Card>
@@ -867,21 +939,22 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
             sx={{
               borderColor: isCorrect ? "success.main" : "error.main",
               borderRadius: 3,
-              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-              scrollMarginTop: "24px",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+              scrollMarginTop: "80px",
             }}
           >
-            <CardContent sx={{ p: 4 }}>
+            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  alignItems: "center",
                   mb: 2,
+                  gap: 1,
                 }}
               >
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   color={isCorrect ? "success.main" : "error.main"}
                   sx={{ fontWeight: "bold" }}
                 >
@@ -893,7 +966,9 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                   sx={{
                     borderRadius: 2,
                     fontWeight: "bold",
-                    minWidth: "120px",
+                    minWidth: { xs: 90, sm: 120 },
+                    flexShrink: 0,
+                    fontSize: { xs: "0.85rem", sm: "0.875rem" },
                   }}
                 >
                   {currentIndex < sessionQuestions.length - 1
@@ -901,7 +976,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                     : t("quiz.viewResults")}
                 </Button>
               </Box>
-              <Box sx={{ mt: 2, "& p": { lineHeight: 1.7 } }}>
+              <Box sx={{ mt: 1.5, "& p": { lineHeight: 1.7 } }}>
                 {activeQuestion.mdx && <MDXContent code={activeQuestion.mdx} />}
               </Box>
             </CardContent>
@@ -909,7 +984,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         )}
       </Box>
     );
-  }
+  };
 
   const handleReturnMenu = () => {
     if (onReturnToMenu) {
@@ -921,6 +996,10 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       setSelectedDifficulty(null);
     }
   };
+
+  if (mode === "playing") {
+    return renderPlayingMode();
+  }
 
   if (mode === "results") {
     const rankKey = getRankKey(score, sessionQuestions.length);
@@ -1021,17 +1100,18 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
 
   // Menu Mode
   return (
-    <Box sx={{ maxWidth: 900, mx: "auto", p: { xs: 2, md: 4 } }}>
+    <Box sx={{ maxWidth: 900, mx: "auto", p: { xs: 1.5, sm: 2, md: 4 } }}>
       <Typography
-        variant="h3"
+        variant="h4"
         gutterBottom
         sx={{
           fontWeight: "900",
           textAlign: "center",
-          mb: 6,
+          mb: { xs: 2, sm: 4 },
           background: "linear-gradient(to right, #4facfe 0%, #00f2fe 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
+          fontSize: { xs: "1.6rem", sm: "2rem", md: "2.125rem" },
         }}
       >
         {t("quiz.title")}
@@ -1040,7 +1120,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       <Alert
         severity="info"
         sx={{
-          mb: 4,
+          mb: { xs: 2, sm: 3 },
           borderRadius: 2,
           "& .MuiAlert-message": { width: "100%", textAlign: "center" },
         }}
@@ -1053,32 +1133,45 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       {menuStep === "difficulty" && (
         <Box>
           <Typography
-            variant="h5"
-            sx={{ textAlign: "center", mb: 4, fontWeight: "bold", color: "text.secondary" }}
+            variant="subtitle1"
+            sx={{
+              textAlign: "center",
+              mb: { xs: 2, sm: 3 },
+              fontWeight: "bold",
+              color: "text.secondary",
+            }}
           >
-            Select Difficulty
+            {t("quiz.selectDifficulty", { defaultValue: "Select Difficulty" })}
           </Typography>
-          <Grid container spacing={3} sx={{ justifyContent: "center" }}>
+          <Grid container spacing={2} sx={{ justifyContent: "center" }}>
             {difficulties.map((diff) => (
-              <Grid size={{ xs: 12, sm: 6 }} key={diff.id}>
+              <Grid size={{ xs: 6, sm: 6 }} key={diff.id}>
                 <Card
                   sx={{
                     cursor: "pointer",
-                    borderRadius: 4,
+                    borderRadius: 3,
                     background: `linear-gradient(135deg, ${diff.color}22 0%, ${diff.color}11 100%)`,
                     border: "1px solid",
                     borderColor: `${diff.color}44`,
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transition: "all 0.2s ease",
+                    "&:active": { transform: "scale(0.97)" },
                     "&:hover": {
-                      transform: "translateY(-4px)",
-                      boxShadow: `0 8px 16px ${diff.color}33`,
+                      transform: "translateY(-3px)",
+                      boxShadow: `0 6px 14px ${diff.color}33`,
                       borderColor: diff.color,
                     },
                   }}
                   onClick={() => handleSelectDifficulty(diff.id)}
                 >
-                  <CardContent sx={{ textAlign: "center", py: 4 }}>
-                    <Typography variant="h5" sx={{ fontWeight: "bold", color: diff.color }}>
+                  <CardContent sx={{ textAlign: "center", py: { xs: 2.5, sm: 3 } }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: diff.color,
+                        fontSize: { xs: "1rem", sm: "1.25rem" },
+                      }}
+                    >
                       {t(`quiz.difficulty.${diff.id}`)}
                     </Typography>
                   </CardContent>
@@ -1090,52 +1183,83 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
       )}
 
       {menuStep === "category" && (
-        <Box sx={{ animation: "fadeIn 0.5s ease-out" }}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-            <IconButton onClick={() => setMenuStep("difficulty")} sx={{ mr: 2 }}>
+        <Box>
+          <Box sx={{ display: "flex", alignItems: "center", mb: { xs: 2, sm: 3 } }}>
+            <IconButton onClick={() => setMenuStep("difficulty")} sx={{ mr: 1 }} size="small">
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "text.secondary" }}>
-              {selectedDifficulty ? t(`quiz.difficulty.${selectedDifficulty}`) : ""} - Select
-              Category
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold", color: "text.secondary" }}>
+              {selectedDifficulty ? t(`quiz.difficulty.${selectedDifficulty}`) : ""}
+              {" — "}
+              {t("quiz.selectCategory", { defaultValue: "Select Category" })}
             </Typography>
           </Box>
 
-          <Grid container spacing={3} sx={{ justifyContent: "center" }}>
+          <Grid container spacing={2} sx={{ justifyContent: "center" }}>
             {categories.map((cat) => (
-              <Grid size={{ xs: 12, md: 4 }} key={cat.id}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={cat.id}>
                 <Card
                   sx={{
-                    cursor: isLoading ? "wait" : "pointer",
-                    borderRadius: 4,
+                    cursor: isLoading || cat.disabled ? "not-allowed" : "pointer",
+                    borderRadius: 3,
                     height: "100%",
                     background: `linear-gradient(135deg, ${cat.color}22 0%, ${cat.color}11 100%)`,
                     border: "1px solid",
                     borderColor: `${cat.color}44`,
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                    opacity: isLoading ? 0.5 : 1,
-                    pointerEvents: isLoading ? "none" : "auto",
+                    transition: "all 0.2s ease",
+                    opacity: isLoading || cat.disabled ? 0.5 : 1,
+                    pointerEvents: isLoading || cat.disabled ? "none" : "auto",
+                    "&:active": { transform: "scale(0.98)" },
                     "&:hover": {
-                      transform: "translateY(-8px)",
-                      boxShadow: `0 12px 24px ${cat.color}33`,
+                      transform: cat.disabled ? "none" : "translateY(-4px)",
+                      boxShadow: cat.disabled ? "none" : `0 8px 20px ${cat.color}33`,
                       borderColor: cat.color,
                     },
                   }}
-                  onClick={() => handleStartQuiz(cat.id)}
+                  onClick={() => !cat.disabled && handleStartQuiz(cat.id)}
                 >
                   <CardContent
                     sx={{
-                      textAlign: "center",
-                      py: 6,
+                      py: { xs: 2.5, sm: 4 },
+                      px: { xs: 2, sm: 3 },
                       display: "flex",
-                      flexDirection: "column",
+                      flexDirection: "row",
                       alignItems: "center",
+                      gap: 2,
                     }}
                   >
-                    <Box sx={{ color: cat.color, mb: 2 }}>{cat.icon}</Box>
-                    <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                      {t(`quiz.category.${cat.id}`)}
-                    </Typography>
+                    <Box
+                      sx={{
+                        color: cat.color,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: { xs: 52, sm: 64 },
+                        width: { xs: 52, sm: 64 },
+                        borderRadius: "50%",
+                        background: `${cat.color}15`,
+                        flexShrink: 0,
+                        "& svg": { fontSize: { xs: 32, sm: 40 } },
+                      }}
+                    >
+                      {cat.icon}
+                    </Box>
+                    <Box sx={{ textAlign: "left" }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: "bold", fontSize: { xs: "1rem", sm: "1.25rem" } }}
+                      >
+                        {t(`quiz.category.${cat.id}`)}
+                      </Typography>
+                      {cat.disabled && (
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "text.secondary", fontWeight: 600 }}
+                        >
+                          Coming Soon...
+                        </Typography>
+                      )}
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>

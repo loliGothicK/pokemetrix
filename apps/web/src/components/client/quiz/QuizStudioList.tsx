@@ -77,11 +77,7 @@ function LocalizedQuizPreview({
 
   return (
     <I18nextProvider i18n={localI18n}>
-      <QuizApp
-        initialQuestions={questions}
-        directPlay={true}
-        onReturnToMenu={onReturnToMenu}
-      />
+      <QuizApp initialQuestions={questions} directPlay={true} onReturnToMenu={onReturnToMenu} />
     </I18nextProvider>
   );
 }

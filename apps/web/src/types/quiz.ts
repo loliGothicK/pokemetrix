@@ -1,6 +1,6 @@
 export type QuizDifficulty = "basics" | "advanced" | "expert" | "master";
 
-export type QuizCategory = "academic" | "damage_calc" | "tsume" | "speed_compare";
+export type QuizCategory = "academic" | "damage_calc" | "tsume";
 export type QuizQuestionFormat =
   | "choices"
   | "multi_select"
@@ -65,13 +65,6 @@ export interface QuizQuestion {
   // For tsume (checkmate) questions
   // For tsume (checkmate) questions
   tsumeData?: TsumeData;
-
-  // For speed comparison questions
-  speedCompareData?: {
-    pokemonA: string;
-    pokemonB: string;
-    context: string;
-  };
 }
 
 export interface QuizState {

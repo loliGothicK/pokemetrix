@@ -44,6 +44,15 @@ export function Footer() {
             </Link>
             <Link
               component={NextLink}
+              href="/quiz"
+              color="text.secondary"
+              variant="body2"
+              underline="hover"
+            >
+              Quiz
+            </Link>
+            <Link
+              component={NextLink}
               href="/privacy"
               color="text.secondary"
               variant="body2"

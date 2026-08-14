@@ -1,5 +1,9 @@
 import React from "react";
-import { Stack, Button, Checkbox, Box, Typography } from "@mui/material";
+import { Stack, ButtonBase, Box, Typography } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { useTranslation } from "react-i18next";
 
 interface MultiSelectFormatProps {
@@ -20,57 +24,95 @@ export function MultiSelectFormat({
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ mt: 4 }}>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+    <Box sx={{ mt: 3 }}>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, fontStyle: "italic" }}>
         {t("quiz.selectMultiple")}
       </Typography>
-      <Stack spacing={2}>
+      <Stack spacing={1.5}>
         {options.map((opt, idx) => {
           const isSelected = selectedOptions.includes(opt);
           const isCorrect = correctAnswerIndices?.includes(idx);
 
-          let color: "primary" | "success" | "error" | "inherit" = "primary";
+          let borderColor = "divider";
+          let bgcolor = "background.paper";
+          let textColor = "text.primary";
+
           if (showExplanation) {
-            if (isCorrect) color = "success";
-            else if (isSelected && !isCorrect) color = "error";
-            else color = "inherit";
+            if (isCorrect) {
+              borderColor = "success.main";
+              bgcolor = "success.light";
+              textColor = "success.dark";
+            } else if (isSelected && !isCorrect) {
+              borderColor = "error.main";
+              bgcolor = "error.light";
+              textColor = "error.dark";
+            }
+          } else if (isSelected) {
+            borderColor = "primary.main";
+            bgcolor = "primary.light";
+          }
+
+          let CheckIcon;
+          if (showExplanation) {
+            if (isCorrect)
+              CheckIcon = <CheckCircleIcon color="success" sx={{ fontSize: 22, flexShrink: 0 }} />;
+            else if (isSelected)
+              CheckIcon = <CancelIcon color="error" sx={{ fontSize: 22, flexShrink: 0 }} />;
+            else
+              CheckIcon = (
+                <CheckBoxOutlineBlankIcon sx={{ fontSize: 22, flexShrink: 0, opacity: 0.3 }} />
+              );
+          } else if (isSelected) {
+            CheckIcon = <CheckBoxIcon color="primary" sx={{ fontSize: 22, flexShrink: 0 }} />;
+          } else {
+            CheckIcon = (
+              <CheckBoxOutlineBlankIcon sx={{ fontSize: 22, flexShrink: 0, opacity: 0.4 }} />
+            );
           }
 
           return (
-            <Button
+            <ButtonBase
               key={idx}
-              variant={isSelected ? "contained" : "outlined"}
-              color={color}
-              onClick={() => onOptionToggle(opt)}
+              onClick={() => !showExplanation && onOptionToggle(opt)}
               disabled={showExplanation}
               sx={{
-                justifyContent: "flex-start",
+                width: "100%",
                 textAlign: "left",
-                textTransform: "none",
-                py: 1,
-                px: 2,
                 borderRadius: 2,
-                fontSize: "1rem",
-                borderWidth: isSelected ? 0 : 1,
+                border: "1.5px solid",
+                borderColor,
+                bgcolor,
+                transition: "all 0.15s ease",
+                "&:active": { opacity: 0.8 },
+                "&:hover:not(:disabled)": {
+                  borderColor: "primary.main",
+                  bgcolor: "action.hover",
+                },
               }}
-              startIcon={
-                <Checkbox
-                  checked={isSelected}
-                  onChange={() => onOptionToggle(opt)}
-                  disabled={showExplanation}
-                  color="default"
-                  sx={{
-                    color: showExplanation && isCorrect && !isSelected ? "success.main" : "inherit",
-                    "&.Mui-checked": {
-                      color: "inherit",
-                    },
-                  }}
-                  disableRipple
-                />
-              }
             >
-              {opt}
-            </Button>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.5,
+                  p: { xs: 1.5, sm: 2 },
+                  width: "100%",
+                }}
+              >
+                {CheckIcon}
+                <Typography
+                  sx={{
+                    fontSize: { xs: "0.95rem", sm: "1rem" },
+                    fontWeight: isSelected || (showExplanation && isCorrect) ? 600 : 400,
+                    color: textColor,
+                    lineHeight: 1.5,
+                    flexGrow: 1,
+                  }}
+                >
+                  {opt}
+                </Typography>
+              </Box>
+            </ButtonBase>
           );
         })}
       </Stack>
