@@ -105,9 +105,13 @@ export function effectiveSpeed(
 export function isGrounded(
   types: readonly Type[],
   ability: string | null,
+  item: string | null,
   gravity: boolean,
+  isUndergroundOrSubmerged: boolean = false,
 ): boolean {
+  if (isUndergroundOrSubmerged) return false;
   if (gravity) return true;
+  if (item === "iron-ball") return true;
   if (ability === "levitate") return false;
   if (types.includes("flying")) return false;
   return true;
@@ -189,8 +193,23 @@ export function resolveDamageInput(ctx: ResolveContext): DamageInput | null {
   const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
   const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
 
-  const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability, gravity);
-  const defenderGrounded = isGrounded(defPokemon.types, defender.ability, gravity);
+  const attackerGrounded = isGrounded(
+    atkPokemon.types,
+    attacker.ability,
+    attacker.item,
+    gravity,
+    false,
+  );
+  const defenderGrounded = isGrounded(
+    defPokemon.types,
+    defender.ability,
+    defender.item,
+    gravity,
+    !!attacker.moveConditions.targetUnderground ||
+      !!attacker.moveConditions.targetSubmerged ||
+      !!attacker.moveConditions.targetAirborne ||
+      !!attacker.moveConditions.targetPhantom,
+  );
 
   const powerCtx: PowerContext = {
     basePower: staticPower,

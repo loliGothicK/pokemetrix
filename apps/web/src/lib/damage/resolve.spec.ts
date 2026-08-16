@@ -636,23 +636,33 @@ describe("resolveDamageInput", () => {
 
   describe("Grounding (isGrounded)", () => {
     it("is true for grounded types like Pikachu", () => {
-      const grounded = isGrounded(["electric"], null, false);
+      const grounded = isGrounded(["electric"], null, null, false);
       expect(grounded).toBe(true);
     });
 
     it("is false for Flying types like Charizard", () => {
-      const grounded = isGrounded(["fire", "flying"], null, false);
+      const grounded = isGrounded(["fire", "flying"], null, null, false);
       expect(grounded).toBe(false);
     });
 
     it("is false for Pokemon with Levitate like Gengar", () => {
-      const grounded = isGrounded(["ghost", "poison"], "levitate", false);
+      const grounded = isGrounded(["ghost", "poison"], "levitate", null, false);
       expect(grounded).toBe(false);
     });
 
     it("is true if Gravity is active even for Flying types", () => {
-      const grounded = isGrounded(["fire", "flying"], null, true);
+      const grounded = isGrounded(["fire", "flying"], null, null, true);
       expect(grounded).toBe(true);
+    });
+
+    it("is true if holding Iron Ball even for Flying types", () => {
+      const grounded = isGrounded(["fire", "flying"], null, "iron-ball", false);
+      expect(grounded).toBe(true);
+    });
+
+    it("is false if underground, ignoring Gravity and Iron Ball", () => {
+      const grounded = isGrounded(["fire", "flying"], null, "iron-ball", true, true);
+      expect(grounded).toBe(false);
     });
   });
 });

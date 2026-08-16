@@ -575,6 +575,11 @@ export function getMoveMechanics(identifier: string, category: MoveCategory): Mo
         conditions: [{ key: "targetSubmerged", labelKey: "damageCalc.condTargetSubmerged" }],
         bpModifiers: condDouble("targetSubmerged"),
       }))
+      .with(P.union("gust", "twister"), () => ({
+        ...base,
+        conditions: [{ key: "targetAirborne", labelKey: "damageCalc.condTargetAirborne" }],
+        bpModifiers: condDouble("targetAirborne"),
+      }))
       .with("avalanche", () => ({
         ...base,
         conditions: [{ key: "targetDamagedUser", labelKey: "damageCalc.condTargetDamagedUser" }],

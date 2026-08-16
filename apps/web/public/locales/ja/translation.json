@@ -506,6 +506,8 @@
     "condTargetDamaged": "相手がダメージ済み",
     "condMovesAfterTarget": "相手より後攻",
     "condTargetUnderground": "相手があなをほる状態",
+    "condTargetAirborne": "相手がそらをとぶ状態",
+    "condTargetPhantom": "相手がシャドーダイブ状態",
     "condStatsLowered": "このターンに能力を下げられた",
     "condTargetSubmerged": "相手がダイビング状態",
     "condTargetSwitching": "相手が交代する",

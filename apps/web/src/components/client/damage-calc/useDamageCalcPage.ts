@@ -18,6 +18,7 @@ import {
   type DamageInput,
   type PowerContext,
   M,
+  isGrounded,
 } from "@/lib/damage";
 import type { Type } from "@/types/pokemon";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
@@ -147,12 +148,7 @@ function effectiveSpeed(
   return s;
 }
 
-/** Whether a Pokémon is grounded (affected by Terrain). Levitate / Flying float. */
-function isGrounded(types: readonly Type[], ability: string | null, gravity: boolean): boolean {
-  if (gravity) return true;
-  if (ability === "levitate") return false;
-  return !types.includes("flying");
-}
+
 
 export function useDamageCalcPage() {
   const [attacker, setAttacker] = useState<PokemonPanelState>(defaultPanel);
@@ -258,8 +254,23 @@ export function useDamageCalcPage() {
     const atkWeight = (pokemonById.get(atkPokemon.id)?.weight ?? 0) / 10;
     const defWeight = (pokemonById.get(defPokemon.id)?.weight ?? 0) / 10;
 
-    const attackerGrounded = isGrounded(atkPokemon.types, attacker.ability, gravity);
-    const defenderGrounded = isGrounded(defPokemon.types, defender.ability, gravity);
+    const attackerGrounded = isGrounded(
+      atkPokemon.types,
+      attacker.ability,
+      attacker.item,
+      gravity,
+      false,
+    );
+    const defenderGrounded = isGrounded(
+      defPokemon.types,
+      defender.ability,
+      defender.item,
+      gravity,
+      !!attacker.moveConditions.targetUnderground ||
+        !!attacker.moveConditions.targetSubmerged ||
+        !!attacker.moveConditions.targetAirborne ||
+        !!attacker.moveConditions.targetPhantom,
+    );
 
     // --- Effective base power ---
     const powerCtx: PowerContext = {
