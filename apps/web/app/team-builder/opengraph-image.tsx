@@ -11,7 +11,10 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return new ImageResponse(
-    <OgTemplate title="Team Builder | Pokemetrix" subtitle="Construct and analyze your Pokémon teams" />,
+    <OgTemplate
+      title="Team Builder | Pokemetrix"
+      subtitle="Construct and analyze your Pokémon teams"
+    />,
     { ...size },
   );
 }

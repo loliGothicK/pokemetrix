@@ -20,7 +20,6 @@ import {
   M,
   isGrounded,
 } from "@/lib/damage";
-import type { Type } from "@/types/pokemon";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import type { StatKey } from "@/lib/damage/moveMechanics";
 import { moveByIdentifier } from "@/data/moves";
@@ -147,8 +146,6 @@ function effectiveSpeed(
 
   return s;
 }
-
-
 
 export function useDamageCalcPage() {
   const [attacker, setAttacker] = useState<PokemonPanelState>(defaultPanel);
