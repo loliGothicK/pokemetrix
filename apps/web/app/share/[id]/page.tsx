@@ -48,8 +48,6 @@ export async function generateMetadata({
   const title = `${teamName} – Pokemetrix`;
   const description = memberNames ? `${teamName}: ${memberNames}` : teamName;
 
-  const ogImageUrl = `/share/${id}/opengraph-image`;
-
   return {
     title,
     description,
@@ -57,20 +55,11 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrl],
     },
   };
 }
