@@ -1,0 +1,22 @@
+---
+format: one_way
+question: >-
+  The move 'Scorching Sands' has the effect of thawing the user if they are frozen. Additionally, it has a 30% chance to burn the target and will thaw the target if they are frozen.
+  If a Pokémon with the ability 'Sheer Force' uses 'Scorching Sands' while both the user and the target are frozen (note: frozen Pokémon can still select and execute this move), what is the correct outcome?
+options:
+  - The user thaws, but the target does not thaw
+  - The user does not thaw, but the target thaws
+  - Both the user and the target thaw
+  - Neither the user nor the target thaws
+correctAnswerIndices:
+  - 0
+reviewed: true
+---
+
+**Explanation:**
+The ability 'Sheer Force' removes a move's secondary effects in exchange for a 1.3x power boost.
+
+- **Effects on the target (30% burn chance, thawing the target)**: These are considered secondary added effects and are completely negated by Sheer Force.
+- **Effects on the user (thawing the user)**: This is considered a primary self-effect, not an added effect applied to the target. Therefore, it is unaffected by Sheer Force and will trigger normally.
+
+Thus, the user's freeze will thaw, while the target remains frozen.
