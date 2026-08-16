@@ -1,0 +1,22 @@
+---
+format: one_way
+question: >-
+  In which of the following situations does the move 'Encore' NOT fail?
+options:
+  - When the target's last PP-consuming move was 'Encore'.
+  - When the target hasn't taken any PP-consuming action since entering the field.
+  - When the target's last PP-consuming move currently has 0 PP left.
+  - When the target, having previously used a PP-consuming move at least once, just failed to execute a move without consuming PP.
+correctAnswerIndices:
+  - 3
+reviewed: true
+---
+
+**Explanation:**
+Encore forces the target to repeat its last used move, but it will fail in several specific scenarios:
+
+- **If the target hasn't acted yet** (i.e., hasn't consumed PP on a move since entering the field).
+- **If the last move used cannot be Encored** (e.g., Encore itself, Metronome, Struggle, Max Moves, etc.).
+- **If the target has 0 PP left** for the move that would be Encored.
+
+However, if a Pokémon fails to execute a move due to full paralysis, flinching, sleep, or other reasons that prevent PP consumption, the game does not overwrite the "last move used" slot. If the target has consumed PP for a move at least once since entering the field, **Encore will lock the target into that previously used move**. Therefore, Encore will not fail and will succeed in locking the older move.
