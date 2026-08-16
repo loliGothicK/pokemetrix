@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.6.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.5.0...app-v0.6.0) (2026-08-16)
+
+
+### Features
+
+* add quizzes ([5b8aa0d](https://github.com/loliGothicK/pokemetrix/commit/5b8aa0d6cae1960af83cc602b9be4c663d84f46a))
+* opengraph-image ([1280e99](https://github.com/loliGothicK/pokemetrix/commit/1280e9992603d8c6e6a4fdfd20cead8c7669294f))
+
+
+### Bug Fixes
+
+* **damage:** ground status correctly accounts for Dig, Fly, Dive, and Phantom Force ([623d668](https://github.com/loliGothicK/pokemetrix/commit/623d668ddd6578aa5f0e9f2ccf68e73a4760a4bf))
+* quiz ([dddc986](https://github.com/loliGothicK/pokemetrix/commit/dddc9865ffd5528d9bd581df9561857c8567afb0))
+* quiz ([ee5c888](https://github.com/loliGothicK/pokemetrix/commit/ee5c8882621593c3c32cc500c4490fa1937fb6ce))
+* quiz ([a85309d](https://github.com/loliGothicK/pokemetrix/commit/a85309d8f30b57e3b33ca7cf8a26cc879255ceef))
+* quiz ([b5acdd2](https://github.com/loliGothicK/pokemetrix/commit/b5acdd20bd3edf25c102af2f9eda5733fb321a45))
+
 ## [0.5.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.4.0...app-v0.5.0) (2026-08-14)
 
 ### Features
