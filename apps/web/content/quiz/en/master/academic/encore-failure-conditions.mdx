@@ -1,16 +1,24 @@
 ---
-format: one_way
-question: In which of the following situations does the move 'Encore' NOT fail?
+format: grouping
+question: >-
+  Correctly classify the following situations based on whether the move 'Encore'
+  will fail or succeed (not fail).
 options:
-  - When the target's last PP-consuming move was 'Encore'.
+  - The target's last PP-consuming move was 'Encore'.
+  - The target hasn't taken any PP-consuming action since entering the field.
+  - The target's last PP-consuming move currently has 0 PP left.
   - >-
-    When the target hasn't taken any PP-consuming action since entering the
-    field.
-  - When the target's last PP-consuming move currently has 0 PP left.
-  - >-
-    When the target, having previously used a PP-consuming move at least once,
-    just failed to execute a move without consuming PP.
-correctAnswerIndex: 3
+    The target previously consumed PP, but just failed a move without consuming
+    PP.
+correctGroups:
+  Will Fail:
+    - The target's last PP-consuming move was 'Encore'.
+    - The target hasn't taken any PP-consuming action since entering the field.
+    - The target's last PP-consuming move currently has 0 PP left.
+  Will Not Fail:
+    - >-
+      The target previously consumed PP, but just failed a move without
+      consuming PP.
 reviewed: true
 ---
 
