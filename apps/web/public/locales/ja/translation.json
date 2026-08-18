@@ -82,7 +82,16 @@
       "empty": "空"
     },
     "selectDifficulty": "難易度を選択",
-    "selectCategory": "カテゴリーを選択"
+    "selectCategory": "カテゴリーを選択",
+    "tsume": {
+      "solved": "Solved!",
+      "failed": "Failed...",
+      "whatWillYouDo": "どうする？",
+      "undoReset": "やり直す",
+      "switch": "ポケモン",
+      "selectSwitch": "交代先を選択",
+      "selectTarget": "ターゲットを選択"
+    }
   },
   "common": {
     "close": "閉じる",

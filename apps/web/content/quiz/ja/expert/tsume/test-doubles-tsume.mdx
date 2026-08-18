@@ -1,0 +1,55 @@
+---
+format: "tsume_action"
+question: "Test double battle tsume"
+options: []
+tsumeData:
+  playerSide:
+    active:
+      - species: "Charizard"
+        hpCurrent: 100
+        hpMax: 153
+        stats: { spe: 167 }
+        moves: ["flamethrower", "protect"]
+        ability: "blaze"
+      - species: "Venusaur"
+        hpCurrent: 100
+        hpMax: 155
+        stats: { spe: 142 }
+        moves: ["solarbeam", "protect"]
+        ability: "overgrow"
+  opponentSide:
+    active:
+      - species: "Blastoise"
+        hpCurrent: 100
+        hpMax: 154
+        stats: { spe: 140 }
+        moves: ["surf", "protect"]
+        ability: "torrent"
+      - species: "Pikachu"
+        hpCurrent: 100
+        hpMax: 110
+        stats: { spe: 156 }
+        moves: ["thunderbolt", "protect"]
+        ability: "static"
+  correctMoves: ["move 1 1, move 1 1"]
+
+  opponentResponses:
+    "move 1 1,move 1 1": "move 1,move 1 1"
+    "move 1 1,move 1 2": "move 1,move 1 1"
+    "move 1 1,move 1 -1": "move 1,move 1 1"
+    "move 1 1,move 2": "move 1,move 1 1"
+    "move 1 2,move 1 1": "move 1,move 1 1"
+    "move 1 2,move 1 2": "move 1,move 1 1"
+    "move 1 2,move 1 -1": "move 1,move 1 1"
+    "move 1 2,move 2": "move 1,move 1 1"
+    "move 1 -2,move 1 1": "move 1,move 1 1"
+    "move 1 -2,move 1 2": "move 1,move 1 1"
+    "move 1 -2,move 1 -1": "move 1,move 1 1"
+    "move 1 -2,move 2": "move 1,move 1 1"
+    "move 2,move 1 1": "move 1,move 1 1"
+    "move 2,move 1 2": "move 1,move 1 1"
+    "move 2,move 1 -1": "move 1,move 1 1"
+    "move 2,move 2": "move 1,move 1 1"
+---
+
+テスト用のダブルバトル詰めポケです。

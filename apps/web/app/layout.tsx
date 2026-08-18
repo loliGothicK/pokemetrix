@@ -11,6 +11,7 @@ const description = "Analytics Workspace for Pokémon Battle";
 const url = "https://pokemetrix.mitama.io";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(url),
   title: {
     default: siteName,
     /** `next-seo`の`titleTemplate`に相当する機能 */

@@ -28,11 +28,23 @@ export interface TsumeSide {
   bench?: TsumePokemon[];
 }
 
+export interface TsumeRNGControl {
+  mode: "deterministic" | "probabilistic";
+  iterations?: number; // For probabilistic mode
+  crits?: "none" | "always" | "vanilla";
+  accuracy?: "perfect" | "worst_case" | "vanilla";
+  secondaryEffects?: "none" | "always" | "vanilla";
+  damageRoll?: "max" | "min" | "expected" | "worst_case" | "vanilla";
+  speedTies?: "player_wins" | "opponent_wins" | "vanilla";
+}
+
 export interface TsumeData {
   playerSide: TsumeSide;
   opponentSide: TsumeSide;
   field?: { weather?: string; terrain?: string; trickRoom?: boolean };
+  rngControl?: TsumeRNGControl;
   correctMoves: string[]; // List of valid winning moves for this turn
+  opponentResponses?: Record<string, string>; // Pre-computed optimal responses for the opponent
 }
 
 export interface QuizQuestion {

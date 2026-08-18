@@ -436,11 +436,14 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         try {
           const engine = new TsumeEngine(activeQuestion.tsumeData!);
           let didWin = false;
+          const historyKey: string[] = [];
           for (const action of tsumeActions) {
             // Extract the base move name (e.g. "encore (Target: ...)" -> "encore")
             const moveId = action.split(" ")[0];
-            const oppChoice = engine.getOpponentHeuristicChoice();
-            const ended = engine.simulateTurn(`move ${moveId}`, oppChoice);
+            const p1Choice = `move ${moveId}`;
+            historyKey.push(p1Choice);
+            const oppChoice = engine.getOpponentHeuristicChoice(historyKey.join(","));
+            const ended = engine.simulateTurn(p1Choice, oppChoice);
             if (ended) {
               didWin = engine.getP2ActiveHP() <= 0 && engine.getP1ActiveHP() > 0;
               break;

@@ -146,7 +146,19 @@ const tsumeDataSchema = z.object({
       trickRoom: z.boolean().optional(),
     })
     .optional(),
+  rngControl: z
+    .object({
+      mode: z.enum(["deterministic", "probabilistic"]),
+      iterations: z.number().optional(),
+      crits: z.enum(["none", "always", "vanilla"]).optional(),
+      accuracy: z.enum(["perfect", "worst_case", "vanilla"]).optional(),
+      secondaryEffects: z.enum(["none", "always", "vanilla"]).optional(),
+      damageRoll: z.enum(["max", "min", "expected", "worst_case", "vanilla"]).optional(),
+      speedTies: z.enum(["player_wins", "opponent_wins", "vanilla"]).optional(),
+    })
+    .optional(),
   correctMoves: z.array(z.string()),
+  opponentResponses: z.record(z.string(), z.string()).optional(),
 });
 
 const quizzes = defineCollection({

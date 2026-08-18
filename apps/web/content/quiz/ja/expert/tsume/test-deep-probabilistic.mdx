@@ -1,0 +1,23 @@
+---
+format: "tsume_action"
+question: "Which sequence maximizes your win rate?"
+tsumeData:
+  rngControl:
+    mode: "probabilistic"
+    iterations: 100
+  correctMoves: ["move 1", "move 1", "move 1"]
+  playerSide:
+    active:
+      - species: "Pikachu"
+        hpCurrent: 100
+        hpMax: 100
+        moves: ["thunder", "thunderbolt"]
+        stats: { spe: 200 }
+  opponentSide:
+    active:
+      - species: "Blastoise"
+        hpCurrent: 300
+        hpMax: 300
+        moves: ["protect", "hydropump"]
+        stats: { spe: 100 }
+---

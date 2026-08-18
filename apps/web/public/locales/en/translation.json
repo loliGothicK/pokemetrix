@@ -5855,6 +5855,15 @@
       "empty": "Empty"
     },
     "selectDifficulty": "Select Difficulty",
-    "selectCategory": "Select Category"
+    "selectCategory": "Select Category",
+    "tsume": {
+      "solved": "Solved!",
+      "failed": "Failed...",
+      "whatWillYouDo": "What will you do?",
+      "undoReset": "Undo / Reset",
+      "switch": "Pokémon",
+      "selectSwitch": "Select Pokémon to switch in",
+      "selectTarget": "Select Target"
+    }
   }
 }
