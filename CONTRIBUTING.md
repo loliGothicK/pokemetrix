@@ -192,6 +192,7 @@ speedCompareData:
 ## 4. 本文 (解説部分)
 
 フロントマターの下には、正解発表後に表示される解説をMarkdownで記述します。
+Pokémon Champions から仕様が変更になった場合は解説に明記する方針です。
 
 ```mdx
 ---
