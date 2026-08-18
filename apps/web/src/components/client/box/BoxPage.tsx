@@ -10,7 +10,6 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  Paper,
   Stack,
   TextField,
   Typography,
@@ -44,6 +43,7 @@ import { toDefault } from "@/data/utility/training";
 import type { TrainedPokemon } from "@/store/team/team";
 import { useHotkeys } from "react-hotkeys-hook";
 import { moveById } from "@/data/moves";
+import { SurfaceCard } from "@/components/common/SurfaceCard";
 
 export default function BoxPage() {
   const { t } = useTranslation();
@@ -275,23 +275,20 @@ export default function BoxPage() {
         <Grid container spacing={2}>
           {filtered.map((pokemon) => (
             <Grid component="div" size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={pokemon.boxId}>
-              <Paper
+              <SurfaceCard
+                raised
                 onClick={() => setEditingPokemon(pokemon)}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: { xs: 1, sm: 2 },
                   p: { xs: 1.5, sm: 2 },
-                  bgcolor: theme.palette.background.paperRaised,
-                  border: "1px solid",
-                  borderColor: theme.palette.divider,
                   cursor: "pointer",
                   transition: "all 0.2s ease-in-out",
                   "&:hover": {
                     borderColor: theme.palette.primary.main,
                     boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.12)}`,
                   },
-                  borderRadius: 3,
                 }}
               >
                 <Box
@@ -388,7 +385,7 @@ export default function BoxPage() {
                 >
                   <Delete fontSize="small" />
                 </Fab>
-              </Paper>
+              </SurfaceCard>
             </Grid>
           ))}
         </Grid>

@@ -161,15 +161,19 @@ export function useDamageCalcPage() {
     auroraVeil: boolean;
   }>({ reflect: false, lightScreen: false, auroraVeil: false });
   const [isDoubles, setIsDoubles] = useState(true);
-  const [isCrit, setIsCrit] = useState(false);
-  const critDisabled = defender.ability === "shell-armor" || defender.ability === "battle-armor";
+  const [isCritState, setIsCritState] = useState(false);
+  const critDisabledByAbility =
+    defender.ability === "shell-armor" || defender.ability === "battle-armor";
 
   const isAlwaysCrit = useMemo(() => {
     if (!attacker.move) return false;
     const move = moveByIdentifier.get(attacker.move);
     if (!move || move.category === "status") return false;
-    return getMoveMechanics(move.identifier, move.category).alwaysCrit;
+    return getMoveMechanics(move.identifier, move.category).alwaysCrit ?? false;
   }, [attacker.move]);
+
+  const effectiveCrit = critDisabledByAbility ? false : isCritState || isAlwaysCrit;
+  const effectiveCritDisabled = critDisabledByAbility || isAlwaysCrit;
 
   const damageInput = useMemo((): DamageInput | null => {
     if (!attacker.identifier) return null;
@@ -372,7 +376,7 @@ export function useDamageCalcPage() {
 
     // --- Final modifiers ---
     const finalModifiers: number[] = [];
-    const screenMod = screenModifier(screens, isPhysical, isDoubles, { isCrit });
+    const screenMod = screenModifier(screens, isPhysical, isDoubles, { isCrit: effectiveCrit });
     if (screenMod !== M.NEUTRAL) finalModifiers.push(screenMod);
     if (attacker.item === "life-orb") finalModifiers.push(M.LIFE_ORB);
     if (attacker.item === "metronome" && typeof attacker.itemConditions.metronome === "number") {
@@ -447,7 +451,7 @@ export function useDamageCalcPage() {
       immuneOverride,
       spreadModifier: spreadMod,
       weatherModifier: weatherMod,
-      isCrit,
+      isCrit: effectiveCrit,
       critModifier: M.CRIT,
       stabModifier: stab,
       finalModifiers: finalModifiers.length > 0 ? finalModifiers : undefined,
@@ -464,7 +468,7 @@ export function useDamageCalcPage() {
     gravity,
     screens,
     isDoubles,
-    isCrit,
+    effectiveCrit,
   ]);
 
   const defenderMaxHp = useMemo(() => {
@@ -533,9 +537,9 @@ export function useDamageCalcPage() {
     setScreens,
     isDoubles,
     setIsDoubles,
-    isCrit,
-    setIsCrit,
-    critDisabled,
+    isCrit: effectiveCrit,
+    setIsCrit: setIsCritState,
+    critDisabled: effectiveCritDisabled,
     result,
   };
 }
