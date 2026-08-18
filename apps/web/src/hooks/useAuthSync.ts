@@ -36,8 +36,8 @@ export const useAuthSync = (): AuthSyncResult => {
   const [conflicts, setConflicts] = useState<TeamMergeConflict[]>([]);
 
   useEffect(() => {
-    const wasLoggedOut = !prevIsAuthenticated.current;
-    const isNowLoggedIn = isAuthenticated;
+    const wasLoggedOut = prevIsAuthenticated.current === false;
+    const isNowLoggedIn = isAuthenticated === true;
 
     if (wasLoggedOut && isNowLoggedIn && localTeams.length > 0) {
       void (async () => {

@@ -18,7 +18,7 @@ export const useDashboards = () => {
   const dashboardsQuery = useQuery({
     queryKey: DASHBOARDS_QUERY_KEY,
     queryFn: fetchDashboardsFromServer,
-    enabled: isAuthenticated,
+    enabled: isAuthenticated === true,
   });
 
   const invalidate = async () => {

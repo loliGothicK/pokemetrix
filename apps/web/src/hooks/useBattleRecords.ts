@@ -32,7 +32,7 @@ export const battleRecordsQueryKey = (filter: BattleRecordsFilter) =>
 export const useBattleRecords = (filter: BattleRecordsFilter) => {
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const queryClient = useQueryClient();
-  const enabled = isAuthenticated && filter.seasonId !== null;
+  const enabled = isAuthenticated === true && filter.seasonId !== null;
 
   const recordsQuery = useQuery({
     queryKey: battleRecordsQueryKey(filter),

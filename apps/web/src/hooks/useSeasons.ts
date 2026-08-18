@@ -18,7 +18,7 @@ export const useSeasons = () => {
   const seasonsQuery = useQuery({
     queryKey: SEASONS_QUERY_KEY,
     queryFn: fetchSeasonsFromServer,
-    enabled: isAuthenticated,
+    enabled: isAuthenticated === true,
   });
 
   const invalidate = async () => {

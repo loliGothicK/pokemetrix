@@ -13,7 +13,7 @@ export const useTeamsData = () => {
   const teamsQuery = useQuery({
     queryKey: ["teams"],
     queryFn: fetchTeamsFromServer,
-    enabled: isAuthenticated,
+    enabled: isAuthenticated === true,
   });
 
   // 削除用Mutation

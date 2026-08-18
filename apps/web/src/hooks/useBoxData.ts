@@ -11,7 +11,7 @@ export const useBoxData = () => {
   const boxQuery = useQuery({
     queryKey: ["box"],
     queryFn: fetchBoxFromServer,
-    enabled: isAuthenticated,
+    enabled: isAuthenticated === true,
   });
 
   const saveMutation = useMutation({
