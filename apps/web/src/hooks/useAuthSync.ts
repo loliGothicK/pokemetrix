@@ -6,6 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { localTeamsAtom, type Team, type TrainedPokemon } from "@/store/team/team";
 import { fetchTeamsFromServer, saveTeamsToServer } from "@services/teams";
+import { teamSchema } from "@/lib/validator/team";
 
 export type SlotResolution = "local" | "server" | "none";
 
@@ -111,11 +112,25 @@ export const useAuthSync = (): AuthSyncResult => {
       };
     });
 
-    const validTeams = mergedTeams.filter((t) => t.members.some((m) => m !== null));
+    const validTeams: Team[] = [];
+    const invalidTeams: Team[] = [];
+
+    for (const t of mergedTeams) {
+      const hasMember = t.members.some((m) => m !== null);
+      if (!hasMember) continue;
+
+      if (teamSchema.safeParse(t).success) {
+        validTeams.push(t);
+      } else {
+        invalidTeams.push(t);
+      }
+    }
 
     await saveTeamsToServer(validTeams);
     await queryClient.invalidateQueries({ queryKey: ["teams"] });
-    setLocalTeams([]);
+    
+    // Invalid teams are kept in local storage so the user can fix them later.
+    setLocalTeams(invalidTeams);
     setIsMergeOpen(false);
     setConflicts([]);
   };
