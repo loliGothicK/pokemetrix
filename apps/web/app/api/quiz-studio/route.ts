@@ -14,6 +14,85 @@ async function gitExec(cmd: string): Promise<{ stdout: string; stderr: string }>
   return execAsync(cmd, { cwd: REPO_ROOT, maxBuffer: 10 * 1024 * 1024 });
 }
 
+// ─── GitHub API helpers ───────────────────────────────────────────────────────
+
+const GH_OWNER = process.env.GITHUB_OWNER;
+const GH_REPO = process.env.GITHUB_REPO;
+const GH_TOKEN = process.env.GITHUB_STUDIO_TOKEN;
+
+function ghHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  if (GH_TOKEN) headers["Authorization"] = `Bearer ${GH_TOKEN}`;
+  return headers;
+}
+
+async function ghFetchFileContent(filePath: string, ref: string): Promise<string | null> {
+  if (!GH_OWNER || !GH_REPO) return null;
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}?ref=${ref}`;
+  const res = await fetch(url, { headers: ghHeaders() });
+  if (!res.ok) return null;
+  const data = (await res.json()) as { content?: string; encoding?: string };
+  if (data.content && data.encoding === "base64") {
+    return Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf-8");
+  }
+  return null;
+}
+
+type GitLogEntry = {
+  hash: string;
+  shortHash: string;
+  author: string;
+  email: string;
+  date: string;
+  subject: string;
+};
+
+async function ghFetchCommits(filePath: string, ref: string): Promise<GitLogEntry[]> {
+  if (!GH_OWNER || !GH_REPO) return [];
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/commits?path=${encodeURIComponent(filePath)}&sha=${ref}&per_page=10`;
+  const res = await fetch(url, { headers: ghHeaders() });
+  if (!res.ok) return [];
+  const data = (await res.json()) as Array<{
+    sha: string;
+    commit: {
+      message: string;
+      author: { name: string; email: string; date: string } | null;
+    };
+  }>;
+  return data.map((c) => ({
+    hash: c.sha,
+    shortHash: c.sha.slice(0, 7),
+    author: c.commit.author?.name ?? "",
+    email: c.commit.author?.email ?? "",
+    date: c.commit.author?.date ?? "",
+    subject: c.commit.message.split("\n")[0],
+  }));
+}
+
+async function ghFetchDiff(filePath: string, headSha: string): Promise<string | null> {
+  if (!GH_OWNER || !GH_REPO) return null;
+  // Compare head SHA with main to get the PR-scope diff
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/compare/main...${headSha}`;
+  const res = await fetch(url, {
+    headers: Object.assign(ghHeaders(), { Accept: "application/vnd.github.v3.diff" }),
+  });
+  if (!res.ok) return null;
+  const fullDiff = await res.text();
+
+  // Extract only the hunk(s) that belong to this specific file
+  const escapedPath = filePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const fileHeaderRegex = new RegExp(
+    `(diff --git a/${escapedPath} b/${escapedPath}[\\s\\S]*?)(?=diff --git |$)`,
+  );
+  const match = fileHeaderRegex.exec(fullDiff);
+  return match ? match[1].trimEnd() : null;
+}
+
+// ─── GET ─────────────────────────────────────────────────────────────────────
+
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const filePath = searchParams.get("file");
@@ -27,79 +106,91 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid file path" }, { status: 403 });
   }
 
-  const absPath = path.join(REPO_ROOT, filePath);
+  const isLocal = process.env.NODE_ENV === "development";
 
-  // Read current file content from disk
-  let fileContent: string | null = null;
-  try {
-    fileContent = await fs.readFile(absPath, "utf-8");
-  } catch {
-    fileContent = null;
-  }
+  if (isLocal) {
+    // ── Local: read from filesystem + git ──────────────────────────────────
+    const absPath = path.join(REPO_ROOT, filePath);
 
-  // Get unified diff (working tree vs HEAD)
-  let patch: string | null = null;
-  try {
-    const { stdout } = await gitExec(`git diff HEAD -- "${filePath.replace(/\\/g, "/")}"`);
-    patch = stdout || null;
-
-    // If no diff (file is clean or new/untracked), try showing it as a new file patch
-    if (!patch && fileContent) {
-      // Check if file exists in HEAD
-      try {
-        await gitExec(`git cat-file -e HEAD:"${filePath.replace(/\\/g, "/")}"`);
-        // File exists in HEAD and is unchanged
-      } catch {
-        // File is new/untracked — synthesize an addition patch
-        const lines = fileContent.split("\n");
-        const hunks = lines.map((l) => `+${l}`).join("\n");
-        patch = [
-          `diff --git a/${filePath} b/${filePath}`,
-          `new file mode 100644`,
-          `--- /dev/null`,
-          `+++ b/${filePath}`,
-          `@@ -0,0 +1,${lines.length} @@`,
-          hunks,
-        ].join("\n");
-      }
+    let fileContent: string | null = null;
+    try {
+      fileContent = await fs.readFile(absPath, "utf-8");
+    } catch {
+      fileContent = null;
     }
-  } catch {
-    patch = null;
+
+    let patch: string | null = null;
+    try {
+      const { stdout } = await gitExec(`git diff HEAD -- "${filePath.replace(/\\/g, "/")}"`);
+      patch = stdout || null;
+
+      if (!patch && fileContent) {
+        try {
+          await gitExec(`git cat-file -e HEAD:"${filePath.replace(/\\/g, "/")}"`);
+          // File exists in HEAD and is unchanged
+        } catch {
+          // File is new/untracked — synthesize an addition patch
+          const lines = fileContent.split("\n");
+          const hunks = lines.map((l) => `+${l}`).join("\n");
+          patch = [
+            `diff --git a/${filePath} b/${filePath}`,
+            `new file mode 100644`,
+            `--- /dev/null`,
+            `+++ b/${filePath}`,
+            `@@ -0,0 +1,${lines.length} @@`,
+            hunks,
+          ].join("\n");
+        }
+      }
+    } catch {
+      patch = null;
+    }
+
+    let gitLog: GitLogEntry[] = [];
+    try {
+      const { stdout } = await gitExec(
+        `git log --format="%H|%h|%an|%ae|%aI|%s" -10 -- "${filePath.replace(/\\/g, "/")}"`,
+      );
+      gitLog = stdout
+        .trim()
+        .split("\n")
+        .filter(Boolean)
+        .map((line) => {
+          const [hash, shortHash, author, email, date, ...subjectParts] = line.split("|");
+          return { hash, shortHash, author, email, date, subject: subjectParts.join("|") };
+        });
+    } catch {
+      gitLog = [];
+    }
+
+    return NextResponse.json({
+      filePath,
+      fileContent,
+      patch,
+      gitLog,
+      isReadOnly: false,
+    });
   }
 
-  // Get commit log for this file
-  type GitLogEntry = {
-    hash: string;
-    shortHash: string;
-    author: string;
-    email: string;
-    date: string;
-    subject: string;
-  };
-  let gitLog: GitLogEntry[] = [];
-  try {
-    const { stdout } = await gitExec(
-      `git log --format="%H|%h|%an|%ae|%aI|%s" -10 -- "${filePath.replace(/\\/g, "/")}"`,
-    );
-    gitLog = stdout
-      .trim()
-      .split("\n")
-      .filter(Boolean)
-      .map((line) => {
-        const [hash, shortHash, author, email, date, ...subjectParts] = line.split("|");
-        return { hash, shortHash, author, email, date, subject: subjectParts.join("|") };
-      });
-  } catch {
-    gitLog = [];
-  }
+  // ── Preview / Production: GitHub API ───────────────────────────────────────
+  const headSha = process.env.VERCEL_GIT_COMMIT_SHA ?? "main";
+
+  const [fileContent, gitLog, patch] = await Promise.all([
+    ghFetchFileContent(filePath, headSha),
+    ghFetchCommits(filePath, headSha),
+    ghFetchDiff(filePath, headSha),
+  ]);
 
   return NextResponse.json({
     filePath,
     fileContent,
     patch,
     gitLog,
+    isReadOnly: true,
   });
 }
+
+// ─── POST ─────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV !== "development") {

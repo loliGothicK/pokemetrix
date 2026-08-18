@@ -28,6 +28,7 @@ export interface QuizFileMetadata {
   fileContent: string | null;
   patch: string | null;
   gitLog: GitLogEntry[];
+  isReadOnly?: boolean;
 }
 
 export interface QuizGroup {
@@ -548,7 +549,7 @@ function SourcePane({
           {filePath}
         </span>
         <div style={{ flex: 1 }} />
-        {process.env.NODE_ENV === "development" && editedContent !== null && (
+        {!meta?.isReadOnly && editedContent !== null && (
           <button
             onClick={handleSave}
             disabled={saving}
@@ -926,6 +927,21 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
       >
         <span style={{ fontSize: 14, fontWeight: 700, color: S.fg }}>🎮 Quiz Studio</span>
         <span style={{ fontSize: 11, color: S.fgDim }}>{allQuizzes.length} files</span>
+        {process.env.NODE_ENV !== "development" && (
+          <span
+            style={{
+              fontSize: 11,
+              color: "#d29922",
+              background: "rgba(210,153,34,0.12)",
+              border: "1px solid rgba(210,153,34,0.3)",
+              borderRadius: 4,
+              padding: "2px 8px",
+              fontFamily: S.mono,
+            }}
+          >
+            👁 Read-Only — editing is only available in local development
+          </span>
+        )}
         <div style={{ flex: 1 }} />
         <div style={{ position: "relative" }}>
           <input
@@ -1180,6 +1196,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                           cursor: "pointer",
                         }}
                         value=""
+                        disabled={process.env.NODE_ENV !== "development"}
                         onChange={async (e) => {
                           const newDiff = e.target.value;
                           if (!newDiff) return;
@@ -1224,15 +1241,20 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                       </select>
 
                       <button
+                        disabled={process.env.NODE_ENV !== "development"}
                         style={{
                           background: "transparent",
-                          color: "#10b981",
-                          border: `1px solid #10b981`,
+                          color: process.env.NODE_ENV === "development" ? "#10b981" : S.fgDim,
+                          border: `1px solid ${
+                            process.env.NODE_ENV === "development" ? "#10b981" : S.border
+                          }`,
                           borderRadius: 4,
                           fontSize: 10,
                           padding: "2px 6px",
-                          cursor: "pointer",
+                          cursor:
+                            process.env.NODE_ENV === "development" ? "pointer" : "not-allowed",
                           marginLeft: 4,
+                          opacity: process.env.NODE_ENV === "development" ? 1 : 0.4,
                         }}
                         onClick={async () => {
                           if (!confirm("Are you sure you want to approve this quiz?")) return;
@@ -1269,15 +1291,20 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
                         Approve
                       </button>
                       <button
+                        disabled={process.env.NODE_ENV !== "development"}
                         style={{
                           background: "transparent",
-                          color: "#f85149",
-                          border: `1px solid #f85149`,
+                          color: process.env.NODE_ENV === "development" ? "#f85149" : S.fgDim,
+                          border: `1px solid ${
+                            process.env.NODE_ENV === "development" ? "#f85149" : S.border
+                          }`,
                           borderRadius: 4,
                           fontSize: 10,
                           padding: "2px 6px",
-                          cursor: "pointer",
+                          cursor:
+                            process.env.NODE_ENV === "development" ? "pointer" : "not-allowed",
                           marginLeft: 4,
+                          opacity: process.env.NODE_ENV === "development" ? 1 : 0.4,
                         }}
                         onClick={async () => {
                           if (
