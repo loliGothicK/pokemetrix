@@ -1,0 +1,33 @@
+---
+id: "parental-bond-seismic-toss"
+difficulty: "expert"
+category: "damage_calc"
+format: "choices"
+question: "A Level 50 Mega Kangaskhan uses Seismic Toss with its Parental Bond ability. What is the total damage dealt to the opponent?"
+options:
+  - "100 damage"
+  - "62 damage"
+  - "75 damage"
+  - "50 damage"
+correctAnswerIndex: 0
+practicalData:
+  attacker:
+    species: kangaskhan-mega
+    evs: H32 A32
+    item: kangaskhanite
+    nature: jolly
+  defender:
+    species: chansey
+    evs: H32 B32+
+    item: eviolite
+    nature: bold
+  move: seismic-toss
+reviewed: false
+---
+
+【Explanation】
+
+When a Pokémon with the Parental Bond ability uses a damaging move, the second strike typically deals 25% (0.25x) of the first strike's damage.
+
+However, for moves that deal fixed damage, such as Seismic Toss or Night Shade, this damage reduction modifier is not applied.
+Therefore, at Level 50, Seismic Toss will deal exactly 50 damage on the first hit and another 50 damage on the second hit, resulting in a total of 100 damage.

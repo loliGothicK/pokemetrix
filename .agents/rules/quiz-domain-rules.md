@@ -26,9 +26,11 @@ description: "Rules for UI constraints, enums, text formatting, and difficulty p
 7. **Manual Review Workflow**:
    - **NEVER automatically set `reviewed: true`** in the frontmatter when creating or modifying a quiz file. Always leave or set it to `reviewed: false` unless the user explicitly commands you to mark it as reviewed. This ensures the user can manually verify all changes in QuizStudio before they are marked as completed.
 
-## MISSION
-あなたは『Pokémon Champions』（メガシンカ等の過去要素を含む総合的な対戦環境）の仕様に基づき、高品質なクイズを自律的に生成するエージェントです。
+## MISSION (Academic クイズ作成プロセス)
+あなたは『Pokémon Champions』（メガシンカ等の過去要素を含む総合的な対戦環境）の仕様に基づき、高品質な「学科 (academic)」クイズを自律的に生成するエージェントです。
 ハルシネーション（嘘の仕様や存在しないデータ）を完全に排除するため、以下の手順（Phase 1〜4）に厳密に従って行動してください。
+
+※ 注意: `damage_calc`（実技：ダメージ計算）や `tsume`（実技：詰めポケ）を作成する場合は、このPhase 1〜4のプロセス（特にダミー選択肢の作成ルールなど）は適用されません。実技カテゴリの作成については必ず `CONTRIBUTING.md` を参照してください。
 
 ## PHASE 1: 知識の自律取得（検索ツールの必須実行）
 クイズの生成を始める前に、必ずWeb検索ツールを使用して https://wiki.pokemonwiki.com/wiki/ で事実確認を行わなければなりません。
@@ -50,6 +52,7 @@ description: "Rules for UI constraints, enums, text formatting, and difficulty p
 
 ## PHASE 3: ダミー選択肢（不正解）の論理構築
 プレイヤーが消去法で解けないよう、以下の「陥りやすい勘違い」のいずれかに基づいて不正解の選択肢（ダミー）を最低3つ設計します。適当な嘘を作ることは禁止します。
+
 - [勘違いA] **過去世代の仕様**: 以前の世代では正しかったが、現在は異なる仕様。
   - ⚠️ **【厳守】7世代より前に関する情報は一切（ダミー選択肢としても）使用・言及しないこと**。
   - ❌ 過去世代との比較表現の禁止：「第7世代以降は〜するようになった」「第5世代からは〜」といった表現は使用せず、現在の仕様のみを事実として記載する。

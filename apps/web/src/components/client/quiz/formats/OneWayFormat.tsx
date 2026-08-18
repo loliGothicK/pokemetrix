@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Stack, Button, Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -20,12 +20,16 @@ export function OneWayFormat({
   correctAnswerIndex,
 }: OneWayFormatProps) {
   const { t } = useTranslation();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userCurrentIndex, setUserCurrentIndex] = useState(0);
+  const [prevOptions, setPrevOptions] = useState(options);
 
-  // Reset state if options change (e.g. next question)
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [options]);
+  if (prevOptions !== options) {
+    setPrevOptions(options);
+    setUserCurrentIndex(0);
+  }
+
+  const currentIndex = prevOptions !== options ? 0 : userCurrentIndex;
+  const setCurrentIndex = setUserCurrentIndex;
 
   const handlePass = () => {
     if (currentIndex < options.length - 1) {

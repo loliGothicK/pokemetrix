@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useDamageCalc, type UseDamageCalcResult } from "@/hooks/useDamageCalc";
 import {
   weatherModifier,
@@ -164,21 +164,12 @@ export function useDamageCalcPage() {
   const [isCrit, setIsCrit] = useState(false);
   const critDisabled = defender.ability === "shell-armor" || defender.ability === "battle-armor";
 
-  useEffect(() => {
-    if (critDisabled) {
-      setIsCrit(false);
-    } else if (attacker.move) {
-      const move = moveByIdentifier.get(attacker.move);
-      if (move && move.category !== "status") {
-        const mechanics = getMoveMechanics(move.identifier, move.category);
-        if (mechanics.alwaysCrit) {
-          setIsCrit(true);
-        } else {
-          setIsCrit(false);
-        }
-      }
-    }
-  }, [attacker.move, critDisabled]);
+  const isAlwaysCrit = useMemo(() => {
+    if (!attacker.move) return false;
+    const move = moveByIdentifier.get(attacker.move);
+    if (!move || move.category === "status") return false;
+    return getMoveMechanics(move.identifier, move.category).alwaysCrit;
+  }, [attacker.move]);
 
   const damageInput = useMemo((): DamageInput | null => {
     if (!attacker.identifier) return null;
@@ -193,6 +184,7 @@ export function useDamageCalcPage() {
     if (move.category === "status") return null;
 
     const mechanics = getMoveMechanics(move.identifier, move.category);
+
     const isPhysical = isPhysicalCategory(move.category);
     const ac = attacker.conditions;
     const dc = defender.conditions;

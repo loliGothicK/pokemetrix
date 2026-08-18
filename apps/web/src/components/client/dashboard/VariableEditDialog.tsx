@@ -16,7 +16,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { ulid } from "ulid";
@@ -40,21 +40,35 @@ export function VariableEditDialog({
   onSave,
   onDelete,
 }: VariableEditDialogProps) {
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      {open && (
+        <VariableEditContent
+          key={variable?.id ?? "new"}
+          variable={variable}
+          seasons={seasons}
+          onClose={onClose}
+          onSave={onSave}
+          onDelete={onDelete}
+        />
+      )}
+    </Dialog>
+  );
+}
+
+function VariableEditContent({
+  variable,
+  seasons,
+  onClose,
+  onSave,
+  onDelete,
+}: Omit<VariableEditDialogProps, "open">) {
   const { t } = useTranslation();
   const isNew = variable === null;
 
   const [name, setName] = useState(variable?.name ?? "");
   const [label, setLabel] = useState(variable?.label ?? "");
   const [defaultSeasonId, setDefaultSeasonId] = useState<string>(variable?.defaultSeasonId ?? "");
-
-  // ダイアログが開くたびに状態をリセット
-  useEffect(() => {
-    if (open) {
-      setName(variable?.name ?? "");
-      setLabel(variable?.label ?? "");
-      setDefaultSeasonId(variable?.defaultSeasonId ?? "");
-    }
-  }, [open, variable]);
 
   const handleSave = () => {
     if (!name.trim() || !label.trim()) return;
@@ -77,7 +91,7 @@ export function VariableEditDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <>
       <DialogTitle>
         <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between" }}>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -140,6 +154,6 @@ export function VariableEditDialog({
           {isNew ? t("common.add") : t("common.save")}
         </Button>
       </DialogActions>
-    </Dialog>
+    </>
   );
 }

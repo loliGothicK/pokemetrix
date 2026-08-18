@@ -1,0 +1,33 @@
+---
+id: "parental-bond-seismic-toss"
+difficulty: "expert"
+category: "damage_calc"
+format: "choices"
+question: "レベル50のメガガルーラが、特性「おやこあい」の効果で「ちきゅうなげ」を使用しました。このとき、相手に与える合計ダメージはいくつになるでしょうか？"
+options:
+  - "100ダメージ"
+  - "62ダメージ"
+  - "75ダメージ"
+  - "50ダメージ"
+correctAnswerIndex: 0
+practicalData:
+  attacker:
+    species: kangaskhan-mega
+    evs: H32 A32
+    item: kangaskhanite
+    nature: jolly
+  defender:
+    species: chansey
+    evs: H32 B32+
+    item: eviolite
+    nature: bold
+  move: seismic-toss
+reviewed: false
+---
+
+【解説】
+
+特性「おやこあい」を持つポケモンが攻撃技を使用すると、通常は2回目の攻撃のダメージが1回目の25%（0.25倍）になります。
+
+しかし、「ちきゅうなげ」や「ナイトヘッド」のような固定ダメージを与える技の場合、このダメージ倍率の補正は適用されません。
+そのため、レベル50時の「ちきゅうなげ」は、1回目も2回目も変わらず「50ダメージ」を与え、合計で「100ダメージ」となります。

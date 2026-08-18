@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useColorScheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter } from "@/theme/sx";
 import type { DamageCalcResult } from "./useDamageCalcPage";
@@ -60,10 +60,16 @@ export function ResultPanel({
   const isMultiHit = hitCount !== undefined && hitCount.max > 1;
   const hitMin = hitCount?.min ?? 1;
   const hitMax = hitCount?.max ?? 1;
-  const [selectedHits, setSelectedHits] = useState<number>(hitMax);
-  useEffect(() => {
-    setSelectedHits(hitMax);
-  }, [hitMax]);
+  const [userSelectedHits, setUserSelectedHits] = useState<number | null>(null);
+  const [prevHitMax, setPrevHitMax] = useState(hitMax);
+
+  if (prevHitMax !== hitMax) {
+    setPrevHitMax(hitMax);
+    setUserSelectedHits(null);
+  }
+
+  const selectedHits = userSelectedHits ?? hitMax;
+  const setSelectedHits = setUserSelectedHits;
 
   const critToggle = (
     <CritToggle

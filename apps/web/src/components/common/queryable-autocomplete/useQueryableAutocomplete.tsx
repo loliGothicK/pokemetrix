@@ -11,7 +11,7 @@ import {
   type QuerySuggestion,
   type QueryToken,
 } from "./queryableAutocomplete";
-import { type SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type SyntheticEvent, useCallback, useMemo, useRef, useState } from "react";
 import type {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
@@ -103,35 +103,60 @@ export function useQueryableAutocomplete({
     [suggestions],
   );
 
-  // Notify the consumer of the effective filter (chips + live plain text).
-  // Ref-guarded so a stable callback isn't required to avoid an update loop.
+  // Use a ref for onTokensChange so we don't have to put it in dependencies
   const onTokensChangeRef = useRef(onTokensChange);
-  useEffect(() => {
-    onTokensChangeRef.current = onTokensChange;
-  }, [onTokensChange]);
+  onTokensChangeRef.current = onTokensChange;
 
-  useEffect(() => {
-    onTokensChangeRef.current?.(resolveActiveQueryTokens(value, inputValue, fields));
-  }, [value, inputValue, fields]);
+  const updateState = useCallback(
+    (nextValue: string[], nextInputValue: string) => {
+      setValue(nextValue);
+      setInputValue(nextInputValue);
+      onTokensChangeRef.current?.(resolveActiveQueryTokens(nextValue, nextInputValue, fields));
+    },
+    [fields],
+  );
 
-  const addToken = useCallback((token: string) => {
-    setValue((current) => (current.includes(token) ? current : [...current, token]));
-    setInputValue("");
-  }, []);
+  const addToken = useCallback(
+    (token: string) => {
+      setValue((current) => {
+        const nextValue = current.includes(token) ? current : [...current, token];
+        // Note: we can't easily call updateState here with current state of inputValue
+        // without it being a dependency, but we know inputValue is being reset to "".
+        onTokensChangeRef.current?.(resolveActiveQueryTokens(nextValue, "", fields));
+        return nextValue;
+      });
+      setInputValue("");
+    },
+    [fields],
+  );
 
-  const removeToken = useCallback((token: string) => {
-    setValue((current) => current.filter((entry) => entry !== token));
-  }, []);
+  const inputValueRef = useRef(inputValue);
+  inputValueRef.current = inputValue;
+
+  const removeToken = useCallback(
+    (token: string) => {
+      setValue((current) => {
+        const nextValue = current.filter((entry) => entry !== token);
+        onTokensChangeRef.current?.(
+          resolveActiveQueryTokens(nextValue, inputValueRef.current, fields),
+        );
+        return nextValue;
+      });
+    },
+    [fields],
+  );
 
   const handleInputChange = useCallback(
     (_: SyntheticEvent, nextInputValue: string, reason: AutocompleteInputChangeReason) => {
-      // Only react to genuine typing and clears. "reset"/"selectOption" fire after
-      // a selection and would otherwise dump the option text back into the input.
       if (reason === "input" || reason === "clear") {
         setInputValue(nextInputValue);
+        setValue((current) => {
+          onTokensChangeRef.current?.(resolveActiveQueryTokens(current, nextInputValue, fields));
+          return current;
+        });
       }
     },
-    [],
+    [fields],
   );
 
   const handleChange = useCallback(
@@ -142,7 +167,7 @@ export function useQueryableAutocomplete({
       details?: AutocompleteChangeDetails<string>,
     ) => {
       if (reason === "removeOption" || reason === "clear") {
-        setValue(nextValue);
+        updateState(nextValue, inputValueRef.current);
         return;
       }
 
@@ -153,27 +178,23 @@ export function useQueryableAutocomplete({
 
       if (reason === "selectOption") {
         if (isCommittableInput(option, fields)) {
-          // A complete `@type:fire` suggestion → commit it as a chip.
           addToken(option);
         } else {
-          // A partial `@type:` suggestion → keep typing the value.
-          setInputValue(option);
+          updateState(value, option); // Uses `value` from render scope (which is safe as it's in a UI event handler, but we can also use functional updates if needed)
         }
         return;
       }
 
       if (reason === "createOption") {
-        // Enter on free text. Commit only if it resolves to a valid token,
-        // otherwise restore the text so the user can finish/fix it.
         const token = toQueryTokenString(option, fields);
         if (token) {
           addToken(token);
         } else {
-          setInputValue(option);
+          updateState(value, option);
         }
       }
     },
-    [addToken, fields],
+    [addToken, fields, updateState, value],
   );
 
   const getAutocompleteProps = useCallback(

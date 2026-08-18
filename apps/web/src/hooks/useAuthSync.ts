@@ -128,7 +128,7 @@ export const useAuthSync = (): AuthSyncResult => {
 
     await saveTeamsToServer(validTeams);
     await queryClient.invalidateQueries({ queryKey: ["teams"] });
-    
+
     // Invalid teams are kept in local storage so the user can fix them later.
     setLocalTeams(invalidTeams);
     setIsMergeOpen(false);

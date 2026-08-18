@@ -74,11 +74,16 @@ export default function TeamSlotDetail({
 
   const member = team.members[slot] ?? null;
 
-  useEffect(() => {
+  const [prevMemberIdentifier, setPrevMemberIdentifier] = useState<string | undefined>(
+    member?.identifier,
+  );
+
+  if (prevMemberIdentifier !== member?.identifier) {
+    setPrevMemberIdentifier(member?.identifier);
     if (member?.identifier) {
       setLastMemberIdentifier(member.identifier);
     }
-  }, [member?.identifier]);
+  }
 
   const targetIdentifier = member?.identifier || lastMemberIdentifier;
 

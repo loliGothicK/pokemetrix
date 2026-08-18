@@ -94,10 +94,12 @@ export function MoveSelectionDrawer({
     [t],
   );
 
-  // スロットが切り替わった時にクエリをリセットする
-  useEffect(() => {
+  // スロットが切り替わった時にクエリをリセットする (derived state pattern)
+  const [prevActiveSlot, setPrevActiveSlot] = useState(activeSlot);
+  if (prevActiveSlot !== activeSlot) {
+    setPrevActiveSlot(activeSlot);
     setTokens([]);
-  }, [activeSlot]);
+  }
 
   // Drawer が開いたとき / スロットが切り替わったときに検索入力にフォーカス
   const autocompleteInputRef = useRef<HTMLInputElement>(null);

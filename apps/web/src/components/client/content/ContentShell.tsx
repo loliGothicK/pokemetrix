@@ -6,7 +6,7 @@ import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBullete
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
-import { type ReactNode, useEffect } from "react";
+import { type ReactNode } from "react";
 import { useContentLayout } from "./ContentLayoutContext";
 import type { TocHeading } from "./TableOfContents";
 import type { BreadcrumbItem } from "./ContentLayoutContext";
@@ -33,9 +33,11 @@ type ContentShellProps = {
 function MobileContentBar({
   hasToc,
   headings,
+  breadcrumbs = [],
 }: {
   readonly hasToc?: boolean;
   readonly headings?: readonly TocHeading[];
+  readonly breadcrumbs?: readonly BreadcrumbItem[];
 }) {
   const { setIsSidebarOpen, setIsTocOpen } = useContentLayout();
   const showTocBtn = hasToc && headings && headings.length > 0;
@@ -80,13 +82,16 @@ function MobileContentBar({
       <Box sx={{ flex: 1 }} />
 
       {/* Mobile breadcrumbs inside content bar */}
-      <MobileBreadcrumbsDisplay />
+      <MobileBreadcrumbsDisplay breadcrumbs={breadcrumbs} />
     </Box>
   );
 }
 
-function MobileBreadcrumbsDisplay() {
-  const { breadcrumbs } = useContentLayout();
+function MobileBreadcrumbsDisplay({
+  breadcrumbs,
+}: {
+  readonly breadcrumbs: readonly BreadcrumbItem[];
+}) {
   if (breadcrumbs.length === 0) return null;
 
   return (
@@ -124,21 +129,6 @@ function MobileBreadcrumbsDisplay() {
   );
 }
 
-/** Syncs breadcrumb data into context from server-rendered pages */
-function BreadcrumbSync({ breadcrumbs }: { readonly breadcrumbs?: readonly BreadcrumbItem[] }) {
-  const { setBreadcrumbs } = useContentLayout();
-  // Use serialized string as dep so a new array literal on every parent render
-  // does not trigger an infinite setState loop.
-  const serialized = JSON.stringify(breadcrumbs);
-
-  useEffect(() => {
-    setBreadcrumbs(JSON.parse(serialized) as BreadcrumbItem[]);
-    return () => setBreadcrumbs([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serialized]);
-  return null;
-}
-
 export function ContentShell({
   sidebar,
   sidebarDrawer,
@@ -151,7 +141,6 @@ export function ContentShell({
 }: ContentShellProps) {
   return (
     <>
-      <BreadcrumbSync breadcrumbs={breadcrumbs} />
       {sidebarDrawer}
       {tocBottomSheet}
 
@@ -178,7 +167,7 @@ export function ContentShell({
           }}
         >
           {/* Mobile bar (sidebar + ToC toggles + breadcrumbs) */}
-          <MobileContentBar hasToc={hasToc} headings={headings} />
+          <MobileContentBar hasToc={hasToc} headings={headings} breadcrumbs={breadcrumbs} />
 
           <Box sx={{ flex: 1, overflowX: "hidden" }}>{children}</Box>
         </Box>

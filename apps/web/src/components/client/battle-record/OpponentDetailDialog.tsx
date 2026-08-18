@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Avatar,
   Button,
@@ -36,23 +36,38 @@ export function OpponentDetailDialog({
   onClose,
   onSave,
 }: OpponentDetailDialogProps) {
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      {open && opponent && (
+        <OpponentDetailContent
+          key={opponent.pokemonSlug}
+          opponent={opponent}
+          onClose={onClose}
+          onSave={onSave}
+        />
+      )}
+    </Dialog>
+  );
+}
+
+function OpponentDetailContent({
+  opponent,
+  onClose,
+  onSave,
+}: Omit<OpponentDetailDialogProps, "open"> & {
+  opponent: NonNullable<OpponentDetailDialogProps["opponent"]>;
+}) {
   const { t, i18n } = useTranslation();
-  const pokemonSlug = opponent?.pokemonSlug ?? "";
+  const pokemonSlug = opponent.pokemonSlug;
   const itemOptions = useItemOptions();
   const abilityOptions = usePokemonAbilityOptions(pokemonSlug);
   const moveOptions = usePokemonMoveOptions(pokemonSlug);
-  const [draft, setDraft] = useState<OpponentDraft | null>(opponent);
-
-  useEffect(() => {
-    setDraft(opponent);
-  }, [opponent]);
-
-  if (!draft) return null;
+  const [draft, setDraft] = useState<OpponentDraft>(opponent);
 
   const formName = `pokemon.${draft.pokemonSlug}.formName`;
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <>
       <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
         <Avatar src={`/pokemon/${draft.pokemonSlug}.png`} alt={draft.pokemonSlug} />
         <span>
@@ -108,6 +123,6 @@ export function OpponentDetailDialog({
           {t("common.save")}
         </Button>
       </DialogActions>
-    </Dialog>
+    </>
   );
 }

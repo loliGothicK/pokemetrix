@@ -1,0 +1,51 @@
+---
+id: "sucker-punch-mind-games"
+difficulty: "master"
+category: "tsume"
+format: "tsume_action"
+question: "ダブルバトルでの終盤戦。前ターン、相手のメガガルーラは「ふいうち」を使用してこちらの味方を倒し、エルフーンは相手の味方を倒しました。\nお互いに残り1体となったこの対面から、エルフーンが確実に勝利するための最短の手順（3手）を入力してください。"
+tsumeData:
+  correctMoves:
+    - "encore"
+    - "substitute"
+    - "moonblast"
+  playerSide:
+    active:
+      - species: "whimsicott"
+        hpCurrent: 35
+        hpMax: 135
+        stats:
+          spe: 184
+        moves:
+          - "encore"
+          - "substitute"
+          - "moonblast"
+          - "tailwind"
+        ability: "prankster"
+  opponentSide:
+    active:
+      - species: "kangaskhan-mega"
+        hpCurrent: 40
+        hpMax: 180
+        stats:
+          spe: 167
+        moves:
+          - "sucker-punch"
+          - "return"
+          - "earthquake"
+          - "power-up-punch"
+        ability: "parental-bond"
+        item: "kangaskhanite"
+        nature: "Adamant"
+reviewed: false
+---
+
+【解説】
+
+相手は前ターンに「ふいうち」を使用しているため、まず「アンコール」を使用することで相手の技を「ふいうち」に固定します。エルフーンは特性「いたずらごころ」により先制で「アンコール」を撃てるため、相手がどの技を選択していても「ふいうち」で縛ることができます（このターンの相手のふいうちは、アンコールが変化技であるため失敗します）。
+
+しかし、次ターンにすぐ「ムーンフォース」で攻撃しようとすると、相手の「ふいうち」が先制してエルフーンが倒されてしまいます。
+
+そこで、2手目に「みがわり」を使用します。これも変化技なので相手のふいうちは失敗し、安全にみがわりを残すことができます。
+
+3手目に「ムーンフォース」を選択すると、相手の「ふいうち」が先制して身代わりを破壊しますが、本体は無傷で済むため、後攻の「ムーンフォース」で安全にメガガルーラを倒すことができます。

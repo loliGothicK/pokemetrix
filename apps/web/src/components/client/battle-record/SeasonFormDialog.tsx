@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -47,23 +47,39 @@ export function SeasonFormDialog({
   onSubmit,
   submitting,
 }: SeasonFormDialogProps) {
-  const { t } = useTranslation();
-  const [state, setState] = useState<SeasonFormState>(emptyState);
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      {open && (
+        <SeasonFormContent
+          key={editing?.id ?? "new"}
+          onClose={onClose}
+          editing={editing}
+          onSubmit={onSubmit}
+          submitting={submitting}
+        />
+      )}
+    </Dialog>
+  );
+}
 
-  useEffect(() => {
-    if (!open) return;
-    setState(
-      editing
-        ? {
-            name: editing.name,
-            format: editing.format,
-            ruleMark: editing.ruleMark ?? "",
-            startedAt: editing.startedAt ?? "",
-            endedAt: editing.endedAt ?? "",
-          }
-        : emptyState,
-    );
-  }, [open, editing]);
+function SeasonFormContent({
+  onClose,
+  editing,
+  onSubmit,
+  submitting,
+}: Omit<SeasonFormDialogProps, "open">) {
+  const { t } = useTranslation();
+  const [state, setState] = useState<SeasonFormState>(
+    editing
+      ? {
+          name: editing.name,
+          format: editing.format,
+          ruleMark: editing.ruleMark ?? "",
+          startedAt: editing.startedAt ?? "",
+          endedAt: editing.endedAt ?? "",
+        }
+      : emptyState,
+  );
 
   const handleSubmit = async () => {
     if (state.name.trim().length === 0) return;
@@ -77,7 +93,7 @@ export function SeasonFormDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <>
       <DialogTitle>
         {editing ? t("battleRecord.season.editTitle") : t("battleRecord.season.newTitle")}
       </DialogTitle>
@@ -151,6 +167,6 @@ export function SeasonFormDialog({
           {t("common.save")}
         </Button>
       </DialogActions>
-    </Dialog>
+    </>
   );
 }

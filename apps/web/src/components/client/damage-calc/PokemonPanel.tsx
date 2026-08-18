@@ -16,7 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { championsPokemonList, championsPokemonByIdentifier } from "@/data/champions-pokemon";
@@ -594,26 +594,33 @@ function EvField({
     return value.toString();
   }, [value, natureValue]);
 
-  const [localValue, setLocalValue] = useState(formattedValue);
-  const [localStat, setLocalStat] = useState(statValue?.toString() ?? "0");
+  const [userLocalValue, setUserLocalValue] = useState<string | null>(null);
+  const [userLocalStat, setUserLocalStat] = useState<string | null>(null);
   const [statError, setStatError] = useState(false);
 
-  useEffect(() => {
-    setLocalStat(statValue?.toString() ?? "0");
+  const [prevStatValue, setPrevStatValue] = useState(statValue);
+  if (prevStatValue !== statValue) {
+    setPrevStatValue(statValue);
+    setUserLocalStat(null);
     setStatError(false);
-  }, [statValue]);
+  }
+  const localStat = userLocalStat ?? statValue?.toString() ?? "0";
+  const setLocalStat = setUserLocalStat;
 
-  useEffect(() => {
-    const rawVal = localValue.replace(/[+-]/g, "");
-    const rawParsed = rawVal === "" ? 0 : parseInt(rawVal, 10);
-    const hasPlus = localValue.includes("+");
-    const hasMinus = localValue.includes("-");
-    const localNature = hasPlus ? 1.1 : hasMinus ? 0.9 : 1.0;
+  const [prevFormattedValue, setPrevFormattedValue] = useState(formattedValue);
+  if (prevFormattedValue !== formattedValue) {
+    setPrevFormattedValue(formattedValue);
+    setUserLocalValue(null);
+  }
 
-    if (rawParsed !== value || (natureValue !== undefined && localNature !== natureValue)) {
-      setLocalValue(formattedValue);
-    }
-  }, [value, natureValue, formattedValue, localValue]);
+  // A cleaner approach for syncing localValue:
+  const [prevValueState, setPrevValueState] = useState({ value, natureValue });
+  if (prevValueState.value !== value || prevValueState.natureValue !== natureValue) {
+    setPrevValueState({ value, natureValue });
+    setUserLocalValue(null);
+  }
+  const localValue = userLocalValue ?? formattedValue;
+  const setLocalValue = setUserLocalValue;
 
   // EV の増減（+1 / -1）、nature suffix を保持
 

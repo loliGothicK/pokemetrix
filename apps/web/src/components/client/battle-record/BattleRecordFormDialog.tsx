@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   alpha,
   Box,
@@ -83,31 +83,55 @@ export function BattleRecordFormDialog({
   onSubmit,
   submitting,
 }: BattleRecordFormDialogProps) {
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth scroll="paper">
+      {open && (
+        <BattleRecordFormContent
+          key={editing?.id ?? "new"}
+          onClose={onClose}
+          editing={editing}
+          teamMembers={teamMembers}
+          teamId={teamId}
+          seasons={seasons}
+          defaultSeasonId={defaultSeasonId}
+          onSubmit={onSubmit}
+          submitting={submitting}
+        />
+      )}
+    </Dialog>
+  );
+}
+
+function BattleRecordFormContent({
+  onClose,
+  editing,
+  teamMembers,
+  teamId,
+  seasons,
+  defaultSeasonId,
+  onSubmit,
+  submitting,
+}: Omit<BattleRecordFormDialogProps, "open">) {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const [seasonId, setSeasonId] = useState<string | null>(defaultSeasonId);
-  const [draft, setDraft] = useState<BattleRecordDraft>(emptyDraft);
-  const [resultChosen, setResultChosen] = useState(false);
+  const [seasonId, setSeasonId] = useState<string | null>(
+    editing ? editing.seasonId : defaultSeasonId,
+  );
+
+  const initialFormat = editing
+    ? (seasons.find((s) => s.id === editing.seasonId)?.format ?? "doubles")
+    : "doubles";
+
+  const [draft, setDraft] = useState<BattleRecordDraft>(
+    editing ? draftFromRecord(editing, initialFormat) : emptyDraft({ teamId, myTeam: teamMembers }),
+  );
+  const [resultChosen, setResultChosen] = useState(!!editing);
 
   const format: BattleFormat = useMemo(
     () => seasons.find((s) => s.id === seasonId)?.format ?? "doubles",
     [seasons, seasonId],
   );
-
-  useEffect(() => {
-    if (!open) return;
-    if (editing) {
-      const editFormat = seasons.find((s) => s.id === editing.seasonId)?.format ?? "doubles";
-      setSeasonId(editing.seasonId);
-      setDraft(draftFromRecord(editing, editFormat));
-      setResultChosen(true);
-    } else {
-      setSeasonId(defaultSeasonId);
-      setDraft(emptyDraft({ teamId, myTeam: teamMembers }));
-      setResultChosen(false);
-    }
-  }, [open, editing, defaultSeasonId, teamId, teamMembers, seasons]);
 
   const chooseResult = (result: BattleResult) => {
     setDraft((prev) => ({ ...prev, result }));
@@ -121,17 +145,17 @@ export function BattleRecordFormDialog({
     await onSubmit(draft, seasonId);
   };
 
-  useHotkeys("w", () => chooseResult("win"), { enabled: open }, [open]);
-  useHotkeys("l", () => chooseResult("loss"), { enabled: open }, [open]);
-  useHotkeys("d", () => chooseResult("draw"), { enabled: open }, [open]);
+  useHotkeys("w", () => chooseResult("win"));
+  useHotkeys("l", () => chooseResult("loss"));
+  useHotkeys("d", () => chooseResult("draw"));
   useHotkeys(
     "ctrl+s, meta+s",
     (e) => {
       e.preventDefault();
       void handleSubmit();
     },
-    { enabled: open, enableOnFormTags: true },
-    [open, canSave, seasonId, draft],
+    { enableOnFormTags: true },
+    [canSave, seasonId, draft],
   );
 
   const resultColor = (result: BattleResult): string =>
@@ -142,7 +166,7 @@ export function BattleRecordFormDialog({
       .exhaustive();
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth scroll="paper">
+    <>
       {/* ヘッダー */}
       <Stack direction="row" sx={{ ...flexRowCenter, px: 3, py: 2, gap: 1 }}>
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.06em", flexGrow: 1 }}>
@@ -345,6 +369,6 @@ export function BattleRecordFormDialog({
           {resultChosen ? t("common.save") : t("battleRecord.form.selectResultFirst")}
         </Button>
       </Stack>
-    </Dialog>
+    </>
   );
 }

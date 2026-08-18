@@ -39,7 +39,6 @@ export function DocsSearchBar() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
@@ -64,10 +63,15 @@ export function DocsSearchBar() {
     enabled: debouncedInput.length >= searchThreshold,
   });
 
-  // Reset selection when options change
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [options]);
+  // Reset selection when options change (derived state pattern)
+  const [prevOptions, setPrevOptions] = useState(options);
+  const [userSelectedIndex, setUserSelectedIndex] = useState(0);
+  if (prevOptions !== options) {
+    setPrevOptions(options);
+    setUserSelectedIndex(0);
+  }
+  const selectedIndex = prevOptions !== options ? 0 : userSelectedIndex;
+  const setSelectedIndex = setUserSelectedIndex;
 
   const handleClose = () => {
     setDialogOpen(false);

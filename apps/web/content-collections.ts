@@ -90,6 +90,7 @@ const tsumePokemonSchema = z.object({
   moves: z.array(z.string()).optional(),
   item: z.string().optional(),
   ability: z.string().optional(),
+  nature: z.string().optional(),
   status: z.string().optional(),
   volatiles: z.array(z.string()).optional(),
 });

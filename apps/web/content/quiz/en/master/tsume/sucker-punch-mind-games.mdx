@@ -1,0 +1,51 @@
+---
+id: "sucker-punch-mind-games"
+difficulty: "master"
+category: "tsume"
+format: "tsume_action"
+question: "Late game in a Double Battle. Last turn, the opponent's Mega Kangaskhan used Sucker Punch to KO your ally, while Whimsicott KO'd Mega Kangaskhan's ally.\nNow in a 1v1 situation, enter the shortest sequence of moves (3 turns) for Whimsicott to guarantee a win."
+tsumeData:
+  correctMoves:
+    - "encore"
+    - "substitute"
+    - "moonblast"
+  playerSide:
+    active:
+      - species: "whimsicott"
+        hpCurrent: 35
+        hpMax: 135
+        stats:
+          spe: 184
+        moves:
+          - "encore"
+          - "substitute"
+          - "moonblast"
+          - "tailwind"
+        ability: "prankster"
+  opponentSide:
+    active:
+      - species: "kangaskhan-mega"
+        hpCurrent: 40
+        hpMax: 180
+        stats:
+          spe: 167
+        moves:
+          - "sucker-punch"
+          - "return"
+          - "earthquake"
+          - "power-up-punch"
+        ability: "parental-bond"
+        item: "kangaskhanite"
+        nature: "Adamant"
+reviewed: false
+---
+
+【Explanation】
+
+Since the opponent used Sucker Punch last turn, you should first use Encore to lock their move into Sucker Punch. Whimsicott's Prankster ability allows it to use Encore with priority, meaning the opponent will be locked into Sucker Punch regardless of what move they selected (their Sucker Punch this turn will fail because Encore is a status move).
+
+However, if you try to attack with Moonblast on the very next turn, the opponent's Sucker Punch will hit first and KO Whimsicott.
+
+Therefore, for your second move, you must use Substitute. Because Substitute is also a status move, the opponent's Sucker Punch will fail again, allowing you to safely set up a Substitute.
+
+On the third turn, you can finally select Moonblast. The opponent's Sucker Punch will go first and break the Substitute, leaving Whimsicott unharmed. Your Moonblast will then hit last, safely KOing Mega Kangaskhan to secure the win.

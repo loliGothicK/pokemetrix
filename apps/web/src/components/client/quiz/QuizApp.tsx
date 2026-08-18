@@ -15,6 +15,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { TsumeEngine } from "@/utils/tsumeEngine";
 import { MDXContent } from "@content-collections/mdx/react";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
@@ -100,12 +101,14 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
   }, [initialQuestions, currentLang]);
 
   // Restart if language changes during play (only if not in direct play)
-  useEffect(() => {
+  const [prevLang, setPrevLang] = useState(currentLang);
+  if (prevLang !== currentLang) {
+    setPrevLang(currentLang);
     if (!directPlay) {
       setMode("menu");
       setMenuStep("difficulty");
     }
-  }, [currentLang, directPlay]);
+  }
 
   const categories: {
     id: UICategory;
@@ -215,7 +218,9 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
     }
   }, [activeQuestion]);
 
-  useEffect(() => {
+  const [prevActiveQuestion, setPrevActiveQuestion] = useState(activeQuestion);
+  if (prevActiveQuestion !== activeQuestion) {
+    setPrevActiveQuestion(activeQuestion);
     if (activeQuestion) {
       if (activeQuestion.format === "ordering" && activeQuestion.options) {
         setOrderedOptions([...activeQuestion.options]);
@@ -232,7 +237,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         setGroupedItems(initialGroups);
       }
     }
-  }, [activeQuestion]);
+  }
 
   const isSubmitDisabled = () => {
     if (!activeQuestion) return true;
@@ -427,10 +432,32 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         }
       }
     } else if (activeQuestion.format === "tsume_action") {
-      const correct = activeQuestion.tsumeData?.correctMoves || [];
-      isCorrect =
-        correct.length === tsumeActions.length &&
-        correct.every((ans) => tsumeActions.includes(ans));
+      if (tsumeActions.length > 0) {
+        try {
+          const engine = new TsumeEngine(activeQuestion.tsumeData!);
+          let didWin = false;
+          for (const action of tsumeActions) {
+            // Extract the base move name (e.g. "encore (Target: ...)" -> "encore")
+            const moveId = action.split(" ")[0];
+            const oppChoice = engine.getOpponentHeuristicChoice();
+            const ended = engine.simulateTurn(`move ${moveId}`, oppChoice);
+            if (ended) {
+              didWin = engine.getP2ActiveHP() <= 0 && engine.getP1ActiveHP() > 0;
+              break;
+            }
+          }
+          isCorrect = didWin;
+        } catch (e) {
+          console.error("Tsume simulation failed", e);
+          // Fallback to static check if sim fails
+          const correct = activeQuestion.tsumeData?.correctMoves || [];
+          isCorrect =
+            correct.length === tsumeActions.length &&
+            correct.every((ans) => tsumeActions.includes(ans));
+        }
+      } else {
+        isCorrect = false;
+      }
     }
 
     return (
@@ -891,60 +918,63 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
                 tsumeData={activeQuestion.tsumeData}
                 selectedActions={tsumeActions}
                 onActionsChange={setTsumeActions}
+                onSubmit={handleSubmit}
                 showExplanation={showExplanation}
                 correctMoves={activeQuestion.tsumeData.correctMoves}
               />
             )}
 
-            {!showExplanation && activeQuestion.format !== "one_way" && (
-              <>
-                {/* Desktop: inline submit button */}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmit}
-                  disabled={isSubmitDisabled()}
-                  sx={{
-                    display: { xs: "none", sm: "flex" },
-                    mt: 3,
-                    width: "100%",
-                    py: 1.5,
-                    borderRadius: 2,
-                    fontWeight: "bold",
-                    fontSize: "1.1rem",
-                  }}
-                >
-                  {t("common.submit")}
-                </Button>
-                {/* Mobile: sticky bottom bar */}
-                <Box
-                  sx={{
-                    display: { xs: "block", sm: "none" },
-                    position: "fixed",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    zIndex: 20,
-                    p: 1.5,
-                    bgcolor: "background.paper",
-                    borderTop: "1px solid",
-                    borderColor: "divider",
-                    boxShadow: "0 -4px 16px rgba(0,0,0,0.1)",
-                  }}
-                >
+            {!showExplanation &&
+              activeQuestion.format !== "one_way" &&
+              activeQuestion.format !== "tsume_action" && (
+                <>
+                  {/* Desktop: inline submit button */}
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleSubmit}
                     disabled={isSubmitDisabled()}
-                    fullWidth
-                    sx={{ py: 1.5, borderRadius: 2, fontWeight: "bold", fontSize: "1rem" }}
+                    sx={{
+                      display: { xs: "none", sm: "flex" },
+                      mt: 3,
+                      width: "100%",
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: "bold",
+                      fontSize: "1.1rem",
+                    }}
                   >
                     {t("common.submit")}
                   </Button>
-                </Box>
-              </>
-            )}
+                  {/* Mobile: sticky bottom bar */}
+                  <Box
+                    sx={{
+                      display: { xs: "block", sm: "none" },
+                      position: "fixed",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      zIndex: 20,
+                      p: 1.5,
+                      bgcolor: "background.paper",
+                      borderTop: "1px solid",
+                      borderColor: "divider",
+                      boxShadow: "0 -4px 16px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleSubmit}
+                      disabled={isSubmitDisabled()}
+                      fullWidth
+                      sx={{ py: 1.5, borderRadius: 2, fontWeight: "bold", fontSize: "1rem" }}
+                    >
+                      {t("common.submit")}
+                    </Button>
+                  </Box>
+                </>
+              )}
           </CardContent>
         </Card>
 

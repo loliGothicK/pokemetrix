@@ -18,6 +18,7 @@ export interface TsumePokemon {
   moves?: string[];
   item?: string;
   ability?: string;
+  nature?: string;
   status?: string;
   volatiles?: string[];
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   alpha,
   Avatar,
@@ -63,17 +63,12 @@ export default function BattleAnalyticsPage() {
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const { seasons, isLoading: seasonsLoading } = useSeasons();
 
-  const [activeSeasonId, setActiveSeasonId] = useState<string | null>(null);
+  const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
+  const activeSeasonId = selectedSeasonId ?? seasons[0]?.id ?? null;
   const activeSeason = useMemo(
     () => seasons.find((s) => s.id === activeSeasonId) ?? null,
     [seasons, activeSeasonId],
   );
-
-  useEffect(() => {
-    if (activeSeasonId === null && seasons.length > 0) {
-      setActiveSeasonId(seasons[0].id);
-    }
-  }, [seasons, activeSeasonId]);
 
   const { records, isLoading: recordsLoading } = useBattleRecords({ seasonId: activeSeasonId });
 
@@ -119,7 +114,7 @@ export default function BattleAnalyticsPage() {
           labelId="analytics-season-label"
           label={t("battleRecord.season.label")}
           value={activeSeason?.id ?? ""}
-          onChange={(e) => setActiveSeasonId(e.target.value || null)}
+          onChange={(e) => setSelectedSeasonId(e.target.value || null)}
           displayEmpty
         >
           {seasons.length === 0 && (

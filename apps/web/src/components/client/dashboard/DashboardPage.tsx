@@ -82,7 +82,7 @@ export default function DashboardPage() {
     useDashboards();
   const { seasons } = useSeasons();
 
-  const [activeDashboardId, setActiveDashboardId] = useState<string | null>(null);
+  const [selectedDashboardId, setSelectedDashboardId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
   const [draftLayout, setDraftLayout] = useState<readonly DashboardWidget[] | null>(null);
   const [draftVariables, setDraftVariables] = useState<readonly DashboardVariable[] | null>(null);
@@ -94,17 +94,13 @@ export default function DashboardPage() {
   const [exitAnchorEl, setExitAnchorEl] = useState<null | HTMLElement>(null);
   const exitMenuOpen = Boolean(exitAnchorEl);
 
-  const activeDashboard = useMemo(
-    () => dashboards.find((d) => d.id === activeDashboardId) ?? null,
-    [dashboards, activeDashboardId],
-  );
-
-  useEffect(() => {
-    if (activeDashboardId === null && dashboards.length > 0) {
-      const defaultDashboard = dashboards.find((d) => d.isDefault) ?? dashboards[0];
-      setActiveDashboardId(defaultDashboard.id);
+  const activeDashboard = useMemo(() => {
+    if (selectedDashboardId && dashboards.some((d) => d.id === selectedDashboardId)) {
+      return dashboards.find((d) => d.id === selectedDashboardId) ?? null;
     }
-  }, [dashboards, activeDashboardId]);
+    const defaultDashboard = dashboards.find((d) => d.isDefault) ?? dashboards[0] ?? null;
+    return defaultDashboard;
+  }, [dashboards, selectedDashboardId]);
 
   const layout = editing ? (draftLayout ?? []) : (activeDashboard?.layout ?? []);
 
@@ -123,8 +119,6 @@ export default function DashboardPage() {
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
-      // eslint-disable-next-line typescript/no-deprecated
-      e.returnValue = "";
     };
 
     const handleClick = (e: MouseEvent) => {
@@ -183,13 +177,13 @@ export default function DashboardPage() {
       variables: [],
       isDefault: dashboards.length === 0,
     });
-    setActiveDashboardId(created.id);
+    setSelectedDashboardId(created.id);
   };
 
   const handleDeleteDashboard = async (dashboard: Dashboard) => {
     if (!window.confirm(t("dashboard.deleteConfirm", { name: dashboard.name }))) return;
     await removeDashboard(dashboard.id);
-    setActiveDashboardId(null);
+    setSelectedDashboardId(null);
   };
 
   const handleToggleDefault = async (dashboard: Dashboard) => {
@@ -362,7 +356,7 @@ export default function DashboardPage() {
                   setDraftLayout(null);
                   setDraftVariables(null);
                   setEditingWidgetId(null);
-                  setActiveDashboardId(e.target.value || null);
+                  setSelectedDashboardId(e.target.value || null);
                 }
               }}
             >

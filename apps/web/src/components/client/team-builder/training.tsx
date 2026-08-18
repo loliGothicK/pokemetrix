@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { useMemo, useState, useEffect, type MouseEvent as ReactMouseEvent } from "react";
+import { useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
@@ -107,15 +107,15 @@ export function Training({
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const [ongoing, setOngoing] = useState<TrainedPokemon | null>(member);
-  useEffect(() => {
-    setOngoing((prev) => {
-      if (prev === member) return prev;
-      if (JSON.stringify(prev) === JSON.stringify(member)) return prev;
-      return member;
-    });
-  }, [member]);
+  const [prevMember, setPrevMember] = useState(member);
+  const [ongoing, setOngoing] = useState<TrainedPokemon>(member);
 
+  if (prevMember !== member) {
+    setPrevMember(member);
+    if (JSON.stringify(ongoing) !== JSON.stringify(member)) {
+      setOngoing(member);
+    }
+  }
   const [isLintOn] = useAtom(activeTeamLintAtom);
   const { battleData, isError } = useBattleData(member.slug, "Doubles");
   const nature = ongoing?.nature ? natureObjectToString(ongoing.nature) : null;

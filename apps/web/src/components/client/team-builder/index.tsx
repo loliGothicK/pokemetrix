@@ -563,12 +563,6 @@ export default function TeamBuilderPage({
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const deleteTargetTeam = teams.find((t) => t.id === deleteTargetId) ?? null;
 
-  useEffect(() => {
-    if (isMobile && activeTeamId === null) {
-      router.push("/team-builder");
-    }
-  }, [isMobile, activeTeamId]); // eslint-disable-line react-hooks/exhaustive-deps
-
   if (isLoading) return <Box sx={{ p: 3 }}>{t("teamBuilder.loading")}</Box>;
 
   const activeTeam = teams.find((t) => t.id === activeTeamId) || null;
@@ -600,7 +594,9 @@ export default function TeamBuilderPage({
       setActiveTeamId(remaining.length > 0 ? remaining[0].id : null);
     }
     setDeleteTargetId(null);
-    router.push("/team-builder");
+    if (isMobile) {
+      router.push("/team-builder");
+    }
   };
 
   return (

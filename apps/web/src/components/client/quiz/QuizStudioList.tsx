@@ -764,18 +764,16 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
   const initialNeedsReview = searchParams.get("needsReview") === "true";
   const [filterNeedsReview, setFilterNeedsReview] = useState(initialNeedsReview);
 
-  useEffect(() => {
-    const current = searchParams.get("needsReview") === "true";
-    if (current !== filterNeedsReview) {
-      const params = new URLSearchParams(searchParams.toString());
-      if (filterNeedsReview) {
-        params.set("needsReview", "true");
-      } else {
-        params.delete("needsReview");
-      }
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  const handleFilterNeedsReviewChange = (checked: boolean) => {
+    setFilterNeedsReview(checked);
+    const params = new URLSearchParams(searchParams.toString());
+    if (checked) {
+      params.set("needsReview", "true");
+    } else {
+      params.delete("needsReview");
     }
-  }, [filterNeedsReview, pathname, router, searchParams]);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   const [localReviewedMap, setLocalReviewedMap] = useState<Record<string, boolean>>({});
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => new Set());
@@ -795,29 +793,37 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
     });
   }, []);
 
-  useEffect(() => {
-    if (selectedQuizGroup && filterNeedsReview) {
-      const qJa = selectedQuizGroup.ja;
-      const qEn = selectedQuizGroup.en;
-      const jaPath = qJa ? quizToFilePath(qJa) : "";
-      const enPath = qEn ? quizToFilePath(qEn) : "";
+  const [prevFilterNeedsReview, setPrevFilterNeedsReview] = useState(filterNeedsReview);
+  const [prevLocalReviewedMap, setPrevLocalReviewedMap] = useState(localReviewedMap);
 
-      const revJa =
-        jaPath && localReviewedMap[jaPath] !== undefined
-          ? localReviewedMap[jaPath]
-          : (qJa?.reviewed ?? false);
-      const revEn =
-        enPath && localReviewedMap[enPath] !== undefined
-          ? localReviewedMap[enPath]
-          : (qEn?.reviewed ?? false);
+  if (
+    selectedQuizGroup &&
+    filterNeedsReview &&
+    (prevFilterNeedsReview !== filterNeedsReview || prevLocalReviewedMap !== localReviewedMap)
+  ) {
+    if (prevFilterNeedsReview !== filterNeedsReview) setPrevFilterNeedsReview(filterNeedsReview);
+    if (prevLocalReviewedMap !== localReviewedMap) setPrevLocalReviewedMap(localReviewedMap);
 
-      const needsRev = (qJa && !revJa) || (qEn && !revEn);
+    const qJa = selectedQuizGroup.ja;
+    const qEn = selectedQuizGroup.en;
+    const jaPath = qJa ? quizToFilePath(qJa) : "";
+    const enPath = qEn ? quizToFilePath(qEn) : "";
 
-      if (!needsRev) {
-        setSelectedQuizGroup(null);
-      }
+    const revJa =
+      jaPath && localReviewedMap[jaPath] !== undefined
+        ? localReviewedMap[jaPath]
+        : (qJa?.reviewed ?? false);
+    const revEn =
+      enPath && localReviewedMap[enPath] !== undefined
+        ? localReviewedMap[enPath]
+        : (qEn?.reviewed ?? false);
+
+    const needsRev = (qJa && !revJa) || (qEn && !revEn);
+
+    if (!needsRev) {
+      setSelectedQuizGroup(null);
     }
-  }, [selectedQuizGroup, filterNeedsReview, localReviewedMap]);
+  }
 
   const openPreview = useCallback(() => {
     setPreviewOpen(true);
@@ -1022,7 +1028,7 @@ export function QuizStudio({ allQuizzes }: { allQuizzes: QuizQuestion[] }) {
               <input
                 type="checkbox"
                 checked={filterNeedsReview}
-                onChange={(e) => setFilterNeedsReview(e.target.checked)}
+                onChange={(e) => handleFilterNeedsReviewChange(e.target.checked)}
               />
               Needs Review
             </label>

@@ -284,32 +284,25 @@ export default function BattleRecordPage() {
   useEffect(() => setMounted(true), []);
   const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
-  const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
-  const [activeSeasonId, setActiveSeasonId] = useState<string | null>(null);
+  const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
+  const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
   const [filter, setFilter] = useState<ResultFilter>("all");
 
-  const activeTeam = useMemo(
-    () => safeTeams.find((tm) => tm.id === activeTeamId) ?? null,
-    [safeTeams, activeTeamId],
-  );
-  const activeSeason = useMemo(
-    () => seasons.find((s) => s.id === activeSeasonId) ?? null,
-    [seasons, activeSeasonId],
-  );
-
-  useEffect(() => {
-    if (activeTeamId === null && safeTeams.length > 0) setActiveTeamId(safeTeams[0].id);
-    if (activeTeamId !== null && !safeTeams.some((tm) => tm.id === activeTeamId)) {
-      setActiveTeamId(safeTeams[0]?.id ?? null);
+  const activeTeam = useMemo(() => {
+    if (selectedTeamId && safeTeams.some((tm) => tm.id === selectedTeamId)) {
+      return safeTeams.find((tm) => tm.id === selectedTeamId) ?? null;
     }
-  }, [safeTeams, activeTeamId]);
+    return safeTeams[0] ?? null;
+  }, [safeTeams, selectedTeamId]);
+  const activeTeamId = activeTeam?.id ?? null;
 
-  useEffect(() => {
-    if (activeSeasonId === null && seasons.length > 0) setActiveSeasonId(seasons[0].id);
-    if (activeSeasonId !== null && !seasons.some((s) => s.id === activeSeasonId)) {
-      setActiveSeasonId(seasons[0]?.id ?? null);
+  const activeSeason = useMemo(() => {
+    if (selectedSeasonId && seasons.some((s) => s.id === selectedSeasonId)) {
+      return seasons.find((s) => s.id === selectedSeasonId) ?? null;
     }
-  }, [seasons, activeSeasonId]);
+    return seasons[0] ?? null;
+  }, [seasons, selectedSeasonId]);
+  const activeSeasonId = activeSeason?.id ?? null;
 
   const {
     records,
@@ -357,7 +350,7 @@ export default function BattleRecordPage() {
       await updateSeason(seasonEditing.id, input);
     } else {
       const created = await createSeason(input);
-      setActiveSeasonId(created.id);
+      setSelectedSeasonId(created.id);
     }
     setSeasonDialogOpen(false);
   };
@@ -404,7 +397,7 @@ export default function BattleRecordPage() {
           <FormControl size="small" sx={{ flex: 1 }}>
             <Select
               value={activeTeam?.id ?? ""}
-              onChange={(e) => setActiveTeamId(e.target.value || null)}
+              onChange={(e) => setSelectedTeamId(e.target.value || null)}
               displayEmpty
             >
               {safeTeams.length === 0 && (
@@ -422,7 +415,7 @@ export default function BattleRecordPage() {
           <SeasonSelect
             seasons={seasons}
             value={activeSeasonId}
-            onChange={setActiveSeasonId}
+            onChange={setSelectedSeasonId}
             onNew={() => {
               setSeasonEditing(null);
               setSeasonDialogOpen(true);
@@ -466,7 +459,7 @@ export default function BattleRecordPage() {
               labelId="team-select-label"
               label={t("battleRecord.team")}
               value={activeTeam?.id ?? ""}
-              onChange={(e) => setActiveTeamId(e.target.value || null)}
+              onChange={(e) => setSelectedTeamId(e.target.value || null)}
               displayEmpty
             >
               {safeTeams.length === 0 && (
@@ -495,7 +488,7 @@ export default function BattleRecordPage() {
             <SeasonSelect
               seasons={seasons}
               value={activeSeasonId}
-              onChange={setActiveSeasonId}
+              onChange={setSelectedSeasonId}
               onNew={() => {
                 setSeasonEditing(null);
                 setSeasonDialogOpen(true);
