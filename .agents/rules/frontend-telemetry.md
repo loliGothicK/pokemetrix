@@ -1,5 +1,6 @@
 ---
 description: "Rules for tracing frontend operations and capturing API errors"
+trigger: always_on
 ---
 # Frontend Telemetry & Error Handling (OTel & Sentry)
 

@@ -1,5 +1,6 @@
 ---
 description: "Rules for responsive styling and snapshot testing MUI components"
+trigger: always_on
 ---
 # Responsive Styling & Snapshot Testing
 

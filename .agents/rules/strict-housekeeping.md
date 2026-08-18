@@ -1,5 +1,7 @@
 ---
+name: strict-housekeeping
 description: "Rules for housekeeping, testing, and cleanup before reporting task completion"
+trigger: always_on
 ---
 # Strict Housekeeping & Clean-up
 

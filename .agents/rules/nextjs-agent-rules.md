@@ -1,5 +1,6 @@
 ---
 description: "Guidelines for working with this specific version of Next.js"
+trigger: always_on
 ---
 # This is NOT the Next.js you know
 

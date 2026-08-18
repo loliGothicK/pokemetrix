@@ -1,5 +1,6 @@
 ---
 description: "Strict constraints for modifying existing UI layouts and synchronizing component heights"
+trigger: always_on
 ---
 # UI Modification Constraints
 

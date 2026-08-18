@@ -1,5 +1,6 @@
 ---
 description: "Rules for passing props to MUI Stack components"
+trigger: always_on
 ---
 # MUI Stack System Props
 

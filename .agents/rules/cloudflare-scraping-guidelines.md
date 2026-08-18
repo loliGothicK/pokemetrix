@@ -1,5 +1,6 @@
 ---
 description: "Guidelines for scraping wikis protected by Cloudflare"
+trigger: always_on
 ---
 # Cloudflare & Wiki Scraping
 

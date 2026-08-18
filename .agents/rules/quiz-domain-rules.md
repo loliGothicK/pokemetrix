@@ -1,5 +1,6 @@
 ---
 description: "Rules for UI constraints, enums, text formatting, and difficulty philosophy in quizzes"
+trigger: always_on
 ---
 # Quiz Domain & UI Constraints
 
@@ -88,6 +89,7 @@ options:
   - "正解またはダミー3"
   - "正解またはダミー4"
 correctAnswerIndex: 0
+trigger: always_on
 ---
 【解説】
 ...

@@ -1,5 +1,6 @@
 ---
 description: "Rules for TypeScript imports and path aliases"
+trigger: always_on
 ---
 # TypeScript Import Aliases
 

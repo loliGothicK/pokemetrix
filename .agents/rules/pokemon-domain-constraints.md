@@ -1,5 +1,6 @@
 ---
 description: "Rules ensuring metagame validity for the Pokémon Champions format"
+trigger: always_on
 ---
 # Domain Context: Pokémon Champions
 

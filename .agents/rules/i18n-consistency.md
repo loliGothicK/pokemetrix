@@ -1,5 +1,6 @@
 ---
 description: "Rules for ensuring translation keys are consistent across localization files"
+trigger: always_on
 ---
 # i18n Translation Consistency
 
