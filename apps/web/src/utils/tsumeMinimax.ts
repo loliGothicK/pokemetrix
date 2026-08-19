@@ -163,7 +163,7 @@ function getBattleStateHash(battle: any, depth: number): string {
     return side.pokemon
       .map((p: any) => {
         const boosts = Object.entries(p.boosts || {})
-          .filter(([_, v]) => v !== 0)
+          .filter(([, v]) => v !== 0)
           .map(([k, v]) => `${k}:${String(v)}`)
           .join(",");
         const volatiles = Object.keys(p.volatiles || {})

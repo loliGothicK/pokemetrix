@@ -4,10 +4,11 @@ import { notFound } from "next/navigation";
 import { DocPageClient } from "./DocPageClient";
 
 type PageParams = {
+  readonly lang: string;
   readonly slug: string;
 };
 
-export function generateStaticParams(): PageParams[] {
+export function generateStaticParams() {
   const slugs = new Set(allDocs.map((doc) => doc.slug));
   return Array.from(slugs).map((slug) => ({ slug }));
 }
@@ -24,8 +25,8 @@ export async function generateMetadata({
 }: {
   readonly params: Promise<PageParams>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const doc = getDoc(slug, "ja");
+  const { lang, slug } = await params;
+  const doc = getDoc(slug, lang);
   if (!doc) {
     return {};
   }

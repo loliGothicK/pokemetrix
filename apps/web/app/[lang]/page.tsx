@@ -8,6 +8,7 @@ import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import { alpha, Box, Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import PokemetrixIcon from "@/components/icons/Pokemetrix";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 
 export default function Home() {
   const theme = useTheme();
@@ -105,7 +106,7 @@ export default function Home() {
             {tools.map((tool) => (
               <Grid size={{ ...tool.gridSpan }} key={tool.id}>
                 <Paper
-                  component="a"
+                  component={Link}
                   href={tool.href}
                   elevation={0}
                   sx={{

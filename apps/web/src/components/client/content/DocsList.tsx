@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Stack, Typography } from "@mui/material";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 
 export type DocsListItem = {
   readonly slug: string;

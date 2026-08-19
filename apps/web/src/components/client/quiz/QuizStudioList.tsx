@@ -240,7 +240,7 @@ function TreeNode({
   }
 
   const matchesSearch = useCallback(
-    (n: FileTreeNode): boolean => {
+    function matchesSearch(n: FileTreeNode): boolean {
       if (n.quizzes) {
         const qJa = n.quizzes.ja;
         const qEn = n.quizzes.en;
@@ -469,6 +469,7 @@ function SourcePane({
   const filePath = quizToFilePath(quiz);
 
   useEffect(() => {
+    // eslint-disable-next-line react/set-state-in-effect
     setMeta(null);
     setLoading(true);
     setError(null);

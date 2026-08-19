@@ -42,6 +42,7 @@ export function DocsSearchBar() {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react/set-state-in-effect
     setIsMac(
       navigator.platform.toUpperCase().indexOf("MAC") >= 0 ||
         navigator.userAgent.toUpperCase().indexOf("MAC") >= 0,

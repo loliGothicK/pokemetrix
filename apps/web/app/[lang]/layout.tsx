@@ -40,21 +40,28 @@ export const metadata: Metadata = {
 
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { SuppressCancelation } from "@/components/client/SuppressCancelation";
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "ja" }];
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   readonly children: ReactNode;
+  readonly params: Promise<{ readonly lang: string }>;
 }>) {
+  const { lang } = await params;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body>
         <InitColorSchemeScript />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <SuppressCancelation />
         <AppRouterCacheProvider>
           <ContentLayoutProvider>
-            <AppLayout>
+            <AppLayout lang={lang}>
               {children}
               <Analytics />
             </AppLayout>

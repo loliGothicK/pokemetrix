@@ -25,7 +25,7 @@ import {
 import Add from "@mui/icons-material/Add";
 import InsightsRounded from "@mui/icons-material/InsightsRounded";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 import { useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
@@ -281,6 +281,7 @@ export default function BattleRecordPage() {
   } = useSeasons();
 
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react/set-state-in-effect
   useEffect(() => setMounted(true), []);
   const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
@@ -324,16 +325,16 @@ export default function BattleRecordPage() {
     [activeTeam],
   );
 
-  useHotkeys("n", () => {
-    setRecordDialogOpen(true);
-  });
-
   const [seasonDialogOpen, setSeasonDialogOpen] = useState(false);
   const [seasonEditing, setSeasonEditing] = useState<Season | null>(null);
   const [recordDialogOpen, setRecordDialogOpen] = useState(false);
   const [recordEditing, setRecordEditing] = useState<BattleRecord | null>(null);
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
   const [seasonPendingDelete, setSeasonPendingDelete] = useState<Season | null>(null);
+
+  useHotkeys("n", () => {
+    setRecordDialogOpen(true);
+  });
 
   if (!isAuthenticated) {
     return (

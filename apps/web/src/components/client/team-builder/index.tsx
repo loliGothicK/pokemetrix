@@ -538,6 +538,7 @@ export default function TeamBuilderPage({
   const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
   const { teams: rawTeams, isLoading, updateTeams, removeTeam } = useTeamsData();
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react/set-state-in-effect
   useEffect(() => setMounted(true), []);
   const teams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);

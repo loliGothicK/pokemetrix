@@ -5,7 +5,7 @@ import { Box, Breadcrumbs, IconButton, Link as MuiLink, Typography, alpha } from
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 import { type ReactNode } from "react";
 import { useContentLayout } from "./ContentLayoutContext";
 import type { TocHeading } from "./TableOfContents";

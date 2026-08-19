@@ -1,6 +1,6 @@
 "use client";
+import { useParams } from "next/navigation";
 
-import { useTranslation } from "react-i18next";
 import { Container, Stack, Typography } from "@mui/material";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
@@ -10,8 +10,6 @@ import {
   type ContentSidebarItem,
 } from "@/components/client/content/ContentSidebar";
 import { BlogList } from "@/components/client/content/BlogList";
-import { useEffect, useState } from "react";
-import { defaultLanguage } from "@/i18n/config";
 
 type BlogListItem = {
   readonly slug: string;
@@ -38,15 +36,10 @@ type Props = {
 
 export function BlogIndexClient({ localizedSidebar, localizedPosts }: Props) {
   const { isSidebarOpen, setIsSidebarOpen } = useContentLayout();
-  const { i18n } = useTranslation();
 
-  const [activeLang, setActiveLang] = useState<"en" | "ja">(defaultLanguage as "en" | "ja");
-
-  useEffect(() => {
-    if (i18n.resolvedLanguage === "en" || i18n.resolvedLanguage === "ja") {
-      setActiveLang(i18n.resolvedLanguage);
-    }
-  }, [i18n.resolvedLanguage]);
+  const params = useParams();
+  const lang = (params?.lang as string) || "en";
+  const activeLang = lang === "ja" ? "ja" : "en";
 
   const sidebarItems = localizedSidebar[activeLang];
   const posts = localizedPosts[activeLang];

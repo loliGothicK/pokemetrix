@@ -1,6 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const locales = ["en", "ja"];
+const defaultLocale = "en";
+
 export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -27,7 +30,51 @@ export async function proxy(request: NextRequest) {
   // トークンを検証・更新する（getSession()ではなくgetClaims()を使うこと）
   await supabase.auth.getClaims();
 
-  return supabaseResponse;
+  const { pathname } = request.nextUrl;
+
+  // Exclude static files, API routes, and known nextjs internals from locale redirect
+  if (
+    pathname.startsWith("/api/") ||
+    pathname === "/manifest.json" ||
+    pathname === "/icon.svg" ||
+    pathname === "/apple-icon.png" ||
+    pathname.includes("/opengraph-image")
+  ) {
+    return supabaseResponse;
+  }
+
+  // Check if there is any supported locale in the pathname
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  );
+
+  if (pathnameHasLocale) {
+    return supabaseResponse;
+  }
+
+  // Fallback to cookie, then Accept-Language, then default
+  let locale = defaultLocale;
+  const cookieLocale = request.cookies.get("pokemetrix-language")?.value;
+  if (cookieLocale && locales.includes(cookieLocale)) {
+    locale = cookieLocale;
+  } else {
+    const acceptLanguage = request.headers.get("accept-language");
+    if (acceptLanguage) {
+      if (acceptLanguage.includes("ja")) {
+        locale = "ja";
+      }
+    }
+  }
+
+  request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+  const redirectResponse = NextResponse.redirect(request.nextUrl);
+  
+  // supabase.auth.getClaims() によって更新されたCookieを引き継ぐ
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    redirectResponse.cookies.set(cookie.name, cookie.value);
+  });
+
+  return redirectResponse;
 }
 
 export const config = {

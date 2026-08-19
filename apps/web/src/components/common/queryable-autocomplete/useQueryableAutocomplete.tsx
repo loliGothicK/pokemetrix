@@ -11,7 +11,7 @@ import {
   type QuerySuggestion,
   type QueryToken,
 } from "./queryableAutocomplete";
-import { type SyntheticEvent, useCallback, useMemo, useRef, useState } from "react";
+import { type SyntheticEvent, useCallback, useMemo, useRef, useState, useEffect } from "react";
 import type {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
@@ -105,7 +105,9 @@ export function useQueryableAutocomplete({
 
   // Use a ref for onTokensChange so we don't have to put it in dependencies
   const onTokensChangeRef = useRef(onTokensChange);
-  onTokensChangeRef.current = onTokensChange;
+  useEffect(() => {
+    onTokensChangeRef.current = onTokensChange;
+  }, [onTokensChange]);
 
   const updateState = useCallback(
     (nextValue: string[], nextInputValue: string) => {
@@ -131,7 +133,9 @@ export function useQueryableAutocomplete({
   );
 
   const inputValueRef = useRef(inputValue);
-  inputValueRef.current = inputValue;
+  useEffect(() => {
+    inputValueRef.current = inputValue;
+  }, [inputValue]);
 
   const removeToken = useCallback(
     (token: string) => {

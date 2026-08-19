@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { atom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { localTeamsAtom, activeTeamIdAtom, Team, TrainedPokemon } from "@/store/team/team";
 
@@ -27,7 +27,6 @@ export const useActiveTeam = () => {
   const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
   // serverTeams は毎レンダーで新しい参照を持つため ref でラップして deps を安定させる
   const serverTeamsRef = useRef(serverTeams);
-  serverTeamsRef.current = serverTeams;
 
   const teams = isAuthenticated
     ? [
@@ -39,7 +38,12 @@ export const useActiveTeam = () => {
   const team = teams.find(({ id }) => id === activeId);
 
   const teamsRef = useRef(teams);
-  teamsRef.current = teams;
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: ref sync
+  useEffect(() => {
+    serverTeamsRef.current = serverTeams;
+    teamsRef.current = teams;
+  });
 
   const getHistoryEntry = useCallback(
     (id: string): HistoryEntry => historyMap.get(id) ?? { past: [], future: [] },
