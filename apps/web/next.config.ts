@@ -103,6 +103,7 @@ export default withContentCollections(
         // Automatically tree-shake Sentry logger statements to reduce bundle size
         removeDebugLogging: true,
       },
+      autoInstrumentMiddleware: false,
     },
   }),
 );
