@@ -2,7 +2,7 @@
 
 import { Box, Drawer, List, ListItemButton, ListItemText, Typography, alpha } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 

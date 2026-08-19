@@ -1,6 +1,6 @@
 "use client";
+import { useParams } from "next/navigation";
 
-import { useTranslation } from "react-i18next";
 import { Container, Stack, Typography } from "@mui/material";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
@@ -11,7 +11,6 @@ import {
 } from "@/components/client/content/ContentSidebar";
 import { DocsList } from "@/components/client/content/DocsList";
 import { DocsSearchBar } from "@/components/client/content/DocsSearchBar";
-import { useEffect, useState } from "react";
 import type { Doc } from "content-collections";
 
 type LocalizedSidebar = {
@@ -31,15 +30,10 @@ type Props = {
 
 export function DocsIndexClient({ localizedSidebar, localizedDocs }: Props) {
   const { isSidebarOpen, setIsSidebarOpen } = useContentLayout();
-  const { i18n } = useTranslation();
 
-  const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
-
-  useEffect(() => {
-    if (i18n.resolvedLanguage === "en" || i18n.resolvedLanguage === "ja") {
-      setActiveLang(i18n.resolvedLanguage);
-    }
-  }, [i18n.resolvedLanguage]);
+  const params = useParams();
+  const lang = (params?.lang as string) || "en";
+  const activeLang = lang === "ja" ? "ja" : "en";
 
   const sidebarItems = localizedSidebar[activeLang];
   const docs = localizedDocs[activeLang];

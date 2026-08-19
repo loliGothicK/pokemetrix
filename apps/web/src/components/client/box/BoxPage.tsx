@@ -60,6 +60,7 @@ export default function BoxPage() {
 
   useEffect(() => {
     if (editingPokemon?.identifier) {
+      // eslint-disable-next-line react/set-state-in-effect
       setLastEditingIdentifier(editingPokemon.identifier);
     }
   }, [editingPokemon?.identifier]);

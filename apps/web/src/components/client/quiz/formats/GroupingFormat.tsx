@@ -108,6 +108,7 @@ export function GroupingFormat({
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react/set-state-in-effect
     setIsMounted(true);
   }, []);
 

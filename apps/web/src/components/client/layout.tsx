@@ -44,10 +44,10 @@ import { useAuthSync } from "@/hooks/useAuthSync";
 import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
 import { Footer } from "@/components/client/Footer";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import i18n, { defaultLanguage, supportedLanguageOptions } from "@/i18n/config";
+import i18n, { supportedLanguageOptions } from "@/i18n/config";
 import { theme } from "@/theme/theme";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
@@ -227,6 +227,7 @@ function AppControls({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -553,10 +554,13 @@ function AuthSyncEffect() {
 
 export function AppLayout({
   children,
+  lang,
 }: Readonly<{
   readonly children: ReactNode;
+  readonly lang: string;
 }>) {
-  const [language, setLanguage] = useState<string>(defaultLanguage);
+  const router = useRouter();
+  const pathname = usePathname();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [queryClient] = useState(
     () =>
@@ -573,29 +577,19 @@ export function AppLayout({
       }),
   );
 
+  if (i18n.resolvedLanguage !== lang) {
+    void i18n.changeLanguage(lang);
+  }
+
+  // Effect is no longer needed for hydration
   useEffect(() => {
-    const storedLanguage =
-      window.localStorage.getItem(STORAGE_KEYS.language) ??
-      i18n.resolvedLanguage ??
-      defaultLanguage;
-    const normalizedLanguage = supportedLanguageOptions.some(
-      (option) => option.value === storedLanguage,
-    )
-      ? storedLanguage
-      : defaultLanguage;
-    setLanguage(normalizedLanguage);
-    void i18n.changeLanguage(normalizedLanguage);
-  }, []);
+    window.localStorage.setItem(STORAGE_KEYS.language, lang);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.language, language);
-    document.documentElement.lang = language;
-  }, [language]);
-  useEffect(() => {
-    const handleLanguageChanged = (nextLanguage: string) => {
-      if (supportedLanguageOptions.some((option) => option.value === nextLanguage)) {
-        setLanguage(nextLanguage);
-      }
+    const handleLanguageChanged = (_nextLanguage: string) => {
+      // We don't set local state anymore since it's driven by URL
     };
 
     i18n.on("languageChanged", handleLanguageChanged);
@@ -605,8 +599,9 @@ export function AppLayout({
   }, []);
 
   const handleLanguageChange = (nextLanguage: string) => {
-    setLanguage(nextLanguage);
-    void i18n.changeLanguage(nextLanguage);
+    window.localStorage.setItem(STORAGE_KEYS.language, nextLanguage);
+    const newPath = pathname.replace(`/${lang}`, `/${nextLanguage}`);
+    router.push(newPath || `/${nextLanguage}`);
   };
 
   return (
@@ -626,7 +621,7 @@ export function AppLayout({
           }}
         >
           <ResponsiveAppBar
-            language={language}
+            language={lang}
             onLanguageChange={handleLanguageChange}
             onOpenNav={() => setMobileNavOpen(true)}
           />
@@ -672,7 +667,7 @@ export function AppLayout({
             >
               <MobileDrawerContent
                 onClose={() => setMobileNavOpen(false)}
-                language={language}
+                language={lang}
                 onLanguageChange={handleLanguageChange}
               />
             </Drawer>

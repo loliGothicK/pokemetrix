@@ -17,7 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import SportsMmaRounded from "@mui/icons-material/SportsMmaRounded";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 import { useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";

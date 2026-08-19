@@ -1,7 +1,7 @@
 "use client";
+import { useParams } from "next/navigation";
 
-import { useTranslation } from "react-i18next";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 import { MDXContent } from "@content-collections/mdx/react";
 import { useContentLayout } from "@/components/client/content/ContentLayoutContext";
 import { ContentShell } from "@/components/client/content/ContentShell";
@@ -16,8 +16,6 @@ import {
   type TocHeading,
 } from "@/components/client/content/TableOfContents";
 import type { BreadcrumbItem } from "@/components/client/content/ContentLayoutContext";
-import { useEffect, useState } from "react";
-import { DocsSearchBar } from "@/components/client/content/DocsSearchBar";
 
 type LocalizedSidebar = {
   readonly en: readonly ContentSidebarItem[];
@@ -28,6 +26,8 @@ type LocalizedContent = {
   readonly locale: string;
   readonly title: string;
   readonly description?: string;
+  readonly date: string;
+  readonly tags: readonly string[];
   readonly headings: readonly TocHeading[];
   readonly mdx: string;
 };
@@ -37,18 +37,12 @@ type Props = {
   readonly localizedContent: readonly LocalizedContent[];
 };
 
-export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
+export function BlogPostClient({ localizedSidebar, localizedContent }: Props) {
   const { isSidebarOpen, setIsSidebarOpen, isTocOpen, setIsTocOpen } = useContentLayout();
-  const { i18n } = useTranslation();
 
-  // Use a state to avoid hydration mismatch, falling back to Japanese for initial render
-  const [activeLang, setActiveLang] = useState<"en" | "ja">("ja");
-
-  useEffect(() => {
-    if (i18n.resolvedLanguage === "en" || i18n.resolvedLanguage === "ja") {
-      setActiveLang(i18n.resolvedLanguage);
-    }
-  }, [i18n.resolvedLanguage]);
+  const params = useParams();
+  const lang = (params?.lang as string) || "en";
+  const activeLang = lang === "ja" ? "ja" : "en";
 
   const sidebarItems = localizedSidebar[activeLang];
   const activeContent =
@@ -58,7 +52,7 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
   if (!activeContent) return null;
 
   const breadcrumbs: readonly BreadcrumbItem[] = [
-    { label: "Docs", href: "/docs" },
+    { label: "Blog", href: "/blog" },
     { label: activeContent.title },
   ];
 
@@ -67,22 +61,14 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
       breadcrumbs={breadcrumbs}
       hasToc
       headings={activeContent.headings}
-      sidebar={
-        <ContentSidebarDesktop
-          items={sidebarItems}
-          basePath="/docs"
-          label="Docs"
-          searchBar={<DocsSearchBar />}
-        />
-      }
+      sidebar={<ContentSidebarDesktop items={sidebarItems} basePath="/blog" label="Blog" />}
       sidebarDrawer={
         <ContentSidebarMobile
           items={sidebarItems}
-          basePath="/docs"
-          label="Docs"
+          basePath="/blog"
+          label="Blog"
           open={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
-          searchBar={<DocsSearchBar />}
         />
       }
       toc={<TableOfContentsDesktop headings={activeContent.headings} />}
@@ -97,11 +83,25 @@ export function DocPageClient({ localizedSidebar, localizedContent }: Props) {
       <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
         <Stack spacing={4}>
           <Stack spacing={1}>
+            <Typography variant="overline" color="text.secondary">
+              {new Date(activeContent.date).toLocaleDateString(
+                activeLang === "ja" ? "ja-JP" : "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                },
+              )}
+            </Typography>
             <Typography variant="h3" sx={{ fontWeight: 800 }}>
               {activeContent.title}
             </Typography>
-            {activeContent.description ? (
-              <Typography color="text.secondary">{activeContent.description}</Typography>
+            {activeContent.tags.length > 0 ? (
+              <Stack direction="row" spacing={1}>
+                {activeContent.tags.map((tag) => (
+                  <Chip key={tag} label={tag} size="small" />
+                ))}
+              </Stack>
             ) : null}
           </Stack>
           <Box
