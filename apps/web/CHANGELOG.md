@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.7.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.6.0...app-v0.7.0) (2026-08-19)
+
+
+### Features
+
+* **quiz:** prep for tsume-poke ([95122eb](https://github.com/loliGothicK/pokemetrix/commit/95122ebbef9e944a8d789927f6868da4d9a6b984))
+
+
+### Bug Fixes
+
+* **app:** fix authSync ([a86c8ad](https://github.com/loliGothicK/pokemetrix/commit/a86c8ada0752fe41989aea6d49b9d4a434d87040))
+* **app:** lang router ([f7865c0](https://github.com/loliGothicK/pokemetrix/commit/f7865c0a46d86ca63b085c2a0241278d4bdeb47e))
+* **app:** pin ([19d7ef1](https://github.com/loliGothicK/pokemetrix/commit/19d7ef1df5afbca11a38831e9da2634c76e73359))
+* **app:** renovate ([43b3056](https://github.com/loliGothicK/pokemetrix/commit/43b3056d0f2eb8abd0c51c60094ec76a011c8613))
+* **app:** useeffect-taught-by-extremist ([3a3b46f](https://github.com/loliGothicK/pokemetrix/commit/3a3b46fb31a42c6c9e695c7d8d5f426db7039db3))
+* **app:** useeffect-taught-by-extremist ([f14c1b0](https://github.com/loliGothicK/pokemetrix/commit/f14c1b00e1f4947afd7ade219b5bf7cadba67d10))
+* fix merge strategy ([b5668cc](https://github.com/loliGothicK/pokemetrix/commit/b5668ccf480eead0884ddd9cd04c992e7e109bf9))
+* pretty ([bdb727c](https://github.com/loliGothicK/pokemetrix/commit/bdb727cd97a2150869a4cf60fd6cea20f751f54f))
+* pretty ([ec16dce](https://github.com/loliGothicK/pokemetrix/commit/ec16dced33404e26216fa3d53f50c00496ee4e1a))
+* pretty ([6bbdfa2](https://github.com/loliGothicK/pokemetrix/commit/6bbdfa2150edea07de138b691f58341a1fcd0812))
+* quiz ([e0e646c](https://github.com/loliGothicK/pokemetrix/commit/e0e646cfb43e6989facb8c9a5cf7800572219644))
+* quiz ([6875941](https://github.com/loliGothicK/pokemetrix/commit/68759414a8e72e4f2f5ac4c14286b76b670a3165))
+* quiz ([ef90b6a](https://github.com/loliGothicK/pokemetrix/commit/ef90b6a01827316927045ce357fdf0526885b637))
+* quiz ([4ec6187](https://github.com/loliGothicK/pokemetrix/commit/4ec618781b50985d8f59af33c7ed03b7ac9a5d0a))
+* quiz ([d410d8f](https://github.com/loliGothicK/pokemetrix/commit/d410d8f7ab39100a5047d675cc29f5cedab6ff6e))
+* quiz ([c93f9a8](https://github.com/loliGothicK/pokemetrix/commit/c93f9a811cbeecf887a6ecc6485a21e0091cb497))
+* quiz studio ([7bf2a27](https://github.com/loliGothicK/pokemetrix/commit/7bf2a27c0e45ddaf9bc17dab5d63dc3488c4ddf2))
+
 ## [0.6.0](https://github.com/loliGothicK/pokemetrix/compare/app-v0.5.0...app-v0.6.0) (2026-08-16)
 
 ### Features
