@@ -104,7 +104,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "drizzle-kit": "0.31.10",
     "happy-dom": "20.11.2",
-    "inquirer": "14.0.2",
+    "inquirer": "14.1.0",
     "monaco-editor": "0.56.0",
     "oxfmt": "0.64.0",
     "oxlint": "1.79.0",
