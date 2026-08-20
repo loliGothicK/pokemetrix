@@ -13,12 +13,21 @@
     "fmt": "pnpm -r run fmt",
     "pretty": "pnpm -r run pretty",
     "changeset": "changeset",
-    "version": "changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version"
+    "version": "changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.3.0",
+    "oxfmt": "0.64.0",
+    "oxlint": "1.79.0",
     "ts-morph": "28.0.0",
     "wrangler": "4.123.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs,mdx,json}": "oxfmt",
+    "*.rs": "rustfmt"
   },
   "packageManager": "pnpm@11.22.0"
 }
