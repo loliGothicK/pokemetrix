@@ -45,7 +45,7 @@ pub(crate) fn neutral_modifier() -> u16 {
 /// Every modifier is expected to already be resolved to its `x / 4096` value;
 /// the engine only implements rounding, chaining, and the exact application
 /// order described in DaWoblefet's damage dissertation.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 #[serde(rename_all = "camelCase")]
 pub struct DamageInput {
     /// Attacker level (1–100). VGC uses 50.
@@ -86,6 +86,9 @@ pub struct DamageInput {
     /// Defender's secondary type, if any.
     #[serde(default)]
     pub defender_type2: Option<Type>,
+    /// Defender's third/added type, if any.
+    #[serde(default)]
+    pub defender_type3: Option<Type>,
     /// Override for the type-effectiveness shift (e.g. Freeze-Dry). When set,
     /// the built-in chart is ignored.
     #[serde(default)]
@@ -126,10 +129,18 @@ pub struct DamageInput {
     /// Z-move-into-protect modifier (1024).
     #[serde(default = "neutral_modifier")]
     pub protect_modifier: u16,
+    #[serde(default)]
+    pub tinted_lens: bool,
+    #[serde(default)]
+    pub neuroforce: bool,
+    #[serde(default)]
+    pub solid_rock: bool,
 }
 
+use tsify::Tsify;
+
 /// Result of a damage calculation: all 16 rolls plus the extremes.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 #[serde(rename_all = "camelCase")]
 pub struct DamageOutput {
     /// All 16 possible damage rolls, ascending (index 0 = min, 15 = max).

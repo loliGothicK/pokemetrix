@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Data paths
-const dataDir = path.join(__dirname, "../data/champions");
+const dataDir = path.join(__dirname, "../@pokemetrix/data/champions");
 const pokemonPath = path.join(dataDir, "pokemon.json");
 const itemsPath = path.join(dataDir, "items.json");
 const movesPath = path.join(dataDir, "moves.json");
@@ -20,19 +20,23 @@ const pokemonData = JSON.parse(fs.readFileSync(pokemonPath, "utf8"));
 const itemsData = JSON.parse(fs.readFileSync(itemsPath, "utf8"));
 const movesData = JSON.parse(fs.readFileSync(movesPath, "utf8"));
 
-const validPokemon = new Set(pokemonData.data.map((p: any) => p.identifier));
-const validItems = new Set(itemsData.data.map((i: any) => i.identifier));
-const validMoves = new Set(movesData.data.map((m: any) => m.identifier));
+const validPokemon = new Set(
+  pokemonData.data.map((p: { identifier: string; abilities: number[] }) => p.identifier),
+);
+const validItems = new Set(itemsData.data.map((i: { identifier: string }) => i.identifier));
+const validMoves = new Set(movesData.data.map((m: { identifier: string }) => m.identifier));
 
 const abilitiesMaster = JSON.parse(fs.readFileSync(abilitiesMasterPath, "utf8"));
 const enTranslation = JSON.parse(fs.readFileSync(enTranslationPath, "utf8"));
 const jaTranslation = JSON.parse(fs.readFileSync(jaTranslationPath, "utf8"));
 
-const validAbilityIds = new Set(pokemonData.data.flatMap((p: any) => p.abilities));
+const validAbilityIds = new Set(
+  pokemonData.data.flatMap((p: { abilities: number[] }) => p.abilities),
+);
 const allAbilityNames = new Set<string>();
 const validAbilityNames = new Set<string>();
 
-abilitiesMaster.data.forEach((ability: any) => {
+abilitiesMaster.data.forEach((ability: { id: number; identifier: string }) => {
   const id = ability.identifier;
   const isChampionsValid = validAbilityIds.has(ability.id);
 
@@ -127,7 +131,10 @@ async function validate() {
 
       if (quiz.tsumeData) {
         const tsume = quiz.tsumeData;
-        const checkSide = (side: any[], sideName: string) => {
+        const checkSide = (
+          side: { species: string; item?: string; moves: string[]; ability?: string }[],
+          sideName: string,
+        ) => {
           side.forEach((poke, idx) => {
             if (!validPokemon.has(poke.species))
               error(`Quiz ${quiz.id} ${sideName}[${idx}]: Invalid species ${poke.species}`);
@@ -161,7 +168,9 @@ async function validate() {
         textFieldsToCheck.push(quiz.correctAnswer);
       }
       if (quiz.correctGroups) {
-        Object.values(quiz.correctGroups).forEach((arr: any) => textFieldsToCheck.push(...arr));
+        Object.values(quiz.correctGroups as Record<string, string[]>).forEach((arr: string[]) =>
+          textFieldsToCheck.push(...arr),
+        );
       }
 
       for (const text of textFieldsToCheck) {

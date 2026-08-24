@@ -51,7 +51,7 @@ files.forEach((file) => {
         } else {
           // Check if moveName is in player's active pokemon moves
           let hasMove = false;
-          tsumeData.playerSide.active.forEach((poke: any) => {
+          tsumeData.playerSide.active.forEach((poke: { moves?: string[] }) => {
             if (poke.moves && poke.moves.includes(moveName)) {
               hasMove = true;
             }
@@ -86,7 +86,7 @@ files.forEach((file) => {
       descriptionText.includes("素早さ")
     ) {
       let hasSpe = false;
-      tsumeData.playerSide.active.forEach((poke: any) => {
+      tsumeData.playerSide.active.forEach((poke: { stats?: { spe?: number } }) => {
         if (poke.stats && poke.stats.spe !== undefined) hasSpe = true;
       });
       if (!hasSpe) {

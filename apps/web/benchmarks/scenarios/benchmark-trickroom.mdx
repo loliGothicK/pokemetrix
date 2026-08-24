@@ -1,0 +1,59 @@
+---
+id: "benchmark_trickroom"
+difficulty: "expert"
+category: "tsume"
+format: "tsume_action"
+question: "トリックルームを5ターン枯らせるかベンチマーク"
+options: []
+trigger: always_on
+tsumeData:
+  playerSide:
+    active:
+      - species: "Amoonguss"
+        hpCurrent: 221
+        hpMax: 221
+        stats: { spe: 30 }
+        moves: ["spore", "protect", "ragepowder", "clearsmog"]
+        ability: "regenerator"
+      - species: "Incineroar"
+        hpCurrent: 202
+        hpMax: 202
+        stats: { spe: 60 }
+        moves: ["fakeout", "flareblitz", "knockoff", "partingshot"]
+        ability: "intimidate"
+    bench:
+      - species: "Rillaboom"
+        hpCurrent: 175
+        hpMax: 175
+        stats: { spe: 85 }
+        moves: ["grassyglide", "woodhammer", "fakeout", "uturn"]
+        ability: "grassysurge"
+      - species: "Urshifu-Rapid-Strike"
+        hpCurrent: 175
+        hpMax: 175
+        stats: { spe: 97 }
+        moves: ["surgingstrikes", "closecombat", "aquajet", "detect"]
+        ability: "unseenfist"
+  opponentSide:
+    active:
+      - species: "Torkoal"
+        hpCurrent: 145
+        hpMax: 145
+        stats: { spe: 20 }
+        moves: ["eruption", "heatwave", "earthpower", "protect"]
+        ability: "drought"
+      - species: "Hatterene"
+        hpCurrent: 140
+        hpMax: 140
+        stats: { spe: 29 }
+        moves: ["expandingforce", "dazzlinggleam", "trickroom", "protect"]
+        ability: "magicbounce"
+    bench:
+      - species: "Ursaluna"
+        hpCurrent: 210
+        hpMax: 210
+        stats: { spe: 50 }
+        moves: ["facade", "headlongrush", "earthquake", "protect"]
+        ability: "guts"
+  correctMoves: ["pass"]
+---

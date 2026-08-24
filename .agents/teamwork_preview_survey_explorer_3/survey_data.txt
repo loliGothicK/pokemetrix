@@ -1,0 +1,24 @@
+Total champions moves: 533
+Total pkmn/sim moves: 954
+Total conditions in conditions.mjs: 35
+Unique Volatile Statuses (47):
+aquaring, attract, banefulbunker, charge, confusion, curse, destinybond, disable, dragoncheer, electrify, encore, endure, flinch, focusenergy, followme, gastroacid, healblock, helpinghand, imprison, ingrain, kingsshield, laserfocus, leechseed, lockedmove, magnetrise, minimize, mustrecharge, noretreat, partiallytrapped, powershift, powertrick, protect, ragepowder, roost, saltcure, smackdown, snatch, sparklingaria, spikyshield, stockpile, substitute, syrupbomb, taunt, telekinesis, torment, uproar, yawn
+
+Unique Side Conditions (12):
+auroraveil, lightscreen, mist, quickguard, reflect, safeguard, spikes, stealthrock, stickyweb, tailwind, toxicspikes, wideguard
+
+Unique Slot Conditions (2):
+Wish, healingwish
+
+Unique Pseudo Weathers (5):
+fairylock, gravity, magicroom, trickroom, wonderroom
+
+Unique Terrains (4):
+electricterrain, grassyterrain, mistyterrain, psychicterrain
+
+Unique Weathers (4):
+RainDance, Sandstorm, snowscape, sunnyday
+
+Custom Move Handlers count: 239
+Secondary Effects count: 131
+Self Effects count: 25

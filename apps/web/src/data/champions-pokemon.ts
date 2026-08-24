@@ -1,6 +1,6 @@
-import { data } from "@data/champions/pokemon.json";
-import { data as typesData } from "@data/master/pokemon_types.json";
-import { data as typeData } from "@data/master/types.json";
+import { data } from "@pokemetrix/data/champions/pokemon.json";
+import { data as typesData } from "@pokemetrix/data/master/pokemon_types.json";
+import { data as typeData } from "@pokemetrix/data/master/types.json";
 import { z } from "zod";
 import { Type } from "@/types/pokemon";
 

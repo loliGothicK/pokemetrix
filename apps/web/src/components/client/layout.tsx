@@ -39,7 +39,7 @@ import {
 import { useTheme, useColorScheme } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore, useState, useEffect } from "react";
 import { useAuthSync } from "@/hooks/useAuthSync";
 import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
@@ -224,12 +224,11 @@ function AppControls({
 }) {
   const { mode, setMode } = useColorScheme();
   const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   if (!mounted || !mode) return <Box sx={{ width: 190 }} />; // placeholder width to prevent layout shift
 

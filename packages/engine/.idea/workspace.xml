@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/../Cargo.toml">
+      <package file="$PROJECT_DIR$/../damage-calc">
+        <feature name="default" enabled="true" />
+      </package>
+      <package file="$PROJECT_DIR$/../data">
+        <feature name="default" enabled="true" />
+      </package>
+      <package file="$PROJECT_DIR$">
+        <feature name="default" enabled="true" />
+      </package>
+    </cargoProject>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93dbd46c-fdb7-4660-b18b-d41659ca4c91" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/docs/search/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/docs/search/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/quiz-studio/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/quiz-studio/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/quizzes/speed_compare/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/quizzes/speed_compare/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/oxlint.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/check-i18n.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/check-i18n.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/generate-tsume-responses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/generate-tsume-responses.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/validate-tsume-puzzles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/validate-tsume-puzzles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/validate_domain.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/validate_domain.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/services/teams.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/services/teams.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/battle-record/BattleRecordFormDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/battle-record/BattleRecordFormDialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/content/DocsSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/content/DocsSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/HeatmapVisualizer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/HeatmapVisualizer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/SqlEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/SqlEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/transformers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/transformers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/QuizStudioList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/QuizStudioList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/GroupingFormat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/GroupingFormat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/TsumeActionFormat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/TsumeActionFormat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/hooks/useAuthSync.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/hooks/useAuthSync.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/db/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/db/seed.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/db/validators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/db/validators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/sql/engine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/sql/engine.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/validator/format-issues.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/validator/format-issues.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeEngine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeEngine.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeMinimax.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeMinimax.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../data/oxlint.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/oxlint.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sim/abilities.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sim/abilities.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sim/battle.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sim/battle.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/items.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/items.test.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="EyD4GHoD" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3IHKQ7tYjVEAiiR92OLWoYy6Kr1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CidrDebugProfileConversion&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/sim-engine&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/workspace/pokemetrix/packages/engine&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\lolig\\AppData\\Local\\Programs\\RustRover\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Test packages" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="buildProfileId" value="test" />
+      <option name="command" value="test --workspace" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/.." />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93dbd46c-fdb7-4660-b18b-d41659ca4c91" name="Changes" comment="" />
+      <created>1787416035091</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1787416035091</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

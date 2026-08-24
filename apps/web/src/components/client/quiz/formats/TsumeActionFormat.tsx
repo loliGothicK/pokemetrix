@@ -30,7 +30,11 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const formatSpeciesName = (speciesId: string) => speciesId.split("-").map(capitalize).join("-");
 
 // Pure function to run simulation
-function runSimulation(tsumeData: TsumeData, queuedActions: { move: string }[], t: any) {
+function runSimulation(
+  tsumeData: TsumeData,
+  queuedActions: { move: string }[],
+  t: (key: string) => string,
+) {
   const engine = new TsumeEngine(tsumeData);
   let ended = false;
 
@@ -114,7 +118,6 @@ export function TsumeActionFormat({
   onActionsChange,
   onSubmit,
   showExplanation,
-  correctMoves, // eslint-disable-line @typescript-eslint/no-unused-vars
 }: TsumeActionFormatProps) {
   const { t } = useTranslation();
   const [queuedActions, setQueuedActions] = useState<{ move: string }[]>([]);
@@ -442,35 +445,37 @@ export function TsumeActionFormat({
           ) : (
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, height: "100%" }}>
               {p1Active[selectingSlot] &&
-                p1Active[selectingSlot].moveSlots.map((moveSlot: any, index: number) => {
-                  const moveId = moveSlot.id;
-                  const moveName = moveSlot.move;
-                  return (
-                    <Button
-                      key={moveId}
-                      variant="contained"
-                      onClick={() => handleMoveSelect(moveId, index)}
-                      disabled={showExplanation}
-                      sx={{
-                        bgcolor: "#f5f5f5",
-                        color: "#000",
-                        "&:hover": { bgcolor: "#e0e0e0" },
-                        fontSize: "1.1rem",
-                        fontWeight: "bold",
-                        textTransform: "capitalize",
-                        border: "2px solid #ccc",
-                        boxShadow: "none",
-                      }}
-                    >
-                      {moveName}
-                    </Button>
-                  );
-                })}
+                p1Active[selectingSlot].moveSlots.map(
+                  (moveSlot: { id: string; move: string }, index: number) => {
+                    const moveId = moveSlot.id;
+                    const moveName = moveSlot.move;
+                    return (
+                      <Button
+                        key={moveId}
+                        variant="contained"
+                        onClick={() => handleMoveSelect(moveId, index)}
+                        disabled={showExplanation}
+                        sx={{
+                          bgcolor: "#f5f5f5",
+                          color: "#000",
+                          "&:hover": { bgcolor: "#e0e0e0" },
+                          fontSize: "1.1rem",
+                          fontWeight: "bold",
+                          textTransform: "capitalize",
+                          border: "2px solid #ccc",
+                          boxShadow: "none",
+                        }}
+                      >
+                        {moveName}
+                      </Button>
+                    );
+                  },
+                )}
               {tsumeData.playerSide.bench && tsumeData.playerSide.bench.length > 0 && (
                 <Button
                   variant="contained"
                   onClick={() => {
-                    setPendingMove({ type: "switch", id: "switch", index: 0, target: "" } as any);
+                    setPendingMove({ type: "switch", id: "switch", index: 0, target: "" });
                     setTargetModalOpen(true);
                   }}
                   disabled={showExplanation}

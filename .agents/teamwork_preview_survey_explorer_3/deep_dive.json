@@ -1,0 +1,858 @@
+{
+  "allHookNames": [
+    "onAccuracy",
+    "onAccuracyPriority",
+    "onAfterMove",
+    "onAnyModifyDamage",
+    "onAnyPrepareHit",
+    "onAnyPrepareHitPriority",
+    "onAnySetStatus",
+    "onBasePower",
+    "onBasePowerPriority",
+    "onBeforeMove",
+    "onBeforeMovePriority",
+    "onCopy",
+    "onDamage",
+    "onDamagePriority",
+    "onDisableMove",
+    "onDragOut",
+    "onEnd",
+    "onFaint",
+    "onFieldEnd",
+    "onFieldResidualOrder",
+    "onFieldResidualSubOrder",
+    "onFieldRestart",
+    "onFieldStart",
+    "onFoeBeforeMove",
+    "onFoeBeforeMovePriority",
+    "onFoeDisableMove",
+    "onFoeRedirectTarget",
+    "onFoeRedirectTargetPriority",
+    "onHit",
+    "onImmunity",
+    "onLockMove",
+    "onModifyAccuracy",
+    "onModifyCritRatio",
+    "onModifyMove",
+    "onModifySpe",
+    "onModifyType",
+    "onModifyTypePriority",
+    "onMoveAborted",
+    "onOverrideAction",
+    "onResidual",
+    "onResidualOrder",
+    "onResidualSubOrder",
+    "onRestart",
+    "onSetStatus",
+    "onSideEnd",
+    "onSideResidualOrder",
+    "onSideResidualSubOrder",
+    "onSideRestart",
+    "onSideStart",
+    "onSourceModifyDamage",
+    "onStart",
+    "onSwitchIn",
+    "onTrapPokemon",
+    "onTryAddVolatile",
+    "onTryBoost",
+    "onTryHeal",
+    "onTryHit",
+    "onTryHitPriority",
+    "onTryPrimaryHit",
+    "onTryPrimaryHitPriority",
+    "onType",
+    "onTypePriority",
+    "onUpdate"
+  ],
+  "moveHooks": [
+    "onAfterHit",
+    "onAfterMove",
+    "onAfterMoveSecondarySelf",
+    "onAfterSubDamage",
+    "onBasePower",
+    "onDamage",
+    "onDamagePriority",
+    "onDisableMove",
+    "onEffectiveness",
+    "onHit",
+    "onHitField",
+    "onHitSide",
+    "onModifyMove",
+    "onModifyPriority",
+    "onModifyTarget",
+    "onModifyType",
+    "onMoveFail",
+    "onPrepareHit",
+    "onTry",
+    "onTryHit",
+    "onTryImmunity",
+    "onTryMove"
+  ],
+  "volatileDetails": [
+    {
+      "id": "aquaring",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onResidualOrder", "onResidual"],
+      "duration": null,
+      "hooks": ["onStart", "onResidualOrder", "onResidual"]
+    },
+    {
+      "id": "attract",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onStart", "onUpdate", "onBeforeMovePriority", "onBeforeMove", "onEnd"],
+      "duration": null,
+      "hooks": ["onStart", "onUpdate", "onBeforeMovePriority", "onBeforeMove", "onEnd"]
+    },
+    {
+      "id": "banefulbunker",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onTryHitPriority", "onTryHit", "onHit"],
+      "duration": 1,
+      "hooks": ["onStart", "onTryHitPriority", "onTryHit", "onHit"]
+    },
+    {
+      "id": "charge",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "onStart",
+        "onRestart",
+        "onBasePowerPriority",
+        "onBasePower",
+        "onMoveAborted",
+        "onAfterMove",
+        "onEnd"
+      ],
+      "duration": null,
+      "hooks": [
+        "onStart",
+        "onRestart",
+        "onBasePowerPriority",
+        "onBasePower",
+        "onMoveAborted",
+        "onAfterMove",
+        "onEnd"
+      ]
+    },
+    {
+      "id": "confusion",
+      "source": "conditions.mjs",
+      "keys": ["name", "onStart", "onEnd", "onBeforeMovePriority", "onBeforeMove"],
+      "duration": null,
+      "hooks": ["onStart", "onEnd", "onBeforeMovePriority", "onBeforeMove"]
+    },
+    {
+      "id": "curse",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onResidualOrder", "onResidual"],
+      "duration": null,
+      "hooks": ["onStart", "onResidualOrder", "onResidual"]
+    },
+    {
+      "id": "destinybond",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "noCopy",
+        "onStart",
+        "onFaint",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onMoveAborted"
+      ],
+      "duration": null,
+      "hooks": ["onStart", "onFaint", "onBeforeMovePriority", "onBeforeMove", "onMoveAborted"]
+    },
+    {
+      "id": "disable",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "noCopy",
+        "onStart",
+        "onResidualOrder",
+        "onEnd",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onDisableMove"
+      ],
+      "duration": 5,
+      "hooks": [
+        "onStart",
+        "onResidualOrder",
+        "onEnd",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onDisableMove"
+      ]
+    },
+    {
+      "id": "dragoncheer",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onModifyCritRatio"],
+      "duration": null,
+      "hooks": ["onStart", "onModifyCritRatio"]
+    },
+    {
+      "id": "electrify",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onModifyTypePriority", "onModifyType"],
+      "duration": 1,
+      "hooks": ["onStart", "onModifyTypePriority", "onModifyType"]
+    },
+    {
+      "id": "encore",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "noCopy",
+        "onStart",
+        "onOverrideAction",
+        "onResidualOrder",
+        "onResidual",
+        "onEnd",
+        "onDisableMove"
+      ],
+      "duration": 3,
+      "hooks": [
+        "onStart",
+        "onOverrideAction",
+        "onResidualOrder",
+        "onResidual",
+        "onEnd",
+        "onDisableMove"
+      ]
+    },
+    {
+      "id": "endure",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onDamagePriority", "onDamage"],
+      "duration": 1,
+      "hooks": ["onStart", "onDamagePriority", "onDamage"]
+    },
+    {
+      "id": "flinch",
+      "source": "conditions.mjs",
+      "keys": ["name", "duration", "onBeforeMovePriority", "onBeforeMove"],
+      "duration": 1,
+      "hooks": ["onBeforeMovePriority", "onBeforeMove"]
+    },
+    {
+      "id": "focusenergy",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onModifyCritRatio"],
+      "duration": null,
+      "hooks": ["onStart", "onModifyCritRatio"]
+    },
+    {
+      "id": "followme",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onFoeRedirectTargetPriority", "onFoeRedirectTarget"],
+      "duration": 1,
+      "hooks": ["onStart", "onFoeRedirectTargetPriority", "onFoeRedirectTarget"]
+    },
+    {
+      "id": "gastroacid",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onCopy"],
+      "duration": null,
+      "hooks": ["onStart", "onCopy"]
+    },
+    {
+      "id": "healblock",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onStart",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onModifyMove",
+        "onResidualOrder",
+        "onEnd",
+        "onTryHeal",
+        "onRestart"
+      ],
+      "duration": 5,
+      "hooks": [
+        "onStart",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onModifyMove",
+        "onResidualOrder",
+        "onEnd",
+        "onTryHeal",
+        "onRestart"
+      ]
+    },
+    {
+      "id": "helpinghand",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onRestart", "onBasePowerPriority", "onBasePower"],
+      "duration": 1,
+      "hooks": ["onStart", "onRestart", "onBasePowerPriority", "onBasePower"]
+    },
+    {
+      "id": "imprison",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "noCopy",
+        "onStart",
+        "onFoeDisableMove",
+        "onFoeBeforeMovePriority",
+        "onFoeBeforeMove"
+      ],
+      "duration": null,
+      "hooks": ["onStart", "onFoeDisableMove", "onFoeBeforeMovePriority", "onFoeBeforeMove"]
+    },
+    {
+      "id": "ingrain",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onResidualOrder", "onResidual", "onTrapPokemon", "onDragOut"],
+      "duration": null,
+      "hooks": ["onStart", "onResidualOrder", "onResidual", "onTrapPokemon", "onDragOut"]
+    },
+    {
+      "id": "kingsshield",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onTryHitPriority", "onTryHit", "onHit"],
+      "duration": 1,
+      "hooks": ["onStart", "onTryHitPriority", "onTryHit", "onHit"]
+    },
+    {
+      "id": "laserfocus",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onRestart", "onModifyCritRatio", "onEnd"],
+      "duration": 2,
+      "hooks": ["onStart", "onRestart", "onModifyCritRatio", "onEnd"]
+    },
+    {
+      "id": "leechseed",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onResidualOrder", "onResidual"],
+      "duration": null,
+      "hooks": ["onStart", "onResidualOrder", "onResidual"]
+    },
+    {
+      "id": "lockedmove",
+      "source": "conditions.mjs",
+      "keys": [
+        "name",
+        "duration",
+        "onResidual",
+        "onStart",
+        "onRestart",
+        "onAfterMove",
+        "onEnd",
+        "onLockMove"
+      ],
+      "duration": 2,
+      "hooks": ["onResidual", "onStart", "onRestart", "onAfterMove", "onEnd", "onLockMove"]
+    },
+    {
+      "id": "magnetrise",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onImmunity", "onResidualOrder", "onEnd"],
+      "duration": 5,
+      "hooks": ["onStart", "onImmunity", "onResidualOrder", "onEnd"]
+    },
+    {
+      "id": "minimize",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onRestart", "onSourceModifyDamage", "onAccuracy"],
+      "duration": null,
+      "hooks": ["onRestart", "onSourceModifyDamage", "onAccuracy"]
+    },
+    {
+      "id": "mustrecharge",
+      "source": "conditions.mjs",
+      "keys": ["name", "duration", "onBeforeMovePriority", "onBeforeMove", "onStart", "onLockMove"],
+      "duration": 2,
+      "hooks": ["onBeforeMovePriority", "onBeforeMove", "onStart", "onLockMove"]
+    },
+    {
+      "id": "noretreat",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onTrapPokemon"],
+      "duration": null,
+      "hooks": ["onStart", "onTrapPokemon"]
+    },
+    {
+      "id": "partiallytrapped",
+      "source": "conditions.mjs",
+      "keys": [
+        "name",
+        "duration",
+        "durationCallback",
+        "onStart",
+        "onResidualOrder",
+        "onResidual",
+        "onEnd",
+        "onTrapPokemon"
+      ],
+      "duration": 5,
+      "hooks": ["onStart", "onResidualOrder", "onResidual", "onEnd", "onTrapPokemon"]
+    },
+    {
+      "id": "powershift",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onCopy", "onEnd", "onRestart"],
+      "duration": null,
+      "hooks": ["onStart", "onCopy", "onEnd", "onRestart"]
+    },
+    {
+      "id": "powertrick",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onCopy", "onEnd", "onRestart"],
+      "duration": null,
+      "hooks": ["onStart", "onCopy", "onEnd", "onRestart"]
+    },
+    {
+      "id": "protect",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onTryHitPriority", "onTryHit"],
+      "duration": 1,
+      "hooks": ["onStart", "onTryHitPriority", "onTryHit"]
+    },
+    {
+      "id": "ragepowder",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onFoeRedirectTargetPriority", "onFoeRedirectTarget"],
+      "duration": 1,
+      "hooks": ["onStart", "onFoeRedirectTargetPriority", "onFoeRedirectTarget"]
+    },
+    {
+      "id": "roost",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onResidualOrder", "onStart", "onTypePriority", "onType"],
+      "duration": 1,
+      "hooks": ["onResidualOrder", "onStart", "onTypePriority", "onType"]
+    },
+    {
+      "id": "saltcure",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onStart", "onResidualOrder", "onResidual", "onEnd"],
+      "duration": null,
+      "hooks": ["onStart", "onResidualOrder", "onResidual", "onEnd"]
+    },
+    {
+      "id": "smackdown",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onStart", "onRestart"],
+      "duration": null,
+      "hooks": ["onStart", "onRestart"]
+    },
+    {
+      "id": "snatch",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onAnyPrepareHitPriority", "onAnyPrepareHit"],
+      "duration": 1,
+      "hooks": ["onStart", "onAnyPrepareHitPriority", "onAnyPrepareHit"]
+    },
+    {
+      "id": "sparklingaria",
+      "source": "moves.mjs (move)",
+      "keys": [
+        "num",
+        "accuracy",
+        "basePower",
+        "category",
+        "name",
+        "pp",
+        "priority",
+        "flags",
+        "secondary",
+        "onAfterMove",
+        "target",
+        "type",
+        "contestType"
+      ],
+      "duration": null,
+      "hooks": ["onAfterMove"]
+    },
+    {
+      "id": "spikyshield",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onStart", "onTryHitPriority", "onTryHit", "onHit"],
+      "duration": 1,
+      "hooks": ["onStart", "onTryHitPriority", "onTryHit", "onHit"]
+    },
+    {
+      "id": "stockpile",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onStart", "onRestart", "onEnd"],
+      "duration": null,
+      "hooks": ["onStart", "onRestart", "onEnd"]
+    },
+    {
+      "id": "substitute",
+      "source": "moves.mjs (condition)",
+      "keys": ["onStart", "onTryPrimaryHitPriority", "onTryPrimaryHit", "onEnd"],
+      "duration": null,
+      "hooks": ["onStart", "onTryPrimaryHitPriority", "onTryPrimaryHit", "onEnd"]
+    },
+    {
+      "id": "syrupbomb",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "noCopy",
+        "duration",
+        "onStart",
+        "onUpdate",
+        "onResidualOrder",
+        "onResidual",
+        "onEnd"
+      ],
+      "duration": 4,
+      "hooks": ["onStart", "onUpdate", "onResidualOrder", "onResidual", "onEnd"]
+    },
+    {
+      "id": "taunt",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "onStart",
+        "onResidualOrder",
+        "onEnd",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove"
+      ],
+      "duration": 3,
+      "hooks": [
+        "onStart",
+        "onResidualOrder",
+        "onEnd",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove"
+      ]
+    },
+    {
+      "id": "telekinesis",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "onStart",
+        "onAccuracyPriority",
+        "onAccuracy",
+        "onImmunity",
+        "onUpdate",
+        "onResidualOrder",
+        "onEnd"
+      ],
+      "duration": 3,
+      "hooks": [
+        "onStart",
+        "onAccuracyPriority",
+        "onAccuracy",
+        "onImmunity",
+        "onUpdate",
+        "onResidualOrder",
+        "onEnd"
+      ]
+    },
+    {
+      "id": "torment",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "onStart", "onEnd", "onDisableMove"],
+      "duration": null,
+      "hooks": ["onStart", "onEnd", "onDisableMove"]
+    },
+    {
+      "id": "uproar",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "onStart",
+        "onResidual",
+        "onResidualOrder",
+        "onResidualSubOrder",
+        "onEnd",
+        "onLockMove",
+        "onAnySetStatus"
+      ],
+      "duration": 3,
+      "hooks": [
+        "onStart",
+        "onResidual",
+        "onResidualOrder",
+        "onResidualSubOrder",
+        "onEnd",
+        "onLockMove",
+        "onAnySetStatus"
+      ]
+    },
+    {
+      "id": "yawn",
+      "source": "moves.mjs (condition)",
+      "keys": ["noCopy", "duration", "onStart", "onResidualOrder", "onEnd"],
+      "duration": 2,
+      "hooks": ["onStart", "onResidualOrder", "onEnd"]
+    }
+  ],
+  "sideCondDetails": [
+    {
+      "id": "auroraveil",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "lightscreen",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "mist",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "onTryBoost",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onTryBoost",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "quickguard",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onSideStart", "onTryHitPriority", "onTryHit"],
+      "hooks": ["onSideStart", "onTryHitPriority", "onTryHit"]
+    },
+    {
+      "id": "reflect",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onAnyModifyDamage",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "safeguard",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onSetStatus",
+        "onTryAddVolatile",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onSetStatus",
+        "onTryAddVolatile",
+        "onSideStart",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "spikes",
+      "source": "moves.mjs (condition)",
+      "keys": ["onSideStart", "onSideRestart", "onSwitchIn"],
+      "hooks": ["onSideStart", "onSideRestart", "onSwitchIn"]
+    },
+    {
+      "id": "stealthrock",
+      "source": "moves.mjs (condition)",
+      "keys": ["onSideStart", "onSwitchIn"],
+      "hooks": ["onSideStart", "onSwitchIn"]
+    },
+    {
+      "id": "stickyweb",
+      "source": "moves.mjs (condition)",
+      "keys": ["onSideStart", "onSwitchIn"],
+      "hooks": ["onSideStart", "onSwitchIn"]
+    },
+    {
+      "id": "tailwind",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onSideStart",
+        "onModifySpe",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ],
+      "hooks": [
+        "onSideStart",
+        "onModifySpe",
+        "onSideResidualOrder",
+        "onSideResidualSubOrder",
+        "onSideEnd"
+      ]
+    },
+    {
+      "id": "toxicspikes",
+      "source": "moves.mjs (condition)",
+      "keys": ["onSideStart", "onSideRestart", "onSwitchIn"],
+      "hooks": ["onSideStart", "onSideRestart", "onSwitchIn"]
+    },
+    {
+      "id": "wideguard",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onSideStart", "onTryHitPriority", "onTryHit"],
+      "hooks": ["onSideStart", "onTryHitPriority", "onTryHit"]
+    }
+  ],
+  "pseudoWeatherDetails": [
+    {
+      "id": "fairylock",
+      "source": "moves.mjs (condition)",
+      "keys": ["duration", "onFieldStart", "onTrapPokemon"],
+      "hooks": ["onFieldStart", "onTrapPokemon"]
+    },
+    {
+      "id": "gravity",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onFieldStart",
+        "onModifyAccuracy",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onModifyMove",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ],
+      "hooks": [
+        "onFieldStart",
+        "onModifyAccuracy",
+        "onDisableMove",
+        "onBeforeMovePriority",
+        "onBeforeMove",
+        "onModifyMove",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ]
+    },
+    {
+      "id": "magicroom",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ],
+      "hooks": [
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ]
+    },
+    {
+      "id": "trickroom",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ],
+      "hooks": [
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ]
+    },
+    {
+      "id": "wonderroom",
+      "source": "moves.mjs (condition)",
+      "keys": [
+        "duration",
+        "durationCallback",
+        "onModifyMove",
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ],
+      "hooks": [
+        "onModifyMove",
+        "onFieldStart",
+        "onFieldRestart",
+        "onFieldResidualOrder",
+        "onFieldResidualSubOrder",
+        "onFieldEnd"
+      ]
+    }
+  ],
+  "secondaryCategories": {
+    "status": 39,
+    "boosts": 41,
+    "volatileStatus": 29,
+    "chanceOnly": 0,
+    "customOnHit": 7
+  }
+}

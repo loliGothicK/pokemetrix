@@ -49,7 +49,7 @@ function parseSelect(selectStr: string): SelectItem[] {
     if (aggMatch) {
       items.push({
         type: "aggregate",
-        func: aggMatch[1].toUpperCase() as any,
+        func: aggMatch[1].toUpperCase() as SelectItem["func"],
         column: aggMatch[2],
         alias: aggMatch[3],
       });
@@ -88,7 +88,7 @@ function parseWhereCondition(condStr: string): WhereCondition | null {
   if (!match) return null;
   return {
     column: match[1],
-    operator: match[2] as any,
+    operator: match[2] as WhereCondition["operator"],
     value: parseWhereValue(match[3]),
   };
 }
@@ -162,21 +162,21 @@ export function parseSql(query: string): SqlAST {
   return ast;
 }
 
-function evaluateCondition(record: any, cond: WhereCondition): boolean {
+function evaluateCondition(record: Record<string, unknown>, cond: WhereCondition): boolean {
   const recordVal = record[cond.column];
   if (recordVal === undefined) return false;
 
   return match(cond.operator)
     .with("=", () => recordVal == cond.value)
     .with("!=", () => recordVal != cond.value)
-    .with(">", () => recordVal > cond.value)
-    .with(">=", () => recordVal >= cond.value)
-    .with("<", () => recordVal < cond.value)
-    .with("<=", () => recordVal <= cond.value)
+    .with(">", () => (recordVal as number) > (cond.value as number))
+    .with(">=", () => (recordVal as number) >= (cond.value as number))
+    .with("<", () => (recordVal as number) < (cond.value as number))
+    .with("<=", () => (recordVal as number) <= (cond.value as number))
     .otherwise(() => false);
 }
 
-function evaluateWhereNode(record: any, node?: WhereNode): boolean {
+function evaluateWhereNode(record: Record<string, unknown>, node?: WhereNode): boolean {
   if (!node) return true;
   if (node.type === "AND") {
     return node.conditions.every((c) => {
@@ -210,8 +210,8 @@ export function executeSql(
     const ob = ast.orderBy;
     filtered = [...filtered].sort((a, b) => {
       for (const order of ob) {
-        const valA = a[order.column] as any;
-        const valB = b[order.column] as any;
+        const valA = a[order.column] as number | string;
+        const valB = b[order.column] as number | string;
         if (valA < valB) return order.desc ? 1 : -1;
         if (valA > valB) return order.desc ? -1 : 1;
       }
@@ -224,7 +224,7 @@ export function executeSql(
   // 2. Group By & Aggregate (or simple projection if no Group By)
   if (hasGroupBy) {
     // Grouping
-    const groups = new Map<string, any[]>();
+    const groups = new Map<string, Record<string, unknown>[]>();
     for (const row of filtered) {
       const key = ast.groupBy!.map((col) => String(row[col])).join("|||");
       if (!groups.has(key)) groups.set(key, []);
@@ -250,17 +250,26 @@ export function executeSql(
           if (sel.func === "COUNT") {
             val = groupRows.length;
           } else if (sel.func === "SUM") {
-            val = groupRows.reduce((acc, r) => acc + (Number(r[sel.column]) || 0), 0);
+            val = groupRows.reduce(
+              (acc: number, r: Record<string, unknown>) => acc + (Number(r[sel.column]) || 0),
+              0,
+            );
           } else if (sel.func === "AVG") {
             val =
               groupRows.length === 0
                 ? 0
-                : groupRows.reduce((acc, r) => acc + (Number(r[sel.column]) || 0), 0) /
-                  groupRows.length;
+                : groupRows.reduce(
+                    (acc: number, r: Record<string, unknown>) => acc + (Number(r[sel.column]) || 0),
+                    0,
+                  ) / groupRows.length;
           } else if (sel.func === "MAX") {
-            val = Math.max(...groupRows.map((r) => Number(r[sel.column]) || -Infinity));
+            val = Math.max(
+              ...groupRows.map((r: Record<string, unknown>) => Number(r[sel.column]) || -Infinity),
+            );
           } else if (sel.func === "MIN") {
-            val = Math.min(...groupRows.map((r) => Number(r[sel.column]) || Infinity));
+            val = Math.min(
+              ...groupRows.map((r: Record<string, unknown>) => Number(r[sel.column]) || Infinity),
+            );
           }
           outRow[outKey] = val;
         }
@@ -315,8 +324,8 @@ export function executeSql(
     const ob = ast.orderBy;
     results.sort((a, b) => {
       for (const order of ob) {
-        const valA = a[order.column] as any;
-        const valB = b[order.column] as any;
+        const valA = a[order.column] as number | string;
+        const valB = b[order.column] as number | string;
         if (valA < valB) return order.desc ? 1 : -1;
         if (valA > valB) return order.desc ? -1 : 1;
       }
@@ -349,11 +358,11 @@ export function generateRowTypeFromSql(sql: string): string {
     // Generate strict interface fields based on selected columns/aggregates
     const props = ast.select.map((s) => {
       const name = s.alias || s.column;
-      let type = "any";
+      let type = "unknown";
       if (s.type === "aggregate") {
         type = "number";
       } else if (s.type === "column") {
-        // Strict typing: if the column exists in BattleRecord, use it; otherwise 'any'
+        // Strict typing: if the column exists in BattleRecord, use it; otherwise 'unknown'
         type = `ExtractRowValue<"${s.column}">`;
       }
 

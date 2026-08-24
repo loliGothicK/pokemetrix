@@ -1,4 +1,4 @@
-import { data } from "@data/champions/moves.json";
+import { data } from "@pokemetrix/data/champions/moves.json";
 import { moveCategories, moveClassifications, moveRanges, types } from "@/types/pokemon";
 import { z as zod } from "zod";
 import { toValidationError, ValidationError } from "zod-validation-error";
@@ -29,6 +29,25 @@ const schema = zod
         error: (iss) => `"${String(iss.input)}" is invalid`,
       }),
     ),
+    secondary: zod
+      .object({
+        chance: zod.number(),
+        status: zod.enum(["brn", "par", "psn", "tox", "slp", "frz"]).optional(),
+        volatileStatus: zod.enum(["flinch", "confusion"]).optional(),
+        boosts: zod
+          .object({
+            atk: zod.number().optional(),
+            def: zod.number().optional(),
+            spa: zod.number().optional(),
+            spd: zod.number().optional(),
+            spe: zod.number().optional(),
+            accuracy: zod.number().optional(),
+            evasion: zod.number().optional(),
+          })
+          .optional(),
+      })
+      .nullable()
+      .optional(),
   })
   .readonly()
   .brand<"Move">();

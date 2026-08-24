@@ -4,10 +4,12 @@ import { either } from "fp-ts";
 
 const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "expected YYYY-MM-DD");
 
-const handleZodError = <T>(parsed: any, name: string): ValidateResult<T> => {
+type ZodSafeParseResult<T> = { success: true; data: T } | { success: false; error: z.ZodError };
+
+const handleZodError = <T>(parsed: ZodSafeParseResult<T>, name: string): ValidateResult<T> => {
   if (!parsed.success) {
     return either.left(
-      parsed.error.issues.map((e: any) =>
+      parsed.error.issues.map((e) =>
         anyhow(`${name} validation error: ${e.path.join(".")} - ${e.message}`, undefined),
       ),
     );

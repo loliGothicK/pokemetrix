@@ -1,0 +1,9 @@
+[
+  {
+    "scenario": "TrickRoom Stall (JS Depth 3)",
+    "executionTimeMs": 13202,
+    "memoryUsedMb": "219.92 MB",
+    "mode": "deterministic",
+    "timeout": false
+  }
+]

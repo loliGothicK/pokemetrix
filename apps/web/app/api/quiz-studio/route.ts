@@ -292,7 +292,10 @@ export async function POST(req: NextRequest) {
     const reviewed = parsed.data.reviewed === true;
 
     return NextResponse.json({ success: true, reviewed });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to save file" }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: (error as Error).message || "Failed to save file" },
+      { status: 500 },
+    );
   }
 }

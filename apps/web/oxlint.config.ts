@@ -9,5 +9,6 @@ export default defineConfig({
   },
   rules: {
     "typescript/no-deprecated": "error",
+    "typescript/no-explicit-any": "error",
   },
 });

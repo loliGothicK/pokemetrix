@@ -1,0 +1,14 @@
+{
+  "name": "@pokemetrix/data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "typecheck": "cargo check"
+  }
+}

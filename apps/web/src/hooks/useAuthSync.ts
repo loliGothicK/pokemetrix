@@ -89,8 +89,7 @@ export const useAuthSync = (): AuthSyncResult => {
     }
 
     prevIsAuthenticated.current = isAuthenticated;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthenticated, queryClient, localTeams.length, setLocalTeams, localTeams]);
 
   const onMergeCommit = async () => {
     const mergedTeams: Team[] = conflicts.map((conflict) => {

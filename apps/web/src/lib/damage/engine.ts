@@ -1,7 +1,7 @@
 import type { DamageInput, DamageOutput } from "./types";
 
 type DamageCalcModule = {
-  calculate: (input: unknown) => unknown;
+  calculate: (input: DamageInput) => DamageOutput;
   type_effectiveness_shift: (att: number, def1: number, def2?: number | null) => number;
   is_immune: (att: number, def1: number, def2?: number | null) => boolean;
 };
@@ -25,12 +25,7 @@ async function load(): Promise<DamageCalcModule> {
 export async function calculate(input: DamageInput): Promise<DamageOutput> {
   const mod = await load();
   try {
-    // serde_wasm_bindgen expects a plain JS value reconstructed from JSON,
-    // not a TypeScript object reference. Passing through JSON ensures correct
-    // JsValue deserialization on the Rust side.
-    const jsValue = JSON.parse(JSON.stringify(input));
-    const result = mod.calculate(jsValue) as DamageOutput;
-    return result;
+    return mod.calculate(input);
   } catch (e) {
     console.error(
       "[damage-calc] WASM calculate threw:",

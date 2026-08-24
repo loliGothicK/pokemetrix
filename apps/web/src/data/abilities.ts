@@ -1,4 +1,4 @@
-import { data } from "@data/master/abilities.json";
+import { data } from "@pokemetrix/data/master/abilities.json";
 import { z } from "zod";
 
 const AbilitySchema = z

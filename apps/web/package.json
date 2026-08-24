@@ -52,6 +52,8 @@
     "@pkmn/sets": "5.2.0",
     "@pkmn/sim": "0.10.11",
     "@pokemetrix/damage-calc": "0.1.1",
+    "@pokemetrix/data": "workspace:*",
+    "@pokemetrix/engine": "workspace:*",
     "@sentry/nextjs": "10.70.0",
     "@supabase/ssr": "0.12.4",
     "@supabase/supabase-js": "2.112.3",
@@ -87,6 +89,7 @@
     "zod-validation-error": "5.0.0"
   },
   "devDependencies": {
+    "@babel/runtime": "^8.0.0",
     "@content-collections/cli": "0.1.9",
     "@content-collections/core": "0.15.2",
     "@content-collections/mdx": "0.2.2",
@@ -106,7 +109,6 @@
     "inquirer": "14.0.2",
     "monaco-editor": "0.56.0",
     "oxfmt": "0.64.0",
-    "oxlint": "1.79.0",
     "oxlint-tsgolint": "7.0.2001",
     "supabase": "2.115.0",
     "ts-morph": "28.0.0",

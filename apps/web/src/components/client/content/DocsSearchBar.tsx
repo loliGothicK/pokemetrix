@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import {
   Box,
   Typography,
@@ -39,15 +39,13 @@ export function DocsSearchBar() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect
-    setIsMac(
+  const isMac = useSyncExternalStore(
+    () => () => {},
+    () =>
       navigator.platform.toUpperCase().indexOf("MAC") >= 0 ||
-        navigator.userAgent.toUpperCase().indexOf("MAC") >= 0,
-    );
-  }, []);
+      navigator.userAgent.toUpperCase().indexOf("MAC") >= 0,
+    () => false,
+  );
 
   useHotkeys("mod+k", (e) => {
     e.preventDefault();

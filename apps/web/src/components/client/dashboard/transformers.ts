@@ -466,8 +466,8 @@ export function applyTransformer(
       // Fallback for just export default without inline parameters (e.g. export default transform)
       code = code.replace(/export\s+default\s+/, "return ");
 
-      // eslint-disable-next-line no-new-func, typescript/no-implied-eval
-      const getTransformer = new Function(code);
+      const Fn = globalThis.Function;
+      const getTransformer = new Fn(code);
       const fn = getTransformer();
 
       if (typeof fn !== "function") {

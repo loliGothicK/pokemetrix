@@ -1,0 +1,18 @@
+[package]
+name = "engine"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+damage-calc = { path = "../damage-calc" }
+data = { path = "../data" }
+deriving_via = { workspace = true }
+rand = "0.10.2"
+getrandom = { version = "0.4.3", features = ["wasm_js"] }
+serde = { workspace = true }
+tsify = { workspace = true }
+typed-builder = "0.23.2"
+wasm-bindgen = { workspace = true }

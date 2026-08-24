@@ -32,7 +32,7 @@ export const saveTeamsToServer = async (teams: readonly Team[]): Promise<void> =
       try {
         const parsed = JSON.parse(errorText);
         if (parsed.error && Array.isArray(parsed.error)) {
-          errorMsg = parsed.error.map((e: any) => e.message).join(", ");
+          errorMsg = parsed.error.map((e: { message: string }) => e.message).join(", ");
         }
       } catch {
         // ignore

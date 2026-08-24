@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import {
   Box,
   Button,
@@ -280,9 +280,11 @@ export default function BattleRecordPage() {
     isMutating: seasonMutating,
   } = useSeasons();
 
-  const [mounted, setMounted] = useState(false);
-  // eslint-disable-next-line react/set-state-in-effect
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
   const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);

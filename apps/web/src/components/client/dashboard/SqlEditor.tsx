@@ -2,7 +2,6 @@
 
 import { useColorScheme } from "@mui/material/styles";
 import Editor, { useMonaco } from "@monaco-editor/react";
-import type { typescript } from "monaco-editor";
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useId } from "react";
 
@@ -23,63 +22,71 @@ export function SqlEditor({
 
   useEffect(() => {
     if (monaco && (language === "javascript" || language === "typescript")) {
-      // eslint-disable-next-line typescript/no-deprecated
-      const ts = monaco.languages.typescript as unknown as typeof typescript;
-      const defaults = language === "typescript" ? ts.typescriptDefaults : ts.javascriptDefaults;
+      let isSubscribed = true;
+      let disposable: { dispose: () => void } | undefined;
 
-      defaults.setDiagnosticsOptions({
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
+      void import("monaco-editor").then((mod) => {
+        if (!isSubscribed) return;
+        const ts = mod.typescript;
+        const defaults = language === "typescript" ? ts.typescriptDefaults : ts.javascriptDefaults;
+
+        defaults.setDiagnosticsOptions({
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        });
+
+        defaults.setCompilerOptions({
+          target: ts.ScriptTarget.ESNext,
+          allowNonTsExtensions: true,
+          allowJs: true,
+          checkJs: true,
+        });
+
+        // Type definition for custom transformer variables
+        const libSource = `
+          interface BattleRecordOpponent {
+            readonly slotIndex: number;
+            readonly pokemonSlug: string;
+            readonly itemSlug: string | null;
+            readonly abilitySlug: string | null;
+            readonly moves: readonly string[] | null;
+            readonly selectionRole: "lead" | "back" | null;
+            readonly notes: string | null;
+          }
+
+          interface BattleRecord {
+            readonly id: string;
+            readonly seasonId: string;
+            readonly teamId: string | null;
+            readonly result: "win" | "loss" | "draw";
+            readonly myTeam: readonly Record<string, unknown>[];
+            readonly mySelection: readonly number[] | null;
+            readonly rating: number | null;
+            readonly notes: string | null;
+            readonly playedAt: string;
+            readonly opponents: readonly BattleRecordOpponent[];
+            readonly createdAt: string;
+            readonly updatedAt: string;
+          }
+
+          type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : unknown;
+
+          /** 
+           * The type of the input records from the SQL query.
+           */
+          type Rows = ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
+          declare const rows: Rows;
+        `;
+        const libUri = "ts:filename/transformer.d.ts";
+
+        disposable = defaults.addExtraLib(libSource, libUri);
       });
-
-      defaults.setCompilerOptions({
-        target: ts.ScriptTarget.ESNext,
-        allowNonTsExtensions: true,
-        allowJs: true,
-        checkJs: true,
-      });
-
-      // Type definition for custom transformer variables
-      const libSource = `
-        interface BattleRecordOpponent {
-          readonly slotIndex: number;
-          readonly pokemonSlug: string;
-          readonly itemSlug: string | null;
-          readonly abilitySlug: string | null;
-          readonly moves: readonly string[] | null;
-          readonly selectionRole: "lead" | "back" | null;
-          readonly notes: string | null;
-        }
-
-        interface BattleRecord {
-          readonly id: string;
-          readonly seasonId: string;
-          readonly teamId: string | null;
-          readonly result: "win" | "loss" | "draw";
-          readonly myTeam: readonly Record<string, unknown>[];
-          readonly mySelection: readonly number[] | null;
-          readonly rating: number | null;
-          readonly notes: string | null;
-          readonly playedAt: string;
-          readonly opponents: readonly BattleRecordOpponent[];
-          readonly createdAt: string;
-          readonly updatedAt: string;
-        }
-
-        type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : unknown;
-
-        /** 
-         * The type of the input records from the SQL query.
-         */
-        type Rows = ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
-        declare const rows: Rows;
-      `;
-      const libUri = "ts:filename/transformer.d.ts";
-
-      const disposable = defaults.addExtraLib(libSource, libUri);
 
       return () => {
-        disposable.dispose();
+        isSubscribed = false;
+        if (disposable) {
+          disposable.dispose();
+        }
       };
     }
   }, [monaco, language, rowTypeDeclaration]);

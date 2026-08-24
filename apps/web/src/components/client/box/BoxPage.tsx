@@ -36,7 +36,7 @@ import { isAuthenticatedAtom } from "@/store/auth";
 import { useBoxData } from "@/hooks/useBoxData";
 import { itemById } from "@/data/items";
 import { itemSprite } from "@/lib/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SelectPokemonDialog } from "@/components/client/team-builder/SelectPokemonDialog";
 import { Training } from "@/components/client/team-builder/training";
 import { toDefault } from "@/data/utility/training";
@@ -54,17 +54,12 @@ export default function BoxPage() {
 
   const [selectOpen, setSelectOpen] = useState(false);
   const [editingPokemon, setEditingPokemon] = useState<TrainedPokemon | null>(null);
-  const [lastEditingIdentifier, setLastEditingIdentifier] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(0);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-  useEffect(() => {
-    if (editingPokemon?.identifier) {
-      // eslint-disable-next-line react/set-state-in-effect
-      setLastEditingIdentifier(editingPokemon.identifier);
-    }
-  }, [editingPokemon?.identifier]);
-
+  const [lastEditingIdentifier, setLastEditingIdentifier] = useState<string | null>(null);
+  if (editingPokemon?.identifier && editingPokemon.identifier !== lastEditingIdentifier) {
+    setLastEditingIdentifier(editingPokemon.identifier);
+  }
   const targetIdentifier = editingPokemon?.identifier || lastEditingIdentifier;
 
   const handleSpeciesSelect = (identifier: string | null) => {

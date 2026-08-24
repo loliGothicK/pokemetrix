@@ -1,0 +1,35 @@
+import { defineConfig } from "vitest/config";
+import { fileURLToPath } from "node:url";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
+
+export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+    alias: {
+      "server-only": fileURLToPath(new URL("./src/test/shims/server-only.ts", import.meta.url)),
+      // Use the Node/CJS wasm build under vitest: it loads the .wasm via fs,
+      // sidestepping vite-plugin-wasm's helper (which breaks on Windows/Node).
+      "@pokemetrix/data": fileURLToPath(new URL("../../packages/data", import.meta.url)),
+      "@pokemetrix/damage-calc": fileURLToPath(
+        new URL("../../packages/damage-calc/pkg-node/damage_calc.js", import.meta.url),
+      ),
+      // @pkmn/mods subpath exports: explicit aliases needed because Vite
+      // cannot resolve typesVersions-only entries in package.json exports.
+      "@pkmn/mods/champions": fileURLToPath(
+        new URL("./node_modules/@pkmn/mods/build/champions/index.mjs", import.meta.url),
+      ),
+      "@pkmn/mods/championsregma": fileURLToPath(
+        new URL("./node_modules/@pkmn/mods/build/championsregma/index.mjs", import.meta.url),
+      ),
+    },
+  },
+  test: {
+    environment: "happy-dom",
+    globals: true,
+    coverage: {
+      reporter: ["text", "html", "json-summary"],
+    },
+  },
+  plugins: [wasm(), topLevelAwait()],
+});

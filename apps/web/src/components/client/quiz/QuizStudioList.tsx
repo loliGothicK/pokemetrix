@@ -468,14 +468,17 @@ function SourcePane({
 
   const filePath = quizToFilePath(quiz);
 
-  useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect
+  const [prevFilePath, setPrevFilePath] = useState(filePath);
+  if (filePath !== prevFilePath) {
+    setPrevFilePath(filePath);
     setMeta(null);
     setLoading(true);
     setError(null);
     setShowRaw(false);
     setEditedContent(null);
+  }
 
+  useEffect(() => {
     fetch(`/api/quiz-studio?file=${encodeURIComponent(filePath)}`)
       .then((r) => r.json())
       .then((data) => {

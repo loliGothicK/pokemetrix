@@ -1,8 +1,7 @@
 import { teamSchema } from "@/lib/validator/team";
 import { itemById } from "@/data/items";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type TFunction = (key: string, defaultValue?: any) => string;
+import type { TFunction } from "i18next";
 
 /**
  * teamSchema.safeParse の結果から、人間が読みやすいエラー文字列の配列を生成する。

@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
-import pokemonDataRaw from "@data/champions/pokemon.json";
+import pokemonDataRaw from "@pokemetrix/data/champions/pokemon.json";
 import jaTranslation from "@locales/ja/translation.json";
 import enTranslation from "@locales/en/translation.json";
-import { REG_M_B } from "@data/champions/regulations";
+import { REG_M_B } from "@pokemetrix/data";
 // Assuming pokemonData has the structure: { data: { identifier: string, status: number[] }[] }
-const pokemonData = (pokemonDataRaw as any).data;
+const pokemonData = (
+  pokemonDataRaw as {
+    data: { identifier: string; status: number[]; evs?: string; abilities: number[]; id: number }[];
+  }
+).data;
 
 // Mulberry32 PRNG
 function mulberry32(a: number) {
@@ -71,7 +75,7 @@ function calculateSpeed(
   item?: string,
   ability?: string,
   statStage?: number,
-  field?: any,
+  field?: { weather?: string; tailwind?: string },
   tailwindSide?: boolean,
 ) {
   let points = 0;
@@ -106,16 +110,18 @@ export function generateDynamicSpeedCompareSeeds(
   difficulty: "basics" | "advanced" | "expert" | "master",
   count: number,
   baseSeedStr: string,
-): any[] {
-  const metaPokemonData = pokemonData.filter((p: any) => META_POKEMONS.includes(p.identifier));
+): SpeedQuizSeed[] {
+  const metaPokemonData = pokemonData.filter((p: { identifier: string }) =>
+    META_POKEMONS.includes(p.identifier),
+  );
 
-  const seeds: any[] = [];
+  const seeds: SpeedQuizSeed[] = [];
   const rand = createRandom(baseSeedStr);
 
   const pickPokemon = () => metaPokemonData[Math.floor(rand() * metaPokemonData.length)];
 
   for (let i = 0; i < count; i++) {
-    let seed: any;
+    let seed = {} as SpeedQuizSeed;
     let attempts = 0;
     while (attempts < 1000) {
       attempts++;
@@ -192,7 +198,8 @@ export function generateDynamicSpeedCompareSeeds(
           seed.field.weather = rand() > 0.5 ? "rain" : "sand";
           if (seed.field.weather === "rain") {
             const swiftSwimmers = pokemonData.filter(
-              (p: any) => p.abilities.includes(33) && REG_M_B.includes(p.id),
+              (p: { id: number; identifier: string; abilities: number[] }) =>
+                p.abilities.includes(33) && REG_M_B.includes(p.id),
             );
             const swsw = swiftSwimmers[Math.floor(rand() * swiftSwimmers.length)];
             seed.pokemonA.slug = swsw.identifier;
@@ -200,7 +207,8 @@ export function generateDynamicSpeedCompareSeeds(
             baseA = swsw.status[5];
           } else {
             const sandRushers = pokemonData.filter(
-              (p: any) => p.abilities.includes(146) && REG_M_B.includes(p.id),
+              (p: { id: number; identifier: string; abilities: number[] }) =>
+                p.abilities.includes(146) && REG_M_B.includes(p.id),
             );
             const sandr = sandRushers[Math.floor(rand() * sandRushers.length)];
             seed.pokemonA.slug = sandr.identifier;
@@ -247,13 +255,40 @@ export function generateDynamicSpeedCompareSeeds(
 }
 
 function getPokemonName(slug: string, locale: "ja" | "en") {
-  const dict = locale === "ja" ? (jaTranslation as any) : (enTranslation as any);
+  const dict =
+    locale === "ja"
+      ? (jaTranslation as unknown as { pokemon?: Record<string, { name: string }> })
+      : (enTranslation as unknown as { pokemon?: Record<string, { name: string }> });
   return dict.pokemon?.[slug]?.name || slug;
 }
 
-function generateQuizFromSeed(seed: any, locale: "ja" | "en") {
-  const pA = pokemonData.find((p: any) => p.identifier === seed.pokemonA.slug);
-  const pB = pokemonData.find((p: any) => p.identifier === seed.pokemonB.slug);
+export interface SpeedQuizSeed {
+  id: string;
+  difficulty: string;
+  pokemonA: {
+    slug: string;
+    evs?: string;
+    item?: string;
+    ability?: string;
+    statStage?: number;
+    status?: string;
+    level?: number;
+  };
+  pokemonB: {
+    slug: string;
+    evs?: string;
+    item?: string;
+    ability?: string;
+    statStage?: number;
+    status?: string;
+    level?: number;
+  };
+  field: { tailwind?: string; weather?: string; trickRoom?: boolean };
+}
+
+function generateQuizFromSeed(seed: SpeedQuizSeed, locale: "ja" | "en") {
+  const pA = pokemonData.find((p: { identifier: string }) => p.identifier === seed.pokemonA.slug);
+  const pB = pokemonData.find((p: { identifier: string }) => p.identifier === seed.pokemonB.slug);
 
   if (!pA || !pB) return null;
 
@@ -291,7 +326,7 @@ function generateQuizFromSeed(seed: any, locale: "ja" | "en") {
   const nameA = getPokemonName(seed.pokemonA.slug, locale);
   const nameB = getPokemonName(seed.pokemonB.slug, locale);
 
-  const getPrefix = (p: any) => {
+  const getPrefix = (p: { evs?: string; item?: string; statStage?: number; ability?: string }) => {
     let prefix = "";
     if (p.evs && p.evs !== "S0") prefix += p.evs;
     if (p.item === "choice-scarf") prefix += locale === "ja" ? "こだわりスカーフ" : " Choice Scarf";
