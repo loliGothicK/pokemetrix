@@ -1,34 +1,7 @@
 use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::*;
+use tsify::Tsify;
 
-/// Pokémon type enumeration.
-///
-/// `Stellar` is included for parity with modern generations but is treated as
-/// neutral in the built-in type chart.
-#[wasm_bindgen]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum Type {
-    Normal,
-    Fire,
-    Water,
-    Electric,
-    Grass,
-    Ice,
-    Fighting,
-    Poison,
-    Ground,
-    Flying,
-    Psychic,
-    Bug,
-    Rock,
-    Ghost,
-    Dragon,
-    Dark,
-    Steel,
-    Fairy,
-    Stellar,
-}
+pub use pkmn_meta::types::Type;
 
 /// The default modifier value. Every modifier is stored as `x / 4096`, so 4096
 /// represents a no-op (1.0x) multiplier.
@@ -136,8 +109,6 @@ pub struct DamageInput {
     #[serde(default)]
     pub solid_rock: bool,
 }
-
-use tsify::Tsify;
 
 /// Result of a damage calculation: all 16 rolls plus the extremes.
 #[derive(Debug, Clone, Serialize, Deserialize, Tsify)]

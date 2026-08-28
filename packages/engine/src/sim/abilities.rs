@@ -1,19 +1,22 @@
 use crate::sim::battle::{Battle, EventContext, EventId, PokemonIdent};
+use pkmn_meta::types::Type;
 
 #[derive(Default)]
 pub struct Condition {
     pub name: String,
-    pub on_modify_priority: Option<fn(priority: i32) -> i32>,
-    pub on_modify_atk: Option<fn(atk: i32) -> i32>,
-    pub on_modify_def: Option<fn(def: i32) -> i32>,
-    pub on_modify_spa: Option<fn(spa: i32) -> i32>,
-    pub on_modify_spd: Option<fn(spd: i32) -> i32>,
-    pub on_base_power: Option<fn(bp: i32) -> i32>,
+    pub has_on_modify_priority: bool,
+    pub has_on_modify_atk: bool,
+    pub has_on_modify_def: bool,
+    pub has_on_modify_spa: bool,
+    pub has_on_modify_spd: bool,
+    pub has_on_base_power: bool,
+    pub has_on_modify_type: bool,
     pub boosts_spa: Option<i32>,
+    pub suppress_weather: bool,
 }
 
 pub fn execute_ability(
-    _battle: &mut Battle,
+    battle: &mut Battle,
     ident: PokemonIdent,
     ability_id: &str,
     event_id: &EventId,
@@ -33,13 +36,14 @@ pub fn execute_ability(
             "insomnia" | "vitalspirit" | "sweetveil" => status == "slp",
             "purifyingsalt" | "comatose" | "shieldsdown" => true,
             "leafguard" => {
-                _battle.weather.as_deref() == Some("SunnyDay")
-                    || _battle.weather.as_deref() == Some("DesolateLand")
+                battle.weather == Some(pkmn_meta::types::Weather::HashSunlight)
+                    || battle.weather == Some(pkmn_meta::types::Weather::ExtremelyHarshSunlight)
             }
             "hydration" => {
-                _battle.weather.as_deref() == Some("RainDance")
-                    || _battle.weather.as_deref() == Some("PrimordialSea")
+                battle.weather == Some(pkmn_meta::types::Weather::Rain)
+                    || battle.weather == Some(pkmn_meta::types::Weather::HeavyRain)
             }
+            "icebody" | "snowcloak" => battle.weather == Some(pkmn_meta::types::Weather::Snow),
             _ => false,
         };
 
@@ -63,6 +67,41 @@ pub fn execute_ability(
             ctx.canceled = true;
         }
     }
+
+    if let EventId::AfterStatChange = event_id
+        && ctx.target == ident
+    {
+        // num_val contains the actual stat change amount (e.g. -1).
+        let actual_change = ctx.num_val;
+        let is_foe = ctx
+            .source
+            .map(|s| s.player != ident.player)
+            .unwrap_or(false);
+
+        if actual_change < 0 && is_foe {
+            match ability_id {
+                "defiant" => {
+                    battle.apply_stat_change(
+                        ident.player,
+                        ident.slot,
+                        crate::sim::battle::Stat::Atk,
+                        2,
+                        ident.player,
+                    );
+                }
+                "competitive" => {
+                    battle.apply_stat_change(
+                        ident.player,
+                        ident.slot,
+                        crate::sim::battle::Stat::Spa,
+                        2,
+                        ident.player,
+                    );
+                }
+                _ => {}
+            }
+        }
+    }
 }
 
 pub fn get_ability(id: &str) -> Option<Condition> {
@@ -74,8 +113,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "overgrow" => Some(Condition {
             name: "Overgrow".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "chlorophyll" => Some(Condition {
@@ -84,18 +123,18 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "blaze" => Some(Condition {
             name: "Blaze".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "solarpower" => Some(Condition {
             name: "Solar Power".to_string(),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "toughclaws" => Some(Condition {
             name: "Tough Claws".to_string(),
-            on_base_power: Some(|x| x * 5325 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "drought" => Some(Condition {
@@ -104,8 +143,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "torrent" => Some(Condition {
             name: "Torrent".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "raindish" => Some(Condition {
@@ -114,13 +153,13 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "megalauncher" => Some(Condition {
             name: "Mega Launcher".to_string(),
-            on_base_power: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "swarm" => Some(Condition {
             name: "Swarm".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "sniper" => Some(Condition {
@@ -137,6 +176,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "keeneye" => Some(Condition {
             name: "Keen Eye".to_string(),
+
             ..Default::default()
         }),
         "tangledfeet" => Some(Condition {
@@ -145,6 +185,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "bigpecks" => Some(Condition {
             name: "Big Pecks".to_string(),
+
             ..Default::default()
         }),
         "intimidate" => Some(Condition {
@@ -221,7 +262,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "guts" => Some(Condition {
             name: "Guts".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
             ..Default::default()
         }),
         "steadfast" => Some(Condition {
@@ -278,7 +319,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "hugepower" => Some(Condition {
             name: "Huge Power".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 2.0) as i32),
+            has_on_modify_atk: true,
             ..Default::default()
         }),
         "illuminate" => Some(Condition {
@@ -291,16 +332,18 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "analytic" => Some(Condition {
             name: "Analytic".to_string(),
-            on_base_power: Some(|x| x * 5325 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "aerilate" => Some(Condition {
             name: "Aerilate".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_modify_type: true,
+            has_on_base_power: true,
             ..Default::default()
         }),
         "hypercutter" => Some(Condition {
             name: "Hyper Cutter".to_string(),
+
             ..Default::default()
         }),
         "moldbreaker" => Some(Condition {
@@ -321,7 +364,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "sheerforce" => Some(Condition {
             name: "Sheer Force".to_string(),
-            on_base_power: Some(|x| x * 5325 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "limber" => Some(Condition {
@@ -374,7 +417,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "dragonize" => Some(Condition {
             name: "Dragonize".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "insomnia" => Some(Condition {
@@ -383,7 +426,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "plus" => Some(Condition {
             name: "Plus".to_string(),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "sapsipper" => Some(Condition {
@@ -412,12 +455,12 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "sandforce" => Some(Condition {
             name: "Sand Force".to_string(),
-            on_base_power: Some(|x| x * 5325 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "technician" => Some(Condition {
             name: "Technician".to_string(),
-            on_base_power: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "lightmetal" => Some(Condition {
@@ -446,7 +489,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "pixilate" => Some(Condition {
             name: "Pixilate".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_modify_type: true,
+            has_on_base_power: true,
             ..Default::default()
         }),
         "stall" => Some(Condition {
@@ -455,7 +499,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "prankster" => Some(Condition {
             name: "Prankster".to_string(),
-            on_modify_priority: Some(|x| x + 1),
+            has_on_modify_priority: true,
             ..Default::default()
         }),
         "heavymetal" => Some(Condition {
@@ -468,17 +512,17 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "purepower" => Some(Condition {
             name: "Pure Power".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 2.0) as i32),
+            has_on_modify_atk: true,
             ..Default::default()
         }),
         "minus" => Some(Condition {
             name: "Minus".to_string(),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "strongjaw" => Some(Condition {
             name: "Strong Jaw".to_string(),
-            on_base_power: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "roughskin" => Some(Condition {
@@ -499,15 +543,17 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "whitesmoke" => Some(Condition {
             name: "White Smoke".to_string(),
+
             ..Default::default()
         }),
         "cloudnine" => Some(Condition {
             name: "Cloud Nine".to_string(),
+            suppress_weather: true,
             ..Default::default()
         }),
         "marvelscale" => Some(Condition {
             name: "Marvel Scale".to_string(),
-            on_modify_def: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_def: true,
             ..Default::default()
         }),
         "competitive" => Some(Condition {
@@ -518,6 +564,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
             name: "Forecast".to_string(),
             ..Default::default()
         }),
+
         "levitate" => Some(Condition {
             name: "Levitate".to_string(),
             ..Default::default()
@@ -536,17 +583,18 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "refrigerate" => Some(Condition {
             name: "Refrigerate".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_modify_type: true,
+            has_on_base_power: true,
             ..Default::default()
         }),
         "ironfist" => Some(Condition {
             name: "Iron Fist".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "rivalry" => Some(Condition {
             name: "Rivalry".to_string(),
-            on_base_power: Some(|x| (x as f64 * 1.3) as i32),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "poisonpoint" => Some(Condition {
@@ -587,7 +635,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "reckless" => Some(Condition {
             name: "Reckless".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "poisonheal" => Some(Condition {
@@ -596,11 +644,12 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "sharpness" => Some(Condition {
             name: "Sharpness".to_string(),
-            on_base_power: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "contrary" => Some(Condition {
             name: "Contrary".to_string(),
+
             ..Default::default()
         }),
         "unburden" => Some(Condition {
@@ -681,7 +730,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "galewings" => Some(Condition {
             name: "Gale Wings".to_string(),
-            on_modify_priority: Some(|x| x + 1),
+            has_on_modify_priority: true,
             ..Default::default()
         }),
         "shielddust" => Some(Condition {
@@ -706,7 +755,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "furcoat" => Some(Condition {
             name: "Fur Coat".to_string(),
-            on_modify_def: Some(|x| (x as f64 * 2.0) as i32),
+            has_on_modify_def: true,
             ..Default::default()
         }),
         "stancechange" => Some(Condition {
@@ -751,8 +800,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "waterbubble" => Some(Condition {
             name: "Water Bubble".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 2.0) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 2.0) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "corrosion" => Some(Condition {
@@ -789,7 +838,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "hustle" => Some(Condition {
             name: "Hustle".to_string(),
-            on_modify_atk: Some(|x| x),
+            has_on_modify_atk: true,
             ..Default::default()
         }),
         "sandspit" => Some(Condition {
@@ -810,6 +859,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "clearbody" => Some(Condition {
             name: "Clear Body".to_string(),
+
             ..Default::default()
         }),
         "purifyingsalt" => Some(Condition {
@@ -846,7 +896,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "supremeoverlord" => Some(Condition {
             name: "Supreme Overlord".to_string(),
-            on_base_power: Some(|x| x),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "hospitality" => Some(Condition {
@@ -883,8 +933,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "firemane" => Some(Condition {
             name: "Fire Mane".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 1.5) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 1.5) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "suctioncups" => Some(Condition {
@@ -904,7 +954,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
             ..Default::default()
         }),
         "airlock" => Some(Condition {
-            name: "Airlock".to_string(),
+            name: "Air Lock".to_string(),
+            suppress_weather: true,
             ..Default::default()
         }),
         "angershell" => Some(Condition {
@@ -1044,11 +1095,14 @@ pub fn get_ability(id: &str) -> Option<Condition> {
             ..Default::default()
         }),
         "fullmetalbody" => Some(Condition {
-            name: "Fullmetalbody".to_string(),
+            name: "Full Metal Body".to_string(),
+
             ..Default::default()
         }),
         "galvanize" => Some(Condition {
             name: "Galvanize".to_string(),
+            has_on_modify_type: true,
+            has_on_base_power: true,
             ..Default::default()
         }),
         "gorillatactics" => Some(Condition {
@@ -1141,6 +1195,8 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "normalize" => Some(Condition {
             name: "Normalize".to_string(),
+            has_on_modify_type: true,
+            has_on_base_power: true,
             ..Default::default()
         }),
         "orichalcumpulse" => Some(Condition {
@@ -1237,6 +1293,7 @@ pub fn get_ability(id: &str) -> Option<Condition> {
         }),
         "simple" => Some(Condition {
             name: "Simple".to_string(),
+
             ..Default::default()
         }),
         "slowstart" => Some(Condition {
@@ -1371,6 +1428,100 @@ pub fn get_ability(id: &str) -> Option<Condition> {
             name: "Zenmode".to_string(),
             ..Default::default()
         }),
+        _ => None,
+    }
+}
+
+pub fn on_try_boost(
+    ability_id: &str,
+    _battle: &mut Battle,
+    target: PokemonIdent,
+    source: PokemonIdent,
+    stat: crate::sim::battle::Stat,
+    amount: i8,
+) -> bool {
+    match ability_id {
+        "clearbody" | "whitesmoke" | "fullmetalbody" => {
+            if target != source && amount < 0 {
+                return false;
+            }
+            true
+        }
+        "hypercutter" => {
+            if target != source && amount < 0 && stat == crate::sim::battle::Stat::Atk {
+                return false;
+            }
+            true
+        }
+        "keeneye" => {
+            if target != source && amount < 0 && stat == crate::sim::battle::Stat::Accuracy {
+                return false;
+            }
+            true
+        }
+        "bigpecks" => {
+            if target != source && amount < 0 && stat == crate::sim::battle::Stat::Def {
+                return false;
+            }
+            true
+        }
+        _ => true,
+    }
+}
+
+pub fn on_modify_boost(
+    ability_id: &str,
+    _battle: &mut Battle,
+    _target: PokemonIdent,
+    _stat: crate::sim::battle::Stat,
+    amount: i8,
+) -> i8 {
+    match ability_id {
+        "contrary" => -amount,
+        "simple" => amount * 2,
+        _ => amount,
+    }
+}
+
+pub fn on_start(_ability_id: &str, _battle: &mut Battle, _target: PokemonIdent) {}
+
+pub fn on_modify_type(ability_id: &str, orig: Type) -> Option<Type> {
+    match ability_id {
+        "refrigerate" => {
+            if orig == Type::Normal {
+                Some(Type::Ice)
+            } else {
+                None
+            }
+        }
+        "pixilate" => {
+            if orig == Type::Normal {
+                Some(Type::Fairy)
+            } else {
+                None
+            }
+        }
+        "aerilate" => {
+            if orig == Type::Normal {
+                Some(Type::Flying)
+            } else {
+                None
+            }
+        }
+        "galvanize" => {
+            if orig == Type::Normal {
+                Some(Type::Electric)
+            } else {
+                None
+            }
+        }
+        "normalize" => {
+            if orig != Type::Normal {
+                Some(Type::Normal)
+            } else {
+                None
+            }
+        }
         _ => None,
     }
 }

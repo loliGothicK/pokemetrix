@@ -3,6 +3,19 @@ use wasm_bindgen::prelude::*;
 use crate::types::{DamageInput, DamageOutput, Type};
 
 // ---------------------------------------------------------------------------
+// Constants for common 4096-based multipliers
+// ---------------------------------------------------------------------------
+pub const MOD_0_5: u16 = 2048;
+pub const MOD_0_75: u16 = 3072;
+pub const MOD_1_1: u16 = 4505; // 4096 * 1.1 = 4505.6 -> 4505
+pub const MOD_1_2: u16 = 4915; // 4096 * 1.2 = 4915.2 -> 4915
+pub const MOD_1_25: u16 = 5120; // 4096 * 1.25 = 5120
+pub const MOD_1_3: u16 = 5324; // 4096 * 1.3 = 5324.8 -> 5324
+pub const MOD_1_5: u16 = 6144; // 4096 * 1.5 = 6144
+pub const MOD_2_0: u16 = 8192; // 4096 * 2.0 = 8192
+pub const MOD_2_25: u16 = 9216; // 4096 * 2.25 = 9216
+
+// ---------------------------------------------------------------------------
 // Rounding primitives
 // ---------------------------------------------------------------------------
 
@@ -13,7 +26,7 @@ const U32_MASK: u64 = 0xFFFF_FFFF;
 /// "pokeRound": round to nearest, but round *down* on an exact .5.
 ///
 /// Applied whenever a modifier is applied as `value * modifier / 4096`.
-fn poke_round_div_4096(numerator: u64) -> u64 {
+pub fn poke_round_div_4096(numerator: u64) -> u64 {
     let quotient = numerator / 4096;
     let remainder = numerator % 4096;
     // Round up only when the fractional part is strictly greater than 0.5.

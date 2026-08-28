@@ -14,40 +14,40 @@
       <package file="$PROJECT_DIR$">
         <feature name="default" enabled="true" />
       </package>
+      <package file="$PROJECT_DIR$/../pkmn-meta">
+        <feature name="default" enabled="true" />
+      </package>
     </cargoProject>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93dbd46c-fdb7-4660-b18b-d41659ca4c91" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/docs/search/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/docs/search/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/quiz-studio/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/quiz-studio/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/app/api/quizzes/speed_compare/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/app/api/quizzes/speed_compare/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/oxlint.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/check-i18n.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/check-i18n.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/generate-tsume-responses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/generate-tsume-responses.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/validate-tsume-puzzles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/validate-tsume-puzzles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/scripts/validate_domain.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/scripts/validate_domain.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/services/teams.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/services/teams.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/battle-record/BattleRecordFormDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/battle-record/BattleRecordFormDialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/content/DocsSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/content/DocsSearchBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/HeatmapVisualizer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/HeatmapVisualizer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/SqlEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/SqlEditor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/transformers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/dashboard/transformers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/QuizStudioList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/QuizStudioList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/GroupingFormat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/GroupingFormat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/TsumeActionFormat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/components/client/quiz/formats/TsumeActionFormat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/hooks/useAuthSync.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/hooks/useAuthSync.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/db/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/db/seed.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/db/validators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/db/validators.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/sql/engine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/sql/engine.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/lib/validator/format-issues.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/lib/validator/format-issues.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeEngine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeEngine.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeMinimax.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../apps/web/src/utils/tsumeMinimax.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../data/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../data/oxlint.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oxlint.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/oxlint.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sim/abilities.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sim/abilities.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../damage-calc/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../damage-calc/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../data/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ability_meta.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/item_meta.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/move_meta.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sim/battle.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sim/battle.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wasm_api.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/wasm_api.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/adaptability.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/adaptability.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/eartheater.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/eartheater.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/sapsipper.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/sapsipper.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/soundproof.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/soundproof.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/voltabsorb.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/voltabsorb.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/abilities/waterabsorb.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/abilities/waterabsorb.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/compare_sim.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/compare_sim.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/errors.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/errors.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/fields.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/fields.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/items.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/items.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/scenario.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/scenario.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/secondary.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/secondary.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/sim-utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sim-utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/simulation.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/simulation.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/volatile_effects.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/volatile_effects.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

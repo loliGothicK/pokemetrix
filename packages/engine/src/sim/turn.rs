@@ -1,0 +1,231 @@
+use crate::sim::battle::Battle;
+use rand::RngExt;
+
+#[allow(clippy::too_many_arguments)]
+pub fn execute_turn(
+    battle: &mut Battle,
+    p1_a: &str,
+    p1_a_target: i8,
+    p1_b: &str,
+    p1_b_target: i8,
+    p2_a: &str,
+    p2_a_target: i8,
+    p2_b: &str,
+    p2_b_target: i8,
+    rng_config: Option<crate::wasm_api::Config>,
+) -> Result<(), String> {
+    battle.rng_config = rng_config;
+    let mut pending = std::mem::take(&mut battle.future_sight_attacks);
+    for attack in &mut pending {
+        if attack.turns_left > 0 {
+            attack.turns_left -= 1;
+        }
+    }
+    for attack in pending.drain(..) {
+        if attack.turns_left == 0 {
+            if battle.get_pokemon(attack.target).is_some_and(|p| p.hp > 0) {
+                battle.section_take_damage(attack.target, attack.damage);
+                battle.log.push(crate::sim::log::BattleLogEvent::new(
+                    crate::sim::log::BattleLog::Damage {
+                        target: attack.target,
+                        damage: attack.damage,
+                        is_crit: false,
+                        effectiveness: 0,
+                        absorbed: false,
+                        from_effect: Some("Future Sight".to_string()),
+                    },
+                ));
+            }
+        } else {
+            battle.future_sight_attacks.push(attack);
+        }
+    }
+    let mut actions = vec![];
+
+    let inputs = [
+        (1, 0, p1_a.trim(), p1_a_target),
+        (1, 1, p1_b.trim(), p1_b_target),
+        (2, 0, p2_a.trim(), p2_a_target),
+        (2, 1, p2_b.trim(), p2_b_target),
+    ];
+
+    for (player, slot, choice, target_slot) in inputs {
+        if choice.is_empty() || choice == "pass" {
+            continue;
+        }
+        let team = if player == 1 { &battle.p1 } else { &battle.p2 };
+        if slot >= team.active.len() {
+            continue;
+        }
+        let pkmn = &team.active[slot];
+
+        let is_switch = choice == "switch";
+        let priority = if is_switch {
+            6
+        } else {
+            crate::sim::turn_order::TurnOrderResolver::new(battle).get_move_priority(choice, pkmn)
+        };
+        let (target_player, actual_target_slot) = if is_switch {
+            (player, target_slot as u8)
+        } else if target_slot < 0 {
+            let s = if target_slot == -1 { 0 } else { 1 };
+            (player, s)
+        } else {
+            (if player == 1 { 2 } else { 1 }, target_slot as u8)
+        };
+
+        let speed = battle
+            .check_speed_modifiers(pkmn, pkmn.speed.apply_boost(pkmn.boosts.spe))
+            .into_inner();
+        let action: crate::sim::action::Action = if is_switch {
+            crate::sim::action::Action::Switch(crate::sim::action::SwitchAction {
+                player,
+                slot,
+                target_slot: actual_target_slot as usize,
+                priority,
+                speed,
+            })
+        } else {
+            crate::sim::action::Action::Move(crate::sim::action::MoveAction {
+                player,
+                slot,
+                move_id: choice.to_string(),
+                target_player,
+                target_slot: actual_target_slot,
+                priority,
+                speed,
+            })
+        };
+        actions.push(action);
+    }
+
+    let is_trick_room = battle.trick_room;
+
+    // Resolve order
+    let mut action_quick_claw = vec![false; actions.len()];
+    let mut rng = rand::rng();
+    for (i, a) in actions.iter().enumerate() {
+        let item = if a.player() == 1 {
+            battle.p1.active.get(a.slot()).and_then(|p| p.item)
+        } else {
+            battle.p2.active.get(a.slot()).and_then(|p| p.item)
+        };
+        if item.as_ref().map(|i| i.as_ref()) == Some("quickclaw") && rng.random_range(1..=100) <= 20
+        {
+            action_quick_claw[i] = true;
+        }
+    }
+
+    actions.sort_by(|a, b| {
+        let p1_prio = a.priority();
+        let p2_prio = b.priority();
+        if p1_prio != p2_prio {
+            return p2_prio.cmp(&p1_prio);
+        }
+
+        let p1_spe = a.speed();
+        let p2_spe = b.speed();
+        if p1_spe != p2_spe {
+            if is_trick_room {
+                return p1_spe.cmp(&p2_spe);
+            } else {
+                return p2_spe.cmp(&p1_spe);
+            }
+        }
+        std::cmp::Ordering::Equal
+    });
+
+    let is_resuming = !battle.turn_actions.is_empty();
+
+    if is_resuming {
+        actions.append(&mut battle.turn_actions);
+        battle.turn_actions = actions;
+        battle.turn_state = crate::sim::battle::TurnState::Ready;
+    } else {
+        battle.turn_actions = actions;
+
+        let mut beakblast_users = vec![];
+        let mut focuspunch_users = vec![];
+        for a in &battle.turn_actions {
+            if let crate::sim::action::Action::Move(m) = a {
+                if m.move_id == "beakblast" {
+                    beakblast_users.push(crate::sim::pokemon::PokemonIdent {
+                        player: m.player,
+                        slot: m.slot,
+                    });
+                } else if m.move_id == "focuspunch" {
+                    focuspunch_users.push(crate::sim::pokemon::PokemonIdent {
+                        player: m.player,
+                        slot: m.slot,
+                    });
+                }
+            }
+        }
+        for ident in focuspunch_users {
+            battle.log.push(crate::sim::log::BattleLogEvent::new(
+                crate::sim::log::BattleLog::SingleTurn {
+                    target: ident,
+                    effect: "move: Focus Punch".to_string(),
+                },
+            ));
+        }
+        for ident in beakblast_users {
+            battle.section_apply_volatile(ident, pkmn_meta::types::VolatileStatus::Beakblast);
+            let pkmn_name = battle
+                .get_pokemon(ident)
+                .map(|p| p.ident.clone())
+                .unwrap_or_default();
+            battle.log.push(crate::sim::log::BattleLogEvent::new(
+                crate::sim::log::BattleLog::Text {
+                    message: format!("|-anim|{}|Beak Blast", pkmn_name),
+                },
+            ));
+            battle.log.push(crate::sim::log::BattleLogEvent::new(
+                crate::sim::log::BattleLog::Text {
+                    message: format!("|-singleturn|{}|move: Beak Blast", pkmn_name),
+                },
+            ));
+        }
+    }
+
+    process_turn_actions(battle)
+}
+
+pub fn process_turn_actions(battle: &mut Battle) -> Result<(), String> {
+    while !battle.turn_actions.is_empty() {
+        if matches!(
+            battle.turn_state,
+            crate::sim::battle::TurnState::WaitingForSwitch { .. }
+        ) {
+            return Ok(());
+        }
+        let action = battle.turn_actions.remove(0);
+        if let crate::sim::action::Action::Move(m) = &action
+            && let Some(p) = battle.get_pokemon_mut(crate::sim::pokemon::PokemonIdent {
+                player: m.player,
+                slot: m.slot,
+            })
+        {
+            p.turn_state.acted_this_turn = true;
+        }
+        action.execute(battle)?;
+    }
+
+    if matches!(battle.turn_state, crate::sim::battle::TurnState::Ready) {
+        crate::sim::end_of_turn_phase::EndOfTurnPhase::execute(battle);
+
+        for p in battle.p1.active.iter_mut() {
+            p.turn_state.clear();
+            p.volatile_status
+                .retain(|s| s != &pkmn_meta::types::VolatileStatus::Beakblast);
+            p.active_turns += 1;
+        }
+        for p in battle.p2.active.iter_mut() {
+            p.turn_state.clear();
+            p.volatile_status
+                .retain(|s| s != &pkmn_meta::types::VolatileStatus::Beakblast);
+            p.active_turns += 1;
+        }
+    }
+    Ok(())
+}

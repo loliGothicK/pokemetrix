@@ -17,7 +17,7 @@ wasm-bindgen.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 serde-wasm-bindgen.workspace = true
-data = { path = "../data" }
+pkmn-meta = { path = "../pkmn-meta" }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 tsify.workspace = true
 

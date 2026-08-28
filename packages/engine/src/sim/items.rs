@@ -1,5 +1,6 @@
 use crate::sim::abilities::Condition;
 use crate::sim::battle::{Battle, EventContext, EventId, PokemonIdent};
+use pkmn_meta::types::Type::*;
 use rand::RngExt;
 
 pub fn execute_item(
@@ -11,6 +12,44 @@ pub fn execute_item(
 ) {
     let item_id = item_id.replace("-", "");
     match item_id.as_str() {
+        "whiteherb" => {
+            if *event_id == EventId::AfterStatChange && ctx.target == ident {
+                // White Herb trigger is checked after all stat changes of an action/move
+            }
+        }
+        "mentalherb" => {
+            if *event_id == EventId::AfterApplyVolatile && ctx.target == ident {
+                let v = ctx.volatile_status_val;
+                let is_mental = matches!(
+                    v,
+                    Some(pkmn_meta::types::VolatileStatus::Attract)
+                        | Some(pkmn_meta::types::VolatileStatus::Taunt)
+                        | Some(pkmn_meta::types::VolatileStatus::Encore)
+                        | Some(pkmn_meta::types::VolatileStatus::Torment)
+                        | Some(pkmn_meta::types::VolatileStatus::Disable)
+                );
+                if is_mental {
+                    battle.section_consume_item(ident);
+                    if let Some(p) = battle.get_pokemon_mut(ident) {
+                        p.volatile_status.retain(|status| {
+                            !matches!(
+                                status,
+                                pkmn_meta::types::VolatileStatus::Attract
+                                    | pkmn_meta::types::VolatileStatus::Taunt
+                                    | pkmn_meta::types::VolatileStatus::Encore
+                                    | pkmn_meta::types::VolatileStatus::Torment
+                                    | pkmn_meta::types::VolatileStatus::Disable
+                            )
+                        });
+                        p.taunt_turns = 0;
+                        p.encore_turns = 0;
+                        p.encored_move = None;
+                        p.disable_turns = 0;
+                        p.disabled_move = None;
+                    }
+                }
+            }
+        }
         "lumberry" => {
             if *event_id == EventId::AfterApplyStatus && ctx.target == ident {
                 battle.section_consume_item(ident);
@@ -21,12 +60,12 @@ pub fn execute_item(
             {
                 battle.section_consume_item(ident);
                 if ident.player == 1 {
-                    if let Some(t) = battle.p1.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| v != "confusion");
+                    if let Some(t) = battle.p1.active.get_mut(ident.slot) {
+                        t.volatile_status.retain(|v| v.as_ref() != "confusion");
                     }
                 } else {
-                    if let Some(t) = battle.p2.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| v != "confusion");
+                    if let Some(t) = battle.p2.active.get_mut(ident.slot) {
+                        t.volatile_status.retain(|v| v.as_ref() != "confusion");
                     }
                 }
             }
@@ -83,12 +122,12 @@ pub fn execute_item(
             {
                 battle.section_consume_item(ident);
                 if ident.player == 1 {
-                    if let Some(t) = battle.p1.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| v != "confusion");
+                    if let Some(t) = battle.p1.active.get_mut(ident.slot) {
+                        t.volatile_status.retain(|v| v.as_ref() != "confusion");
                     }
                 } else {
-                    if let Some(t) = battle.p2.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| v != "confusion");
+                    if let Some(t) = battle.p2.active.get_mut(ident.slot) {
+                        t.volatile_status.retain(|v| v.as_ref() != "confusion");
                     }
                 }
             }
@@ -97,19 +136,19 @@ pub fn execute_item(
             if *event_id == EventId::AfterTakeDamage && ctx.target == ident {
                 let (hp, maxhp) = {
                     let pkmn = if ident.player == 1 {
-                        battle.p1.get(ident.slot)
+                        battle.p1.active.get(ident.slot)
                     } else {
-                        battle.p2.get(ident.slot)
+                        battle.p2.active.get(ident.slot)
                     };
                     if let Some(p) = pkmn {
                         (p.hp, p.maxhp)
                     } else {
-                        (0, 0)
+                        (0.into(), 0.into())
                     }
                 };
                 if hp > 0 && hp <= maxhp / 2 {
                     battle.section_consume_item(ident);
-                    battle.section_heal(ident, maxhp / 4);
+                    battle.section_heal(ident, (maxhp / 4).into());
                 }
             }
         }
@@ -117,134 +156,103 @@ pub fn execute_item(
             if *event_id == EventId::AfterTakeDamage && ctx.target == ident {
                 let (hp, maxhp) = {
                     let pkmn = if ident.player == 1 {
-                        battle.p1.get(ident.slot)
+                        battle.p1.active.get(ident.slot)
                     } else {
-                        battle.p2.get(ident.slot)
+                        battle.p2.active.get(ident.slot)
                     };
                     if let Some(p) = pkmn {
                         (p.hp, p.maxhp)
                     } else {
-                        (0, 0)
+                        (0.into(), 0.into())
                     }
                 };
                 if hp > 0 && hp <= maxhp / 2 {
                     battle.section_consume_item(ident);
-                    battle.section_heal(ident, 10);
-                }
-            }
-        }
-        "whiteherb" => {
-            if *event_id == EventId::AfterApplyVolatile
-                && ctx.target == ident
-                && ctx.string_val == "stat_drop"
-            {
-                // In a full engine this would check if any stat is < 0 and restore it to 0.
-                // For now, this is a placeholder or basic implement.
-                battle.section_consume_item(ident);
-            }
-        }
-        "mentalherb" => {
-            if *event_id == EventId::AfterApplyVolatile
-                && ctx.target == ident
-                && (ctx.string_val == "taunt"
-                    || ctx.string_val == "encore"
-                    || ctx.string_val == "torment"
-                    || ctx.string_val == "disable")
-            {
-                battle.section_consume_item(ident);
-                if ident.player == 1 {
-                    if let Some(t) = battle.p1.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| {
-                            v != "taunt" && v != "encore" && v != "torment" && v != "disable"
-                        });
-                    }
-                } else {
-                    if let Some(t) = battle.p2.get_mut(ident.slot) {
-                        t.volatile_status.retain(|v| {
-                            v != "taunt" && v != "encore" && v != "torment" && v != "disable"
-                        });
-                    }
+                    battle.section_heal(ident, 10.into());
                 }
             }
         }
         "focussash" if *event_id == EventId::BeforeTakeDamage && ctx.target == ident => {
             let (hp, maxhp) = {
                 let pkmn = if ident.player == 1 {
-                    battle.p1.get(ident.slot)
+                    battle.p1.active.get(ident.slot)
                 } else {
-                    battle.p2.get(ident.slot)
+                    battle.p2.active.get(ident.slot)
                 };
                 if let Some(p) = pkmn {
                     (p.hp, p.maxhp)
                 } else {
-                    (0, 0)
+                    (0.into(), 0.into())
                 }
             };
             // If at full HP and damage would KO
-            if hp > 0 && hp == maxhp && ctx.num_val >= hp {
-                ctx.num_val = hp - 1; // Survive at 1 HP
+            if hp.into_inner() > 0
+                && hp.into_inner() == maxhp.into_inner()
+                && ctx.num_val >= hp.into_inner()
+            {
+                ctx.num_val = hp.into_inner() - 1; // Survive at 1 HP
                 battle.section_consume_item(ident);
             }
         }
         "focusband" if *event_id == EventId::BeforeTakeDamage && ctx.target == ident => {
             let hp = {
                 let pkmn = if ident.player == 1 {
-                    battle.p1.get(ident.slot)
+                    battle.p1.active.get(ident.slot)
                 } else {
-                    battle.p2.get(ident.slot)
+                    battle.p2.active.get(ident.slot)
                 };
-                if let Some(p) = pkmn { p.hp } else { 0 }
+                if let Some(p) = pkmn { p.hp } else { 0.into() }
             };
             // 10% chance to survive at 1 HP
-            if hp > 0 && ctx.num_val >= hp {
+            if hp.into_inner() > 0 && ctx.num_val >= hp.into_inner() {
                 let mut rng = rand::rng();
                 if rng.random_range(1..=100) <= 10 {
-                    ctx.num_val = hp - 1; // Survive at 1 HP
+                    ctx.num_val = hp.into_inner() - 1; // Survive at 1 HP
                 }
             }
         }
         "leftovers" if *event_id == EventId::EndOfTurn && ctx.target == ident => {
             let (hp, maxhp) = {
                 let pkmn = if ident.player == 1 {
-                    battle.p1.get(ident.slot)
+                    battle.p1.active.get(ident.slot)
                 } else {
-                    battle.p2.get(ident.slot)
+                    battle.p2.active.get(ident.slot)
                 };
                 if let Some(p) = pkmn {
                     (p.hp, p.maxhp)
                 } else {
-                    (0, 0)
+                    (0.into(), 0.into())
                 }
             };
-            if hp > 0 && hp < maxhp {
-                let heal = std::cmp::max(1, maxhp / 16);
-                battle.section_heal(ident, heal);
+            if hp.into_inner() > 0 && hp.into_inner() < maxhp.into_inner() {
+                let heal = std::cmp::max(1, maxhp.into_inner() / 16);
+                battle.section_heal(ident, heal.into());
             }
         }
         "blacksludge" if *event_id == EventId::EndOfTurn && ctx.target == ident => {
             let (hp, maxhp, is_poison) = {
                 let pkmn = if ident.player == 1 {
-                    battle.p1.get(ident.slot)
+                    battle.p1.active.get(ident.slot)
                 } else {
-                    battle.p2.get(ident.slot)
+                    battle.p2.active.get(ident.slot)
                 };
                 if let Some(p) = pkmn {
-                    let is_poison = p.type1 == "Poison"
-                        || p.type2.as_deref() == Some("Poison")
-                        || p.added_type.as_deref() == Some("Poison");
+                    let is_poison = p.type1 == Poison
+                        || p.type2 == Some(Poison)
+                        || p.added_type == Some(Poison);
                     (p.hp, p.maxhp, is_poison)
                 } else {
-                    (0, 0, false)
+                    (0.into(), 0.into(), false)
                 }
             };
-            if hp > 0 {
+            if hp.into_inner() > 0 {
                 if is_poison {
-                    if hp < maxhp {
-                        let heal = std::cmp::max(1, maxhp / 16);
-                        battle.section_heal(ident, heal);
+                    if hp.into_inner() < maxhp.into_inner() {
+                        let heal = std::cmp::max(1, maxhp.into_inner() / 16);
+                        battle.section_heal(ident, heal.into());
                     }
                 } else {
-                    let damage = std::cmp::max(1, maxhp / 8);
+                    let damage = std::cmp::max(1, (maxhp / 8).into_inner());
                     battle.section_take_damage(ident, damage);
                 }
             }
@@ -314,12 +322,12 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "blackbelt" => Some(Condition {
             name: "Black Belt".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "blackglasses" => Some(Condition {
             name: "Black Glasses".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "blastoisinite" => Some(Condition {
@@ -344,7 +352,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "charcoal" => Some(Condition {
             name: "Charcoal".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "charizarditex" => Some(Condition {
@@ -417,7 +425,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "dragonfang" => Some(Condition {
             name: "Dragon Fang".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "dragoninite" => Some(Condition {
@@ -446,7 +454,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "fairyfeather" => Some(Condition {
             name: "Fairy Feather".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "falinksite" => Some(Condition {
@@ -515,7 +523,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "hardstone" => Some(Condition {
             name: "Hard Stone".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "hawluchanite" => Some(Condition {
@@ -572,8 +580,8 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "lightball" => Some(Condition {
             name: "Light Ball".to_string(),
-            on_modify_atk: Some(|x| (x as f64 * 2.0) as i32),
-            on_modify_spa: Some(|x| (x as f64 * 2.0) as i32),
+            has_on_modify_atk: true,
+            has_on_modify_spa: true,
             ..Default::default()
         }),
         "lightclay" => Some(Condition {
@@ -594,7 +602,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "magnet" => Some(Condition {
             name: "Magnet".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "malamarite" => Some(Condition {
@@ -631,7 +639,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "metalcoat" => Some(Condition {
             name: "Metal Coat".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "metronome" => Some(Condition {
@@ -640,22 +648,22 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "miracleseed" => Some(Condition {
             name: "Miracle Seed".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "muscleband" => Some(Condition {
             name: "Muscle Band".to_string(),
-            on_base_power: Some(|x| x * 4505 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "mysticwater" => Some(Condition {
             name: "Mystic Water".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "nevermeltice" => Some(Condition {
             name: "Never-Melt Ice".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "occaberry" => Some(Condition {
@@ -692,7 +700,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "poisonbarb" => Some(Condition {
             name: "Poison Barb".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "pyroarite" => Some(Condition {
@@ -753,7 +761,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "sharpbeak" => Some(Condition {
             name: "Sharp Beak".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "sharpedonite" => Some(Condition {
@@ -774,12 +782,12 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "silkscarf" => Some(Condition {
             name: "Silk Scarf".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "silverpowder" => Some(Condition {
             name: "Silver Powder".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "sitrusberry" => Some(Condition {
@@ -800,12 +808,12 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "softsand" => Some(Condition {
             name: "Soft Sand".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "spelltag" => Some(Condition {
             name: "Spell Tag".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "staraptite" => Some(Condition {
@@ -830,7 +838,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "twistedspoon" => Some(Condition {
             name: "Twisted Spoon".to_string(),
-            on_base_power: Some(|x| x * 4915 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "tyranitarite" => Some(Condition {
@@ -859,7 +867,7 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "wiseglasses" => Some(Condition {
             name: "Wise Glasses".to_string(),
-            on_base_power: Some(|x| x * 4505 / 4096),
+            has_on_base_power: true,
             ..Default::default()
         }),
         "yacheberry" => Some(Condition {
@@ -871,5 +879,49 @@ pub fn get_item(id: &str) -> Option<Condition> {
             ..Default::default()
         }),
         _ => None,
+    }
+}
+
+pub fn check_white_herb(battle: &mut Battle, ident: PokemonIdent) {
+    let has_negative = if let Some(p) = battle.get_pokemon(ident) {
+        if p.item != Some(pkmn_meta::types::ItemId::WhiteHerb) {
+            return;
+        }
+        p.boosts.atk.into_inner() < 0
+            || p.boosts.def.into_inner() < 0
+            || p.boosts.spa.into_inner() < 0
+            || p.boosts.spd.into_inner() < 0
+            || p.boosts.spe.into_inner() < 0
+            || p.boosts.accuracy.into_inner() < 0
+            || p.boosts.evasion.into_inner() < 0
+    } else {
+        false
+    };
+
+    if has_negative {
+        if let Some(p) = battle.get_pokemon_mut(ident) {
+            if p.boosts.atk.into_inner() < 0 {
+                p.boosts.atk = 0.into();
+            }
+            if p.boosts.def.into_inner() < 0 {
+                p.boosts.def = 0.into();
+            }
+            if p.boosts.spa.into_inner() < 0 {
+                p.boosts.spa = 0.into();
+            }
+            if p.boosts.spd.into_inner() < 0 {
+                p.boosts.spd = 0.into();
+            }
+            if p.boosts.spe.into_inner() < 0 {
+                p.boosts.spe = 0.into();
+            }
+            if p.boosts.accuracy.into_inner() < 0 {
+                p.boosts.accuracy = 0.into();
+            }
+            if p.boosts.evasion.into_inner() < 0 {
+                p.boosts.evasion = 0.into();
+            }
+        }
+        battle.section_consume_item(ident);
     }
 }

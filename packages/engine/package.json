@@ -18,7 +18,7 @@
     "directory": "pkg"
   },
   "scripts": {
-    "lint": "cargo clippy && oxlint --type-aware --type-check .",
+    "lint": "cargo clippy -- -D warnings && oxlint --type-aware --type-check .",
     "fmt": "cargo fmt && oxfmt .",
     "fmt:check": "cargo fmt -- --check && oxfmt --check .",
     "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name engine && wasm-pack build --scope pokemetrix --target nodejs --out-dir pkg-node --out-name engine",
@@ -26,9 +26,10 @@
     "test": "vitest run",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
     "release": "pnpm run build && pnpm run pack && pnpm run publish",
-    "typecheck": "cargo check && npx tsc --noEmit",
-    "lint:fix": "cargo clippy --fix --allow-dirty --allow-staged && oxlint --fix-dangerously .",
-    "pretty": "pnpm run typecheck && pnpm run lint:fix && pnpm run fmt"
+    "typecheck": "cargo check && pnpm exec tsc --noEmit",
+    "lint:fix": "cargo clippy --fix --allow-dirty --allow-staged -- -D warnings && oxlint --fix-dangerously .",
+    "pretty": "pnpm run typecheck && pnpm run lint:fix && pnpm run fmt",
+    "todo": "pnpm exec tsx .scratch/todo.ts"
   },
   "dependencies": {
     "rand": "^0.0.4"
@@ -36,7 +37,12 @@
   "devDependencies": {
     "@pkmn/mods": "0.10.11",
     "@pkmn/sim": "0.10.11",
+    "@pokemetrix/data": "workspace:^",
+    "@types/node": "26.2.0",
+    "glob": "^13.0.6",
+    "outdent": "0.8.0",
     "oxfmt": "0.64.0",
+    "oxlint-plugin-eslint": "^1.80.0",
     "oxlint-tsgolint": "7.0.2001",
     "typescript": "7.0.2",
     "vite-plugin-top-level-await": "1.6.0",

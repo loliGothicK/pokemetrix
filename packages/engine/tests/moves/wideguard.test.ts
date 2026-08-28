@@ -1,0 +1,16 @@
+import { test } from "vitest";
+import { TestEnvironment, pokemon } from "@/sim-utils";
+
+test("Move: Wide Guard", () => {
+  const env = new TestEnvironment(
+    [
+      pokemon({ species: "machamp", moves: ["wideguard"] }),
+      pokemon({ species: "snorlax", moves: ["sleeptalk"] }),
+    ],
+    [
+      pokemon({ species: "tauros", moves: ["sleeptalk"] }),
+      pokemon({ species: "clefable", moves: ["sleeptalk"] }),
+    ],
+  );
+  env.executeAndAssert("move wideguard, move sleeptalk", "move sleeptalk, move sleeptalk");
+});

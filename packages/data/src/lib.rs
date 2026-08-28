@@ -4,6 +4,37 @@ use proc_macro::TokenStream;
 use quote::quote;
 use serde_json::Value;
 
+fn to_pascal(s: &str) -> String {
+    let mut out = String::new();
+    let mut capitalize_next = true;
+    for c in s.chars() {
+        if c == '-' || c == '\'' || c == '_' {
+            capitalize_next = true;
+        } else if capitalize_next {
+            out.push(c.to_ascii_uppercase());
+            capitalize_next = false;
+        } else {
+            out.push(c.to_ascii_lowercase());
+        }
+    }
+    if out == "Self" {
+        out = "Self_".to_string();
+    }
+    out
+}
+
+fn to_status(s: &str) -> String {
+    match s {
+        "brn" => "Burn".to_string(),
+        "frz" => "Frozen".to_string(),
+        "par" => "Paralysis".to_string(),
+        "slp" => "Sleep".to_string(),
+        "psn" => "Poison".to_string(),
+        "tox" => "Toxic".to_string(),
+        unknown => panic!("Unknown status: {unknown}"),
+    }
+}
+
 #[proc_macro]
 pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
     let moves_str = include_str!("../champions/moves.json");
@@ -20,13 +51,13 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
             let ty_ident = syn::Ident::new(ty_str, proc_macro2::Span::call_site());
 
             let cat = m["category"].as_str().unwrap();
-            let cat_cap = match cat {
-                "physical" => "Physical",
-                "special" => "Special",
-                _ => "Status",
-            };
+            let cat_ident = syn::Ident::new(&to_pascal(cat), proc_macro2::Span::call_site());
+            let cat_cap = quote! { crate::types::Category::#cat_ident };
+
             let priority = m["priority"].as_i64().unwrap_or(0) as i32;
             let range = m["range"].as_str().unwrap_or("single-target");
+            let range_ident = syn::Ident::new(&to_pascal(range), proc_macro2::Span::call_site());
+            let range_cap = quote! { crate::types::Range::#range_ident };
 
             let acc = match m["accuracy"].as_u64() {
                 Some(v) => {
@@ -94,12 +125,18 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
             };
 
             let volatile_status = match m["volatile_status"].as_str() {
-                Some(s) => quote! { Some(#s) },
+                Some(s) => {
+                    let ident = syn::Ident::new(&to_pascal(s), proc_macro2::Span::call_site());
+                    quote! { Some(crate::types::VolatileStatus::#ident) }
+                }
                 None => quote! { None },
             };
 
             let status = match m["status"].as_str() {
-                Some(s) => quote! { Some(#s) },
+                Some(s) => {
+                    let ident = syn::Ident::new(&to_status(s), proc_macro2::Span::call_site());
+                    quote! { Some(crate::types::Status::#ident) }
+                }
                 None => quote! { None },
             };
 
@@ -107,11 +144,17 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
                 let chance = sec.get("chance").and_then(|v| v.as_u64()).unwrap_or(100) as u32;
 
                 let v_status = match sec.get("volatile_status").and_then(|v| v.as_str()) {
-                    Some(s) => quote! { Some(#s) },
+                    Some(s) => {
+                        let ident = syn::Ident::new(&to_pascal(s), proc_macro2::Span::call_site());
+                        quote! { Some(crate::types::VolatileStatus::#ident) }
+                    }
                     None => quote! { None },
                 };
                 let status = match sec.get("status").and_then(|v| v.as_str()) {
-                    Some(s) => quote! { Some(#s) },
+                    Some(s) => {
+                        let ident = syn::Ident::new(&to_status(s), proc_macro2::Span::call_site());
+                        quote! { Some(crate::types::Status::#ident) }
+                    }
                     None => quote! { None },
                 };
 
@@ -125,14 +168,14 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
                         boosts.get("accuracy").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                     let evasion = boosts.get("evasion").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                     quote! {
-                        Some(crate::wasm_api::Boosts {
-                            atk: #atk,
-                            def: #def,
-                            spa: #spa,
-                            spd: #spd,
-                            spe: #spe,
-                            accuracy: #accuracy,
-                            evasion: #evasion,
+                        Some(crate::Boosts {
+                            atk: (#atk).into(),
+                            def: (#def).into(),
+                            spa: (#spa).into(),
+                            spd: (#spd).into(),
+                            spe: (#spe).into(),
+                            accuracy: (#accuracy).into(),
+                            evasion: (#evasion).into(),
                         })
                     }
                 } else {
@@ -162,14 +205,14 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
                         boosts.get("accuracy").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                     let evasion = boosts.get("evasion").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                     quote! {
-                        Some(crate::wasm_api::Boosts {
-                            atk: #atk,
-                            def: #def,
-                            spa: #spa,
-                            spd: #spd,
-                            spe: #spe,
-                            accuracy: #accuracy,
-                            evasion: #evasion,
+                        Some(crate::Boosts {
+                            atk: (#atk).into(),
+                            def: (#def).into(),
+                            spa: (#spa).into(),
+                            spd: (#spd).into(),
+                            spe: (#spe).into(),
+                            accuracy: (#accuracy).into(),
+                            evasion: (#evasion).into(),
                         })
                     }
                 } else {
@@ -194,14 +237,14 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
                 let accuracy = boosts.get("accuracy").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 let evasion = boosts.get("evasion").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 quote! {
-                    Some(crate::wasm_api::Boosts {
-                        atk: #atk,
-                        def: #def,
-                        spa: #spa,
-                        spd: #spd,
-                        spe: #spe,
-                        accuracy: #accuracy,
-                        evasion: #evasion,
+                    Some(crate::Boosts {
+                        atk: (#atk).into(),
+                        def: (#def).into(),
+                        spa: (#spa).into(),
+                        spd: (#spd).into(),
+                        spe: (#spe).into(),
+                        accuracy: (#accuracy).into(),
+                        evasion: (#evasion).into(),
                     })
                 }
             } else {
@@ -209,34 +252,34 @@ pub fn generate_move_meta(_item: TokenStream) -> TokenStream {
             };
 
             arms.push(quote! {
-                #id => Some(crate::move_meta::MoveMeta {
-                    base_power: #power,
-                    pp: #pp,
-                    move_type: damage_calc::types::Type::#ty_ident,
-                    category: #cat_cap,
-                    priority: #priority,
-                    range: #range,
-                    accuracy: #acc,
-                    flags_protect: #flags_protect,
-                    flags_contact: #flags_contact,
-                    flags_charge: #flags_charge,
-                    flags_recharge: #flags_recharge,
-                    is_punch: #is_punch,
-                    is_bite: #is_bite,
-                    is_sound: #is_sound,
-                    is_slicing: #is_slicing,
-                    is_wind: #is_wind,
-                    is_powder: #is_powder,
-                    is_ball: #is_ball,
-                    recoil: #recoil,
-                    drain: #drain,
-                    multihit: #multihit,
-                    status: #status,
-                    volatile_status: #volatile_status,
-                    boosts: #boosts,
-                    secondary: #secondary,
-                    self_effect: #self_effect,
-                }),
+                #id => Some(crate::move_meta::MoveMeta::builder()
+                    .base_power(#power)
+                    .pp(#pp)
+                    .move_type(crate::types::Type::#ty_ident)
+                    .category(#cat_cap)
+                    .priority(#priority)
+                    .range(#range_cap)
+                    .accuracy(#acc)
+                    .flags_protect(#flags_protect)
+                    .flags_contact(#flags_contact)
+                    .flags_charge(#flags_charge)
+                    .flags_recharge(#flags_recharge)
+                    .is_punch(#is_punch)
+                    .is_bite(#is_bite)
+                    .is_sound(#is_sound)
+                    .is_slicing(#is_slicing)
+                    .is_wind(#is_wind)
+                    .is_powder(#is_powder)
+                    .is_ball(#is_ball)
+                    .recoil(#recoil)
+                    .drain(#drain)
+                    .multihit(#multihit)
+                    .status(#status)
+                    .volatile_status(#volatile_status)
+                    .boosts(#boosts)
+                    .secondary(#secondary)
+                    .self_effect(#self_effect)
+                    .build()),
             });
         }
     }
@@ -266,12 +309,39 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
             let id = a["identifier"].as_str().unwrap().replace("-", "");
 
             let on_start_weather = match a.get("on_start_weather").and_then(|v| v.as_str()) {
-                Some(s) => quote! { Some(#s) },
+                Some("RainDance") | Some("Rain") => quote! { Some(crate::types::Weather::Rain) },
+                Some("SunnyDay") | Some("Sun") => {
+                    quote! { Some(crate::types::Weather::HashSunlight) }
+                }
+                Some("DesolateLand") | Some("HarshSunlight") => {
+                    quote! { Some(crate::types::Weather::ExtremelyHarshSunlight) }
+                }
+                Some("PrimordialSea") | Some("HeavyRain") => {
+                    quote! { Some(crate::types::Weather::HeavyRain) }
+                }
+                Some("DeltaStream") | Some("StrongWinds") => {
+                    quote! { Some(crate::types::Weather::StrongWinds) }
+                }
+                Some("Sandstorm") => quote! { Some(crate::types::Weather::Sandstorm) },
+                Some("Snow") | Some("Hail") => quote! { Some(crate::types::Weather::Snow) },
+                Some(s) => panic!("Unknown weather: {}", s),
                 None => quote! { None },
             };
 
             let on_start_terrain = match a.get("on_start_terrain").and_then(|v| v.as_str()) {
-                Some(s) => quote! { Some(#s) },
+                Some("ElectricTerrain") | Some("Electric") => {
+                    quote! { Some(crate::types::Terrain::Electric) }
+                }
+                Some("GrassyTerrain") | Some("Grassy") => {
+                    quote! { Some(crate::types::Terrain::Grassy) }
+                }
+                Some("MistyTerrain") | Some("Misty") => {
+                    quote! { Some(crate::types::Terrain::Misty) }
+                }
+                Some("PsychicTerrain") | Some("Psychic") => {
+                    quote! { Some(crate::types::Terrain::Psychic) }
+                }
+                Some(s) => panic!("Unknown terrain: {}", s),
                 None => quote! { None },
             };
 
@@ -284,7 +354,15 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
                 let accuracy = boosts.get("accuracy").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 let evasion = boosts.get("evasion").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 quote! {
-                    Some(crate::wasm_api::Boosts { atk: #atk, def: #def, spa: #spa, spd: #spd, spe: #spe, accuracy: #accuracy, evasion: #evasion })
+                    Some(crate::Boosts {
+                        atk: (#atk).into(),
+                        def: (#def).into(),
+                        spa: (#spa).into(),
+                        spd: (#spd).into(),
+                        spe: (#spe).into(),
+                        accuracy: (#accuracy).into(),
+                        evasion: (#evasion).into()
+                    })
                 }
             } else {
                 quote! { None }
@@ -299,7 +377,15 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
                 let accuracy = boosts.get("accuracy").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 let evasion = boosts.get("evasion").and_then(|v| v.as_i64()).unwrap_or(0) as i8;
                 quote! {
-                    Some(crate::wasm_api::Boosts { atk: #atk, def: #def, spa: #spa, spd: #spd, spe: #spe, accuracy: #accuracy, evasion: #evasion })
+                    Some(crate::Boosts {
+                        atk: (#atk).into(),
+                        def: (#def).into(),
+                        spa: (#spa).into(),
+                        spd: (#spd).into(),
+                        spe: (#spe).into(),
+                        accuracy: (#accuracy).into(),
+                        evasion: (#evasion).into()
+                    })
                 }
             } else {
                 quote! { None }
@@ -312,7 +398,7 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
                         c.make_ascii_uppercase();
                     }
                     let ty_ident = syn::Ident::new(&s, proc_macro2::Span::call_site());
-                    quote! { Some(damage_calc::types::Type::#ty_ident) }
+                    quote! { Some(crate::types::Type::#ty_ident) }
                 }
                 None => quote! { None },
             };
@@ -340,7 +426,7 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
                         }
                         let ty_ident = syn::Ident::new(&type_str, proc_macro2::Span::call_site());
                         let val = arr[1].as_f64().unwrap() as f32;
-                        quote! { Some((damage_calc::types::Type::#ty_ident, #val)) }
+                        quote! { Some((crate::types::Type::#ty_ident, #val)) }
                     } else {
                         quote! { None }
                     }
@@ -349,17 +435,18 @@ pub fn generate_ability_meta(_item: TokenStream) -> TokenStream {
                 };
 
             arms.push(quote! {
-                #id => Some(AbilityMeta {
-                    on_start_weather: #on_start_weather,
-                    on_start_terrain: #on_start_terrain,
-                    on_start_stat_drop_foe: #on_start_stat_drop_foe,
-                    on_start_stat_boost_self: #on_start_stat_boost_self,
-                    immune_to_type: #immune_to_type,
-                    immune_to_status: #immune_to_status,
-                    ignore_foe_stat_changes: #ignore_foe_stat_changes,
-                    is_magic_guard: #is_magic_guard,
-                    attack_type_boost: #attack_type_boost,
-                }),
+                #id => Some(AbilityMeta::builder()
+                    .on_start_weather(#on_start_weather)
+                    .on_start_terrain(#on_start_terrain)
+                    .on_start_stat_drop_foe(#on_start_stat_drop_foe)
+                    .on_start_stat_boost_self(#on_start_stat_boost_self)
+                    .immune_to_type(#immune_to_type)
+                    .immune_to_status(#immune_to_status)
+                    .ignore_foe_stat_changes(#ignore_foe_stat_changes)
+                    .is_magic_guard(#is_magic_guard)
+                    .attack_type_boost(#attack_type_boost)
+                    .build()
+                ),
             });
         }
     }
@@ -386,7 +473,8 @@ pub fn generate_item_meta(_item: TokenStream) -> TokenStream {
 
     if let Some(arr) = items_json["data"].as_array() {
         for i in arr {
-            let id = i["identifier"].as_str().unwrap().replace("-", "");
+            let id_str = i["identifier"].as_str().unwrap();
+            let ident = syn::Ident::new(&to_pascal(id_str), proc_macro2::Span::call_site());
 
             let is_choice_scarf = i
                 .get("is_choice_scarf")
@@ -412,6 +500,14 @@ pub fn generate_item_meta(_item: TokenStream) -> TokenStream {
                 .get("is_speed_drop")
                 .and_then(|v| v.as_bool())
                 .unwrap_or(false);
+            let is_choice_band = i
+                .get("is_choice_band")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(false);
+            let is_choice_specs = i
+                .get("is_choice_specs")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(false);
 
             let type_boost = if let Some(arr) = i.get("type_boost").and_then(|v| v.as_array()) {
                 if arr.len() == 2 {
@@ -421,7 +517,7 @@ pub fn generate_item_meta(_item: TokenStream) -> TokenStream {
                     }
                     let ty_ident = syn::Ident::new(&type_str, proc_macro2::Span::call_site());
                     let val = arr[1].as_f64().unwrap() as f32;
-                    quote! { Some((damage_calc::types::Type::#ty_ident, #val)) }
+                    quote! { Some((crate::types::Type::#ty_ident, #val)) }
                 } else {
                     quote! { None }
                 }
@@ -431,40 +527,126 @@ pub fn generate_item_meta(_item: TokenStream) -> TokenStream {
 
             let type_resist_berry = match i.get("type_resist_berry").and_then(|v| v.as_str()) {
                 Some(s) => {
-                    let mut s = s.to_string();
-                    if let Some(c) = s.get_mut(0..1) {
+                    let mut type_str = s.to_string();
+                    if let Some(c) = type_str.get_mut(0..1) {
                         c.make_ascii_uppercase();
                     }
-                    let ty_ident = syn::Ident::new(&s, proc_macro2::Span::call_site());
-                    quote! { Some(damage_calc::types::Type::#ty_ident) }
+                    let ty_ident = syn::Ident::new(&type_str, proc_macro2::Span::call_site());
+                    quote! { Some(crate::types::Type::#ty_ident) }
                 }
                 None => quote! { None },
             };
 
             arms.push(quote! {
-                #id => Some(ItemMeta {
-                    is_choice_scarf: #is_choice_scarf,
-                    is_life_orb: #is_life_orb,
-                    is_expert_belt: #is_expert_belt,
-                    is_muscle_band: #is_muscle_band,
-                    is_wise_glasses: #is_wise_glasses,
-                    is_speed_drop: #is_speed_drop,
-                    type_boost: #type_boost,
-                    type_resist_berry: #type_resist_berry,
-                }),
+                crate::types::ItemId::#ident => Some(ItemMeta::builder()
+                    .is_choice_scarf(#is_choice_scarf)
+                    .is_choice_band(#is_choice_band)
+                    .is_choice_specs(#is_choice_specs)
+                    .is_life_orb(#is_life_orb)
+                    .is_expert_belt(#is_expert_belt)
+                    .is_muscle_band(#is_muscle_band)
+                    .is_wise_glasses(#is_wise_glasses)
+                    .is_speed_drop(#is_speed_drop)
+                    .type_boost(#type_boost)
+                    .type_resist_berry(#type_resist_berry)
+                    .build()
+                ),
             });
         }
     }
 
     let expanded = quote! {
-        pub fn get_item_meta(id: &str) -> Option<ItemMeta> {
-            let id = id.replace("-", "");
-            match id.as_str() {
+        pub fn get_item_meta(id: &crate::types::ItemId) -> Option<ItemMeta> {
+            match id {
                 #(#arms)*
-                _ => None,
             }
         }
     };
 
     TokenStream::from(expanded)
 }
+
+#[proc_macro]
+pub fn generate_pokemon_meta(_item: TokenStream) -> TokenStream {
+    let pokemon_str = include_str!("../champions/pokemon.json");
+    let pokemon_json: Value =
+        serde_json::from_str(pokemon_str).expect("Failed to parse pokemon.json");
+
+    let master_pokemon_str = include_str!("../master/pokemon.json");
+    let master_pokemon_json: Value =
+        serde_json::from_str(master_pokemon_str).expect("Failed to parse master/pokemon.json");
+
+    let mut weight_map = std::collections::HashMap::new();
+    if let Some(arr) = master_pokemon_json["data"].as_array() {
+        for p in arr {
+            if let (Some(id), Some(w)) = (p["identifier"].as_str(), p["weight"].as_u64()) {
+                weight_map.insert(id.to_string(), w as u32);
+            }
+        }
+    }
+
+    let mut arms = Vec::new();
+
+    if let Some(arr) = pokemon_json["data"].as_array() {
+        for p in arr {
+            let orig_id = p["identifier"].as_str().unwrap();
+            let id = orig_id.replace("-", "");
+            let weight = weight_map.get(orig_id).unwrap_or(&0);
+
+            let status = p["status"].as_array().unwrap();
+            let hp = status[0].as_u64().unwrap() as u32;
+            let atk = status[1].as_u64().unwrap() as u32;
+            let def = status[2].as_u64().unwrap() as u32;
+            let spa = status[3].as_u64().unwrap() as u32;
+            let spd = status[4].as_u64().unwrap() as u32;
+            let spe = status[5].as_u64().unwrap() as u32;
+
+            let capitalize = |s: &str| {
+                let mut c = s.chars();
+                match c.next() {
+                    None => String::new(),
+                    Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+                }
+            };
+
+            let types = p["types"].as_array().unwrap();
+            let type1_str = capitalize(types[0].as_str().unwrap());
+            let type1_ident = syn::Ident::new(&type1_str, proc_macro2::Span::call_site());
+            let type2 = if types.len() > 1 {
+                let t = capitalize(types[1].as_str().unwrap());
+                let type2_ident = syn::Ident::new(&t, proc_macro2::Span::call_site());
+                quote! { Some(crate::types::Type::#type2_ident) }
+            } else {
+                quote! { None }
+            };
+
+            arms.push(quote! {
+                #id => Some(PokemonMeta::builder()
+                    .base_stats([#hp, #atk, #def, #spa, #spd, #spe])
+                    .type1(crate::types::Type::#type1_ident)
+                    .type2(#type2)
+                    .weight(#weight)
+                    .build()
+                ),
+            });
+        }
+    }
+
+    let expanded = quote! {
+        pub fn get_pokemon_meta(slug: &str) -> Option<PokemonMeta> {
+            let slug = slug.replace("-", "").to_lowercase();
+            match slug.as_str() {
+                #(#arms)*
+                _ => None,
+            }
+        }
+
+        pub fn is_valid_pokemon(slug: &str) -> bool {
+            get_pokemon_meta(slug).is_some()
+        }
+    };
+
+    TokenStream::from(expanded)
+}
+
+// trigger rebuild

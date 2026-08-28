@@ -1,12 +1,21 @@
-#[derive(Default)]
+use derive_getters::Getters;
+use typed_builder::TypedBuilder;
+
+#[derive(Default, TypedBuilder, Getters)]
 pub struct MoveEffect {
-    pub name: String,
-    pub has_on_modify_priority: bool,
-    pub has_on_modify_atk: bool,
-    pub has_on_modify_def: bool,
-    pub has_on_modify_spa: bool,
-    pub has_on_modify_spd: bool,
-    pub has_on_base_power: bool,
+    name: String,
+    #[builder(default)]
+    has_on_modify_priority: bool,
+    #[builder(default)]
+    has_on_modify_atk: bool,
+    #[builder(default)]
+    has_on_modify_def: bool,
+    #[builder(default)]
+    has_on_modify_spa: bool,
+    #[builder(default)]
+    has_on_modify_spd: bool,
+    #[builder(default)]
+    has_on_base_power: bool,
 }
 
 pub fn get_move_effect(id: &str) -> Option<MoveEffect> {

@@ -1,0 +1,852 @@
+# Engine Implementation Tracker
+
+## Abilities
+
+- [x] adaptability
+- [x] aerilate
+- [ ] aftermath
+- [ ] analytic
+- [ ] angerpoint
+- [ ] anticipation
+- [ ] armortail
+- [ ] aromaveil
+- [ ] battlearmor
+- [ ] berserk
+- [ ] bigpecks
+- [ ] blaze
+- [ ] bulletproof
+- [ ] cheekpouch
+- [ ] chlorophyll
+- [ ] clearbody
+- [ ] cloudnine
+- [ ] competitive
+- [ ] contrary
+- [ ] corrosion
+- [ ] cudchew
+- [ ] curiousmedicine
+- [ ] cursedbody
+- [ ] cutecharm
+- [ ] damp
+- [ ] defiant
+- [ ] disguise
+- [ ] dragonize
+- [ ] drizzle
+- [ ] drought
+- [ ] dryskin
+- [ ] earlybird
+- [x] eartheater
+- [ ] eelevate
+- [ ] effectspore
+- [ ] electricsurge
+- [ ] electromorphosis
+- [ ] fairyaura
+- [ ] filter
+- [ ] firemane
+- [ ] flamebody
+- [ ] flashfire
+- [ ] flowerveil
+- [ ] fluffy
+- [ ] forecast
+- [ ] forewarn
+- [ ] friendguard
+- [ ] frisk
+- [ ] furcoat
+- [ ] galewings
+- [ ] gluttony
+- [ ] goodasgold
+- [ ] gooey
+- [ ] guts
+- [ ] harvest
+- [ ] healer
+- [ ] heatproof
+- [ ] heavymetal
+- [ ] hospitality
+- [ ] hugepower
+- [ ] hungerswitch
+- [ ] hustle
+- [ ] hydration
+- [ ] hypercutter
+- [ ] icebody
+- [ ] illuminate
+- [ ] illusion
+- [ ] immunity
+- [ ] imposter
+- [ ] infiltrator
+- [ ] innardsout
+- [ ] innerfocus
+- [ ] insomnia
+- [x] intimidate
+- [ ] ironfist
+- [ ] justified
+- [ ] keeneye
+- [ ] klutz
+- [ ] leafguard
+- [ ] levitate
+- [ ] lightmetal
+- [ ] lightningrod
+- [ ] limber
+- [ ] liquidvoice
+- [ ] longreach
+- [ ] magicbounce
+- [ ] magicguard
+- [ ] magician
+- [ ] magmaarmor
+- [ ] marvelscale
+- [ ] megalauncher
+- [ ] megasol
+- [ ] merciless
+- [ ] mimicry
+- [ ] minus
+- [ ] mirrorarmor
+- [ ] moldbreaker
+- [ ] moody
+- [ ] motordrive
+- [ ] moxie
+- [ ] multiscale
+- [ ] mummy
+- [ ] naturalcure
+- [ ] noguard
+- [ ] oblivious
+- [ ] opportunist
+- [ ] overcoat
+- [ ] overgrow
+- [ ] owntempo
+- [ ] parentalbond
+- [ ] pickpocket
+- [ ] pickup
+- [ ] piercingdrill
+- [x] pixilate
+- [ ] plus
+- [ ] poisonheal
+- [ ] poisonpoint
+- [ ] poisontouch
+- [ ] prankster
+- [ ] pressure
+- [ ] protean
+- [ ] purepower
+- [ ] purifyingsalt
+- [ ] queenlymajesty
+- [ ] quickdraw
+- [ ] quickfeet
+- [ ] raindish
+- [ ] receiver
+- [ ] reckless
+- [x] refrigerate
+- [ ] regenerator
+- [ ] ripen
+- [ ] rivalry
+- [ ] rockhead
+- [ ] roughskin
+- [ ] sandforce
+- [ ] sandrush
+- [ ] sandspit
+- [ ] sandstream
+- [ ] sandveil
+- [x] sapsipper
+- [ ] scrappy
+- [ ] screencleaner
+- [ ] shadowtag
+- [ ] sharpness
+- [ ] shedskin
+- [ ] sheerforce
+- [ ] shellarmor
+- [ ] shielddust
+- [ ] skilllink
+- [ ] slushrush
+- [ ] sniper
+- [ ] snowcloak
+- [ ] snowwarning
+- [ ] solarpower
+- [ ] solidrock
+- [x] soundproof
+- [ ] speedboost
+- [ ] spicyspray
+- [ ] stall
+- [ ] stalwart
+- [ ] stamina
+- [ ] stancechange
+- [ ] static
+- [ ] steadfast
+- [ ] stench
+- [ ] stickyhold
+- [ ] strongjaw
+- [ ] sturdy
+- [ ] suctioncups
+- [ ] superluck
+- [ ] supersweetsyrup
+- [ ] supremeoverlord
+- [ ] surgesurfer
+- [ ] swarm
+- [ ] sweetveil
+- [ ] swiftswim
+- [ ] symbiosis
+- [ ] synchronize
+- [ ] tangledfeet
+- [ ] technician
+- [ ] telepathy
+- [ ] thickfat
+- [ ] torrent
+- [ ] toughclaws
+- [ ] toxicdebris
+- [ ] trace
+- [ ] unaware
+- [ ] unburden
+- [ ] unnerve
+- [ ] unseenfist
+- [ ] vitalspirit
+- [x] voltabsorb
+- [ ] wanderingspirit
+- [x] waterabsorb
+- [ ] waterbubble
+- [ ] weakarmor
+- [ ] whitesmoke
+- [ ] zerotohero
+
+## Items
+
+- [ ] abomasite
+- [ ] absolite
+- [ ] aerodactylite
+- [ ] aggronite
+- [ ] alakazite
+- [ ] altarianite
+- [ ] ampharosite
+- [ ] aspearberry
+- [ ] audinite
+- [ ] babiriberry
+- [ ] banettite
+- [ ] barbaracite
+- [ ] beedrillite
+- [x] bigroot
+- [ ] blackbelt
+- [ ] blackglasses
+- [ ] blastoisinite
+- [ ] blazikenite
+- [x] brightpowder
+- [ ] cameruptite
+- [ ] chandelurite
+- [ ] charcoal
+- [ ] charizarditex
+- [ ] charizarditey
+- [ ] chartiberry
+- [ ] cheriberry
+- [ ] chesnaughtite
+- [ ] chestoberry
+- [ ] chilanberry
+- [ ] chimechite
+- [x] choicescarf
+- [ ] chopleberry
+- [ ] clefablite
+- [ ] cobaberry
+- [ ] colburberry
+- [ ] crabominite
+- [x] damprock
+- [ ] delphoxite
+- [ ] dragalgite
+- [ ] dragonfang
+- [ ] dragoninite
+- [ ] drampanite
+- [ ] eelektrossite
+- [ ] emboarite
+- [ ] excadrite
+- [x] expertbelt
+- [ ] fairyfeather
+- [ ] falinksite
+- [ ] feraligite
+- [ ] floettite
+- [x] focusband
+- [x] focussash
+- [ ] froslassite
+- [ ] galladite
+- [ ] garchompite
+- [ ] gardevoirite
+- [ ] gengarite
+- [ ] glalitite
+- [ ] glimmoranite
+- [ ] golurkite
+- [ ] greninjite
+- [ ] gyaradosite
+- [ ] habanberry
+- [ ] hardstone
+- [ ] hawluchanite
+- [x] heatrock
+- [ ] heracronite
+- [ ] houndoominite
+- [x] icyrock
+- [x] ironball
+- [ ] kangaskhanite
+- [ ] kasibberry
+- [ ] kebiaberry
+- [x] kingsrock
+- [x] leftovers
+- [ ] leppaberry
+- [x] lifeorb
+- [x] lightball
+- [x] lightclay
+- [ ] lopunnite
+- [ ] lucarionite
+- [ ] lumberry
+- [ ] magnet
+- [ ] malamarite
+- [ ] manectite
+- [ ] mawilite
+- [ ] medichamite
+- [ ] meganiumite
+- [x] mentalherb
+- [ ] meowsticite
+- [ ] metagrossite
+- [ ] metalcoat
+- [x] metronome
+- [ ] miracleseed
+- [x] muscleband
+- [ ] mysticwater
+- [ ] nevermeltice
+- [ ] occaberry
+- [ ] oranberry
+- [ ] passhoberry
+- [ ] payapaberry
+- [ ] pechaberry
+- [ ] persimberry
+- [ ] pidgeotite
+- [ ] pinsirite
+- [ ] poisonbarb
+- [ ] pyroarite
+- [ ] quickclaw
+- [ ] raichunitex
+- [ ] raichunitey
+- [ ] rawstberry
+- [ ] rindoberry
+- [ ] roseliberry
+- [ ] sablenite
+- [ ] sceptilite
+- [ ] scizorite
+- [ ] scolipite
+- [x] scopelens
+- [ ] scovillainite
+- [ ] scraftinite
+- [ ] sharpbeak
+- [ ] sharpedonite
+- [x] shedshell
+- [x] shellbell
+- [ ] shucaberry
+- [ ] silkscarf
+- [ ] silverpowder
+- [ ] sitrusberry
+- [ ] skarmorite
+- [ ] slowbronite
+- [x] smoothrock
+- [ ] softsand
+- [ ] spelltag
+- [ ] staraptite
+- [ ] starminite
+- [ ] steelixite
+- [ ] swampertite
+- [ ] tangaberry
+- [ ] twistedspoon
+- [ ] tyranitarite
+- [ ] venusaurite
+- [ ] victreebelite
+- [ ] wacanberry
+- [x] whiteherb
+- [x] widelens
+- [x] wiseglasses
+- [ ] yacheberry
+- [x] zoomlens
+
+## Moves
+
+- [x] accelerock
+- [x] acidarmor
+- [x] acidspray
+- [x] acrobatics
+- [x] acupressure
+- [x] aerialace
+- [x] afteryou
+- [x] agility
+- [x] aircutter
+- [x] airslash
+- [x] alluringvoice
+- [x] allyswitch
+- [x] amnesia
+- [x] ancientpower
+- [x] appleacid
+- [x] aquacutter
+- [x] aquajet
+- [x] aquaring
+- [x] aquastep
+- [x] aquatail
+- [x] armorcannon
+- [x] aromaticmist
+- [x] assurance
+- [x] attract
+- [x] aurasphere
+- [x] aurawheel
+- [x] auroraveil
+- [x] avalanche
+- [x] axekick
+- [x] babydolleyes
+- [x] banefulbunker
+- [x] barbbarrage
+- [x] batonpass
+- [x] beakblast
+- [x] beatup
+- [x] belch
+- [x] bellydrum
+- [x] bind
+- [x] bite
+- [x] bitterblade
+- [x] bittermalice
+- [x] blastburn
+- [x] blazekick
+- [x] blizzard
+- [x] block
+- [x] bodypress
+- [x] bodyslam
+- [x] bonerush
+- [x] boomburst
+- [x] bounce
+- [x] bravebird
+- [x] breakingswipe
+- [x] brickbreak
+- [x] brutalswing
+- [x] bugbite
+- [x] bugbuzz
+- [x] bulkup
+- [x] bulldoze
+- [x] bulletpunch
+- [x] bulletseed
+- [x] burningjealousy
+- [x] burnup
+- [x] calmmind
+- [x] ceaselessedge
+- [x] charge
+- [x] chargebeam
+- [x] charm
+- [x] chillingwater
+- [x] chillyreception
+- [x] circlethrow
+- [x] clangingscales
+- [x] clangoroussoul
+- [x] clearsmog
+- [x] closecombat
+- [x] coaching
+- [x] coil
+- [x] comeuppance
+- [x] confuseray
+- [x] copycat
+- [x] corrosivegas
+- [x] cosmicpower
+- [x] cottonguard
+- [x] cottonspore
+- [x] counter
+- [x] covet
+- [x] crabhammer
+- [x] crosschop
+- [x] crosspoison
+- [x] crunch
+- [x] crushclaw
+- [x] curse
+- [x] darkestlariat
+- [x] darkpulse
+- [x] dazzlinggleam
+- [x] decorate
+- [x] defog
+- [x] destinybond
+- [x] detect
+- [x] dig
+- [x] direclaw
+- [x] disable
+- [x] discharge
+- [x] dive
+- [x] doubleedge
+- [x] doublehit
+- [x] doubleteam
+- [x] dracometeor
+- [x] dragoncheer
+- [x] dragonclaw
+- [x] dragondance
+- [x] dragondarts
+- [x] dragonpulse
+- [x] dragonrush
+- [x] dragontail
+- [x] drainingkiss
+- [x] drainpunch
+- [x] drillpeck
+- [x] drillrun
+- [x] dualwingbeat
+- [x] dynamicpunch
+- [x] earthpower
+- [x] earthquake
+- [x] eerieimpulse
+- [x] eeriespell
+- [x] electricterrain
+- [x] electrify
+- [x] electroball
+- [x] electroshot
+- [x] electroweb
+- [x] encore
+- [x] endeavor
+- [x] endure
+- [x] energyball
+- [x] entrainment
+- [x] eruption
+- [x] expandingforce
+- [x] explosion
+- [x] extrasensory
+- [x] extremespeed
+- [x] facade
+- [x] fairylock
+- [x] fakeout
+- [x] faketears
+- [x] featherdance
+- [x] feint
+- [x] fellstinger
+- [x] ficklebeam
+- [x] fierydance
+- [x] finalgambit
+- [x] fireblast
+- [x] firefang
+- [x] firelash
+- [x] firepunch
+- [x] firespin
+- [x] firstimpression
+- [x] fissure
+- [x] flail
+- [x] flamecharge
+- [x] flamethrower
+- [x] flareblitz
+- [x] flashcannon
+- [x] flatter
+- [x] fling
+- [x] flipturn
+- [x] flowertrick
+- [x] fly
+- [x] flyingpress
+- [x] focusblast
+- [x] focusenergy
+- [x] focuspunch
+- [x] followme
+- [x] foulplay
+- [x] freezedry
+- [x] frenzyplant
+- [x] frostbreath
+- [x] futuresight
+- [x] gastroacid
+- [x] gigadrain
+- [x] gigaimpact
+- [x] gigatonhammer
+- [x] glare
+- [x] grassknot
+- [x] grassyglide
+- [x] grassyterrain
+- [x] gravapple
+- [x] gravity
+- [x] growth
+- [x] guardsplit
+- [x] guardswap
+- [x] guillotine
+- [x] gunkshot
+- [x] gyroball
+- [x] hammerarm
+- [x] hardpress
+- [x] haze
+- [x] headlongrush
+- [x] headsmash
+- [x] healbell
+- [x] healingwish
+- [x] healpulse
+- [x] heatcrash
+- [x] heatwave
+- [x] heavyslam
+- [x] helpinghand
+- [x] hex
+- [x] highhorsepower
+- [x] highjumpkick
+- [x] horndrill
+- [x] hornleech
+- [x] howl
+- [x] hurricane
+- [x] hydrocannon
+- [x] hydropump
+- [x] hyperbeam
+- [x] hypervoice
+- [x] hypnosis
+- [x] icebeam
+- [x] icefang
+- [x] icehammer
+- [x] icepunch
+- [x] iceshard
+- [x] icespinner
+- [x] iciclecrash
+- [x] iciclespear
+- [x] icywind
+- [x] imprison
+- [x] infernalparade
+- [x] inferno
+- [x] infestation
+- [x] ingrain
+- [x] instruct
+- [x] irondefense
+- [x] ironhead
+- [x] irontail
+- [x] jetpunch
+- [x] kingsshield
+- [x] knockoff
+- [x] kowtowcleave
+- [x] lashout
+- [x] lastresort
+- [x] lastrespects
+- [x] lavaplume
+- [x] leafblade
+- [x] leafstorm
+- [x] leechlife
+- [x] leechseed
+- [x] lifedew
+- [x] lightofruin
+- [x] lightscreen
+- [x] liquidation
+- [x] lockon
+- [x] lowkick
+- [x] lowsweep
+- [x] luminacrash
+- [x] lunge
+- [x] machpunch
+- [x] magicpowder
+- [x] magicroom
+- [x] magneticflux
+- [x] magnetrise
+- [x] makeitrain
+- [x] matchagotcha
+- [x] meanlook
+- [x] megahorn
+- [x] megakick
+- [x] memento
+- [x] metalburst
+- [x] metalsound
+- [x] meteorbeam
+- [x] meteormash
+- [x] minimize
+- [x] mirrorcoat
+- [x] mistyexplosion
+- [x] mistyterrain
+- [x] moonblast
+- [x] moonlight
+- [x] morningsun
+- [x] mortalspin
+- [x] mountaingale
+- [x] muddywater
+- [x] mudshot
+- [x] mudslap
+- [x] mysticalfire
+- [x] nastyplot
+- [x] nightdaze
+- [x] nightshade
+- [x] nightslash
+- [x] nobleroar
+- [x] noretreat
+- [x] nuzzle
+- [x] outrage
+- [x] overheat
+- [x] painsplit
+- [x] paraboliccharge
+- [x] partingshot
+- [x] payback
+- [x] perishsong
+- [x] petalblizzard
+- [x] petaldance
+- [x] phantomforce
+- [x] pinmissile
+- [x] playrough
+- [x] pluck
+- [x] poisonfang
+- [x] poisonjab
+- [x] poisonpowder
+- [x] pollenpuff
+- [x] poltergeist
+- [x] populationbomb
+- [x] pounce
+- [x] pound
+- [x] powergem
+- [x] powersplit
+- [x] powerswap
+- [x] powertrick
+- [x] powertrip
+- [x] powerwhip
+- [x] protect
+- [x] psychic
+- [x] psychicfangs
+- [x] psychicnoise
+- [x] psychicterrain
+- [x] psychocut
+- [x] psychup
+- [x] psyshieldbash
+- [x] psyshock
+- [x] quash
+- [x] quickattack
+- [x] quickguard
+- [x] quiverdance
+- [x] ragefist
+- [x] ragepowder
+- [x] ragingbull
+- [x] ragingfury
+- [x] raindance
+- [x] rapidspin
+- [x] razorshell
+- [x] recover
+- [x] recycle
+- [x] reflect
+- [x] reflecttype
+- [x] rest
+- [x] reversal
+- [x] risingvoltage
+- [x] roar
+- [x] rockblast
+- [x] rockpolish
+- [x] rockslide
+- [x] rocktomb
+- [x] rockwrecker
+- [x] roleplay
+- [x] roost
+- [x] round
+- [x] sacredsword
+- [x] safeguard
+- [x] saltcure
+- [x] sandstorm
+- [x] sandtomb
+- [x] scald
+- [x] scaleshot
+- [x] scaryface
+- [x] scorchingsands
+- [x] screech
+- [x] seedbomb
+- [x] seismictoss
+- [x] selfdestruct
+- [x] shadowball
+- [x] shadowclaw
+- [x] shadowpunch
+- [x] shadowsneak
+- [x] shedtail
+- [x] sheercold
+- [x] shellsidearm
+- [x] shellsmash
+- [x] shelter
+- [x] simplebeam
+- [x] sing
+- [x] skillswap
+- [x] skittersmack
+- [x] skyattack
+- [x] slackoff
+- [x] sleeppowder
+- [x] sleeptalk
+- [x] sludgebomb
+- [x] sludgewave
+- [x] smackdown
+- [x] smartstrike
+- [x] snaptrap
+- [x] snarl
+- [x] snore
+- [x] snowscape
+- [x] soak
+- [x] solarbeam
+- [x] solarblade
+- [x] sparklingaria
+- [x] speedswap
+- [x] spicyextract
+- [x] spikes
+- [x] spikyshield
+- [x] spiritbreak
+- [x] spiritshackle
+- [x] spite
+- [x] spitup
+- [x] stealthrock
+- [x] steelbeam
+- [x] steelroller
+- [x] steelwing
+- [x] stickyweb
+- [x] stockpile
+- [x] stompingtantrum
+- [x] stoneaxe
+- [x] stoneedge
+- [x] storedpower
+- [x] stormthrow
+- [x] strengthsap
+- [x] stringshot
+- [x] strugglebug
+- [x] stuffcheeks
+- [x] stunspore
+- [x] substitute
+- [x] suckerpunch
+- [x] sunnyday
+- [x] supercellslam
+- [x] superfang
+- [x] superpower
+- [x] surf
+- [x] swagger
+- [x] swallow
+- [x] sweetkiss
+- [x] sweetscent
+- [x] switcheroo
+- [x] swordsdance
+- [x] synthesis
+- [x] syrupbomb
+- [x] tailslap
+- [x] tailwind
+- [x] taunt
+- [x] tearfullook
+- [x] teatime
+- [x] teeterdance
+- [x] temperflare
+- [x] terrainpulse
+- [x] thief
+- [x] thrash
+- [x] throatchop
+- [x] thunder
+- [x] thunderbolt
+- [x] thunderfang
+- [x] thunderpunch
+- [x] thunderwave
+- [x] tickle
+- [x] tidyup
+- [x] topsyturvy
+- [x] torchsong
+- [x] torment
+- [x] toxic
+- [x] toxicspikes
+- [x] toxicthread
+- [x] trailblaze
+- [x] transform
+- [x] triattack
+- [x] trick
+- [x] trickortreat
+- [x] trickroom
+- [x] triplearrows
+- [x] tripleaxel
+- [x] tropkick
+- [x] twinbeam
+- [x] upperhand
+- [x] uproar
+- [x] uturn
+- [x] vacuumwave
+- [x] venoshock
+- [x] voltswitch
+- [x] volttackle
+- [x] waterfall
+- [x] waterpulse
+- [x] watershuriken
+- [x] waterspout
+- [x] wavecrash
+- [x] weatherball
+- [x] whirlpool
+- [x] whirlwind
+- [x] wideguard
+- [x] wildcharge
+- [x] willowisp
+- [x] wish
+- [x] wonderroom
+- [x] woodhammer
+- [x] worryseed
+- [x] wrap
+- [x] xscissor
+- [x] yawn
+- [x] zapcannon
+- [x] zenheadbutt

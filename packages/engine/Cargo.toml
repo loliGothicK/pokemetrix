@@ -8,11 +8,16 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 damage-calc = { path = "../damage-calc" }
-data = { path = "../data" }
+pkmn-meta = { path = "../pkmn-meta" }
 deriving_via = { workspace = true }
 rand = "0.10.2"
-getrandom = { version = "0.4.3", features = ["wasm_js"] }
+getrandom = { version = "*", features = ["wasm_js"] }
 serde = { workspace = true }
 tsify = { workspace = true }
-typed-builder = "0.23.2"
+typed-builder = { workspace = true }
+derive-getters = { workspace = true }
 wasm-bindgen = { workspace = true }
+indexmap = "2.14.0"
+
+[dev-dependencies]
+serde_json.workspace = true

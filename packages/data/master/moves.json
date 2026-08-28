@@ -3238,7 +3238,8 @@
     },
     {
       "id": 810,
-      "identifier": "corrosive-gas"
+      "identifier": "corrosive-gas",
+      "range": "all-pokemon"
     },
     {
       "id": 811,

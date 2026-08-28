@@ -7,7 +7,9 @@ import type { TsumeData } from "@/types/quiz";
 const scriptArgs = process.argv.slice(2);
 
 if (scriptArgs.length === 0) {
-  console.error("Usage: pnpx tsx scripts/generate-tsume-responses.ts <path-to-mdx-file-or-glob>");
+  console.error(
+    "Usage: pnpm exec tsx scripts/generate-tsume-responses.ts <path-to-mdx-file-or-glob>",
+  );
   process.exit(1);
 }
 

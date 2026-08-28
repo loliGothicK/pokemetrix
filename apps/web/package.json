@@ -27,9 +27,9 @@
     "d1:migrate": "drizzle-kit migrate --config drizzle.d1.config.ts",
     "d1:index": "tsx --env-file=../../.env scripts/index-docs.ts",
     "renovate": "ncu -u && pnpm install",
-    "i18n:check": "pnpx tsx scripts/check-i18n.ts",
-    "generate:quizzes": "pnpm dlx tsx scripts/generate_speed_quizzes.ts",
-    "validate:domain": "pnpx tsx scripts/validate_domain.ts"
+    "i18n:check": "pnpm exec tsx scripts/check-i18n.ts",
+    "generate:quizzes": "pnpm exec tsx scripts/generate_speed_quizzes.ts",
+    "validate:domain": "pnpm exec tsx scripts/validate_domain.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
@@ -109,9 +109,11 @@
     "inquirer": "14.0.2",
     "monaco-editor": "0.56.0",
     "oxfmt": "0.64.0",
+    "oxlint": "1.80.0",
     "oxlint-tsgolint": "7.0.2001",
     "supabase": "2.115.0",
     "ts-morph": "28.0.0",
+    "tsx": "^4.23.12",
     "typescript": "7.0.2",
     "vite-plugin-top-level-await": "1.6.0",
     "vite-plugin-wasm": "3.6.0",

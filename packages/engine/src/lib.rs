@@ -1,6 +1,3 @@
-pub mod ability_meta;
-pub mod item_meta;
-pub mod move_meta;
 pub mod sim;
 pub mod wasm_api;
 
@@ -44,7 +41,6 @@ mod tests {
         };
 
         let output = calculate_input(&input);
-        println!("Damage min: {}, max: {}", output.min, output.max);
         assert_eq!(output.max, 144);
     }
 }
