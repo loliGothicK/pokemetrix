@@ -102,7 +102,7 @@
     "@types/react-dom": "19.2.4",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "drizzle-kit": "0.31.10",
-    "happy-dom": "20.11.2",
+    "happy-dom": "20.14.0",
     "inquirer": "14.0.2",
     "monaco-editor": "0.56.0",
     "oxfmt": "0.64.0",
