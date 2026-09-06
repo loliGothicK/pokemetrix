@@ -68,6 +68,7 @@ const nextConfig: NextConfig = {
 };
 
 export default withContentCollections(
+  // oxlint-disable-next-line typescript/no-deprecated
   withSentryConfig(nextConfig, {
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options

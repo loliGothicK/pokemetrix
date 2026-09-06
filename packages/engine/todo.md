@@ -240,7 +240,7 @@
 - [ ] cobaberry
 - [ ] colburberry
 - [ ] crabominite
-- [x] damprock
+- [ ] damprock
 - [ ] delphoxite
 - [ ] dragalgite
 - [ ] dragonfang
@@ -269,10 +269,10 @@
 - [ ] habanberry
 - [ ] hardstone
 - [ ] hawluchanite
-- [x] heatrock
+- [ ] heatrock
 - [ ] heracronite
 - [ ] houndoominite
-- [x] icyrock
+- [ ] icyrock
 - [x] ironball
 - [ ] kangaskhanite
 - [ ] kasibberry
@@ -334,7 +334,7 @@
 - [ ] sitrusberry
 - [ ] skarmorite
 - [ ] slowbronite
-- [x] smoothrock
+- [ ] smoothrock
 - [ ] softsand
 - [ ] spelltag
 - [ ] staraptite

@@ -639,8 +639,8 @@ function SourcePane({
           >
             {!showRaw && hasPatch ? (
               <EditProvider
-                createEditor={(opts) =>
-                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                createEditor={(type, opts) =>
+                  new Editor(type, { ...opts, onChange: (f) => setEditedContent(f.file.contents) })
                 }
               >
                 <PatchDiff
@@ -652,8 +652,8 @@ function SourcePane({
               </EditProvider>
             ) : meta.fileContent ? (
               <EditProvider
-                createEditor={(opts) =>
-                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                createEditor={(type, opts) =>
+                  new Editor(type, { ...opts, onChange: (f) => setEditedContent(f.file.contents) })
                 }
               >
                 <DiffsFile

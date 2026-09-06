@@ -36,17 +36,17 @@
   },
   "devDependencies": {
     "@pkmn/mods": "0.10.11",
-    "@pkmn/sim": "0.10.11",
-    "@pokemetrix/data": "workspace:^",
-    "@types/node": "26.2.0",
+    "@pkmn/sim": "catalog:",
+    "@pokemetrix/data": "workspace:*",
+    "@types/node": "catalog:",
     "glob": "^13.0.6",
-    "outdent": "0.8.0",
-    "oxfmt": "0.64.0",
-    "oxlint-plugin-eslint": "^1.80.0",
-    "oxlint-tsgolint": "7.0.2001",
-    "typescript": "7.0.2",
-    "vite-plugin-top-level-await": "1.6.0",
-    "vite-plugin-wasm": "3.6.0",
-    "vitest": "4.1.11"
+    "outdent": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint-plugin-eslint": "^1.81.0",
+    "oxlint-tsgolint": "catalog:",
+    "typescript": "catalog:",
+    "vite-plugin-top-level-await": "catalog:",
+    "vite-plugin-wasm": "catalog:",
+    "vitest": "catalog:"
   }
 }

@@ -41,7 +41,7 @@ export const useAuthSync = (): AuthSyncResult => {
 
     if (wasLoggedOut && isNowLoggedIn && localTeams.length > 0) {
       void (async () => {
-        const serverTeams = await queryClient.fetchQuery({
+        const serverTeams = await queryClient.query({
           queryKey: ["teams"],
           queryFn: fetchTeamsFromServer,
         });
