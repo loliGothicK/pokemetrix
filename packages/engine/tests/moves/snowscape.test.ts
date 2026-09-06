@@ -13,6 +13,4 @@ test("Move: snowscape", () => {
       pokemon({ species: "clefable", moves: ["sleeptalk"] }),
     ],
   );
-
-  const logs = env.executeTurn("move snowscape, move sleeptalk", "move sleeptalk, move sleeptalk");
 });

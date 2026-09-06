@@ -1189,6 +1189,35 @@ pub fn handle_move_target_effect(
                 target_mut.encored_move = Some(last_move_clone.clone());
                 target_mut.encore_turns = 3;
             }
+            battle.section_apply_volatile(
+                PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
+                },
+                pkmn_meta::types::VolatileStatus::Encore,
+            );
+
+            // If the target has a pending action this turn, update its move and priority
+            let new_priority = battle
+                .get_pokemon(PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
+                })
+                .map(|pkmn| {
+                    crate::sim::turn_order::TurnOrderResolver::new(battle)
+                        .get_move_priority(&last_move_clone, pkmn)
+                })
+                .unwrap_or(0);
+
+            for action in &mut battle.turn_actions {
+                if let crate::sim::action::Action::Move(m) = action
+                    && m.player == target_player
+                    && m.slot == target_slot
+                {
+                    m.move_id = last_move_clone.clone();
+                    m.priority = new_priority;
+                }
+            }
         } else {
             battle.log.push(crate::sim::log::BattleLogEvent::new(
                 crate::sim::log::BattleLog::Fail {

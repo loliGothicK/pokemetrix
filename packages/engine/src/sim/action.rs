@@ -15,6 +15,7 @@ pub struct MoveAction {
     pub player: u8,
     pub slot: usize,
     pub move_id: String,
+    pub original_move_id: String,
     pub target_player: u8,
     pub target_slot: u8,
     pub priority: i32,

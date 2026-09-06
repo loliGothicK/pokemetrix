@@ -132,7 +132,8 @@ impl Battle {
                 if let crate::sim::action::Action::Move(m) = a
                     && m.player == target_ident.player
                     && m.slot == target_ident.slot
-                    && let Some(target_meta) = pkmn_meta::move_meta::get_move_meta(&m.move_id)
+                    && let Some(target_meta) =
+                        pkmn_meta::move_meta::get_move_meta(&m.original_move_id)
                 {
                     *target_meta.category() != pkmn_meta::types::Category::Status
                 } else {
@@ -156,7 +157,8 @@ impl Battle {
                 if let crate::sim::action::Action::Move(m) = a
                     && m.player == target_ident.player
                     && m.slot == target_ident.slot
-                    && let Some(target_meta) = pkmn_meta::move_meta::get_move_meta(&m.move_id)
+                    && let Some(target_meta) =
+                        pkmn_meta::move_meta::get_move_meta(&m.original_move_id)
                 {
                     *target_meta.category() != pkmn_meta::types::Category::Status && m.priority > 0
                 } else {

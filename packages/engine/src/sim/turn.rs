@@ -90,6 +90,7 @@ pub fn execute_turn(
                 player,
                 slot,
                 move_id: choice.to_string(),
+                original_move_id: choice.to_string(),
                 target_player,
                 target_slot: actual_target_slot,
                 priority,
@@ -191,6 +192,65 @@ pub fn execute_turn(
     process_turn_actions(battle)
 }
 
+pub fn sort_turn_actions(battle: &mut Battle) {
+    let is_trick_room = battle.trick_room;
+    // Update speeds and priorities for remaining actions based on current battle state
+    let mut updates = Vec::with_capacity(battle.turn_actions.len());
+    for action in &battle.turn_actions {
+        let player = action.player();
+        let slot = action.slot();
+        if let Some(pkmn) = battle.get_pokemon(crate::sim::pokemon::PokemonIdent { player, slot }) {
+            let speed = battle
+                .check_speed_modifiers(pkmn, pkmn.speed.apply_boost(pkmn.boosts.spe))
+                .into_inner();
+            let priority = match action {
+                crate::sim::action::Action::Switch(s) => s.priority,
+                crate::sim::action::Action::Move(m) => {
+                    crate::sim::turn_order::TurnOrderResolver::new(battle)
+                        .get_move_priority(&m.move_id, pkmn)
+                }
+            };
+            updates.push(Some((speed, priority)));
+        } else {
+            updates.push(None);
+        }
+    }
+
+    for (action, update) in battle.turn_actions.iter_mut().zip(updates) {
+        if let Some((speed, priority)) = update {
+            match action {
+                crate::sim::action::Action::Switch(s) => {
+                    s.speed = speed;
+                    s.priority = priority;
+                }
+                crate::sim::action::Action::Move(m) => {
+                    m.speed = speed;
+                    m.priority = priority;
+                }
+            }
+        }
+    }
+
+    battle.turn_actions.sort_by(|a, b| {
+        let p1_prio = a.priority();
+        let p2_prio = b.priority();
+        if p1_prio != p2_prio {
+            return p2_prio.cmp(&p1_prio);
+        }
+
+        let p1_spe = a.speed();
+        let p2_spe = b.speed();
+        if p1_spe != p2_spe {
+            if is_trick_room {
+                return p1_spe.cmp(&p2_spe);
+            } else {
+                return p2_spe.cmp(&p1_spe);
+            }
+        }
+        std::cmp::Ordering::Equal
+    });
+}
+
 pub fn process_turn_actions(battle: &mut Battle) -> Result<(), String> {
     while !battle.turn_actions.is_empty() {
         if matches!(
@@ -199,6 +259,7 @@ pub fn process_turn_actions(battle: &mut Battle) -> Result<(), String> {
         ) {
             return Ok(());
         }
+        sort_turn_actions(battle);
         let action = battle.turn_actions.remove(0);
         if let crate::sim::action::Action::Move(m) = &action
             && let Some(p) = battle.get_pokemon_mut(crate::sim::pokemon::PokemonIdent {

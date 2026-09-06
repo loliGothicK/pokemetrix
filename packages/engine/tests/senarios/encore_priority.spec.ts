@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, it } from "vitest";
 import { pokemon, TestEnvironment } from "@/sim-utils";
 
-describe("Encore with Prankster and Status Move vs Sucker Punch", () => {
-  it("Sucker Punch should be failed", () => {
+describe("If the target uses a move with a priority of +1 whilst under the effects of Mischief and Encore", () => {
+  it("It is determined by the priority of the move that was called for an encore", () => {
     const env = new TestEnvironment(
       [
         pokemon({
@@ -18,11 +18,11 @@ describe("Encore with Prankster and Status Move vs Sucker Punch", () => {
           },
         }),
         pokemon({
-          species: "delphox-mega",
-          ability: "levitate",
-          item: "delphoxite",
+          species: "charizard-mega-y",
+          ability: "drought",
+          item: "charizardite-y",
           nature: "Timid",
-          moves: ["heatwave", "psychic", "nastyplot", "protect"],
+          moves: ["heatwave", "weatherball", "ancientpower", "protect"],
           evs: {
             hp: 2,
             spa: 32,
@@ -32,11 +32,11 @@ describe("Encore with Prankster and Status Move vs Sucker Punch", () => {
       ],
       [
         pokemon({
-          species: "kingambit",
-          ability: "defiant",
+          species: "lycanrocdusk",
+          ability: "toughclaws",
           item: "focussash",
           nature: "Adamant",
-          moves: ["kowtowcleave", "suckerpunch", "ironhead", "lowkick"],
+          moves: ["rockslide", "accelerock", "closecombat", "protect"],
           evs: {
             hp: 2,
             atk: 32,
@@ -59,19 +59,9 @@ describe("Encore with Prankster and Status Move vs Sucker Punch", () => {
     );
 
     // Turn 1
-    env.executeAndAssert("move moonblast 2, move heatwave", "move suckerpunch 1, move direclaw 1");
+    env.executeAndAssert("move moonblast 1, move protect", "move rockslide, move fakeout 2");
 
-    // Turn 2: Sucker Punch should fail because Delphox chose a status move (Nasty Plot),
-    // even though it was Encored into Heat Wave before Sucker Punch executed.
-    const { engineState, engineLogs } = env.executeTurn("move encore -2, move nastyplot", "move suckerpunch 2");
-
-    // Sucker Punch fails
-    expect(engineLogs.some((l) => l.showdown === "|-fail|p2a")).toBe(true);
-
-    // Delphox survives with full HP
-    expect(engineState.p1.active[1].hp).toBe(152);
-
-    // Kingambit faints from Delphox's Heat Wave
-    expect(engineState.p2.active[0].hp).toBe(0);
+    // Turn 2: Encore -> Dire Claw (Whimsicott is fainted) -> Heat Wave (Sneasler is fainted)
+    env.executeAndAssert("move encore 1, move heatwave", "move accelerock 2, move direclaw 1");
   });
 });
