@@ -3,784 +3,932 @@
     {
       "id": 710,
       "identifier": "abomasite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 713,
       "identifier": "absolite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 708,
       "identifier": "aerodactylite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 703,
       "identifier": "aggronite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 715,
       "identifier": "alakazite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 776,
       "identifier": "altarianite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 694,
       "identifier": "ampharosite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 130,
       "identifier": "aspear-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 778,
       "identifier": "audinite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 176,
       "identifier": "babiri-berry",
       "category": "berry",
-      "type_resist_berry": "steel"
+      "type_resist_berry": "steel",
+      "type": "defense"
     },
     {
       "id": 704,
       "identifier": "banettite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2177,
       "identifier": "barbaracite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 791,
       "identifier": "beedrillite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 273,
       "identifier": "big-root",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "recovery"
     },
     {
       "id": 218,
       "identifier": "black-belt",
       "category": "held-item",
-      "type_boost": ["fighting", 1.2]
+      "type_boost": ["fighting", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 217,
       "identifier": "black-glasses",
       "category": "held-item",
-      "type_boost": ["dark", 1.2]
+      "type_boost": ["dark", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 697,
       "identifier": "blastoisinite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 700,
       "identifier": "blazikenite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 190,
       "identifier": "bright-powder",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 788,
       "identifier": "cameruptite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2178,
       "identifier": "chandelurite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 226,
       "identifier": "charcoal",
       "category": "held-item",
-      "type_boost": ["fire", 1.2]
+      "type_boost": ["fire", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 696,
       "identifier": "charizardite-x",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 714,
       "identifier": "charizardite-y",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 172,
       "identifier": "charti-berry",
       "category": "berry",
-      "type_resist_berry": "rock"
+      "type_resist_berry": "rock",
+      "type": "defense"
     },
     {
       "id": 126,
       "identifier": "cheri-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 2179,
       "identifier": "chesnaughtite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 127,
       "identifier": "chesto-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 177,
       "identifier": "chilan-berry",
       "category": "berry",
-      "type_resist_berry": "normal"
+      "type_resist_berry": "normal",
+      "type": "defense"
     },
     {
       "id": 2180,
       "identifier": "chimechite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 264,
       "identifier": "choice-scarf",
       "category": "held-item",
-      "is_choice_scarf": true
+      "is_choice_scarf": true,
+      "type": "stat-boost"
     },
     {
       "id": 166,
       "identifier": "chople-berry",
       "category": "berry",
-      "type_resist_berry": "fighting"
+      "type_resist_berry": "fighting",
+      "type": "defense"
     },
     {
       "id": 2181,
       "identifier": "clefablite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 169,
       "identifier": "coba-berry",
       "category": "berry",
-      "type_resist_berry": "flying"
+      "type_resist_berry": "flying",
+      "type": "defense"
     },
     {
       "id": 175,
       "identifier": "colbur-berry",
       "category": "berry",
-      "type_resist_berry": "dark"
+      "type_resist_berry": "dark",
+      "type": "defense"
     },
     {
       "id": 2182,
       "identifier": "crabominite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 262,
       "identifier": "damp-rock",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "effect-extend"
     },
     {
       "id": 2183,
       "identifier": "delphoxite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2184,
       "identifier": "dragalgite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 227,
       "identifier": "dragon-fang",
       "category": "held-item",
-      "type_boost": ["dragon", 1.2]
+      "type_boost": ["dragon", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2185,
       "identifier": "dragoninite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2186,
       "identifier": "drampanite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2187,
       "identifier": "eelektrossite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2188,
       "identifier": "emboarite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2189,
       "identifier": "excadrite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 245,
       "identifier": "expert-belt",
       "category": "held-item",
-      "is_expert_belt": true
+      "is_expert_belt": true,
+      "type": "power-boost"
     },
     {
       "id": 2049,
       "identifier": "fairy-feather",
       "category": "held-item",
-      "type_boost": ["fairy", 1.2]
+      "type_boost": ["fairy", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2190,
       "identifier": "falinksite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2191,
       "identifier": "feraligite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2192,
       "identifier": "floettite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 207,
       "identifier": "focus-band",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "recovery"
     },
     {
       "id": 252,
       "identifier": "focus-sash",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "stat-boost"
     },
     {
       "id": 2193,
       "identifier": "froslassite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 777,
       "identifier": "galladite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 719,
       "identifier": "garchompite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 693,
       "identifier": "gardevoirite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 692,
       "identifier": "gengarite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 784,
       "identifier": "glalitite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2194,
       "identifier": "glimmoranite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2195,
       "identifier": "golurkite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2196,
       "identifier": "greninjite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 712,
       "identifier": "gyaradosite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 174,
       "identifier": "haban-berry",
       "category": "berry",
-      "type_resist_berry": "dragon"
+      "type_resist_berry": "dragon",
+      "type": "defense"
     },
     {
       "id": 215,
       "identifier": "hard-stone",
       "category": "held-item",
-      "type_boost": ["rock", 1.2]
+      "type_boost": ["rock", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2197,
       "identifier": "hawluchanite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 261,
       "identifier": "heat-rock",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "effect-extend"
     },
     {
       "id": 716,
       "identifier": "heracronite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 702,
       "identifier": "houndoominite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 259,
       "identifier": "icy-rock",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "effect-extend"
     },
     {
       "id": 255,
       "identifier": "iron-ball",
       "category": "held-item",
-      "is_speed_drop": true
+      "is_speed_drop": true,
+      "type": "other"
     },
     {
       "id": 711,
       "identifier": "kangaskhanite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 173,
       "identifier": "kasib-berry",
       "category": "berry",
-      "type_resist_berry": "ghost"
+      "type_resist_berry": "ghost",
+      "type": "defense"
     },
     {
       "id": 167,
       "identifier": "kebia-berry",
       "category": "berry",
-      "type_resist_berry": "poison"
+      "type_resist_berry": "poison",
+      "type": "defense"
     },
     {
       "id": 2198,
       "identifier": "kings-rock",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 211,
       "identifier": "leftovers",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "recovery"
     },
     {
       "id": 131,
       "identifier": "leppa-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 247,
       "identifier": "life-orb",
       "category": "held-item",
-      "is_life_orb": true
+      "is_life_orb": true,
+      "type": "power-boost"
     },
     {
       "id": 213,
       "identifier": "light-ball",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 246,
       "identifier": "light-clay",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "effect-extend"
     },
     {
       "id": 789,
       "identifier": "lopunnite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 709,
       "identifier": "lucarionite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 134,
       "identifier": "lum-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 219,
       "identifier": "magnet",
       "category": "held-item",
-      "type_boost": ["electric", 1.2]
+      "type_boost": ["electric", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2199,
       "identifier": "malamarite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 718,
       "identifier": "manectite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 717,
       "identifier": "mawilite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 701,
       "identifier": "medichamite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2201,
       "identifier": "meganiumite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 196,
       "identifier": "mental-herb",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "recovery"
     },
     {
       "id": 2202,
       "identifier": "meowsticite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 779,
       "identifier": "metagrossite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 210,
       "identifier": "metal-coat",
       "category": "held-item",
-      "type_boost": ["steel", 1.2]
+      "type_boost": ["steel", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 254,
       "identifier": "metronome",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "power-boost"
     },
     {
       "id": 216,
       "identifier": "miracle-seed",
       "category": "held-item",
-      "type_boost": ["grass", 1.2]
+      "type_boost": ["grass", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 243,
       "identifier": "muscle-band",
       "category": "held-item",
-      "is_muscle_band": true
+      "is_muscle_band": true,
+      "type": "power-boost"
     },
     {
       "id": 220,
       "identifier": "mystic-water",
       "category": "held-item",
-      "type_boost": ["water", 1.2]
+      "type_boost": ["water", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 223,
       "identifier": "never-melt-ice",
       "category": "held-item",
-      "type_boost": ["ice", 1.2]
+      "type_boost": ["ice", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 161,
       "identifier": "occa-berry",
       "category": "berry",
-      "type_resist_berry": "fire"
+      "type_resist_berry": "fire",
+      "type": "defense"
     },
     {
       "id": 132,
       "identifier": "oran-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 162,
       "identifier": "passho-berry",
       "category": "berry",
-      "type_resist_berry": "water"
+      "type_resist_berry": "water",
+      "type": "defense"
     },
     {
       "id": 170,
       "identifier": "payapa-berry",
       "category": "berry",
-      "type_resist_berry": "psychic"
+      "type_resist_berry": "psychic",
+      "type": "defense"
     },
     {
       "id": 128,
       "identifier": "pecha-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 133,
       "identifier": "persim-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 783,
       "identifier": "pidgeotite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 707,
       "identifier": "pinsirite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 222,
       "identifier": "poison-barb",
       "category": "held-item",
-      "type_boost": ["poison", 1.2]
+      "type_boost": ["poison", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2203,
       "identifier": "pyroarite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 194,
       "identifier": "quick-claw",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 2204,
       "identifier": "raichunite-x",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2205,
       "identifier": "raichunite-y",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 129,
       "identifier": "rawst-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 164,
       "identifier": "rindo-berry",
       "category": "berry",
-      "type_resist_berry": "grass"
+      "type_resist_berry": "grass",
+      "type": "defense"
     },
     {
       "id": 720,
       "identifier": "roseli-berry",
       "category": "berry",
-      "type_resist_berry": "fairy"
+      "type_resist_berry": "fairy",
+      "type": "defense"
     },
     {
       "id": 775,
       "identifier": "sablenite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 774,
       "identifier": "sceptilite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 706,
       "identifier": "scizorite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2206,
       "identifier": "scolipite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 209,
       "identifier": "scope-lens",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 2207,
       "identifier": "scovillainite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2208,
       "identifier": "scraftinite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 221,
       "identifier": "sharp-beak",
       "category": "held-item",
-      "type_boost": ["flying", 1.2]
+      "type_boost": ["flying", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 780,
       "identifier": "sharpedonite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 272,
       "identifier": "shed-shell",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 230,
       "identifier": "shell-bell",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "recovery"
     },
     {
       "id": 168,
       "identifier": "shuca-berry",
       "category": "berry",
-      "type_resist_berry": "ground"
+      "type_resist_berry": "ground",
+      "type": "defense"
     },
     {
       "id": 228,
       "identifier": "silk-scarf",
       "category": "held-item",
-      "type_boost": ["normal", 1.2]
+      "type_boost": ["normal", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 199,
       "identifier": "silver-powder",
       "category": "held-item",
-      "type_boost": ["bug", 1.2]
+      "type_boost": ["bug", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 135,
       "identifier": "sitrus-berry",
-      "category": "berry"
+      "category": "berry",
+      "type": "recovery"
     },
     {
       "id": 2209,
       "identifier": "skarmorite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 781,
       "identifier": "slowbronite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 260,
       "identifier": "smooth-rock",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "effect-extend"
     },
     {
       "id": 214,
       "identifier": "soft-sand",
       "category": "held-item",
-      "type_boost": ["ground", 1.2]
+      "type_boost": ["ground", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 224,
       "identifier": "spell-tag",
       "category": "held-item",
-      "type_boost": ["ghost", 1.2]
+      "type_boost": ["ghost", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 2210,
       "identifier": "staraptite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2211,
       "identifier": "starminite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 782,
       "identifier": "steelixite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 773,
       "identifier": "swampertite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 171,
       "identifier": "tanga-berry",
       "category": "berry",
-      "type_resist_berry": "bug"
+      "type_resist_berry": "bug",
+      "type": "defense"
     },
     {
       "id": 225,
       "identifier": "twisted-spoon",
       "category": "held-item",
-      "type_boost": ["psychic", 1.2]
+      "type_boost": ["psychic", 1.2],
+      "type": "power-boost"
     },
     {
       "id": 705,
       "identifier": "tyranitarite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 695,
       "identifier": "venusaurite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 2212,
       "identifier": "victreebelite",
-      "category": "mega-evolution"
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     },
     {
       "id": 163,
       "identifier": "wacan-berry",
       "category": "berry",
-      "type_resist_berry": "electric"
+      "type_resist_berry": "electric",
+      "type": "defense"
     },
     {
       "id": 191,
       "identifier": "white-herb",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "stat-boost"
     },
     {
       "id": 242,
       "identifier": "wide-lens",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     },
     {
       "id": 244,
       "identifier": "wise-glasses",
       "category": "held-item",
-      "is_wise_glasses": true
+      "is_wise_glasses": true,
+      "type": "power-boost"
     },
     {
       "id": 165,
       "identifier": "yache-berry",
       "category": "berry",
-      "type_resist_berry": "ice"
+      "type_resist_berry": "ice",
+      "type": "defense"
     },
     {
       "id": 253,
       "identifier": "zoom-lens",
-      "category": "held-item"
+      "category": "held-item",
+      "type": "other"
     }
   ]
 }
