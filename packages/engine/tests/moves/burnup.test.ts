@@ -16,6 +16,5 @@ describe("Move: Burn Up", () => {
 
     // We can execute a turn and look at the logs to observe Burn Up
     env.executeTurn("move burnup 1, move sleeptalk", "move sleeptalk, move sleeptalk");
-    console.log("TYPES AFTER BURNUP:", env.sim.p1.active[0].types);
   });
 });

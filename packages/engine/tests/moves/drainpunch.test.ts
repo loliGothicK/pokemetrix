@@ -21,17 +21,5 @@ test("Move: drainpunch recovers HP", () => {
 
   // Lower Lucario's HP to test healing
   // HP modified naturally or no longer needed
-  console.log(
-    "LUCARIO HP BEFORE:",
-    env.engine.get_state().p1.active[0].hp,
-    "MAX:",
-    env.engine.get_state().p1.active[0].maxhp,
-  );
   env.executeAndAssert("move drainpunch 1, move sleeptalk", "move sleeptalk, move sleeptalk");
-  console.log(
-    "LUCARIO HP AFTER:",
-    env.engine.get_state().p1.active[0].hp,
-    "MAX:",
-    env.engine.get_state().p1.active[0].maxhp,
-  );
 });

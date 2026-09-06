@@ -15,5 +15,4 @@ test("Move: memento", () => {
   );
 
   const logs = env.executeTurn("move memento 1, move sleeptalk", "move sleeptalk, move sleeptalk");
-  console.log("ENGINE LOGS", JSON.stringify(logs.engineLogs));
 });

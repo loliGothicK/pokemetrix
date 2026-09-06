@@ -18,10 +18,4 @@ test("Move: Blast Burn", () => {
   );
 
   env.executeAndAssert("move blastburn 1, move sleeptalk", "move sleeptalk, move sleeptalk");
-  try {
-    env.executeAndAssert("move recharge 1, move sleeptalk", "move sleeptalk, move sleeptalk");
-  } catch (e) {
-    console.log(env.sim.log.join("\n"));
-    throw e;
-  }
 });

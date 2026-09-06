@@ -27,9 +27,6 @@ test("Move: Chilly Reception", () => {
   env.assertStateMatch(res.engineState, env.sim);
   // // env.assertEngineLogsMatchShowdown(res.engineLogs, 0);
 
-  // Provide the switch for Player 1
-  console.log("active length:", env.engine.get_state().p1.active.length);
-  console.log("team length:", env.engine.get_state().p1.team.length);
   const switchRes = env.executeTurn("switch clefable, pass", "pass, pass");
   env.assertStateMatch(switchRes.engineState, env.sim);
 });

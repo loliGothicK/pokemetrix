@@ -15,6 +15,6 @@ test("Knok Off should be kock off even if user fainted by roughskin", () => {
   const { engineState } = env.executeAndAssert(
     "move earthquake, move sleeptalk",
     "move knockoff 1, move dualwingbeat 1",
-  )!;
+  );
   expect(engineState.p1.active[0].item).toBeFalsy();
 });

@@ -526,9 +526,7 @@ export class TestEnvironment {
         p2b: p2.b,
         p2b_target: p2.b_target,
       };
-      if (p1.a === "switch") console.log("ACTIONS PASSED TO ENGINE:", JSON.stringify(actions));
       engineLogs = this.engine.run_turn(actions, config);
-      if (p1.a === "switch") console.log("ENGINE EVENTS:", JSON.stringify(engineLogs.events));
       this.sim.makeChoices(p1Choices, p2Choices);
     });
 
@@ -727,7 +725,7 @@ export class TestEnvironment {
     p1Choices: string | [string, string][],
     p2Choices?: string,
     config?: Config,
-  ) {
+  ): ReturnType<TestEnvironment["executeTurn"]> {
     const defaultEngineConfig: Config = {
       damage_roll: "max",
       crits: "never",
@@ -738,6 +736,11 @@ export class TestEnvironment {
     const mergedConfig = config ? { ...defaultEngineConfig, ...config } : undefined;
     const turns: [string, string][] =
       typeof p1Choices === "string" ? [[p1Choices, p2Choices || ""]] : p1Choices;
+
+    if (turns.length === 0) {
+      throw new Error("executeAndAssert requires at least one turn");
+    }
+
     let lastRes: ReturnType<TestEnvironment["executeTurn"]> | null = null;
     let turnIndex = 0;
     for (const [p1, p2] of turns) {
@@ -773,7 +776,7 @@ export class TestEnvironment {
       lastRes = res;
     }
 
-    return lastRes;
+    return lastRes!;
   }
 
   public assertStateMatch(

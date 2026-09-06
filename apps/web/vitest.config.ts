@@ -18,6 +18,7 @@ export default defineConfig({
   },
   test: {
     environment: "happy-dom",
+    pool: "vmThreads",
     globals: true,
     coverage: {
       reporter: ["text", "html", "json-summary"],

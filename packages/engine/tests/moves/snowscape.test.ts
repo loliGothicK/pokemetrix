@@ -15,5 +15,4 @@ test("Move: snowscape", () => {
   );
 
   const logs = env.executeTurn("move snowscape, move sleeptalk", "move sleeptalk, move sleeptalk");
-  console.log("ENGINE LOGS", JSON.stringify(logs.engineLogs));
 });
