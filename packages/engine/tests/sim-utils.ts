@@ -1,7 +1,15 @@
 import { Battle, Dex, PokemonSet, StatsTable, Move, Pokemon } from "@pkmn/sim";
 import { pokemonData, abilitiesData, movesData, itemsData } from "@pokemetrix/data";
 import { expect } from "vitest";
-
+import { Simulator, Nature, create_pokemon } from "../pkg-node";
+import type {
+  PokemonData,
+  FullBattleState,
+  TurnActions,
+  Config,
+  BattleLogEvent,
+  BattleLogs,
+} from "../pkg-node";
 import * as champions from "@pkmn/mods/champions";
 
 Dex.mod("champions", champions);
@@ -115,14 +123,13 @@ export function withDeterministicMoves(
   }
 }
 
-import * as engine from "../pkg-node/engine.js";
-
 export function toId(str: string | undefined): string {
   return str?.toLowerCase().replace(/[^a-z0-9]/g, "") || "";
 }
 
 export function pokemon(
-  opts: Omit<Partial<Omit<PokemonSet, "ivs" | "level">>, "evs"> & {
+  opts: Partial<Omit<PokemonSet, "evs" | "ivs" | "level" | "name" | "species">> & {
+    species: string;
     evs?: Partial<StatsTable>;
     hp?: number;
     status?: string;
@@ -158,16 +165,16 @@ export function pokemon(
     throw new Error(`Invalid moves with ${pokemon.identifier}: ${invalidMoves.join(", ")}.`);
   }
   return {
-    name: opts.species || "Unknown",
-    species: opts.species || "Unknown",
+    name: opts.species,
     item: opts.item ?? "",
-    ability: opts.ability ?? "illuminate",
+    ability: opts.ability ?? toId(ABILITY_DICTIONARY.get(pokemon.abilities[0])!),
     moves: opts.moves ?? [],
     nature: opts.nature ?? "Hardy",
     gender: opts.gender ?? "N",
     ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
     level: 50,
     ...opts,
+    species: opts.species,
     evs: {
       hp: Math.min(32, evs.hp || 0),
       atk: Math.min(32, evs.atk || 0),
@@ -294,16 +301,6 @@ export function createSimBattle(formatid: string = "gen9championsdoublescustomga
   return battle;
 }
 
-import { Simulator } from "../pkg-node";
-import type {
-  PokemonData,
-  FullBattleState,
-  TurnActions,
-  Config,
-  BattleLogEvent,
-  BattleLogs,
-} from "../pkg-node";
-
 export class TestEnvironment {
   public sim: Battle;
   public engine: Simulator;
@@ -403,7 +400,7 @@ export class TestEnvironment {
         spd: p.evs?.spd || 0,
         spe: p.evs?.spe || 0,
       };
-      const validNatures: engine.Nature[] = [
+      const validNatures: Nature[] = [
         "Hardy",
         "Lonely",
         "Brave",
@@ -432,7 +429,7 @@ export class TestEnvironment {
       ];
       const engineNature = validNatures.find((n) => n === p.nature) || "Hardy";
       const speciesId = toId(p.species);
-      const enginePoke = engine.create_pokemon(ident, speciesId, engineEvs, engineNature);
+      const enginePoke = create_pokemon(ident, speciesId, engineEvs, engineNature);
 
       return {
         ...enginePoke,

@@ -618,7 +618,7 @@ impl<'a> DamageEvaluator<'a> {
             } else {
                 defender.boosts.spd.into_inner()
             },
-            defense_modifiers: vec![],
+            defense_modifiers,
             is_physical,
             move_type,
             defender_type1: def_types.first().copied().unwrap_or(Type::Normal),
