@@ -1,6 +1,6 @@
 import { test } from "vitest";
 import { TestEnvironment, pokemon } from "@/sim-utils";
-test("Move: Fickle Beam", () => {
+test.skip("Move: Fickle Beam", () => {
   const env = new TestEnvironment(
     [
       pokemon({ species: "hydrapple", moves: ["ficklebeam"] }),

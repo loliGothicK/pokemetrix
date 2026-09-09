@@ -94,9 +94,9 @@ pub fn run_switch_in(battle: &mut Battle, player: u8, slot: usize) {
                     battle.apply_stat_change(
                         target_player,
                         t_slot,
-                        Stat::Atk,
-                        drop.atk.into_inner(),
+                        vec![(Stat::Atk, drop.atk.into_inner())],
                         player,
+                        ability.as_ref().map(|a| a.as_ref()),
                     );
                 }
             }

@@ -1,4 +1,4 @@
-use crate::sim::battle::{Battle, BattleLog, BattleLogEvent, PokemonIdent, Stat};
+use crate::sim::battle::{Battle, BattleLog, BattleLogEvent, PokemonIdent, Stat, TurnState};
 
 pub fn handle_move_target_effect(
     battle: &mut Battle,
@@ -17,15 +17,25 @@ pub fn handle_move_target_effect(
         if let Some(target_p) = battle.get_pokemon_mut(target_ident) {
             target_p.boosts = pkmn_meta::Boosts::default();
         }
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::Text {
-                message: format!("|-clearboost|{}", target_ident),
-            },
-        ));
+        battle.log.push(BattleLogEvent::new(BattleLog::Text {
+            message: format!("|-clearboost|{}", target_ident),
+        }));
     } else if move_id == "metalsound" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spd, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spd, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "toxicthread" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spe, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spe, -2)],
+            source_player,
+            Some(move_id),
+        );
         battle.section_apply_status(
             PokemonIdent {
                 player: target_player,
@@ -107,14 +117,12 @@ pub fn handle_move_target_effect(
             slot: target_slot,
         }) {
             if target_p.hp == target_p.maxhp {
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Fail {
-                        target: PokemonIdent {
-                            player: target_player,
-                            slot: target_slot,
-                        },
+                battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                    target: PokemonIdent {
+                        player: target_player,
+                        slot: target_slot,
                     },
-                ));
+                }));
             } else {
                 let heal = (target_p.maxhp.into_inner() as f64 * 0.5).ceil() as i32;
                 battle.section_heal(
@@ -151,22 +159,18 @@ pub fn handle_move_target_effect(
         }) {
             p.hp = (average).into();
         }
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SetHp {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
+        battle.log.push(BattleLogEvent::new(BattleLog::SetHp {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SetHp {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
+        }));
+        battle.log.push(BattleLogEvent::new(BattleLog::SetHp {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+        }));
     }
 
     if move_id == "lifedew" {
@@ -251,28 +255,24 @@ pub fn handle_move_target_effect(
         }) {
             target.boosts.atk = (attacker_atk).into();
             target.boosts.spa = (attacker_spa).into();
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SetBoost {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
-                    stat: "atk".to_string(),
-                    amount: attacker_atk as i32,
-                    from: "".to_string(),
+            battle.log.push(BattleLogEvent::new(BattleLog::SetBoost {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SetBoost {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
-                    stat: "spa".to_string(),
-                    amount: attacker_spa as i32,
-                    from: "".to_string(),
+                stat: "atk".to_string(),
+                amount: attacker_atk as i32,
+                from: "".to_string(),
+            }));
+            battle.log.push(BattleLogEvent::new(BattleLog::SetBoost {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
+                stat: "spa".to_string(),
+                amount: attacker_spa as i32,
+                from: "".to_string(),
+            }));
         }
         if let Some(attacker) = battle.get_pokemon_mut(PokemonIdent {
             player: source_player,
@@ -280,28 +280,24 @@ pub fn handle_move_target_effect(
         }) {
             attacker.boosts.atk = (target_atk).into();
             attacker.boosts.spa = (target_spa).into();
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SetBoost {
-                    target: PokemonIdent {
-                        player: source_player,
-                        slot: source_slot,
-                    },
-                    stat: "atk".to_string(),
-                    amount: target_atk as i32,
-                    from: "".to_string(),
+            battle.log.push(BattleLogEvent::new(BattleLog::SetBoost {
+                target: PokemonIdent {
+                    player: source_player,
+                    slot: source_slot,
                 },
-            ));
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SetBoost {
-                    target: PokemonIdent {
-                        player: source_player,
-                        slot: source_slot,
-                    },
-                    stat: "spa".to_string(),
-                    amount: target_spa as i32,
-                    from: "".to_string(),
+                stat: "atk".to_string(),
+                amount: target_atk as i32,
+                from: "".to_string(),
+            }));
+            battle.log.push(BattleLogEvent::new(BattleLog::SetBoost {
+                target: PokemonIdent {
+                    player: source_player,
+                    slot: source_slot,
                 },
-            ));
+                stat: "spa".to_string(),
+                amount: target_spa as i32,
+                from: "".to_string(),
+            }));
         }
     }
 
@@ -328,14 +324,12 @@ pub fn handle_move_target_effect(
         if let Some(attacker) = battle.get_pokemon_mut(attacker_ident) {
             attacker.speed = target_spe.into();
         }
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::Text {
-                message: format!(
-                    "|-swap|{}|spe|[from] move: Speed Swap|[of] {}",
-                    target_ident, attacker_ident
-                ),
-            },
-        ));
+        battle.log.push(BattleLogEvent::new(BattleLog::Text {
+            message: format!(
+                "|-swap|{}|spe|[from] move: Speed Swap|[of] {}",
+                target_ident, attacker_ident
+            ),
+        }));
     }
 
     if move_id == "psychup" {
@@ -353,14 +347,12 @@ pub fn handle_move_target_effect(
             })
         {
             attacker.boosts = boosts;
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Fail {
-                    target: PokemonIdent {
-                        player: source_player,
-                        slot: source_slot,
-                    }, // just as a placeholder for psychup log
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: PokemonIdent {
+                    player: source_player,
+                    slot: source_slot,
+                }, // just as a placeholder for psychup log
+            }));
         }
     }
 
@@ -381,15 +373,13 @@ pub fn handle_move_target_effect(
             item_str
         };
 
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::EndItem {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
-                item: disp_name,
+        battle.log.push(BattleLogEvent::new(BattleLog::EndItem {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+            item: disp_name,
+        }));
     }
 
     if move_id == "feint"
@@ -418,28 +408,24 @@ pub fn handle_move_target_effect(
                         | pkmn_meta::types::VolatileStatus::Banefulbunker
                 )
             });
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Text {
-                    message: format!(
-                        "|-activate|{}|move: Feint",
-                        PokemonIdent {
-                            player: target_player,
-                            slot: target_slot
-                        }
-                    ),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::Text {
+                message: format!(
+                    "|-activate|{}|move: Feint",
+                    PokemonIdent {
+                        player: target_player,
+                        slot: target_slot
+                    }
+                ),
+            }));
         }
     }
 
     if move_id == "gravity" {
         println!("EXECUTING GRAVITY LOGIC");
         battle.gravity_turns_left = 5;
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::Text {
-                message: "-fieldstart|move: Gravity".to_string(),
-            },
-        ));
+        battle.log.push(BattleLogEvent::new(BattleLog::Text {
+            message: "-fieldstart|move: Gravity".to_string(),
+        }));
     }
 
     if move_id == "entrainment" {
@@ -475,39 +461,33 @@ pub fn handle_move_target_effect(
         }
 
         if fail {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Fail {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
+            battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
+            }));
         } else if let Some(target) = battle.get_pokemon_mut(PokemonIdent {
             player: target_player,
             slot: target_slot,
         }) {
             target.ability = attacker_ability.clone();
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::EndAbility {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
+            battle.log.push(BattleLogEvent::new(BattleLog::EndAbility {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Ability {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
-                    ability: attacker_ability.unwrap().as_str().to_string(),
-                    from_move: Some("Entrainment".to_string()),
+            }));
+            battle.log.push(BattleLogEvent::new(BattleLog::Ability {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
+                },
+                ability: attacker_ability.unwrap().as_str().to_string(),
+                from_move: Some("Entrainment".to_string()),
 
-                    of: None,
-                },
-            ));
+                of: None,
+            }));
         }
     }
 
@@ -525,9 +505,9 @@ pub fn handle_move_target_effect(
         battle.apply_stat_change(
             target_player,
             target_slot,
-            crate::sim::battle::Stat::Evasion,
-            -1,
+            vec![(Stat::Evasion, -1)],
             source_player,
+            Some(move_id),
         );
         // Remove terrain
         if battle.terrain.is_some() {
@@ -539,12 +519,12 @@ pub fn handle_move_target_effect(
             };
             battle.terrain = None;
             battle.terrain_turns_left = 0;
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::TerrainChange {
+            battle
+                .log
+                .push(BattleLogEvent::new(BattleLog::TerrainChange {
                     terrain: terrain_name.to_string(),
                     is_start: false,
-                },
-            ));
+                }));
         }
         // Remove side conditions
         let mut p1_removed = vec![];
@@ -585,20 +565,16 @@ pub fn handle_move_target_effect(
         }
 
         for condition in p1_removed {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SideEnd {
-                    player: 1,
-                    effect: condition.to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SideEnd {
+                player: 1,
+                effect: condition.to_string(),
+            }));
         }
         for condition in p2_removed {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SideEnd {
-                    player: 2,
-                    effect: condition.to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SideEnd {
+                player: 2,
+                effect: condition.to_string(),
+            }));
         }
     }
 
@@ -607,15 +583,13 @@ pub fn handle_move_target_effect(
         || move_id == "spiderweb"
         || move_id == "spiritshackle"
     {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::Activate {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
-                effect: "trapped".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::Activate {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+            effect: "trapped".to_string(),
+        }));
     }
 
     if move_id == "spikes" {
@@ -626,21 +600,17 @@ pub fn handle_move_target_effect(
         };
         if side.spikes < 3 {
             side.spikes += 1;
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SideStart {
-                    player: target_player,
-                    effect: "Spikes".to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SideStart {
+                player: target_player,
+                effect: "Spikes".to_string(),
+            }));
         } else {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Fail {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
+            battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
+            }));
         }
     }
 
@@ -744,12 +714,12 @@ pub fn handle_move_target_effect(
         };
         battle.terrain = None;
         battle.terrain_turns_left = 0;
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::TerrainChange {
+        battle
+            .log
+            .push(BattleLogEvent::new(BattleLog::TerrainChange {
                 terrain: terrain_name.to_string(),
                 is_start: false,
-            },
-        ));
+            }));
     }
 
     if move_id == "stoneaxe" {
@@ -760,12 +730,10 @@ pub fn handle_move_target_effect(
         };
         if !side.stealth_rock {
             side.stealth_rock = true;
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SideStart {
-                    player: target_player,
-                    effect: "Stealth Rock".to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SideStart {
+                player: target_player,
+                effect: "Stealth Rock".to_string(),
+            }));
         }
     }
 
@@ -820,27 +788,23 @@ pub fn handle_move_target_effect(
 
     if move_id == "trick" || move_id == "switcheroo" {
         // Swap items - simplified version
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
-                effect: "trick".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+            effect: "trick".to_string(),
+        }));
     }
 
     if move_id == "spite" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
-                effect: "spite".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+            effect: "spite".to_string(),
+        }));
     }
 
     if move_id == "yawn" {
@@ -874,15 +838,13 @@ pub fn handle_move_target_effect(
     }
 
     if move_id == "recycle" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "recycle".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "recycle".to_string(),
+        }));
     }
 
     if move_id == "soak"
@@ -897,15 +859,13 @@ pub fn handle_move_target_effect(
     }
 
     if move_id == "instruct" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: target_player,
-                    slot: target_slot,
-                },
-                effect: "instruct".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: target_player,
+                slot: target_slot,
             },
-        ));
+            effect: "instruct".to_string(),
+        }));
     }
 
     if move_id == "outrage"
@@ -914,27 +874,23 @@ pub fn handle_move_target_effect(
         || move_id == "ragingfury"
     {
         // Multiturn moves
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "lockedmove".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "lockedmove".to_string(),
+        }));
     }
 
     if move_id == "teatime" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "teatime".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "teatime".to_string(),
+        }));
     }
 
     if move_id == "stockpile" {
@@ -948,51 +904,43 @@ pub fn handle_move_target_effect(
     }
 
     if move_id == "swallow" || move_id == "spitup" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "swallow".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "swallow".to_string(),
+        }));
     }
 
     if move_id == "transform" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "transform".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "transform".to_string(),
+        }));
     }
 
     if move_id == "uproar" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "uproar".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "uproar".to_string(),
+        }));
     }
 
     if move_id == "wish" {
-        battle.log.push(crate::sim::log::BattleLogEvent::new(
-            crate::sim::log::BattleLog::SingleTurn {
-                target: PokemonIdent {
-                    player: source_player,
-                    slot: source_slot,
-                },
-                effect: "wish".to_string(),
+        battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+            target: PokemonIdent {
+                player: source_player,
+                slot: source_slot,
             },
-        ));
+            effect: "wish".to_string(),
+        }));
     }
 
     if move_id == "curse" {
@@ -1030,19 +978,17 @@ pub fn handle_move_target_effect(
                 },
                 damage,
             );
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Damage {
-                    target: PokemonIdent {
-                        player: source_player,
-                        slot: source_slot,
-                    },
-                    damage,
-                    effectiveness: 0,
-                    is_crit: false,
-                    absorbed: false,
-                    from_effect: None,
+            battle.log.push(BattleLogEvent::new(BattleLog::Damage {
+                target: PokemonIdent {
+                    player: source_player,
+                    slot: source_slot,
                 },
-            ));
+                damage,
+                effectiveness: 0,
+                is_crit: false,
+                absorbed: false,
+                from_effect: None,
+            }));
             battle.section_apply_volatile(
                 PokemonIdent {
                     player: target_player,
@@ -1051,9 +997,13 @@ pub fn handle_move_target_effect(
                 pkmn_meta::types::VolatileStatus::Curse,
             );
         } else {
-            battle.apply_stat_change(source_player, source_slot, Stat::Spe, -1, source_player);
-            battle.apply_stat_change(source_player, source_slot, Stat::Atk, 1, source_player);
-            battle.apply_stat_change(source_player, source_slot, Stat::Def, 1, source_player);
+            battle.apply_stat_change(
+                source_player,
+                source_slot,
+                vec![(Stat::Atk, 1), (Stat::Def, 1), (Stat::Spe, -1)],
+                source_player,
+                Some(move_id),
+            );
         }
     }
 
@@ -1153,14 +1103,12 @@ pub fn handle_move_target_effect(
     {
         if let Some(last_move) = target.last_move_used.as_ref() {
             if target.encore_turns > 0 {
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Fail {
-                        target: PokemonIdent {
-                            player: target_player,
-                            slot: target_slot,
-                        },
+                battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                    target: PokemonIdent {
+                        player: target_player,
+                        slot: target_slot,
                     },
-                ));
+                }));
                 return;
             }
 
@@ -1170,14 +1118,12 @@ pub fn handle_move_target_effect(
             let current_pp = *target.pp_used.get(last_move).unwrap_or(&0);
 
             if current_pp >= max_pp {
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Fail {
-                        target: PokemonIdent {
-                            player: target_player,
-                            slot: target_slot,
-                        },
+                battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                    target: PokemonIdent {
+                        player: target_player,
+                        slot: target_slot,
                     },
-                ));
+                }));
                 return;
             }
 
@@ -1219,14 +1165,12 @@ pub fn handle_move_target_effect(
                 }
             }
         } else {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Fail {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
+            battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
+            }));
         }
     }
 
@@ -1238,14 +1182,12 @@ pub fn handle_move_target_effect(
     {
         if let Some(last_move) = target.last_move_used.as_ref() {
             if target.disable_turns > 0 {
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Fail {
-                        target: PokemonIdent {
-                            player: target_player,
-                            slot: target_slot,
-                        },
+                battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                    target: PokemonIdent {
+                        player: target_player,
+                        slot: target_slot,
                     },
-                ));
+                }));
                 return;
             }
 
@@ -1258,14 +1200,12 @@ pub fn handle_move_target_effect(
                 target_mut.disable_turns = 4;
             }
         } else {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Fail {
-                    target: PokemonIdent {
-                        player: target_player,
-                        slot: target_slot,
-                    },
+            battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: PokemonIdent {
+                    player: target_player,
+                    slot: target_slot,
                 },
-            ));
+            }));
         }
     }
     if move_id == "pluck" || move_id == "bugbite" {
@@ -1294,23 +1234,21 @@ pub fn handle_move_target_effect(
             } else {
                 "Bug Bite"
             };
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Text {
-                    message: format!(
-                        "|-enditem|{}|{}|[from] stealeat|[move] {}|[of] {}",
-                        PokemonIdent {
-                            player: target_player,
-                            slot: target_slot
-                        },
-                        item_name,
-                        move_name,
-                        PokemonIdent {
-                            player: source_player,
-                            slot: source_slot
-                        }
-                    ),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::Text {
+                message: format!(
+                    "|-enditem|{}|{}|[from] stealeat|[move] {}|[of] {}",
+                    PokemonIdent {
+                        player: target_player,
+                        slot: target_slot
+                    },
+                    item_name,
+                    move_name,
+                    PokemonIdent {
+                        player: source_player,
+                        slot: source_slot
+                    }
+                ),
+            }));
 
             if item_str == "sitrusberry" {
                 if let Some(attacker) = battle.get_pokemon(PokemonIdent {
@@ -1395,7 +1333,13 @@ pub fn handle_move_target_effect(
                     *available_stats.choose(&mut rng).unwrap_or(&Stat::Atk)
                 };
 
-                battle.apply_stat_change(target_player, target_slot, chosen, 2, source_player);
+                battle.apply_stat_change(
+                    target_player,
+                    target_slot,
+                    vec![(chosen, 2)],
+                    source_player,
+                    Some(move_id),
+                );
             } else {
                 // Fail if all stats are maxed
                 battle.log.push(BattleLogEvent::new(BattleLog::Fail {
@@ -1407,33 +1351,101 @@ pub fn handle_move_target_effect(
             }
         }
     } else if move_id == "coaching" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, 1, source_player);
-        battle.apply_stat_change(target_player, target_slot, Stat::Def, 1, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, 1), (Stat::Def, 1)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "decorate" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, 2, source_player);
-        battle.apply_stat_change(target_player, target_slot, Stat::Spa, 2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, 2), (Stat::Spa, 2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "screech" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Def, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Def, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "faketears" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spd, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spd, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "cottonspore" || move_id == "stringshot" || move_id == "scaryface" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spe, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spe, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "eerieimpulse" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spa, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spa, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "featherdance" || move_id == "charm" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "swagger" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, 2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, 2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "flatter" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Spa, 1, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Spa, 1)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "sweetscent" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Evasion, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Evasion, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "tearfullook" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, -1, source_player);
-        battle.apply_stat_change(target_player, target_slot, Stat::Spa, -1, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, -1), (Stat::Spa, -1)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "spicyextract" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, 2, source_player);
-        battle.apply_stat_change(target_player, target_slot, Stat::Def, -2, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, 2), (Stat::Def, -2)],
+            source_player,
+            Some(move_id),
+        );
     } else if move_id == "topsyturvy" {
         let target_ident = PokemonIdent {
             player: target_player,
@@ -1469,7 +1481,13 @@ pub fn handle_move_target_effect(
                 target_atk * 2 / (2 - stage)
             };
             battle.section_heal(attacker_ident, final_atk.into());
-            battle.apply_stat_change(target_player, target_slot, Stat::Atk, -1, source_player);
+            battle.apply_stat_change(
+                target_player,
+                target_slot,
+                vec![(Stat::Atk, -1)],
+                source_player,
+                Some(move_id),
+            );
         }
     } else if move_id == "upperhand" {
         battle.section_apply_volatile(
@@ -1599,7 +1617,13 @@ pub fn handle_move_target_effect(
             }));
         }
     } else if move_id == "babydolleyes" {
-        battle.apply_stat_change(target_player, target_slot, Stat::Atk, -1, source_player);
+        battle.apply_stat_change(
+            target_player,
+            target_slot,
+            vec![(Stat::Atk, -1)],
+            source_player,
+            Some(move_id),
+        );
     }
 }
 
@@ -1635,15 +1659,19 @@ pub fn handle_move_self_effect(
 
     match move_id {
         "shellsmash" => {
-            for (stat, amount) in [
-                (Stat::Def, -1),
-                (Stat::Spd, -1),
-                (Stat::Atk, 2),
-                (Stat::Spa, 2),
-                (Stat::Spe, 2),
-            ] {
-                battle.apply_stat_change(player, slot, stat, amount, player);
-            }
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![
+                    (Stat::Def, -1),
+                    (Stat::Spd, -1),
+                    (Stat::Atk, 2),
+                    (Stat::Spa, 2),
+                    (Stat::Spe, 2),
+                ],
+                player,
+                Some(move_id),
+            );
         }
         "burnup" => {
             if let Some(p) = battle.get_pokemon_mut(PokemonIdent { player, slot }) {
@@ -1685,15 +1713,13 @@ pub fn handle_move_self_effect(
                         });
                     }
 
-                    battle.log.push(crate::sim::log::BattleLogEvent::new(
-                        crate::sim::log::BattleLog::Start {
-                            target: PokemonIdent { player, slot },
-                            effect: format!(
-                                "typechange|{}|[from] move: Burn Up",
-                                type_strings.join("/")
-                            ),
-                        },
-                    ));
+                    battle.log.push(BattleLogEvent::new(BattleLog::Start {
+                        target: PokemonIdent { player, slot },
+                        effect: format!(
+                            "typechange|{}|[from] move: Burn Up",
+                            type_strings.join("/")
+                        ),
+                    }));
                 }
             }
         }
@@ -1701,61 +1727,69 @@ pub fn handle_move_self_effect(
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot }) {
                 let cost = std::cmp::max(1, p.maxhp.into_inner() / 2);
                 battle.section_take_damage(PokemonIdent { player, slot }, cost);
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Damage {
-                        target: PokemonIdent { player, slot },
-                        damage: cost,
-                        is_crit: false,
-                        effectiveness: 0,
-                        absorbed: false,
-                        from_effect: None,
-                    },
-                ));
+                battle.log.push(BattleLogEvent::new(BattleLog::Damage {
+                    target: PokemonIdent { player, slot },
+                    damage: cost,
+                    is_crit: false,
+                    effectiveness: 0,
+                    absorbed: false,
+                    from_effect: None,
+                }));
             }
             if let Some(p) = battle.get_pokemon_mut(PokemonIdent { player, slot }) {
                 p.boosts.atk = 6.into();
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::SetBoost {
-                        target: PokemonIdent { player, slot },
-                        stat: "atk".to_string(),
-                        amount: 6,
-                        from: "Belly Drum".to_string(),
-                    },
-                ));
+                battle.log.push(BattleLogEvent::new(BattleLog::SetBoost {
+                    target: PokemonIdent { player, slot },
+                    stat: "atk".to_string(),
+                    amount: 6,
+                    from: "Belly Drum".to_string(),
+                }));
             }
         }
         "clangoroussoul" => {
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot }) {
                 let cost = std::cmp::max(1, p.maxhp.into_inner() * 33 / 100);
                 battle.section_take_damage(PokemonIdent { player, slot }, cost);
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Damage {
-                        target: PokemonIdent { player, slot },
-                        damage: cost,
-                        is_crit: false,
-                        effectiveness: 0,
-                        absorbed: false,
-                        from_effect: None,
-                    },
-                ));
+                battle.log.push(BattleLogEvent::new(BattleLog::Damage {
+                    target: PokemonIdent { player, slot },
+                    damage: cost,
+                    is_crit: false,
+                    effectiveness: 0,
+                    absorbed: false,
+                    from_effect: None,
+                }));
             }
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Def, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spa, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![
+                    (Stat::Atk, 1),
+                    (Stat::Def, 1),
+                    (Stat::Spa, 1),
+                    (Stat::Spd, 1),
+                    (Stat::Spe, 1),
+                ],
+                player,
+                Some(move_id),
+            );
         }
         "minimize" => {
-            battle.apply_stat_change(player, slot, Stat::Evasion, 2, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Evasion, 2)],
+                player,
+                Some(move_id),
+            );
         }
         "acidarmor" => {
-            battle.apply_stat_change(player, slot, Stat::Def, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Def, 2)], player, Some(move_id));
         }
         "agility" => {
-            battle.apply_stat_change(player, slot, Stat::Spe, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spe, 2)], player, Some(move_id));
         }
         "amnesia" => {
-            battle.apply_stat_change(player, slot, Stat::Spd, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spd, 2)], player, Some(move_id));
         }
         "aquaring" => {
             battle.section_apply_volatile(
@@ -1764,8 +1798,7 @@ pub fn handle_move_self_effect(
             );
         }
         "autotomize" => {
-            println!("Autotomize called for player {}, slot {}", player, slot);
-            battle.apply_stat_change(player, slot, Stat::Spe, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spe, 2)], player, Some(move_id));
             if let Some(p) = battle.get_pokemon_mut(PokemonIdent { player, slot }) {
                 if p.weight.into_inner() > 1000 {
                     p.weight = (p.weight.into_inner() - 1000).into();
@@ -1773,18 +1806,16 @@ pub fn handle_move_self_effect(
                     p.weight = 1.into();
                 }
                 let ident = p.ident.clone();
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Text {
-                        message: format!("|-start|{}|Autotomize", ident),
-                    },
-                ));
+                battle.log.push(BattleLogEvent::new(BattleLog::Text {
+                    message: format!("|-start|{}|Autotomize", ident),
+                }));
             }
         }
         "swordsdance" => {
-            battle.apply_stat_change(player, slot, Stat::Atk, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Atk, 2)], player, Some(move_id));
         }
         "rockpolish" => {
-            battle.apply_stat_change(player, slot, Stat::Spe, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spe, 2)], player, Some(move_id));
         }
         "healingwish" => {
             let ident = PokemonIdent { player, slot };
@@ -1818,8 +1849,13 @@ pub fn handle_move_self_effect(
                 }));
         }
         "scaleshot" => {
-            battle.apply_stat_change(player, slot, Stat::Def, -1, player);
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Def, -1), (Stat::Spe, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "tidyup" => {
             battle.p1.spikes = 0;
@@ -1830,8 +1866,13 @@ pub fn handle_move_self_effect(
             battle.p2.toxic_spikes = 0;
             battle.p2.stealth_rock = false;
             battle.p2.sticky_web = false;
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Atk, 1), (Stat::Spe, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "stuffcheeks" => {
             let target = PokemonIdent { player, slot };
@@ -1843,7 +1884,7 @@ pub fn handle_move_self_effect(
                     }));
                 }
             }
-            battle.apply_stat_change(player, slot, Stat::Def, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Def, 2)], player, Some(move_id));
         }
         "shedtail" => {
             let ident = PokemonIdent { player, slot };
@@ -1868,8 +1909,13 @@ pub fn handle_move_self_effect(
                 })
             });
             if eligible {
-                battle.apply_stat_change(player, slot, Stat::Def, 1, player);
-                battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
+                battle.apply_stat_change(
+                    player,
+                    slot,
+                    vec![(Stat::Def, 1), (Stat::Spd, 1)],
+                    player,
+                    Some(move_id),
+                );
             } else {
                 battle
                     .log
@@ -1877,34 +1923,64 @@ pub fn handle_move_self_effect(
             }
         }
         "meteorbeam" => {
-            battle.apply_stat_change(player, slot, Stat::Spa, 1, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spa, 1)], player, Some(move_id));
         }
         "dragondance" => {
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Atk, 1), (Stat::Spe, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "bulkup" => {
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Def, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Atk, 1), (Stat::Def, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "calmmind" => {
-            battle.apply_stat_change(player, slot, Stat::Spa, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Spa, 1), (Stat::Spd, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "coil" => {
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Def, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Accuracy, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Atk, 1), (Stat::Def, 1), (Stat::Accuracy, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "cosmicpower" | "defendorder" => {
-            battle.apply_stat_change(player, slot, Stat::Def, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Def, 1), (Stat::Spd, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "cottonguard" => {
-            battle.apply_stat_change(player, slot, Stat::Def, 3, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Def, 3)], player, Some(move_id));
         }
         "doubleteam" => {
-            battle.apply_stat_change(player, slot, Stat::Evasion, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Evasion, 1)],
+                player,
+                Some(move_id),
+            );
         }
         "growth" => {
             let boost = if battle.weather == Some(pkmn_meta::types::Weather::HashSunlight)
@@ -1914,18 +1990,21 @@ pub fn handle_move_self_effect(
             } else {
                 1
             };
-            battle.apply_stat_change(player, slot, Stat::Atk, boost, player);
-            battle.apply_stat_change(player, slot, Stat::Spa, boost, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Atk, boost), (Stat::Spa, boost)],
+                player,
+                Some(move_id),
+            );
         }
         "recover" | "slackoff" | "softboiled" | "roost" | "milkdrink" | "moonlight"
         | "synthesis" | "morningsun" | "healorder" => {
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot }) {
                 if p.hp == p.maxhp {
-                    battle.log.push(crate::sim::log::BattleLogEvent::new(
-                        crate::sim::log::BattleLog::Fail {
-                            target: PokemonIdent { player, slot },
-                        },
-                    ));
+                    battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                        target: PokemonIdent { player, slot },
+                    }));
                 } else {
                     let is_weather_healing =
                         ["moonlight", "synthesis", "morningsun"].contains(&move_id);
@@ -1962,22 +2041,20 @@ pub fn handle_move_self_effect(
                     (false, false, 0)
                 };
             if is_max_hp || is_slp {
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::Fail {
-                        target: PokemonIdent { player, slot },
-                    },
-                ));
+                battle.log.push(BattleLogEvent::new(BattleLog::Fail {
+                    target: PokemonIdent { player, slot },
+                }));
             } else {
                 battle.section_heal(PokemonIdent { player, slot }, maxhp.into());
                 if let Some(mut_p) = battle.get_pokemon_mut(PokemonIdent { player, slot }) {
                     mut_p.status = Some(pkmn_meta::types::Status::Sleep);
                 }
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::StatusInflicted {
+                battle
+                    .log
+                    .push(BattleLogEvent::new(BattleLog::StatusInflicted {
                         target: PokemonIdent { player, slot },
                         status: "slp".to_string(),
-                    },
-                ));
+                    }));
             }
         }
         "electricterrain" | "grassyterrain" | "mistyterrain" | "psychicterrain" | "haze"
@@ -2003,11 +2080,9 @@ pub fn handle_move_self_effect(
                     if let Some(p) = battle.get_pokemon_mut(target) {
                         p.boosts = pkmn_meta::Boosts::default();
                     }
-                    battle.log.push(crate::sim::log::BattleLogEvent::new(
-                        crate::sim::log::BattleLog::Text {
-                            message: "|-clearallboost".to_string(),
-                        },
-                    ));
+                    battle.log.push(BattleLogEvent::new(BattleLog::Text {
+                        message: "|-clearallboost".to_string(),
+                    }));
                 }
             } else if move_id == "sunnyday"
                 || move_id == "raindance"
@@ -2034,21 +2109,19 @@ pub fn handle_move_self_effect(
                     weather.as_ref().to_string()
                 };
 
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::WeatherChange {
+                battle
+                    .log
+                    .push(BattleLogEvent::new(BattleLog::WeatherChange {
                         weather: log_str,
                         is_start: true,
-                    },
-                ));
+                    }));
 
                 if move_id == "chillyreception" {
-                    battle.log.push(crate::sim::log::BattleLogEvent::new(
-                        crate::sim::log::BattleLog::Prepare {
-                            target: PokemonIdent { player, slot },
-                            move_id: "chillyreception".to_string(),
-                        },
-                    ));
-                    battle.turn_state = crate::sim::battle::TurnState::WaitingForSwitch {
+                    battle.log.push(BattleLogEvent::new(BattleLog::Prepare {
+                        target: PokemonIdent { player, slot },
+                        move_id: "chillyreception".to_string(),
+                    }));
+                    battle.turn_state = TurnState::WaitingForSwitch {
                         player,
                         pass_stats: false,
                     };
@@ -2080,12 +2153,12 @@ pub fn handle_move_self_effect(
                     "psychicterrain" => pkmn_meta::types::Terrain::Psychic,
                     _ => unreachable!(),
                 };
-                battle.log.push(crate::sim::log::BattleLogEvent::new(
-                    crate::sim::log::BattleLog::TerrainChange {
+                battle
+                    .log
+                    .push(BattleLogEvent::new(BattleLog::TerrainChange {
                         terrain: terrain.as_ref().to_string() + "Terrain",
                         is_start: true,
-                    },
-                ));
+                    }));
                 battle.terrain = Some(terrain);
                 battle.terrain_turns_left = if battle
                     .get_pokemon(PokemonIdent { player, slot })
@@ -2101,11 +2174,9 @@ pub fn handle_move_self_effect(
             }
         }
         "fairylock" => {
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Text {
-                    message: "-fieldactivate|move: Fairy Lock".to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::Text {
+                message: "-fieldactivate|move: Fairy Lock".to_string(),
+            }));
             battle.fairy_lock_turns = 2; // Lasts for the current and next turn
         }
         "protect" | "detect" | "spikyshield" | "kingsshield" | "banefulbunker" => {
@@ -2116,35 +2187,33 @@ pub fn handle_move_self_effect(
                 _ => pkmn_meta::types::VolatileStatus::Protect,
             };
             battle.section_apply_volatile(PokemonIdent { player, slot }, vs);
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SingleTurn {
-                    target: PokemonIdent { player, slot },
-                    effect: move_id.to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+                target: PokemonIdent { player, slot },
+                effect: move_id.to_string(),
+            }));
         }
         "charge" => {
             battle.section_apply_volatile(
                 PokemonIdent { player, slot },
                 pkmn_meta::types::VolatileStatus::Charge,
             );
-            battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spd, 1)], player, Some(move_id));
         }
         "howl" => {
             // Raises Attack of user and allies
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot: 0 })
                 && p.hp > 0
             {
-                battle.apply_stat_change(player, 0, Stat::Atk, 1, player);
+                battle.apply_stat_change(player, 0, vec![(Stat::Atk, 1)], player, Some(move_id));
             }
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot: 1 })
                 && p.hp > 0
             {
-                battle.apply_stat_change(player, 1, Stat::Atk, 1, player);
+                battle.apply_stat_change(player, 1, vec![(Stat::Atk, 1)], player, Some(move_id));
             }
         }
         "irondefense" => {
-            battle.apply_stat_change(player, slot, Stat::Def, 2, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Def, 2)], player, Some(move_id));
         }
         "focusenergy" => {
             battle.section_apply_volatile(
@@ -2157,12 +2226,10 @@ pub fn handle_move_self_effect(
                 PokemonIdent { player, slot },
                 pkmn_meta::types::VolatileStatus::Endure,
             );
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::SingleTurn {
-                    target: PokemonIdent { player, slot },
-                    effect: "endure".to_string(),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::SingleTurn {
+                target: PokemonIdent { player, slot },
+                effect: "endure".to_string(),
+            }));
         }
         _ => {}
     }
@@ -2213,12 +2280,10 @@ pub fn handle_target_secondary_effect(
                 last_move.clone()
             };
 
-            battle.log.push(crate::sim::log::BattleLogEvent::new(
-                crate::sim::log::BattleLog::Activate {
-                    target: target_ident,
-                    effect: format!("move: Eerie Spell|{}|3", move_name),
-                },
-            ));
+            battle.log.push(BattleLogEvent::new(BattleLog::Activate {
+                target: target_ident,
+                effect: format!("move: Eerie Spell|{}|3", move_name),
+            }));
         }
     }
 }
@@ -2226,17 +2291,25 @@ pub fn handle_target_secondary_effect(
 pub fn handle_user_secondary_effect(battle: &mut Battle, move_id: &str, player: u8, slot: usize) {
     match move_id {
         "ancientpower" | "ominouswind" | "silverwind" => {
-            battle.apply_stat_change(player, slot, Stat::Atk, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Def, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spa, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spd, 1, player);
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![
+                    (Stat::Atk, 1),
+                    (Stat::Def, 1),
+                    (Stat::Spa, 1),
+                    (Stat::Spd, 1),
+                    (Stat::Spe, 1),
+                ],
+                player,
+                Some(move_id),
+            );
         }
         "aquastep" | "aurawheel" | "flamecharge" => {
-            battle.apply_stat_change(player, slot, Stat::Spe, 1, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spe, 1)], player, Some(move_id));
         }
         "fierydance" | "torchsong" => {
-            battle.apply_stat_change(player, slot, Stat::Spa, 1, player);
+            battle.apply_stat_change(player, slot, vec![(Stat::Spa, 1)], player, Some(move_id));
         }
         _ => {}
     }

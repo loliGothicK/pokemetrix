@@ -12,6 +12,7 @@ pub fn apply_stat_change(
     stat: Stat,
     mut amount: i8,
     source_player: u8,
+    source_effect: Option<&str>,
 ) -> bool {
     // Check if target is alive
     let target = if target_player == 1 {
@@ -50,8 +51,14 @@ pub fn apply_stat_change(
             player: source_player,
             slot: 0,
         };
-        amount =
-            crate::sim::abilities::on_modify_boost(ability_id, battle, target_ident, stat, amount);
+        amount = crate::sim::abilities::on_modify_boost(
+            ability_id,
+            battle,
+            target_ident,
+            stat,
+            amount,
+            source_effect,
+        );
         if !crate::sim::abilities::on_try_boost(
             ability_id,
             battle,
@@ -59,6 +66,7 @@ pub fn apply_stat_change(
             source_ident,
             stat,
             amount,
+            source_effect,
         ) {
             immune = true;
         }

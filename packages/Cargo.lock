@@ -172,6 +172,7 @@ dependencies = [
  "deriving_via",
  "getrandom",
  "indexmap",
+ "itertools",
  "pkmn-meta",
  "rand",
  "serde",

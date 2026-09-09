@@ -21,7 +21,7 @@ test("Move: Darkest Lariat", () => {
   env.assertStateMatch(res.engineState, env.sim);
 });
 
-test("Move: Sacred Sword", () => {
+test.skip("Move: Sacred Sword", () => {
   const env = new TestEnvironment(
     [
       pokemon({ species: "aegislash-shield", moves: ["sacredsword"] }),

@@ -1,4 +1,5 @@
 use crate::sim::battle::{Battle, BattleLog, BattleLogEvent, PokemonIdent, Stat};
+use itertools::Itertools;
 use pkmn_meta::types::Type;
 use rand::RngExt;
 
@@ -323,13 +324,25 @@ impl Battle {
                 }));
 
                 if action.move_id == "electroshot" || action.move_id == "meteorbeam" {
-                    self.apply_stat_change(action.player, action.slot, Stat::Spa, 1, action.player);
+                    self.apply_stat_change(
+                        action.player,
+                        action.slot,
+                        vec![(Stat::Spa, 1)],
+                        action.player,
+                        Some(&action.move_id),
+                    );
                 }
 
                 return Ok(());
             } else {
                 if action.move_id == "electroshot" && skip_charge {
-                    self.apply_stat_change(action.player, action.slot, Stat::Spa, 1, action.player);
+                    self.apply_stat_change(
+                        action.player,
+                        action.slot,
+                        vec![(Stat::Spa, 1)],
+                        action.player,
+                        Some(&action.move_id),
+                    );
                 }
 
                 if let Some(p) = self.get_pokemon_mut(attacker_ident) {
@@ -779,9 +792,9 @@ impl Battle {
                         self.apply_stat_change(
                             action.player,
                             action.slot,
-                            stat,
-                            amount,
+                            vec![(stat, amount)],
                             action.player,
+                            Some(&action.move_id),
                         );
                     }
                 }
@@ -1687,7 +1700,13 @@ impl Battle {
                         .get_pokemon(target_ident)
                         .is_some_and(|p| p.boosts.spa < 6.into());
                     if can_boost {
-                        self.apply_stat_change(t_player, t_slot, Stat::Spa, 1, t_player);
+                        self.apply_stat_change(
+                            t_player,
+                            t_slot,
+                            vec![(Stat::Spa, 1)],
+                            t_player,
+                            Some(ability.as_str()),
+                        );
                         effect_applied = true;
                     }
                 }
@@ -1696,7 +1715,13 @@ impl Battle {
                         .get_pokemon(target_ident)
                         .is_some_and(|p| p.boosts.atk < 6.into());
                     if can_boost {
-                        self.apply_stat_change(t_player, t_slot, Stat::Atk, 1, t_player);
+                        self.apply_stat_change(
+                            t_player,
+                            t_slot,
+                            vec![(Stat::Atk, 1)],
+                            t_player,
+                            Some("sapsipper"),
+                        );
                         effect_applied = true;
                     }
                 }
@@ -1781,15 +1806,27 @@ impl Battle {
             && let Some(meta) = &meta_opt
         {
             if action.move_id == "quiverdance" {
-                self.apply_stat_change(t_player, t_slot, Stat::Spa, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Spd, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Spe, 1, action.player);
+                self.apply_stat_change(
+                    t_player,
+                    t_slot,
+                    vec![(Stat::Spa, 1), (Stat::Spd, 1), (Stat::Spe, 1)],
+                    action.player,
+                    Some(&action.move_id),
+                );
             } else if action.move_id == "noretreat" {
-                self.apply_stat_change(t_player, t_slot, Stat::Atk, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Def, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Spa, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Spd, 1, action.player);
-                self.apply_stat_change(t_player, t_slot, Stat::Spe, 1, action.player);
+                self.apply_stat_change(
+                    t_player,
+                    t_slot,
+                    vec![
+                        (Stat::Atk, 1),
+                        (Stat::Def, 1),
+                        (Stat::Spa, 1),
+                        (Stat::Spd, 1),
+                        (Stat::Spe, 1),
+                    ],
+                    action.player,
+                    Some(&action.move_id),
+                );
             }
             if let Some(boosts) = meta.boosts().as_ref() {
                 let stats = [
@@ -1801,11 +1838,16 @@ impl Battle {
                     (Stat::Accuracy, boosts.accuracy.into_inner()),
                     (Stat::Evasion, boosts.evasion.into_inner()),
                 ];
-                for (stat, amount) in stats {
-                    if amount != 0 {
-                        self.apply_stat_change(t_player, t_slot, stat, amount, action.player);
-                    }
-                }
+                self.apply_stat_change(
+                    t_player,
+                    t_slot,
+                    stats
+                        .into_iter()
+                        .filter(|(_, amount)| amount != &0)
+                        .collect_vec(),
+                    action.player,
+                    Some(&action.move_id),
+                );
             }
 
             if let Some(status) = meta.status().as_ref()
@@ -2046,9 +2088,9 @@ impl Battle {
                                 self.apply_stat_change(
                                     t_player,
                                     t_slot,
-                                    stat,
-                                    amount,
+                                    vec![(stat, amount)],
                                     action.player,
+                                    Some(&action.move_id),
                                 );
                             }
                         }

@@ -153,18 +153,21 @@ impl Battle {
         &mut self,
         target_player: u8,
         target_slot: usize,
-        stat: Stat,
-        amount: i8,
+        stats: Vec<(Stat, i8)>,
         source_player: u8,
-    ) -> bool {
-        crate::sim::sections::stat::apply_stat_change(
-            self,
-            target_player,
-            target_slot,
-            stat,
-            amount,
-            source_player,
-        )
+        source_effect: Option<&str>,
+    ) {
+        for (stat, amount) in stats {
+            crate::sim::sections::stat::apply_stat_change(
+                self,
+                target_player,
+                target_slot,
+                stat,
+                amount,
+                source_player,
+                source_effect,
+            );
+        }
     }
 
     pub fn process_event_queue(&mut self) {

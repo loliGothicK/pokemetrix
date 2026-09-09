@@ -1,4 +1,4 @@
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs/config";
 import type { NextConfig } from "next";
 import { access, symlink } from "node:fs/promises";
 import { join } from "node:path";
@@ -68,7 +68,6 @@ const nextConfig: NextConfig = {
 };
 
 export default withContentCollections(
-  // oxlint-disable-next-line typescript/no-deprecated
   withSentryConfig(nextConfig, {
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options

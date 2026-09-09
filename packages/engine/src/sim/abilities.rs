@@ -1,4 +1,4 @@
-use crate::sim::battle::{Battle, EventContext, EventId, PokemonIdent};
+use crate::sim::battle::{Battle, EventContext, EventId, PokemonIdent, Stat};
 use pkmn_meta::types::Type;
 
 #[derive(Default)]
@@ -58,8 +58,8 @@ pub fn execute_ability(
         let volatile = ctx.string_val.as_str();
 
         let immune = match ability_id {
-            "owntempo" => volatile == "confusion",
-            "oblivious" => volatile == "attract" || volatile == "taunt" || volatile == "intimidate",
+            "owntempo" => matches!(volatile, "confusion"),
+            "oblivious" => matches!(volatile, "attract" | "taunt"),
             _ => false,
         };
 
@@ -84,18 +84,18 @@ pub fn execute_ability(
                     battle.apply_stat_change(
                         ident.player,
                         ident.slot,
-                        crate::sim::battle::Stat::Atk,
-                        2,
+                        vec![(Stat::Atk, 2)],
                         ident.player,
+                        Some("defiant"),
                     );
                 }
                 "competitive" => {
                     battle.apply_stat_change(
                         ident.player,
                         ident.slot,
-                        crate::sim::battle::Stat::Spa,
-                        2,
+                        vec![(Stat::Spa, 2)],
                         ident.player,
+                        Some("competitive"),
                     );
                 }
                 _ => {}
@@ -1439,6 +1439,7 @@ pub fn on_try_boost(
     source: PokemonIdent,
     stat: crate::sim::battle::Stat,
     amount: i8,
+    source_effect: Option<&str>,
 ) -> bool {
     match ability_id {
         "clearbody" | "whitesmoke" | "fullmetalbody" => {
@@ -1465,6 +1466,15 @@ pub fn on_try_boost(
             }
             true
         }
+        "innerfocus" | "oblivious" | "owntempo" | "scrappy" => {
+            if source_effect == Some("intimidate")
+                && amount < 0
+                && stat == crate::sim::battle::Stat::Atk
+            {
+                return false;
+            }
+            true
+        }
         _ => true,
     }
 }
@@ -1473,12 +1483,20 @@ pub fn on_modify_boost(
     ability_id: &str,
     _battle: &mut Battle,
     _target: PokemonIdent,
-    _stat: crate::sim::battle::Stat,
+    stat: crate::sim::battle::Stat,
     amount: i8,
+    source_effect: Option<&str>,
 ) -> i8 {
     match ability_id {
         "contrary" => -amount,
         "simple" => amount * 2,
+        "guarddog" => {
+            if source_effect == Some("intimidate") && stat == crate::sim::battle::Stat::Atk {
+                1
+            } else {
+                amount
+            }
+        }
         _ => amount,
     }
 }

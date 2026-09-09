@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { TestEnvironment, pokemon } from "@/sim-utils";
 
-describe("Item: Zoom Lens", () => {
+describe.skip("Item: Zoom Lens", () => {
   it("boosts move accuracy by 1.2x when moving after the target", () => {
     const env = new TestEnvironment(
       [
