@@ -58,3 +58,8 @@ export const REG_M_B = [
   979,
   1000,
 ];
+
+export const REG_M_C = [...REG_M_B];
+
+export const REGULATIONS = ["M-A", "M-B", "M-C"] as const;
+export type Regulation = (typeof REGULATIONS)[number];

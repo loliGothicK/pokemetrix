@@ -1,9 +1,14 @@
-import pokemonData from "./champions/pokemon.json" with { type: "json" };
+import rawPokemonData from "./champions/pokemon.json" with { type: "json" };
 import movesData from "./champions/moves.json" with { type: "json" };
 import itemsData from "./champions/items.json" with { type: "json" };
 import abilitiesData from "./master/abilities.json" with { type: "json" };
+import { resolvePokemonInheritance } from "./champions/patches";
 
-export { pokemonData, movesData, itemsData, abilitiesData };
+const pokemonData = {
+  data: resolvePokemonInheritance(rawPokemonData.data),
+};
 
-// Re-export regulations if needed (wait, regulations.ts is in champions/regulations.ts).
+export { rawPokemonData, pokemonData, movesData, itemsData, abilitiesData };
+
 export * from "./champions/regulations";
+export * from "./champions/patches";

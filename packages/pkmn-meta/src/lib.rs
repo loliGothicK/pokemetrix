@@ -131,5 +131,7 @@ pub mod ability_meta;
 pub mod item_meta;
 pub mod move_meta;
 pub mod pokemon_meta;
+pub mod regulation;
 pub mod types;
-// trigger
+
+pub use regulation::Regulation;

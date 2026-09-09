@@ -128,8 +128,32 @@ pub fn resolve_damage_input(ctx: &ResolveContext) -> Option<DamageInput> {
                 .find(|p| p["slug"].as_str() == Some(&defender_id))
         })?;
 
-    let atk_bases = atk_data["status"].as_array()?;
-    let def_bases = def_data["status"].as_array()?;
+    let resolve_status = |p: &'static serde_json::Value| -> Option<&'static [serde_json::Value]> {
+        if p["status"].as_str() == Some("inherit") {
+            let species_id = p.get("species_id").and_then(|v| v.as_u64())?;
+            let base = p_list
+                .iter()
+                .find(|b| b["id"].as_u64() == Some(species_id))?;
+            base["status"].as_array().map(|v| v.as_slice())
+        } else {
+            p["status"].as_array().map(|v| v.as_slice())
+        }
+    };
+
+    let resolve_types = |p: &'static serde_json::Value| -> Option<&'static [serde_json::Value]> {
+        if p["types"].as_str() == Some("inherit") {
+            let species_id = p.get("species_id").and_then(|v| v.as_u64())?;
+            let base = p_list
+                .iter()
+                .find(|b| b["id"].as_u64() == Some(species_id))?;
+            base["types"].as_array().map(|v| v.as_slice())
+        } else {
+            p["types"].as_array().map(|v| v.as_slice())
+        }
+    };
+
+    let atk_bases = resolve_status(atk_data)?;
+    let def_bases = resolve_status(def_data)?;
 
     let (atk_evs, atk_natures) = parse_ev_string(ctx.attacker.evs.as_deref().unwrap_or(""));
     let (def_evs, def_natures) = parse_ev_string(ctx.defender.evs.as_deref().unwrap_or(""));
@@ -170,7 +194,7 @@ pub fn resolve_damage_input(ctx: &ResolveContext) -> Option<DamageInput> {
     let move_type_str = move_data["type"].as_str().unwrap_or("Normal");
     let move_type = parse_type(move_type_str);
 
-    let def_types = def_data["types"].as_array()?;
+    let def_types = resolve_types(def_data)?;
     let def_type1 = parse_type(def_types[0].as_str().unwrap_or("Normal"));
     let def_type2 = if def_types.len() > 1 {
         Some(parse_type(def_types[1].as_str().unwrap_or("Normal")))
@@ -189,7 +213,7 @@ pub fn resolve_damage_input(ctx: &ResolveContext) -> Option<DamageInput> {
         defender_stats[4]
     };
 
-    let atk_types = atk_data["types"].as_array()?;
+    let atk_types = resolve_types(atk_data)?;
     let mut stab_modifier = 4096;
     for t in atk_types {
         if t.as_str().unwrap_or("").eq_ignore_ascii_case(move_type_str) {

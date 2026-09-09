@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
-import pokemonDataRaw from "@pokemetrix/data/champions/pokemon.json";
 import jaTranslation from "@locales/ja/translation.json";
 import enTranslation from "@locales/en/translation.json";
-import { REG_M_B } from "@pokemetrix/data";
-// Assuming pokemonData has the structure: { data: { identifier: string, status: number[] }[] }
-const pokemonData = (
-  pokemonDataRaw as {
-    data: { identifier: string; status: number[]; evs?: string; abilities: number[]; id: number }[];
-  }
-).data;
+import { REG_M_B, getPokemonData } from "@pokemetrix/data";
+
+const pokemonData = getPokemonData();
 
 // Mulberry32 PRNG
 function mulberry32(a: number) {

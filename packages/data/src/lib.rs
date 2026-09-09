@@ -588,12 +588,31 @@ pub fn generate_pokemon_meta(_item: TokenStream) -> TokenStream {
     let mut arms = Vec::new();
 
     if let Some(arr) = pokemon_json["data"].as_array() {
+        // Build map of base pokemon by id for resolving "inherit"
+        let mut base_pokemon_by_id: std::collections::HashMap<u64, &Value> =
+            std::collections::HashMap::new();
+        for p in arr {
+            if let Some(id) = p["id"].as_u64() {
+                base_pokemon_by_id.insert(id, p);
+            }
+        }
+
         for p in arr {
             let orig_id = p["identifier"].as_str().unwrap();
             let id = orig_id.replace("-", "");
             let weight = weight_map.get(orig_id).unwrap_or(&0);
 
-            let status = p["status"].as_array().unwrap();
+            let species_id = p.get("species_id").and_then(|v| v.as_u64());
+            let base_p = species_id.and_then(|sid| base_pokemon_by_id.get(&sid).copied());
+
+            let status = if p["status"].as_str() == Some("inherit") {
+                base_p
+                    .and_then(|b| b["status"].as_array())
+                    .expect("Base pokemon status")
+            } else {
+                p["status"].as_array().expect("Status array")
+            };
+
             let hp = status[0].as_u64().unwrap() as u32;
             let atk = status[1].as_u64().unwrap() as u32;
             let def = status[2].as_u64().unwrap() as u32;
@@ -609,7 +628,14 @@ pub fn generate_pokemon_meta(_item: TokenStream) -> TokenStream {
                 }
             };
 
-            let types = p["types"].as_array().unwrap();
+            let types = if p["types"].as_str() == Some("inherit") {
+                base_p
+                    .and_then(|b| b["types"].as_array())
+                    .expect("Base pokemon types")
+            } else {
+                p["types"].as_array().expect("Types array")
+            };
+
             let type1_str = capitalize(types[0].as_str().unwrap());
             let type1_ident = syn::Ident::new(&type1_str, proc_macro2::Span::call_site());
             let type2 = if types.len() > 1 {
@@ -649,4 +675,195 @@ pub fn generate_pokemon_meta(_item: TokenStream) -> TokenStream {
     TokenStream::from(expanded)
 }
 
-// trigger rebuild
+#[proc_macro]
+pub fn generate_regulation_meta(_item: TokenStream) -> TokenStream {
+    let pokemon_str = include_str!("../champions/pokemon.json");
+    let pokemon_json: Value =
+        serde_json::from_str(pokemon_str).expect("Failed to parse pokemon.json");
+
+    let patches_str = include_str!("../champions/patches.json");
+    let patches_json: Value =
+        serde_json::from_str(patches_str).expect("Failed to parse patches.json");
+
+    // Collect base moves by identifier
+    let mut base_moves_map: std::collections::HashMap<String, (u64, Vec<u32>)> =
+        std::collections::HashMap::new();
+
+    if let Some(arr) = pokemon_json["data"].as_array() {
+        let mut base_pokemon_by_id: std::collections::HashMap<u64, &Value> =
+            std::collections::HashMap::new();
+        for p in arr {
+            if let Some(id) = p["id"].as_u64() {
+                base_pokemon_by_id.insert(id, p);
+            }
+        }
+
+        for p in arr {
+            let identifier = p["identifier"].as_str().unwrap().to_string();
+            let id = p["id"].as_u64().unwrap();
+
+            let species_id = p.get("species_id").and_then(|v| v.as_u64());
+            let base_p = species_id.and_then(|sid| base_pokemon_by_id.get(&sid).copied());
+
+            let moves: Vec<u32> = if p["moves"].as_str() == Some("inherit") {
+                base_p
+                    .and_then(|b| b["moves"].as_array())
+                    .unwrap_or(&Vec::new())
+                    .iter()
+                    .filter_map(|m| m.as_u64().map(|v| v as u32))
+                    .collect()
+            } else {
+                p["moves"]
+                    .as_array()
+                    .unwrap_or(&Vec::new())
+                    .iter()
+                    .filter_map(|m| m.as_u64().map(|v| v as u32))
+                    .collect()
+            };
+
+            base_moves_map.insert(identifier, (id, moves));
+        }
+    }
+
+    // Prepare match arms for get_pokemon_moves(slug: &str, reg: Regulation) -> Option<&'static [u32]>
+    let mut move_arms = Vec::new();
+
+    for (slug, (id, base_moves)) in &base_moves_map {
+        let clean_slug = slug.replace("-", "").to_lowercase();
+
+        // MA and MB currently have no move patches, so they use base_moves
+        let ma_mb_moves = base_moves.clone();
+
+        // Compute MC moves applying patches.json
+        let mut mc_moves = base_moves.clone();
+        if let Some(mc_patches) = patches_json.get("M-C").and_then(|v| v.get("pokemon")) {
+            let id_str = id.to_string();
+            if let Some(p) = mc_patches.get(&id_str) {
+                if let Some(remove) = p.get("remove_moves").and_then(|v| v.as_array()) {
+                    let to_remove: std::collections::HashSet<u32> = remove
+                        .iter()
+                        .filter_map(|v| v.as_u64().map(|x| x as u32))
+                        .collect();
+                    mc_moves.retain(|m| !to_remove.contains(m));
+                }
+                if let Some(add) = p.get("add_moves").and_then(|v| v.as_array()) {
+                    for m in add.iter().filter_map(|v| v.as_u64().map(|x| x as u32)) {
+                        if !mc_moves.contains(&m) {
+                            mc_moves.push(m);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Generate arms
+        let ma_mb_tokens = quote! { &[#(#ma_mb_moves),*] };
+        let mc_tokens = quote! { &[#(#mc_moves),*] };
+
+        move_arms.push(quote! {
+            (#clean_slug, Regulation::MA) => Some(#ma_mb_tokens),
+            (#clean_slug, Regulation::MB) => Some(#ma_mb_tokens),
+            (#clean_slug, Regulation::MC) => Some(#mc_tokens),
+        });
+    }
+
+    // Allowed pokemon IDs from regulations.ts:
+    // We can define the regulation allowed slugs/ids:
+    let reg_ma_ids: &[u64] = &[
+        10033, 3, 6, 10034, 10035, 9, 10036, 15, 10090, 10073, 18, 24, 25, 10100, 26, 36, 10278,
+        10104, 38, 59, 10230, 65, 10037, 68, 10279, 71, 10165, 10071, 80, 94, 10038, 115, 10039,
+        10280, 121, 10040, 127, 10250, 128, 10252, 10251, 130, 10041, 132, 134, 135, 136, 142,
+        10042, 143, 149, 10281, 10282, 154, 10233, 157, 160, 10283, 168, 181, 10045, 184, 186, 196,
+        197, 10172, 199, 205, 10072, 208, 10046, 212, 214, 10047, 10284, 227, 229, 10048, 10049,
+        248, 279, 282, 10051, 10066, 302, 306, 10053, 308, 10054, 310, 10055, 10070, 319, 323,
+        10087, 324, 334, 10067, 350, 351, 354, 10056, 358, 10306, 359, 10057, 362, 10074, 389, 392,
+        395, 405, 407, 409, 411, 428, 10088, 442, 445, 10058, 448, 10059, 450, 454, 460, 10060,
+        461, 464, 470, 471, 472, 473, 475, 10068, 478, 10285, 10011, 10010, 10008, 10012, 479,
+        10009, 497, 500, 10286, 10236, 503, 505, 510, 512, 514, 516, 530, 10287, 531, 10069, 534,
+        547, 553, 563, 569, 10239, 571, 579, 584, 587, 609, 10291, 614, 10180, 618, 623, 10313,
+        635, 637, 652, 10292, 655, 10293, 658, 10294, 660, 663, 666, 670, 10296, 671, 675, 676,
+        10314, 678, 10025, 681, 10026, 683, 685, 693, 695, 697, 699, 700, 701, 10300, 702, 706,
+        10242, 707, 709, 10030, 711, 10031, 10032, 713, 10243, 715, 724, 10244, 727, 730, 733, 740,
+        10315, 745, 10126, 10152, 748, 750, 752, 758, 763, 765, 766, 778, 780, 10302, 784, 823,
+        841, 842, 844, 855, 858, 866, 867, 869, 877, 887, 899, 900, 902, 10248, 903, 908, 911, 914,
+        925, 934, 936, 937, 939, 10320, 952, 956, 959, 964, 10256, 968, 970, 10321, 981, 983, 1013,
+        1018, 1019,
+    ];
+
+    let reg_mb_additional_ids: &[u64] = &[
+        10304, 10305, 45, 211, 254, 10065, 257, 10050, 260, 10064, 303, 10052, 376, 10076, 398,
+        10308, 518, 545, 10288, 560, 10289, 604, 10290, 668, 10295, 687, 10297, 689, 10298, 691,
+        10299, 861, 870, 10303, 904, 972, 979, 1000,
+    ];
+
+    let mut allowed_pokemon_arms = Vec::new();
+
+    // Map id to clean_slug
+    let mut id_to_slug = std::collections::HashMap::new();
+    for (slug, (id, _)) in &base_moves_map {
+        let clean_slug = slug.replace("-", "").to_lowercase();
+        id_to_slug.insert(*id, clean_slug);
+    }
+
+    let mut ma_set = std::collections::HashSet::new();
+    for id in reg_ma_ids {
+        if let Some(slug) = id_to_slug.get(id) {
+            ma_set.insert(slug.clone());
+            allowed_pokemon_arms.push(quote! {
+                (#slug, Regulation::MA) => true,
+            });
+        }
+    }
+
+    let mut mb_set = ma_set.clone();
+    for id in reg_mb_additional_ids {
+        if let Some(slug) = id_to_slug.get(id) {
+            mb_set.insert(slug.clone());
+        }
+    }
+
+    for slug in &mb_set {
+        allowed_pokemon_arms.push(quote! {
+            (#slug, Regulation::MB) => true,
+            (#slug, Regulation::MC) => true,
+        });
+    }
+
+    let expanded = quote! {
+        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
+        pub enum Regulation {
+            #[serde(rename = "M-A")]
+            MA,
+            #[serde(rename = "M-B")]
+            MB,
+            #[serde(rename = "M-C")]
+            MC,
+        }
+
+        pub fn get_pokemon_moves(slug: &str, reg: Regulation) -> Option<&'static [u32]> {
+            let slug = slug.replace("-", "").to_lowercase();
+            match (slug.as_str(), reg) {
+                #(#move_arms)*
+                _ => None,
+            }
+        }
+
+        pub fn is_move_allowed(slug: &str, move_id: u32, reg: Regulation) -> bool {
+            if let Some(moves) = get_pokemon_moves(slug, reg) {
+                moves.contains(&move_id)
+            } else {
+                false
+            }
+        }
+
+        pub fn is_pokemon_allowed(slug: &str, reg: Regulation) -> bool {
+            let slug = slug.replace("-", "").to_lowercase();
+            match (slug.as_str(), reg) {
+                #(#allowed_pokemon_arms)*
+                _ => false,
+            }
+        }
+    };
+
+    TokenStream::from(expanded)
+}

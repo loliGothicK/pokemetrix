@@ -1,0 +1,14 @@
+{
+  "M-C": {
+    "pokemon": {
+      "1018": {
+        "slug": "archaludon",
+        "remove_moves": [243, 368]
+      },
+      "186": {
+        "slug": "politoed",
+        "remove_moves": [1]
+      }
+    }
+  }
+}

@@ -30,8 +30,15 @@ const abilitiesMaster = JSON.parse(fs.readFileSync(abilitiesMasterPath, "utf8"))
 const enTranslation = JSON.parse(fs.readFileSync(enTranslationPath, "utf8"));
 const jaTranslation = JSON.parse(fs.readFileSync(jaTranslationPath, "utf8"));
 
+const baseMap = new Map<number, any>(pokemonData.data.map((p: any) => [p.id, p]));
 const validAbilityIds = new Set(
-  pokemonData.data.flatMap((p: { abilities: number[] }) => p.abilities),
+  pokemonData.data.flatMap((p: { abilities: number[] | "inherit"; species_id?: number }) => {
+    if (p.abilities === "inherit") {
+      const base = p.species_id ? baseMap.get(p.species_id) : undefined;
+      return base && base.abilities !== "inherit" ? base.abilities : [];
+    }
+    return p.abilities;
+  }),
 );
 const allAbilityNames = new Set<string>();
 const validAbilityNames = new Set<string>();
