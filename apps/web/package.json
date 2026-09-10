@@ -106,7 +106,7 @@
     "@vercel/config": "^0.7.0",
     "drizzle-kit": "0.31.10",
     "happy-dom": "20.14.0",
-    "inquirer": "14.2.1",
+    "inquirer": "14.2.2",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
