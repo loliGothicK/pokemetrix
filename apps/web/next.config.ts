@@ -6,6 +6,8 @@ import type { Compiler, Compilation, Configuration, WebpackPluginInstance } from
 import { withContentCollections } from "@content-collections/next";
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["@pkmn/dex", "@pkmn/data", "@pkmn/sim"],
+  productionBrowserSourceMaps: false,
   allowedDevOrigins: ["127.0.0.1"],
   cacheComponents: true,
   partialPrefetching: true,

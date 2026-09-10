@@ -1,15 +1,17 @@
 "use client";
 
 import { useColorScheme } from "@mui/material/styles";
-import Editor, { useMonaco } from "@monaco-editor/react";
-import { Box, CircularProgress } from "@mui/material";
-import { useEffect, useId } from "react";
+import CodeMirror, { EditorView } from "@uiw/react-codemirror";
+import { sql } from "@codemirror/lang-sql";
+import { javascript } from "@codemirror/lang-javascript";
+import { Box } from "@mui/material";
+import { useMemo } from "react";
 
 export function SqlEditor({
   value,
   onChange,
   language = "sql",
-  rowTypeDeclaration,
+  rowTypeDeclaration: _rowTypeDeclaration,
 }: {
   readonly value: string;
   readonly onChange: (val: string) => void;
@@ -17,79 +19,16 @@ export function SqlEditor({
   readonly rowTypeDeclaration?: string;
 }) {
   const { mode } = useColorScheme();
-  const monaco = useMonaco();
-  const id = useId();
 
-  useEffect(() => {
-    if (monaco && (language === "javascript" || language === "typescript")) {
-      let isSubscribed = true;
-      let disposable: { dispose: () => void } | undefined;
-
-      void import("monaco-editor").then((mod) => {
-        if (!isSubscribed) return;
-        const ts = mod.typescript;
-        const defaults = language === "typescript" ? ts.typescriptDefaults : ts.javascriptDefaults;
-
-        defaults.setDiagnosticsOptions({
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-        });
-
-        defaults.setCompilerOptions({
-          target: ts.ScriptTarget.ESNext,
-          allowNonTsExtensions: true,
-          allowJs: true,
-          checkJs: true,
-        });
-
-        // Type definition for custom transformer variables
-        const libSource = `
-          interface BattleRecordOpponent {
-            readonly slotIndex: number;
-            readonly pokemonSlug: string;
-            readonly itemSlug: string | null;
-            readonly abilitySlug: string | null;
-            readonly moves: readonly string[] | null;
-            readonly selectionRole: "lead" | "back" | null;
-            readonly notes: string | null;
-          }
-
-          interface BattleRecord {
-            readonly id: string;
-            readonly seasonId: string;
-            readonly teamId: string | null;
-            readonly result: "win" | "loss" | "draw";
-            readonly myTeam: readonly Record<string, unknown>[];
-            readonly mySelection: readonly number[] | null;
-            readonly rating: number | null;
-            readonly notes: string | null;
-            readonly playedAt: string;
-            readonly opponents: readonly BattleRecordOpponent[];
-            readonly createdAt: string;
-            readonly updatedAt: string;
-          }
-
-          type ExtractRowValue<K extends string> = K extends keyof BattleRecord ? BattleRecord[K] : unknown;
-
-          /** 
-           * The type of the input records from the SQL query.
-           */
-          type Rows = ${rowTypeDeclaration || "Array<Partial<BattleRecord>>"};
-          declare const rows: Rows;
-        `;
-        const libUri = "ts:filename/transformer.d.ts";
-
-        disposable = defaults.addExtraLib(libSource, libUri);
-      });
-
-      return () => {
-        isSubscribed = false;
-        if (disposable) {
-          disposable.dispose();
-        }
-      };
+  const extensions = useMemo(() => {
+    const exts = [EditorView.lineWrapping];
+    if (language === "sql") {
+      exts.push(sql());
+    } else {
+      exts.push(javascript({ typescript: language === "typescript" }));
     }
-  }, [monaco, language, rowTypeDeclaration]);
+    return exts;
+  }, [language]);
 
   return (
     <Box
@@ -97,33 +36,46 @@ export function SqlEditor({
         width: "100%",
         height: "100%",
         position: "relative",
+        "& .cm-editor": {
+          height: "100%",
+          fontFamily: "'Fira Code', 'Roboto Mono', monospace",
+          fontSize: 14,
+        },
+        "& .cm-scroller": {
+          overflow: "auto",
+        },
       }}
     >
-      <Editor
-        path={`model-${id.replace(/:/g, "")}.${language === "typescript" ? "ts" : language === "javascript" ? "js" : "sql"}`}
-        height="100%"
-        language={language}
-        theme={mode === "dark" ? "vs-dark" : "vs"}
+      <CodeMirror
         value={value}
-        onChange={(val) => onChange(val || "")}
-        loading={
-          <Box
-            sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}
-          >
-            <CircularProgress size={24} />
-          </Box>
-        }
-        options={{
-          minimap: { enabled: false },
-          fontSize: 14,
-          fontFamily: "'Fira Code', 'Roboto Mono', monospace",
-          wordWrap: "on",
-          scrollBeyondLastLine: false,
-          padding: { top: 16, bottom: 16 },
-          formatOnPaste: true,
-          formatOnType: true,
-          tabSize: 2,
-          fixedOverflowWidgets: true,
+        height="100%"
+        theme={mode === "dark" ? "dark" : "light"}
+        extensions={extensions}
+        onChange={(val) => onChange(val)}
+        basicSetup={{
+          lineNumbers: true,
+          highlightActiveLineGutter: true,
+          highlightSpecialChars: true,
+          foldGutter: true,
+          drawSelection: true,
+          dropCursor: true,
+          allowMultipleSelections: true,
+          indentOnInput: true,
+          syntaxHighlighting: true,
+          bracketMatching: true,
+          closeBrackets: true,
+          autocompletion: true,
+          rectangularSelection: true,
+          crosshairCursor: true,
+          highlightActiveLine: true,
+          highlightSelectionMatches: true,
+          closeBracketsKeymap: true,
+          defaultKeymap: true,
+          searchKeymap: true,
+          historyKeymap: true,
+          foldKeymap: true,
+          completionKeymap: true,
+          lintKeymap: true,
         }}
       />
     </Box>

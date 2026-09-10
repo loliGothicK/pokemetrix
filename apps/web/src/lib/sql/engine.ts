@@ -343,7 +343,6 @@ export function executeSql(
 
 /**
  * Extracts a TypeScript type string representing the rows from a parsed SQL query.
- * For Monaco Editor intelligence.
  */
 export function generateRowTypeFromSql(sql: string): string {
   try {
