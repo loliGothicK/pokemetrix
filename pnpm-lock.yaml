@@ -435,7 +435,11 @@ importers:
   packages/damage-calc:
     publishDirectory: pkg
 
-  packages/data: {}
+  packages/data:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.4.1
 
   packages/engine:
     dependencies:

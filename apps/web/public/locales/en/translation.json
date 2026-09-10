@@ -1261,6 +1261,78 @@
     "zoom-lens": {
       "name": "Zoom Lens",
       "effect": "Boosts the accuracy of the holder's moves by 20% when the holder acts after the targets."
+    },
+    "electric-seed": {
+      "name": "Electric Seed",
+      "effect": "Boosts the holder's Defense by 1 stage on Electric Terrain. Disappears for the duration of the battle after a single use."
+    },
+    "psychic-seed": {
+      "name": "Psychic Seed",
+      "effect": "Boosts the holder's Sp. Def by 1 stage on Psychic Terrain. Disappears for the duration of the battle after a single use."
+    },
+    "misty-seed": {
+      "name": "Misty Seed",
+      "effect": "Boosts the holder's Sp. Def by 1 stage on Misty Terrain. Disappears for the duration of the battle after a single use."
+    },
+    "grassy-seed": {
+      "name": "Grassy Seed",
+      "effect": "Boosts the holder's Defense by 1 stage on Grassy Terrain. Disappears for the duration of the battle after a single use."
+    },
+    "terrain-extender": {
+      "name": "Terrain Extender",
+      "effect": "When the holder creates terrain with its moves or Ability, the duration is extended by 3 turns. (Total duration: 8 turns)"
+    },
+    "rocky-helmet": {
+      "name": "Rocky Helmet",
+      "effect": "When the holder is hit by a contact move, the attacker takes damage equal to 1/6 of its max HP."
+    },
+    "binding-band": {
+      "name": "Binding Band",
+      "effect": "Increases the damage dealt to targets that have the Bound status. Targets will take damage equal to 1/6 of their max HP instead of 1/8 of their max HP."
+    },
+    "eject-button": {
+      "name": "Eject Button",
+      "effect": "Switches the holder out of battle when the holder takes damage from a move. Disappears for the duration of the battle after single use."
+    },
+    "leek": {
+      "name": "Leek",
+      "effect": "When held by a Farfetch'd or Sirfetch'd, gives the holder a 2-stage Critical-Hit Ratio Boost."
+    },
+    "normal-gem": {
+      "name": "Normal Gem",
+      "effect": "Boosts the power of the holder's Normal-type moves by 30%. Disappears for the duration of the battle after single use."
+    },
+    "air-balloon": {
+      "name": "Air Balloon",
+      "effect": "Causes the holder to float off the ground, making it immune to Ground-type moves, as well as the Spikes, Toxic Spikes, and Sticky Web statuses. Disappears for the duration of the battle if the holder takes damage from a move."
+    },
+    "red-card": {
+      "name": "Red Card",
+      "effect": "When the holder takes damage from a move, the attacker is forced to switch out of battle. Disappears for the duration of the battle after a single use."
+    },
+    "salamencite": {
+      "name": "Salamencite",
+      "effect": "A held item that allows Salamence to Mega Evolve."
+    },
+    "absolite-z": {
+      "name": "Absolite Z",
+      "effect": "A held item that allows Absol to Mega Evolve into Mega Absol Z."
+    },
+    "golisopite": {
+      "name": "Golisopite",
+      "effect": "A held item that allows Golisopod to Mega Evolve."
+    },
+    "baxcalibrite": {
+      "name": "Baxcalibrite",
+      "effect": "A held item that allows Baxcalibur to Mega Evolve."
+    },
+    "lucarionite-z": {
+      "name": "Lucarionite Z",
+      "effect": "A held item that allows Lucario to Mega Evolve into Mega Lucario Z."
+    },
+    "garchompite-z": {
+      "name": "Garchompite Z",
+      "effect": "A held item that allows Garchomp to Mega Evolve into Mega Garchomp Z."
     }
   },
   "merge": {
@@ -2376,7 +2448,7 @@
     },
     "milk-drink": {
       "name": "Milk Drink",
-      "effect": "Restores 1/2 of the user's max HP."
+      "effect": "Restores 1/2 of the max HP of the user or an ally."
     },
     "minimize": {
       "name": "Minimize",
@@ -3380,7 +3452,7 @@
     },
     "slash": {
       "name": "Slash",
-      "effect": "Has an increased chance for a critical hit."
+      "effect": "This mov has a 1-stage Critical-Hit Ratio Boost."
     },
     "snatch": {
       "name": "Snatch",
@@ -3425,6 +3497,58 @@
     "water-gun": {
       "name": "Water Gun",
       "effect": "Inflicts regular damage with no additional effect."
+    },
+    "shift-gear": {
+      "name": "Shift Gear",
+      "effect": "Boosts the user's Attack by 1 stage and Speed by 2 stages."
+    },
+    "zing-zap": {
+      "name": "Zing Zap",
+      "effect": "Has a 30% chance of making the target flinch."
+    },
+    "snipe-shot": {
+      "name": "Snipe Shot",
+      "effect": "This move ignores the effects of Abilities and moves that draw in moves. It has a 1-stage Critical-Hit Ratio Boost."
+    },
+    "jaw-lock": {
+      "name": "Jaw Lock",
+      "effect": "The user and target gain the Jaw Locked status."
+    },
+    "octolock": {
+      "name": "Octolock",
+      "effect": "Gives the target the Octolocked and Can't Escape statuses."
+    },
+    "court-change": {
+      "name": "Court Change",
+      "effect": "Swaps the statuses affecting the user's side of the field with the statuses affecting the opponent's side of the field."
+    },
+    "drum-beating": {
+      "name": "Drum Beating",
+      "effect": "Lowers the target's Speed stat by 1 stage."
+    },
+    "pyro-ball": {
+      "name": "Pyro Ball",
+      "effect": "Has a 10% chance of burning the target. Cures the user of being frozen."
+    },
+    "overdrive": {
+      "name": "Overdrive",
+      "effect": "Attacks all opposing Pokémon with a sound-based attack."
+    },
+    "meteor-assault": {
+      "name": "Meteor Assault",
+      "effect": "The user gains the Recharging status on the turn  after this move is used."
+    },
+    "glaive-rush": {
+      "name": "Glaive Rush",
+      "effect": "The user gains the Wide Open status until the next time it takes an action."
+    },
+    "revival-blessing": {
+      "name": "Revival Blessing",
+      "effect": "Revives a Pokémon in the user's party that has fainted and restored 1/2 of that Pokémon's max HP."
+    },
+    "double-shock": {
+      "name": "Double Shock",
+      "effect": "The user loses the Electric type. This move fails unless it is used by an Electric type"
     }
   },
   "pokemon": {
@@ -4530,7 +4654,127 @@
       "name": "Decidueye",
       "formName": "Hisuian Form"
     },
-    "unknown": "Unknown Pokémon"
+    "unknown": "Unknown Pokémon",
+    "wigglytuff": {
+      "name": "Wigglytuff"
+    },
+    "persian": {
+      "name": "Persian"
+    },
+    "alolan-persian": {
+      "name": "Persian",
+      "formName": "Alolan Form"
+    },
+    "farfetchd": {
+      "name": "Farfetch'd"
+    },
+    "mr-mime": {
+      "name": "Mr. Mime"
+    },
+    "swalot": {
+      "name": "Swalot"
+    },
+    "absol-mega-z": {
+      "name": "Absol",
+      "formName": "Mega Z"
+    },
+    "salamence": {
+      "name": "Salamence"
+    },
+    "salamence-mega": {
+      "name": "Salamence",
+      "formName": "Mega"
+    },
+    "garchomp-mega-z": {
+      "name": "Garchomp",
+      "formName": "Mega Z"
+    },
+    "lucario-mega-z": {
+      "name": "Lucario",
+      "formName": "Mega Z"
+    },
+    "gogoat": {
+      "name": "Gogoat"
+    },
+    "golisopod": {
+      "name": "Golisopod"
+    },
+    "golisopod-mega": {
+      "name": "Golisopod",
+      "formName": "Mega"
+    },
+    "rillaboom": {
+      "name": "Rillaboom"
+    },
+    "cinderace": {
+      "name": "Cinderace"
+    },
+    "inteleon": {
+      "name": "Inteleon"
+    },
+    "thievul": {
+      "name": "Thievul"
+    },
+    "toxtricity-amped": {
+      "name": "Toxtricity",
+      "formName": "Amped Form"
+    },
+    "toxtricity-low-key": {
+      "name": "Toxtricity",
+      "formName": "Low Key Form"
+    },
+    "grapploct": {
+      "name": "Grapploct"
+    },
+    "perrserker": {
+      "name": "Perrserker"
+    },
+    "sirfetchd": {
+      "name": "Sirfetch'd"
+    },
+    "pincurchin": {
+      "name": "Pincurchin"
+    },
+    "indeedee-male": {
+      "name": "Indeedee",
+      "formName": "Male"
+    },
+    "indeedee-female": {
+      "name": "Indeedee",
+      "formName": "Female"
+    },
+    "pawmot": {
+      "name": "Pawmot"
+    },
+    "arboliva": {
+      "name": "Arboliva"
+    },
+    "squawkabilly-green-plumage": {
+      "name": "Squawkabilly",
+      "formName": "Green Plumage"
+    },
+    "squawkabilly-blue-plumage": {
+      "name": "Squawkabilly",
+      "formName": "Blue Plumage"
+    },
+    "squawkabilly-yellow-plumage": {
+      "name": "Squawkabilly",
+      "formName": "Yellow Plumage"
+    },
+    "squawkabilly-white-plumage": {
+      "name": "Squawkabilly",
+      "formName": "White Plumage"
+    },
+    "mabosstiff": {
+      "name": "Mabosstiff"
+    },
+    "baxcalibur": {
+      "name": "Baxcalibur"
+    },
+    "baxcalibur-mega": {
+      "name": "Baxcalibur",
+      "formName": "Mega"
+    }
   },
   "abilities": {
     "stench": {
@@ -4724,7 +4968,8 @@
       "effect": "Contact with the Pokémon may burn the attacker."
     },
     "run-away": {
-      "name": "Run Away"
+      "name": "Run Away",
+      "effect": "Enables the Pokémon to ignore any effects that would usually prevent it from switching out of battle and being replaced by another party Pokémon."
     },
     "keen-eye": {
       "name": "Keen Eye",
@@ -4778,7 +5023,8 @@
       "effect": "The Pokémon's marvelous scales boost its Defense stat if it has a status condition."
     },
     "liquid-ooze": {
-      "name": "Liquid Ooze"
+      "name": "Liquid Ooze",
+      "effect": "When the Pokémon is hit by an HP-absorbing move, the attacker does not restore HP but instead takes damage equal to the amount of HP it would have restored."
     },
     "overgrow": {
       "name": "Overgrow",
@@ -5125,7 +5371,8 @@
       "effect": "When the Pokémon is hit by a Dark-type attack"
     },
     "rattled": {
-      "name": "Rattled"
+      "name": "Rattled",
+      "effect": "When the Pokémon takes damage from a Dark-, Ghost-, or Bug-type move or when it is on the receiving end of Intimidate, its Speed stat is boosted by 1 stage."
     },
     "magic-bounce": {
       "name": "Magic Bounce",
@@ -5215,7 +5462,8 @@
       "effect": "Powers up pulse moves."
     },
     "grass-pelt": {
-      "name": "Grass Pelt"
+      "name": "Grass Pelt",
+      "effect": "Boosts the Pokémon's Defense stat by 50% on Grassy Terrain."
     },
     "symbiosis": {
       "name": "Symbiosis",
@@ -5268,7 +5516,8 @@
       "name": "Wimp Out"
     },
     "emergency-exit": {
-      "name": "Emergency Exit"
+      "name": "Emergency Exit",
+      "effect": "The Pokémon switches out of battle when its HP drops to 1/2 or less of its max."
     },
     "water-compaction": {
       "name": "Water Compaction"
@@ -5281,7 +5530,8 @@
       "name": "Shields Down"
     },
     "stakeout": {
-      "name": "Stakeout"
+      "name": "Stakeout",
+      "effect": "Doubles the power of the Pokémon's moves when it attacks targets have just switched into battle."
     },
     "water-bubble": {
       "name": "Water Bubble",
@@ -5381,13 +5631,15 @@
       "effect": "Turns the ground into Electric Terrain when the Pokémon enters a battle."
     },
     "psychic-surge": {
-      "name": "Psychic Surge"
+      "name": "Psychic Surge",
+      "effect": "Turns the entire field into Psychic Terrain for 5 turns when the Pokémon enters a battle."
     },
     "misty-surge": {
       "name": "Misty Surge"
     },
     "grassy-surge": {
-      "name": "Grassy Surge"
+      "name": "Grassy Surge",
+      "effect": "Turns the entire field into Grassy Terrain for 5 turns when the Pokémon enters a battle."
     },
     "full-metal-body": {
       "name": "Full Metal Body"
@@ -5408,7 +5660,8 @@
       "name": "Dauntless Shield"
     },
     "libero": {
-      "name": "Libero"
+      "name": "Libero",
+      "effect": "Changes the Pokémon's type to the type of the move it's about to use. This works only once per time the Pokémon enters battle."
     },
     "ball-fetch": {
       "name": "Ball Fetch"
@@ -5434,7 +5687,8 @@
       "name": "Steam Engine"
     },
     "punk-rock": {
-      "name": "Punk Rock"
+      "name": "Punk Rock",
+      "effect": "Boosts the power of the Pokémon's sound-based moves by 30% and halves the damage the Pokémon takes from sound-based moves."
     },
     "sand-spit": {
       "name": "Sand Spit",
@@ -5462,7 +5716,8 @@
       "effect": "When the Pokémon enters a battle"
     },
     "steely-spirit": {
-      "name": "Steely Spirit"
+      "name": "Steely Spirit",
+      "effect": "Boosts the power of the Steel-type moves of the Pokémon and its allies by 50%."
     },
     "perish-body": {
       "name": "Perish Body"
@@ -5518,10 +5773,12 @@
       "name": "Lingering Aroma"
     },
     "seed-sower": {
-      "name": "Seed Sower"
+      "name": "Seed Sower",
+      "effect": "Turns the entire field into Grassy Terrain for 5 turns when the Pokémon takes damage from moves."
     },
     "thermal-exchange": {
-      "name": "Thermal Exchange"
+      "name": "Thermal Exchange",
+      "effect": "When the Pokémon takes damage from a Fire-type move, its Attack stat is Boosted by 1 stage. The Pokémon cannot be burned."
     },
     "anger-shell": {
       "name": "Anger Shell"
@@ -5537,7 +5794,8 @@
       "name": "Wind Rider"
     },
     "guard-dog": {
-      "name": "Guard Dog"
+      "name": "Guard Dog",
+      "effect": "Intimidate does not work on the Pokémon. Instead, it boosts the Pokémon's Attack stat by 1 stage. The Pokémon is also unaffected by the moves and held items of other Pokémon that would force it to switch out of battle."
     },
     "rocky-payload": {
       "name": "Rocky Payload"
@@ -5670,6 +5928,10 @@
     "fire-mane": {
       "name": "Fire Mane",
       "effect": "Boosts the power of the Pokémon's Fire-type moves by 50%."
+    },
+    "aura-guard": {
+      "name": "Aura Guard",
+      "effect": "Halves the damage the Pokémon takes from contact moves."
     }
   },
   "range": {

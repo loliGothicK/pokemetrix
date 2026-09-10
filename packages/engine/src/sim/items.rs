@@ -272,6 +272,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
             name: "Absolite".to_string(),
             ..Default::default()
         }),
+        "absolitez" => Some(Condition {
+            name: "Absolite Z".to_string(),
+            ..Default::default()
+        }),
         "aerodactylite" => Some(Condition {
             name: "Aerodactylite".to_string(),
             ..Default::default()
@@ -310,6 +314,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "barbaracite" => Some(Condition {
             name: "Barbaracite".to_string(),
+            ..Default::default()
+        }),
+        "baxcalibrite" => Some(Condition {
+            name: "Baxcalibrite".to_string(),
             ..Default::default()
         }),
         "beedrillite" => Some(Condition {
@@ -489,6 +497,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
             name: "Garchompite".to_string(),
             ..Default::default()
         }),
+        "garchompitez" => Some(Condition {
+            name: "Garchompite Z".to_string(),
+            ..Default::default()
+        }),
         "gardevoirite" => Some(Condition {
             name: "Gardevoirite".to_string(),
             ..Default::default()
@@ -507,6 +519,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "golurkite" => Some(Condition {
             name: "Golurkite".to_string(),
+            ..Default::default()
+        }),
+        "golisopite" => Some(Condition {
+            name: "Golisopite".to_string(),
             ..Default::default()
         }),
         "greninjite" => Some(Condition {
@@ -594,6 +610,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "lucarionite" => Some(Condition {
             name: "Lucarionite".to_string(),
+            ..Default::default()
+        }),
+        "lucarionitez" => Some(Condition {
+            name: "Lucarionite Z".to_string(),
             ..Default::default()
         }),
         "lumberry" => Some(Condition {
@@ -733,6 +753,10 @@ pub fn get_item(id: &str) -> Option<Condition> {
         }),
         "sablenite" => Some(Condition {
             name: "Sablenite".to_string(),
+            ..Default::default()
+        }),
+        "salamencite" => Some(Condition {
+            name: "Salamencite".to_string(),
             ..Default::default()
         }),
         "sceptilite" => Some(Condition {

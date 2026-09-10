@@ -1,4 +1,4 @@
-import { getPokemonData, Regulation, RawPokemon } from "@pokemetrix/data";
+import { getPokemonData, Regulation } from "@pokemetrix/data";
 import { data as typesData } from "@pokemetrix/data/master/pokemon_types.json";
 import { data as typeData } from "@pokemetrix/data/master/types.json";
 import { z } from "zod";
@@ -53,9 +53,7 @@ export const championsPokemonByIdentifier = new Map(
 
 const regulationListCache = new Map<string, readonly ChampionsPokemon[]>();
 
-export function getChampionsPokemonList(
-  regulation?: Regulation | string,
-): readonly ChampionsPokemon[] {
+export function getChampionsPokemonList(regulation?: Regulation): readonly ChampionsPokemon[] {
   if (!regulation) {
     return championsPokemonList;
   }
@@ -80,15 +78,13 @@ export function getChampionsPokemonList(
   return result;
 }
 
-export function getChampionsPokemonById(
-  regulation?: Regulation | string,
-): Map<number, ChampionsPokemon> {
+export function getChampionsPokemonById(regulation?: Regulation): Map<number, ChampionsPokemon> {
   const list = getChampionsPokemonList(regulation);
   return new Map(list.map((pokemon) => [pokemon.id, pokemon]));
 }
 
 export function getChampionsPokemonByIdentifier(
-  regulation?: Regulation | string,
+  regulation?: Regulation,
 ): Map<string, ChampionsPokemon> {
   const list = getChampionsPokemonList(regulation);
   return new Map(list.map((pokemon) => [pokemon.identifier, pokemon]));

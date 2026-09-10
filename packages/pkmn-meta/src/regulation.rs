@@ -45,5 +45,22 @@ mod tests {
         assert!(!is_pokemon_allowed("metagross", Regulation::MA));
         assert!(is_pokemon_allowed("metagross", Regulation::MB));
         assert!(is_pokemon_allowed("metagross", Regulation::MC));
+
+        // Baxcalibur (id: 998), Rillaboom (id: 812), Farfetch'd (id: 83), Salamence (id: 373) introduced in M-C
+        assert!(!is_pokemon_allowed("baxcalibur", Regulation::MA));
+        assert!(!is_pokemon_allowed("baxcalibur", Regulation::MB));
+        assert!(is_pokemon_allowed("baxcalibur", Regulation::MC));
+
+        assert!(!is_pokemon_allowed("rillaboom", Regulation::MA));
+        assert!(!is_pokemon_allowed("rillaboom", Regulation::MB));
+        assert!(is_pokemon_allowed("rillaboom", Regulation::MC));
+
+        assert!(!is_pokemon_allowed("farfetchd", Regulation::MA));
+        assert!(!is_pokemon_allowed("farfetchd", Regulation::MB));
+        assert!(is_pokemon_allowed("farfetchd", Regulation::MC));
+
+        assert!(!is_pokemon_allowed("salamence", Regulation::MA));
+        assert!(!is_pokemon_allowed("salamence", Regulation::MB));
+        assert!(is_pokemon_allowed("salamence", Regulation::MC));
     }
 }

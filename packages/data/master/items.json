@@ -15476,6 +15476,41 @@
       "category_id": 44,
       "fling_power": "",
       "fling_effect_id": ""
+    },
+    {
+      "id": 2213,
+      "identifier": "absolite-z",
+      "category_id": 44,
+      "fling_power": "",
+      "fling_effect_id": ""
+    },
+    {
+      "id": 2214,
+      "identifier": "golisopite",
+      "category_id": 44,
+      "fling_power": "",
+      "fling_effect_id": ""
+    },
+    {
+      "id": 2215,
+      "identifier": "baxcalibrite",
+      "category_id": 44,
+      "fling_power": "",
+      "fling_effect_id": ""
+    },
+    {
+      "id": 2216,
+      "identifier": "lucarionite-z",
+      "category_id": 44,
+      "fling_power": "",
+      "fling_effect_id": ""
+    },
+    {
+      "id": 2217,
+      "identifier": "garchompite-z",
+      "category_id": 44,
+      "fling_power": "",
+      "fling_effect_id": ""
     }
   ]
 }

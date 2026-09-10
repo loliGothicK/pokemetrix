@@ -796,6 +796,12 @@ pub fn generate_regulation_meta(_item: TokenStream) -> TokenStream {
         10299, 861, 870, 10303, 904, 972, 979, 1000,
     ];
 
+    let reg_mc_additional_ids: &[u64] = &[
+        40, 53, 10108, 83, 122, 317, 10307, 373, 10089, 10309, 10310, 673, 768, 10316, 812, 815,
+        818, 828, 849, 10184, 853, 863, 865, 871, 876, 10186, 923, 930, 931, 10260, 10261, 10262,
+        943, 998, 10325,
+    ];
+
     let mut allowed_pokemon_arms = Vec::new();
 
     // Map id to clean_slug
@@ -825,6 +831,18 @@ pub fn generate_regulation_meta(_item: TokenStream) -> TokenStream {
     for slug in &mb_set {
         allowed_pokemon_arms.push(quote! {
             (#slug, Regulation::MB) => true,
+        });
+    }
+
+    let mut mc_set = mb_set.clone();
+    for id in reg_mc_additional_ids {
+        if let Some(slug) = id_to_slug.get(id) {
+            mc_set.insert(slug.clone());
+        }
+    }
+
+    for slug in &mc_set {
+        allowed_pokemon_arms.push(quote! {
             (#slug, Regulation::MC) => true,
         });
     }

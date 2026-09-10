@@ -61,6 +61,23 @@ describe("Regulation M-C Move Patches", () => {
     expect(isPokemonAllowedInRegulation(376, "M-A")).toBe(false);
     expect(isPokemonAllowedInRegulation(376, "M-B")).toBe(true);
     expect(isPokemonAllowedInRegulation(376, "M-C")).toBe(true);
+
+    // Baxcalibur (998), Rillaboom (812), Farfetch'd (83), Salamence (373) are legal ONLY in M-C
+    expect(isPokemonAllowedInRegulation(998, "M-A")).toBe(false);
+    expect(isPokemonAllowedInRegulation(998, "M-B")).toBe(false);
+    expect(isPokemonAllowedInRegulation(998, "M-C")).toBe(true);
+
+    expect(isPokemonAllowedInRegulation(812, "M-A")).toBe(false);
+    expect(isPokemonAllowedInRegulation(812, "M-B")).toBe(false);
+    expect(isPokemonAllowedInRegulation(812, "M-C")).toBe(true);
+
+    expect(isPokemonAllowedInRegulation(83, "M-A")).toBe(false);
+    expect(isPokemonAllowedInRegulation(83, "M-B")).toBe(false);
+    expect(isPokemonAllowedInRegulation(83, "M-C")).toBe(true);
+
+    expect(isPokemonAllowedInRegulation(373, "M-A")).toBe(false);
+    expect(isPokemonAllowedInRegulation(373, "M-B")).toBe(false);
+    expect(isPokemonAllowedInRegulation(373, "M-C")).toBe(true);
   });
 
   it("should verify inherit fields are properly resolved for mega and alternate forms", () => {

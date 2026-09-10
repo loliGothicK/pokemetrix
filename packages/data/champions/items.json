@@ -929,6 +929,114 @@
       "identifier": "zoom-lens",
       "category": "held-item",
       "type": "other"
+    },
+    {
+      "id": 847,
+      "identifier": "electric-seed",
+      "category": "held-item",
+      "type": "stat-boost"
+    },
+    {
+      "id": 848,
+      "identifier": "psychic-seed",
+      "category": "held-item",
+      "type": "stat-boost"
+    },
+    {
+      "id": 849,
+      "identifier": "misty-seed",
+      "category": "held-item",
+      "type": "stat-boost"
+    },
+    {
+      "id": 850,
+      "identifier": "grassy-seed",
+      "category": "held-item",
+      "type": "stat-boost"
+    },
+    {
+      "id": 845,
+      "identifier": "terrain-extender",
+      "category": "held-item",
+      "type": "effect-extend"
+    },
+    {
+      "id": 583,
+      "identifier": "rocky-helmet",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 587,
+      "identifier": "binding-band",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 590,
+      "identifier": "eject-button",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 1101,
+      "identifier": "leek",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 668,
+      "identifier": "normal-gem",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 584,
+      "identifier": "air-balloon",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 585,
+      "identifier": "red-card",
+      "category": "held-item",
+      "type": "other"
+    },
+    {
+      "id": 790,
+      "identifier": "salamencite",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
+    },
+    {
+      "id": 2213,
+      "identifier": "absolite-z",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
+    },
+    {
+      "id": 2214,
+      "identifier": "golisopite",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
+    },
+    {
+      "id": 2215,
+      "identifier": "baxcalibrite",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
+    },
+    {
+      "id": 2216,
+      "identifier": "lucarionite-z",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
+    },
+    {
+      "id": 2217,
+      "identifier": "garchompite-z",
+      "category": "mega-evolution",
+      "type": "mega-evolution"
     }
   ]
 }

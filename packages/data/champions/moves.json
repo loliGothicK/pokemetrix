@@ -10,9 +10,7 @@
       "range": "single-target",
       "pp": 35,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -26,10 +24,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "secondary": {
         "chance": 10,
         "status": "brn"
@@ -47,10 +42,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "secondary": {
         "chance": 10,
         "status": "frz"
@@ -68,10 +60,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "secondary": {
         "chance": 10,
         "status": "par"
@@ -89,9 +78,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -119,10 +106,7 @@
       "range": "single-target",
       "pp": 30,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -136,9 +120,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -6,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -152,9 +134,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "flags_charge": true
@@ -169,9 +149,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "volatile_status": "partiallytrapped"
@@ -186,9 +164,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -202,9 +178,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -218,9 +192,7 @@
       "range": "single-target",
       "pp": 35,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -234,9 +206,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "status": "par"
@@ -254,9 +224,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "volatile_status": "partiallytrapped"
@@ -271,15 +239,10 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        1,
-        4
-      ]
+      "recoil": [1, 4]
     },
     {
       "id": 37,
@@ -291,9 +254,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -307,15 +268,10 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 42,
@@ -330,10 +286,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 44,
@@ -345,10 +298,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "secondary": {
         "chance": 30,
         "volatile_status": "flinch"
@@ -366,9 +316,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -6,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -382,9 +330,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false,
       "status": "slp"
@@ -399,9 +345,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false,
       "volatile_status": "confusion"
@@ -523,9 +467,7 @@
       "range": "all-opponents",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "secondary": {
         "chance": 10,
         "status": "frz"
@@ -558,9 +500,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -574,9 +514,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -590,9 +528,7 @@
       "range": "varies",
       "pp": 20,
       "priority": -5,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -606,9 +542,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -666,9 +600,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false,
       "status": "psn"
@@ -683,9 +615,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false,
       "status": "par"
@@ -700,9 +630,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false,
       "status": "slp"
@@ -717,9 +645,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -859,9 +785,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "flags_charge": true
@@ -940,9 +864,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -970,9 +892,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -1133,9 +1053,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 20,
         "volatile_status": "flinch"
@@ -1195,9 +1113,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1229,10 +1145,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 141,
@@ -1244,15 +1157,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 143,
@@ -1297,9 +1205,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false,
       "status": "slp"
@@ -1342,9 +1248,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1421,9 +1325,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1432,15 +1334,12 @@
       "identifier": "slash",
       "type": "Normal",
       "category": "physical",
-      "power": 70,
+      "power": 80,
       "accuracy": 100,
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1469,9 +1368,7 @@
       "range": "random-opponent",
       "pp": 1,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1485,9 +1382,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1501,9 +1396,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 30,
         "volatile_status": "flinch"
@@ -1536,9 +1429,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1552,9 +1443,7 @@
       "range": "all-opponents",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -1568,9 +1457,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1613,10 +1500,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1673,9 +1557,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 30,
         "status": "psn"
@@ -1727,9 +1609,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 100,
         "status": "par"
@@ -1762,9 +1642,7 @@
       "range": "all-pokemon",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -1778,9 +1656,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -1818,10 +1694,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 199,
@@ -1847,9 +1720,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1863,9 +1734,7 @@
       "range": "entire-field",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -1882,10 +1751,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 203,
@@ -1926,9 +1792,7 @@
       "range": "single-target",
       "pp": 40,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1954,7 +1818,7 @@
       "category": "status",
       "power": null,
       "accuracy": null,
-      "range": "self",
+      "range": "single-ally",
       "pp": 8,
       "priority": 0,
       "classifications": [],
@@ -1971,10 +1835,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -1988,9 +1849,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 10
       },
@@ -2050,9 +1909,7 @@
       "range": "all-allies",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -2066,9 +1923,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2082,9 +1937,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2126,10 +1979,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "secondary": {
         "chance": 100,
         "volatile_status": "confusion"
@@ -2147,9 +1997,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2192,9 +2040,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2208,9 +2054,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -2241,9 +2085,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "boosts": {
@@ -2319,9 +2161,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2363,10 +2203,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "secondary": {
         "chance": 20,
         "boosts": {
@@ -2414,9 +2251,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 2,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2447,9 +2282,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 20,
         "boosts": {
@@ -2483,9 +2316,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 50,
         "boosts": {
@@ -2534,9 +2365,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 3,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "volatile_status": "flinch"
@@ -2554,9 +2383,7 @@
       "range": "random-opponent",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -2613,9 +2440,7 @@
       "range": "all-opponents",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "secondary": {
         "chance": 10,
         "status": "brn"
@@ -2696,9 +2521,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2712,10 +2535,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": -3,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2846,9 +2666,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "self_effect": {
         "boosts": {
           "atk": -1,
@@ -2882,9 +2700,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2914,9 +2730,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -2930,9 +2744,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3022,9 +2834,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "flags_charge": true
@@ -3068,9 +2878,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 10,
         "status": "brn"
@@ -3102,9 +2910,7 @@
       "range": "all-opponents",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -3118,10 +2924,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "secondary": {
         "chance": 50,
         "status": "tox"
@@ -3139,10 +2942,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "secondary": {
         "chance": 50,
         "boosts": {
@@ -3192,10 +2992,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "secondary": {
         "chance": 20
       },
@@ -3212,9 +3009,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "volatile_status": "flinch"
@@ -3232,9 +3027,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -3262,10 +3055,7 @@
       "range": "all-opponents",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing",
-        "wind"
-      ],
+      "classifications": ["slicing", "wind"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -3318,9 +3108,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -3398,10 +3186,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3482,15 +3267,10 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 332,
@@ -3502,10 +3282,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3522,10 +3299,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 334,
@@ -3565,9 +3339,7 @@
       "range": "self",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -3581,10 +3353,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3627,9 +3396,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "status": "par"
@@ -3668,9 +3435,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3684,19 +3449,14 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 10,
         "status": "par"
       },
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 347,
@@ -3722,10 +3482,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3753,15 +3510,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 351,
@@ -3833,10 +3585,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "self_effect": {
         "boosts": {
           "spe": -1
@@ -3855,10 +3604,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "ball-and-bomb"
-      ],
+      "classifications": ["contact", "ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3914,9 +3660,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3930,9 +3674,7 @@
       "range": "user's-side",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -3974,9 +3716,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -3990,9 +3730,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "self_effect": {
         "boosts": {
           "def": -1,
@@ -4012,9 +3750,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4028,9 +3764,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4130,9 +3864,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4160,9 +3892,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4220,19 +3950,14 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 10,
         "status": "brn"
       },
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 396,
@@ -4244,9 +3969,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -4274,9 +3997,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "status": "psn"
@@ -4312,10 +4033,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4329,9 +4047,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4345,9 +4061,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -4361,9 +4075,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ],
+      "classifications": ["slicing"],
       "secondary": {
         "chance": 30,
         "volatile_status": "flinch"
@@ -4381,10 +4093,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4398,9 +4107,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 10,
         "boosts": {
@@ -4434,9 +4141,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 20,
         "volatile_status": "flinch"
@@ -4468,16 +4173,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 410,
@@ -4503,9 +4202,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 10,
         "boosts": {
@@ -4525,9 +4222,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 10,
         "boosts": {
@@ -4547,15 +4242,10 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 414,
@@ -4601,9 +4291,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "flags_recharge": true
@@ -4635,10 +4323,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4652,9 +4337,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -4,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4682,10 +4365,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4699,10 +4379,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4716,10 +4393,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4733,10 +4407,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4750,9 +4421,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4766,9 +4435,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ],
+      "classifications": ["slicing"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -4782,9 +4449,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 20,
         "volatile_status": "flinch"
@@ -4924,9 +4589,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -4940,9 +4603,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false,
       "flags_recharge": true
@@ -4957,10 +4618,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "secondary": {
         "chance": 10,
         "status": "psn"
@@ -4996,9 +4654,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "volatile_status": "flinch"
@@ -5044,9 +4700,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5060,9 +4714,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5093,15 +4745,10 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 453,
@@ -5113,9 +4760,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5129,15 +4774,10 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        1,
-        2
-      ]
+      "recoil": [1, 2]
     },
     {
       "id": 458,
@@ -5149,9 +4789,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "multihit": 2
@@ -5340,9 +4978,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5388,9 +5024,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5404,9 +5038,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -5434,9 +5066,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -5467,9 +5097,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -5489,9 +5117,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -5511,9 +5137,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5569,9 +5193,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -5692,6 +5314,20 @@
       "flags_contact": false
     },
     {
+      "id": 508,
+      "identifier": "shift-gear",
+      "type": "Steel",
+      "category": "status",
+      "power": null,
+      "accuracy": null,
+      "range": "self",
+      "pp": 16,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": false,
+      "flags_contact": false
+    },
+    {
       "id": 509,
       "identifier": "circle-throw",
       "type": "Fighting",
@@ -5701,9 +5337,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -6,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5731,9 +5365,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5761,9 +5393,7 @@
       "range": "single-target",
       "pp": 5,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5877,9 +5507,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": -6,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5913,15 +5541,10 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        1,
-        4
-      ]
+      "recoil": [1, 4]
     },
     {
       "id": 529,
@@ -5933,9 +5556,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5949,15 +5570,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 533,
@@ -5969,10 +5585,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -5986,10 +5599,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "secondary": {
         "chance": 50,
         "boosts": {
@@ -6009,9 +5619,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6059,15 +5667,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 542,
@@ -6079,9 +5682,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "secondary": {
         "chance": 30,
         "volatile_status": "confusion"
@@ -6116,9 +5717,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -6156,9 +5755,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6200,9 +5797,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6216,9 +5811,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": false,
       "flags_contact": true,
       "flags_charge": true
@@ -6247,9 +5840,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false,
       "boosts": {
@@ -6270,10 +5861,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 571,
@@ -6299,9 +5887,7 @@
       "range": "all-pokemon",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "wind"
-      ],
+      "classifications": ["wind"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -6333,9 +5919,7 @@
       "range": "all-opponents",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -6349,9 +5933,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false,
       "boosts": {
@@ -6383,15 +5965,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "drain": [
-        3,
-        4
-      ]
+      "drain": [3, 4]
     },
     {
       "id": 580,
@@ -6446,9 +6023,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 10,
         "boosts": {
@@ -6488,9 +6063,7 @@
       "range": "all-pokemon",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -6533,9 +6106,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -6552,10 +6123,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 595,
@@ -6689,9 +6257,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "status": "par"
@@ -6710,9 +6276,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "volatile_status": "partiallytrapped"
@@ -6730,10 +6294,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "recoil": [
-        1,
-        2
-      ]
+      "recoil": [1, 2]
     },
     {
       "id": 660,
@@ -6745,9 +6306,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 2,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6793,9 +6352,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6809,9 +6366,7 @@
       "range": "all-pokemon",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100,
         "volatile_status": "sparklingaria"
@@ -6829,10 +6384,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "self_effect": {
         "boosts": {
           "spe": -1
@@ -6851,9 +6403,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -6881,10 +6431,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true,
       "flags_charge": true
@@ -6928,9 +6475,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -6947,9 +6492,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -6977,9 +6520,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -6999,9 +6540,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -7021,9 +6560,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7065,9 +6602,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7081,9 +6616,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -7117,9 +6650,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": -3,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -7133,9 +6664,7 @@
       "range": "all-opponents",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": true,
       "flags_contact": false,
       "self_effect": {
@@ -7154,9 +6683,7 @@
       "range": "all-pokemon",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7184,10 +6711,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "biting"
-      ],
+      "classifications": ["contact", "biting"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7201,9 +6725,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7217,9 +6739,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 1,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7233,9 +6753,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 20,
         "boosts": {
@@ -7258,6 +6776,52 @@
       "classifications": [],
       "flags_protect": false,
       "flags_contact": false
+    },
+    {
+      "id": 716,
+      "identifier": "zing-zap",
+      "type": "Electric",
+      "category": "physical",
+      "power": 80,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 16,
+      "priority": 0,
+      "classifications": ["contact"],
+      "secondary": {
+        "chance": 30,
+        "volatile_status": "flinch"
+      },
+      "flags_protect": true,
+      "flags_contact": true
+    },
+    {
+      "id": 745,
+      "identifier": "snipe-shot",
+      "type": "Water",
+      "category": "special",
+      "power": 85,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 24,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": true,
+      "flags_contact": false
+    },
+    {
+      "id": 746,
+      "identifier": "jaw-lock",
+      "type": "Dark",
+      "category": "physical",
+      "power": 80,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 16,
+      "priority": 0,
+      "classifications": ["contact", "biting"],
+      "flags_protect": true,
+      "flags_contact": true
     },
     {
       "id": 747,
@@ -7298,9 +6862,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "powder"
-      ],
+      "classifications": ["powder"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -7334,6 +6896,34 @@
       "flags_contact": false
     },
     {
+      "id": 753,
+      "identifier": "octolock",
+      "type": "Fighting",
+      "category": "status",
+      "power": null,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 24,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": true,
+      "flags_contact": false
+    },
+    {
+      "id": 756,
+      "identifier": "court-change",
+      "type": "Normal",
+      "category": "status",
+      "power": null,
+      "accuracy": 100,
+      "range": "entire-field",
+      "pp": 16,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": false,
+      "flags_contact": false
+    },
+    {
       "id": 775,
       "identifier": "clangorous-soul",
       "type": "Dragon",
@@ -7343,9 +6933,7 @@
       "range": "self",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "flags_protect": false,
       "flags_contact": false
     },
@@ -7359,9 +6947,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7380,6 +6966,26 @@
       "flags_contact": false
     },
     {
+      "id": 778,
+      "identifier": "drum-beating",
+      "type": "Grass",
+      "category": "physical",
+      "power": 80,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 16,
+      "priority": 0,
+      "classifications": [],
+      "secondary": {
+        "chance": 100,
+        "boosts": {
+          "spe": -1
+        }
+      },
+      "flags_protect": true,
+      "flags_contact": false
+    },
+    {
       "id": 779,
       "identifier": "snap-trap",
       "type": "Steel",
@@ -7389,12 +6995,28 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "volatile_status": "partiallytrapped"
+    },
+    {
+      "id": 780,
+      "identifier": "pyro-ball",
+      "type": "Fire",
+      "category": "physical",
+      "power": 120,
+      "accuracy": 90,
+      "range": "single-target",
+      "pp": 8,
+      "priority": 0,
+      "classifications": ["ball-and-bomb"],
+      "secondary": {
+        "chance": 10,
+        "status": "brn"
+      },
+      "flags_protect": true,
+      "flags_contact": false
     },
     {
       "id": 783,
@@ -7423,9 +7045,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -7434,6 +7054,20 @@
       },
       "flags_protect": true,
       "flags_contact": true
+    },
+    {
+      "id": 786,
+      "identifier": "overdrive",
+      "type": "Electric",
+      "category": "special",
+      "power": 80,
+      "accuracy": 100,
+      "range": "all-opponents",
+      "pp": 16,
+      "priority": 0,
+      "classifications": ["sound-based"],
+      "flags_protect": true,
+      "flags_contact": false
     },
     {
       "id": 787,
@@ -7485,9 +7119,7 @@
       "range": "single-target",
       "pp": 15,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -7510,6 +7142,21 @@
       "classifications": [],
       "flags_protect": false,
       "flags_contact": false
+    },
+    {
+      "id": 794,
+      "identifier": "meteor-assault",
+      "type": "Fighting",
+      "category": "physical",
+      "power": 170,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 8,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": true,
+      "flags_contact": false,
+      "flags_recharge": true
     },
     {
       "id": 796,
@@ -7549,9 +7196,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7568,10 +7213,7 @@
       "classifications": [],
       "flags_protect": true,
       "flags_contact": false,
-      "multihit": [
-        2,
-        5
-      ]
+      "multihit": [2, 5]
     },
     {
       "id": 800,
@@ -7630,9 +7272,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7674,9 +7314,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -7713,9 +7351,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7771,9 +7407,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -7787,9 +7421,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "multihit": 3
@@ -7804,9 +7436,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
       "multihit": 2
@@ -7839,9 +7469,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100
       },
@@ -7858,9 +7486,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 50
       },
@@ -7877,9 +7503,7 @@
       "range": "user's-side",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -7911,10 +7535,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "secondary": {
         "chance": 100
       },
@@ -7945,15 +7566,10 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true,
-      "recoil": [
-        33,
-        100
-      ]
+      "recoil": [33, 100]
     },
     {
       "id": 836,
@@ -7983,10 +7599,7 @@
       "range": "single-target",
       "pp": 8,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "self_effect": {
         "boosts": {
           "def": -1,
@@ -8093,10 +7706,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "secondary": {
         "chance": 100
       },
@@ -8127,9 +7737,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 30,
         "volatile_status": "confusion"
@@ -8181,10 +7789,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 1,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8212,10 +7817,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true,
       "multihit": 10
@@ -8230,11 +7832,37 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
+    },
+    {
+      "id": 862,
+      "identifier": "glaive-rush",
+      "type": "Dragon",
+      "category": "physical",
+      "power": 120,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 8,
+      "priority": 0,
+      "classifications": ["contact"],
+      "flags_protect": true,
+      "flags_contact": true
+    },
+    {
+      "id": 863,
+      "identifier": "revival-blessing",
+      "type": "Normal",
+      "category": "status",
+      "power": null,
+      "accuracy": null,
+      "range": "single-ally",
+      "pp": 1,
+      "priority": 0,
+      "classifications": [],
+      "flags_protect": false,
+      "flags_contact": false
     },
     {
       "id": 864,
@@ -8264,9 +7892,7 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "status": "psn"
@@ -8284,10 +7910,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8315,9 +7938,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100
       },
@@ -8334,9 +7955,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -8353,9 +7972,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8445,9 +8062,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "boosts": {
@@ -8467,9 +8082,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100
       },
@@ -8521,10 +8134,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "punch"
-      ],
+      "classifications": ["contact", "punch"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8558,16 +8168,24 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact",
-        "slicing"
-      ],
+      "classifications": ["contact", "slicing"],
       "flags_protect": true,
       "flags_contact": true,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
+    },
+    {
+      "id": 892,
+      "identifier": "double-shock",
+      "type": "Electric",
+      "category": "physical",
+      "power": 120,
+      "accuracy": 100,
+      "range": "single-target",
+      "pp": 8,
+      "priority": 0,
+      "classifications": ["contact", "punch"],
+      "flags_protect": true,
+      "flags_contact": true
     },
     {
       "id": 893,
@@ -8593,9 +8211,7 @@
       "range": "varies",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8609,9 +8225,7 @@
       "range": "single-target",
       "pp": 20,
       "priority": 0,
-      "classifications": [
-        "slicing"
-      ],
+      "classifications": ["slicing"],
       "flags_protect": true,
       "flags_contact": false
     },
@@ -8625,19 +8239,14 @@
       "range": "all-opponents",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "ball-and-bomb"
-      ],
+      "classifications": ["ball-and-bomb"],
       "secondary": {
         "chance": 20,
         "status": "brn"
       },
       "flags_protect": true,
       "flags_contact": false,
-      "drain": [
-        1,
-        2
-      ]
+      "drain": [1, 2]
     },
     {
       "id": 903,
@@ -8696,9 +8305,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8727,9 +8334,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100
       },
@@ -8746,9 +8351,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8762,9 +8365,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 0,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "flags_protect": true,
       "flags_contact": true
     },
@@ -8778,9 +8379,7 @@
       "range": "single-target",
       "pp": 12,
       "priority": 0,
-      "classifications": [
-        "sound-based"
-      ],
+      "classifications": ["sound-based"],
       "secondary": {
         "chance": 100,
         "volatile_status": "healblock"
@@ -8798,9 +8397,7 @@
       "range": "single-target",
       "pp": 16,
       "priority": 3,
-      "classifications": [
-        "contact"
-      ],
+      "classifications": ["contact"],
       "secondary": {
         "chance": 100,
         "volatile_status": "flinch"
