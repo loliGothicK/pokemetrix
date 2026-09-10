@@ -2,11 +2,14 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { solveTsume, solveProbabilisticTsumeDeep } from "@/utils/tsumeMinimax";
+import type { TsumeData } from "@/types/quiz";
 
 const scriptArgs = process.argv.slice(2);
 
 if (scriptArgs.length === 0) {
-  console.error("Usage: pnpx tsx scripts/generate-tsume-responses.ts <path-to-mdx-file-or-glob>");
+  console.error(
+    "Usage: pnpm exec tsx scripts/generate-tsume-responses.ts <path-to-mdx-file-or-glob>",
+  );
   process.exit(1);
 }
 
@@ -32,7 +35,7 @@ function processFile(filePath: string) {
     return;
   }
 
-  const tsumeData = parsed.data.tsumeData as any;
+  const tsumeData = parsed.data.tsumeData as TsumeData;
 
   if (tsumeData.rngControl?.mode === "probabilistic") {
     console.time(`Probabilistic Solver (${filePath})`);
@@ -48,12 +51,19 @@ function processFile(filePath: string) {
     console.timeEnd(`Probabilistic Solver (${filePath})`);
 
     // Optionally we can still inject the responses tree into MDX if it's a tsume_action!
-    if (parsed.data.format === "tsume_action" && Object.keys(responses).length > 0) {
-      console.log(`Generated ${Object.keys(responses).length} optimal responses.`);
+    if (
+      parsed.data.format === "tsume_action" &&
+      Object.keys(responses as Record<string, string>).length > 0
+    ) {
+      console.log(
+        `Generated ${Object.keys(responses as Record<string, string>).length} optimal responses.`,
+      );
 
       let newContent = content;
       const yamlResponseLines = [`  opponentResponses:`].concat(
-        Object.entries(responses).map(([k, v]) => `    "${k}": "${String(v)}"`),
+        Object.entries(responses as Record<string, string>).map(
+          ([k, v]) => `    "${k}": "${String(v)}"`,
+        ),
       );
       const yamlResponse = yamlResponseLines.join("\n");
 

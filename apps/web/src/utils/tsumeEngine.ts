@@ -1,14 +1,12 @@
 import { Battle, PokemonSet, Side } from "@pkmn/sim";
-import { Dex } from "@pkmn/dex";
 import type { TsumeData, TsumePokemon } from "@/types/quiz";
 
 export class TsumeEngine {
   private battle: Battle;
+  private tsumeData: TsumeData;
 
-  constructor(
-    public tsumeData: TsumeData,
-    initialSeed?: number[],
-  ) {
+  constructor(tsumeData: TsumeData, initialSeed?: number[]) {
+    this.tsumeData = tsumeData;
     const isSingles =
       tsumeData.playerSide.active.length === 1 &&
       tsumeData.opponentSide.active.length === 1 &&
@@ -25,9 +23,13 @@ export class TsumeEngine {
           : [1, 2, 3, 4];
     }
 
+    const formatIdID = (
+      typeof formatid === "string" ? formatid : "gen9customgame"
+    ) as import("@pkmn/sim").ID;
+    const seedStr: `${number},${string}` = `${prngSeed[0]},${prngSeed[1]},${prngSeed[2]},${prngSeed[3]}`;
     this.battle = new Battle({
-      formatid: formatid as any,
-      seed: prngSeed as any,
+      formatid: formatIdID,
+      seed: seedStr,
     });
     this.initialize();
   }
@@ -52,54 +54,62 @@ export class TsumeEngine {
   }
 
   private initialize() {
-    const isSingles = this.battle.format.id === "gen9customgame";
+    this.battle.setPlayer("p1", { name: "Player 1", team: [] });
+    this.battle.setPlayer("p2", { name: "Player 2", team: [] });
 
-    const p1Team = [
-      ...this.tsumeData.playerSide.active.map(this.mapPokemon.bind(this)),
-      ...(this.tsumeData.playerSide.bench || []).map(this.mapPokemon.bind(this)),
-    ];
-    const p2Team = [
-      ...this.tsumeData.opponentSide.active.map(this.mapPokemon.bind(this)),
-      ...(this.tsumeData.opponentSide.bench || []).map(this.mapPokemon.bind(this)),
-    ];
+    // Since format is not on tsumeData anymore, use gameType
+    const isSingles =
+      this.battle.format.gameType !== "doubles" && this.battle.format.gameType !== "multi";
 
-    // Engine Hack: gen9doublescustomgame crashes if a team has only 1 Pokemon total.
-    // Pad with a fainted dummy to satisfy the engine's 2-slot expectation.
+    const p1Team = this.tsumeData.playerSide.active.map((p) => this.mapPokemon(p));
+    const p2Team = this.tsumeData.opponentSide.active.map((p) => this.mapPokemon(p));
+    this.tsumeData.playerSide.bench?.forEach((p) => p1Team.push(this.mapPokemon(p)));
+    this.tsumeData.opponentSide.bench?.forEach((p) => p2Team.push(this.mapPokemon(p)));
+
+    const dummyMagikarp: import("@pkmn/sim").PokemonSet = {
+      name: "Magikarp",
+      species: "Magikarp",
+      item: "",
+      ability: "",
+      moves: ["splash"],
+      nature: "Hardy",
+      gender: "",
+      evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+      level: 1,
+    };
     if (!isSingles) {
       if (p1Team.length === 1) {
-        p1Team.push({ species: "Magikarp", hp: 0, moves: ["splash"] } as unknown as PokemonSet);
+        p1Team.push(dummyMagikarp);
       }
       if (p2Team.length === 1) {
-        p2Team.push({ species: "Magikarp", hp: 0, moves: ["splash"] } as unknown as PokemonSet);
+        p2Team.push(dummyMagikarp);
       }
     }
 
     this.battle.setPlayer("p1", { name: "Player 1", team: p1Team });
     this.battle.setPlayer("p2", { name: "Player 2", team: p2Team });
 
-    // In doubles, we must select 4 leads if available, or just as many as we have.
-    // In singles, we select 1.
-    const leadCount = isSingles ? 1 : 4;
-    const p1LeadsStr = Array.from(
-      { length: Math.min(leadCount, p1Team.length) },
-      (_, i) => i + 1,
-    ).join("");
-    const p2LeadsStr = Array.from(
-      { length: Math.min(leadCount, p2Team.length) },
-      (_, i) => i + 1,
-    ).join("");
-
-    this.battle.makeChoices(`team ${p1LeadsStr}`, `team ${p2LeadsStr}`);
+    const leads = isSingles ? [1] : [1, 2, 3, 4].slice(0, Math.max(2, Math.min(4, p1Team.length)));
+    this.battle.p1.chooseTeam(leads.join(""));
+    this.battle.p2.chooseTeam(leads.join(""));
 
     // Apply states
     this.applySideState(this.battle.p1, this.tsumeData.playerSide.active);
     this.applySideState(this.battle.p2, this.tsumeData.opponentSide.active);
 
-    // Check if the previous turn had an action that needs to be simulated (e.g. for Encore)
     if (this.tsumeData.correctMoves.includes("encore")) {
       const oppFirstMove = this.tsumeData.opponentSide.active[0]?.moves?.[0];
       if (oppFirstMove) {
-        this.battle.p2.active[0].lastMove = Dex.moves.get(oppFirstMove) as any;
+        const moveObj = this.battle.dex.moves.get(oppFirstMove);
+        if (moveObj && moveObj.exists) {
+          const activeMove: import("@pkmn/sim").ActiveMove = Object.assign({}, moveObj, {
+            hit: 0,
+            affectsFainted: false,
+            sourceEffect: "",
+          });
+          this.battle.p2.active[0].lastMove = activeMove;
+        }
       }
     }
 
@@ -120,24 +130,39 @@ export class TsumeEngine {
 
     // Wrapper helper
     const wrapAction = (methodName: keyof typeof this.battle.actions, context: RNGContext) => {
-      const original = (this.battle.actions as any)[methodName].bind(this.battle.actions);
-      (this.battle.actions as any)[methodName] = (...args: any[]) => {
-        const prevContext = currentContext;
-        const prevAttacker = currentAttacker;
+      const actionsObj = this.battle.actions;
+      const original = actionsObj[methodName];
+      if (typeof original !== "function") return;
 
-        currentContext = context;
-        // Find the pokemon object in arguments
-        const pokemonArg = args.find((a) => a && typeof a === "object" && a.side && a.side.id);
-        if (pokemonArg) {
-          currentAttacker = pokemonArg.side.id;
-        }
+      Object.assign(actionsObj, {
+        [methodName]: (...args: unknown[]) => {
+          const prevContext = currentContext;
+          const prevAttacker = currentAttacker;
 
-        const res = original(...args);
+          currentContext = context;
+          // Find the pokemon object in arguments
+          interface PokemonArg {
+            side?: { id: "p1" | "p2" };
+          }
+          const isPokemonArg = (a: unknown): a is PokemonArg => {
+            if (!a || typeof a !== "object") return false;
+            const side = Reflect.get(a, "side");
+            return !!side && typeof side === "object" && "id" in side;
+          };
 
-        currentContext = prevContext;
-        currentAttacker = prevAttacker;
-        return res;
-      };
+          const pokemonArg = args.find(isPokemonArg);
+          if (pokemonArg && pokemonArg.side) {
+            currentAttacker = pokemonArg.side.id;
+          }
+
+          try {
+            return Function.prototype.apply.call(original, actionsObj, args);
+          } finally {
+            currentContext = prevContext;
+            currentAttacker = prevAttacker;
+          }
+        },
+      });
     };
 
     wrapAction("runMove", "accuracy");
@@ -153,7 +178,7 @@ export class TsumeEngine {
       }
 
       const isPlayer = currentAttacker === "p1";
-      const ruleValue = (key: keyof typeof rngRules) => (rngRules[key] as string) || "worst_case";
+      const ruleValue = (key: keyof typeof rngRules) => rngRules[key] || "worst_case";
 
       if (currentContext === "accuracy") {
         const accRule = ruleValue("accuracy");
@@ -169,7 +194,6 @@ export class TsumeEngine {
         if (critRule === "none") return numerator >= denominator; // Only true if 100%
         if (critRule === "worst_case") return isPlayer ? numerator >= denominator : true;
         if (critRule === "always") return true;
-        if (critRule === "opponent_only") return isPlayer ? numerator >= denominator : true;
       }
 
       if (currentContext === "secondary") {
@@ -178,7 +202,6 @@ export class TsumeEngine {
         if (secRule === "none") return numerator >= denominator;
         if (secRule === "worst_case") return isPlayer ? numerator >= denominator : true;
         if (secRule === "always") return true;
-        if (secRule === "opponent_only") return isPlayer ? numerator >= denominator : true;
       }
 
       return originalRandomChance(numerator, denominator);
@@ -195,7 +218,7 @@ export class TsumeEngine {
 
       // Damage Roll (random(16))
       if (currentContext === "damage_roll" && m === 16 && n === undefined) {
-        const dmgRule = (rngRules.damageRoll as string) || "worst_case";
+        const dmgRule = rngRules.damageRoll || "worst_case";
         if (dmgRule === "vanilla") return originalRandom(m, n);
         if (dmgRule === "expected") return 8; // Middle of 0-15
         if (dmgRule === "min") return 15; // 100 - 15 = 85%
@@ -225,7 +248,7 @@ export class TsumeEngine {
 
   public injectSeed(seed: number[]) {
     // Overwrite the PRNG seed mid-battle
-    (this.battle.prng as any).seed = [...seed] as any;
+    this.battle.prng.seed = [...seed];
   }
 
   /**
@@ -239,10 +262,8 @@ export class TsumeEngine {
       console.log("CRASH in simulateTurn!");
       console.log("P1 Choice:", p1Choice);
       console.log("P2 Choice:", p2Choice);
-      console.log("P1 Queued Choices:", this.battle.p1.choice);
-      console.log("P2 Queued Choices:", this.battle.p2.choice);
-      console.log("P1 Request:", JSON.stringify(this.battle.p1.activeRequest, null, 2));
-      console.log("P2 Request:", JSON.stringify(this.battle.p2.activeRequest, null, 2));
+      console.log("P1 Queued:", this.battle.p1.choice);
+      console.log("P2 Queued:", this.battle.p2.choice);
       throw e;
     }
     return this.battle.ended;

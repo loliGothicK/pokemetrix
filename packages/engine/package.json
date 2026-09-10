@@ -1,0 +1,52 @@
+{
+  "name": "@pokemetrix/engine",
+  "version": "0.1.0",
+  "description": "Pokémon simulation engine - powered by Rust/WebAssembly",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loliGothicK/pokemetrix"
+  },
+  "files": [
+    "pkg"
+  ],
+  "type": "module",
+  "main": "pkg/engine.js",
+  "types": "pkg/engine.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "pkg"
+  },
+  "scripts": {
+    "lint": "cargo clippy -- -D warnings && oxlint --type-aware --type-check .",
+    "fmt": "cargo fmt && oxfmt .",
+    "fmt:check": "cargo fmt -- --check && oxfmt --check .",
+    "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name engine && wasm-pack build --scope pokemetrix --target nodejs --out-dir pkg-node --out-name engine",
+    "pack": "wasm-pack pack pkg",
+    "test": "vitest run",
+    "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
+    "release": "pnpm run build && pnpm run pack && pnpm run publish",
+    "typecheck": "cargo check && pnpm exec tsc --noEmit",
+    "lint:fix": "cargo clippy --fix --allow-dirty --allow-staged -- -D warnings && oxlint --fix-dangerously .",
+    "pretty": "pnpm run typecheck && pnpm run lint:fix && pnpm run fmt",
+    "todo": "pnpm exec tsx .scratch/todo.ts"
+  },
+  "dependencies": {
+    "rand": "^0.0.4"
+  },
+  "devDependencies": {
+    "@pkmn/mods": "0.10.11",
+    "@pkmn/sim": "catalog:",
+    "@pokemetrix/data": "workspace:*",
+    "@types/node": "catalog:",
+    "glob": "^13.0.6",
+    "outdent": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint-plugin-eslint": "^1.81.0",
+    "oxlint-tsgolint": "catalog:",
+    "typescript": "catalog:",
+    "vite-plugin-top-level-await": "catalog:",
+    "vite-plugin-wasm": "catalog:",
+    "vitest": "catalog:"
+  }
+}

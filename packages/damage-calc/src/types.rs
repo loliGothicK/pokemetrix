@@ -1,34 +1,7 @@
 use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::*;
+use tsify::Tsify;
 
-/// Pokémon type enumeration.
-///
-/// `Stellar` is included for parity with modern generations but is treated as
-/// neutral in the built-in type chart.
-#[wasm_bindgen]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum Type {
-    Normal,
-    Fire,
-    Water,
-    Electric,
-    Grass,
-    Ice,
-    Fighting,
-    Poison,
-    Ground,
-    Flying,
-    Psychic,
-    Bug,
-    Rock,
-    Ghost,
-    Dragon,
-    Dark,
-    Steel,
-    Fairy,
-    Stellar,
-}
+pub use pkmn_meta::types::Type;
 
 /// The default modifier value. Every modifier is stored as `x / 4096`, so 4096
 /// represents a no-op (1.0x) multiplier.
@@ -45,7 +18,7 @@ pub(crate) fn neutral_modifier() -> u16 {
 /// Every modifier is expected to already be resolved to its `x / 4096` value;
 /// the engine only implements rounding, chaining, and the exact application
 /// order described in DaWoblefet's damage dissertation.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 #[serde(rename_all = "camelCase")]
 pub struct DamageInput {
     /// Attacker level (1–100). VGC uses 50.
@@ -86,6 +59,9 @@ pub struct DamageInput {
     /// Defender's secondary type, if any.
     #[serde(default)]
     pub defender_type2: Option<Type>,
+    /// Defender's third/added type, if any.
+    #[serde(default)]
+    pub defender_type3: Option<Type>,
     /// Override for the type-effectiveness shift (e.g. Freeze-Dry). When set,
     /// the built-in chart is ignored.
     #[serde(default)]
@@ -126,10 +102,16 @@ pub struct DamageInput {
     /// Z-move-into-protect modifier (1024).
     #[serde(default = "neutral_modifier")]
     pub protect_modifier: u16,
+    #[serde(default)]
+    pub tinted_lens: bool,
+    #[serde(default)]
+    pub neuroforce: bool,
+    #[serde(default)]
+    pub solid_rock: bool,
 }
 
 /// Result of a damage calculation: all 16 rolls plus the extremes.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 #[serde(rename_all = "camelCase")]
 pub struct DamageOutput {
     /// All 16 possible damage rolls, ascending (index 0 = min, 15 = max).

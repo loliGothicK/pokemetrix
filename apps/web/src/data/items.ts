@@ -1,4 +1,4 @@
-import { data } from "@data/champions/items.json";
+import { data } from "@pokemetrix/data/champions/items.json";
 import { z } from "zod";
 
 const ItemCategorySchema = z.enum(["berry", "held-item", "mega-evolution"]);

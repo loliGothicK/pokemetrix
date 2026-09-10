@@ -1,4 +1,4 @@
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs/config";
 import type { NextConfig } from "next";
 import { access, symlink } from "node:fs/promises";
 import { join } from "node:path";
@@ -46,8 +46,8 @@ const nextConfig: NextConfig = {
               try {
                 await access(from);
                 return;
-              } catch (error: any) {
-                if (error?.code !== "ENOENT") {
+              } catch (error: unknown) {
+                if ((error as NodeJS.ErrnoException)?.code !== "ENOENT") {
                   throw error;
                 }
               }

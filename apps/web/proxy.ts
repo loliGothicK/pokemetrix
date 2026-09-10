@@ -68,7 +68,7 @@ export async function proxy(request: NextRequest) {
 
   request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
   const redirectResponse = NextResponse.redirect(request.nextUrl);
-  
+
   // supabase.auth.getClaims() によって更新されたCookieを引き継ぐ
   supabaseResponse.cookies.getAll().forEach((cookie) => {
     redirectResponse.cookies.set(cookie.name, cookie.value);

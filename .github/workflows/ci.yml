@@ -59,7 +59,7 @@ jobs:
       - name: Install wasm-pack
         uses: jetli/wasm-pack-action@v0.4.0
         with:
-          version: 'latest'
+          version: "latest"
 
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
@@ -67,7 +67,9 @@ jobs:
           workspaces: "packages/damage-calc"
 
       - name: Build WebAssembly
-        run: pnpm --filter @pokemetrix/damage-calc run build
+        run: |
+          pnpm --filter @pokemetrix/damage-calc run build
+          pnpm --filter @pokemetrix/engine run build
 
       - name: Generate content-collections
         run: pnpm --filter @pokemetrix/app exec content-collections build
@@ -90,11 +92,14 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@nextest
 
-      - name: Test WebAssembly (Chrome)
+      - name: Test damage-calc (Chrome)
         run: wasm-pack test --headless --chrome packages/damage-calc
 
-      - name: Test WebAssembly (Firefox)
+      - name: Test damage-calc (Firefox)
         run: wasm-pack test --headless --firefox packages/damage-calc
+
+      - name: Test engine (Vitest)
+        run: pnpm --filter @pokemetrix/engine run test
 
       - name: Test Rust (cargo nextest)
         run: |
@@ -110,4 +115,4 @@ jobs:
         uses: mikepenz/action-junit-report@v6
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: '**/test-results/*.xml'
+          report_paths: "**/test-results/*.xml"

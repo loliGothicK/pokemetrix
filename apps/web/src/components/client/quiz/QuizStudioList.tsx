@@ -468,14 +468,17 @@ function SourcePane({
 
   const filePath = quizToFilePath(quiz);
 
-  useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect
+  const [prevFilePath, setPrevFilePath] = useState(filePath);
+  if (filePath !== prevFilePath) {
+    setPrevFilePath(filePath);
     setMeta(null);
     setLoading(true);
     setError(null);
     setShowRaw(false);
     setEditedContent(null);
+  }
 
+  useEffect(() => {
     fetch(`/api/quiz-studio?file=${encodeURIComponent(filePath)}`)
       .then((r) => r.json())
       .then((data) => {
@@ -636,8 +639,8 @@ function SourcePane({
           >
             {!showRaw && hasPatch ? (
               <EditProvider
-                createEditor={(opts) =>
-                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                createEditor={(type, opts) =>
+                  new Editor(type, { ...opts, onChange: (f) => setEditedContent(f.file.contents) })
                 }
               >
                 <PatchDiff
@@ -649,8 +652,8 @@ function SourcePane({
               </EditProvider>
             ) : meta.fileContent ? (
               <EditProvider
-                createEditor={(opts) =>
-                  new Editor({ ...opts, onChange: (f) => setEditedContent(f.contents) })
+                createEditor={(type, opts) =>
+                  new Editor(type, { ...opts, onChange: (f) => setEditedContent(f.file.contents) })
                 }
               >
                 <DiffsFile

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`exportSet for All Pokémon > exportSet( 'abomasnow' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( abomasnow ) 1`] = `
 "Abomasnow  
 Ability: Snow Warning  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -13,7 +13,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'absol' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( absol ) 1`] = `
 "Absol  
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -26,7 +26,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'aegislash-shield' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( aegislash-shield ) 1`] = `
 "Aegislash  
 Ability: Stance Change  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -39,7 +39,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'aerodactyl' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( aerodactyl ) 1`] = `
 "Aerodactyl  
 Ability: Rock Head  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -52,7 +52,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'aggron' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( aggron ) 1`] = `
 "Aggron  
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -65,7 +65,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'alakazam' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( alakazam ) 1`] = `
 "Alakazam  
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -78,7 +78,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'alcremie' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( alcremie ) 1`] = `
 "Alcremie  
 Ability: Sweet Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -91,7 +91,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'alolan-ninetales' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( alolan-ninetales ) 1`] = `
 "Ninetales Alola  
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -104,7 +104,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'alolan-raichu' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( alolan-persian ) 1`] = `
+"Persian Alola  
+Ability: Fur Coat  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Body Slam  
+- Slash  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( alolan-raichu ) 1`] = `
 "Raichu Alola  
 Ability: Surge Surfer  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -117,7 +130,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'altaria' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( altaria ) 1`] = `
 "Altaria  
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -130,7 +143,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'ampharos' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( ampharos ) 1`] = `
 "Ampharos  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -143,7 +156,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'annihilape' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( annihilape ) 1`] = `
 "Annihilape  
 Ability: Vital Spirit  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -156,7 +169,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'appletun' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( appletun ) 1`] = `
 "Appletun  
 Ability: Ripen  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -169,7 +182,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'araquanid' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( araquanid ) 1`] = `
 "Araquanid  
 Ability: Water Bubble  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -182,7 +195,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'arbok' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( arbok ) 1`] = `
 "Arbok  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -195,7 +208,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'arcanine' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( arboliva ) 1`] = `
+"Arboliva  
+Ability: Seed Sower  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Facade  
+- Flail  
+- Hyper Beam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( arcanine ) 1`] = `
 "Arcanine  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -208,7 +234,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'archaludon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( archaludon ) 1`] = `
 "Archaludon  
 Ability: Stamina  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -221,7 +247,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'ariados' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( ariados ) 1`] = `
 "Ariados  
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -234,7 +260,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'armarouge' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( armarouge ) 1`] = `
 "Armarouge  
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -247,7 +273,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'aromatisse' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( aromatisse ) 1`] = `
 "Aromatisse  
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -260,7 +286,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'audino' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( audino ) 1`] = `
 "Audino  
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -273,7 +299,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'aurorus' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( aurorus ) 1`] = `
 "Aurorus  
 Ability: Refrigerate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -286,7 +312,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'avalugg' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( avalugg ) 1`] = `
 "Avalugg  
 Ability: Own Tempo  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -299,7 +325,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'azumarill' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( azumarill ) 1`] = `
 "Azumarill  
 Ability: Thick Fat  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -312,7 +338,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'banette' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( banette ) 1`] = `
 "Banette  
 Ability: Insomnia  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -325,7 +351,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'barbaracle' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( barbaracle ) 1`] = `
 "Barbaracle  
 Ability: Tough Claws  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -338,7 +364,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'basculegion-female' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( basculegion-female ) 1`] = `
 "Basculegion F  
 Ability: Swift Swim  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -351,7 +377,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'basculegion-male' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( basculegion-male ) 1`] = `
 "Basculegion  
 Ability: Swift Swim  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -364,7 +390,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'bastiodon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( bastiodon ) 1`] = `
 "Bastiodon  
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -377,7 +403,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'beartic' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( baxcalibur ) 1`] = `
+"Baxcalibur  
+Ability: Thermal Exchange  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Body Slam  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( beartic ) 1`] = `
 "Beartic  
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -390,7 +429,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'beedrill' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( beedrill ) 1`] = `
 "Beedrill  
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -403,7 +442,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'bellibolt' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( bellibolt ) 1`] = `
 "Bellibolt  
 Ability: Electromorphosis  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -416,7 +455,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'blastoise' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( blastoise ) 1`] = `
 "Blastoise  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -429,7 +468,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'blaziken' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( blaziken ) 1`] = `
 "Blaziken  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -442,7 +481,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'camerupt' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( camerupt ) 1`] = `
 "Camerupt  
 Ability: Magma Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -455,7 +494,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'castform' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( castform ) 1`] = `
 "Castform  
 Ability: Forecast  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -468,7 +507,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'ceruledge' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( ceruledge ) 1`] = `
 "Ceruledge  
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -481,7 +520,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'chandelure' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( chandelure ) 1`] = `
 "Chandelure  
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -494,7 +533,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'charizard' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( charizard ) 1`] = `
 "Charizard  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -507,7 +546,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'chesnaught' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( chesnaught ) 1`] = `
 "Chesnaught  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -520,7 +559,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'chimecho' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( chimecho ) 1`] = `
 "Chimecho  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -533,7 +572,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'clawitzer' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( cinderace ) 1`] = `
+"Cinderace  
+Ability: Blaze  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Mega Kick  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( clawitzer ) 1`] = `
 "Clawitzer  
 Ability: Mega Launcher  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -546,7 +598,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'clefable' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( clefable ) 1`] = `
 "Clefable  
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -559,7 +611,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'cofagrigus' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( cofagrigus ) 1`] = `
 "Cofagrigus  
 Ability: Mummy  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -572,7 +624,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'conkeldurr' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( conkeldurr ) 1`] = `
 "Conkeldurr  
 Ability: Guts  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -585,7 +637,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'corviknight' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( corviknight ) 1`] = `
 "Corviknight  
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -598,7 +650,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'crabominable' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( crabominable ) 1`] = `
 "Crabominable  
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -611,7 +663,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'decidueye' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( decidueye ) 1`] = `
 "Decidueye  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -624,7 +676,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'dedenne' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( dedenne ) 1`] = `
 "Dedenne  
 Ability: Cheek Pouch  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -637,7 +689,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'delphox' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( delphox ) 1`] = `
 "Delphox  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -650,7 +702,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'diggersby' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( diggersby ) 1`] = `
 "Diggersby  
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -663,7 +715,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'ditto' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( ditto ) 1`] = `
 "Ditto  
 Ability: Limber  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -673,7 +725,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'dragalge' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( dragalge ) 1`] = `
 "Dragalge  
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -686,7 +738,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'dragapult' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( dragapult ) 1`] = `
 "Dragapult  
 Ability: Clear Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -699,7 +751,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'dragonite' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( dragonite ) 1`] = `
 "Dragonite  
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -712,7 +764,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'drampa' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( drampa ) 1`] = `
 "Drampa  
 Ability: Berserk  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -725,7 +777,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'eelektross' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( eelektross ) 1`] = `
 "Eelektross  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -738,7 +790,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'emboar' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( emboar ) 1`] = `
 "Emboar  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -751,7 +803,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'emolga' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( emolga ) 1`] = `
 "Emolga  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -764,7 +816,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'empoleon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( empoleon ) 1`] = `
 "Empoleon  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -777,7 +829,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'espathra' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( espathra ) 1`] = `
 "Espathra  
 Ability: Opportunist  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -790,7 +842,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'espeon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( espeon ) 1`] = `
 "Espeon  
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -803,7 +855,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'excadrill' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( excadrill ) 1`] = `
 "Excadrill  
 Ability: Sand Rush  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -816,7 +868,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'falinks' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( falinks ) 1`] = `
 "Falinks  
 Ability: Battle Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -829,7 +881,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'farigiraf' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( farfetchd ) 1`] = `
+"Farfetchd  
+Ability: Keen Eye  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Body Slam  
+- Slash  
+- Facade  
+- Covet  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( farigiraf ) 1`] = `
 "Farigiraf  
 Ability: Cud Chew  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -842,7 +907,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'feraligatr' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( feraligatr ) 1`] = `
 "Feraligatr  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -855,7 +920,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'flapple' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( flapple ) 1`] = `
 "Flapple  
 Ability: Ripen  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -868,7 +933,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'flareon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( flareon ) 1`] = `
 "Flareon  
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -881,7 +946,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'floette' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( floette ) 1`] = `
 "Floette  
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -894,7 +959,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'floette-eternal' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( floette-eternal ) 1`] = `
 "Floette Eternal  
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -907,7 +972,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'florges' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( florges ) 1`] = `
 "Florges  
 Ability: Flower Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -920,7 +985,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'forretress' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( forretress ) 1`] = `
 "Forretress  
 Ability: Sturdy  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -933,7 +998,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'froslass' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( froslass ) 1`] = `
 "Froslass  
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -946,7 +1011,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'furfrou' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( furfrou ) 1`] = `
 "Furfrou  
 Ability: Fur Coat  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -959,7 +1024,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'galarian-slowbro' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( galarian-slowbro ) 1`] = `
 "Slowbro Galar  
 Ability: Quick Draw  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -972,7 +1037,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'galarian-slowking' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( galarian-slowking ) 1`] = `
 "Slowking Galar  
 Ability: Curious Medicine  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -985,7 +1050,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'galarian-stunfisk' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( galarian-stunfisk ) 1`] = `
 "Stunfisk Galar  
 Ability: Mimicry  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -998,7 +1063,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gallade' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gallade ) 1`] = `
 "Gallade  
 Ability: Steadfast  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1011,7 +1076,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'garbodor' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( garbodor ) 1`] = `
 "Garbodor  
 Ability: Stench  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1024,7 +1089,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'garchomp' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( garchomp ) 1`] = `
 "Garchomp  
 Ability: Sand Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1037,7 +1102,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gardevoir' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gardevoir ) 1`] = `
 "Gardevoir  
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1050,7 +1115,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'garganacl' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( garganacl ) 1`] = `
 "Garganacl  
 Ability: Purifying Salt  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1063,7 +1128,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gengar' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gengar ) 1`] = `
 "Gengar  
 Ability: Cursed Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1076,7 +1141,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gholdengo' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gholdengo ) 1`] = `
 "Gholdengo  
 Ability: Good As Gold  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1089,7 +1154,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'glaceon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( glaceon ) 1`] = `
 "Glaceon  
 Ability: Snow Cloak  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1102,7 +1167,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'glalie' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( glalie ) 1`] = `
 "Glalie  
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1115,7 +1180,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'glimmora' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( glimmora ) 1`] = `
 "Glimmora  
 Ability: Toxic Debris  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1128,7 +1193,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gliscor' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gliscor ) 1`] = `
 "Gliscor  
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1141,7 +1206,33 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'golurk' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gogoat ) 1`] = `
+"Gogoat  
+Ability: Sap Sipper  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Body Slam  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( golisopod ) 1`] = `
+"Golisopod  
+Ability: Emergency Exit  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Slash  
+- Facade  
+- Double Hit  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( golurk ) 1`] = `
 "Golurk  
 Ability: Iron Fist  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1154,7 +1245,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'goodra' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( goodra ) 1`] = `
 "Goodra  
 Ability: Sap Sipper  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1167,7 +1258,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gourgeist-average' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gourgeist-average ) 1`] = `
 "Gourgeist  
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1180,7 +1271,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gourgeist-large' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gourgeist-large ) 1`] = `
 "Gourgeist Large  
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1193,7 +1284,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gourgeist-small' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gourgeist-small ) 1`] = `
 "Gourgeist Small  
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1206,7 +1297,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gourgeist-super' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gourgeist-super ) 1`] = `
 "Gourgeist Super  
 Ability: Pickup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1219,7 +1310,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'greninja' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( grapploct ) 1`] = `
+"Grapploct  
+Ability: Limber  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Body Slam  
+- Facade  
+- Feint  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( greninja ) 1`] = `
 "Greninja  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1232,7 +1336,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'grimmsnarl' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( grimmsnarl ) 1`] = `
 "Grimmsnarl  
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1245,7 +1349,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'gyarados' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( gyarados ) 1`] = `
 "Gyarados  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1258,7 +1362,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hatterene' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hatterene ) 1`] = `
 "Hatterene  
 Ability: Healer  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1271,7 +1375,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hawlucha' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hawlucha ) 1`] = `
 "Hawlucha  
 Ability: Limber  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1284,7 +1388,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'heliolisk' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( heliolisk ) 1`] = `
 "Heliolisk  
 Ability: Dry Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1297,7 +1401,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'heracross' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( heracross ) 1`] = `
 "Heracross  
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1310,7 +1414,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hippowdon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hippowdon ) 1`] = `
 "Hippowdon  
 Ability: Sand Stream  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1323,7 +1427,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-arcanine' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-arcanine ) 1`] = `
 "Arcanine Hisui  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1336,7 +1440,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-avalugg' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-avalugg ) 1`] = `
 "Avalugg Hisui  
 Ability: Strong Jaw  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1349,7 +1453,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-decidueye' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-decidueye ) 1`] = `
 "Decidueye Hisui  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1362,7 +1466,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-goodra' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-goodra ) 1`] = `
 "Goodra Hisui  
 Ability: Sap Sipper  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1375,7 +1479,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-samurott' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-samurott ) 1`] = `
 "Samurott Hisui  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1388,7 +1492,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-typhlosion' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-typhlosion ) 1`] = `
 "Typhlosion Hisui  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1401,7 +1505,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hisuian-zoroark' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hisuian-zoroark ) 1`] = `
 "Zoroark Hisui  
 Ability: Illusion  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1414,7 +1518,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'houndoom' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( houndoom ) 1`] = `
 "Houndoom  
 Ability: Early Bird  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1427,7 +1531,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'houndstone' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( houndstone ) 1`] = `
 "Houndstone  
 Ability: Sand Rush  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1440,7 +1544,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hydrapple' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hydrapple ) 1`] = `
 "Hydrapple  
 Ability: Supersweet Syrup  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1453,7 +1557,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'hydreigon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( hydreigon ) 1`] = `
 "Hydreigon  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1466,7 +1570,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'incineroar' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( incineroar ) 1`] = `
 "Incineroar  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1479,7 +1583,33 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'infernape' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( indeedee-female ) 1`] = `
+"Indeedee F  
+Ability: Own Tempo  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Body Slam  
+- Facade  
+- Fake Out  
+- Hyper Voice  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( indeedee-male ) 1`] = `
+"Indeedee  
+Ability: Inner Focus  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Last Resort  
+- Body Slam  
+- Facade  
+- Fake Out  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( infernape ) 1`] = `
 "Infernape  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1492,7 +1622,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'jolteon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( inteleon ) 1`] = `
+"Inteleon  
+Ability: Torrent  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Facade  
+- Bind  
+- Hyper Beam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( jolteon ) 1`] = `
 "Jolteon  
 Ability: Volt Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1505,7 +1648,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'kangaskhan' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( kangaskhan ) 1`] = `
 "Kangaskhan  
 Ability: Early Bird  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1518,7 +1661,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'kingambit' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( kingambit ) 1`] = `
 "Kingambit  
 Ability: Defiant  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1531,7 +1674,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'kleavor' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( kleavor ) 1`] = `
 "Kleavor  
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1544,7 +1687,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'klefki' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( klefki ) 1`] = `
 "Klefki  
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1557,7 +1700,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'kommo-o' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( kommo-o ) 1`] = `
 "Kommo O  
 Ability: Bulletproof  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1570,7 +1713,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'krookodile' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( krookodile ) 1`] = `
 "Krookodile  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1583,7 +1726,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'leafeon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( leafeon ) 1`] = `
 "Leafeon  
 Ability: Leaf Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1596,7 +1739,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'liepard' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( liepard ) 1`] = `
 "Liepard  
 Ability: Limber  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1609,7 +1752,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'lopunny' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( lopunny ) 1`] = `
 "Lopunny  
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1622,7 +1765,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'lucario' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( lucario ) 1`] = `
 "Lucario  
 Ability: Steadfast  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1635,7 +1778,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'luxray' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( luxray ) 1`] = `
 "Luxray  
 Ability: Rivalry  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1648,7 +1791,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'lycanroc-dusk' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( lycanroc-dusk ) 1`] = `
 "Lycanroc Dusk  
 Ability: Tough Claws  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1661,7 +1804,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'lycanroc-midday' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( lycanroc-midday ) 1`] = `
 "Lycanroc  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1674,7 +1817,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'lycanroc-midnight' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( lycanroc-midnight ) 1`] = `
 "Lycanroc Midnight  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1687,7 +1830,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'machamp' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mabosstiff ) 1`] = `
+"Mabosstiff  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Body Slam  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( machamp ) 1`] = `
 "Machamp  
 Ability: Guts  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1700,7 +1856,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'malamar' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( malamar ) 1`] = `
 "Malamar  
 Ability: Contrary  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1713,7 +1869,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'mamoswine' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mamoswine ) 1`] = `
 "Mamoswine  
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1726,7 +1882,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'manectric' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( manectric ) 1`] = `
 "Manectric  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1739,7 +1895,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'maushold-family-of-four' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( maushold-family-of-four ) 1`] = `
 "Maushold Four  
 Ability: Friend Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1752,7 +1908,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'mawile' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mawile ) 1`] = `
 "Mawile  
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1765,7 +1921,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'medicham' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( medicham ) 1`] = `
 "Medicham  
 Ability: Pure Power  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1778,7 +1934,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'meowscarada' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( meowscarada ) 1`] = `
 "Meowscarada  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1791,7 +1947,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'meowstic-female' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( meowstic-female ) 1`] = `
 "Meowstic F  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1804,7 +1960,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'meowstic-male' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( meowstic-male ) 1`] = `
 "Meowstic  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1817,7 +1973,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'metagross' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( metagross ) 1`] = `
 "Metagross  
 Ability: Clear Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1830,7 +1986,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'milotic' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( milotic ) 1`] = `
 "Milotic  
 Ability: Marvel Scale  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1843,7 +1999,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'mimikyu-disguised' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mimikyu-disguised ) 1`] = `
 "Mimikyu Disguised  
 Ability: Disguise  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1856,7 +2012,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'morpeko-full-belly' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( morpeko-full-belly ) 1`] = `
 "Morpeko  
 Ability: Hunger Switch  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1869,7 +2025,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'mr-rime' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mr-mime ) 1`] = `
+"Mr Mime  
+Ability: Soundproof  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Mega Kick  
+- Body Slam  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( mr-rime ) 1`] = `
 "Mr Rime  
 Ability: Tangled Feet  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1882,7 +2051,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'mudsdale' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( mudsdale ) 1`] = `
 "Mudsdale  
 Ability: Own Tempo  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1895,7 +2064,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'musharna' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( musharna ) 1`] = `
 "Musharna  
 Ability: Forewarn  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1908,7 +2077,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'ninetales' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( ninetales ) 1`] = `
 "Ninetales  
 Ability: Flash Fire  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1921,7 +2090,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'noivern' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( noivern ) 1`] = `
 "Noivern  
 Ability: Frisk  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1934,7 +2103,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'oranguru' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( oranguru ) 1`] = `
 "Oranguru  
 Ability: Inner Focus  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1947,7 +2116,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'orthworm' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( orthworm ) 1`] = `
 "Orthworm  
 Ability: Earth Eater  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1960,7 +2129,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'overqwil' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( overqwil ) 1`] = `
 "Overqwil  
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1973,7 +2142,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'palafin-zero' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( palafin-zero ) 1`] = `
 "Palafin  
 Ability: Zero To Hero  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1986,7 +2155,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pangoro' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( pangoro ) 1`] = `
 "Pangoro  
 Ability: Iron Fist  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -1999,7 +2168,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'passimian' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( passimian ) 1`] = `
 "Passimian  
 Ability: Receiver  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2012,7 +2181,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pelipper' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( pawmot ) 1`] = `
+"Pawmot  
+Ability: Volt Absorb  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Facade  
+- Fake Out  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( pelipper ) 1`] = `
 "Pelipper  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2025,7 +2207,33 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pidgeot' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( perrserker ) 1`] = `
+"Perrserker  
+Ability: Battle Armor  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Thrash  
+- Body Slam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( persian ) 1`] = `
+"Persian  
+Ability: Limber  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Last Resort  
+- Double Edge  
+- Body Slam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( pidgeot ) 1`] = `
 "Pidgeot  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2038,7 +2246,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pikachu' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( pikachu ) 1`] = `
 "Pikachu  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2051,7 +2259,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pinsir' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( pincurchin ) 1`] = `
+"Pincurchin  
+Ability: Lightning Rod  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Self Destruct  
+- Giga Impact  
+- Body Slam  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( pinsir ) 1`] = `
 "Pinsir  
 Ability: Hyper Cutter  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2064,7 +2285,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'politoed' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( politoed ) 1`] = `
 "Politoed  
 Ability: Water Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2077,7 +2298,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'polteageist' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( polteageist ) 1`] = `
 "Polteageist  
 Ability: Weak Armor  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2090,7 +2311,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'primarina' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( primarina ) 1`] = `
 "Primarina  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2103,7 +2324,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'pyroar-male' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( pyroar-male ) 1`] = `
 "Pyroar  
 Ability: Rivalry  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2116,7 +2337,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'quaquaval' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( quaquaval ) 1`] = `
 "Quaquaval  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2129,7 +2350,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'qwilfish' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( qwilfish ) 1`] = `
 "Qwilfish  
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2142,7 +2363,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'raichu' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( raichu ) 1`] = `
 "Raichu  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2155,7 +2376,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rampardos' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rampardos ) 1`] = `
 "Rampardos  
 Ability: Mold Breaker  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2168,7 +2389,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'reuniclus' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( reuniclus ) 1`] = `
 "Reuniclus  
 Ability: Overcoat  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2181,7 +2402,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rhyperior' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rhyperior ) 1`] = `
 "Rhyperior  
 Ability: Lightning Rod  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2194,7 +2415,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'roserade' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rillaboom ) 1`] = `
+"Rillaboom  
+Ability: Overgrow  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Mega Kick  
+- Body Slam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( roserade ) 1`] = `
 "Roserade  
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2207,7 +2441,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom ) 1`] = `
 "Rotom  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2220,7 +2454,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom-fan' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom-fan ) 1`] = `
 "Rotom Fan  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2233,7 +2467,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom-frost' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom-frost ) 1`] = `
 "Rotom Frost  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2246,7 +2480,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom-heat' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom-heat ) 1`] = `
 "Rotom Heat  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2259,7 +2493,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom-mow' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom-mow ) 1`] = `
 "Rotom Mow  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2272,7 +2506,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'rotom-wash' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( rotom-wash ) 1`] = `
 "Rotom Wash  
 Ability: Levitate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2285,7 +2519,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'runerigus' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( runerigus ) 1`] = `
 "Runerigus  
 Ability: Wandering Spirit  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2298,7 +2532,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sableye' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sableye ) 1`] = `
 "Sableye  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2311,7 +2545,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'salazzle' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( salamence ) 1`] = `
+"Salamence  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Thrash  
+- Body Slam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( salazzle ) 1`] = `
 "Salazzle  
 Ability: Corrosion  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2324,7 +2571,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'samurott' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( samurott ) 1`] = `
 "Samurott  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2337,7 +2584,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sandaconda' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sandaconda ) 1`] = `
 "Sandaconda  
 Ability: Sand Spit  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2350,7 +2597,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sceptile' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sceptile ) 1`] = `
 "Sceptile  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2363,7 +2610,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'scizor' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( scizor ) 1`] = `
 "Scizor  
 Ability: Swarm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2376,7 +2623,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'scolipede' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( scolipede ) 1`] = `
 "Scolipede  
 Ability: Poison Point  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2389,7 +2636,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'scovillain' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( scovillain ) 1`] = `
 "Scovillain  
 Ability: Chlorophyll  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2402,7 +2649,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'scrafty' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( scrafty ) 1`] = `
 "Scrafty  
 Ability: Shed Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2415,7 +2662,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'serperior' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( serperior ) 1`] = `
 "Serperior  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2428,7 +2675,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sharpedo' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sharpedo ) 1`] = `
 "Sharpedo  
 Ability: Rough Skin  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2441,7 +2688,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'simipour' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( simipour ) 1`] = `
 "Simipour  
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2454,7 +2701,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'simisage' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( simisage ) 1`] = `
 "Simisage  
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2467,7 +2714,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'simisear' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( simisear ) 1`] = `
 "Simisear  
 Ability: Gluttony  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2480,7 +2727,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sinistcha' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sinistcha ) 1`] = `
 "Sinistcha  
 Ability: Hospitality  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2493,7 +2740,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'skarmory' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sirfetchd ) 1`] = `
+"Sirfetchd  
+Ability: Steadfast  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Double Edge  
+- Body Slam  
+- Slash  
+- Facade  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( skarmory ) 1`] = `
 "Skarmory  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2506,7 +2766,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'skeledirge' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( skeledirge ) 1`] = `
 "Skeledirge  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2519,7 +2779,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'slowbro' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( slowbro ) 1`] = `
 "Slowbro  
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2532,7 +2792,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'slowking' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( slowking ) 1`] = `
 "Slowking  
 Ability: Oblivious  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2545,7 +2805,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'slurpuff' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( slurpuff ) 1`] = `
 "Slurpuff  
 Ability: Sweet Veil  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2558,7 +2818,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sneasler' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sneasler ) 1`] = `
 "Sneasler  
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2571,7 +2831,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'snorlax' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( snorlax ) 1`] = `
 "Snorlax  
 Ability: Immunity  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2584,7 +2844,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'spiritomb' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( spiritomb ) 1`] = `
 "Spiritomb  
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2597,7 +2857,59 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'staraptor' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( squawkabilly-blue-plumage ) 1`] = `
+"Squawkabilly Blue Plumage  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Facade  
+- Quick Attack  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( squawkabilly-green-plumage ) 1`] = `
+"Squawkabilly Green Plumage  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Facade  
+- Quick Attack  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( squawkabilly-white-plumage ) 1`] = `
+"Squawkabilly White Plumage  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Facade  
+- Quick Attack  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( squawkabilly-yellow-plumage ) 1`] = `
+"Squawkabilly Yellow Plumage  
+Ability: Intimidate  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Double Edge  
+- Facade  
+- Quick Attack  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( staraptor ) 1`] = `
 "Staraptor  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2610,7 +2922,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'starmie' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( starmie ) 1`] = `
 "Starmie  
 Ability: Illuminate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2623,7 +2935,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'steelix' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( steelix ) 1`] = `
 "Steelix  
 Ability: Rock Head  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2636,7 +2948,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'stunfisk' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( stunfisk ) 1`] = `
 "Stunfisk  
 Ability: Static  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2649,7 +2961,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'swampert' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( swalot ) 1`] = `
+"Swalot  
+Ability: Liquid Ooze  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Self Destruct  
+- Giga Impact  
+- Double Edge  
+- Body Slam  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( swampert ) 1`] = `
 "Swampert  
 Ability: Torrent  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2662,7 +2987,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'sylveon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( sylveon ) 1`] = `
 "Sylveon  
 Ability: Cute Charm  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2675,7 +3000,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'talonflame' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( talonflame ) 1`] = `
 "Talonflame  
 Ability: Flame Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2688,7 +3013,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tauros' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tauros ) 1`] = `
 "Tauros  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2701,7 +3026,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-aqua-breed' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tauros-paldea-aqua-breed ) 1`] = `
 "Tauros Paldea Aqua Breed  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2714,7 +3039,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-blaze-breed' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tauros-paldea-blaze-breed ) 1`] = `
 "Tauros Paldea Blaze Breed  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2727,7 +3052,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tauros-paldea-combat-breed' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tauros-paldea-combat-breed ) 1`] = `
 "Tauros Paldea Combat Breed  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2740,7 +3065,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tinkaton' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( thievul ) 1`] = `
+"Thievul  
+Ability: Run Away  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Facade  
+- Quick Attack  
+- Tail Slap  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( tinkaton ) 1`] = `
 "Tinkaton  
 Ability: Mold Breaker  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2753,7 +3091,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'torkoal' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( torkoal ) 1`] = `
 "Torkoal  
 Ability: White Smoke  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2766,7 +3104,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'torterra' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( torterra ) 1`] = `
 "Torterra  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2779,7 +3117,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'toucannon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( toucannon ) 1`] = `
 "Toucannon  
 Ability: Keen Eye  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2792,7 +3130,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'toxapex' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( toxapex ) 1`] = `
 "Toxapex  
 Ability: Merciless  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2805,7 +3143,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'toxicroak' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( toxicroak ) 1`] = `
 "Toxicroak  
 Ability: Anticipation  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2818,7 +3156,33 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'trevenant' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( toxtricity-amped ) 1`] = `
+"Toxtricity Amped  
+Ability: Punk Rock  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Mega Kick  
+- Facade  
+- Endeavor  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( toxtricity-low-key ) 1`] = `
+"Toxtricity Low Key  
+Ability: Punk Rock  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Giga Impact  
+- Mega Kick  
+- Facade  
+- Endeavor  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( trevenant ) 1`] = `
 "Trevenant  
 Ability: Natural Cure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2831,7 +3195,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tsareena' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tsareena ) 1`] = `
 "Tsareena  
 Ability: Leaf Guard  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2844,7 +3208,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'typhlosion' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( typhlosion ) 1`] = `
 "Typhlosion  
 Ability: Blaze  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2857,7 +3221,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tyranitar' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tyranitar ) 1`] = `
 "Tyranitar  
 Ability: Sand Stream  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2870,7 +3234,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'tyrantrum' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( tyrantrum ) 1`] = `
 "Tyrantrum  
 Ability: Strong Jaw  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2883,7 +3247,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'umbreon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( umbreon ) 1`] = `
 "Umbreon  
 Ability: Synchronize  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2896,7 +3260,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'vanilluxe' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( vanilluxe ) 1`] = `
 "Vanilluxe  
 Ability: Ice Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2909,7 +3273,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'vaporeon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( vaporeon ) 1`] = `
 "Vaporeon  
 Ability: Water Absorb  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2922,7 +3286,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'venusaur' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( venusaur ) 1`] = `
 "Venusaur  
 Ability: Overgrow  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2935,7 +3299,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'victreebel' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( victreebel ) 1`] = `
 "Victreebel  
 Ability: Chlorophyll  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2948,7 +3312,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'vileplume' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( vileplume ) 1`] = `
 "Vileplume  
 Ability: Chlorophyll  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2961,7 +3325,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'vivillon' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( vivillon ) 1`] = `
 "Vivillon  
 Ability: Shield Dust  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2974,7 +3338,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'volcarona' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( volcarona ) 1`] = `
 "Volcarona  
 Ability: Flame Body  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -2987,7 +3351,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'watchog' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( watchog ) 1`] = `
 "Watchog  
 Ability: Illuminate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -3000,7 +3364,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'weavile' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( weavile ) 1`] = `
 "Weavile  
 Ability: Pressure  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -3013,7 +3377,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'whimsicott' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( whimsicott ) 1`] = `
 "Whimsicott  
 Ability: Prankster  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -3026,7 +3390,20 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'wyrdeer' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( wigglytuff ) 1`] = `
+"Wigglytuff  
+Ability: Cute Charm  
+EVs: 32 HP / 32 Atk / 2 Spe  
+Adamant Nature  
+- Self Destruct  
+- Giga Impact  
+- Last Resort  
+- Double Edge  
+
+"
+`;
+
+exports[`exportSet for All Pokémon > exportSet( wyrdeer ) 1`] = `
 "Wyrdeer  
 Ability: Intimidate  
 EVs: 32 HP / 32 Atk / 2 Spe  
@@ -3039,7 +3416,7 @@ Adamant Nature
 "
 `;
 
-exports[`exportSet for All Pokémon > exportSet( 'zoroark' ) 1`] = `
+exports[`exportSet for All Pokémon > exportSet( zoroark ) 1`] = `
 "Zoroark  
 Ability: Illusion  
 EVs: 32 HP / 32 Atk / 2 Spe  

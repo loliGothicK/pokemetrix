@@ -1,0 +1,16 @@
+[
+  {
+    "scenario": "TrickRoom Stall (JS Depth 3)",
+    "executionTimeMs": 13985,
+    "memoryUsedMb": "62.41 MB",
+    "mode": "deterministic",
+    "timeout": false
+  },
+  {
+    "scenario": "TrickRoom Stall (Rust Engine - Depth 5)",
+    "executionTimeMs": 2,
+    "memoryUsedMb": "0.02 MB",
+    "mode": "rust_wasm",
+    "timeout": false
+  }
+]

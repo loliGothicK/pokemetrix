@@ -3,6 +3,19 @@ use wasm_bindgen::prelude::*;
 use crate::types::{DamageInput, DamageOutput, Type};
 
 // ---------------------------------------------------------------------------
+// Constants for common 4096-based multipliers
+// ---------------------------------------------------------------------------
+pub const MOD_0_5: u16 = 2048;
+pub const MOD_0_75: u16 = 3072;
+pub const MOD_1_1: u16 = 4505; // 4096 * 1.1 = 4505.6 -> 4505
+pub const MOD_1_2: u16 = 4915; // 4096 * 1.2 = 4915.2 -> 4915
+pub const MOD_1_25: u16 = 5120; // 4096 * 1.25 = 5120
+pub const MOD_1_3: u16 = 5324; // 4096 * 1.3 = 5324.8 -> 5324
+pub const MOD_1_5: u16 = 6144; // 4096 * 1.5 = 6144
+pub const MOD_2_0: u16 = 8192; // 4096 * 2.0 = 8192
+pub const MOD_2_25: u16 = 9216; // 4096 * 2.25 = 9216
+
+// ---------------------------------------------------------------------------
 // Rounding primitives
 // ---------------------------------------------------------------------------
 
@@ -13,7 +26,7 @@ const U32_MASK: u64 = 0xFFFF_FFFF;
 /// "pokeRound": round to nearest, but round *down* on an exact .5.
 ///
 /// Applied whenever a modifier is applied as `value * modifier / 4096`.
-fn poke_round_div_4096(numerator: u64) -> u64 {
+pub fn poke_round_div_4096(numerator: u64) -> u64 {
     let quotient = numerator / 4096;
     let remainder = numerator % 4096;
     // Round up only when the fractional part is strictly greater than 0.5.
@@ -47,11 +60,7 @@ fn chain_modifiers(modifiers: &[u16]) -> u32 {
 /// wrap via modulo 65536; values below 1 become 1).
 fn clamp_stat(value: u64) -> u64 {
     let value = if value < 1 { 1 } else { value };
-    if value > 65535 {
-        value % 65536
-    } else {
-        value
-    }
+    if value > 65535 { value % 65536 } else { value }
 }
 
 // ---------------------------------------------------------------------------
@@ -158,30 +167,44 @@ fn matchup_shift(matchup: u32) -> Option<i32> {
     }
 }
 
-fn combined_immune(attack_type: Type, type1: Type, type2: Option<Type>) -> bool {
+fn combined_immune(
+    attack_type: Type,
+    type1: Type,
+    type2: Option<Type>,
+    type3: Option<Type>,
+) -> bool {
     single_matchup(attack_type, type1) == 0
         || type2.is_some_and(|t| single_matchup(attack_type, t) == 0)
+        || type3.is_some_and(|t| single_matchup(attack_type, t) == 0)
 }
 
-fn combined_shift(attack_type: Type, type1: Type, type2: Option<Type>) -> i32 {
+fn combined_shift(attack_type: Type, type1: Type, type2: Option<Type>, type3: Option<Type>) -> i32 {
     let s1 = matchup_shift(single_matchup(attack_type, type1)).unwrap_or(0);
     let s2 = type2
         .and_then(|t| matchup_shift(single_matchup(attack_type, t)))
         .unwrap_or(0);
-    s1 + s2
+    let s3 = type3
+        .and_then(|t| matchup_shift(single_matchup(attack_type, t)))
+        .unwrap_or(0);
+    s1 + s2 + s3
 }
 
 /// Combined type-effectiveness shift for a (possibly dual-type) defender.
 /// Positive = super effective (2^n x), negative = resisted (÷2^n).
 #[wasm_bindgen]
-pub fn type_effectiveness_shift(att: Type, def1: Type, def2: Option<Type>) -> i32 {
-    combined_shift(att, def1, def2)
+pub fn type_effectiveness_shift(
+    att: Type,
+    def1: Type,
+    def2: Option<Type>,
+    def3: Option<Type>,
+) -> i32 {
+    combined_shift(att, def1, def2, def3)
 }
 
 /// Whether the move is completely ineffective against the defender.
 #[wasm_bindgen]
-pub fn is_immune(att: Type, def1: Type, def2: Option<Type>) -> bool {
-    combined_immune(att, def1, def2)
+pub fn is_immune(att: Type, def1: Type, def2: Option<Type>, def3: Option<Type>) -> bool {
+    combined_immune(att, def1, def2, def3)
 }
 
 // ---------------------------------------------------------------------------
@@ -245,7 +268,12 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
 
     // Type immunity short-circuits to 0 (the one-damage check does NOT apply).
     let immune = input.immune_override.unwrap_or_else(|| {
-        combined_immune(input.move_type, input.defender_type1, input.defender_type2)
+        combined_immune(
+            input.move_type,
+            input.defender_type1,
+            input.defender_type2,
+            input.defender_type3,
+        )
     });
     if immune {
         return DamageOutput {
@@ -254,7 +282,6 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
             max: 0,
         };
     }
-
     let base_power = resolve_base_power(input);
     let attack = resolve_attack(input);
     let defense = resolve_defense(input).max(1);
@@ -272,9 +299,26 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
     }
 
     let effectiveness_shift = input.effectiveness_override.unwrap_or_else(|| {
-        combined_shift(input.move_type, input.defender_type1, input.defender_type2)
+        combined_shift(
+            input.move_type,
+            input.defender_type1,
+            input.defender_type2,
+            input.defender_type3,
+        )
     });
-    let final_combined = chain_modifiers(&input.final_modifiers);
+
+    let mut final_mods = input.final_modifiers.clone();
+    if input.tinted_lens && effectiveness_shift < 0 {
+        final_mods.push(8192); // 2.0x
+    }
+    if input.neuroforce && effectiveness_shift > 0 {
+        final_mods.push(5120); // 1.25x
+    }
+    if input.solid_rock && effectiveness_shift > 0 {
+        final_mods.push(3072); // 0.75x
+    }
+
+    let final_combined = chain_modifiers(&final_mods);
 
     let mut rolls: Vec<u32> = Vec::with_capacity(16);
     // Ascending: factor 15 (min) .. factor 0 (max).
@@ -314,19 +358,20 @@ pub fn calculate_input(input: &DamageInput) -> DamageOutput {
     DamageOutput { rolls, min, max }
 }
 
-/// WASM entry point: JSON in, JSON out.
+/// WASM entry point.
 #[wasm_bindgen]
-pub fn calculate(input: JsValue) -> Result<JsValue, JsValue> {
-    let input: DamageInput = serde_wasm_bindgen::from_value(input)
-        .map_err(|e| JsValue::from_str(&format!("invalid DamageInput: {e}")))?;
+pub fn calculate(
+    input: tsify::Ts<DamageInput>,
+) -> Result<tsify::Ts<DamageOutput>, wasm_bindgen::JsError> {
+    let input = input.to_rust()?;
     let output = calculate_input(&input);
-    serde_wasm_bindgen::to_value(&output).map_err(|e| JsValue::from_str(&e.to_string()))
+    Ok(tsify::Ts::from_rust(&output)?)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::types::{DamageInput, Type, NEUTRAL_MODIFIER};
+    use crate::types::{DamageInput, NEUTRAL_MODIFIER, Type};
 
     /// A minimal neutral input; individual tests tweak the fields they need.
     fn input(
@@ -353,6 +398,7 @@ mod tests {
             move_type,
             defender_type1: t1,
             defender_type2: t2,
+            defender_type3: None,
             effectiveness_override: None,
             immune_override: None,
             spread_modifier: NEUTRAL_MODIFIER,
@@ -364,6 +410,9 @@ mod tests {
             is_burned: false,
             final_modifiers: vec![],
             protect_modifier: NEUTRAL_MODIFIER,
+            tinted_lens: false,
+            neuroforce: false,
+            solid_rock: false,
         }
     }
 
@@ -414,7 +463,9 @@ mod tests {
         // Full roll set from the dissertation.
         assert_eq!(
             out.rolls,
-            vec![84, 84, 85, 87, 87, 88, 90, 90, 91, 93, 93, 94, 96, 96, 97, 99]
+            vec![
+                84, 84, 85, 87, 87, 88, 90, 90, 91, 93, 93, 94, 96, 96, 97, 99
+            ]
         );
     }
 
@@ -433,15 +484,17 @@ mod tests {
             Some(Type::Ghost),
         );
         inp.stab_modifier = 6144; // Rayquaza is Dragon/Flying
-                                  // Reflect (doubles-agnostic value used in the example), Shadow Shield,
-                                  // Friend Guard, Life Orb.
+        // Reflect (doubles-agnostic value used in the example), Shadow Shield,
+        // Friend Guard, Life Orb.
         inp.final_modifiers = vec![2732, 2048, 3072, 5324];
         let out = calculate_input(&inp);
         assert_eq!(out.min, 47);
         assert_eq!(out.max, 56);
         assert_eq!(
             out.rolls,
-            vec![47, 48, 48, 49, 49, 50, 50, 51, 52, 52, 53, 53, 54, 54, 55, 56]
+            vec![
+                47, 48, 48, 49, 49, 50, 50, 51, 52, 52, 53, 53, 54, 54, 55, 56
+            ]
         );
     }
 

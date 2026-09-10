@@ -37,10 +37,10 @@ export async function GET(req: NextRequest) {
 
       const data = await res.json();
       return NextResponse.json(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Re-throw Next.js prerender interruption signals so the route handler
       // correctly bails out of prerendering instead of returning empty results.
-      if (error?.digest === "NEXT_PRERENDER_INTERRUPTED") {
+      if ((error as Error & { digest?: string })?.digest === "NEXT_PRERENDER_INTERRUPTED") {
         throw error;
       }
       span.setAttribute("error", true);

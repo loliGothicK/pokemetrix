@@ -187,7 +187,7 @@ async function seed() {
         gender: { fixed: false },
         nature: {},
         moves: data.moves as [number, number, number, number],
-        evs: data.evs as any,
+        evs: data.evs,
       }));
 
       // --- Validate team data before seeding ---
@@ -273,7 +273,7 @@ async function seed() {
             seasonId,
             teamId,
             result,
-            myTeam: myTeam as any,
+            myTeam,
             mySelection: mySel,
             rating: currentRating,
             notes: `Seed battle ${i + 1} (${format})`,
@@ -322,7 +322,7 @@ async function seed() {
               gender: { fixed: false },
               nature: {},
               moves: myTeamData[i].moves as unknown as [number, number, number, number],
-              evs: myTeamData[i].evs as any,
+              evs: myTeamData[i].evs,
             },
           })();
           if (isLeft(resBP)) throw new Error(resBP.left.message);
@@ -377,15 +377,15 @@ async function seed() {
               type: "season",
               defaultSeasonId: singlesSeasonId,
             },
-          ] as any,
-          layout: layout as any,
+          ],
+          layout: layout,
         })();
         if (isLeft(resDash)) throw new Error(resDash.left.message);
       }
       console.log(`Created default dashboard with ${layout.length} widgets.`);
 
       console.log("Seeding complete!");
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (err instanceof Error && err.message.includes("Rollback")) {
         console.log("--- DRY RUN COMPLETE: Transaction rolled back successfully ---");
       } else {

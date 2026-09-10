@@ -22,14 +22,12 @@ function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
 }
 
 // Helper to resolve dot-notation keys in an object
-function hasKey(obj: any, keyPath: string): boolean {
+function hasKey(obj: Record<string, unknown>, keyPath: string): boolean {
   const keys = keyPath.split(".");
-  let current = obj;
+  let current: unknown = obj;
   for (const k of keys) {
-    if (typeof current !== "object" || current === null || !(k in current)) {
-      return false;
-    }
-    current = current[k];
+    if (current === undefined || current === null || typeof current !== "object") return false;
+    current = (current as Record<string, unknown>)[k];
   }
   return true;
 }

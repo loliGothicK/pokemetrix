@@ -1,0 +1,23 @@
+[
+  {
+    "scenario": "TrickRoom Stall (Depth 3)",
+    "executionTimeMs": 45002,
+    "memoryUsedMb": "171.36 MB",
+    "mode": "deterministic",
+    "timeout": true
+  },
+  {
+    "scenario": "TrickRoom Stall (Depth 4)",
+    "executionTimeMs": 45001,
+    "memoryUsedMb": "129.65 MB",
+    "mode": "deterministic",
+    "timeout": true
+  },
+  {
+    "scenario": "TrickRoom Stall (Depth 5)",
+    "executionTimeMs": 45003,
+    "memoryUsedMb": "0.00 MB",
+    "mode": "deterministic",
+    "timeout": true
+  }
+]

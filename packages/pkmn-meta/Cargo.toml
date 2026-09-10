@@ -1,0 +1,18 @@
+[package]
+name = "pkmn-meta"
+version = "0.1.0"
+edition = "2024"
+description = "Pokemon meta types for pokemetrix"
+license = "MIT"
+repository = "https://github.com/loliGothicK/pokemetrix"
+
+[dependencies]
+data = { path = "../data" }
+tsify.workspace = true
+serde.workspace = true
+wasm-bindgen.workspace = true
+deriving_via = { workspace = true }
+derive-getters = { workspace = true }
+typed-builder = { workspace = true }
+strum = "0.28.0"
+strum_macros = "0.28.0"

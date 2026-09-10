@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "typecheck": "npx tsc --noEmit"
   },
   "dependencies": {
     "hono": "4.13.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20260801.1",
-    "typescript": "7.0.2",
-    "wrangler": "4.123.0"
+    "typescript": "catalog:",
+    "wrangler": "catalog:"
   }
 }

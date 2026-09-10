@@ -105,12 +105,11 @@ export function GroupingFormat({
   correctGroups,
 }: GroupingFormatProps) {
   const { t } = useTranslation();
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect
-    setIsMounted(true);
-  }, []);
+  const isMounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -208,9 +207,9 @@ export function GroupingFormat({
         <Grid container spacing={2}>
           {allContainers.map((containerId) => {
             // Ensure we pass a valid integer (1-12) to Grid size to avoid TS errors or runtime crashes
-            const gridCols = Math.max(1, Math.floor(12 / Math.max(1, safeGroups.length)));
+            const gridCols = Math.max(1, Math.floor(12 / Math.max(1, safeGroups.length))) as number;
             return (
-              <Grid size={{ xs: 12, md: gridCols as any }} key={containerId}>
+              <Grid size={{ xs: 12, md: gridCols }} key={containerId}>
                 <Paper
                   variant="outlined"
                   sx={{

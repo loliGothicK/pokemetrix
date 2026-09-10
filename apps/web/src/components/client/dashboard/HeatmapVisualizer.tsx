@@ -270,7 +270,7 @@ export function HeatmapVisualizer({ data }: { readonly data: readonly Record<str
 
   const heatmapData = useMemo<HeatmapData | null>(() => {
     const d = data[0];
-    if (!d || (d as any)._type !== "heatmap") return null;
+    if (!d || (d as Record<string, unknown>)._type !== "heatmap") return null;
     return d as unknown as HeatmapData;
   }, [data]);
 

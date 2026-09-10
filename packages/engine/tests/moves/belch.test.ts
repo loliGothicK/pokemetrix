@@ -1,0 +1,95 @@
+import { test } from "vitest";
+import { Simulator } from "../../pkg-node/engine.js";
+
+test("Move: belch fails if berry not eaten, works if eaten", () => {
+  const engine = new Simulator({
+    damage_roll: "max",
+    crits: "never",
+    accuracy: "always",
+    secondary: "always",
+  });
+
+  engine.set_state({
+    p1: {
+      active: [
+        {
+          ident: "p1a",
+          species: "snorlax",
+          hp: 100,
+          maxhp: 100,
+          speed: 100,
+          attack: 10,
+          defense: 10,
+          sp_attack: 10,
+          sp_defense: 10,
+          item: "cheri-berry",
+          ability: "gluttony",
+          status: undefined,
+        },
+        {
+          ident: "p1b",
+          species: "pidgeot",
+          type1: "Normal",
+          type2: "Flying",
+          hp: 100,
+          maxhp: 100,
+          speed: 200,
+          attack: 10,
+          defense: 10,
+          sp_attack: 10,
+          sp_defense: 10,
+          item: undefined,
+          ability: "keeneye",
+          status: undefined,
+        },
+      ],
+      team: [],
+      tailwind: false,
+      tailwind_turns: 0,
+      aurora_veil_turns: 0,
+    },
+    p2: {
+      active: [
+        {
+          ident: "p2a",
+          species: "raichu",
+          hp: 100,
+          maxhp: 100,
+          speed: 20,
+          attack: 10,
+          defense: 10,
+          sp_attack: 10,
+          sp_defense: 10,
+          item: undefined,
+          ability: "static",
+          status: undefined,
+        },
+        {
+          ident: "p2b",
+          species: "pidgeot",
+          type1: "Normal",
+          type2: "Flying",
+          hp: 100,
+          maxhp: 100,
+          speed: 200,
+          attack: 10,
+          defense: 10,
+          sp_attack: 10,
+          sp_defense: 10,
+          item: undefined,
+          ability: "keeneye",
+          status: undefined,
+        },
+      ],
+      team: [],
+      tailwind: false,
+      tailwind_turns: 0,
+      aurora_veil_turns: 0,
+    },
+    weather: undefined,
+    weather_turns_left: 0,
+    terrain: undefined,
+    terrain_turns_left: 0,
+    trick_room: false,
+  });
+});

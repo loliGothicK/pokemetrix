@@ -1,4 +1,4 @@
-import { data } from "@data/master/pokemon.json";
+import { data } from "@pokemetrix/data/master/pokemon.json";
 import { z } from "zod";
 
 const PokemonSchema = z

@@ -332,8 +332,13 @@ function BattleRecordFormContent({
               const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
               return preset ? t(`taxonomy.${preset.slug}`) : option;
             }}
-            // @ts-ignore
-            renderValue={(value: readonly string[], getItemProps: any) =>
+            renderValue={(
+              value: readonly string[],
+              getItemProps: (options: { index: number }) => {
+                key?: React.Key;
+                [k: string]: unknown;
+              },
+            ) =>
               value.map((option, index) => {
                 const preset = PREDEFINED_TAGS.find((p) => p.slug === option);
                 const label = preset ? t(`taxonomy.${preset.slug}`) : option;

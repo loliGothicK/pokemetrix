@@ -2,11 +2,20 @@
   "name": "@pokemetrix/damage-calc",
   "version": "0.1.1",
   "description": "Pokémon damage calculator — powered by Rust/WebAssembly",
-  "main": "pkg/damage_calc.js",
-  "types": "pkg/damage_calc.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loliGothicK/pokemetrix"
+  },
   "files": [
     "pkg"
   ],
+  "main": "pkg/damage_calc.js",
+  "types": "pkg/damage_calc.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "pkg"
+  },
   "scripts": {
     "lint": "cargo clippy",
     "fmt": "cargo fmt",
@@ -17,15 +26,7 @@
     "pack": "wasm-pack pack pkg",
     "test": "wasm-pack test --node",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
-    "release": "pnpm run build && pnpm run pack && pnpm run publish"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/loliGothicK/pokemetrix"
-  },
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public",
-    "directory": "pkg"
+    "release": "pnpm run build && pnpm run pack && pnpm run publish",
+    "typecheck": "cargo check"
   }
 }

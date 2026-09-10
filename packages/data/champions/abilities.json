@@ -1,0 +1,994 @@
+{
+  "data": [
+    {
+      "identifier": "adaptability"
+    },
+    {
+      "identifier": "aerilate"
+    },
+    {
+      "identifier": "aftermath"
+    },
+    {
+      "identifier": "airlock"
+    },
+    {
+      "identifier": "analytic"
+    },
+    {
+      "identifier": "angerpoint"
+    },
+    {
+      "identifier": "angershell"
+    },
+    {
+      "identifier": "anticipation"
+    },
+    {
+      "identifier": "arenatrap"
+    },
+    {
+      "identifier": "armortail"
+    },
+    {
+      "identifier": "aromaveil"
+    },
+    {
+      "identifier": "asoneglastrier"
+    },
+    {
+      "identifier": "asonespectrier"
+    },
+    {
+      "identifier": "aurabreak"
+    },
+    {
+      "identifier": "baddreams"
+    },
+    {
+      "identifier": "ballfetch"
+    },
+    {
+      "identifier": "battery"
+    },
+    {
+      "identifier": "battlearmor"
+    },
+    {
+      "identifier": "battlebond"
+    },
+    {
+      "identifier": "beadsofruin"
+    },
+    {
+      "identifier": "beastboost"
+    },
+    {
+      "identifier": "berserk"
+    },
+    {
+      "identifier": "bigpecks"
+    },
+    {
+      "identifier": "blaze"
+    },
+    {
+      "identifier": "bulletproof"
+    },
+    {
+      "identifier": "cheekpouch"
+    },
+    {
+      "identifier": "chillingneigh"
+    },
+    {
+      "identifier": "chlorophyll"
+    },
+    {
+      "identifier": "clearbody"
+    },
+    {
+      "identifier": "cloudnine"
+    },
+    {
+      "identifier": "colorchange"
+    },
+    {
+      "identifier": "comatose"
+    },
+    {
+      "identifier": "commander"
+    },
+    {
+      "identifier": "competitive"
+    },
+    {
+      "identifier": "compoundeyes"
+    },
+    {
+      "identifier": "contrary"
+    },
+    {
+      "identifier": "corrosion"
+    },
+    {
+      "identifier": "costar"
+    },
+    {
+      "identifier": "cottondown"
+    },
+    {
+      "identifier": "cudchew"
+    },
+    {
+      "identifier": "curiousmedicine"
+    },
+    {
+      "identifier": "cursedbody"
+    },
+    {
+      "identifier": "cutecharm"
+    },
+    {
+      "identifier": "damp"
+    },
+    {
+      "identifier": "dancer"
+    },
+    {
+      "identifier": "darkaura"
+    },
+    {
+      "identifier": "dauntlessshield"
+    },
+    {
+      "identifier": "dazzling"
+    },
+    {
+      "identifier": "defeatist"
+    },
+    {
+      "identifier": "defiant"
+    },
+    {
+      "identifier": "deltastream"
+    },
+    {
+      "identifier": "desolateland"
+    },
+    {
+      "identifier": "disguise"
+    },
+    {
+      "identifier": "download"
+    },
+    {
+      "identifier": "dragonize"
+    },
+    {
+      "identifier": "dragonsmaw",
+      "attack_type_boost": ["dragon", 1.5]
+    },
+    {
+      "identifier": "drizzle",
+      "on_start_weather": "RainDance"
+    },
+    {
+      "identifier": "drought",
+      "on_start_weather": "SunnyDay"
+    },
+    {
+      "identifier": "dryskin"
+    },
+    {
+      "identifier": "earlybird"
+    },
+    {
+      "identifier": "eartheater",
+      "immune_to_type": "ground"
+    },
+    {
+      "identifier": "eelevate",
+      "immune_to_type": "ground"
+    },
+    {
+      "identifier": "effectspore"
+    },
+    {
+      "identifier": "electricsurge",
+      "on_start_terrain": "ElectricTerrain"
+    },
+    {
+      "identifier": "electromorphosis"
+    },
+    {
+      "identifier": "embodyaspectcornerstone"
+    },
+    {
+      "identifier": "embodyaspecthearthflame"
+    },
+    {
+      "identifier": "embodyaspectteal"
+    },
+    {
+      "identifier": "embodyaspectwellspring"
+    },
+    {
+      "identifier": "emergencyexit"
+    },
+    {
+      "identifier": "fairyaura"
+    },
+    {
+      "identifier": "filter"
+    },
+    {
+      "identifier": "firemane"
+    },
+    {
+      "identifier": "flamebody"
+    },
+    {
+      "identifier": "flareboost"
+    },
+    {
+      "identifier": "flashfire",
+      "immune_to_type": "fire",
+      "attack_type_boost": ["fire", 1.5]
+    },
+    {
+      "identifier": "flowergift"
+    },
+    {
+      "identifier": "flowerveil"
+    },
+    {
+      "identifier": "fluffy"
+    },
+    {
+      "identifier": "forecast"
+    },
+    {
+      "identifier": "forewarn"
+    },
+    {
+      "identifier": "friendguard"
+    },
+    {
+      "identifier": "frisk"
+    },
+    {
+      "identifier": "fullmetalbody"
+    },
+    {
+      "identifier": "furcoat"
+    },
+    {
+      "identifier": "galewings"
+    },
+    {
+      "identifier": "galvanize"
+    },
+    {
+      "identifier": "gluttony"
+    },
+    {
+      "identifier": "goodasgold"
+    },
+    {
+      "identifier": "gooey"
+    },
+    {
+      "identifier": "gorillatactics"
+    },
+    {
+      "identifier": "grasspelt"
+    },
+    {
+      "identifier": "grassysurge",
+      "on_start_terrain": "GrassyTerrain"
+    },
+    {
+      "identifier": "grimneigh"
+    },
+    {
+      "identifier": "guarddog"
+    },
+    {
+      "identifier": "gulpmissile"
+    },
+    {
+      "identifier": "guts"
+    },
+    {
+      "identifier": "hadronengine",
+      "on_start_terrain": "ElectricTerrain"
+    },
+    {
+      "identifier": "harvest"
+    },
+    {
+      "identifier": "healer"
+    },
+    {
+      "identifier": "heatproof"
+    },
+    {
+      "identifier": "heavymetal"
+    },
+    {
+      "identifier": "honeygather"
+    },
+    {
+      "identifier": "hospitality"
+    },
+    {
+      "identifier": "hugepower"
+    },
+    {
+      "identifier": "hungerswitch"
+    },
+    {
+      "identifier": "hustle"
+    },
+    {
+      "identifier": "hydration"
+    },
+    {
+      "identifier": "hypercutter"
+    },
+    {
+      "identifier": "icebody"
+    },
+    {
+      "identifier": "iceface"
+    },
+    {
+      "identifier": "icescales"
+    },
+    {
+      "identifier": "illuminate"
+    },
+    {
+      "identifier": "illusion"
+    },
+    {
+      "identifier": "immunity"
+    },
+    {
+      "identifier": "imposter"
+    },
+    {
+      "identifier": "infiltrator"
+    },
+    {
+      "identifier": "innardsout"
+    },
+    {
+      "identifier": "innerfocus"
+    },
+    {
+      "identifier": "insomnia"
+    },
+    {
+      "identifier": "intimidate",
+      "on_start_stat_drop_foe": {
+        "atk": -1,
+        "def": 0,
+        "spa": 0,
+        "spd": 0,
+        "spe": 0
+      }
+    },
+    {
+      "identifier": "intrepidsword"
+    },
+    {
+      "identifier": "ironbarbs"
+    },
+    {
+      "identifier": "ironfist"
+    },
+    {
+      "identifier": "justified"
+    },
+    {
+      "identifier": "keeneye"
+    },
+    {
+      "identifier": "klutz"
+    },
+    {
+      "identifier": "leafguard"
+    },
+    {
+      "identifier": "levitate",
+      "immune_to_type": "ground"
+    },
+    {
+      "identifier": "libero"
+    },
+    {
+      "identifier": "lightmetal"
+    },
+    {
+      "identifier": "lightningrod",
+      "immune_to_type": "electric"
+    },
+    {
+      "identifier": "limber"
+    },
+    {
+      "identifier": "lingeringaroma"
+    },
+    {
+      "identifier": "liquidooze"
+    },
+    {
+      "identifier": "liquidvoice"
+    },
+    {
+      "identifier": "longreach"
+    },
+    {
+      "identifier": "magicbounce"
+    },
+    {
+      "identifier": "magicguard",
+      "is_magic_guard": true
+    },
+    {
+      "identifier": "magician"
+    },
+    {
+      "identifier": "magmaarmor"
+    },
+    {
+      "identifier": "magnetpull"
+    },
+    {
+      "identifier": "marvelscale"
+    },
+    {
+      "identifier": "megalauncher"
+    },
+    {
+      "identifier": "megasol"
+    },
+    {
+      "identifier": "merciless"
+    },
+    {
+      "identifier": "mimicry"
+    },
+    {
+      "identifier": "mindseye"
+    },
+    {
+      "identifier": "minus"
+    },
+    {
+      "identifier": "mirrorarmor"
+    },
+    {
+      "identifier": "mistysurge",
+      "on_start_terrain": "MistyTerrain"
+    },
+    {
+      "identifier": "moldbreaker"
+    },
+    {
+      "identifier": "moody"
+    },
+    {
+      "identifier": "motordrive",
+      "immune_to_type": "electric"
+    },
+    {
+      "identifier": "moxie"
+    },
+    {
+      "identifier": "multiscale"
+    },
+    {
+      "identifier": "multitype"
+    },
+    {
+      "identifier": "mummy"
+    },
+    {
+      "identifier": "myceliummight"
+    },
+    {
+      "identifier": "naturalcure"
+    },
+    {
+      "identifier": "neuroforce"
+    },
+    {
+      "identifier": "neutralizinggas"
+    },
+    {
+      "identifier": "noguard"
+    },
+    {
+      "identifier": "normalize"
+    },
+    {
+      "identifier": "oblivious"
+    },
+    {
+      "identifier": "opportunist"
+    },
+    {
+      "identifier": "orichalcumpulse",
+      "on_start_weather": "SunnyDay"
+    },
+    {
+      "identifier": "overcoat"
+    },
+    {
+      "identifier": "overgrow"
+    },
+    {
+      "identifier": "owntempo"
+    },
+    {
+      "identifier": "parentalbond"
+    },
+    {
+      "identifier": "pastelveil"
+    },
+    {
+      "identifier": "perishbody"
+    },
+    {
+      "identifier": "pickpocket"
+    },
+    {
+      "identifier": "pickup"
+    },
+    {
+      "identifier": "piercingdrill"
+    },
+    {
+      "identifier": "pixilate"
+    },
+    {
+      "identifier": "plus"
+    },
+    {
+      "identifier": "poisonheal"
+    },
+    {
+      "identifier": "poisonpoint"
+    },
+    {
+      "identifier": "poisonpuppeteer"
+    },
+    {
+      "identifier": "poisontouch"
+    },
+    {
+      "identifier": "powerconstruct"
+    },
+    {
+      "identifier": "powerofalchemy"
+    },
+    {
+      "identifier": "powerspot"
+    },
+    {
+      "identifier": "prankster"
+    },
+    {
+      "identifier": "pressure"
+    },
+    {
+      "identifier": "primordialsea"
+    },
+    {
+      "identifier": "prismarmor"
+    },
+    {
+      "identifier": "propellertail"
+    },
+    {
+      "identifier": "protean"
+    },
+    {
+      "identifier": "protosynthesis"
+    },
+    {
+      "identifier": "psychicsurge",
+      "on_start_terrain": "PsychicTerrain"
+    },
+    {
+      "identifier": "punkrock"
+    },
+    {
+      "identifier": "purepower"
+    },
+    {
+      "identifier": "purifyingsalt",
+      "immune_to_status": "all",
+      "purifying_salt": true
+    },
+    {
+      "identifier": "quarkdrive"
+    },
+    {
+      "identifier": "queenlymajesty"
+    },
+    {
+      "identifier": "quickdraw"
+    },
+    {
+      "identifier": "quickfeet"
+    },
+    {
+      "identifier": "raindish"
+    },
+    {
+      "identifier": "rattled"
+    },
+    {
+      "identifier": "receiver"
+    },
+    {
+      "identifier": "reckless"
+    },
+    {
+      "identifier": "refrigerate"
+    },
+    {
+      "identifier": "regenerator"
+    },
+    {
+      "identifier": "ripen"
+    },
+    {
+      "identifier": "rivalry"
+    },
+    {
+      "identifier": "rkssystem"
+    },
+    {
+      "identifier": "rockhead"
+    },
+    {
+      "identifier": "rockypayload",
+      "attack_type_boost": ["rock", 1.5]
+    },
+    {
+      "identifier": "roughskin"
+    },
+    {
+      "identifier": "runaway"
+    },
+    {
+      "identifier": "sandforce"
+    },
+    {
+      "identifier": "sandrush"
+    },
+    {
+      "identifier": "sandspit"
+    },
+    {
+      "identifier": "sandstream",
+      "on_start_weather": "Sandstorm"
+    },
+    {
+      "identifier": "sandveil"
+    },
+    {
+      "identifier": "sapsipper",
+      "immune_to_type": "grass"
+    },
+    {
+      "identifier": "schooling"
+    },
+    {
+      "identifier": "scrappy"
+    },
+    {
+      "identifier": "screencleaner"
+    },
+    {
+      "identifier": "seedsower"
+    },
+    {
+      "identifier": "serenegrace"
+    },
+    {
+      "identifier": "shadowshield"
+    },
+    {
+      "identifier": "shadowtag"
+    },
+    {
+      "identifier": "sharpness"
+    },
+    {
+      "identifier": "shedskin"
+    },
+    {
+      "identifier": "sheerforce"
+    },
+    {
+      "identifier": "shellarmor"
+    },
+    {
+      "identifier": "shielddust"
+    },
+    {
+      "identifier": "shieldsdown"
+    },
+    {
+      "identifier": "simple"
+    },
+    {
+      "identifier": "skilllink"
+    },
+    {
+      "identifier": "slowstart"
+    },
+    {
+      "identifier": "slushrush"
+    },
+    {
+      "identifier": "sniper"
+    },
+    {
+      "identifier": "snowcloak"
+    },
+    {
+      "identifier": "snowwarning",
+      "on_start_weather": "Snow"
+    },
+    {
+      "identifier": "solarpower"
+    },
+    {
+      "identifier": "solidrock"
+    },
+    {
+      "identifier": "soulheart"
+    },
+    {
+      "identifier": "soundproof"
+    },
+    {
+      "identifier": "speedboost"
+    },
+    {
+      "identifier": "spicyspray"
+    },
+    {
+      "identifier": "stakeout"
+    },
+    {
+      "identifier": "stall"
+    },
+    {
+      "identifier": "stalwart"
+    },
+    {
+      "identifier": "stamina"
+    },
+    {
+      "identifier": "stancechange"
+    },
+    {
+      "identifier": "static"
+    },
+    {
+      "identifier": "steadfast"
+    },
+    {
+      "identifier": "steamengine"
+    },
+    {
+      "identifier": "steelworker",
+      "attack_type_boost": ["steel", 1.5]
+    },
+    {
+      "identifier": "steelyspirit"
+    },
+    {
+      "identifier": "stench"
+    },
+    {
+      "identifier": "stickyhold"
+    },
+    {
+      "identifier": "stormdrain",
+      "immune_to_type": "water"
+    },
+    {
+      "identifier": "strongjaw"
+    },
+    {
+      "identifier": "sturdy"
+    },
+    {
+      "identifier": "suctioncups"
+    },
+    {
+      "identifier": "superluck"
+    },
+    {
+      "identifier": "supersweetsyrup"
+    },
+    {
+      "identifier": "supremeoverlord"
+    },
+    {
+      "identifier": "surgesurfer"
+    },
+    {
+      "identifier": "swarm"
+    },
+    {
+      "identifier": "sweetveil"
+    },
+    {
+      "identifier": "swiftswim"
+    },
+    {
+      "identifier": "swordofruin"
+    },
+    {
+      "identifier": "symbiosis"
+    },
+    {
+      "identifier": "synchronize"
+    },
+    {
+      "identifier": "tabletsofruin"
+    },
+    {
+      "identifier": "tangledfeet"
+    },
+    {
+      "identifier": "tanglinghair"
+    },
+    {
+      "identifier": "technician"
+    },
+    {
+      "identifier": "telepathy"
+    },
+    {
+      "identifier": "teraformzero"
+    },
+    {
+      "identifier": "terashell"
+    },
+    {
+      "identifier": "terashift"
+    },
+    {
+      "identifier": "teravolt"
+    },
+    {
+      "identifier": "thermalexchange"
+    },
+    {
+      "identifier": "thickfat",
+      "thick_fat": true
+    },
+    {
+      "identifier": "tintedlens"
+    },
+    {
+      "identifier": "torrent"
+    },
+    {
+      "identifier": "toughclaws"
+    },
+    {
+      "identifier": "toxicboost"
+    },
+    {
+      "identifier": "toxicchain"
+    },
+    {
+      "identifier": "toxicdebris"
+    },
+    {
+      "identifier": "trace"
+    },
+    {
+      "identifier": "transistor",
+      "attack_type_boost": ["electric", 1.5]
+    },
+    {
+      "identifier": "triage"
+    },
+    {
+      "identifier": "truant"
+    },
+    {
+      "identifier": "turboblaze"
+    },
+    {
+      "identifier": "unaware",
+      "ignore_foe_stat_changes": true
+    },
+    {
+      "identifier": "unburden"
+    },
+    {
+      "identifier": "unnerve"
+    },
+    {
+      "identifier": "unseenfist"
+    },
+    {
+      "identifier": "vesselofruin"
+    },
+    {
+      "identifier": "victorystar"
+    },
+    {
+      "identifier": "vitalspirit"
+    },
+    {
+      "identifier": "voltabsorb",
+      "immune_to_type": "electric"
+    },
+    {
+      "identifier": "wanderingspirit"
+    },
+    {
+      "identifier": "waterabsorb",
+      "immune_to_type": "water"
+    },
+    {
+      "identifier": "waterbubble",
+      "attack_type_boost": ["water", 2],
+      "immune_to_status": "brn",
+      "waterbubble_fire_resist": true
+    },
+    {
+      "identifier": "watercompaction"
+    },
+    {
+      "identifier": "waterveil"
+    },
+    {
+      "identifier": "weakarmor"
+    },
+    {
+      "identifier": "wellbakedbody",
+      "immune_to_type": "fire"
+    },
+    {
+      "identifier": "whitesmoke"
+    },
+    {
+      "identifier": "wimpout"
+    },
+    {
+      "identifier": "windpower"
+    },
+    {
+      "identifier": "windrider",
+      "immune_to_type": "flying"
+    },
+    {
+      "identifier": "wonderguard"
+    },
+    {
+      "identifier": "wonderskin"
+    },
+    {
+      "identifier": "zenmode"
+    },
+    {
+      "identifier": "zerotohero"
+    }
+  ]
+}

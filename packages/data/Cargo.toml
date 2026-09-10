@@ -1,0 +1,15 @@
+[package]
+name = "data"
+version = "0.1.0"
+edition = "2024"
+description = "Pokemetrix shared static data"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.107"
+quote = "1.0.47"
+serde.workspace = true
+serde_json.workspace = true
+syn = "3.0.4"
