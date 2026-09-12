@@ -28,7 +28,7 @@ export async function calculate(input: DamageInput): Promise<DamageOutput> {
   // which causes errors for sequences (Vec) and integers (u16). Omit undefined keys so
   // Rust's #[serde(default)] triggers correctly.
   const sanitized = Object.fromEntries(
-    Object.entries(input).filter(([_, v]) => v !== undefined),
+    Object.entries(input).filter(([, v]) => v !== undefined),
   ) as unknown as DamageInput;
   try {
     return mod.calculate(sanitized);

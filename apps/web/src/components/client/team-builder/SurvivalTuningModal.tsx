@@ -26,7 +26,6 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
 import { championsPokemonList, type ChampionsPokemon } from "@/data/champions-pokemon";
 import { moveById, moveByIdentifier } from "@/data/moves";
-import { itemList } from "@/data/items";
 import { typeIcon } from "@/lib/image";
 import { type EV } from "@/types/pokemon";
 import { type TrainedPokemon } from "@/store/team/team";
@@ -35,7 +34,7 @@ import {
   type SurvivalTuningContext,
   type SurvivalOptimizationResult,
 } from "@/data/utility/survivalCalc";
-import { calcHp, calcStatus } from "@/data/utility/training";
+import { calcHp } from "@/data/utility/training";
 import { resolveDamageInput, type ResolveContext } from "@/lib/damage/resolve";
 import { calculate } from "@/lib/damage/engine";
 import type { Weather, Terrain } from "@/lib/damage";
@@ -88,15 +87,17 @@ export function SurvivalTuningModal({
       .toSorted((a, b) => (b.power ?? 0) - (a.power ?? 0));
   }, [opponentPokemon]);
 
-  const [selectedMoveIdentifier, setSelectedMoveIdentifier] = useState<string>("");
+  const [selectedMoveIdentifier, setSelectedMoveIdentifier] = useState<string | null>(null);
 
-  useEffect(() => {
+  // 選択中の技が候補になければ先頭の技を採用（render時に導出）
+  const effectiveMoveIdentifier = useMemo(() => {
     if (
-      availableMoves.length > 0 &&
-      !availableMoves.some((m) => m.identifier === selectedMoveIdentifier)
+      selectedMoveIdentifier &&
+      availableMoves.some((m) => m.identifier === selectedMoveIdentifier)
     ) {
-      setSelectedMoveIdentifier(availableMoves[0].identifier);
+      return selectedMoveIdentifier;
     }
+    return availableMoves[0]?.identifier ?? "";
   }, [availableMoves, selectedMoveIdentifier]);
 
   // 攻撃側の設定
@@ -109,8 +110,8 @@ export function SurvivalTuningModal({
   const [minSurvivingRolls, setMinSurvivingRolls] = useState<number>(16);
 
   // 環境設定
-  const [weather, setWeather] = useState<Weather>("none");
-  const [terrain, setTerrain] = useState<Terrain>("none");
+  const [weather] = useState<Weather>("none");
+  const [terrain] = useState<Terrain>("none");
   const [isDoubles, setIsDoubles] = useState<boolean>(true);
   const [reflect, setReflect] = useState<boolean>(false);
   const [lightScreen, setLightScreen] = useState<boolean>(false);
@@ -123,13 +124,11 @@ export function SurvivalTuningModal({
 
   // 計算のトリガー
   useEffect(() => {
-    if (!open || !opponentPokemon || !selectedMoveIdentifier) {
-      setCalcResult(null);
-      setCurrentStatus(null);
+    if (!open || !opponentPokemon || !effectiveMoveIdentifier) {
       return;
     }
 
-    const moveObj = moveByIdentifier.get(selectedMoveIdentifier);
+    const moveObj = moveByIdentifier.get(effectiveMoveIdentifier);
     if (!moveObj) return;
 
     const isPhysical = moveObj.category === "physical";
@@ -141,7 +140,7 @@ export function SurvivalTuningModal({
     const ctx: SurvivalTuningContext = {
       attacker: {
         identifier: opponentPokemon.identifier,
-        move: selectedMoveIdentifier,
+        move: effectiveMoveIdentifier,
         ability: opponentPokemon.abilities[0]
           ? typeof opponentPokemon.abilities[0] === "string"
             ? opponentPokemon.abilities[0]
@@ -185,69 +184,71 @@ export function SurvivalTuningModal({
     };
 
     let cancelled = false;
-    setIsCalculating(true);
+    queueMicrotask(() => {
+      if (!cancelled) setIsCalculating(true);
+    });
 
-    // 1. 耐え調整の計算
-    optimizeSurvival(ctx)
-      .then((res) => {
+    void (async () => {
+      // 1. 耐え調整の計算
+      try {
+        const res = await optimizeSurvival(ctx);
         if (!cancelled) {
           setCalcResult(res);
           setIsCalculating(false);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Failed to calculate survival tuning:", err);
         if (!cancelled) setIsCalculating(false);
-      });
+      }
 
-    // 2. 現在の配分でのダメージ計算
-    const defMultiplier =
-      ongoing.nature?.plus === "def" ? 1.1 : ongoing.nature?.minus === "def" ? 0.9 : 1.0;
-    const spdMultiplier =
-      ongoing.nature?.plus === "spd" ? 1.1 : ongoing.nature?.minus === "spd" ? 0.9 : 1.0;
+      // 2. 現在の配分でのダメージ計算
+      const defMultiplier =
+        ongoing.nature?.plus === "def" ? 1.1 : ongoing.nature?.minus === "def" ? 0.9 : 1.0;
+      const spdMultiplier =
+        ongoing.nature?.plus === "spd" ? 1.1 : ongoing.nature?.minus === "spd" ? 0.9 : 1.0;
 
-    const currentH = calcHp(activePokemon.status[0], ongoing.evs?.hp ?? 0);
-    const currentResolveCtx: ResolveContext = {
-      attacker: ctx.attacker,
-      defender: {
-        identifier: activePokemon.identifier,
-        move: null,
-        ability: activePokemon.abilities[0]
-          ? typeof activePokemon.abilities[0] === "string"
-            ? activePokemon.abilities[0]
-            : null
-          : null,
-        item: ongoing.item ? String(ongoing.item) : null,
-        boosts: {},
-        evHp: ongoing.evs?.hp ?? 0,
-        evAtk: 0,
-        evDef: ongoing.evs?.def ?? 0,
-        evSpa: 0,
-        evSpd: ongoing.evs?.spd ?? 0,
-        evSpe: 0,
-        hpPercent: 100,
-        conditions: {},
-        moveConditions: {},
-        itemConditions: {},
-        natures: {
-          def: defMultiplier,
-          spd: spdMultiplier,
+      const currentH = calcHp(activePokemon.status[0], ongoing.evs?.hp ?? 0);
+      const currentResolveCtx: ResolveContext = {
+        attacker: ctx.attacker,
+        defender: {
+          identifier: activePokemon.identifier,
+          move: null,
+          ability: activePokemon.abilities[0]
+            ? typeof activePokemon.abilities[0] === "string"
+              ? activePokemon.abilities[0]
+              : null
+            : null,
+          item: ongoing.item ? String(ongoing.item) : null,
+          boosts: {},
+          evHp: ongoing.evs?.hp ?? 0,
+          evAtk: 0,
+          evDef: ongoing.evs?.def ?? 0,
+          evSpa: 0,
+          evSpd: ongoing.evs?.spd ?? 0,
+          evSpe: 0,
+          hpPercent: 100,
+          conditions: {},
+          moveConditions: {},
+          itemConditions: {},
+          natures: {
+            def: defMultiplier,
+            spd: spdMultiplier,
+          },
         },
-      },
-      weather,
-      terrain,
-      fairyAura: false,
-      wonderRoom: false,
-      gravity: false,
-      screens: { reflect, lightScreen, auroraVeil },
-      isDoubles,
-      isCrit: false,
-    };
+        weather,
+        terrain,
+        fairyAura: false,
+        wonderRoom: false,
+        gravity: false,
+        screens: { reflect, lightScreen, auroraVeil },
+        isDoubles,
+        isCrit: false,
+      };
 
-    const curDmgInput = resolveDamageInput(currentResolveCtx);
-    if (curDmgInput) {
-      calculate(curDmgInput)
-        .then((curOut) => {
+      const curDmgInput = resolveDamageInput(currentResolveCtx);
+      if (curDmgInput) {
+        try {
+          const curOut = await calculate(curDmgInput);
           if (!cancelled) {
             const survivingRolls = curOut.rolls.filter((dmg) => dmg < currentH).length;
             setCurrentStatus({
@@ -257,13 +258,13 @@ export function SurvivalTuningModal({
               hpStat: currentH,
             });
           }
-        })
-        .catch(() => {
+        } catch {
           if (!cancelled) setCurrentStatus(null);
-        });
-    } else {
-      setCurrentStatus(null);
-    }
+        }
+      } else {
+        if (!cancelled) setCurrentStatus(null);
+      }
+    })();
 
     return () => {
       cancelled = true;
@@ -271,7 +272,7 @@ export function SurvivalTuningModal({
   }, [
     open,
     opponentPokemon,
-    selectedMoveIdentifier,
+    effectiveMoveIdentifier,
     atkNatureBoost,
     atkEv,
     opponentItem,
@@ -285,6 +286,7 @@ export function SurvivalTuningModal({
     ongoing,
     activePokemon,
     remainingEvs,
+    availablePool,
   ]);
 
   const candidateToShow = calcResult?.best ?? calcResult?.fallback ?? null;
@@ -332,7 +334,7 @@ export function SurvivalTuningModal({
             <InputLabel id="survival-move-label">{t("teamBuilder.survivalMove")}</InputLabel>
             <Select
               labelId="survival-move-label"
-              value={selectedMoveIdentifier}
+              value={effectiveMoveIdentifier}
               label={t("teamBuilder.survivalMove")}
               onChange={(e) => setSelectedMoveIdentifier(e.target.value)}
             >
