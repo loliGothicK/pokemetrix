@@ -52,7 +52,6 @@
     "@pkmn/sim": "catalog:",
     "@pokemetrix/damage-calc": "0.1.1",
     "@pokemetrix/data": "workspace:*",
-    "@pokemetrix/engine": "workspace:*",
     "@sentry/nextjs": "10.73.0",
     "@supabase/ssr": "0.12.6",
     "@supabase/supabase-js": "2.115.0",

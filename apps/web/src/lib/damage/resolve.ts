@@ -404,22 +404,16 @@ export function resolveDamageInput(ctx: ResolveContext): DamageInput | null {
     }
   }
 
-  return {
+  const input: DamageInput = {
     level: 50,
     basePower,
-    bpModifiers: bpModifiers.length > 0 ? bpModifiers : undefined,
     attack: atkStat,
     attackBoost,
-    attackModifiers: attackModifiers.length > 0 ? attackModifiers : undefined,
     defense: defStat,
     defenseBoost,
-    defenseModifiers: defenseModifiers.length > 0 ? defenseModifiers : undefined,
     isPhysical,
     moveType,
     defenderType1: defType1,
-    defenderType2: defType2,
-    effectivenessOverride,
-    immuneOverride,
     spreadModifier: spreadModifier(
       isDoubles && (move.range === "all-opponents" || move.range === "all-pokemon"),
     ),
@@ -427,8 +421,23 @@ export function resolveDamageInput(ctx: ResolveContext): DamageInput | null {
     isCrit,
     critModifier: M.CRIT,
     stabModifier: stabModifier(atkPokemon.types, moveType),
-    finalModifiers: finalModifiers.length > 0 ? finalModifiers : undefined,
-    protectModifier,
     isBurned: (ac.burn ?? false) && move.identifier !== "facade",
   };
+
+  if (bpModifiers.length > 0) input.bpModifiers = bpModifiers;
+  if (attackModifiers.length > 0) input.attackModifiers = attackModifiers;
+  if (defenseModifiers.length > 0) input.defenseModifiers = defenseModifiers;
+  if (finalModifiers.length > 0) input.finalModifiers = finalModifiers;
+  if (defType2) input.defenderType2 = defType2;
+  if (effectivenessOverride !== null && effectivenessOverride !== undefined) {
+    input.effectivenessOverride = effectivenessOverride;
+  }
+  if (immuneOverride !== null && immuneOverride !== undefined) {
+    input.immuneOverride = immuneOverride;
+  }
+  if (protectModifier !== undefined) {
+    input.protectModifier = protectModifier;
+  }
+
+  return input;
 }

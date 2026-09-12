@@ -3,6 +3,7 @@ import {
   Autocomplete,
   Avatar,
   Box,
+  Button,
   Chip,
   Divider,
   IconButton,
@@ -42,7 +43,9 @@ import { EV } from "@/types/pokemon";
 import { useBattleData } from "@/hooks/useBattleData";
 import { itemSprite, typeIcon } from "@/lib/image";
 import { Nature, natureObjectToString, natureStringToObject } from "@/data/nature";
-import { Add, Remove, ArrowDropDown, ChangeCircle } from "@mui/icons-material";
+import { Add, Remove, ArrowDropDown, ChangeCircle, Tune, Shield } from "@mui/icons-material";
+import { optimizeBulk } from "@/data/utility/optimizeBulk";
+import { SurvivalTuningModal } from "@/components/client/team-builder/SurvivalTuningModal";
 import {
   makeTeamLintIssuesAtom,
   activeSlotLintIssueAtom,
@@ -139,6 +142,14 @@ export function Training({
       setDrawerOpen(false);
     }
   });
+
+  // --- 耐久最適化の設定状態 ---
+  const [bulkSettingsAnchorEl, setBulkSettingsAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isBulkSettingsOpen = Boolean(bulkSettingsAnchorEl);
+  const [physicalRatio, setPhysicalRatio] = useState<number>(0.5);
+
+  // --- 仮想敵耐え調整モーダル状態 ---
+  const [survivalModalOpen, setSurvivalModalOpen] = useState<boolean>(false);
 
   const handleUpdate = (trained: TrainedPokemon) => {
     setOngoing(trained);
@@ -788,9 +799,225 @@ export function Training({
         {/* タブ 1: EV Spreads */}
         <Box sx={{ display: activeTab === 1 ? "block" : "none" }}>
           <Stack spacing={{ xs: 1.5, md: 1.5 }}>
-            <Divider textAlign={"left"} sx={{ mb: 2 }}>
+            <Stack
+              direction="row"
+              sx={{
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 2,
+                flexWrap: "wrap",
+                gap: 1,
+              }}
+            >
               <Typography variant="h6">{t("teamBuilder.tabEvSpreads")}</Typography>
-            </Divider>
+
+              <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+                <Tooltip title={t("teamBuilder.survivalTuningTooltip")}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    startIcon={<Shield sx={{ fontSize: "1rem" }} />}
+                    onClick={() => setSurvivalModalOpen(true)}
+                    sx={{
+                      textTransform: "none",
+                      fontWeight: 600,
+                      px: 1.5,
+                      py: 0.5,
+                      borderRadius: 1.5,
+                    }}
+                  >
+                    {t("teamBuilder.survivalTuning")}
+                  </Button>
+                </Tooltip>
+
+                <Tooltip title={t("teamBuilder.optimizeBulkTooltip")}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    onClick={() => {
+                      const baseStats = {
+                        hp: activePokemon.status[0],
+                        def: activePokemon.status[2],
+                        spd: activePokemon.status[4],
+                      };
+                      const currentBulkEvs =
+                        (ongoing.evs?.hp ?? 0) + (ongoing.evs?.def ?? 0) + (ongoing.evs?.spd ?? 0);
+                      const availablePool = currentBulkEvs + remainingEvs;
+
+                      const result = optimizeBulk(baseStats, ongoing.nature ?? {}, availablePool, {
+                        physicalRatio,
+                        minEvs: {
+                          hp: ongoing.evs?.hp ?? 0,
+                          def: ongoing.evs?.def ?? 0,
+                          spd: ongoing.evs?.spd ?? 0,
+                        },
+                      });
+
+                      handleUpdate({
+                        ...ongoing,
+                        evs: {
+                          ...ongoing.evs,
+                          hp: result.evs.hp as EV,
+                          def: result.evs.def as EV,
+                          spd: result.evs.spd as EV,
+                        },
+                      });
+                    }}
+                    sx={{
+                      textTransform: "none",
+                      fontWeight: 600,
+                      px: 1.5,
+                      py: 0.5,
+                      borderRadius: 1.5,
+                    }}
+                  >
+                    {t("teamBuilder.optimizeBulk")}
+                  </Button>
+                </Tooltip>
+
+                <Tooltip title={t("teamBuilder.optimizeBulkSettings")}>
+                  <IconButton
+                    size="small"
+                    onClick={(e) => setBulkSettingsAnchorEl(e.currentTarget)}
+                    sx={{
+                      color: "text.secondary",
+                      "&:hover": { color: "primary.main" },
+                    }}
+                  >
+                    <Tune fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+
+                <Popover
+                  open={isBulkSettingsOpen}
+                  anchorEl={bulkSettingsAnchorEl}
+                  onClose={() => setBulkSettingsAnchorEl(null)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  slotProps={{
+                    paper: {
+                      sx: {
+                        p: 2.5,
+                        width: 280,
+                        borderRadius: 2,
+                        boxShadow: theme.shadows[8],
+                      },
+                    },
+                  }}
+                >
+                  <Stack spacing={2}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                      {t("teamBuilder.optimizeBulkSettings")}
+                    </Typography>
+
+                    <Box>
+                      <Stack
+                        direction="row"
+                        sx={{ justifyContent: "space-between", alignItems: "center", mb: 0.5 }}
+                      >
+                        <Typography variant="caption" color="text.secondary">
+                          {t("teamBuilder.bulkRatio")}
+                        </Typography>
+                        <Typography variant="caption" sx={{ fontWeight: 700 }}>
+                          {t("teamBuilder.bulkPhysicalShort")} {Math.round(physicalRatio * 100)} :{" "}
+                          {Math.round((1 - physicalRatio) * 100)}{" "}
+                          {t("teamBuilder.bulkSpecialShort")}
+                        </Typography>
+                      </Stack>
+
+                      <Slider
+                        value={physicalRatio}
+                        min={0}
+                        max={1}
+                        step={0.05}
+                        onChange={(_, val) => setPhysicalRatio(val as number)}
+                        valueLabelDisplay="auto"
+                        valueLabelFormat={(v) => `${Math.round(v * 100)}%`}
+                        sx={{ color: "primary.main" }}
+                      />
+
+                      <Stack
+                        direction="row"
+                        spacing={0.5}
+                        sx={{ mt: 1, flexWrap: "wrap", gap: 0.5 }}
+                      >
+                        {[
+                          { label: "100:0", ratio: 1.0 },
+                          { label: "70:30", ratio: 0.7 },
+                          { label: "50:50", ratio: 0.5 },
+                          { label: "30:70", ratio: 0.3 },
+                          { label: "0:100", ratio: 0.0 },
+                        ].map((preset) => (
+                          <Chip
+                            key={preset.label}
+                            label={preset.label}
+                            size="small"
+                            clickable
+                            color={physicalRatio === preset.ratio ? "primary" : "default"}
+                            variant={physicalRatio === preset.ratio ? "filled" : "outlined"}
+                            onClick={() => setPhysicalRatio(preset.ratio)}
+                            sx={{ fontSize: "0.75rem" }}
+                          />
+                        ))}
+                      </Stack>
+                    </Box>
+
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() => {
+                        const baseStats = {
+                          hp: activePokemon.status[0],
+                          def: activePokemon.status[2],
+                          spd: activePokemon.status[4],
+                        };
+                        const currentBulkEvs =
+                          (ongoing.evs?.hp ?? 0) +
+                          (ongoing.evs?.def ?? 0) +
+                          (ongoing.evs?.spd ?? 0);
+                        const availablePool = currentBulkEvs + remainingEvs;
+
+                        const result = optimizeBulk(
+                          baseStats,
+                          ongoing.nature ?? {},
+                          availablePool,
+                          {
+                            physicalRatio,
+                            minEvs: {
+                              hp: ongoing.evs?.hp ?? 0,
+                              def: ongoing.evs?.def ?? 0,
+                              spd: ongoing.evs?.spd ?? 0,
+                            },
+                          },
+                        );
+
+                        handleUpdate({
+                          ...ongoing,
+                          evs: {
+                            ...ongoing.evs,
+                            hp: result.evs.hp as EV,
+                            def: result.evs.def as EV,
+                            spd: result.evs.spd as EV,
+                          },
+                        });
+                        setBulkSettingsAnchorEl(null);
+                      }}
+                      sx={{ textTransform: "none", fontWeight: 600 }}
+                    >
+                      {t("teamBuilder.apply")}
+                    </Button>
+                  </Stack>
+                </Popover>
+              </Stack>
+            </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               {isLintOn &&
                 issue &&
@@ -1106,6 +1333,26 @@ export function Training({
         pokemon={pokemon}
         battleData={battleData}
         isError={isError}
+      />
+
+      {/* --- 仮想敵耐え調整 Modal --- */}
+      <SurvivalTuningModal
+        open={survivalModalOpen}
+        onClose={() => setSurvivalModalOpen(false)}
+        onApply={(evs) => {
+          handleUpdate({
+            ...ongoing,
+            evs: {
+              ...ongoing.evs,
+              hp: evs.hp,
+              def: evs.def,
+              spd: evs.spd,
+            },
+          });
+        }}
+        ongoing={ongoing!}
+        activePokemon={activePokemon}
+        remainingEvs={remainingEvs}
       />
     </Stack>
   );

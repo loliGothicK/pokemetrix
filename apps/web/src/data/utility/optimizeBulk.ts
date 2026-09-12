@@ -1,0 +1,103 @@
+import { MAX_EV_PER_STAT, MAX_EV_TOTAL } from "@/store/team/lint";
+import { calcHp, calcStatus } from "@/data/utility/training";
+
+export interface BulkOptimizationOptions {
+  /**
+   * 物理攻撃を受ける確率 (0.0 ~ 1.0)
+   * デフォルトは 0.5 (物理 50 : 特殊 50)
+   */
+  physicalRatio?: number;
+  /**
+   * すでに振られている努力値の下限リスペクト (これ未満に削らない)
+   */
+  minEvs?: {
+    hp?: number;
+    def?: number;
+    spd?: number;
+  };
+}
+
+export interface BulkOptimizationResult {
+  evs: {
+    hp: number;
+    def: number;
+    spd: number;
+  };
+  score: number;
+}
+
+/**
+ * firefly1987氏の理論に基づく耐久指数最大化配分を算出する
+ *
+ * 総合耐久指数(p):
+ *   p = 1.0 (物理特化): H * B
+ *   p = 0.0 (特殊特化): H * D
+ *   0 < p < 1: H / (p / B + (1 - p) / D) = (H * B * D) / (p * D + (1 - p) * B)
+ */
+export function optimizeBulk(
+  baseStats: { hp: number; def: number; spd: number },
+  nature: { plus?: string | null; minus?: string | null },
+  availableEvPool: number,
+  options?: BulkOptimizationOptions,
+): BulkOptimizationResult {
+  const p = Math.max(0, Math.min(1, options?.physicalRatio ?? 0.5));
+  const pool = Math.max(0, Math.min(MAX_EV_TOTAL, availableEvPool));
+
+  const minH = Math.max(0, Math.min(MAX_EV_PER_STAT, options?.minEvs?.hp ?? 0));
+  const minB = Math.max(0, Math.min(MAX_EV_PER_STAT, options?.minEvs?.def ?? 0));
+  const minD = Math.max(0, Math.min(MAX_EV_PER_STAT, options?.minEvs?.spd ?? 0));
+
+  const defMultiplier = nature.plus === "def" ? 1.1 : nature.minus === "def" ? 0.9 : 1.0;
+  const spdMultiplier = nature.plus === "spd" ? 1.1 : nature.minus === "spd" ? 0.9 : 1.0;
+
+  let bestScore = -1;
+  let bestEvs = { hp: minH, def: minB, spd: minD };
+  let bestTotalUsed = Infinity;
+
+  // Hの探索: minHからmin(pool - minB - minD, MAX_EV_PER_STAT)まで
+  const maxH = Math.min(pool - minB - minD, MAX_EV_PER_STAT);
+  for (let evH = minH; evH <= maxH; evH++) {
+    const H = calcHp(baseStats.hp, evH);
+    const remainingForBD = pool - evH;
+    const maxB = Math.min(remainingForBD - minD, MAX_EV_PER_STAT);
+
+    for (let evB = minB; evB <= maxB; evB++) {
+      const remainingForD = remainingForBD - evB;
+      const maxD = Math.min(remainingForD, MAX_EV_PER_STAT);
+
+      for (let evD = minD; evD <= maxD; evD++) {
+        const B = calcStatus(baseStats.def, evB, defMultiplier);
+        const D = calcStatus(baseStats.spd, evD, spdMultiplier);
+
+        let score = 0;
+        if (p === 1) {
+          score = H * B;
+        } else if (p === 0) {
+          score = H * D;
+        } else {
+          // (H * B * D) / (p * D + (1 - p) * B)
+          score = (H * B * D) / (p * D + (1 - p) * B);
+        }
+
+        const totalUsed = evH + evB + evD;
+
+        if (score > bestScore + 1e-9) {
+          bestScore = score;
+          bestEvs = { hp: evH, def: evB, spd: evD };
+          bestTotalUsed = totalUsed;
+        } else if (Math.abs(score - bestScore) <= 1e-9) {
+          if (totalUsed < bestTotalUsed) {
+            bestScore = score;
+            bestEvs = { hp: evH, def: evB, spd: evD };
+            bestTotalUsed = totalUsed;
+          }
+        }
+      }
+    }
+  }
+
+  return {
+    evs: bestEvs,
+    score: bestScore,
+  };
+}
