@@ -17,7 +17,7 @@ tsify = { workspace = true }
 typed-builder = { workspace = true }
 derive-getters = { workspace = true }
 wasm-bindgen = { workspace = true }
-indexmap = "2.14.0"
+indexmap = "2.14.2"
 itertools = { workspace = true }
 
 [dev-dependencies]
