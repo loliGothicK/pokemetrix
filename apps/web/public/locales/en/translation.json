@@ -84,6 +84,7 @@
       "nameHelper": "Used internally (e.g. season)",
       "displayLabel": "Display label",
       "defaultSeason": "Default season",
+      "latestSeason": "Latest season",
       "deleteConfirm": "Delete variable \"{{label}}\"?"
     },
     "datasource": {

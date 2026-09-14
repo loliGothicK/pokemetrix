@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { seasons } from "@/lib/db/schema";
 import { TaskEither, tryCatch } from "fp-ts/lib/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
-import { eq, and } from "drizzle-orm";
+import { eq, and, desc } from "drizzle-orm";
 import type { InsertSeason } from "../factories/seasonFactory";
 import { validateInsertSeason } from "../validators";
 import { pipe } from "fp-ts/lib/function";
@@ -37,7 +37,7 @@ export const listSeasons = (
         .select()
         .from(seasons)
         .where(eq(seasons.userId, userId))
-        .orderBy(seasons.createdAt);
+        .orderBy(desc(seasons.createdAt));
     },
     (reason) =>
       anyhow(

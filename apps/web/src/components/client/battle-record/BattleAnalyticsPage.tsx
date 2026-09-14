@@ -28,6 +28,7 @@ import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { EmptyState } from "@/components/common/EmptyState";
 import { flexRowCenter } from "@/theme/sx";
 import { opponentStats, tally, winRatePercent } from "@/store/battle-record/analytics";
+import { getLatestSeason } from "@/store/battle-record/battleRecord";
 
 function StatCard({
   label,
@@ -64,11 +65,13 @@ export default function BattleAnalyticsPage() {
   const { seasons, isLoading: seasonsLoading } = useSeasons();
 
   const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
-  const activeSeasonId = selectedSeasonId ?? seasons[0]?.id ?? null;
-  const activeSeason = useMemo(
-    () => seasons.find((s) => s.id === activeSeasonId) ?? null,
-    [seasons, activeSeasonId],
-  );
+  const activeSeason = useMemo(() => {
+    if (selectedSeasonId && seasons.some((s) => s.id === selectedSeasonId)) {
+      return seasons.find((s) => s.id === selectedSeasonId) ?? null;
+    }
+    return getLatestSeason(seasons);
+  }, [seasons, selectedSeasonId]);
+  const activeSeasonId = activeSeason?.id ?? null;
 
   const { records, isLoading: recordsLoading } = useBattleRecords({ seasonId: activeSeasonId });
 

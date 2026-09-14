@@ -24,6 +24,9 @@ export const dataSourceSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("variable"), variableId: z.string().min(1) }),
 ]);
 
+/** ダッシュボード変数で最新シーズンをデフォルトにするための特別な値 */
+export const VARIABLE_LATEST_SEASON = "__latest__";
+
 /** ダッシュボード変数（Zod スキーマ） */
 export const dashboardVariableSchema = z
   .object({

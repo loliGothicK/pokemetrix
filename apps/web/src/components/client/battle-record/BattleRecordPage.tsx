@@ -37,11 +37,12 @@ import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { typeIcon } from "@/lib/image";
 import { tally } from "@/store/battle-record/analytics";
 import { draftToInput, type BattleRecordDraft } from "./formState";
-import type {
-  BattleRecord,
-  BattleResult,
-  Season,
-  SeasonInput,
+import {
+  type BattleRecord,
+  type BattleResult,
+  type Season,
+  type SeasonInput,
+  getLatestSeason,
 } from "@/store/battle-record/battleRecord";
 import type { Team, TrainedPokemon } from "@/store/team/team";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
@@ -349,7 +350,7 @@ export default function BattleRecordPage() {
     if (selectedSeasonId && seasons.some((s) => s.id === selectedSeasonId)) {
       return seasons.find((s) => s.id === selectedSeasonId) ?? null;
     }
-    return seasons[0] ?? null;
+    return getLatestSeason(seasons);
   }, [seasons, selectedSeasonId]);
   const activeSeasonId = activeSeason?.id ?? null;
 

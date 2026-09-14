@@ -20,7 +20,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { ulid } from "ulid";
-import type { DashboardVariable } from "@/store/dashboard/dashboard";
+import { VARIABLE_LATEST_SEASON, type DashboardVariable } from "@/store/dashboard/dashboard";
 import type { Season } from "@/store/battle-record/battleRecord";
 
 interface VariableEditDialogProps {
@@ -138,6 +138,9 @@ function VariableEditContent({
               displayEmpty
             >
               <MenuItem value="">{t("dashboard.widget.allSeasons")}</MenuItem>
+              <MenuItem value={VARIABLE_LATEST_SEASON}>
+                {t("dashboard.variable.latestSeason")}
+              </MenuItem>
               {seasons.map((season) => (
                 <MenuItem key={season.id} value={season.id}>
                   {season.name}

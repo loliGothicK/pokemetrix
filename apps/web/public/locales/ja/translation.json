@@ -157,6 +157,7 @@
       "nameHelper": "内部識別子（例: season）",
       "displayLabel": "表示ラベル",
       "defaultSeason": "デフォルトシーズン",
+      "latestSeason": "最新のシーズン",
       "deleteConfirm": "変数「{{label}}」を削除しますか？"
     },
     "datasource": {

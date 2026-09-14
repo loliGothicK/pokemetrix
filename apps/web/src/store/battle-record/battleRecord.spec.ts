@@ -5,6 +5,7 @@ import {
   battleRecordInputSchema,
   battleRecordUpdateSchema,
   opponentInputSchema,
+  getLatestSeason,
 } from "./battleRecord";
 
 describe("seasonInputSchema", () => {
@@ -150,5 +151,36 @@ describe("battleRecordUpdateSchema", () => {
   it("omits seasonId (immutable)", () => {
     const parsed = battleRecordUpdateSchema.parse({ seasonId: "should-be-stripped" });
     expect(parsed).not.toHaveProperty("seasonId");
+  });
+});
+
+describe("getLatestSeason", () => {
+  it("returns null when seasons list is empty", () => {
+    expect(getLatestSeason([])).toBeNull();
+  });
+
+  it("returns the latest season prioritizing startedAt then createdAt", () => {
+    const s1 = {
+      id: "1",
+      name: "Season 1",
+      format: "singles" as const,
+      ruleMark: null,
+      startedAt: "2026-07-01",
+      endedAt: "2026-07-31",
+      createdAt: "2026-07-01T00:00:00.000Z",
+      updatedAt: "2026-07-01T00:00:00.000Z",
+    };
+    const s2 = {
+      id: "2",
+      name: "Season 2",
+      format: "doubles" as const,
+      ruleMark: null,
+      startedAt: "2026-08-01",
+      endedAt: "2026-08-31",
+      createdAt: "2026-08-01T00:00:00.000Z",
+      updatedAt: "2026-08-01T00:00:00.000Z",
+    };
+    expect(getLatestSeason([s1, s2])?.id).toBe("2");
+    expect(getLatestSeason([s2, s1])?.id).toBe("2");
   });
 });

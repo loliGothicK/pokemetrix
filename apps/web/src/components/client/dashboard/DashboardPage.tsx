@@ -107,7 +107,7 @@ export default function DashboardPage() {
   const variables = editing ? (draftVariables ?? []) : (activeDashboard?.variables ?? []);
 
   // Variable の現在値管理
-  const { values: variableValues, setVariableValue } = useVariableValues(variables);
+  const { values: variableValues, setVariableValue } = useVariableValues(variables, seasons);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),

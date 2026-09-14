@@ -57,7 +57,7 @@ minimumReleaseAgeExclude:
   - '@supabase/supabase-js@2.110.1 || 2.110.6 || 2.110.9 || 2.111.0'
   - supabase@2.109.1 || 2.110.0 || 2.114.0 || 2.115.0
   - '@pokemetrix/damage-calc@0.1.0 || 0.1.1'
-  - react-i18next@17.0.10
+  - react-i18next@17.0.10 || 17.0.14
   - happy-dom@20.11.0
   - '@tanstack/query-core@5.101.3'
   - '@tanstack/react-query@5.101.3'
@@ -101,7 +101,7 @@ minimumReleaseAgeExclude:
   - '@oxlint/binding-win32-x64-msvc@1.76.0 || 1.77.0 || 1.79.0'
   - oxfmt@0.61.0 || 0.62.0 || 0.64.0
   - oxlint@1.76.0 || 1.77.0 || 1.79.0
-  - webpack@5.109.1 || 5.109.2
+  - webpack@5.109.1 || 5.109.2 || 5.111.0
   - '@supabase/ssr@0.12.4'
   - enhanced-resolve@5.24.4
   - i18next-http-backend@4.0.1
@@ -131,3 +131,5 @@ minimumReleaseAgeExclude:
   - '@vitest/utils@4.1.11'
   - vitest@4.1.11
   - lint-staged@17.4.1 || 17.5.0
+  - schema-utils@4.5.0
+  - zod@4.6.5

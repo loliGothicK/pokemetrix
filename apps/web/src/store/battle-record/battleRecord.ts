@@ -128,3 +128,27 @@ export const battleRecordUpdateSchema = battleRecordInputObject
   .readonly();
 
 export type BattleRecordUpdate = z.infer<typeof battleRecordUpdateSchema>;
+
+/**
+ * シーズン一覧から最新のシーズンを取得する。
+ * startedAt が指定されている場合は startedAt の新しい順、
+ * そうでない場合は createdAt の新しい順（または降順リストの先頭）を優先する。
+ */
+export function getLatestSeason(seasons: readonly Season[]): Season | null {
+  if (seasons.length === 0) return null;
+  return (
+    [...seasons].sort((a, b) => {
+      // startedAt が両方ある場合は startedAt 比較
+      if (a.startedAt && b.startedAt) {
+        const diff = b.startedAt.localeCompare(a.startedAt);
+        if (diff !== 0) return diff;
+      } else if (a.startedAt) {
+        return -1;
+      } else if (b.startedAt) {
+        return 1;
+      }
+      // createdAt 比較
+      return (b.createdAt ?? "").localeCompare(a.createdAt ?? "");
+    })[0] ?? null
+  );
+}
