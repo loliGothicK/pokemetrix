@@ -32,17 +32,17 @@
     "todo": "pnpm exec tsx .scratch/todo.ts"
   },
   "dependencies": {
-    "rand": "^0.0.4"
+    "rand": "0.0.4"
   },
   "devDependencies": {
     "@pkmn/mods": "0.10.11",
     "@pkmn/sim": "catalog:",
     "@pokemetrix/data": "workspace:*",
     "@types/node": "catalog:",
-    "glob": "^13.0.6",
+    "glob": "13.0.6",
     "outdent": "catalog:",
     "oxfmt": "catalog:",
-    "oxlint-plugin-eslint": "^1.81.0",
+    "oxlint-plugin-eslint": "1.81.0",
     "oxlint-tsgolint": "catalog:",
     "typescript": "catalog:",
     "vite-plugin-top-level-await": "catalog:",
