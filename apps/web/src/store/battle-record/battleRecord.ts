@@ -103,7 +103,7 @@ const battleRecordInputObject = z.object({
   // 中身は TrainedPokemon をクライアントが保証。ここでは構造のみ検証。
   myTeam: z.array(z.object({}).loose()).max(6),
   mySelection: z.array(z.number().int().min(0).max(5)).nullish(),
-  rating: z.number().int().min(0).max(100000).nullish(),
+  rating: z.number().min(0).max(100000).nullish(),
   notes: z.string().nullish(),
   /** ISO 8601。省略時はサーバ側で now() */
   playedAt: z.iso.datetime({ offset: true }).nullish(),

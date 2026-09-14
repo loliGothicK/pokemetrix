@@ -204,13 +204,51 @@ function StatsBar({ records }: { readonly records: readonly BattleRecord[] }) {
   const winPct = stats.total === 0 ? 0 : Math.round((stats.wins / stats.total) * 100);
   const decided = stats.wins + stats.losses;
 
+  const { latestRating, ratingDelta } = useMemo(() => {
+    const ratedRecords = records.filter((r) => r.rating !== null);
+    const latest = ratedRecords[0]?.rating ?? null;
+    const prev = ratedRecords[1]?.rating ?? null;
+    const delta = latest !== null && prev !== null ? Math.round((latest - prev) * 100) / 100 : null;
+    return { latestRating: latest, ratingDelta: delta };
+  }, [records]);
+
   return (
     <SurfaceCard sx={{ p: 2 }}>
       <Stack
         direction="row"
         spacing={{ xs: 2, md: 3 }}
-        sx={{ ...flexRowCenter, flexWrap: "wrap", justifyContent: "space-between" }}
+        sx={{ ...flexRowCenter, flexWrap: "wrap", justifyContent: "space-between", rowGap: 1.5 }}
       >
+        <Box>
+          <Typography
+            variant="overline"
+            color="text.secondary"
+            sx={{ fontWeight: 700, display: "block", lineHeight: 1 }}
+          >
+            {t("battleRecord.currentRating")}
+          </Typography>
+          <Stack direction="row" spacing={1} sx={{ alignItems: "baseline" }}>
+            <Typography variant="h4" sx={{ fontWeight: 900, color: "text.primary" }}>
+              {latestRating !== null ? latestRating : "—"}
+            </Typography>
+            {ratingDelta !== null && (
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 800,
+                  color:
+                    ratingDelta > 0
+                      ? theme.palette.success.main
+                      : ratingDelta < 0
+                        ? theme.palette.error.main
+                        : "text.secondary",
+                }}
+              >
+                {ratingDelta > 0 ? `+${ratingDelta}` : ratingDelta}
+              </Typography>
+            )}
+          </Stack>
+        </Box>
         <Box>
           <Typography
             variant="overline"
@@ -299,6 +337,14 @@ export default function BattleRecordPage() {
   }, [safeTeams, selectedTeamId]);
   const activeTeamId = activeTeam?.id ?? null;
 
+  const teamNameMap = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const tm of safeTeams) {
+      map.set(tm.id, tm.name);
+    }
+    return map;
+  }, [safeTeams]);
+
   const activeSeason = useMemo(() => {
     if (selectedSeasonId && seasons.some((s) => s.id === selectedSeasonId)) {
       return seasons.find((s) => s.id === selectedSeasonId) ?? null;
@@ -307,6 +353,7 @@ export default function BattleRecordPage() {
   }, [seasons, selectedSeasonId]);
   const activeSeasonId = activeSeason?.id ?? null;
 
+  // そのシーズンのバトルレコードはチームで絞り込まず全件取得・表示する
   const {
     records,
     isLoading: recordsLoading,
@@ -314,7 +361,7 @@ export default function BattleRecordPage() {
     updateRecord,
     removeRecord,
     isMutating,
-  } = useBattleRecords({ seasonId: activeSeasonId, teamId: activeTeamId });
+  } = useBattleRecords({ seasonId: activeSeasonId });
 
   const counts = useMemo(() => tally(records), [records]);
   const filteredRecords = useMemo(
@@ -581,6 +628,7 @@ export default function BattleRecordPage() {
                 <BattleRecordList
                   records={filteredRecords}
                   formatLabel={activeSeason?.name}
+                  teamNameMap={teamNameMap}
                   onEdit={(record) => {
                     setRecordEditing(record);
                     setRecordDialogOpen(true);
@@ -625,6 +673,7 @@ export default function BattleRecordPage() {
         open={recordDialogOpen}
         onClose={() => setRecordDialogOpen(false)}
         editing={recordEditing}
+        teams={safeTeams}
         teamMembers={teamMembers}
         teamId={activeTeamId}
         seasons={seasons}

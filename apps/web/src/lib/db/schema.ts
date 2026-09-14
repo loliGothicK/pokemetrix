@@ -4,7 +4,7 @@ import {
   text,
   jsonb,
   smallint,
-  integer,
+  doublePrecision,
   boolean,
   timestamp,
   date,
@@ -142,8 +142,8 @@ export const battleRecords = pgTable(
     myTeam: jsonb("my_team").notNull().$type<readonly TrainedPokemon[]>(),
     /** my_team 内 index。先頭=先発（フォーマットの active 数）、残り=後発 */
     mySelection: smallint("my_selection").array(),
-    /** その試合終了時点のレート（例: 1650。任意）。試合間の変動は記録から算出する */
-    rating: integer("rating"),
+    /** その試合終了時点のレート（例: 1650.5。任意）。試合間の変動は記録から算出する */
+    rating: doublePrecision("rating"),
     /** ギミックや役割などの分類タグ */
     tags: text("tags")
       .array()

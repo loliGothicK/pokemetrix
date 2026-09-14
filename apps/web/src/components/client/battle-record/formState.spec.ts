@@ -68,6 +68,11 @@ describe("draftToInput", () => {
     expect(input.rating).toBeNull();
   });
 
+  it("parses decimal ratings correctly", () => {
+    const input = draftToInput({ ...emptyDraft(), rating: "1650.5" }, "season-1");
+    expect(input.rating).toBe(1650.5);
+  });
+
   it("re-indexes opponent slotIndex by array position", () => {
     const input = draftToInput(
       {

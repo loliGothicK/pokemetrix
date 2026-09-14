@@ -78,6 +78,13 @@
       "when": 1784578017057,
       "tag": "0010_legal_outlaw_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789379074453,
+      "tag": "0012_dear_ricochet",
+      "breakpoints": true
     }
   ]
 }

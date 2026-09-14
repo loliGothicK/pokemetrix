@@ -73,7 +73,7 @@ function calcRatingDiff(rows: Record<string, unknown>[]): Record<string, unknown
   return sorted.map((row, i) => {
     const prev = i > 0 ? (sorted[i - 1].rating as number | null | undefined) : null;
     const curr = row.rating as number | null | undefined;
-    const diff = curr != null && prev != null ? curr - prev : null;
+    const diff = curr != null && prev != null ? Math.round((curr - prev) * 100) / 100 : null;
     return {
       ...row,
       diff: diff != null ? (diff >= 0 ? `+${diff}` : String(diff)) : "—",

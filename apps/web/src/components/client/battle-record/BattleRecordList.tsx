@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { alpha, Box, IconButton, Stack, Typography } from "@mui/material";
+import { alpha, Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import Image from "next/image";
@@ -18,6 +18,7 @@ interface BattleRecordListProps {
   /** playedAt 降順で並んだ記録 */
   readonly records: readonly BattleRecord[];
   readonly formatLabel?: string;
+  readonly teamNameMap?: ReadonlyMap<string, string>;
   readonly onEdit: (record: BattleRecord) => void;
   readonly onDelete: (id: string) => void;
 }
@@ -68,7 +69,12 @@ function SpriteRow({
   );
 }
 
-export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordListProps) {
+export function BattleRecordList({
+  records,
+  teamNameMap,
+  onEdit,
+  onDelete,
+}: BattleRecordListProps) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
 
@@ -78,7 +84,8 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
       records.map((record, i) => {
         const older = records[i + 1];
         if (record.rating === null || !older || older.rating === null) return null;
-        return record.rating - older.rating;
+        const diff = record.rating - older.rating;
+        return Math.round(diff * 100) / 100;
       }),
     [records],
   );
@@ -97,6 +104,7 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
           resolveOpponentDisplay(record);
 
         const delta = deltas[index];
+        const teamName = record.teamId && teamNameMap ? teamNameMap.get(record.teamId) : null;
 
         return (
           <SurfaceCard
@@ -229,6 +237,14 @@ export function BattleRecordList({ records, onEdit, onDelete }: BattleRecordList
                   hour12: false,
                 })}
               </Typography>
+              {teamName && (
+                <Chip
+                  size="small"
+                  label={teamName}
+                  variant="outlined"
+                  sx={{ height: 18, fontSize: "0.65rem", "& .MuiChip-label": { px: 0.75 } }}
+                />
+              )}
               {record.notes && (
                 <Typography
                   variant="caption"

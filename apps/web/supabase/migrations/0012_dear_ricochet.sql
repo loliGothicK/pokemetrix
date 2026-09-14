@@ -1,0 +1,1 @@
+ALTER TABLE "battle_records" ALTER COLUMN "rating" SET DATA TYPE double precision;

@@ -24,7 +24,7 @@ import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useHotkeys } from "react-hotkeys-hook";
 import { match } from "ts-pattern";
-import type { TrainedPokemon } from "@/store/team/team";
+import type { Team, TrainedPokemon } from "@/store/team/team";
 import type {
   BattleFormat,
   BattleRecord,
@@ -32,6 +32,7 @@ import type {
   Season,
 } from "@/store/battle-record/battleRecord";
 import { emptyDraft, draftFromRecord, type BattleRecordDraft } from "./formState";
+import { emptySelection } from "./selection";
 import { YourTeamSelector } from "./YourTeamSelector";
 import { OpponentSlots } from "./OpponentSlots";
 import { flexRowCenter, sectionLabel } from "@/theme/sx";
@@ -40,6 +41,7 @@ interface BattleRecordFormDialogProps {
   readonly open: boolean;
   readonly onClose: () => void;
   readonly editing: BattleRecord | null;
+  readonly teams?: readonly Team[];
   /** アクティブチームのメンバー（新規記録の初期値） */
   readonly teamMembers: readonly TrainedPokemon[];
   readonly teamId: string | null;
@@ -76,6 +78,7 @@ export function BattleRecordFormDialog({
   open,
   onClose,
   editing,
+  teams,
   teamMembers,
   teamId,
   seasons,
@@ -90,6 +93,7 @@ export function BattleRecordFormDialog({
           key={editing?.id ?? "new"}
           onClose={onClose}
           editing={editing}
+          teams={teams}
           teamMembers={teamMembers}
           teamId={teamId}
           seasons={seasons}
@@ -105,6 +109,7 @@ export function BattleRecordFormDialog({
 function BattleRecordFormContent({
   onClose,
   editing,
+  teams,
   teamMembers,
   teamId,
   seasons,
@@ -123,8 +128,27 @@ function BattleRecordFormContent({
     ? (seasons.find((s) => s.id === editing.seasonId)?.format ?? "doubles")
     : "doubles";
 
+  const initialTeam = useMemo(() => {
+    if (editing && editing.teamId) {
+      return teams?.find((tm) => tm.id === editing.teamId) ?? null;
+    }
+    if (teamId) {
+      return teams?.find((tm) => tm.id === teamId) ?? null;
+    }
+    return teams?.[0] ?? null;
+  }, [teams, editing, teamId]);
+
+  const resolvedTeamMembers = useMemo(() => {
+    if (initialTeam) {
+      return (initialTeam.members ?? []).filter((m): m is TrainedPokemon => m !== null);
+    }
+    return teamMembers;
+  }, [initialTeam, teamMembers]);
+
   const [draft, setDraft] = useState<BattleRecordDraft>(
-    editing ? draftFromRecord(editing, initialFormat) : emptyDraft({ teamId, myTeam: teamMembers }),
+    editing
+      ? draftFromRecord(editing, initialFormat)
+      : emptyDraft({ teamId: initialTeam?.id ?? teamId, myTeam: resolvedTeamMembers }),
   );
   const [resultChosen, setResultChosen] = useState(!!editing);
 
@@ -246,6 +270,37 @@ function BattleRecordFormContent({
             </Stack>
           </Box>
 
+          {/* 自チーム選択 */}
+          {teams && teams.length > 0 && (
+            <FormControl size="small" fullWidth>
+              <InputLabel id="record-team-label">{t("battleRecord.form.team")}</InputLabel>
+              <Select
+                labelId="record-team-label"
+                label={t("battleRecord.form.team")}
+                value={draft.teamId ?? ""}
+                onChange={(e) => {
+                  const newTeamId = e.target.value || null;
+                  const newTeam = teams.find((tm) => tm.id === newTeamId);
+                  const members = (newTeam?.members ?? []).filter(
+                    (m): m is TrainedPokemon => m !== null,
+                  );
+                  setDraft((prev) => ({
+                    ...prev,
+                    teamId: newTeamId,
+                    myTeam: members,
+                    selection: emptySelection,
+                  }));
+                }}
+              >
+                {teams.map((team) => (
+                  <MenuItem key={team.id} value={team.id}>
+                    {team.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+
           {/* 自チーム選出 */}
           <YourTeamSelector
             myTeam={draft.myTeam}
@@ -291,6 +346,7 @@ function BattleRecordFormContent({
               placeholder="1650"
               value={draft.rating}
               onChange={(e) => setDraft((prev) => ({ ...prev, rating: e.target.value }))}
+              slotProps={{ htmlInput: { step: "any" } }}
             />
           </Stack>
 
