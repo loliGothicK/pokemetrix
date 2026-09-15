@@ -42,30 +42,43 @@ export const useBattleRecords = (filter: BattleRecordsFilter) => {
         teamId: filter.teamId ?? undefined,
       }),
     enabled,
+    staleTime: 1000 * 60 * 2, // 2分キャッシュ保持
+    gcTime: 1000 * 60 * 10, // 10分保持
   });
 
-  const invalidate = async () => {
-    await queryClient.invalidateQueries({ queryKey: ["battle-records"] });
+  const invalidate = () => {
+    void queryClient.invalidateQueries({ queryKey: ["battle-records"] });
   };
 
   const createMutation = useMutation({
     mutationFn: (input: BattleRecordInput) => createBattleRecordOnServer(input),
-    onSuccess: invalidate,
+    onSuccess: (createdRecord) => {
+      // 楽観的/即座に現在のフィルターキャッシュを更新
+      queryClient.setQueryData<readonly BattleRecord[]>(battleRecordsQueryKey(filter), (prev) =>
+        prev ? [createdRecord, ...prev] : [createdRecord],
+      );
+      invalidate();
+    },
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, input }: { readonly id: string; readonly input: BattleRecordUpdate }) =>
       updateBattleRecordOnServer(id, input),
-    onSuccess: invalidate,
+    onSuccess: (updatedRecord) => {
+      queryClient.setQueryData<readonly BattleRecord[]>(battleRecordsQueryKey(filter), (prev) =>
+        prev ? prev.map((r) => (r.id === updatedRecord.id ? updatedRecord : r)) : [updatedRecord],
+      );
+      invalidate();
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteBattleRecordFromServer(id),
-    onSuccess: async (_, id) => {
+    onSuccess: (_, id) => {
       queryClient.setQueryData<readonly BattleRecord[]>(battleRecordsQueryKey(filter), (prev) =>
         prev ? prev.filter((r) => r.id !== id) : [],
       );
-      await invalidate();
+      invalidate();
     },
   });
 

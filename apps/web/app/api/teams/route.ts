@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/db";
 import { teams, teamMembers, boxPokemon } from "@/lib/db/schema";
-import { eq, inArray } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import { withChildSpan } from "@/lib/otel";
 import type { Team, TrainedPokemon } from "@/store/team/team";
 import { teamsSchema } from "@/lib/validator/team";
@@ -81,54 +81,75 @@ export async function POST(request: Request) {
     "db.teams.save",
     async (span) => {
       span.setAttribute("db.team_count", incomingTeams.length);
-      for (const team of incomingTeams) {
-        await db.transaction(async (tx) => {
-          await tx
-            .insert(teams)
-            .values({ id: team.id, userId, name: team.name })
-            .onConflictDoUpdate({
-              target: teams.id,
-              set: { name: team.name },
-            });
+      await db.transaction(async (tx) => {
+        // 1. Batch upsert teams
+        await tx
+          .insert(teams)
+          .values(incomingTeams.map((team) => ({ id: team.id, userId, name: team.name })))
+          .onConflictDoUpdate({
+            target: teams.id,
+            set: { name: sql`excluded.name` },
+          });
 
-          const nonNullMembers = team.members
-            .map((m, i) => ({ member: m, slot: i }))
-            .filter(
-              (x): x is { readonly member: TrainedPokemon; readonly slot: number } =>
-                x.member !== null,
-            );
+        // 2. Collect unique non-null members across all teams
+        const allNonNullMembers: {
+          readonly member: TrainedPokemon;
+          readonly teamId: string;
+          readonly slot: number;
+        }[] = [];
+        const boxMap = new Map<string, typeof boxPokemon.$inferInsert>();
 
-          for (const { member } of nonNullMembers) {
-            const { boxId, identifier, slug, ...data } = member;
-            await tx
-              .insert(boxPokemon)
-              .values({
+        for (const team of incomingTeams) {
+          team.members.forEach((member, slot) => {
+            if (member !== null) {
+              allNonNullMembers.push({
+                member: member as unknown as TrainedPokemon,
+                teamId: team.id,
+                slot,
+              });
+              const { boxId, identifier, slug, ...data } = member;
+              boxMap.set(boxId, {
                 id: boxId,
                 userId,
                 slug: identifier,
                 inBox: false,
                 data: { identifier, slug, ...data },
-              })
-              .onConflictDoUpdate({
-                target: boxPokemon.id,
-                // inBox は変更しない（BOXに明示的に保存済みのものは inBox: true のまま保持）
-                set: { slug: identifier, data: { identifier, slug, ...data } },
               });
-          }
+            }
+          });
+        }
 
-          await tx.delete(teamMembers).where(eq(teamMembers.teamId, team.id));
+        // 3. Batch upsert all boxPokemon in a single query
+        if (boxMap.size > 0) {
+          await tx
+            .insert(boxPokemon)
+            .values(Array.from(boxMap.values()))
+            .onConflictDoUpdate({
+              target: boxPokemon.id,
+              set: {
+                slug: sql`excluded.slug`,
+                data: sql`excluded.data`,
+              },
+            });
+        }
 
-          if (nonNullMembers.length > 0) {
-            await tx.insert(teamMembers).values(
-              nonNullMembers.map(({ member, slot }) => ({
-                teamId: team.id,
-                slotIndex: slot,
-                boxPokemonId: member.boxId,
-              })),
-            );
-          }
-        });
-      }
+        // 4. Batch delete existing team members for all incoming teams
+        const teamIds = incomingTeams.map((t) => t.id);
+        if (teamIds.length > 0) {
+          await tx.delete(teamMembers).where(inArray(teamMembers.teamId, teamIds));
+        }
+
+        // 5. Batch insert new team members in a single query
+        if (allNonNullMembers.length > 0) {
+          await tx.insert(teamMembers).values(
+            allNonNullMembers.map(({ member, teamId, slot }) => ({
+              teamId,
+              slotIndex: slot,
+              boxPokemonId: member.boxId,
+            })),
+          );
+        }
+      });
     },
     { op: "db.query" },
   );

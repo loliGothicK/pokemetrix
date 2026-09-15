@@ -61,8 +61,8 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         // 2. ローカル差分をクリア
         setLocalTeams((prev) => prev.filter((t) => !validTeams.some((vt) => vt.id === t.id)));
 
-        // 3. バックグラウンドで最新データを再検証
-        await queryClient.invalidateQueries({ queryKey: ["teams"] });
+        // 3. バックグラウンドで最新データを再検証（await せずに即時完了）
+        void queryClient.invalidateQueries({ queryKey: ["teams"] });
 
         setSnackMessage(t("teamBuilder.saveSuccess") || "クラウドに保存しました");
         setSnackSeverity("success");

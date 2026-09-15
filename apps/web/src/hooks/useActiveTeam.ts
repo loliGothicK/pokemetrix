@@ -29,6 +29,8 @@ export const useActiveTeam = () => {
     queryKey: ["teams"],
     queryFn: fetchTeamsFromServer,
     enabled: isAuthenticated === true,
+    staleTime: 1000 * 60 * 5, // 5分キャッシュ保持
+    gcTime: 1000 * 60 * 30, // 30分保持
   });
   const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
   // serverTeams は毎レンダーで新しい参照を持つため ref でラップして deps を安定させる

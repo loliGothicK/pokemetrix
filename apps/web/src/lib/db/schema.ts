@@ -10,6 +10,7 @@ import {
   date,
   check,
   primaryKey,
+  index,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { authUsers } from "drizzle-orm/supabase";
@@ -59,7 +60,10 @@ export const teams = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [check("teams_name_len", sql`char_length(${t.name}) between 1 and 100`)],
+  (t) => [
+    check("teams_name_len", sql`char_length(${t.name}) between 1 and 100`),
+    index("teams_user_id_idx").on(t.userId),
+  ],
 );
 
 export const teamMembers = pgTable(
@@ -157,6 +161,7 @@ export const battleRecords = pgTable(
   (t) => [
     check("battle_records_result_valid", sql`${t.result} in ('win', 'loss', 'draw')`),
     check("battle_records_my_team_is_array", sql`jsonb_typeof(${t.myTeam}) = 'array'`),
+    index("battle_records_user_season_played_idx").on(t.userId, t.seasonId, t.playedAt),
   ],
 );
 

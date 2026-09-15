@@ -19,30 +19,42 @@ export const useSeasons = () => {
     queryKey: SEASONS_QUERY_KEY,
     queryFn: fetchSeasonsFromServer,
     enabled: isAuthenticated === true,
+    staleTime: 1000 * 60 * 10, // 10分キャッシュ保持
+    gcTime: 1000 * 60 * 30, // 30分保持
   });
 
-  const invalidate = async () => {
-    await queryClient.invalidateQueries({ queryKey: SEASONS_QUERY_KEY });
+  const invalidate = () => {
+    void queryClient.invalidateQueries({ queryKey: SEASONS_QUERY_KEY });
   };
 
   const createMutation = useMutation({
     mutationFn: (input: SeasonInput) => createSeasonOnServer(input),
-    onSuccess: invalidate,
+    onSuccess: (createdSeason) => {
+      queryClient.setQueryData<readonly Season[]>(SEASONS_QUERY_KEY, (prev) =>
+        prev ? [...prev, createdSeason] : [createdSeason],
+      );
+      invalidate();
+    },
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, input }: { readonly id: string; readonly input: SeasonUpdate }) =>
       updateSeasonOnServer(id, input),
-    onSuccess: invalidate,
+    onSuccess: (updatedSeason) => {
+      queryClient.setQueryData<readonly Season[]>(SEASONS_QUERY_KEY, (prev) =>
+        prev ? prev.map((s) => (s.id === updatedSeason.id ? updatedSeason : s)) : [updatedSeason],
+      );
+      invalidate();
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteSeasonFromServer(id),
-    onSuccess: async (_, id) => {
+    onSuccess: (_, id) => {
       queryClient.setQueryData<readonly Season[]>(SEASONS_QUERY_KEY, (prev) =>
         prev ? prev.filter((s) => s.id !== id) : [],
       );
-      await queryClient.invalidateQueries({ queryKey: ["battle-records"] });
+      void queryClient.invalidateQueries({ queryKey: ["battle-records"] });
     },
   });
 
