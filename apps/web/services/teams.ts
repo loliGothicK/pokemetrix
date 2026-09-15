@@ -5,7 +5,7 @@ import * as Sentry from "@sentry/nextjs";
 
 export const fetchTeamsFromServer = async (): Promise<readonly Team[]> => {
   return withSpan("ui.teams.fetch", async (span) => {
-    const res = await fetch("/api/teams");
+    const res = await fetch("/api/teams", { cache: "no-store" });
     if (!res.ok) {
       const errorText = await res.text();
       span.setAttribute("error", true);

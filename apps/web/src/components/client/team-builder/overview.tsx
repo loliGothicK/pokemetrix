@@ -285,15 +285,41 @@ export default function TeamOverview({
 
   if (!team) return null;
 
-  // SortableContext に渡す ID リスト（slot index を文字列で使う）
-  const sortableIds = team.members.map((_, i) => String(i));
+  // 各スロットに対して安定した ID を割り当てて追跡する
+  // ポケモンの場合は一意な member.boxId、空スロットの場合は空スロット用 ID
+  const sortableIds = useMemo(
+    () => team.members.map((m, i) => m?.boxId ?? `empty-${i}`),
+    [team.members],
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    const fromIndex = Number(active.id);
-    const toIndex = Number(over.id);
+    const fromIndex = sortableIds.indexOf(String(active.id));
+    const toIndex = sortableIds.indexOf(String(over.id));
+    if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) return;
+
+    // チームメンバーの並び替え
     reorderMembers(fromIndex, toIndex);
+
+    // activeSlot が指定されている場合、参照先インデックスを追従させる
+    if (typeof activeSlot === "number") {
+      let nextActiveSlot = activeSlot;
+      if (activeSlot === fromIndex) {
+        nextActiveSlot = toIndex;
+      } else if (fromIndex < toIndex) {
+        if (activeSlot > fromIndex && activeSlot <= toIndex) {
+          nextActiveSlot = activeSlot - 1;
+        }
+      } else if (fromIndex > toIndex) {
+        if (activeSlot >= toIndex && activeSlot < fromIndex) {
+          nextActiveSlot = activeSlot + 1;
+        }
+      }
+      if (nextActiveSlot !== activeSlot) {
+        router.replace(`/team-builder/${nextActiveSlot}`);
+      }
+    }
   };
 
   return (
@@ -352,16 +378,19 @@ export default function TeamOverview({
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
           <Grid container spacing={2}>
-            {team.members.map((member, index) => (
-              <SortableSlotItem
-                key={index}
-                id={String(index)}
-                index={index}
-                member={member}
-                isActive={activeSlot === index}
-                onNavigate={() => router.push(`/team-builder/${index}`)}
-              />
-            ))}
+            {team.members.map((member, index) => {
+              const id = sortableIds[index] ?? String(index);
+              return (
+                <SortableSlotItem
+                  key={id}
+                  id={id}
+                  index={index}
+                  member={member}
+                  isActive={activeSlot === index}
+                  onNavigate={() => router.push(`/team-builder/${index}`)}
+                />
+              );
+            })}
           </Grid>
         </SortableContext>
       </DndContext>

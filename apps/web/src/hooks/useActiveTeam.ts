@@ -1,9 +1,10 @@
 import { useAtom, useAtomValue } from "jotai";
 import { atom } from "jotai";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useCallback, useEffect } from "react";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { localTeamsAtom, activeTeamIdAtom, Team, TrainedPokemon } from "@/store/team/team";
+import { fetchTeamsFromServer } from "@services/teams";
 
 const HISTORY_LIMIT = 50;
 const DEBOUNCE_MS = 500;
@@ -24,7 +25,12 @@ export const useActiveTeam = () => {
 
   const lastEditTimeRef = useRef<number>(0);
 
-  const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
+  const teamsQuery = useQuery({
+    queryKey: ["teams"],
+    queryFn: fetchTeamsFromServer,
+    enabled: isAuthenticated === true,
+  });
+  const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
   // serverTeams は毎レンダーで新しい参照を持つため ref でラップして deps を安定させる
   const serverTeamsRef = useRef(serverTeams);
 

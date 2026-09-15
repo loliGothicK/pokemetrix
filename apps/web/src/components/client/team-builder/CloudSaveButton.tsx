@@ -54,8 +54,15 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         return validTeams;
       },
       onSuccess: async (validTeams) => {
-        await queryClient.invalidateQueries({ queryKey: ["teams"] });
+        // 1. サーバーキャッシュを保存した最新データで即座に同期（楽観的更新）
+        // これを行わないと、localTeams を削除した瞬間に古いキャッシュ（変更前の技）を参照してしまう
+        queryClient.setQueryData(["teams"], validTeams);
+
+        // 2. ローカル差分をクリア
         setLocalTeams((prev) => prev.filter((t) => !validTeams.some((vt) => vt.id === t.id)));
+
+        // 3. バックグラウンドで最新データを再検証
+        await queryClient.invalidateQueries({ queryKey: ["teams"] });
 
         setSnackMessage(t("teamBuilder.saveSuccess") || "クラウドに保存しました");
         setSnackSeverity("success");
