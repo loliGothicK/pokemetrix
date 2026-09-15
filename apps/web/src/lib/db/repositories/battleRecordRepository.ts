@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { battleRecords, battleRecordOpponents } from "@/lib/db/schema";
+import { battleRecords, battleRecordOpponents, teams, seasons } from "@/lib/db/schema";
 import { TaskEither, tryCatch } from "fp-ts/lib/TaskEither";
 import { MitamaError, anyhow } from "@/errors/anyhow/error";
 import { eq, and } from "drizzle-orm";
@@ -48,9 +48,36 @@ export const createBattleRecord = (
       tryCatch(
         async () => {
           return await db.transaction(async (tx) => {
+            // Validate seasonId exists
+            const [existingSeason] = await tx
+              .select({ id: seasons.id })
+              .from(seasons)
+              .where(and(eq(seasons.id, validData.seasonId), eq(seasons.userId, validData.userId)))
+              .limit(1);
+            if (!existingSeason) {
+              throw new Error(`Season not found: ${validData.seasonId}`);
+            }
+
+            // Validate teamId exists for this user; if not found (e.g. local unsaved team or deleted), safely fallback to null
+            let effectiveTeamId = validData.teamId ?? null;
+            if (effectiveTeamId) {
+              const [existingTeam] = await tx
+                .select({ id: teams.id })
+                .from(teams)
+                .where(and(eq(teams.id, effectiveTeamId), eq(teams.userId, validData.userId)))
+                .limit(1);
+              if (!existingTeam) {
+                effectiveTeamId = null;
+              }
+            }
+
             const [record] = await tx
               .insert(battleRecords)
-              .values(validData as unknown as InsertBattleRecord)
+              .values({
+                ...(validData as unknown as InsertBattleRecord),
+                teamId: effectiveTeamId,
+                tags: validData.tags ? [...validData.tags] : [],
+              })
               .returning();
 
             const opponents = data.opponents || [];
@@ -86,9 +113,25 @@ export const updateBattleRecord = (
 ): TaskEither<MitamaError, typeof battleRecords.$inferSelect> =>
   tryCatch(
     async () => {
+      let effectiveTeamId = data.teamId;
+      if (effectiveTeamId) {
+        const [existingTeam] = await db
+          .select({ id: teams.id })
+          .from(teams)
+          .where(and(eq(teams.id, effectiveTeamId), eq(teams.userId, userId)))
+          .limit(1);
+        if (!existingTeam) {
+          effectiveTeamId = null;
+        }
+      }
+
       const [result] = await db
         .update(battleRecords)
-        .set({ ...data, updatedAt: new Date() })
+        .set({
+          ...data,
+          ...(data.teamId !== undefined && { teamId: effectiveTeamId }),
+          updatedAt: new Date(),
+        })
         .where(and(eq(battleRecords.id, id), eq(battleRecords.userId, userId)))
         .returning();
       return result;

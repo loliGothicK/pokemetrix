@@ -59,6 +59,11 @@ export class BattleRecordFactory<
     return this;
   }
 
+  withTags(tags: string[]): this {
+    this.data.tags = tags;
+    return this;
+  }
+
   withPlayedAt(playedAt: Date | null): this {
     if (playedAt) this.data.playedAt = playedAt;
     return this;

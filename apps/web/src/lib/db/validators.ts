@@ -83,6 +83,7 @@ export const insertBattleRecordSchema = z.object({
   myTeam: z.array(z.record(z.string(), z.unknown())).max(6),
   mySelection: z.array(z.number().int().min(0).max(5)).nullish(),
   rating: z.number().min(0).max(100000).nullish(),
+  tags: z.array(z.string()).nullish(),
   notes: z.string().nullish(),
   playedAt: z.date().nullish(),
   createdAt: z.date().optional(),

@@ -13,6 +13,7 @@ import {
   type BattleRecordOpponent,
 } from "@/store/battle-record/battleRecord";
 import { withChildSpan } from "@/lib/otel";
+import * as Sentry from "@sentry/nextjs";
 import type { InferSelectModel } from "drizzle-orm";
 import type { TrainedPokemon } from "@/store/team/team";
 
@@ -145,6 +146,14 @@ export async function POST(request: Request) {
       );
 
       if (isLeft(dtoEither)) {
+        console.error("[POST /api/battle-records error]", dtoEither.left);
+        Sentry.captureException(dtoEither.left, {
+          extra: {
+            userId,
+            seasonId: input.seasonId,
+            teamId: input.teamId,
+          },
+        });
         return NextResponse.json({ error: dtoEither.left.message }, { status: 500 });
       }
 
