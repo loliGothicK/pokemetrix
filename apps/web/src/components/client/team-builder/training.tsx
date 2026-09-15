@@ -1093,10 +1093,10 @@ export function Training({
                     const isMinus = ongoing.nature?.minus === stat;
                     const natureMultiplier = isPlus ? 1.1 : isMinus ? 0.9 : 1.0;
 
-                    // 効率的なEV投資ポイントを算出
-                    const efficientMarks = useMemo(() => {
-                      if (stat === "hp" || !isPlus) return false;
-                      const marks = [];
+                    // 効率的なEV投資ポイントを算出（フォルムチェンジ等で activePokemon.status が変わった場合も即時反映）
+                    let efficientMarks: { value: number }[] | false = false;
+                    if (stat !== "hp" && isPlus) {
+                      const marks: { value: number }[] = [];
                       for (let v = 0; v <= MAX_EV_PER_STAT; v++) {
                         // 補正なし(1.0)の生ステータスを計算
                         const raw = calcStatus(activePokemon.status[statIndex], v, 1.0);
@@ -1104,8 +1104,10 @@ export function Training({
                           marks.push({ value: v });
                         }
                       }
-                      return marks.length > 0 ? marks : false;
-                    }, [stat, isPlus, statIndex]);
+                      if (marks.length > 0) {
+                        efficientMarks = marks;
+                      }
+                    }
 
                     return (
                       <Box
