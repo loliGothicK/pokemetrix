@@ -2795,7 +2795,7 @@
     {
       "id": 666,
       "identifier": "vivillon",
-      "slug": "vivillon-fancy-pattern",
+      "slug": "vivillon",
       "types": ["bug", "flying"],
       "abilities": [19, 132],
       "status": [80, 52, 50, 90, 50, 89],
@@ -2823,7 +2823,7 @@
     {
       "id": 10061,
       "identifier": "floette-eternal",
-      "slug": "floette",
+      "slug": "floette-eternal",
       "types": "inherit",
       "abilities": "inherit",
       "status": "inherit",
@@ -3841,7 +3841,7 @@
     {
       "id": 925,
       "identifier": "maushold-family-of-four",
-      "slug": "maushold",
+      "slug": "maushold-four",
       "types": ["normal"],
       "abilities": [132, 167, 101],
       "status": [74, 75, 70, 65, 75, 111],
@@ -4933,7 +4933,7 @@
     {
       "id": 849,
       "identifier": "toxtricity-amped",
-      "slug": "toxtricity-amped",
+      "slug": "toxtricity",
       "types": ["electric", "poison"],
       "abilities": [244, 57, 101],
       "status": [75, 98, 70, 114, 70, 75],
@@ -5015,7 +5015,7 @@
     {
       "id": 876,
       "identifier": "indeedee-male",
-      "slug": "indeedee-male",
+      "slug": "indeedee",
       "types": ["psychic", "normal"],
       "abilities": [39, 28, 227],
       "status": [60, 65, 55, 105, 95, 95],

@@ -18,18 +18,29 @@ const pokemonSchema = z
     name: z.string(),
     battleName: z.string(),
     slug: z.string(),
-    summary: z.object({
-      battleSummary: z.object({
-        Current: z.object({
-          Doubles: z.object({
-            rows: z.array(rowSchema),
-          }),
-          Singles: z.object({
-            rows: z.array(rowSchema),
-          }),
-        }),
-      }),
-    }),
+    summary: z
+      .object({
+        battleSummary: z
+          .record(
+            z.string(),
+            z
+              .object({
+                Doubles: z
+                  .object({
+                    rows: z.array(rowSchema).default([]),
+                  })
+                  .optional(),
+                Singles: z
+                  .object({
+                    rows: z.array(rowSchema).default([]),
+                  })
+                  .optional(),
+              })
+              .optional(),
+          )
+          .optional(),
+      })
+      .optional(),
   })
   .readonly();
 

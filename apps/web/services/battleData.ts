@@ -1,10 +1,5 @@
 import { ok, err, Result } from "neverthrow";
-import { Lens } from "monocle-ts";
-import { fetchAndParseBattleData, type PokemonCacheData } from "@services/battleDataCache";
-
-const rowsLenz = (format: "Singles" | "Doubles") => {
-  return Lens.fromPath<PokemonCacheData>()(["summary", "battleSummary", "Current", format, "rows"]);
-};
+import { fetchAndParseBattleData } from "@services/battleDataCache";
 
 export type Info = {
   readonly name: string;
@@ -24,7 +19,7 @@ export async function fetchBattleData(
 ): Promise<Result<FetchResponse, Error>> {
   try {
     const data = await fetchAndParseBattleData(format, slug);
-    const rows = rowsLenz(format).get(data);
+    const rows = data.summary?.battleSummary?.Current?.[format]?.rows ?? [];
     return ok({
       heldItems: rows
         .filter(({ category }) => category === "held_item")
