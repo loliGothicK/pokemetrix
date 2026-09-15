@@ -191,6 +191,55 @@ export function Training({
     return MAX_EV_TOTAL - Object.values(ongoing.evs).reduce((a, b) => a + b, 0 as number);
   }, [ongoing]);
 
+  const handleOptimizeBulk = () => {
+    const baseStats = {
+      hp: activePokemon.status[0],
+      def: activePokemon.status[2],
+      spd: activePokemon.status[4],
+    };
+    const currentBulkEvs =
+      (ongoing.evs?.hp ?? 0) + (ongoing.evs?.def ?? 0) + (ongoing.evs?.spd ?? 0);
+    const availablePool = currentBulkEvs + remainingEvs;
+
+    const defaultMinus = (() => {
+      const currentMinus = ongoing.nature?.minus;
+      if (
+        currentMinus &&
+        currentMinus !== "def" &&
+        currentMinus !== "spd" &&
+        currentMinus !== "hp"
+      ) {
+        return currentMinus as "atk" | "spa" | "spe";
+      }
+      const atkEv = ongoing.evs?.atk ?? 0;
+      const spaEv = ongoing.evs?.spa ?? 0;
+      if (atkEv > spaEv) return "spa";
+      if (spaEv > atkEv) return "atk";
+      return activePokemon.status[1] > activePokemon.status[3] ? "spa" : "atk";
+    })();
+
+    const result = optimizeBulk(baseStats, ongoing.nature ?? {}, availablePool, {
+      physicalRatio,
+      minEvs: {
+        hp: ongoing.evs?.hp ?? 0,
+        def: ongoing.evs?.def ?? 0,
+        spd: ongoing.evs?.spd ?? 0,
+      },
+      defaultMinus,
+    });
+
+    handleUpdate({
+      ...ongoing,
+      evs: {
+        ...ongoing.evs,
+        hp: result.evs.hp as EV,
+        def: result.evs.def as EV,
+        spd: result.evs.spd as EV,
+      },
+      ...(result.nature ? { nature: result.nature as TrainedPokemon["nature"] } : {}),
+    });
+  };
+
   const handleDrawerOpen = (slot: number) => {
     setActiveMoveSlot(slot);
     setDrawerOpen(true);
@@ -836,35 +885,7 @@ export function Training({
                     variant="outlined"
                     size="small"
                     color="primary"
-                    onClick={() => {
-                      const baseStats = {
-                        hp: activePokemon.status[0],
-                        def: activePokemon.status[2],
-                        spd: activePokemon.status[4],
-                      };
-                      const currentBulkEvs =
-                        (ongoing.evs?.hp ?? 0) + (ongoing.evs?.def ?? 0) + (ongoing.evs?.spd ?? 0);
-                      const availablePool = currentBulkEvs + remainingEvs;
-
-                      const result = optimizeBulk(baseStats, ongoing.nature ?? {}, availablePool, {
-                        physicalRatio,
-                        minEvs: {
-                          hp: ongoing.evs?.hp ?? 0,
-                          def: ongoing.evs?.def ?? 0,
-                          spd: ongoing.evs?.spd ?? 0,
-                        },
-                      });
-
-                      handleUpdate({
-                        ...ongoing,
-                        evs: {
-                          ...ongoing.evs,
-                          hp: result.evs.hp as EV,
-                          def: result.evs.def as EV,
-                          spd: result.evs.spd as EV,
-                        },
-                      });
-                    }}
+                    onClick={handleOptimizeBulk}
                     sx={{
                       textTransform: "none",
                       fontWeight: 600,
@@ -974,40 +995,7 @@ export function Training({
                       variant="contained"
                       size="small"
                       onClick={() => {
-                        const baseStats = {
-                          hp: activePokemon.status[0],
-                          def: activePokemon.status[2],
-                          spd: activePokemon.status[4],
-                        };
-                        const currentBulkEvs =
-                          (ongoing.evs?.hp ?? 0) +
-                          (ongoing.evs?.def ?? 0) +
-                          (ongoing.evs?.spd ?? 0);
-                        const availablePool = currentBulkEvs + remainingEvs;
-
-                        const result = optimizeBulk(
-                          baseStats,
-                          ongoing.nature ?? {},
-                          availablePool,
-                          {
-                            physicalRatio,
-                            minEvs: {
-                              hp: ongoing.evs?.hp ?? 0,
-                              def: ongoing.evs?.def ?? 0,
-                              spd: ongoing.evs?.spd ?? 0,
-                            },
-                          },
-                        );
-
-                        handleUpdate({
-                          ...ongoing,
-                          evs: {
-                            ...ongoing.evs,
-                            hp: result.evs.hp as EV,
-                            def: result.evs.def as EV,
-                            spd: result.evs.spd as EV,
-                          },
-                        });
+                        handleOptimizeBulk();
                         setBulkSettingsAnchorEl(null);
                       }}
                       sx={{ textTransform: "none", fontWeight: 600 }}

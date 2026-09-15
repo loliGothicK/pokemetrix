@@ -16,20 +16,20 @@ describe("optimizeBulk", () => {
     expect(result.evs.hp).toBe(0);
   });
 
-  it("Rotom / Shuckle (low HP, high Def/SpD) prioritizes H investment", () => {
+  it("Rotom / Shuckle (low HP, high Def/SpD) prioritizes H investment with fixed neutral nature", () => {
     // Rotom-Wash base stats: HP 50, Def 107, SpD 107
     const baseStats = { hp: 50, def: 107, spd: 107 };
     const nature = { plus: null, minus: null };
     const pool = 64;
 
-    const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 0.5 });
+    const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 0.5, optimizeNature: false });
 
     // Rotom has low HP (50+75=125) compared to B+D (127+127=254).
     // H < B + D -> H should be maxed out to 32!
     expect(result.evs.hp).toBe(32);
     // Remaining 32 should be distributed between Def and SpD
     expect(result.evs.def + result.evs.spd).toBe(32);
-    // B and D base are equal, so Def and SpD should be equally split
+    // B and D base are equal with neutral nature, so Def and SpD should be equally split
     expect(result.evs.def).toBe(16);
     expect(result.evs.spd).toBe(16);
   });
@@ -100,5 +100,85 @@ describe("optimizeBulk", () => {
     expect(result.evs.spd).toBeGreaterThanOrEqual(10);
     expect(result.evs.hp).toBeGreaterThanOrEqual(0);
     expect(result.evs.hp + result.evs.def + result.evs.spd).toBeLessThanOrEqual(44);
+  });
+
+  describe("Nature optimization when nature.plus is not specified", () => {
+    it("selects Def+ nature when physicalRatio is 1.0", () => {
+      const baseStats = { hp: 80, def: 80, spd: 80 };
+      const nature = { plus: null, minus: null };
+      const pool = 64;
+
+      const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 1.0 });
+
+      expect(result.nature?.plus).toBe("def");
+      expect(result.nature?.minus).toBe("atk"); // default minus
+      expect(result.evs.hp).toBe(32);
+      expect(result.evs.def).toBe(32);
+    });
+
+    it("selects SpD+ nature when physicalRatio is 0.0", () => {
+      const baseStats = { hp: 80, def: 80, spd: 80 };
+      const nature = { plus: null, minus: null };
+      const pool = 64;
+
+      const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 0.0 });
+
+      expect(result.nature?.plus).toBe("spd");
+      expect(result.nature?.minus).toBe("atk");
+      expect(result.evs.hp).toBe(32);
+      expect(result.evs.spd).toBe(32);
+    });
+
+    it("selects Def+ for Blissey (extreme low Def) to balance defenses", () => {
+      const baseStats = { hp: 255, def: 10, spd: 135 };
+      const nature = {};
+      const pool = 32;
+
+      const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 0.5 });
+
+      expect(result.nature?.plus).toBe("def");
+    });
+
+    it("preserves existing nature.plus when already specified (e.g. Atk+ or Spe+)", () => {
+      const baseStats = { hp: 80, def: 80, spd: 80 };
+      const pool = 64;
+
+      // Atk+ specified
+      const resultAtk = optimizeBulk(baseStats, { plus: "atk", minus: "spa" }, pool, { physicalRatio: 0.5 });
+      expect(resultAtk.nature?.plus).toBe("atk");
+      expect(resultAtk.nature?.minus).toBe("spa");
+
+      // Spe+ specified
+      const resultSpe = optimizeBulk(baseStats, { plus: "spe", minus: "atk" }, pool, { physicalRatio: 1.0 });
+      expect(resultSpe.nature?.plus).toBe("spe");
+      expect(resultSpe.nature?.minus).toBe("atk");
+
+      // Def+ already specified
+      const resultDef = optimizeBulk(baseStats, { plus: "def", minus: "spa" }, pool, { physicalRatio: 0.0 });
+      expect(resultDef.nature?.plus).toBe("def");
+      expect(resultDef.nature?.minus).toBe("spa");
+    });
+
+    it("preserves existing valid minus stat (e.g. Spe- for Trick Room)", () => {
+      const baseStats = { hp: 80, def: 80, spd: 80 };
+      const nature = { plus: null, minus: "spe" };
+      const pool = 64;
+
+      const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 1.0 });
+
+      expect(result.nature?.plus).toBe("def");
+      expect(result.nature?.minus).toBe("spe"); // Relaxed nature
+    });
+
+    it("respects defaultMinus option when specified", () => {
+      const baseStats = { hp: 80, def: 80, spd: 80 };
+      const nature = { plus: null, minus: null };
+      const pool = 64;
+
+      const result = optimizeBulk(baseStats, nature, pool, { physicalRatio: 1.0, defaultMinus: "spa" });
+
+      expect(result.nature?.plus).toBe("def");
+      expect(result.nature?.minus).toBe("spa"); // Impish nature
+    });
   });
 });
