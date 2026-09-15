@@ -16,7 +16,8 @@ import Image from "next/image";
 import { itemById, itemList } from "@/data/items";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
+import { flushSync } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { itemSprite } from "@/lib/image";
@@ -288,39 +289,46 @@ export default function TeamOverview({
   // 各スロットに対して安定した ID を割り当てて追跡する
   // ポケモンの場合は一意な member.boxId、空スロットの場合は空スロット用 ID
   const sortableIds = useMemo(
-    () => team.members.map((m, i) => m?.boxId ?? `empty-${i}`),
+    () => team.members.map((m, i) => m?.boxId ?? `slot-${i}`),
     [team.members],
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-    const fromIndex = sortableIds.indexOf(String(active.id));
-    const toIndex = sortableIds.indexOf(String(over.id));
-    if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) return;
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (!over || active.id === over.id) return;
+      const fromIndex = sortableIds.indexOf(String(active.id));
+      const toIndex = sortableIds.indexOf(String(over.id));
+      if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) return;
 
-    // チームメンバーの並び替え
-    reorderMembers(fromIndex, toIndex);
-
-    // activeSlot が指定されている場合、参照先インデックスを追従させる
-    if (typeof activeSlot === "number") {
+      // activeSlot の追従先を事前に計算する
       let nextActiveSlot = activeSlot;
-      if (activeSlot === fromIndex) {
-        nextActiveSlot = toIndex;
-      } else if (fromIndex < toIndex) {
-        if (activeSlot > fromIndex && activeSlot <= toIndex) {
-          nextActiveSlot = activeSlot - 1;
-        }
-      } else if (fromIndex > toIndex) {
-        if (activeSlot >= toIndex && activeSlot < fromIndex) {
-          nextActiveSlot = activeSlot + 1;
+      if (typeof activeSlot === "number") {
+        if (activeSlot === fromIndex) {
+          nextActiveSlot = toIndex;
+        } else if (fromIndex < toIndex) {
+          if (activeSlot > fromIndex && activeSlot <= toIndex) {
+            nextActiveSlot = activeSlot - 1;
+          }
+        } else if (fromIndex > toIndex) {
+          if (activeSlot >= toIndex && activeSlot < fromIndex) {
+            nextActiveSlot = activeSlot + 1;
+          }
         }
       }
-      if (nextActiveSlot !== activeSlot) {
+
+      // flushSync でJotai状態をブラウザに同期コミットしてから router.replace を呼ぶ。
+      // こうすることで「Jotai更新済み・URL未更新」の torn state フレームを排除する。
+      flushSync(() => {
+        reorderMembers(fromIndex, toIndex);
+      });
+
+      if (typeof nextActiveSlot === "number" && nextActiveSlot !== activeSlot) {
         router.replace(`/team-builder/${nextActiveSlot}`);
       }
-    }
-  };
+    },
+    [sortableIds, activeSlot, reorderMembers, router],
+  );
 
   return (
     <SurfaceCard

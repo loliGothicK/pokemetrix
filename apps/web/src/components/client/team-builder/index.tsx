@@ -902,7 +902,7 @@ export default function TeamBuilderPage({
 
           {isMobile ? (
             hasSelection && activeTeam ? (
-              <TeamSlotDetail slot={activeSlot!} showBackButton />
+              <TeamSlotDetail key={activeSlot} slot={activeSlot!} showBackButton />
             ) : mobileView === "list" ? (
               <MobileTeamList
                 teams={teams}
@@ -952,7 +952,7 @@ export default function TeamBuilderPage({
               </Grid>
               <Grid component={"div"} size={{ xs: 12, md: 9 }} sx={{ height: "100%" }}>
                 {hasSelection ? (
-                  <TeamSlotDetail slot={activeSlot!} />
+                  <TeamSlotDetail key={activeSlot} slot={activeSlot!} />
                 ) : (
                   <Box
                     sx={{

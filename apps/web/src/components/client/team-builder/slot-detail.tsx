@@ -61,8 +61,6 @@ export default function TeamSlotDetail({
   const { saveToBox } = useBoxData();
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
-  const [lastMemberIdentifier, setLastMemberIdentifier] = useState<string | null>(null);
-
   // URL 由来のスロットを、Lint セレクタ（activeSlotLintIssueAtom）が参照する atom に同期する。
   useEffect(() => {
     setActiveSlotIndex(slot);
@@ -73,19 +71,6 @@ export default function TeamSlotDetail({
   }
 
   const member = team.members[slot] ?? null;
-
-  const [prevMemberIdentifier, setPrevMemberIdentifier] = useState<string | undefined>(
-    member?.identifier,
-  );
-
-  if (prevMemberIdentifier !== member?.identifier) {
-    setPrevMemberIdentifier(member?.identifier);
-    if (member?.identifier) {
-      setLastMemberIdentifier(member.identifier);
-    }
-  }
-
-  const targetIdentifier = member?.identifier || lastMemberIdentifier;
 
   return (
     <SurfaceCard
@@ -263,7 +248,9 @@ export default function TeamSlotDetail({
         <DialogContent>
           <DialogContentText>
             {t("teamBuilder.deleteTeamConfirm", {
-              name: targetIdentifier ? t(`pokemon.${targetIdentifier}.name`) : t("pokemon.unknown"),
+              name: member?.identifier
+                ? t(`pokemon.${member.identifier}.name`)
+                : t("pokemon.unknown"),
             })}
           </DialogContentText>
         </DialogContent>
