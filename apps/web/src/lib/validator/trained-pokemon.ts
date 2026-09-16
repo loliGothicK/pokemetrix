@@ -2,6 +2,46 @@ import { z } from "zod";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { MAX_EV_TOTAL, MAX_EV_PER_STAT } from "@/store/team/lint";
 
+export const trainedPokemonSaveSchema = z
+  .object({
+    boxId: z.string(),
+    identifier: z.string(),
+    slug: z.string().optional(),
+    item: z.number().nullable().optional(),
+    ability: z.number().optional(),
+    gender: z
+      .object({
+        fixed: z.boolean().optional(),
+        specified: z.enum(["male", "female", "unknown"]).optional(),
+      })
+      .optional(),
+    nature: z
+      .object({
+        plus: z.enum(["hp", "atk", "def", "spa", "spd", "spe"]).nullable().optional(),
+        minus: z.enum(["hp", "atk", "def", "spa", "spd", "spe"]).nullable().optional(),
+      })
+      .optional(),
+    moves: z
+      .tuple([
+        z.number().nullable(),
+        z.number().nullable(),
+        z.number().nullable(),
+        z.number().nullable(),
+      ])
+      .optional(),
+    evs: z
+      .object({
+        hp: z.number().optional(),
+        atk: z.number().optional(),
+        def: z.number().optional(),
+        spa: z.number().optional(),
+        spd: z.number().optional(),
+        spe: z.number().optional(),
+      })
+      .optional(),
+  })
+  .loose();
+
 export const trainedPokemonSchema = z
   .object({
     boxId: z.string(),

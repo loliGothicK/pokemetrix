@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import { localTeamsAtom, Team } from "@/store/team/team";
 import { isAuthenticatedAtom } from "@/store/auth";
 import { saveTeamsToServer } from "@services/teams";
-import { teamSchema } from "@/lib/validator/team";
+import { teamSchema, teamSaveSchema } from "@/lib/validator/team";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
 
@@ -49,7 +49,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
           ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
         ];
 
-        const validTeams = mergedTeams.filter((t) => teamSchema.safeParse(t).success);
+        const validTeams = mergedTeams.filter((t) => teamSaveSchema.safeParse(t).success);
         await saveTeamsToServer(validTeams);
         return validTeams;
       },
@@ -83,7 +83,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
     const draftReasons = formatTeamValidationIssues(parseResult, t, activeTeam.members);
 
     const isLoading = saveMutation.isPending;
-    const isSaved = !hasUnsavedChanges && !isDraft;
+    const isSaved = !hasUnsavedChanges;
 
     const actionIcon = isLoading ? (
       <CircularProgress size={16} color="inherit" />
@@ -98,7 +98,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
       : isSaved
         ? t("teamBuilder.saved") || "Synced"
         : isDraft
-          ? t("teamBuilder.draft") || "Draft"
+          ? `${t("teamBuilder.saveToCloud") || "Sync"} (${t("teamBuilder.draft") || "Draft"})`
           : t("teamBuilder.saveToCloud") || "Sync";
 
     const button = asSpeedDialAction ? (
@@ -110,7 +110,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         onClick={() => saveMutation.mutate()}
         slotProps={{
           tooltip: { title: actionText, open: true },
-          fab: { disabled: isLoading || isSaved || isDraft },
+          fab: { disabled: isLoading || isSaved },
         }}
       />
     ) : (
@@ -119,7 +119,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         variant={hasUnsavedChanges ? "contained" : "outlined"}
         disableElevation
         color={hasUnsavedChanges ? (isDraft ? "warning" : "primary") : "inherit"}
-        disabled={isLoading || isSaved || isDraft}
+        disabled={isLoading || isSaved}
         startIcon={actionIcon}
         onClick={() => saveMutation.mutate()}
         sx={{ transition: "all 0.2s", minWidth: 140 }}

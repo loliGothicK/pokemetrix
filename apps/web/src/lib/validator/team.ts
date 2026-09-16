@@ -1,6 +1,14 @@
 import { z } from "zod";
 import { pokemonByIdentifier } from "@/data/pokemon";
-import { trainedPokemonSchema } from "./trained-pokemon";
+import { trainedPokemonSchema, trainedPokemonSaveSchema } from "./trained-pokemon";
+
+export const teamSaveSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1).max(100),
+  members: z.array(trainedPokemonSaveSchema.nullable()).max(6),
+});
+
+export const teamsSaveSchema = z.array(teamSaveSchema);
 
 export const teamSchema = z
   .object({

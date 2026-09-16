@@ -49,7 +49,7 @@ export default function TeamSlotDetail({
   readonly slot: number;
   readonly showBackButton?: boolean;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -104,7 +104,9 @@ export default function TeamSlotDetail({
           <IconButton
             edge="start"
             aria-label={t("teamBuilder.back")}
-            onClick={() => router.push("/team-builder?view=overview")}
+            onClick={() =>
+              router.push(`/${i18n.resolvedLanguage ?? "ja"}/team-builder?view=overview`)
+            }
           >
             <ArrowBackIcon />
           </IconButton>

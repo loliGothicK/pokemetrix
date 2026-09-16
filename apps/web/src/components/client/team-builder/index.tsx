@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useSyncExternalStore } from "react";
+import { useState, useMemo, useSyncExternalStore, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
@@ -132,6 +132,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import UploadIcon from "@mui/icons-material/Upload";
 import RuleIcon from "@mui/icons-material/Rule";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
+import { useTeamAutoSave } from "@/hooks/useTeamAutoSave";
 import { activeTeamLintAtom } from "@/store/team/options";
 import Add from "@mui/icons-material/Add";
 
@@ -518,13 +519,16 @@ export default function TeamBuilderPage({
   readonly activeSlot?: number;
 }) {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage ?? "ja";
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
+  const effectiveSlot = isMobile ? activeSlot : (selectedSlot ?? activeSlot);
   const hasSelection =
-    typeof activeSlot === "number" &&
-    Number.isInteger(activeSlot) &&
-    activeSlot >= 0 &&
-    activeSlot < MAX_TEAM_SIZE;
+    typeof effectiveSlot === "number" &&
+    Number.isInteger(effectiveSlot) &&
+    effectiveSlot >= 0 &&
+    effectiveSlot < MAX_TEAM_SIZE;
   const [drawerOpen, setDrawerOpen] = useAtom(drawerOpenAtom);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -543,6 +547,25 @@ export default function TeamBuilderPage({
     () => false,
   );
   const teams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
+
+  // チーム未選択時または存在しないチームIDの場合、先頭のチームを自動選択
+  useEffect(() => {
+    if (
+      mounted &&
+      teams.length > 0 &&
+      (!activeTeamId || !teams.some((t) => t.id === activeTeamId))
+    ) {
+      setActiveTeamId(teams[0].id);
+    }
+  }, [mounted, activeTeamId, teams, setActiveTeamId]);
+
+  useTeamAutoSave();
+
+  const handleSelectSlot = (slot: number) => {
+    setSelectedSlot(slot);
+    window.history.replaceState(null, "", `/${lang}/team-builder/${slot}`);
+  };
+
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
   const [, , , , undo, redo, canUndo, canRedo] = useActiveTeam();
 
@@ -598,7 +621,7 @@ export default function TeamBuilderPage({
     }
     setDeleteTargetId(null);
     if (isMobile) {
-      router.push("/team-builder");
+      router.push(`/${lang}/team-builder`);
     }
   };
 
@@ -902,21 +925,21 @@ export default function TeamBuilderPage({
 
           {isMobile ? (
             hasSelection && activeTeam ? (
-              <TeamSlotDetail key={activeSlot} slot={activeSlot!} showBackButton />
+              <TeamSlotDetail key={effectiveSlot} slot={effectiveSlot!} showBackButton />
             ) : mobileView === "list" ? (
               <MobileTeamList
                 teams={teams}
                 onSelectTeam={(id) => {
                   setActiveTeamId(id);
-                  router.push("/team-builder?view=overview");
+                  router.push(`/${lang}/team-builder?view=overview`);
                 }}
                 onCreateTeam={() => {
                   handleCreateNewTeam();
-                  router.push("/team-builder?view=overview");
+                  router.push(`/${lang}/team-builder?view=overview`);
                 }}
                 onImportTeam={(team) => {
                   handleCreateTeam(team);
-                  router.push("/team-builder?view=overview");
+                  router.push(`/${lang}/team-builder?view=overview`);
                 }}
                 onError={(d) => {
                   setDiagnostics(d);
@@ -925,8 +948,8 @@ export default function TeamBuilderPage({
               />
             ) : activeTeam ? (
               <TeamOverview
-                activeSlot={hasSelection ? activeSlot : undefined}
-                onBack={() => router.push("/team-builder")}
+                activeSlot={hasSelection ? effectiveSlot : undefined}
+                onBack={() => router.push(`/${lang}/team-builder`)}
               />
             ) : null
           ) : !activeTeam ? (
@@ -948,11 +971,14 @@ export default function TeamBuilderPage({
           ) : (
             <Grid container spacing={3}>
               <Grid component={"div"} size={{ xs: 12, md: 3 }} sx={{ height: "100%" }}>
-                <TeamOverview activeSlot={hasSelection ? activeSlot : undefined} />
+                <TeamOverview
+                  activeSlot={hasSelection ? effectiveSlot : undefined}
+                  onSelectSlot={handleSelectSlot}
+                />
               </Grid>
               <Grid component={"div"} size={{ xs: 12, md: 9 }} sx={{ height: "100%" }}>
                 {hasSelection ? (
-                  <TeamSlotDetail key={activeSlot} slot={activeSlot!} />
+                  <TeamSlotDetail key={effectiveSlot} slot={effectiveSlot!} />
                 ) : (
                   <Box
                     sx={{

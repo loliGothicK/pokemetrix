@@ -26,7 +26,7 @@ export const useTeamsData = () => {
     },
   });
 
-  const serverTeams = teamsQuery.data ?? [];
+  const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
 
   // データソースの切り替え: サーバーデータにローカルデータをマージ（ローカル優先）
   const teams = isAuthenticated

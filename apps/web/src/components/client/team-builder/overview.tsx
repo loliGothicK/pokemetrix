@@ -16,8 +16,7 @@ import Image from "next/image";
 import { itemById, itemList } from "@/data/items";
 import DragIndicatorRoundedIcon from "@mui/icons-material/DragIndicatorRounded";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useMemo, useCallback } from "react";
-import { flushSync } from "react-dom";
+import { useMemo, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
 import { itemSprite } from "@/lib/image";
@@ -253,9 +252,11 @@ function SortableSlotItem({
 
 export default function TeamOverview({
   activeSlot,
+  onSelectSlot,
   onBack,
 }: {
   readonly activeSlot?: number;
+  readonly onSelectSlot?: (slot: number) => void;
   readonly onBack?: () => void;
 }) {
   const { t, i18n } = useTranslation();
@@ -284,13 +285,27 @@ export default function TeamOverview({
     }),
   );
 
-  if (!team) return null;
+  // 空スロット用の安定した一意キー。並び替え時にもスロットと一緒に移動させて dnd-kit の追跡破綻を防ぐ
+  const [slotKeys, setSlotKeys] = useState<readonly string[]>([
+    "empty-0",
+    "empty-1",
+    "empty-2",
+    "empty-3",
+    "empty-4",
+    "empty-5",
+  ]);
+  const [prevTeamId, setPrevTeamId] = useState(team?.id);
+
+  if (team && team.id !== prevTeamId) {
+    setPrevTeamId(team.id);
+    setSlotKeys(["empty-0", "empty-1", "empty-2", "empty-3", "empty-4", "empty-5"]);
+  }
 
   // 各スロットに対して安定した ID を割り当てて追跡する
-  // ポケモンの場合は一意な member.boxId、空スロットの場合は空スロット用 ID
+  // ポケモンの場合は一意な member.boxId、空スロットの場合は空スロット用の永続キー
   const sortableIds = useMemo(
-    () => team.members.map((m, i) => m?.boxId ?? `slot-${i}`),
-    [team.members],
+    () => (team ? team.members.map((m, i) => m?.boxId ?? slotKeys[i] ?? `slot-${i}`) : []),
+    [team, slotKeys],
   );
 
   const handleDragEnd = useCallback(
@@ -317,18 +332,29 @@ export default function TeamOverview({
         }
       }
 
-      // flushSync でJotai状態をブラウザに同期コミットしてから router.replace を呼ぶ。
-      // こうすることで「Jotai更新済み・URL未更新」の torn state フレームを排除する。
-      flushSync(() => {
-        reorderMembers(fromIndex, toIndex);
+      // 空スロットキーも並び替えに合わせて同期移動
+      setSlotKeys((prev) => {
+        const next = [...prev];
+        const [movedKey] = next.splice(fromIndex, 1);
+        next.splice(toIndex, 0, movedKey);
+        return next;
       });
 
+      reorderMembers(fromIndex, toIndex);
+
       if (typeof nextActiveSlot === "number" && nextActiveSlot !== activeSlot) {
-        router.replace(`/team-builder/${nextActiveSlot}`);
+        if (onSelectSlot) {
+          onSelectSlot(nextActiveSlot);
+        } else {
+          const locale = i18n.resolvedLanguage ?? "ja";
+          router.replace(`/${locale}/team-builder/${nextActiveSlot}`);
+        }
       }
     },
-    [sortableIds, activeSlot, reorderMembers, router],
+    [sortableIds, activeSlot, onSelectSlot, reorderMembers, router, i18n.resolvedLanguage],
   );
+
+  if (!team) return null;
 
   return (
     <SurfaceCard
@@ -395,7 +421,14 @@ export default function TeamOverview({
                   index={index}
                   member={member}
                   isActive={activeSlot === index}
-                  onNavigate={() => router.push(`/team-builder/${index}`)}
+                  onNavigate={() => {
+                    if (onSelectSlot) {
+                      onSelectSlot(index);
+                    } else {
+                      const locale = i18n.resolvedLanguage ?? "ja";
+                      router.push(`/${locale}/team-builder/${index}`);
+                    }
+                  }}
                 />
               );
             })}
