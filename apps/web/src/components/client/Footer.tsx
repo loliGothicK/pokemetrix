@@ -2,6 +2,7 @@
 
 import { Box, Container, Link, Stack, Typography, useTheme } from "@mui/material";
 import NextLink from "next/link";
+import { LocalizedLink } from "@/components/client/LocalizedLink";
 import { useTranslation } from "react-i18next";
 import { flexRowCenter } from "@/theme/sx";
 
@@ -25,7 +26,7 @@ export function Footer() {
         <Stack spacing={3} sx={flexRowCenter}>
           <Stack direction="row" spacing={4} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
             <Link
-              component={NextLink}
+              component={LocalizedLink}
               href="/docs"
               color="text.secondary"
               variant="body2"
@@ -34,7 +35,7 @@ export function Footer() {
               {t("navigation.items.docs")}
             </Link>
             <Link
-              component={NextLink}
+              component={LocalizedLink}
               href="/blog"
               color="text.secondary"
               variant="body2"
@@ -43,7 +44,7 @@ export function Footer() {
               {t("navigation.items.blog")}
             </Link>
             <Link
-              component={NextLink}
+              component={LocalizedLink}
               href="/quiz"
               color="text.secondary"
               variant="body2"
@@ -52,7 +53,7 @@ export function Footer() {
               Quiz
             </Link>
             <Link
-              component={NextLink}
+              component={LocalizedLink}
               href="/privacy"
               color="text.secondary"
               variant="body2"
@@ -61,7 +62,7 @@ export function Footer() {
               {t("navigation.items.privacy")}
             </Link>
             <Link
-              component={NextLink}
+              component={LocalizedLink}
               href="/terms"
               color="text.secondary"
               variant="body2"

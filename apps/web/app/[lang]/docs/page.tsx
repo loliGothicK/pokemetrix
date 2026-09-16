@@ -2,10 +2,28 @@ import { allDocs } from "content-collections";
 import type { Metadata } from "next";
 import { DocsIndexClient } from "./DocsIndexClient";
 
-export const metadata: Metadata = {
-  title: "Docs",
-  description: "Documentation for the Pokétistix toolset.",
-};
+import { createLocalizedMetadata } from "@/lib/seo/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<{ readonly lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const isJa = lang === "ja";
+
+  return createLocalizedMetadata({
+    path: "/docs",
+    lang,
+    title: isJa ? "ドキュメント (使い方・機能ガイド) | Pokétistix" : "Documentation | Pokétistix",
+    description: isJa
+      ? "Pokétistix の使い方ガイド。ダメージ計算、チーム構築、努力値調整、対戦記録、データ分析の機能詳細。"
+      : "Comprehensive documentation and user guides for Pokétistix tools, features, and competitive battle mechanics.",
+    keywords: isJa
+      ? ["Pokétistix 使い方", "ポケモン ツール ドキュメント", "ダメージ計算機 使い方"]
+      : ["poketistix docs", "pokemon tool guide", "documentation"],
+  });
+}
 
 export default function DocsIndexPage() {
   const uniqueSlugs = Array.from(new Set(allDocs.map((d) => d.slug)));

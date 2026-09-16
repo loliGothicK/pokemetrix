@@ -38,6 +38,8 @@ export async function proxy(request: NextRequest) {
     pathname === "/manifest.json" ||
     pathname === "/icon.svg" ||
     pathname === "/apple-icon.png" ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/robots.txt" ||
     pathname.includes("/opengraph-image")
   ) {
     return supabaseResponse;
@@ -87,6 +89,6 @@ export const config = {
      * - _next/image (画像最適化)
      * - favicon.ico, sitemap.xml, robots.txt
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

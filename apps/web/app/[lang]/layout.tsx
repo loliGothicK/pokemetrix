@@ -6,37 +6,82 @@ import { ContentLayoutProvider } from "@/components/client/content/ContentLayout
 import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 
-const siteName = "Pokétistix";
-const description = "Analytics Workspace for Pokémon Battle";
-const url = "https://pokemetrix.mitama.io";
+import { BASE_URL } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(url),
-  title: {
-    default: siteName,
-    /** `next-seo`の`titleTemplate`に相当する機能 */
-    template: `%s - ${siteName}`,
-  },
-  description,
-  openGraph: {
-    title: siteName,
-    description,
-    url,
-    siteName,
-    locale: "ja_JP",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteName,
-    description,
-    site: "@mitama_rs",
-    creator: "@mitama_rs",
-  },
-  alternates: {
-    canonical: url,
-  },
-};
+const siteName = "Pokétistix";
+
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<{ readonly lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const isJa = lang === "ja";
+  const locale = isJa ? "ja_JP" : "en_US";
+  const alternateLocale = isJa ? ["en_US"] : ["ja_JP"];
+  const localizedDescription = isJa
+    ? "ポケモン対戦の構築・育成・ダメージ計算・対戦記録・データ分析を一元管理する次世代アナリティクスワークスペース。"
+    : "The analytics workspace for Pokémon battles. Damage calculation, team building, battle records, and winrate insights.";
+
+  return {
+    metadataBase: new URL(BASE_URL),
+    title: {
+      default: siteName,
+      template: `%s - ${siteName}`,
+    },
+    description: localizedDescription,
+    keywords: isJa
+      ? [
+          "Pokétistix",
+          "PokéMetrix",
+          "ポケティスティクス",
+          "ポケメトリクス",
+          "ポケモン",
+          "ダメージ計算",
+          "ダメ計",
+          "構築",
+          "パーティ構築",
+          "チームビルダー",
+          "ダブルバトル",
+          "VGC",
+          "対戦記録",
+        ]
+      : [
+          "Pokétistix",
+          "PokéMetrix",
+          "Pokemon damage calculator",
+          "Pokemon team builder",
+          "VGC damage calc",
+          "Pokemon battle tracker",
+          "Pokemon analytics",
+          "Double battle",
+        ],
+    openGraph: {
+      title: siteName,
+      description: localizedDescription,
+      url: `${BASE_URL}/${lang}`,
+      siteName,
+      locale,
+      alternateLocale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteName,
+      description: localizedDescription,
+      site: "@mitama_rs",
+      creator: "@mitama_rs",
+    },
+    alternates: {
+      canonical: `${BASE_URL}/${lang}`,
+      languages: {
+        ja: `${BASE_URL}/ja`,
+        en: `${BASE_URL}/en`,
+        "x-default": `${BASE_URL}/en`,
+      },
+    },
+  };
+}
 
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { SuppressCancelation } from "@/components/client/SuppressCancelation";

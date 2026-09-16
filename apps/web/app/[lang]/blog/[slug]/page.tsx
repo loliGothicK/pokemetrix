@@ -2,6 +2,8 @@ import { allPosts } from "content-collections";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPostClient } from "./BlogPostClient";
+import { BASE_URL, createLocalizedMetadata } from "@/lib/seo/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 type PageParams = {
   readonly lang: string;
@@ -30,14 +32,18 @@ export async function generateMetadata({
   if (!post) {
     return {};
   }
-  return {
+  return createLocalizedMetadata({
+    path: `/blog/${slug}`,
+    lang,
     title: `${post.title} | Pokétistix Blog`,
     description: post.description,
-  };
+    keywords: post.tags,
+    type: "article",
+  });
 }
 
 export default async function BlogPostPage({ params }: { readonly params: Promise<PageParams> }) {
-  const { slug } = await params;
+  const { lang, slug } = await params;
   const postsForSlug = allPosts.filter((post) => post.slug === slug && !post.draft);
 
   if (postsForSlug.length === 0) {
@@ -70,5 +76,60 @@ export default async function BlogPostPage({ params }: { readonly params: Promis
     ja: sidebarItemsJa.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
   };
 
-  return <BlogPostClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />;
+  const postForSchema = postsForSlug.find((p) => p.locale === lang) ?? postsForSlug[0];
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: postForSchema.title,
+    description: postForSchema.description,
+    datePublished: postForSchema.date.toISOString(),
+    inLanguage: lang === "ja" ? "ja-JP" : "en-US",
+    url: `${BASE_URL}/${lang}/blog/${slug}`,
+    author: {
+      "@type": "Organization",
+      name: "Pokétistix",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Pokétistix",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icon.svg`,
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${BASE_URL}/${lang}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: lang === "ja" ? "ブログ" : "Blog",
+        item: `${BASE_URL}/${lang}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: postForSchema.title,
+        item: `${BASE_URL}/${lang}/blog/${slug}`,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={blogPostingJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <BlogPostClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />
+    </>
+  );
 }

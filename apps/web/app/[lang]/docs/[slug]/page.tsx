@@ -2,6 +2,8 @@ import { allDocs } from "content-collections";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocPageClient } from "./DocPageClient";
+import { BASE_URL, createLocalizedMetadata } from "@/lib/seo/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 type PageParams = {
   readonly lang: string;
@@ -30,14 +32,17 @@ export async function generateMetadata({
   if (!doc) {
     return {};
   }
-  return {
+  return createLocalizedMetadata({
+    path: `/docs/${slug}`,
+    lang,
     title: `${doc.title} | Pokétistix Docs`,
-    description: doc.description,
-  };
+    description: doc.description ?? `${doc.title} documentation for Pokétistix.`,
+    type: "article",
+  });
 }
 
 export default async function DocPage({ params }: { readonly params: Promise<PageParams> }) {
-  const { slug } = await params;
+  const { lang, slug } = await params;
   const docsForSlug = allDocs.filter((doc) => doc.slug === slug);
 
   if (docsForSlug.length === 0) {
@@ -78,5 +83,59 @@ export default async function DocPage({ params }: { readonly params: Promise<Pag
     })),
   };
 
-  return <DocPageClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />;
+  const docForSchema = docsForSlug.find((d) => d.locale === lang) ?? docsForSlug[0];
+  const techArticleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: docForSchema.title,
+    description: docForSchema.description ?? `${docForSchema.title} documentation for Pokétistix.`,
+    inLanguage: lang === "ja" ? "ja-JP" : "en-US",
+    url: `${BASE_URL}/${lang}/docs/${slug}`,
+    author: {
+      "@type": "Organization",
+      name: "Pokétistix",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Pokétistix",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icon.svg`,
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${BASE_URL}/${lang}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: lang === "ja" ? "ドキュメント" : "Docs",
+        item: `${BASE_URL}/${lang}/docs`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: docForSchema.title,
+        item: `${BASE_URL}/${lang}/docs/${slug}`,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={techArticleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <DocPageClient localizedSidebar={localizedSidebar} localizedContent={localizedContent} />
+    </>
+  );
 }

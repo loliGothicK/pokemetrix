@@ -18,12 +18,14 @@ async function fetchSharedTeam(id: string) {
 
 // ── metadata ─────────────────────────────────────────────────────────────────
 
+import { BASE_URL } from "@/lib/seo/metadata";
+
 export async function generateMetadata({
   params,
 }: {
-  readonly params: Promise<{ readonly id: string }>;
+  readonly params: Promise<{ readonly lang: string; readonly id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { lang, id } = await params;
   const row = await fetchSharedTeam(id);
 
   if (!row) {
@@ -49,11 +51,21 @@ export async function generateMetadata({
   const description = memberNames ? `${teamName}: ${memberNames}` : teamName;
 
   return {
+    metadataBase: new URL(BASE_URL),
     title,
     description,
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/share/${id}`,
+      languages: {
+        ja: `${BASE_URL}/ja/share/${id}`,
+        en: `${BASE_URL}/en/share/${id}`,
+        "x-default": `${BASE_URL}/en/share/${id}`,
+      },
+    },
     openGraph: {
       title,
       description,
+      url: `${BASE_URL}/${lang}/share/${id}`,
       type: "website",
     },
     twitter: {

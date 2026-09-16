@@ -2,10 +2,28 @@ import { allPosts } from "content-collections";
 import type { Metadata } from "next";
 import { BlogIndexClient } from "./BlogIndexClient";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Feature updates and development notes from the Pokétistix team.",
-};
+import { createLocalizedMetadata } from "@/lib/seo/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  readonly params: Promise<{ readonly lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const isJa = lang === "ja";
+
+  return createLocalizedMetadata({
+    path: "/blog",
+    lang,
+    title: isJa ? "ブログ (最新機能・開発ノート) | Pokétistix" : "Blog | Pokétistix",
+    description: isJa
+      ? "Pokétistix の最新機能アップデート、開発ノート、対戦仕様に関する解説記事一覧。"
+      : "Feature updates, release notes, and technical insights from the Pokétistix development team.",
+    keywords: isJa
+      ? ["Pokétistix ブログ", "ポケモン ツール アップデート", "開発ノート"]
+      : ["poketistix blog", "pokemon tool updates", "release notes"],
+  });
+}
 
 export default function BlogIndexPage() {
   const uniqueSlugs = Array.from(
