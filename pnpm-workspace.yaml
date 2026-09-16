@@ -60,8 +60,8 @@ minimumReleaseAgeExclude:
   - '@poketistix/damage-calc@0.1.0 || 0.1.1'
   - react-i18next@17.0.10 || 17.0.14
   - happy-dom@20.11.0
-  - '@tanstack/query-core@5.101.3'
-  - '@tanstack/react-query@5.101.3'
+  - '@tanstack/query-core@5.101.3 || 5.103.0'
+  - '@tanstack/react-query@5.101.3 || 5.103.0'
   - '@oxfmt/binding-android-arm-eabi@0.61.0 || 0.62.0 || 0.64.0'
   - '@oxfmt/binding-android-arm64@0.61.0 || 0.62.0 || 0.64.0'
   - '@oxfmt/binding-darwin-arm64@0.61.0 || 0.62.0 || 0.64.0'
