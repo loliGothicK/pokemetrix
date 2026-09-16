@@ -1,48 +1,63 @@
 ---
 title: "Battle Record"
 description: "Record and manage your match results and opponent data."
-order: 4
+order: 5
 group: "Analytics"
 ---
 
 ## Overview
 
-The Battle Record feature helps you log and manage the outcomes of your Pokémon battles on a match-by-match basis.
-You can organize your records by seasons, and save detailed information about the opponent's team, your leads, and specific notes.
+The Battle Record feature helps you quickly log and manage the outcomes of your Pokémon battles on a match-by-match basis.
+You can organize your records by seasons, link teams directly from the Team Builder, track lead/back selections, and record tactical notes.
+See the [Practical Workflow Guide](/docs/workflow-guide) for an end-to-end tutorial.
 
 ## Creating a Season
 
 Before you can start recording battles, you need to create a **Season**.
 
-1. Click **"New season"** in the sidebar.
-2. Set the season name, format (Single/Double), ruleset, and time period.
+1. Click **"New season"** in the sidebar or top header.
+2. Set the season name, format (**Singles** or **Doubles**), ruleset, and time period.
 3. Click "Save" to finish creating it.
 
 ## Recording a Match
 
-With a season selected, click the **"Record battle"** button to open the log form.
+With a season selected, click the **"Record battle"** button or press the **`N`** key on desktop to open the dialog.
 
 ### Information You Can Log
 
-| Field           | Description                                                            |
-| --------------- | ---------------------------------------------------------------------- |
-| Outcome         | Win / Loss / Draw                                                      |
-| Your Team       | Select the team you used from the Team Builder                         |
-| Selection       | Tap your Pokémon to toggle their roles (In the back / Lead / Not used) |
-| Opponent's Team | Register the opponent's Pokémon (including abilities, items, moves)    |
-| Rating          | Your rating after the match                                            |
-| Notes           | Write down key plays, threats, and reads                               |
-| Tags            | Categorize matches (e.g., archetype, gimmick)                          |
+| Field           | Description                                                               |
+| --------------- | ------------------------------------------------------------------------- |
+| Outcome         | Win (`W`) / Loss (`L`) / Draw (`D`)                                       |
+| Your Team       | Select the team you used from the [Team Builder](/docs/team-builder)      |
+| Selection       | Tap your Pokémon to toggle roles (Unselected / Back: Blue / Lead: Yellow) |
+| Opponent's Team | Register up to 6 opponent Pokémon and their lead/back roles               |
+| Opponent Intel  | Click the pencil icon on an opponent card to record items, moves, etc.    |
+| Rating          | Your post-match rating (delta is automatically calculated)                |
+| Notes           | Document key plays, misplays, and match reads                             |
+| Tags            | Archetype/gimmick tags (e.g., `trick-room`, `tailwind`, `weather-rain`)   |
 
 ### Recording Selections
 
-Tap each Pokémon in your team panel to toggle its selection status.
-(The status cycles: `Not used` → `In the back` → `Lead` → `Not used` ...)
+Tap each Pokémon in your team panel to toggle its selection status:
+(`Unselected` → `Back` (Blue) → `Lead` (Yellow) → `Unselected` ...)
+Opponent Pokémon cards can be tapped in the same way to record their selections.
 
-## Match History
+### Keyboard Shortcuts
 
-A list of all recorded matches will be displayed for the active season.
-Clicking on any record allows you to view its full details and edit it.
+| Hotkey                         | Action                                         |
+| ------------------------------ | ---------------------------------------------- |
+| **`N`**                        | Open new battle record dialog (from list view) |
+| **`W`**                        | Select result as Win                           |
+| **`L`**                        | Select result as Loss                          |
+| **`D`**                        | Select result as Draw                          |
+| **`Ctrl + S`** / **`Cmd + S`** | Save record                                    |
+| **`Esc`**                      | Close dialog                                   |
+
+## Match History & Analytics Navigation
+
+- **Stats Bar**: View current rating, rating deltas, overall win rate, and the W/L/D bar breakdown at the top of the page.
+- **Filters**: Quickly isolate matches by "All", "Win", "Loss", or "Draw".
+- **Analytics**: Click "Analytics" in the header to jump to [Winrate Insights](/docs/battle-analytics) or custom [Dashboard](/docs/dashboard) to discover matchup trends.
 
 ## Deleting Records
 
