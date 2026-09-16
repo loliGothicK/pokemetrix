@@ -16,7 +16,7 @@ let modulePromise: Promise<DamageCalcModule> | null = null;
  */
 async function load(): Promise<DamageCalcModule> {
   if (!modulePromise) {
-    modulePromise = import("@pokemetrix/damage-calc") as Promise<DamageCalcModule>;
+    modulePromise = import("@poketistix/damage-calc") as unknown as Promise<DamageCalcModule>;
   }
   return modulePromise;
 }

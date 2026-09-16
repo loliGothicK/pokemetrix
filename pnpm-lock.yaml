@@ -226,10 +226,10 @@ importers:
       '@pkmn/sim':
         specifier: 'catalog:'
         version: 0.10.11
-      '@pokemetrix/damage-calc':
+      '@poketistix/damage-calc':
         specifier: 0.1.1
         version: 0.1.1
-      '@pokemetrix/data':
+      '@poketistix/data':
         specifier: workspace:*
         version: link:../../packages/data
       '@sentry/nextjs':
@@ -447,7 +447,7 @@ importers:
       '@pkmn/sim':
         specifier: 'catalog:'
         version: 0.10.11
-      '@pokemetrix/data':
+      '@poketistix/data':
         specifier: workspace:*
         version: link:../data
       '@types/node':
@@ -2496,8 +2496,8 @@ packages:
     resolution: {integrity: sha512-pOr5+q1fLYKwFN3LAJuGZEnfXDcQ73zqgDHMtGy+K+uIoUqyY+6MeDCWFwfu+4EFuq76I5EPFofoNAI+Bmmq4A==}
     engines: {node: '>=22.13'}
 
-  '@pokemetrix/damage-calc@0.1.1':
-    resolution: {integrity: sha512-2y6iyw1ZTh0Z4rN2DokmGdpjt/F4IcbV++jHwOlzNfznS2GWpJTSoYtbTyHs/l1qiLyv/vAHD276A3djg12YvQ==}
+  '@poketistix/damage-calc@0.1.1':
+    resolution: {integrity: sha512-RrElWBG9pIMgXg48zgCDLQFPPbLRoYtvxbA2XVJsb0gzdO7MhEI7E3de9BpQ+ePioWf3HyWhA/WVUPp9Je76Qw==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -7233,7 +7233,7 @@ snapshots:
 
   '@pnpm/deps.graph-sequencer@1100.0.1': {}
 
-  '@pokemetrix/damage-calc@0.1.1': {}
+  '@poketistix/damage-calc@0.1.1': {}
 
   '@popperjs/core@2.11.8': {}
 

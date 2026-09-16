@@ -30,7 +30,7 @@ jobs:
           fi
           
           LOCAL=$(jq -r .version packages/damage-calc/package.json)
-          REMOTE=$(npm view @pokemetrix/damage-calc version 2>/dev/null || echo "0.0.0")
+          REMOTE=$(npm view @poketistix/damage-calc version 2>/dev/null || echo "0.0.0")
           
           if [ "$HAS_CHANGESETS" = "true" ] || npx --yes semver -gt "$LOCAL" "$REMOTE"; then
             echo "should_run=true" >> $GITHUB_OUTPUT
@@ -78,6 +78,6 @@ jobs:
           commit: "chore: update versions"
           title: "chore: update versions"
           version: pnpm run version
-          publish: pnpm --filter @pokemetrix/damage-calc run release
+          publish: pnpm --filter @poketistix/damage-calc run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

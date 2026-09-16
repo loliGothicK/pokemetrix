@@ -1,4 +1,4 @@
-name = "pokemetrix-docs-search"
+name = "poketistix-docs-search"
 main = "src/index.ts"
 compatibility_date = "2024-09-23"
 

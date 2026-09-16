@@ -3,19 +3,19 @@ import { QuizApp } from "@/components/client/quiz/QuizApp";
 import { Box } from "@mui/material";
 
 export const metadata: Metadata = {
-  title: "Pokémon Battle Proficiency Test | Pokemetrix",
+  title: "Pokémon Battle Proficiency Test | Pokétistix",
   description: "Test your competitive Pokémon knowledge!",
   openGraph: {
-    title: "Pokémon Battle Proficiency Test | Pokemetrix",
+    title: "Pokémon Battle Proficiency Test | Pokétistix",
     description: "Test your competitive Pokémon knowledge!",
     url: "https://pokemetrix.mitama.io/quiz",
-    siteName: "Pokemetrix",
+    siteName: "Pokétistix",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pokémon Battle Proficiency Test | Pokemetrix",
+    title: "Pokémon Battle Proficiency Test | Pokétistix",
     description: "Test your competitive Pokémon knowledge!",
   },
 };

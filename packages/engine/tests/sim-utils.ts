@@ -1,5 +1,5 @@
 import { Battle, Dex, PokemonSet, StatsTable, Move, Pokemon } from "@pkmn/sim";
-import { pokemonData, abilitiesData, movesData, itemsData } from "@pokemetrix/data";
+import { pokemonData, abilitiesData, movesData, itemsData } from "@poketistix/data";
 import { expect } from "vitest";
 import { Simulator, Nature, create_pokemon } from "../pkg-node";
 import type {

@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
           {isJa ? (
             <>
               <p>
-                本プライバシーポリシーは、Pokemetrix（以下「本サービス」）が、本サービスを利用するユーザーの情報をどのように収集、利用、保護するかについて定めたものです。
+                本プライバシーポリシーは、Pokétistix（以下「本サービス」）が、本サービスを利用するユーザーの情報をどのように収集、利用、保護するかについて定めたものです。
               </p>
 
               <h2>1. 収集する情報</h2>
@@ -87,7 +87,7 @@ export default function PrivacyPolicy() {
           ) : (
             <>
               <p>
-                This Privacy Policy describes how Pokemetrix ("we," "our," or "the Service")
+                This Privacy Policy describes how Pokétistix ("we," "our," or "the Service")
                 collects, uses, and protects information from users of our application.
               </p>
 

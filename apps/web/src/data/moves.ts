@@ -1,4 +1,4 @@
-import { data } from "@pokemetrix/data/champions/moves.json";
+import { data } from "@poketistix/data/champions/moves.json";
 import { moveCategories, moveClassifications, moveRanges, types } from "@/types/pokemon";
 import { z as zod } from "zod";
 import { toValidationError, ValidationError } from "zod-validation-error";

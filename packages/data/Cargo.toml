@@ -2,7 +2,7 @@
 name = "data"
 version = "0.1.0"
 edition = "2024"
-description = "Pokemetrix shared static data"
+description = "Poketistix shared static data"
 
 [lib]
 proc-macro = true

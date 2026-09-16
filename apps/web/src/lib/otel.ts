@@ -77,5 +77,5 @@ export function withChildSpan<T>(
  * tracer.startActiveSpan("my.span", (span) => { ... });
  */
 export function getTracer() {
-  return trace.getTracer("pokemetrix");
+  return trace.getTracer("poketistix");
 }

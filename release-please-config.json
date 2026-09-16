@@ -2,7 +2,7 @@
   "packages": {
     "apps/web": {
       "release-type": "node",
-      "package-name": "@pokemetrix/app",
+      "package-name": "@poketistix/app",
       "changelog-path": "CHANGELOG.md"
     }
   },

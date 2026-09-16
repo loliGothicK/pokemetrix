@@ -32,11 +32,11 @@ jobs:
         run: pnpm install
 
       - name: Generate content-collections
-        run: pnpm --filter @pokemetrix/app exec content-collections build
+        run: pnpm --filter @poketistix/app exec content-collections build
         
       - name: Update D1 Index
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_DATABASE_ID: ${{ vars.CLOUDFLARE_DATABASE_ID }}
           CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
-        run: pnpm --filter @pokemetrix/app run d1:index
+        run: pnpm --filter @poketistix/app run d1:index

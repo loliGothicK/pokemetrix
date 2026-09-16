@@ -7,7 +7,7 @@ import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import { alpha, Box, Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import PokemetrixIcon from "@/components/icons/Pokemetrix";
+import PoketistixIcon from "@/components/icons/Poketistix";
 import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
 
 export default function Home() {
@@ -74,7 +74,7 @@ export default function Home() {
             spacing={{ xs: 2, md: 0 }}
             sx={{ alignItems: "center", gap: 4 }}
           >
-            <PokemetrixIcon
+            <PoketistixIcon
               sx={{
                 width: { xs: 120, md: 200 },
                 height: { xs: 120, md: 200 },

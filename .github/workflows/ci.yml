@@ -68,17 +68,17 @@ jobs:
 
       - name: Build WebAssembly
         run: |
-          pnpm --filter @pokemetrix/damage-calc run build
-          pnpm --filter @pokemetrix/engine run build
+          pnpm --filter @poketistix/damage-calc run build
+          pnpm --filter @poketistix/engine run build
 
       - name: Generate content-collections
-        run: pnpm --filter @pokemetrix/app exec content-collections build
+        run: pnpm --filter @poketistix/app exec content-collections build
 
       - name: Lint
         run: pnpm lint
 
       - name: Check i18n keys
-        run: pnpm --filter @pokemetrix/app run i18n:check
+        run: pnpm --filter @poketistix/app run i18n:check
 
       - name: Build Next.js App
         env:
@@ -99,7 +99,7 @@ jobs:
         run: wasm-pack test --headless --firefox packages/damage-calc
 
       - name: Test engine (Vitest)
-        run: pnpm --filter @pokemetrix/engine run test
+        run: pnpm --filter @poketistix/engine run test
 
       - name: Test Rust (cargo nextest)
         run: |
@@ -109,7 +109,7 @@ jobs:
       - name: Test Next.js (Vitest)
         env:
           NODE_ENV: test
-        run: pnpm --filter @pokemetrix/app run test:ci
+        run: pnpm --filter @poketistix/app run test:ci
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v6

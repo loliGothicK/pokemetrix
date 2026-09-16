@@ -4,7 +4,7 @@ import { BlogIndexClient } from "./BlogIndexClient";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Feature updates and development notes from the Pokemetrix team.",
+  description: "Feature updates and development notes from the Pokétistix team.",
 };
 
 export default function BlogIndexPage() {

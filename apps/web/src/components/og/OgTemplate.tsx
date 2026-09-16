@@ -6,7 +6,7 @@ interface OgTemplateProps {
 }
 
 export function OgTemplate({
-  title = "Pokemetrix",
+  title = "Pokétistix",
   subtitle = "Analytics Workspace for Pokémon Battle",
 }: OgTemplateProps) {
   return (

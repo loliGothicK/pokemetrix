@@ -54,7 +54,9 @@ export async function proxy(request: NextRequest) {
 
   // Fallback to cookie, then Accept-Language, then default
   let locale = defaultLocale;
-  const cookieLocale = request.cookies.get("pokemetrix-language")?.value;
+  const cookieLocale =
+    request.cookies.get("poketistix-language")?.value ??
+    request.cookies.get("pokemetrix-language")?.value;
   if (cookieLocale && locales.includes(cookieLocale)) {
     locale = cookieLocale;
   } else {

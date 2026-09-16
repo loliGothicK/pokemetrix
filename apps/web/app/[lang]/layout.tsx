@@ -6,7 +6,7 @@ import { ContentLayoutProvider } from "@/components/client/content/ContentLayout
 import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 
-const siteName = "Pokemetrix";
+const siteName = "Pokétistix";
 const description = "Analytics Workspace for Pokémon Battle";
 const url = "https://pokemetrix.mitama.io";
 

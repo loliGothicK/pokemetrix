@@ -383,8 +383,8 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
 
     const text =
       currentLang === "ja"
-        ? `ポケモンバトル検定（${categoryName} - ${difficultyName}）で ${score}/${sessionQuestions.length} 点を獲得し、「${rankName}」に認定されました！\n#Pokemetrix\n`
-        : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokemetrix\n`;
+        ? `ポケモンバトル検定（${categoryName} - ${difficultyName}）で ${score}/${sessionQuestions.length} 点を獲得し、「${rankName}」に認定されました！\n#Pokétistix\n`
+        : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokétistix\n`;
 
     const url =
       typeof window !== "undefined" ? window.location.href : "https://pokemetrix.mitama.io/quiz";

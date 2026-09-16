@@ -7,7 +7,7 @@ import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
-import PokemetrixIcon from "@/components/icons/Pokemetrix";
+import PoketistixIcon from "@/components/icons/Poketistix";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import TableChartRoundedIcon from "@mui/icons-material/TableChartRounded";
@@ -56,7 +56,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 const SIDE_MENU_WIDTH = 240;
 
 const STORAGE_KEYS = {
-  language: "pokemetrix-language",
+  language: "poketistix-language",
 } as const;
 
 type SideMenuItem = {
@@ -353,7 +353,7 @@ function ResponsiveAppBar({
                 flexShrink: 0,
               }}
             >
-              <PokemetrixIcon sx={{ width: 38, height: 38 }} />
+              <PoketistixIcon sx={{ width: 38, height: 38 }} />
             </Box>
 
             {/* ブランド名 — md以上で表示 */}
@@ -385,7 +385,7 @@ function ResponsiveAppBar({
                   backgroundClip: "text",
                 }}
               >
-                PokéMetriX
+                Pokétistix
               </Typography>
               <Typography
                 component="span"
@@ -464,7 +464,7 @@ function MobileDrawerContent({
   const pathname = usePathname();
   const router = useRouter();
 
-  let currentSection = "pokemetrix";
+  let currentSection = "poketistix";
   if (pathname.startsWith("/docs")) currentSection = "docs";
   if (pathname.startsWith("/blog")) currentSection = "blog";
   if (pathname.startsWith("/quiz")) currentSection = "quiz";
@@ -493,8 +493,8 @@ function MobileDrawerContent({
             disableUnderline
             sx={{ fontWeight: 800, fontSize: "1.1rem" }}
           >
-            <MenuItem value="pokemetrix" sx={{ fontWeight: 600 }}>
-              PokéMetriX
+            <MenuItem value="poketistix" sx={{ fontWeight: 600 }}>
+              Pokétistix
             </MenuItem>
             <MenuItem value="docs" sx={{ fontWeight: 600 }}>
               DOCS

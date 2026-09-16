@@ -1,21 +1,21 @@
 {
-  "name": "pokemetrix-monorepo",
+  "name": "poketistix-monorepo",
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel run dev",
     "build": "pnpm -r run build",
     "b": "pnpm -r run build",
-    "build:app": "pnpm --filter @pokemetrix/app run build",
-    "build:wasm": "pnpm --filter @pokemetrix/damage-calc run build",
-    "pack": "pnpm --filter @pokemetrix/damage-calc run build && pnpm --filter @pokemetrix/damage-calc pack",
+    "build:app": "pnpm --filter @poketistix/app run build",
+    "build:wasm": "pnpm --filter @poketistix/damage-calc run build",
+    "pack": "pnpm --filter @poketistix/damage-calc run build && pnpm --filter @poketistix/damage-calc pack",
     "test": "pnpm -r run test",
     "lint": "pnpm -r run lint",
     "fmt": "pnpm -r run fmt",
     "pretty": "pnpm -r run pretty",
     "changeset": "changeset",
-    "version": "changeset version && pnpm --filter @pokemetrix/damage-calc run sync-version",
+    "version": "changeset version && pnpm --filter @poketistix/damage-calc run sync-version",
     "prepare": "husky",
-    "benchmark": "pnpm --filter @pokemetrix/app run benchmark",
+    "benchmark": "pnpm --filter @poketistix/app run benchmark",
     "typecheck": "pnpm -r run typecheck"
   },
   "devDependencies": {

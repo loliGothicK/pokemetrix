@@ -1,7 +1,7 @@
 import { OgTemplate } from "@/components/og/OgTemplate";
 import { ImageResponse } from "next/og";
 
-export const alt = "Pokemetrix - Analytics Workspace for Pokémon Battle";
+export const alt = "Pokétistix - Analytics Workspace for Pokémon Battle";
 export const size = {
   width: 1200,
   height: 630,

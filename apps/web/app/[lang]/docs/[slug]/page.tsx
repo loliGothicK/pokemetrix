@@ -31,7 +31,7 @@ export async function generateMetadata({
     return {};
   }
   return {
-    title: `${doc.title} | Pokemetrix Docs`,
+    title: `${doc.title} | Pokétistix Docs`,
     description: doc.description,
   };
 }

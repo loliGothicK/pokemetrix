@@ -1,6 +1,6 @@
-import { getPokemonData, Regulation } from "@pokemetrix/data";
-import { data as typesData } from "@pokemetrix/data/master/pokemon_types.json";
-import { data as typeData } from "@pokemetrix/data/master/types.json";
+import { getPokemonData, Regulation } from "@poketistix/data";
+import { data as typesData } from "@poketistix/data/master/pokemon_types.json";
+import { data as typeData } from "@poketistix/data/master/types.json";
 import { z } from "zod";
 import { Type } from "@/types/pokemon";
 

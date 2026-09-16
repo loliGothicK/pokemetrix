@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import jaTranslation from "@locales/ja/translation.json";
 import enTranslation from "@locales/en/translation.json";
-import { REG_M_B, getPokemonData } from "@pokemetrix/data";
+import { REG_M_B, getPokemonData } from "@poketistix/data";
 
 const pokemonData = getPokemonData();
 

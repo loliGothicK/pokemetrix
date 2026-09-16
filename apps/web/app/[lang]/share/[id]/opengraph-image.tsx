@@ -8,7 +8,7 @@ import enTranslation from "@locales/en/translation.json";
 
 // ── メタデータ ────────────────────────────────────────────────────────────────
 
-export const alt = "Pokemetrix Team Share";
+export const alt = "Pokétistix Team Share";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -127,7 +127,7 @@ export default async function Image({
               fontWeight: 700,
             }}
           >
-            POKEMETRIX · TEAM SHARE
+            POKÉTISTIX · TEAM SHARE
           </span>
           <span
             style={{

@@ -4,7 +4,7 @@ import { allQuizzes } from "content-collections";
 import { QuizStudio } from "@/components/client/quiz/QuizStudioList";
 
 export const metadata: Metadata = {
-  title: "Quiz Studio | Pokemetrix",
+  title: "Quiz Studio | Pokétistix",
   description: "Content studio for quizzes",
 };
 

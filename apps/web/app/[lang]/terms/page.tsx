@@ -43,7 +43,7 @@ export default function TermsOfService() {
           {isJa ? (
             <>
               <p>
-                この利用規約（以下「本規約」）は、Pokemetrix（以下「本サービス」）の利用に関する条件を定めるものです。本サービスを利用することにより、ユーザーは本規約に同意したものとみなされます。
+                この利用規約（以下「本規約」）は、Pokétistix（以下「本サービス」）の利用に関する条件を定めるものです。本サービスを利用することにより、ユーザーは本規約に同意したものとみなされます。
               </p>
 
               <h2>1. 非公式ファンサイトとしての免責事項</h2>
@@ -91,7 +91,7 @@ export default function TermsOfService() {
           ) : (
             <>
               <p>
-                These Terms of Service ("Terms") govern your use of Pokemetrix ("the Service"). By
+                These Terms of Service ("Terms") govern your use of Pokétistix ("the Service"). By
                 accessing or using the Service, you agree to be bound by these Terms.
               </p>
 

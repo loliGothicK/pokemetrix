@@ -2,7 +2,7 @@
 name = "pkmn-meta"
 version = "0.1.0"
 edition = "2024"
-description = "Pokemon meta types for pokemetrix"
+description = "Pokemon meta types for poketistix"
 license = "MIT"
 repository = "https://github.com/loliGothicK/pokemetrix"
 

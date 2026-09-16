@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getPokemonMoves, isMoveAllowedForPokemon, isPokemonAllowedInRegulation } from "@pokemetrix/data";
+import { getPokemonMoves, isMoveAllowedForPokemon, isPokemonAllowedInRegulation } from "@poketistix/data";
 import { getChampionsPokemonById, getChampionsPokemonByIdentifier } from "./champions-pokemon";
 
 describe("Regulation M-C Move Patches", () => {

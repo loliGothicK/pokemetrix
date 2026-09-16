@@ -1,5 +1,5 @@
 {
-  "name": "@pokemetrix/engine",
+  "name": "@poketistix/engine",
   "version": "0.1.0",
   "description": "Pokémon simulation engine - powered by Rust/WebAssembly",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "lint": "cargo clippy -- -D warnings && oxlint --type-aware --type-check .",
     "fmt": "cargo fmt && oxfmt .",
     "fmt:check": "cargo fmt -- --check && oxfmt --check .",
-    "build": "wasm-pack build --scope pokemetrix --target bundler --out-dir pkg --out-name engine && wasm-pack build --scope pokemetrix --target nodejs --out-dir pkg-node --out-name engine",
+    "build": "wasm-pack build --scope poketistix --target bundler --out-dir pkg --out-name engine && wasm-pack build --scope poketistix --target nodejs --out-dir pkg-node --out-name engine",
     "pack": "wasm-pack pack pkg",
     "test": "vitest run",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@pkmn/mods": "0.10.11",
     "@pkmn/sim": "catalog:",
-    "@pokemetrix/data": "workspace:*",
+    "@poketistix/data": "workspace:*",
     "@types/node": "catalog:",
     "glob": "13.0.6",
     "outdent": "catalog:",

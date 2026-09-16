@@ -27,7 +27,7 @@ export async function generateMetadata({
   const row = await fetchSharedTeam(id);
 
   if (!row) {
-    return { title: "Not Found – Pokemetrix" };
+    return { title: "Not Found – Pokétistix" };
   }
 
   const teamName = row.snapshot.teamName;
@@ -45,7 +45,7 @@ export async function generateMetadata({
     })
     .join(", ");
 
-  const title = `${teamName} – Pokemetrix`;
+  const title = `${teamName} – Pokétistix`;
   const description = memberNames ? `${teamName}: ${memberNames}` : teamName;
 
   return {

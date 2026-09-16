@@ -4,7 +4,7 @@ import { DocsIndexClient } from "./DocsIndexClient";
 
 export const metadata: Metadata = {
   title: "Docs",
-  description: "Documentation for the Pokemetrix toolset.",
+  description: "Documentation for the Pokétistix toolset.",
 };
 
 export default function DocsIndexPage() {
