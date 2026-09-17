@@ -31,29 +31,13 @@ export async function generateMetadata({
     },
     description: localizedDescription,
     keywords: isJa
-      ? [
-          "Pokétistix",
-          "PokéMetrix",
-          "ポケティスティクス",
-          "ポケメトリクス",
-          "ポケモン",
-          "ダメージ計算",
-          "ダメ計",
-          "構築",
-          "パーティ構築",
-          "チームビルダー",
-          "ダブルバトル",
-          "VGC",
-          "対戦記録",
-        ]
+      ? ["Pokétistix", "poketistix", "ダメージ計算", "チームビルダー", "ダブルバトル", "対戦記録"]
       : [
           "Pokétistix",
-          "PokéMetrix",
+          "poketistix",
           "Pokemon damage calculator",
           "Pokemon team builder",
-          "VGC damage calc",
-          "Pokemon battle tracker",
-          "Pokemon analytics",
+          "Pokemon battle records",
           "Double battle",
         ],
     openGraph: {
