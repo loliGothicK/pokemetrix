@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import {
   Box,
   Button,
@@ -26,10 +26,11 @@ import Add from "@mui/icons-material/Add";
 import InsightsRounded from "@mui/icons-material/InsightsRounded";
 import Image from "next/image";
 import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { isAuthenticatedAtom } from "@/store/auth";
+import { activeTeamIdAtom } from "@/store/team/team";
 import { useSeasons } from "@/hooks/useSeasons";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import { useTeamsData } from "@/hooks/useTeamsData";
@@ -326,17 +327,26 @@ export default function BattleRecordPage() {
   );
   const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
-  const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
+  const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
   const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
   const [filter, setFilter] = useState<ResultFilter>("all");
 
+  useEffect(() => {
+    if (
+      mounted &&
+      safeTeams.length > 0 &&
+      (!activeTeamId || !safeTeams.some((t) => t.id === activeTeamId))
+    ) {
+      setActiveTeamId(safeTeams[0].id);
+    }
+  }, [mounted, activeTeamId, safeTeams, setActiveTeamId]);
+
   const activeTeam = useMemo(() => {
-    if (selectedTeamId && safeTeams.some((tm) => tm.id === selectedTeamId)) {
-      return safeTeams.find((tm) => tm.id === selectedTeamId) ?? null;
+    if (activeTeamId && safeTeams.some((tm) => tm.id === activeTeamId)) {
+      return safeTeams.find((tm) => tm.id === activeTeamId) ?? null;
     }
     return safeTeams[0] ?? null;
-  }, [safeTeams, selectedTeamId]);
-  const activeTeamId = activeTeam?.id ?? null;
+  }, [safeTeams, activeTeamId]);
 
   const teamNameMap = useMemo(() => {
     const map = new Map<string, string>();
@@ -448,7 +458,7 @@ export default function BattleRecordPage() {
           <FormControl size="small" sx={{ flex: 1 }}>
             <Select
               value={activeTeam?.id ?? ""}
-              onChange={(e) => setSelectedTeamId(e.target.value || null)}
+              onChange={(e) => setActiveTeamId(e.target.value || null)}
               displayEmpty
             >
               {safeTeams.length === 0 && (
@@ -510,7 +520,7 @@ export default function BattleRecordPage() {
               labelId="team-select-label"
               label={t("battleRecord.team")}
               value={activeTeam?.id ?? ""}
-              onChange={(e) => setSelectedTeamId(e.target.value || null)}
+              onChange={(e) => setActiveTeamId(e.target.value || null)}
               displayEmpty
             >
               {safeTeams.length === 0 && (
@@ -676,7 +686,7 @@ export default function BattleRecordPage() {
         editing={recordEditing}
         teams={safeTeams}
         teamMembers={teamMembers}
-        teamId={activeTeamId}
+        teamId={activeTeam?.id ?? null}
         seasons={seasons}
         defaultSeasonId={activeSeasonId}
         onSubmit={handleRecordSubmit}
