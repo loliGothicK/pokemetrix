@@ -4,5 +4,5 @@ compatibility_date = "2024-09-23"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "pokemetrix-docs"
-database_id = "4bb775a3-6d30-4e0d-ab45-b7c11b7122cc"
+database_name = "poketistix-docs"
+database_id = "f5cf3f22-f5c5-4845-a51f-20e06b24452d"

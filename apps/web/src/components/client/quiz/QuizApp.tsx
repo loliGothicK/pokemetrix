@@ -387,7 +387,7 @@ export function QuizApp({ initialQuestions, directPlay, onReturnToMenu }: QuizAp
         : `I scored ${score}/${sessionQuestions.length} in the Pokémon Battle Proficiency Test (${categoryName} - ${difficultyName}) and achieved the rank of "${rankName}"!\n#Pokétistix\n`;
 
     const url =
-      typeof window !== "undefined" ? window.location.href : "https://pokemetrix.mitama.io/quiz";
+      typeof window !== "undefined" ? window.location.href : "https://poketistix.mitama.io/quiz";
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");

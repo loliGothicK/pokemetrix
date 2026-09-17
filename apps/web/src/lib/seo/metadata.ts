@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const BASE_URL = "https://pokemetrix.mitama.io";
+export const BASE_URL = "https://poketisitx.mitama.io";
 
 export type LocalizedMetadataOptions = {
   readonly path: string;

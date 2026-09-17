@@ -72,7 +72,7 @@ export function Footer() {
             </Link>
             <Link
               component={NextLink}
-              href="mailto:loligothick+pokemetrix@gmail.com"
+              href="mailto:loligothick+poketistix@gmail.com"
               color="text.secondary"
               variant="body2"
               underline="hover"
