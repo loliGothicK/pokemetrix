@@ -1,7 +1,6 @@
 "use client";
 
-import { alpha, Box, Divider, Grid, Stack, Tooltip, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Divider, Grid, Paper, Stack, Tooltip, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { itemById } from "@/data/items";
@@ -15,7 +14,6 @@ import { match } from "ts-pattern";
 import type { TrainedPokemon } from "@/store/team/team";
 import type { Type } from "@/types/pokemon";
 import { flexRowCenter } from "@/theme/sx";
-import { Paper } from "@mui/material";
 
 // ── タイプカラー ──────────────────────────────────────────────────────────────
 
@@ -110,15 +108,14 @@ const TooltipContent = ({
 // ここでは Paper を直接使い borderRadius / border / bgcolor だけ設定する。
 
 function CardShell({ children, sx }: { readonly children: React.ReactNode; readonly sx?: object }) {
-  const theme = useTheme();
   return (
     <Paper
       elevation={0}
       sx={{
         border: "1px solid",
-        borderColor: theme.palette.divider,
+        borderColor: "divider",
         borderRadius: "12px",
-        bgcolor: theme.palette.background.paperRaised,
+        bgcolor: "background.paperRaised",
         overflow: "hidden",
         ...sx,
       }}
@@ -141,7 +138,6 @@ function StatRow({
   readonly actual: number;
   readonly color?: string;
 }) {
-  const theme = useTheme();
   return (
     <Box sx={{ ...flexRowCenter, gap: 1 }}>
       <Typography
@@ -160,7 +156,7 @@ function StatRow({
           flex: 1,
           height: 5,
           borderRadius: "2px",
-          bgcolor: alpha(theme.palette.divider, 0.3),
+          bgcolor: "divider",
           overflow: "hidden",
         }}
       >
@@ -168,7 +164,7 @@ function StatRow({
           sx={{
             height: "100%",
             width: `${Math.min((actual / 252) * 100, 100)}%`,
-            bgcolor: color ?? theme.palette.primary.main,
+            bgcolor: color ?? "primary.main",
             opacity: 0.85,
           }}
         />
@@ -206,7 +202,6 @@ function StatRow({
 
 function MoveChip({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
-  const theme = useTheme();
   const move = moveId != null ? moveById.get(moveId) : null;
 
   if (!move) {
@@ -219,13 +214,13 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
           px: 1,
           borderRadius: "5px",
           border: "1px dashed",
-          borderColor: alpha(theme.palette.divider, 0.4),
+          borderColor: "divider",
         }}
       >
         <Typography
           sx={{
             fontSize: "0.7rem",
-            color: alpha(theme.palette.text.secondary, 0.3),
+            color: "text.disabled",
             fontStyle: "italic",
           }}
         >
@@ -299,7 +294,6 @@ function MoveChip({ moveId }: { readonly moveId: number | null }) {
 
 function MoveTag({ moveId }: { readonly moveId: number | null }) {
   const { t } = useTranslation();
-  const theme = useTheme();
   const move = moveId != null ? moveById.get(moveId) : null;
 
   if (!move) {
@@ -313,7 +307,7 @@ function MoveTag({ moveId }: { readonly moveId: number | null }) {
           height: 18,
           borderRadius: "4px",
           border: "1px dashed",
-          borderColor: alpha(theme.palette.divider, 0.4),
+          borderColor: "divider",
           width: "100%",
           boxSizing: "border-box",
         }}
@@ -321,7 +315,7 @@ function MoveTag({ moveId }: { readonly moveId: number | null }) {
         <Typography
           sx={{
             fontSize: "0.6rem",
-            color: alpha(theme.palette.text.secondary, 0.3),
+            color: "text.disabled",
             fontStyle: "italic",
           }}
         >
@@ -406,7 +400,6 @@ export interface PokemonBuildCardProps {
 
 function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "variant">) {
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
 
   const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
   const formNameKey = `pokemon.${pokemon.identifier}.formName` as const;
@@ -443,7 +436,7 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
             justifyContent: "center",
             background: `linear-gradient(145deg, ${c1}30 0%, ${c2}18 100%)`,
             borderRight: "1px solid",
-            borderColor: theme.palette.divider,
+            borderColor: "divider",
             py: "10px",
           }}
         >
@@ -581,7 +574,7 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
           {/* ステータス（showStats のみ） */}
           {showStats && (
             <Box sx={{ mt: "6px" }}>
-              <Divider sx={{ mb: "6px", borderColor: theme.palette.divider }} />
+              <Divider sx={{ mb: "6px" }} />
               <Stack spacing="2px">
                 {STAT_KEYS.map((key, i) => {
                   const base = baseStat[i] ?? 45;
@@ -611,7 +604,6 @@ function PokemonCompactRow({ pokemon, showStats }: Omit<PokemonBuildCardProps, "
 
 function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "variant">) {
   const { t, i18n } = useTranslation();
-  const theme = useTheme();
 
   const pokemonName = t(`pokemon.${pokemon.identifier}.name`);
   const formNameKey = `pokemon.${pokemon.identifier}.formName` as const;
@@ -658,7 +650,7 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
           alignItems: "center",
           gap: "8px",
           borderBottom: "1px solid",
-          borderColor: theme.palette.divider,
+          borderColor: "divider",
           background: `linear-gradient(90deg, ${c1}20 0%, transparent 100%)`,
           minWidth: 0,
         }}
@@ -717,7 +709,7 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
             width: 104,
             height: 104,
             position: "relative",
-            filter: `drop-shadow(0 6px 16px ${alpha(theme.palette.common.black, 0.4)})`,
+            filter: "drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4))",
           }}
         >
           <Image
@@ -746,9 +738,9 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
                 width: 30,
                 height: 30,
                 borderRadius: "8px",
-                bgcolor: alpha(theme.palette.background.paper, 0.85),
+                bgcolor: "background.paperTint",
                 border: "1px solid",
-                borderColor: theme.palette.divider,
+                borderColor: "divider",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -813,7 +805,7 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
             <Typography
               sx={{
                 fontSize: "0.8rem",
-                color: alpha(theme.palette.text.secondary, 0.35),
+                color: "text.disabled",
                 fontStyle: "italic",
               }}
             >
@@ -919,7 +911,7 @@ function PokemonFullCard({ pokemon, showStats }: Omit<PokemonBuildCardProps, "va
         {/* ステータス */}
         {showStats && (
           <>
-            <Divider sx={{ borderColor: theme.palette.divider }} />
+            <Divider />
             <Stack spacing="3px">
               {STAT_KEYS.map((key, i) => {
                 const base = baseStat[i] ?? 45;

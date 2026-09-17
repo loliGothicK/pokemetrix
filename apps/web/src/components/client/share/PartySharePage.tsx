@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  alpha,
   Box,
   Button,
   Chip,
@@ -37,13 +36,12 @@ export interface PartySharePageProps {
 // ── 空スロットのプレースホルダー（フルカード用）──────────────────────────────
 
 function EmptyFullCard() {
-  const theme = useTheme();
   return (
     <Paper
       elevation={0}
       sx={{
         border: "1px dashed",
-        borderColor: alpha(theme.palette.divider, 0.5),
+        borderColor: "divider",
         borderRadius: "12px",
         bgcolor: "transparent",
         minHeight: 200,
@@ -52,10 +50,7 @@ function EmptyFullCard() {
         justifyContent: "center",
       }}
     >
-      <Typography
-        variant="body2"
-        sx={{ color: alpha(theme.palette.text.secondary, 0.35), fontStyle: "italic" }}
-      >
+      <Typography variant="body2" sx={{ color: "text.disabled", fontStyle: "italic" }}>
         —
       </Typography>
     </Paper>
@@ -65,13 +60,12 @@ function EmptyFullCard() {
 // ── 空スロットのプレースホルダー（コンパクト行用）────────────────────────────
 
 function EmptyCompactRow() {
-  const theme = useTheme();
   return (
     <Paper
       elevation={0}
       sx={{
         border: "1px dashed",
-        borderColor: alpha(theme.palette.divider, 0.4),
+        borderColor: "divider",
         borderRadius: "12px",
         bgcolor: "transparent",
         height: "52px",
@@ -82,7 +76,7 @@ function EmptyCompactRow() {
     >
       <Typography
         sx={{
-          color: alpha(theme.palette.text.secondary, 0.3),
+          color: "text.disabled",
           fontStyle: "italic",
           fontSize: "0.8rem",
         }}
@@ -164,7 +158,7 @@ export function PartySharePage({ shareId, snapshot, createdAt }: PartySharePageP
           mb: { xs: 2.5, sm: 3.5 },
           pb: { xs: 1.5, sm: 2 },
           borderBottom: "1px solid",
-          borderColor: theme.palette.divider,
+          borderColor: "divider",
         }}
       >
         {/* チーム名 */}

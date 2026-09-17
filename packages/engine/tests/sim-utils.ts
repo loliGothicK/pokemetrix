@@ -19,6 +19,14 @@ Dex.mod("champions", champions);
 const championsDex = Dex.mod("champions");
 const appleAcid = championsDex.moves.get("appleacid");
 if (appleAcid) Reflect.set(appleAcid, "basePower", 90);
+const doubleShock = championsDex.moves.get("doubleshock");
+if (doubleShock) doubleShock.flags.punch = 1;
+const snipeShot = championsDex.moves.get("snipeshot");
+if (snipeShot) Reflect.set(snipeShot, "basePower", 85);
+const slashMove = championsDex.moves.get("slash");
+if (slashMove) Reflect.set(slashMove, "basePower", 80);
+const milkDrink = championsDex.moves.get("milkdrink");
+if (milkDrink) Reflect.set(milkDrink, "target", "adjacentAlly");
 const ABILITY_DICTIONARY = new Map(
   abilitiesData.data.map(({ id, identifier }) => [id, identifier]),
 );
@@ -824,8 +832,10 @@ export class TestEnvironment {
       const simItem = simPoke.item ? toId(simPoke.item) : undefined;
       expect(engineItem, `${pLabel} Item`).toBe(simItem);
 
-      expect(enginePoke.type1, `${pLabel} Type1`).toBe(simPoke.types[0] || "Normal");
-      expect(enginePoke.type2 || undefined, `${pLabel} Type2`).toBe(simPoke.types[1] || undefined);
+      const expectedType1 = simPoke.types[0] === "???" ? "Typeless" : simPoke.types[0] || "Normal";
+      const expectedType2 = simPoke.types[1] === "???" ? "Typeless" : simPoke.types[1] || undefined;
+      expect(enginePoke.type1, `${pLabel} Type1`).toBe(expectedType1);
+      expect(enginePoke.type2 || undefined, `${pLabel} Type2`).toBe(expectedType2);
       expect(enginePoke.added_type || undefined, `${pLabel} AddedType`).toBe(
         simPoke.addedType || undefined,
       );

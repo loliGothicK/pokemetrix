@@ -10,6 +10,7 @@
 - [ ] anticipation
 - [ ] armortail
 - [ ] aromaveil
+- [ ] auraguard
 - [ ] battlearmor
 - [ ] berserk
 - [ ] bigpecks
@@ -39,6 +40,7 @@
 - [ ] effectspore
 - [ ] electricsurge
 - [ ] electromorphosis
+- [ ] emergencyexit
 - [ ] fairyaura
 - [ ] filter
 - [ ] firemane
@@ -55,6 +57,9 @@
 - [ ] gluttony
 - [ ] goodasgold
 - [ ] gooey
+- [ ] grasspelt
+- [ ] grassysurge
+- [ ] guarddog
 - [ ] guts
 - [ ] harvest
 - [ ] healer
@@ -82,9 +87,11 @@
 - [ ] klutz
 - [ ] leafguard
 - [ ] levitate
+- [ ] libero
 - [ ] lightmetal
 - [ ] lightningrod
 - [ ] limber
+- [ ] liquidooze
 - [ ] liquidvoice
 - [ ] longreach
 - [ ] magicbounce
@@ -123,12 +130,15 @@
 - [ ] prankster
 - [ ] pressure
 - [ ] protean
+- [ ] psychicsurge
+- [ ] punkrock
 - [ ] purepower
 - [ ] purifyingsalt
 - [ ] queenlymajesty
 - [ ] quickdraw
 - [ ] quickfeet
 - [ ] raindish
+- [ ] rattled
 - [ ] receiver
 - [ ] reckless
 - [x] refrigerate
@@ -137,6 +147,7 @@
 - [ ] rivalry
 - [ ] rockhead
 - [ ] roughskin
+- [ ] runaway
 - [ ] sandforce
 - [ ] sandrush
 - [ ] sandspit
@@ -145,6 +156,7 @@
 - [x] sapsipper
 - [ ] scrappy
 - [ ] screencleaner
+- [ ] seedsower
 - [ ] shadowtag
 - [ ] sharpness
 - [ ] shedskin
@@ -161,12 +173,14 @@
 - [x] soundproof
 - [ ] speedboost
 - [ ] spicyspray
+- [ ] stakeout
 - [ ] stall
 - [ ] stalwart
 - [ ] stamina
 - [ ] stancechange
 - [ ] static
 - [ ] steadfast
+- [ ] steelyspirit
 - [ ] stench
 - [ ] stickyhold
 - [ ] strongjaw
@@ -184,6 +198,7 @@
 - [ ] tangledfeet
 - [ ] technician
 - [ ] telepathy
+- [ ] thermalexchange
 - [ ] thickfat
 - [ ] torrent
 - [ ] toughclaws
@@ -206,8 +221,10 @@
 
 - [ ] abomasite
 - [ ] absolite
+- [ ] absolitez
 - [ ] aerodactylite
 - [ ] aggronite
+- [ ] airballoon
 - [ ] alakazite
 - [ ] altarianite
 - [ ] ampharosite
@@ -216,8 +233,10 @@
 - [ ] babiriberry
 - [ ] banettite
 - [ ] barbaracite
+- [ ] baxcalibrite
 - [ ] beedrillite
 - [x] bigroot
+- [ ] bindingband
 - [ ] blackbelt
 - [ ] blackglasses
 - [ ] blastoisinite
@@ -247,6 +266,8 @@
 - [ ] dragoninite
 - [ ] drampanite
 - [ ] eelektrossite
+- [ ] ejectbutton
+- [ ] electricseed
 - [ ] emboarite
 - [ ] excadrite
 - [x] expertbelt
@@ -259,11 +280,14 @@
 - [ ] froslassite
 - [ ] galladite
 - [ ] garchompite
+- [ ] garchompitez
 - [ ] gardevoirite
 - [ ] gengarite
 - [ ] glalitite
 - [ ] glimmoranite
+- [ ] golisopite
 - [ ] golurkite
+- [ ] grassyseed
 - [ ] greninjite
 - [ ] gyaradosite
 - [ ] habanberry
@@ -278,6 +302,7 @@
 - [ ] kasibberry
 - [ ] kebiaberry
 - [x] kingsrock
+- [ ] leek
 - [x] leftovers
 - [ ] leppaberry
 - [x] lifeorb
@@ -285,6 +310,7 @@
 - [x] lightclay
 - [ ] lopunnite
 - [ ] lucarionite
+- [ ] lucarionitez
 - [ ] lumberry
 - [ ] magnet
 - [ ] malamarite
@@ -298,9 +324,11 @@
 - [ ] metalcoat
 - [x] metronome
 - [ ] miracleseed
+- [ ] mistyseed
 - [x] muscleband
 - [ ] mysticwater
 - [ ] nevermeltice
+- [ ] normalgem
 - [ ] occaberry
 - [ ] oranberry
 - [ ] passhoberry
@@ -310,14 +338,18 @@
 - [ ] pidgeotite
 - [ ] pinsirite
 - [ ] poisonbarb
+- [ ] psychicseed
 - [ ] pyroarite
 - [ ] quickclaw
 - [ ] raichunitex
 - [ ] raichunitey
 - [ ] rawstberry
+- [ ] redcard
 - [ ] rindoberry
+- [ ] rockyhelmet
 - [ ] roseliberry
 - [ ] sablenite
+- [ ] salamencite
 - [ ] sceptilite
 - [ ] scizorite
 - [ ] scolipite
@@ -342,6 +374,7 @@
 - [ ] steelixite
 - [ ] swampertite
 - [ ] tangaberry
+- [ ] terrainextender
 - [ ] twistedspoon
 - [ ] tyranitarite
 - [ ] venusaurite
@@ -439,6 +472,7 @@
 - [x] cottonguard
 - [x] cottonspore
 - [x] counter
+- [ ] courtchange
 - [x] covet
 - [x] crabhammer
 - [x] crosschop
@@ -460,6 +494,7 @@
 - [x] dive
 - [x] doubleedge
 - [x] doublehit
+- [x] doubleshock
 - [x] doubleteam
 - [x] dracometeor
 - [x] dragoncheer
@@ -473,6 +508,7 @@
 - [x] drainpunch
 - [x] drillpeck
 - [x] drillrun
+- [x] drumbeating
 - [x] dualwingbeat
 - [x] dynamicpunch
 - [x] earthpower
@@ -535,6 +571,7 @@
 - [x] gigadrain
 - [x] gigaimpact
 - [x] gigatonhammer
+- [ ] glaiverush
 - [x] glare
 - [x] grassknot
 - [x] grassyglide
@@ -589,6 +626,7 @@
 - [x] irondefense
 - [x] ironhead
 - [x] irontail
+- [ ] jawlock
 - [x] jetpunch
 - [x] kingsshield
 - [x] knockoff
@@ -623,8 +661,10 @@
 - [x] memento
 - [x] metalburst
 - [x] metalsound
+- [x] meteorassault
 - [x] meteorbeam
 - [x] meteormash
+- [x] milkdrink
 - [x] minimize
 - [x] mirrorcoat
 - [x] mistyexplosion
@@ -645,7 +685,9 @@
 - [x] nobleroar
 - [x] noretreat
 - [x] nuzzle
+- [ ] octolock
 - [x] outrage
+- [x] overdrive
 - [x] overheat
 - [x] painsplit
 - [x] paraboliccharge
@@ -681,6 +723,7 @@
 - [x] psychup
 - [x] psyshieldbash
 - [x] psyshock
+- [x] pyroball
 - [x] quash
 - [x] quickattack
 - [x] quickguard
@@ -698,6 +741,7 @@
 - [x] reflecttype
 - [x] rest
 - [x] reversal
+- [ ] revivalblessing
 - [x] risingvoltage
 - [x] roar
 - [x] rockblast
@@ -730,12 +774,14 @@
 - [x] shellsidearm
 - [x] shellsmash
 - [x] shelter
+- [x] shiftgear
 - [x] simplebeam
 - [x] sing
 - [x] skillswap
 - [x] skittersmack
 - [x] skyattack
 - [x] slackoff
+- [x] slash
 - [x] sleeppowder
 - [x] sleeptalk
 - [x] sludgebomb
@@ -744,6 +790,7 @@
 - [x] smartstrike
 - [x] snaptrap
 - [x] snarl
+- [x] snipeshot
 - [x] snore
 - [x] snowscape
 - [x] soak
@@ -850,3 +897,4 @@
 - [x] yawn
 - [x] zapcannon
 - [x] zenheadbutt
+- [x] zingzap

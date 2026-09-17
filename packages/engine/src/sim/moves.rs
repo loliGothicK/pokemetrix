@@ -111,7 +111,7 @@ pub fn handle_move_target_effect(
             pkmn_meta::types::Type::Ghost,
         );
     }
-    if move_id == "healpulse" {
+    if move_id == "healpulse" || move_id == "milkdrink" {
         if let Some(target_p) = battle.get_pokemon(PokemonIdent {
             player: target_player,
             slot: target_slot,
@@ -1723,6 +1723,56 @@ pub fn handle_move_self_effect(
                 }
             }
         }
+        "doubleshock" => {
+            if let Some(p) = battle.get_pokemon_mut(PokemonIdent { player, slot }) {
+                let mut changed = false;
+                if p.type1 == pkmn_meta::types::Type::Electric {
+                    p.type1 = pkmn_meta::types::Type::Typeless;
+                    changed = true;
+                }
+                if p.type2 == Some(pkmn_meta::types::Type::Electric) {
+                    p.type2 = Some(pkmn_meta::types::Type::Typeless);
+                    changed = true;
+                }
+                if p.added_type == Some(pkmn_meta::types::Type::Electric) {
+                    p.added_type = Some(pkmn_meta::types::Type::Typeless);
+                    changed = true;
+                }
+                if changed {
+                    let mut type_strings = Vec::new();
+                    let t1 = format!("{:?}", p.type1);
+                    type_strings.push(if t1 == "Typeless" {
+                        "???".to_string()
+                    } else {
+                        t1
+                    });
+                    if let Some(t2) = p.type2 {
+                        let t2s = format!("{:?}", t2);
+                        type_strings.push(if t2s == "Typeless" {
+                            "???".to_string()
+                        } else {
+                            t2s
+                        });
+                    }
+                    if let Some(ta) = p.added_type {
+                        let tas = format!("{:?}", ta);
+                        type_strings.push(if tas == "Typeless" {
+                            "???".to_string()
+                        } else {
+                            tas
+                        });
+                    }
+
+                    battle.log.push(BattleLogEvent::new(BattleLog::Start {
+                        target: PokemonIdent { player, slot },
+                        effect: format!(
+                            "typechange|{}|[from] move: Double Shock",
+                            type_strings.join("/")
+                        ),
+                    }));
+                }
+            }
+        }
         "bellydrum" => {
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot }) {
                 let cost = std::cmp::max(1, p.maxhp.into_inner() / 2);
@@ -1934,6 +1984,15 @@ pub fn handle_move_self_effect(
                 Some(move_id),
             );
         }
+        "shiftgear" => {
+            battle.apply_stat_change(
+                player,
+                slot,
+                vec![(Stat::Spe, 2), (Stat::Atk, 1)],
+                player,
+                Some(move_id),
+            );
+        }
         "bulkup" => {
             battle.apply_stat_change(
                 player,
@@ -1998,8 +2057,8 @@ pub fn handle_move_self_effect(
                 Some(move_id),
             );
         }
-        "recover" | "slackoff" | "softboiled" | "roost" | "milkdrink" | "moonlight"
-        | "synthesis" | "morningsun" | "healorder" => {
+        "recover" | "slackoff" | "softboiled" | "roost" | "moonlight" | "synthesis"
+        | "morningsun" | "healorder" => {
             if let Some(p) = battle.get_pokemon(PokemonIdent { player, slot }) {
                 if p.hp == p.maxhp {
                     battle.log.push(BattleLogEvent::new(BattleLog::Fail {

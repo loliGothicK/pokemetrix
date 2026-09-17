@@ -124,6 +124,30 @@ impl Battle {
             return Ok(());
         }
 
+        if action.move_id == "doubleshock"
+            && let Some(p) = self.get_pokemon(attacker_ident)
+            && p.type1 != pkmn_meta::types::Type::Electric
+            && p.type2 != Some(pkmn_meta::types::Type::Electric)
+            && p.added_type != Some(pkmn_meta::types::Type::Electric)
+        {
+            self.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: attacker_ident,
+            }));
+            return Ok(());
+        }
+
+        if action.move_id == "burnup"
+            && let Some(p) = self.get_pokemon(attacker_ident)
+            && p.type1 != pkmn_meta::types::Type::Fire
+            && p.type2 != Some(pkmn_meta::types::Type::Fire)
+            && p.added_type != Some(pkmn_meta::types::Type::Fire)
+        {
+            self.log.push(BattleLogEvent::new(BattleLog::Fail {
+                target: attacker_ident,
+            }));
+            return Ok(());
+        }
+
         if action.move_id == "suckerpunch" {
             let target_ident = PokemonIdent {
                 player: action.target_player,
@@ -532,8 +556,13 @@ impl Battle {
 
                 if is_doubles {
                     // Check redirection first
-                    let (r_player, r_slot) =
-                        self.resolve_redirection(action.player, action.slot, t_player, t_slot);
+                    let (r_player, r_slot) = self.resolve_redirection(
+                        action.player,
+                        action.slot,
+                        t_player,
+                        t_slot,
+                        &action.move_id,
+                    );
                     if r_slot != t_slot {
                         // Redirection active: BOTH hits go to redirector
                         current_targets = vec![(r_player, r_slot)];
@@ -1121,7 +1150,13 @@ impl Battle {
 
         for &(t_player, t_slot) in &targets {
             let (final_player, final_slot) = if !is_spread_move_targeting {
-                self.resolve_redirection(action.player, action.slot, t_player, t_slot)
+                self.resolve_redirection(
+                    action.player,
+                    action.slot,
+                    t_player,
+                    t_slot,
+                    &action.move_id,
+                )
             } else {
                 (t_player, t_slot)
             };
@@ -2215,8 +2250,9 @@ impl Battle {
         attacker_slot: usize,
         target_player: u8,
         original_target_slot: usize,
+        move_id: &str,
     ) -> (u8, usize) {
-        if attacker_player == target_player {
+        if attacker_player == target_player || move_id == "snipeshot" {
             return (target_player, original_target_slot);
         }
 
