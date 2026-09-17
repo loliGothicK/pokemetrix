@@ -30,16 +30,40 @@ export function AuthButton() {
 
   // 初期セッション確認 + 認証状態の購読
   useEffect(() => {
-    // 現在のユーザーを取得
-    void supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-      setIsAuthenticated(!!user);
+    console.log("[AuthButton] Initializing auth listeners...");
+    // セッション（ローカル/Cookie）から即時取得
+    void supabase.auth.getSession().then(({ data: { session }, error }) => {
+      console.log("[AuthButton] getSession:", {
+        hasSession: !!session,
+        user: session?.user?.email,
+        error: error?.message,
+      });
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      setIsAuthenticated(!!currentUser);
+    });
+
+    // サーバー検証
+    void supabase.auth.getUser().then(({ data: { user }, error }) => {
+      console.log("[AuthButton] getUser:", {
+        hasUser: !!user,
+        email: user?.email,
+        error: error?.message,
+      });
+      if (user) {
+        setUser(user);
+        setIsAuthenticated(true);
+      }
     });
 
     // 認証状態変化を購読
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("[AuthButton] onAuthStateChange event:", event, {
+        hasSession: !!session,
+        user: session?.user?.email,
+      });
       const nextUser = session?.user ?? null;
       setUser(nextUser);
       setIsAuthenticated(!!nextUser);
@@ -49,12 +73,19 @@ export function AuthButton() {
   }, [supabase, setIsAuthenticated]);
 
   const handleGoogleLogin = useCallback(async () => {
-    await supabase.auth.signInWithOAuth({
+    console.log("[AuthButton] handleGoogleLogin clicked");
+    const returnPath = window.location.pathname || "/";
+    document.cookie = `auth-return-to=${encodeURIComponent(returnPath)}; path=/; max-age=300; SameSite=Lax`;
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+    console.log("[AuthButton] signInWithOAuth result:", { data, error });
+    if (error) {
+      console.error("[AuthButton] signInWithOAuth error:", error);
+    }
     setAnchorEl(null);
   }, [supabase]);
 

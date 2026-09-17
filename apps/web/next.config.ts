@@ -76,7 +76,7 @@ export default withContentCollections(
 
     org: "mitama",
 
-    project: "pokemetrix",
+    project: "poketistix",
 
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,

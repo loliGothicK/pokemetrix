@@ -45,9 +45,9 @@ import { TeamMergeDialog } from "@/components/client/TeamMergeDialog";
 import { AuthButton } from "@/components/client/AuthButton";
 import { Footer } from "@/components/client/Footer";
 import { LocalizedLink as Link } from "@/components/client/LocalizedLink";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import i18n, { supportedLanguageOptions } from "@/i18n/config";
+import { supportedLanguageOptions } from "@/i18n/config";
 import { theme } from "@/theme/theme";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
@@ -465,9 +465,10 @@ function MobileDrawerContent({
   const router = useRouter();
 
   let currentSection = "poketistix";
-  if (pathname.startsWith("/docs")) currentSection = "docs";
-  if (pathname.startsWith("/blog")) currentSection = "blog";
-  if (pathname.startsWith("/quiz")) currentSection = "quiz";
+  const pathWithoutLang = pathname.replace(/^\/(?:ja|en)(?=\/|$)/, "") || "/";
+  if (pathWithoutLang.startsWith("/docs")) currentSection = "docs";
+  if (pathWithoutLang.startsWith("/blog")) currentSection = "blog";
+  if (pathWithoutLang.startsWith("/quiz")) currentSection = "quiz";
 
   return (
     <>
@@ -484,10 +485,15 @@ function MobileDrawerContent({
             value={currentSection}
             onChange={(e) => {
               const value = e.target.value;
-              if (value === "docs") router.push("/docs");
-              else if (value === "blog") router.push("/blog");
-              else if (value === "quiz") router.push("/quiz");
-              else router.push("/");
+              const targetPath =
+                value === "docs"
+                  ? "/docs"
+                  : value === "blog"
+                    ? "/blog"
+                    : value === "quiz"
+                      ? "/quiz"
+                      : "/";
+              router.push(`/${language}${targetPath === "/" ? "" : targetPath}`);
               onClose();
             }}
             disableUnderline
@@ -560,6 +566,19 @@ export function AppLayout({
 }>) {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
+  const { i18n } = useTranslation();
+
+  const routeLang =
+    (params?.lang as string) ||
+    (pathname.split("/").filter(Boolean)[0] === "en" ? "en" : "ja") ||
+    lang;
+
+  if (typeof window === "undefined" && i18n.resolvedLanguage !== lang) {
+    void i18n.changeLanguage(lang);
+  }
+
+  const activeLang = routeLang || i18n.resolvedLanguage || "en";
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [queryClient] = useState(
     () =>
@@ -576,31 +595,27 @@ export function AppLayout({
       }),
   );
 
-  if (i18n.resolvedLanguage !== lang) {
-    void i18n.changeLanguage(lang);
-  }
-
-  // Effect is no longer needed for hydration
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.language, lang);
-    document.documentElement.lang = lang;
-  }, [lang]);
+    if (routeLang && i18n.resolvedLanguage !== routeLang) {
+      void i18n.changeLanguage(routeLang);
+    }
+  }, [routeLang, i18n]);
 
   useEffect(() => {
-    const handleLanguageChanged = (_nextLanguage: string) => {
-      // We don't set local state anymore since it's driven by URL
-    };
-
-    i18n.on("languageChanged", handleLanguageChanged);
-    return () => {
-      i18n.off("languageChanged", handleLanguageChanged);
-    };
-  }, []);
+    window.localStorage.setItem(STORAGE_KEYS.language, activeLang);
+    document.cookie = `${STORAGE_KEYS.language}=${activeLang}; path=/; max-age=31536000; SameSite=Lax`;
+    document.documentElement.lang = activeLang;
+  }, [activeLang]);
 
   const handleLanguageChange = (nextLanguage: string) => {
+    void i18n.changeLanguage(nextLanguage);
     window.localStorage.setItem(STORAGE_KEYS.language, nextLanguage);
-    const newPath = pathname.replace(`/${lang}`, `/${nextLanguage}`);
-    router.push(newPath || `/${nextLanguage}`);
+    document.cookie = `${STORAGE_KEYS.language}=${nextLanguage}; path=/; max-age=31536000; SameSite=Lax`;
+    document.documentElement.lang = nextLanguage;
+
+    const newPath =
+      pathname.replace(/^\/(?:en|ja)(?=\/|$)/, `/${nextLanguage}`) || `/${nextLanguage}`;
+    router.push(newPath);
   };
 
   return (
@@ -620,7 +635,7 @@ export function AppLayout({
           }}
         >
           <ResponsiveAppBar
-            language={lang}
+            language={activeLang}
             onLanguageChange={handleLanguageChange}
             onOpenNav={() => setMobileNavOpen(true)}
           />
@@ -666,7 +681,7 @@ export function AppLayout({
             >
               <MobileDrawerContent
                 onClose={() => setMobileNavOpen(false)}
-                language={lang}
+                language={activeLang}
                 onLanguageChange={handleLanguageChange}
               />
             </Drawer>

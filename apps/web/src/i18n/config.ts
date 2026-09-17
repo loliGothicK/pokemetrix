@@ -10,6 +10,16 @@ export const supportedLngs = {
 
 export const defaultLanguage = "en" as const;
 
+export const getInitialLanguage = (): string => {
+  if (typeof window !== "undefined") {
+    const match = window.location.pathname.match(/^\/(en|ja)(?:\/|$)/);
+    if (match?.[1]) {
+      return match[1];
+    }
+  }
+  return defaultLanguage;
+};
+
 export const supportedLanguageOptions = Object.entries(supportedLngs).map(([value, label]) => ({
   value,
   label,
@@ -24,7 +34,7 @@ void i18n.use(initReactI18next).init({
       translation: jaTranslation,
     },
   },
-  lng: defaultLanguage,
+  lng: getInitialLanguage(),
   fallbackLng: defaultLanguage,
   returnEmptyString: true,
   supportedLngs: Object.keys(supportedLngs),

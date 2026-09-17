@@ -32,9 +32,21 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Exclude static files, API routes, and known nextjs internals from locale redirect
+  // If request is like /en/auth/callback or /ja/auth/callback, redirect to /auth/...
+  const authLocaleMatch = pathname.match(/^\/(?:en|ja)(\/auth(?:\/.*)?)$/);
+  if (authLocaleMatch) {
+    request.nextUrl.pathname = authLocaleMatch[1];
+    const redirectAuthResponse = NextResponse.redirect(request.nextUrl);
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectAuthResponse.cookies.set(cookie);
+    });
+    return redirectAuthResponse;
+  }
+
+  // Exclude static files, API routes, auth routes, and known nextjs internals from locale redirect
   if (
     pathname.startsWith("/api/") ||
+    pathname.startsWith("/auth/") ||
     pathname === "/manifest.json" ||
     pathname === "/icon.svg" ||
     pathname === "/apple-icon.png" ||
@@ -73,10 +85,14 @@ export async function proxy(request: NextRequest) {
   request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
   const redirectResponse = NextResponse.redirect(request.nextUrl);
 
-  // supabase.auth.getClaims() によって更新されたCookieを引き継ぐ
+  // supabaseResponse の全 Cookie とキャッシュヘッダーを引き継ぐ
   supabaseResponse.cookies.getAll().forEach((cookie) => {
-    redirectResponse.cookies.set(cookie.name, cookie.value);
+    redirectResponse.cookies.set(cookie);
   });
+  for (const header of ["cache-control", "expires", "pragma"]) {
+    const value = supabaseResponse.headers.get(header);
+    if (value) redirectResponse.headers.set(header, value);
+  }
 
   return redirectResponse;
 }
