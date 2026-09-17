@@ -80,16 +80,16 @@ export const useActiveTeam = () => {
         }
 
         const updated = updater(baseTeam);
-        const isClean = serverTeam && JSON.stringify(updated) === JSON.stringify(serverTeam);
+        const nextLocal = prevLocal.some((t) => t.id === activeId)
+          ? prevLocal.map((t) => (t.id === activeId ? updated : t))
+          : [...prevLocal, updated];
 
-        if (isClean) {
-          return prevLocal.filter((t) => t.id !== activeId);
-        }
-        const hasLocal = prevLocal.some((t) => t.id === activeId);
-        if (hasLocal) {
-          return prevLocal.map((t) => (t.id === activeId ? updated : t));
-        }
-        return [...prevLocal, updated];
+        const nextServer = cachedServerTeams.some((t) => t.id === activeId)
+          ? cachedServerTeams.map((t) => (t.id === activeId ? updated : t))
+          : [...cachedServerTeams, updated];
+        queryClient.setQueryData(["teams"], nextServer);
+
+        return nextLocal;
       });
     },
     [activeId, setLocalTeams, queryClient, getHistoryEntry, setHistoryEntry],

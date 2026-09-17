@@ -28,42 +28,26 @@ export const useTeamsData = () => {
 
   const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
 
-  // データソースの切り替え: サーバーデータにローカルデータをマージ（ローカル優先）
+  // データソースの切り替え: ローカルデータをベースにし、サーバーデータにしか存在しないものを追加（ローカル完全優先）
   const teams = isAuthenticated
-    ? [
-        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
-        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
-      ]
+    ? [...localTeams, ...serverTeams.filter((st) => !localTeams.some((lt) => lt.id === st.id))]
     : localTeams;
 
-  // 更新ロジックの切り替え
+  // 更新ロジック: 常に全チームをローカルストレージに即時反映し、クエリキャッシュも同期
   const updateTeams = (newTeams: readonly Team[]) => {
-    if (!isAuthenticated) {
-      setLocalTeams(newTeams);
-      return;
+    setLocalTeams(newTeams);
+    if (isAuthenticated) {
+      queryClient.setQueryData(["teams"], newTeams);
     }
-
-    // ログイン状態では、サーバーのデータと参照が同じ（変更されていない）ものは localTeams から除外する
-    const unsavedTeams = newTeams.filter((nt) => {
-      const st = serverTeams.find((s) => s.id === nt.id);
-      // サーバーから取得したオブジェクトと参照が一致する場合は、ローカルに変更がないとみなす
-      return st !== nt;
-    });
-    setLocalTeams(unsavedTeams);
   };
 
-  // 削除ロジックの切り替え
+  // 削除ロジック: ローカルストレージとクエリキャッシュの両方から即座に除去
   const removeTeam = (teamId: string) => {
     const newLocalTeams = localTeams.filter((t) => t.id !== teamId);
     setLocalTeams(newLocalTeams);
 
     if (isAuthenticated) {
-      // 楽観的UI更新：サーバーキャッシュからも除去して即座に反映
-      const currentServerTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-      queryClient.setQueryData(
-        ["teams"],
-        currentServerTeams.filter((t) => t.id !== teamId),
-      );
+      queryClient.setQueryData(["teams"], newLocalTeams);
       deleteTeamMutation.mutate(teamId);
     }
   };

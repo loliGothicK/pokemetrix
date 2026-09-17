@@ -34,6 +34,7 @@ import { activeTeamIdAtom } from "@/store/team/team";
 import { useSeasons } from "@/hooks/useSeasons";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import { useTeamsData } from "@/hooks/useTeamsData";
+import { saveTeamsToServer } from "@services/teams";
 import { championsPokemonByIdentifier } from "@/data/champions-pokemon";
 import { typeIcon } from "@/lib/image";
 import { tally } from "@/store/battle-record/analytics";
@@ -418,6 +419,16 @@ export default function BattleRecordPage() {
 
   const handleRecordSubmit = async (draft: BattleRecordDraft, seasonId: string) => {
     const input = draftToInput(draft, seasonId);
+    if (draft.teamId) {
+      const selectedTeam = safeTeams.find((tm) => tm.id === draft.teamId);
+      if (selectedTeam) {
+        try {
+          await saveTeamsToServer([selectedTeam]);
+        } catch {
+          // ignore to allow battle record creation even if offline
+        }
+      }
+    }
     if (recordEditing) {
       const { seasonId: _seasonId, ...update } = input;
       await updateRecord(recordEditing.id, update);

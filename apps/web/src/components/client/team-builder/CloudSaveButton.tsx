@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CheckIcon from "@mui/icons-material/Check";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { localTeamsAtom, Team } from "@/store/team/team";
@@ -32,7 +32,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
   ({ asSpeedDialAction, ...props }, ref) => {
     const { t } = useTranslation();
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
-    const [localTeams, setLocalTeams] = useAtom(localTeamsAtom);
+    const localTeams = useAtomValue(localTeamsAtom);
     const [activeTeam] = useActiveTeam();
     const queryClient = useQueryClient();
 
@@ -42,26 +42,15 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
 
     const saveMutation = useMutation({
       mutationFn: async () => {
-        const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-
-        const mergedTeams = [
-          ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
-          ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
-        ];
-
-        const validTeams = mergedTeams.filter((t) => teamSaveSchema.safeParse(t).success);
+        const validTeams = localTeams.filter((t) => teamSaveSchema.safeParse(t).success);
         await saveTeamsToServer(validTeams);
         return validTeams;
       },
       onSuccess: async (validTeams) => {
         // 1. サーバーキャッシュを保存した最新データで即座に同期（楽観的更新）
-        // これを行わないと、localTeams を削除した瞬間に古いキャッシュ（変更前の技）を参照してしまう
         queryClient.setQueryData(["teams"], validTeams);
 
-        // 2. ローカル差分をクリア
-        setLocalTeams((prev) => prev.filter((t) => !validTeams.some((vt) => vt.id === t.id)));
-
-        // 3. バックグラウンドで最新データを再検証（await せずに即時完了）
+        // 2. バックグラウンドで最新データを再検証（await せずに即時完了）
         void queryClient.invalidateQueries({ queryKey: ["teams"] });
 
         setSnackMessage(t("teamBuilder.saveSuccess") || "クラウドに保存しました");
@@ -77,7 +66,10 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
 
     if (!isAuthenticated || !activeTeam) return null;
 
-    const hasUnsavedChanges = localTeams.some((t) => t.id === activeTeam.id);
+    const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
+    const serverTeam = serverTeams.find((st) => st.id === activeTeam.id);
+    const hasUnsavedChanges =
+      !serverTeam || JSON.stringify(serverTeam) !== JSON.stringify(activeTeam);
     const parseResult = teamSchema.safeParse(activeTeam);
     const isDraft = !parseResult.success;
     const draftReasons = formatTeamValidationIssues(parseResult, t, activeTeam.members);

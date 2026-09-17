@@ -58,7 +58,7 @@ export const createBattleRecord = (
               throw new Error(`Season not found: ${validData.seasonId}`);
             }
 
-            // Validate teamId exists for this user; if not found (e.g. local unsaved team or deleted), safely fallback to null
+            // Validate teamId exists for this user; if not found (e.g. local unsaved team), insert stub team so FK is satisfied
             let effectiveTeamId = validData.teamId ?? null;
             if (effectiveTeamId) {
               const [existingTeam] = await tx
@@ -67,7 +67,14 @@ export const createBattleRecord = (
                 .where(and(eq(teams.id, effectiveTeamId), eq(teams.userId, validData.userId)))
                 .limit(1);
               if (!existingTeam) {
-                effectiveTeamId = null;
+                await tx
+                  .insert(teams)
+                  .values({
+                    id: effectiveTeamId,
+                    userId: validData.userId,
+                    name: "Local Team",
+                  })
+                  .onConflictDoNothing();
               }
             }
 
@@ -121,7 +128,14 @@ export const updateBattleRecord = (
           .where(and(eq(teams.id, effectiveTeamId), eq(teams.userId, userId)))
           .limit(1);
         if (!existingTeam) {
-          effectiveTeamId = null;
+          await db
+            .insert(teams)
+            .values({
+              id: effectiveTeamId,
+              userId,
+              name: "Local Team",
+            })
+            .onConflictDoNothing();
         }
       }
 
