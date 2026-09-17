@@ -14,6 +14,7 @@ import {
   FormControlLabel,
   Snackbar,
   Switch,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import IosShareIcon from "@mui/icons-material/IosShare";
@@ -26,6 +27,7 @@ import { useTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
 
 import { teamSchema } from "@/lib/validator/team";
+import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
 
 type ShareState = "idle" | "loading" | "success" | "error";
 
@@ -104,34 +106,70 @@ export function ShareButton() {
 
   const isLoading = shareState === "loading";
   const isSuccess = shareState === "success";
-  const isDraft = activeTeam ? !teamSchema.safeParse(activeTeam).success : false;
+
+  const parseResult = activeTeam ? teamSchema.safeParse(activeTeam) : null;
+  const isDraft = parseResult ? !parseResult.success : false;
+  const draftReasons =
+    parseResult && !parseResult.success && activeTeam
+      ? formatTeamValidationIssues(parseResult, t, activeTeam.members)
+      : [];
+
+  const actionText = isLoading
+    ? t("share.sharing")
+    : isSuccess
+      ? t("share.shareSuccess")
+      : isDraft
+        ? `${t("share.shareTeam")} (${t("teamBuilder.draft")})`
+        : t("share.shareTeam");
+
+  const button = (
+    <Button
+      variant="contained"
+      disableElevation
+      color={isSuccess ? "success" : "primary"}
+      disabled={isLoading || !activeTeam || isDraft}
+      startIcon={
+        isLoading ? (
+          <CircularProgress size={16} color="inherit" />
+        ) : isSuccess ? (
+          <CheckIcon />
+        ) : (
+          <IosShareIcon />
+        )
+      }
+      onClick={handleOpenDialog}
+      sx={{ transition: "all 0.2s", minWidth: 120 }}
+    >
+      {actionText}
+    </Button>
+  );
 
   return (
     <>
       {/* トリガーボタン */}
-      <Button
-        variant="contained"
-        disableElevation
-        color={isSuccess ? "success" : "primary"}
-        disabled={isLoading || !activeTeam || isDraft}
-        startIcon={
-          isLoading ? (
-            <CircularProgress size={16} color="inherit" />
-          ) : isSuccess ? (
-            <CheckIcon />
-          ) : (
-            <IosShareIcon />
-          )
-        }
-        onClick={handleOpenDialog}
-        sx={{ transition: "all 0.2s", minWidth: 120 }}
-      >
-        {isLoading
-          ? t("share.sharing")
-          : isSuccess
-            ? t("share.shareSuccess")
-            : t("share.shareTeam")}
-      </Button>
+      {isDraft && draftReasons.length > 0 ? (
+        <Tooltip
+          arrow
+          title={
+            <Box sx={{ p: 0.5 }}>
+              <Typography variant="caption" sx={{ fontWeight: 700, display: "block", mb: 0.5 }}>
+                {t("share.draftReasonTitle")}
+              </Typography>
+              {draftReasons.map((reason, i) => (
+                <Typography key={i} variant="caption" sx={{ display: "block" }}>
+                  • {reason}
+                </Typography>
+              ))}
+            </Box>
+          }
+        >
+          <Box component="span" sx={{ display: "inline-flex" }}>
+            {button}
+          </Box>
+        </Tooltip>
+      ) : (
+        button
+      )}
 
       {/* シェアオプションダイアログ */}
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="xs" fullWidth>
@@ -151,9 +189,7 @@ export function ShareButton() {
               alignItems: "center",
               gap: 1.5,
               border: "1px solid",
-              borderColor: showStats
-                ? alpha(theme.palette.primary.main, 0.35)
-                : theme.palette.divider,
+              borderColor: showStats ? alpha(theme.palette.primary.main, 0.35) : "divider",
               bgcolor: showStats ? alpha(theme.palette.primary.main, 0.05) : "transparent",
               transition: "all 0.2s",
               cursor: "pointer",

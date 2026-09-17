@@ -563,7 +563,8 @@
     "createLink": "リンクを作成",
     "abilityLabel": "特性",
     "natureLabel": "性格",
-    "openInBuilder": "チームビルダーで開く"
+    "openInBuilder": "チームビルダーで開く",
+    "draftReasonTitle": "シェアできない理由"
   },
   "box": {
     "title": "マイBOX",
@@ -686,6 +687,20 @@
     "lintToggle": "解析",
     "saveSuccess": "クラウドに保存しました",
     "draftReasonTitle": "保存できない理由",
+    "validation": {
+      "abilityRequired": "特性が設定されていません",
+      "invalidAbility": "覚えない特性です",
+      "movesRequired": "技が1つも設定されていません",
+      "invalidMove": "覚えない技が含まれています",
+      "duplicateItem": "持ち物が他のポケモンと重複しています",
+      "duplicateSpecies": "同じポケモンが重複しています",
+      "statEvExceeded": "{{stat}}の努力値が上限({{max}})を超えています",
+      "totalEvExceeded": "努力値の合計が上限({{max}})を超えています",
+      "natureRequired": "性格が設定されていません",
+      "invalidGender": "性別が不正です",
+      "teamSizeRequired": "チームは6匹である必要があります",
+      "teamNameRequired": "チーム名を入力してください"
+    },
     "drawer": {
       "overview": "概要",
       "notes": "メモ"

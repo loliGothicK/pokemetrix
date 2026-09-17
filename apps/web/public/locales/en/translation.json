@@ -492,7 +492,8 @@
     "createLink": "Create Link",
     "abilityLabel": "Ability",
     "natureLabel": "Nature",
-    "openInBuilder": "Open in Team Builder"
+    "openInBuilder": "Open in Team Builder",
+    "draftReasonTitle": "Why this team can't be shared"
   },
   "box": {
     "title": "My BOX",
@@ -618,6 +619,20 @@
     "lintToggle": "Lint",
     "saveSuccess": "Successfully saved to Cloud",
     "draftReasonTitle": "Why this team can't be saved",
+    "validation": {
+      "abilityRequired": "Ability is required",
+      "invalidAbility": "Invalid ability for this Pokémon",
+      "movesRequired": "At least one move is required",
+      "invalidMove": "Contains moves this Pokémon cannot learn",
+      "duplicateItem": "Duplicate item held by another Pokémon",
+      "duplicateSpecies": "Duplicate Pokémon species",
+      "statEvExceeded": "{{stat}} EV exceeds maximum ({{max}})",
+      "totalEvExceeded": "Total EVs exceed maximum ({{max}})",
+      "natureRequired": "Nature is required",
+      "invalidGender": "Invalid gender",
+      "teamSizeRequired": "Team must have 6 Pokémon slots",
+      "teamNameRequired": "Team name is required"
+    },
     "drawer": {
       "overview": "Overview",
       "notes": "Notes"

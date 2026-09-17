@@ -176,6 +176,7 @@ const SHARE_KEYS = [
   "sharing",
   "shareSuccess",
   "shareError",
+  "draftReasonTitle",
 ] as const;
 
 describe("翻訳キー — share.* が EN/JA 両方に存在し空でない", () => {
