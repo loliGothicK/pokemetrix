@@ -28,17 +28,17 @@ export const useTeamsData = () => {
 
   const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
 
-  // データソースの切り替え: ローカルデータをベースにし、サーバーデータにしか存在しないものを追加（ローカル完全優先）
+  // データソースの切り替え: サーバーデータをベースにローカル編集を適用し、ローカル新規追加チームを末尾に結合
   const teams = isAuthenticated
-    ? [...localTeams, ...serverTeams.filter((st) => !localTeams.some((lt) => lt.id === st.id))]
+    ? [
+        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
+        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
+      ]
     : localTeams;
 
-  // 更新ロジック: 常に全チームをローカルストレージに即時反映し、クエリキャッシュも同期
+  // 更新ロジック: ローカルストレージに即時反映（未保存変更として保持）
   const updateTeams = (newTeams: readonly Team[]) => {
     setLocalTeams(newTeams);
-    if (isAuthenticated) {
-      queryClient.setQueryData(["teams"], newTeams);
-    }
   };
 
   // 削除ロジック: ローカルストレージとクエリキャッシュの両方から即座に除去

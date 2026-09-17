@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CheckIcon from "@mui/icons-material/Check";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { localTeamsAtom, Team } from "@/store/team/team";
@@ -22,7 +22,9 @@ import { isAuthenticatedAtom } from "@/store/auth";
 import { saveTeamsToServer } from "@services/teams";
 import { teamSchema, teamSaveSchema } from "@/lib/validator/team";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
+import { useTeamsData } from "@/hooks/useTeamsData";
 import { formatTeamValidationIssues } from "@/lib/validator/format-issues";
+import { isTeamEqual } from "@/lib/team/equality";
 
 type CloudSaveButtonProps = {
   asSpeedDialAction?: boolean;
@@ -33,7 +35,9 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
     const { t } = useTranslation();
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const localTeams = useAtomValue(localTeamsAtom);
+    const setLocalTeams = useSetAtom(localTeamsAtom);
     const [activeTeam] = useActiveTeam();
+    const { isLoading: isTeamsLoading } = useTeamsData();
     const queryClient = useQueryClient();
 
     const [snackOpen, setSnackOpen] = useState(false);
@@ -42,15 +46,31 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
 
     const saveMutation = useMutation({
       mutationFn: async () => {
-        const validTeams = localTeams.filter((t) => teamSaveSchema.safeParse(t).success);
+        if (!activeTeam) throw new Error("No active team to save");
+        const candidates = [
+          activeTeam,
+          ...localTeams.filter((t) => t.id !== activeTeam.id),
+        ];
+        const validTeams = candidates.filter((t) => teamSaveSchema.safeParse(t).success);
+        if (validTeams.length === 0) {
+          throw new Error("No valid teams to save");
+        }
         await saveTeamsToServer(validTeams);
         return validTeams;
       },
       onSuccess: async (validTeams) => {
         // 1. サーバーキャッシュを保存した最新データで即座に同期（楽観的更新）
-        queryClient.setQueryData(["teams"], validTeams);
+        queryClient.setQueryData<readonly Team[]>(["teams"], (old = []) => {
+          const map = new Map(old.map((t) => [t.id, t]));
+          validTeams.forEach((t) => map.set(t.id, t));
+          return Array.from(map.values());
+        });
 
-        // 2. バックグラウンドで最新データを再検証（await せずに即時完了）
+        // 2. 保存成功したチームを localTeams（未保存差分）から削除
+        const savedIds = new Set(validTeams.map((t) => t.id));
+        setLocalTeams((prev) => prev.filter((t) => !savedIds.has(t.id)));
+
+        // 3. バックグラウンドで最新データを再検証（await せずに即時完了）
         void queryClient.invalidateQueries({ queryKey: ["teams"] });
 
         setSnackMessage(t("teamBuilder.saveSuccess") || "クラウドに保存しました");
@@ -69,13 +89,13 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
     const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
     const serverTeam = serverTeams.find((st) => st.id === activeTeam.id);
     const hasUnsavedChanges =
-      !serverTeam || JSON.stringify(serverTeam) !== JSON.stringify(activeTeam);
+      !serverTeam || !isTeamEqual(serverTeam, activeTeam);
     const parseResult = teamSchema.safeParse(activeTeam);
     const isDraft = !parseResult.success;
     const draftReasons = formatTeamValidationIssues(parseResult, t, activeTeam.members);
 
-    const isLoading = saveMutation.isPending;
-    const isSaved = !hasUnsavedChanges;
+    const isLoading = saveMutation.isPending || isTeamsLoading;
+    const isSaved = !hasUnsavedChanges && !isTeamsLoading;
 
     const actionIcon = isLoading ? (
       <CircularProgress size={16} color="inherit" />
@@ -102,7 +122,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         onClick={() => saveMutation.mutate()}
         slotProps={{
           tooltip: { title: actionText, open: true },
-          fab: { disabled: isLoading || isSaved },
+          fab: { disabled: isLoading || isSaved || isDraft },
         }}
       />
     ) : (
@@ -111,7 +131,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         variant={hasUnsavedChanges ? "contained" : "outlined"}
         disableElevation
         color={hasUnsavedChanges ? (isDraft ? "warning" : "primary") : "inherit"}
-        disabled={isLoading || isSaved}
+        disabled={isLoading || isSaved || isDraft}
         startIcon={actionIcon}
         onClick={() => saveMutation.mutate()}
         sx={{ transition: "all 0.2s", minWidth: 140 }}

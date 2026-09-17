@@ -84,11 +84,6 @@ export const useActiveTeam = () => {
           ? prevLocal.map((t) => (t.id === activeId ? updated : t))
           : [...prevLocal, updated];
 
-        const nextServer = cachedServerTeams.some((t) => t.id === activeId)
-          ? cachedServerTeams.map((t) => (t.id === activeId ? updated : t))
-          : [...cachedServerTeams, updated];
-        queryClient.setQueryData(["teams"], nextServer);
-
         return nextLocal;
       });
     },
