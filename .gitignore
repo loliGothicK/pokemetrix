@@ -59,11 +59,8 @@ packages/damage-calc/target/
 # content-collections
 .content-collections
 
-# Turborepo
-.turbo
-
+# outputs
 target
-
 test-results
 
 .wrangler

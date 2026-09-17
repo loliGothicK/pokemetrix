@@ -132,7 +132,6 @@ import DownloadIcon from "@mui/icons-material/Download";
 import UploadIcon from "@mui/icons-material/Upload";
 import RuleIcon from "@mui/icons-material/Rule";
 import { useActiveTeam } from "@/hooks/useActiveTeam";
-import { useTeamAutoSave } from "@/hooks/useTeamAutoSave";
 import { activeTeamLintAtom } from "@/store/team/options";
 import Add from "@mui/icons-material/Add";
 
@@ -558,8 +557,6 @@ export default function TeamBuilderPage({
       setActiveTeamId(teams[0].id);
     }
   }, [mounted, activeTeamId, teams, setActiveTeamId]);
-
-  useTeamAutoSave();
 
   const handleSelectSlot = (slot: number) => {
     setSelectedSlot(slot);
