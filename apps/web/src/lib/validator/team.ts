@@ -23,7 +23,7 @@ export const teamSchema = z
 
     for (const member of team.members) {
       if (!member) continue;
-      if (member.item !== null) {
+      if (member.item !== null && member.item !== undefined) {
         itemCount.set(member.item, (itemCount.get(member.item) ?? 0) + 1);
       }
       const pokemonBaseData = pokemonByIdentifier.get(member.identifier);
@@ -47,7 +47,7 @@ export const teamSchema = z
       const member = team.members[i];
       if (!member) continue;
 
-      if (member.item !== null && duplicateItems.has(member.item)) {
+      if (member.item !== null && member.item !== undefined && duplicateItems.has(member.item)) {
         ctx.addIssue({
           code: "custom",
           message: `Duplicate item. Each Pokemon must have a unique item.`,

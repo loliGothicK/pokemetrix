@@ -21,7 +21,7 @@ const snapshotSchema = z
     const items = new Set<number>();
     for (let i = 0; i < snapshot.members.length; i++) {
       const member = snapshot.members[i];
-      if (member && member.item !== null) {
+      if (member && member.item !== null && member.item !== undefined) {
         if (items.has(member.item)) {
           ctx.addIssue({
             code: "custom",
