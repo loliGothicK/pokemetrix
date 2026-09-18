@@ -390,6 +390,12 @@ export function resolveDamageInput(ctx: ResolveContext): DamageInput | null {
   if (moveType === "ground") {
     if (gravity) immuneOverride = false;
     else if (defender.ability === "levitate") immuneOverride = true;
+  } else if (
+    (attacker.ability === "scrappy" || attacker.ability === "mindseye") &&
+    (moveType === "normal" || moveType === "fighting") &&
+    defPokemon.types.includes("ghost")
+  ) {
+    immuneOverride = false;
   }
 
   let protectModifier: number | undefined;

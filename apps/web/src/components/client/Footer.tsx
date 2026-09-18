@@ -5,10 +5,12 @@ import NextLink from "next/link";
 import { LocalizedLink } from "@/components/client/LocalizedLink";
 import { useTranslation } from "react-i18next";
 import { flexRowCenter } from "@/theme/sx";
+import { useBugReport } from "@/components/client/feedback";
 
 export function Footer() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { openBugReport } = useBugReport();
 
   return (
     <Box
@@ -78,6 +80,17 @@ export function Footer() {
               underline="hover"
             >
               Contact
+            </Link>
+            <Link
+              component="button"
+              type="button"
+              onClick={openBugReport}
+              color="text.secondary"
+              variant="body2"
+              underline="hover"
+              sx={{ verticalAlign: "baseline" }}
+            >
+              {t("feedback.reportBug")}
             </Link>
           </Stack>
           <Typography variant="body2" color="text.secondary" align="center" sx={{ maxWidth: 600 }}>

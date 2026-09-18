@@ -52,6 +52,8 @@ import { theme } from "@/theme/theme";
 import { SurfaceCard } from "@/components/common/SurfaceCard";
 import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
 import MenuIcon from "@mui/icons-material/Menu";
+import BugReportRoundedIcon from "@mui/icons-material/BugReportRounded";
+import { BugReportProvider, BugReportDialog, useBugReport } from "@/components/client/feedback";
 
 const SIDE_MENU_WIDTH = 240;
 
@@ -130,6 +132,7 @@ const sideMenuGroups: SideMenuGroup[] = [
 
 function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
   const { t } = useTranslation();
+  const { openBugReport } = useBugReport();
 
   return (
     <List
@@ -211,6 +214,33 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
           {index < sideMenuGroups.length - 1 ? <Divider sx={{ mt: 1.25 }} /> : null}
         </Box>
       ))}
+      <Divider sx={{ my: 0.5 }} />
+      <ListItemButton
+        onClick={() => {
+          onNavigate?.();
+          openBugReport();
+        }}
+        sx={{
+          borderRadius: 3,
+          minHeight: 40,
+          color: "text.secondary",
+          "&:hover": {
+            color: "text.primary",
+            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          },
+        }}
+      >
+        <ListItemIcon sx={{ minWidth: 36, color: "inherit" }}>
+          <BugReportRoundedIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText
+          primary={
+            <Typography variant="body2" sx={{ fontWeight: 500 }}>
+              {t("feedback.reportBug")}
+            </Typography>
+          }
+        />
+      </ListItemButton>
     </List>
   );
 }
@@ -224,6 +254,7 @@ function AppControls({
 }) {
   const { mode, setMode } = useColorScheme();
   const { t } = useTranslation();
+  const { openBugReport } = useBugReport();
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -252,6 +283,17 @@ function AppControls({
           ))}
         </Select>
       </FormControl>
+      <Tooltip title={t("feedback.reportBug")}>
+        <IconButton
+          color="primary"
+          onClick={openBugReport}
+          size="small"
+          aria-label={t("feedback.reportBug")}
+          sx={iconButtonBordered()}
+        >
+          <BugReportRoundedIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
       <Tooltip title={mode === "dark" ? t("preferences.lightMode") : t("preferences.darkMode")}>
         <IconButton
           color="primary"
@@ -622,86 +664,89 @@ export function AppLayout({
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme} defaultMode="system">
         <CssBaseline />
-        <AuthSyncEffect />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100dvh",
-            height: "100dvh",
-            overflow: "hidden",
-            width: "100%",
-            bgcolor: "background.default",
-          }}
-        >
-          <ResponsiveAppBar
-            language={activeLang}
-            onLanguageChange={handleLanguageChange}
-            onOpenNav={() => setMobileNavOpen(true)}
-          />
+        <BugReportProvider>
+          <AuthSyncEffect />
           <Box
             sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: `${SIDE_MENU_WIDTH}px minmax(0, 1fr)`,
-              },
-              flexGrow: 1,
-              minHeight: 0,
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100dvh",
+              height: "100dvh",
               overflow: "hidden",
+              width: "100%",
+              bgcolor: "background.default",
             }}
           >
-            {/* デスクトップ用サイドバー（md以上で表示） */}
-            <SurfaceCard
-              borderRadius={0}
+            <ResponsiveAppBar
+              language={activeLang}
+              onLanguageChange={handleLanguageChange}
+              onOpenNav={() => setMobileNavOpen(true)}
+            />
+            <Box
               sx={{
-                display: { xs: "none", md: "flex" },
-                flexDirection: "row",
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: `${SIDE_MENU_WIDTH}px minmax(0, 1fr)`,
+                },
+                flexGrow: 1,
+                minHeight: 0,
                 overflow: "hidden",
               }}
             >
-              <Box sx={{ width: SIDE_MENU_WIDTH }}>
-                <SideMenuContent />
-              </Box>
-            </SurfaceCard>
+              {/* デスクトップ用サイドバー（md以上で表示） */}
+              <SurfaceCard
+                borderRadius={0}
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  flexDirection: "row",
+                  overflow: "hidden",
+                }}
+              >
+                <Box sx={{ width: SIDE_MENU_WIDTH }}>
+                  <SideMenuContent />
+                </Box>
+              </SurfaceCard>
 
-            {/* モバイル用サイドバー（md以上ではDrawerごと非表示） */}
-            <Drawer
-              open={mobileNavOpen}
-              onClose={() => setMobileNavOpen(false)}
-              sx={{
-                display: { xs: "block", md: "none" },
-                "& .MuiDrawer-paper": {
-                  width: "min(92vw, 320px)",
-                  boxSizing: "border-box",
+              {/* モバイル用サイドバー（md以上ではDrawerごと非表示） */}
+              <Drawer
+                open={mobileNavOpen}
+                onClose={() => setMobileNavOpen(false)}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                  "& .MuiDrawer-paper": {
+                    width: "min(92vw, 320px)",
+                    boxSizing: "border-box",
+                    display: "flex",
+                    flexDirection: "column",
+                  },
+                }}
+              >
+                <MobileDrawerContent
+                  onClose={() => setMobileNavOpen(false)}
+                  language={activeLang}
+                  onLanguageChange={handleLanguageChange}
+                />
+              </Drawer>
+
+              <Box
+                component="main"
+                sx={{
                   display: "flex",
                   flexDirection: "column",
-                },
-              }}
-            >
-              <MobileDrawerContent
-                onClose={() => setMobileNavOpen(false)}
-                language={activeLang}
-                onLanguageChange={handleLanguageChange}
-              />
-            </Drawer>
-
-            <Box
-              component="main"
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100%",
-                minWidth: "100%",
-                margin: "0 auto",
-                overflowY: "auto",
-              }}
-            >
-              <Box sx={{ flexGrow: 1 }}>{children}</Box>
+                  minHeight: "100%",
+                  minWidth: "100%",
+                  margin: "0 auto",
+                  overflowY: "auto",
+                }}
+              >
+                <Box sx={{ flexGrow: 1 }}>{children}</Box>
+              </Box>
             </Box>
           </Box>
-        </Box>
-        <Footer />
+          <Footer />
+          <BugReportDialog />
+        </BugReportProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

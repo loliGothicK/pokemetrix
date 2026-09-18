@@ -47,10 +47,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
     const saveMutation = useMutation({
       mutationFn: async () => {
         if (!activeTeam) throw new Error("No active team to save");
-        const candidates = [
-          activeTeam,
-          ...localTeams.filter((t) => t.id !== activeTeam.id),
-        ];
+        const candidates = [activeTeam, ...localTeams.filter((t) => t.id !== activeTeam.id)];
         const validTeams = candidates.filter((t) => teamSaveSchema.safeParse(t).success);
         if (validTeams.length === 0) {
           throw new Error("No valid teams to save");
@@ -88,8 +85,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
 
     const serverTeams = queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
     const serverTeam = serverTeams.find((st) => st.id === activeTeam.id);
-    const hasUnsavedChanges =
-      !serverTeam || !isTeamEqual(serverTeam, activeTeam);
+    const hasUnsavedChanges = !serverTeam || !isTeamEqual(serverTeam, activeTeam);
     const parseResult = teamSchema.safeParse(activeTeam);
     const isDraft = !parseResult.success;
     const draftReasons = formatTeamValidationIssues(parseResult, t, activeTeam.members);

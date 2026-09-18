@@ -53,6 +53,20 @@ describe("damage engine (wasm)", () => {
     });
     expect(out.max).toBe(0);
   });
+
+  it("deals damage when immuneOverride is false against an immune type (e.g. Scrappy)", async () => {
+    const out = await calculate({
+      level: 50,
+      basePower: 80,
+      attack: 120,
+      defense: 100,
+      isPhysical: true,
+      moveType: "normal",
+      defenderType1: "ghost",
+      immuneOverride: false,
+    });
+    expect(out.max).toBeGreaterThan(0);
+  });
 });
 
 describe("modifier resolution", () => {

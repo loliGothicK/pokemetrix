@@ -6190,5 +6190,31 @@
       "selectSwitch": "Select Pokémon to switch in",
       "selectTarget": "Select Target"
     }
+  },
+  "feedback": {
+    "reportBug": "Report a Bug",
+    "title": "Report an Issue / Feedback",
+    "description": "Please let us know about any bugs, layout issues, or suggestions. Your report will be sent to Sentry to help improve Pokétistix.",
+    "category": {
+      "label": "Category",
+      "ui": "UI / Layout Glitch",
+      "calculation": "Damage Calc / Data Issue",
+      "error": "Error / Crash",
+      "feature": "Feature Request / Suggestion",
+      "other": "Other"
+    },
+    "messageLabel": "Issue Description / Steps to Reproduce",
+    "messagePlaceholder": "Please describe what happened, steps to reproduce, or any relevant details",
+    "emailLabel": "Email (Optional)",
+    "emailPlaceholder": "Enter your email if you'd like follow-up or updates",
+    "urlLabel": "Page URL",
+    "send": "Send Report",
+    "sending": "Sending...",
+    "cancel": "Cancel",
+    "successTitle": "Report Sent",
+    "successMessage": "Thank you for your feedback! We will review the report shortly.",
+    "errorTitle": "Submission Failed",
+    "errorMessage": "An error occurred while sending your report. Please try again later.",
+    "close": "Close"
   }
 }

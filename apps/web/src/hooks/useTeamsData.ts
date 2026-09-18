@@ -55,8 +55,7 @@ export const useTeamsData = () => {
     }
   };
 
-  const isLoading =
-    isAuthenticated === null || (isAuthenticated === true && teamsQuery.isLoading);
+  const isLoading = isAuthenticated === null || (isAuthenticated === true && teamsQuery.isLoading);
 
   return {
     teams,

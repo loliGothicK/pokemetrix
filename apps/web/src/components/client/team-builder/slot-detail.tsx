@@ -108,8 +108,7 @@ export default function TeamSlotDetail({
             aria-label={t("teamBuilder.back")}
             onClick={
               onBack ??
-              (() =>
-                router.push(`/${i18n.resolvedLanguage ?? "ja"}/team-builder?view=overview`))
+              (() => router.push(`/${i18n.resolvedLanguage ?? "ja"}/team-builder?view=overview`))
             }
           >
             <ArrowBackIcon />

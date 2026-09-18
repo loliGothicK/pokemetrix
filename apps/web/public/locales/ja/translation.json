@@ -6168,5 +6168,31 @@
     "physical": "物理",
     "special": "特殊",
     "status": "変化"
+  },
+  "feedback": {
+    "reportBug": "不具合を報告",
+    "title": "不具合・ご意見の報告",
+    "description": "Pokétistix の不具合や表示崩れ、ご意見などをお寄せください。内容は Sentry に送信され、改善に役立てられます。",
+    "category": {
+      "label": "カテゴリ",
+      "ui": "表示・レイアウト崩れ",
+      "calculation": "ダメージ計算・データ誤り",
+      "error": "エラー・動作停止",
+      "feature": "機能リクエスト・改善要望",
+      "other": "その他"
+    },
+    "messageLabel": "不具合の内容・再現手順",
+    "messagePlaceholder": "発生した画面や操作内容、どのような問題が起きたかを具体的にご記入ください",
+    "emailLabel": "メールアドレス (任意)",
+    "emailPlaceholder": "返信が必要な場合や確認をご希望の場合に入力してください",
+    "urlLabel": "発生箇所 (URL)",
+    "send": "送信する",
+    "sending": "送信中...",
+    "cancel": "キャンセル",
+    "successTitle": "送信が完了しました",
+    "successMessage": "ご報告ありがとうございます。開発チームにて確認いたします。",
+    "errorTitle": "送信に失敗しました",
+    "errorMessage": "送信中にエラーが発生しました。時間をおいて再度お試しください。",
+    "close": "閉じる"
   }
 }

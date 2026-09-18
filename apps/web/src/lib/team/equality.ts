@@ -57,10 +57,7 @@ export const isPokemonEqual = (
  * 2つの Team が同値であるかを厳密に判定する。
  * JSON.stringify に頼らず、各スロットを isPokemonEqual で比較する。
  */
-export const isTeamEqual = (
-  a: Team | null | undefined,
-  b: Team | null | undefined,
-): boolean => {
+export const isTeamEqual = (a: Team | null | undefined, b: Team | null | undefined): boolean => {
   if (a === b) return true;
   if (!a || !b) return false;
 

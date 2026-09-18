@@ -577,6 +577,137 @@ describe("resolveDamageInput", () => {
     });
   });
 
+  describe("Immunity Overrides (immuneOverride)", () => {
+    it("sets immuneOverride to false for Scrappy attacker with Normal move against Ghost defender", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "kangaskhan",
+          ability: "scrappy",
+          move: "fake-out",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "gengar",
+          ability: "cursed-body",
+        },
+      });
+      expect(res?.immuneOverride).toBe(false);
+    });
+
+    it("sets immuneOverride to false for Scrappy attacker with Fighting move against Ghost defender", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "kangaskhan",
+          ability: "scrappy",
+          move: "low-kick",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "gengar",
+          ability: "cursed-body",
+        },
+      });
+      expect(res?.immuneOverride).toBe(false);
+    });
+
+    it("does not set immuneOverride for non-Scrappy attacker using Normal move against Ghost defender", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "kangaskhan",
+          ability: "early-bird",
+          move: "fake-out",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "gengar",
+          ability: "cursed-body",
+        },
+      });
+      expect(res?.immuneOverride).toBeUndefined();
+    });
+
+    it("does not set immuneOverride for Scrappy attacker using non-Normal/Fighting move", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "kangaskhan",
+          ability: "scrappy",
+          move: "fire-punch",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "gengar",
+          ability: "cursed-body",
+        },
+      });
+      expect(res?.immuneOverride).toBeUndefined();
+    });
+
+    it("sets immuneOverride to true when defender is protecting, even if attacker has Scrappy", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "kangaskhan",
+          ability: "scrappy",
+          move: "fake-out",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "gengar",
+          ability: "cursed-body",
+          conditions: { protect: true },
+        },
+      });
+      expect(res?.immuneOverride).toBe(true);
+    });
+
+    it("sets immuneOverride to false under Gravity for Ground moves against Flying / Levitate", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        gravity: true,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "garchomp",
+          ability: "rough-skin",
+          move: "earthquake",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "charizard",
+          ability: "blaze",
+        },
+      });
+      expect(res?.immuneOverride).toBe(false);
+    });
+
+    it("sets immuneOverride to true for Ground moves against Levitate defender without Gravity", () => {
+      const res = resolveDamageInput({
+        ...defaultContext,
+        gravity: false,
+        attacker: {
+          ...defaultContext.attacker,
+          identifier: "garchomp",
+          ability: "rough-skin",
+          move: "earthquake",
+        },
+        defender: {
+          ...defaultContext.defender,
+          identifier: "rotom-wash",
+          ability: "levitate",
+        },
+      });
+      expect(res?.immuneOverride).toBe(true);
+    });
+  });
+
   describe("Effective Speed (effectiveSpeed)", () => {
     it("doubles speed in Sun with Chlorophyll", () => {
       const speed = effectiveSpeed(100, 0, null, "chlorophyll", "sun", "none", {});

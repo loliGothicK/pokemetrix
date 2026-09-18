@@ -30,14 +30,7 @@ const createSamplePokemon = (): TrainedPokemon => ({
 const createSampleTeam = (): Team => ({
   id: "team-1",
   name: "Sample Team",
-  members: [
-    createSamplePokemon(),
-    null,
-    null,
-    null,
-    null,
-    null,
-  ],
+  members: [createSamplePokemon(), null, null, null, null, null],
 });
 
 describe("isPokemonEqual", () => {

@@ -528,9 +528,7 @@ export default function TeamBuilderPage({
     slotParam !== null && !isNaN(Number(slotParam)) ? Number(slotParam) : undefined;
   const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
   const effectiveSlot =
-    typeof parsedSlot === "number" &&
-    parsedSlot >= 0 &&
-    parsedSlot < MAX_TEAM_SIZE
+    typeof parsedSlot === "number" && parsedSlot >= 0 && parsedSlot < MAX_TEAM_SIZE
       ? parsedSlot
       : (activeSlot ?? selectedSlot);
   const hasSelection =
