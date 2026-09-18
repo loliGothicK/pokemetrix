@@ -4,38 +4,39 @@ on:
     types: [opened, synchronize]
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   generate-blog:
-    if: startsWith(github.head_ref, 'release-please--branches--main')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'changeset-release/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.head_ref }}
-      
+          ref: ${{ github.head_ref || github.ref }}
+
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
           run_install: false
-      
+
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: "pnpm"
-          
+
       - name: Install dependencies
         run: pnpm install
-      
+
       - name: Generate Blog Post
-        run: pnpx tsx apps/web/scripts/generate-blog.ts
-        
+        run: pnpm --filter @poketistix/app exec tsx scripts/generate-blog.ts
+
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: generate blog post from changelog"
-          file_pattern: "apps/web/content/blog/*.mdx"
+          file_pattern: "apps/web/content/blog/**/*.mdx"

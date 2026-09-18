@@ -1,11 +1,21 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": ["./changelog.mts", { "repo": "loliGothicK/poketistix" }],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@poketistix/app"]
+  "ignore": [
+    "@poketistix/damage-calc",
+    "@poketistix/engine",
+    "@poketistix/data",
+    "@poketistix/pkmn-meta",
+    "docs-search"
+  ],
+  "privatePackages": {
+    "version": true,
+    "tag": true
+  }
 }

@@ -54,6 +54,7 @@ import { flexRowCenter, iconButtonBordered, sectionLabel } from "@/theme/sx";
 import MenuIcon from "@mui/icons-material/Menu";
 import BugReportRoundedIcon from "@mui/icons-material/BugReportRounded";
 import { BugReportProvider, BugReportDialog, useBugReport } from "@/components/client/feedback";
+import { APP_VERSION } from "@/config/version";
 
 const SIDE_MENU_WIDTH = 240;
 
@@ -241,6 +242,21 @@ function SideMenuContent({ onNavigate }: { readonly onNavigate?: () => void }) {
           }
         />
       </ListItemButton>
+      <Box sx={{ px: 2, pt: 1, pb: 0.5, textAlign: "center" }}>
+        <Typography
+          component={Link}
+          href="/blog"
+          variant="caption"
+          sx={{
+            color: "text.disabled",
+            fontSize: 11,
+            textDecoration: "none",
+            "&:hover": { color: "text.secondary", textDecoration: "underline" },
+          }}
+        >
+          {`v${APP_VERSION}`}
+        </Typography>
+      </Box>
     </List>
   );
 }
@@ -411,24 +427,37 @@ function ResponsiveAppBar({
                 transition: "opacity 0.2s ease",
               }}
             >
-              <Typography
-                component="span"
-                sx={{
-                  fontSize: { sm: 13, md: 14 },
-                  fontWeight: 800,
-                  letterSpacing: "0.16em",
-                  lineHeight: 1,
-                  backgroundImage: "linear-gradient(90deg, #1565c0 0%, #00897b 100%)",
-                  '[data-mui-color-scheme="dark"] &': {
-                    backgroundImage: "linear-gradient(90deg, #60a5fa 0%, #7dd8e0 100%)",
-                  },
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Pokétistix
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "baseline", gap: 0.75 }}>
+                <Typography
+                  component="span"
+                  sx={{
+                    fontSize: { sm: 13, md: 14 },
+                    fontWeight: 800,
+                    letterSpacing: "0.16em",
+                    lineHeight: 1,
+                    backgroundImage: "linear-gradient(90deg, #1565c0 0%, #00897b 100%)",
+                    '[data-mui-color-scheme="dark"] &': {
+                      backgroundImage: "linear-gradient(90deg, #60a5fa 0%, #7dd8e0 100%)",
+                    },
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Pokétistix
+                </Typography>
+                <Typography
+                  component="span"
+                  sx={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    color: "text.secondary",
+                    opacity: 0.75,
+                  }}
+                >
+                  {`v${APP_VERSION}`}
+                </Typography>
+              </Box>
               <Typography
                 component="span"
                 sx={{

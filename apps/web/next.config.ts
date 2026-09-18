@@ -4,8 +4,12 @@ import { access, symlink } from "node:fs/promises";
 import { join } from "node:path";
 import type { Compiler, Compilation, Configuration, WebpackPluginInstance } from "webpack";
 import { withContentCollections } from "@content-collections/next";
+import packageJson from "./package.json";
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_APP_VERSION: packageJson.version,
+  },
   serverExternalPackages: ["@pkmn/dex", "@pkmn/data", "@pkmn/sim"],
   productionBrowserSourceMaps: false,
   allowedDevOrigins: ["127.0.0.1"],

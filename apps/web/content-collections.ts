@@ -16,9 +16,13 @@ const transformer =
     });
 
     const parts = document._meta.path.replace(/\\/g, "/").split("/");
-    const locale = parts[0] === "en" || parts[0] === "ja" ? parts[0] : "ja";
-    const slug =
-      parts[0] === "en" || parts[0] === "ja" ? parts.slice(1).join("/") : document._meta.path;
+    if (parts[0] !== "en" && parts[0] !== "ja") {
+      throw new Error(
+        `Invalid content file location: "${document._meta.filePath}". Content files must be placed inside an "en/" or "ja/" directory.`,
+      );
+    }
+    const locale = parts[0];
+    const slug = parts.slice(1).join("/");
 
     return {
       ...document,

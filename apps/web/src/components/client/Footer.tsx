@@ -6,6 +6,7 @@ import { LocalizedLink } from "@/components/client/LocalizedLink";
 import { useTranslation } from "react-i18next";
 import { flexRowCenter } from "@/theme/sx";
 import { useBugReport } from "@/components/client/feedback";
+import { APP_VERSION } from "@/config/version";
 
 export function Footer() {
   const theme = useTheme();
@@ -106,6 +107,23 @@ export function Footer() {
             </Link>
             .
           </Typography>
+          <Stack direction="row" spacing={0.75} sx={{ alignItems: "center" }}>
+            <Typography variant="caption" color="text.secondary">
+              Pokétistix
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              •
+            </Typography>
+            <Link
+              component={LocalizedLink}
+              href="/blog"
+              color="text.secondary"
+              variant="caption"
+              underline="hover"
+            >
+              {`v${APP_VERSION}`}
+            </Link>
+          </Stack>
         </Stack>
       </Container>
     </Box>

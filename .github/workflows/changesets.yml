@@ -5,54 +5,24 @@ on:
     branches:
       - main
     paths:
-      - "packages/damage-calc/package.json"
       - ".changeset/**"
+      - "apps/web/package.json"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.compare.outputs.should_run }}
-    steps:
-      - name: Checkout code repository
-        uses: actions/checkout@v7
-      - name: Check version and changesets
-        id: compare
-        run: |
-          HAS_CHANGESETS="false"
-          if ls .changeset/*.md 1> /dev/null 2>&1; then
-            for f in .changeset/*.md; do
-              if [ "$f" != ".changeset/README.md" ]; then
-                HAS_CHANGESETS="true"
-                break
-              fi
-            done
-          fi
-
-          LOCAL=$(jq -r .version packages/damage-calc/package.json)
-          REMOTE=$(npm view @poketistix/damage-calc version 2>/dev/null || echo "0.0.0")
-
-          if [ "$HAS_CHANGESETS" = "true" ] || npx --yes semver -gt "$LOCAL" "$REMOTE"; then
-            echo "should_run=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_run=false" >> $GITHUB_OUTPUT
-          fi
-
   version:
-    needs: check
-    if: needs.check.outputs.should_run == 'true'
     permissions:
       contents: write
-      id-token: write
       pull-requests: write
-    timeout-minutes: 15
+    timeout-minutes: 10
     runs-on: ubuntu-latest
-    environment: Release
     env:
       CI: true
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v7
+
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
@@ -64,20 +34,15 @@ jobs:
           node-version: 24
           cache: "pnpm"
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: wasm32-unknown-unknown
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
-      - name: Create and publish versions
+      - name: Create release PR or publish release notes
         uses: changesets/action@v2.1.2
         with:
           commit-message: "chore: update versions"
           pr-title: "chore: update versions"
           version-script: pnpm run version
-          publish-script: pnpm --filter @poketistix/damage-calc run release
+          publish-script: pnpm exec changeset tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

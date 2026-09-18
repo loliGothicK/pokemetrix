@@ -13,12 +13,13 @@
     "fmt": "pnpm -r run fmt",
     "pretty": "pnpm -r run pretty",
     "changeset": "changeset",
-    "version": "changeset version && pnpm --filter @poketistix/damage-calc run sync-version",
+    "version": "changeset version && pnpm --filter @poketistix/app exec tsx scripts/generate-blog.ts && pnpm --filter @poketistix/damage-calc run sync-version",
     "prepare": "husky",
     "benchmark": "pnpm --filter @poketistix/app run benchmark",
     "typecheck": "pnpm -r run typecheck"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "3.0.3",
     "husky": "9.1.7",
     "lint-staged": "17.5.1",
