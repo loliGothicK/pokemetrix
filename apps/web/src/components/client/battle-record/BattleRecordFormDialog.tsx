@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import {
   alpha,
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogContent,
   Divider,
@@ -87,7 +88,13 @@ export function BattleRecordFormDialog({
   submitting,
 }: BattleRecordFormDialogProps) {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth scroll="paper">
+    <Dialog
+      open={open}
+      onClose={submitting ? undefined : onClose}
+      maxWidth="sm"
+      fullWidth
+      scroll="paper"
+    >
       {open && (
         <BattleRecordFormContent
           key={editing?.id ?? "new"}
@@ -151,6 +158,9 @@ function BattleRecordFormContent({
       : emptyDraft({ teamId: initialTeam?.id ?? teamId, myTeam: resolvedTeamMembers }),
   );
   const [resultChosen, setResultChosen] = useState(!!editing);
+  const [localSubmitting, setLocalSubmitting] = useState(false);
+  const submittingRef = useRef(false);
+  const isPending = submitting || localSubmitting;
 
   const format: BattleFormat = useMemo(
     () => seasons.find((s) => s.id === seasonId)?.format ?? "doubles",
@@ -158,20 +168,28 @@ function BattleRecordFormContent({
   );
 
   const chooseResult = (result: BattleResult) => {
+    if (isPending) return;
     setDraft((prev) => ({ ...prev, result }));
     setResultChosen(true);
   };
 
-  const canSave = resultChosen && seasonId !== null && !submitting;
+  const canSave = resultChosen && seasonId !== null && !isPending;
 
   const handleSubmit = async () => {
-    if (!canSave || !seasonId) return;
-    await onSubmit(draft, seasonId);
+    if (!canSave || !seasonId || submittingRef.current || isPending) return;
+    submittingRef.current = true;
+    setLocalSubmitting(true);
+    try {
+      await onSubmit(draft, seasonId);
+    } finally {
+      submittingRef.current = false;
+      setLocalSubmitting(false);
+    }
   };
 
-  useHotkeys("w", () => chooseResult("win"));
-  useHotkeys("l", () => chooseResult("loss"));
-  useHotkeys("d", () => chooseResult("draw"));
+  useHotkeys("w", () => chooseResult("win"), [isPending]);
+  useHotkeys("l", () => chooseResult("loss"), [isPending]);
+  useHotkeys("d", () => chooseResult("draw"), [isPending]);
   useHotkeys(
     "ctrl+s, meta+s",
     (e) => {
@@ -179,7 +197,7 @@ function BattleRecordFormContent({
       void handleSubmit();
     },
     { enableOnFormTags: true },
-    [canSave, seasonId, draft],
+    [canSave, seasonId, draft, isPending],
   );
 
   const resultColor = (result: BattleResult): string =>
@@ -203,7 +221,12 @@ function BattleRecordFormContent({
         >
           {t("battleRecord.form.escHint")}
         </Typography>
-        <IconButton onClick={onClose} size="small" aria-label={t("common.close")}>
+        <IconButton
+          onClick={onClose}
+          size="small"
+          aria-label={t("common.close")}
+          disabled={isPending}
+        >
           <Close />
         </IconButton>
       </Stack>
@@ -418,7 +441,7 @@ function BattleRecordFormContent({
 
       <Divider />
       <Stack direction="row" spacing={1} sx={{ p: 2 }}>
-        <Button onClick={onClose} disabled={submitting}>
+        <Button onClick={onClose} disabled={isPending}>
           {t("common.cancel")}
         </Button>
         <Button
@@ -427,7 +450,16 @@ function BattleRecordFormContent({
           disabled={!canSave}
           sx={{ flexGrow: 1, fontWeight: 700 }}
         >
-          {resultChosen ? t("common.save") : t("battleRecord.form.selectResultFirst")}
+          {isPending ? (
+            <>
+              <CircularProgress size={18} color="inherit" sx={{ mr: 1 }} />
+              {t("common.saving")}
+            </>
+          ) : resultChosen ? (
+            t("common.save")
+          ) : (
+            t("battleRecord.form.selectResultFirst")
+          )}
         </Button>
       </Stack>
     </>

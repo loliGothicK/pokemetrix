@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useRef, useSyncExternalStore } from "react";
 import {
   Box,
   Button,
@@ -30,7 +30,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { isAuthenticatedAtom } from "@/store/auth";
-import { activeTeamIdAtom } from "@/store/team/team";
+import { activeTeamIdAtom, localTeamsAtom } from "@/store/team/team";
 import { useSeasons } from "@/hooks/useSeasons";
 import { useBattleRecords } from "@/hooks/useBattleRecords";
 import { useTeamsData } from "@/hooks/useTeamsData";
@@ -329,6 +329,9 @@ export default function BattleRecordPage() {
   const safeTeams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
   const [activeTeamId, setActiveTeamId] = useAtom(activeTeamIdAtom);
+  const localTeams = useAtomValue(localTeamsAtom);
+  const [isSubmittingRecord, setIsSubmittingRecord] = useState(false);
+  const isSubmittingRecordRef = useRef(false);
   const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
   const [filter, setFilter] = useState<ResultFilter>("all");
 
@@ -418,24 +421,40 @@ export default function BattleRecordPage() {
   };
 
   const handleRecordSubmit = async (draft: BattleRecordDraft, seasonId: string) => {
-    const input = draftToInput(draft, seasonId);
-    if (draft.teamId) {
-      const selectedTeam = safeTeams.find((tm) => tm.id === draft.teamId);
-      if (selectedTeam) {
-        try {
-          await saveTeamsToServer([selectedTeam]);
-        } catch {
-          // ignore to allow battle record creation even if offline
+    if (isSubmittingRecordRef.current) return;
+    isSubmittingRecordRef.current = true;
+    setIsSubmittingRecord(true);
+    try {
+      const input = draftToInput(draft, seasonId);
+
+      const teamSavePromise = (async () => {
+        if (draft.teamId && localTeams.some((lt) => lt.id === draft.teamId)) {
+          const selectedTeam = safeTeams.find((tm) => tm.id === draft.teamId);
+          if (selectedTeam) {
+            try {
+              await saveTeamsToServer([selectedTeam]);
+            } catch {
+              // ignore to allow battle record creation even if offline
+            }
+          }
         }
-      }
+      })();
+
+      const recordPromise = (async () => {
+        if (recordEditing) {
+          const { seasonId: _seasonId, ...update } = input;
+          await updateRecord(recordEditing.id, update);
+        } else {
+          await createRecord(input);
+        }
+      })();
+
+      await Promise.all([teamSavePromise, recordPromise]);
+      setRecordDialogOpen(false);
+    } finally {
+      isSubmittingRecordRef.current = false;
+      setIsSubmittingRecord(false);
     }
-    if (recordEditing) {
-      const { seasonId: _seasonId, ...update } = input;
-      await updateRecord(recordEditing.id, update);
-    } else {
-      await createRecord(input);
-    }
-    setRecordDialogOpen(false);
   };
 
   const filterTabs: readonly { readonly value: ResultFilter; readonly label: string }[] = [
@@ -701,7 +720,7 @@ export default function BattleRecordPage() {
         seasons={seasons}
         defaultSeasonId={activeSeasonId}
         onSubmit={handleRecordSubmit}
-        submitting={isMutating}
+        submitting={isMutating || isSubmittingRecord}
       />
 
       <Dialog open={pendingDelete !== null} onClose={() => setPendingDelete(null)}>
