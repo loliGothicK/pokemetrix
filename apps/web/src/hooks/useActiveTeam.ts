@@ -33,12 +33,15 @@ export const useActiveTeam = () => {
     gcTime: 1000 * 60 * 30, // 30分保持
   });
   const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
-  const teams = isAuthenticated
-    ? [
-        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
-        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
-      ]
-    : localTeams;
+  const teams =
+    isAuthenticated === null
+      ? []
+      : isAuthenticated
+        ? [
+            ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
+            ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
+          ]
+        : localTeams;
 
   const team = teams.find(({ id }) => id === activeId);
 

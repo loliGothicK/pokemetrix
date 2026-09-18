@@ -45,9 +45,11 @@ import { emptyStateCenter, flexRowCenter } from "@/theme/sx";
 export default function TeamSlotDetail({
   slot,
   showBackButton = false,
+  onBack,
 }: {
   readonly slot: number;
   readonly showBackButton?: boolean;
+  readonly onBack?: () => void;
 }) {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -104,8 +106,10 @@ export default function TeamSlotDetail({
           <IconButton
             edge="start"
             aria-label={t("teamBuilder.back")}
-            onClick={() =>
-              router.push(`/${i18n.resolvedLanguage ?? "ja"}/team-builder?view=overview`)
+            onClick={
+              onBack ??
+              (() =>
+                router.push(`/${i18n.resolvedLanguage ?? "ja"}/team-builder?view=overview`))
             }
           >
             <ArrowBackIcon />

@@ -347,7 +347,9 @@ export default function TeamOverview({
           onSelectSlot(nextActiveSlot);
         } else {
           const locale = i18n.resolvedLanguage ?? "ja";
-          router.replace(`/${locale}/team-builder/${nextActiveSlot}`);
+          const params = new URLSearchParams(window.location.search);
+          params.set("slot", nextActiveSlot.toString());
+          router.replace(`/${locale}/team-builder?${params.toString()}`);
         }
       }
     },
@@ -426,7 +428,9 @@ export default function TeamOverview({
                       onSelectSlot(index);
                     } else {
                       const locale = i18n.resolvedLanguage ?? "ja";
-                      router.push(`/${locale}/team-builder/${index}`);
+                      const params = new URLSearchParams(window.location.search);
+                      params.set("slot", index.toString());
+                      router.push(`/${locale}/team-builder?${params.toString()}`);
                     }
                   }}
                 />

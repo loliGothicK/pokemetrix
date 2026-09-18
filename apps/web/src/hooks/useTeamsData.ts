@@ -28,13 +28,16 @@ export const useTeamsData = () => {
 
   const serverTeams = teamsQuery.data ?? queryClient.getQueryData<readonly Team[]>(["teams"]) ?? [];
 
-  // データソースの切り替え: サーバーデータをベースにローカル編集を適用し、ローカル新規追加チームを末尾に結合
-  const teams = isAuthenticated
-    ? [
-        ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
-        ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
-      ]
-    : localTeams;
+  // データソースの切り替え: 認証確認中は空、ログイン時はサーバー優先マージ、未ログイン時はローカルデータ
+  const teams =
+    isAuthenticated === null
+      ? []
+      : isAuthenticated
+        ? [
+            ...serverTeams.map((st) => localTeams.find((lt) => lt.id === st.id) ?? st),
+            ...localTeams.filter((lt) => !serverTeams.some((st) => st.id === lt.id)),
+          ]
+        : localTeams;
 
   // 更新ロジック: ローカルストレージに即時反映（未保存変更として保持）
   const updateTeams = (newTeams: readonly Team[]) => {
@@ -52,10 +55,13 @@ export const useTeamsData = () => {
     }
   };
 
+  const isLoading =
+    isAuthenticated === null || (isAuthenticated === true && teamsQuery.isLoading);
+
   return {
     teams,
-    isLoading: isAuthenticated ? teamsQuery.isLoading : false,
-    isError: isAuthenticated ? teamsQuery.isError : false,
+    isLoading,
+    isError: isAuthenticated === true ? teamsQuery.isError : false,
     updateTeams,
     removeTeam,
   };

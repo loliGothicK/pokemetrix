@@ -521,16 +521,24 @@ export default function TeamBuilderPage({
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? "ja";
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const slotParam = searchParams.get("slot");
+  const parsedSlot =
+    slotParam !== null && !isNaN(Number(slotParam)) ? Number(slotParam) : undefined;
   const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
-  const effectiveSlot = isMobile ? activeSlot : (selectedSlot ?? activeSlot);
+  const effectiveSlot =
+    typeof parsedSlot === "number" &&
+    parsedSlot >= 0 &&
+    parsedSlot < MAX_TEAM_SIZE
+      ? parsedSlot
+      : (activeSlot ?? selectedSlot);
   const hasSelection =
     typeof effectiveSlot === "number" &&
     Number.isInteger(effectiveSlot) &&
     effectiveSlot >= 0 &&
     effectiveSlot < MAX_TEAM_SIZE;
   const [drawerOpen, setDrawerOpen] = useAtom(drawerOpenAtom);
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const mobileView = searchParams.get("view") === "overview" ? "overview" : "list";
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [diagnostics, setDiagnostics] = useState<Diagnostics>({
@@ -547,20 +555,62 @@ export default function TeamBuilderPage({
   );
   const teams = useMemo(() => (mounted ? rawTeams : []), [mounted, rawTeams]);
 
-  // チーム未選択時または存在しないチームIDの場合、先頭のチームを自動選択
+  const teamParam = searchParams.get("team");
+
+  // チーム未選択時または存在しないチームIDの場合、先頭のチームを自動選択（ロード中・認証判定中はスキップ）
   useEffect(() => {
-    if (
-      mounted &&
-      teams.length > 0 &&
-      (!activeTeamId || !teams.some((t) => t.id === activeTeamId))
-    ) {
-      setActiveTeamId(teams[0].id);
+    if (!mounted || isLoading || teams.length === 0) return;
+
+    // 1. URL の team パラメータに該当するチームがあれば最優先
+    if (teamParam && teams.some((t) => t.id === teamParam)) {
+      if (activeTeamId !== teamParam) {
+        setActiveTeamId(teamParam);
+      }
+      return;
     }
-  }, [mounted, activeTeamId, teams, setActiveTeamId]);
+
+    // 2. 現在の activeTeamId が teams に存在していれば維持（勝手に書き換えない！）
+    if (activeTeamId && teams.some((t) => t.id === activeTeamId)) {
+      return;
+    }
+
+    // 3. 該当チームが存在しない（または未選択）の場合にのみ、先頭チームへ安全にフォールバック
+    setActiveTeamId(teams[0].id);
+  }, [mounted, isLoading, teams, activeTeamId, teamParam, setActiveTeamId]);
+
+  const handleSelectTeam = (id: string) => {
+    setActiveTeamId(id);
+    setSelectedSlot(undefined);
+    const params = new URLSearchParams(window.location.search);
+    params.set("team", id);
+    params.delete("slot");
+    window.history.replaceState(null, "", `/${lang}/team-builder?${params.toString()}`);
+  };
 
   const handleSelectSlot = (slot: number) => {
     setSelectedSlot(slot);
-    window.history.replaceState(null, "", `/${lang}/team-builder/${slot}`);
+    const params = new URLSearchParams(window.location.search);
+    params.set("slot", slot.toString());
+    if (activeTeamId) {
+      params.set("team", activeTeamId);
+    }
+    if (isMobile) {
+      router.push(`/${lang}/team-builder?${params.toString()}`);
+    } else {
+      window.history.replaceState(null, "", `/${lang}/team-builder?${params.toString()}`);
+    }
+  };
+
+  const handleBackFromSlot = () => {
+    setSelectedSlot(undefined);
+    const params = new URLSearchParams(window.location.search);
+    params.delete("slot");
+    if (isMobile) {
+      params.set("view", "overview");
+      router.push(`/${lang}/team-builder?${params.toString()}`);
+    } else {
+      window.history.replaceState(null, "", `/${lang}/team-builder?${params.toString()}`);
+    }
   };
 
   const [isLintOn, setIsLintOn] = useAtom(activeTeamLintAtom);
@@ -600,7 +650,7 @@ export default function TeamBuilderPage({
       members: team.members,
     };
     updateTeams([...teams, newTeam]);
-    setActiveTeamId(newTeam.id);
+    handleSelectTeam(newTeam.id);
   };
 
   const handleCreateNewTeam = () => {
@@ -614,7 +664,16 @@ export default function TeamBuilderPage({
     removeTeam(teamId);
     if (activeTeamId === teamId) {
       const remaining = teams.filter((t) => t.id !== teamId);
-      setActiveTeamId(remaining.length > 0 ? remaining[0].id : null);
+      if (remaining.length > 0) {
+        handleSelectTeam(remaining[0].id);
+      } else {
+        setActiveTeamId(null);
+        setSelectedSlot(undefined);
+        const params = new URLSearchParams(window.location.search);
+        params.delete("team");
+        params.delete("slot");
+        window.history.replaceState(null, "", `/${lang}/team-builder?${params.toString()}`);
+      }
     }
     setDeleteTargetId(null);
     if (isMobile) {
@@ -825,7 +884,7 @@ export default function TeamBuilderPage({
                     <ListItem key={team.id} disablePadding>
                       <ListItemButton
                         selected={team.id === activeTeamId}
-                        onClick={() => setActiveTeamId(team.id)}
+                        onClick={() => handleSelectTeam(team.id)}
                         sx={{
                           mx: 1,
                           mb: 0.5,
@@ -922,13 +981,18 @@ export default function TeamBuilderPage({
 
           {isMobile ? (
             hasSelection && activeTeam ? (
-              <TeamSlotDetail key={effectiveSlot} slot={effectiveSlot!} showBackButton />
+              <TeamSlotDetail
+                key={effectiveSlot}
+                slot={effectiveSlot!}
+                showBackButton
+                onBack={handleBackFromSlot}
+              />
             ) : mobileView === "list" ? (
               <MobileTeamList
                 teams={teams}
                 onSelectTeam={(id) => {
-                  setActiveTeamId(id);
-                  router.push(`/${lang}/team-builder?view=overview`);
+                  handleSelectTeam(id);
+                  router.push(`/${lang}/team-builder?view=overview&team=${id}`);
                 }}
                 onCreateTeam={() => {
                   handleCreateNewTeam();
@@ -946,7 +1010,14 @@ export default function TeamBuilderPage({
             ) : activeTeam ? (
               <TeamOverview
                 activeSlot={hasSelection ? effectiveSlot : undefined}
-                onBack={() => router.push(`/${lang}/team-builder`)}
+                onSelectSlot={handleSelectSlot}
+                onBack={() => {
+                  setSelectedSlot(undefined);
+                  const params = new URLSearchParams(window.location.search);
+                  params.delete("slot");
+                  params.delete("view");
+                  router.push(`/${lang}/team-builder?${params.toString()}`);
+                }}
               />
             ) : null
           ) : !activeTeam ? (
