@@ -22,15 +22,43 @@ jobs:
       NODE_ENV: production
     steps:
       - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters:
+            shared: &shared
+              - 'pnpm-lock.yaml'
+              - 'package.json'
+              - 'pnpm-workspace.yaml'
+              - 'packages/Cargo.lock'
+              - 'packages/Cargo.toml'
+              - '.github/workflows/ci.yml'
+            damage_calc:
+              - 'packages/damage-calc/**'
+              - 'packages/pkmn-meta/**'
+              - 'packages/data/**'
+              - *shared
+            engine:
+              - 'packages/engine/**'
+              - 'packages/damage-calc/**'
+              - 'packages/pkmn-meta/**'
+              - 'packages/data/**'
+              - *shared
+            app:
+              - 'apps/web/**'
+              - 'packages/damage-calc/**'
+              - 'packages/data/**'
+              - *shared
+
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
           package_json_file: ./package.json
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 24
         uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24
           cache: "pnpm"
       - name: Enable Corepack
         run: corepack enable
@@ -64,23 +92,29 @@ jobs:
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: "packages/damage-calc"
+          workspaces: "packages"
 
-      - name: Build WebAssembly
-        run: |
-          pnpm --filter @poketistix/damage-calc run build
-          pnpm --filter @poketistix/engine run build
+      - name: Build damage-calc WebAssembly
+        if: steps.changes.outputs.damage_calc == 'true' || steps.changes.outputs.engine == 'true' || steps.changes.outputs.app == 'true'
+        run: pnpm --filter @poketistix/damage-calc run build
+
+      - name: Build engine WebAssembly
+        if: steps.changes.outputs.engine == 'true'
+        run: pnpm --filter @poketistix/engine run build
 
       - name: Generate content-collections
+        if: steps.changes.outputs.app == 'true'
         run: pnpm --filter @poketistix/app exec content-collections build
 
       - name: Lint
         run: pnpm lint
 
       - name: Check i18n keys
+        if: steps.changes.outputs.app == 'true'
         run: pnpm --filter @poketistix/app run i18n:check
 
       - name: Build Next.js App
+        if: steps.changes.outputs.app == 'true'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -90,23 +124,29 @@ jobs:
         run: pnpm build:app
 
       - name: Install nextest
+        if: steps.changes.outputs.damage_calc == 'true'
         uses: taiki-e/install-action@nextest
 
       - name: Test damage-calc (Chrome)
+        if: steps.changes.outputs.damage_calc == 'true'
         run: wasm-pack test --headless --chrome packages/damage-calc
 
       - name: Test damage-calc (Firefox)
+        if: steps.changes.outputs.damage_calc == 'true'
         run: wasm-pack test --headless --firefox packages/damage-calc
 
-      - name: Test engine (Vitest)
-        run: pnpm --filter @poketistix/engine run test
-
       - name: Test Rust (cargo nextest)
+        if: steps.changes.outputs.damage_calc == 'true'
         run: |
           cd packages/damage-calc
           cargo nextest run --profile ci
 
+      - name: Test engine (Vitest)
+        if: steps.changes.outputs.engine == 'true'
+        run: pnpm --filter @poketistix/engine run test
+
       - name: Test Next.js (Vitest)
+        if: steps.changes.outputs.app == 'true'
         env:
           NODE_ENV: test
         run: pnpm --filter @poketistix/app run test:ci
