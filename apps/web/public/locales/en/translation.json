@@ -631,7 +631,16 @@
       "natureRequired": "Nature is required",
       "invalidGender": "Invalid gender",
       "teamSizeRequired": "Team must have 6 Pokémon slots",
-      "teamNameRequired": "Team name is required"
+      "teamNameRequired": "Team name is required",
+      "invalidPokemon": "Invalid Pokémon",
+      "noValidTeams": "No valid teams to save"
+    },
+    "lint": {
+      "noItem": "No held item",
+      "cannotMegaEvolve": "A Pokémon that cannot Mega Evolve is holding a Mega Stone",
+      "wrongMegaStone": "This Mega Stone does not match this Pokémon",
+      "remainingEvs": "Has {{remaining}} remaining EVs",
+      "suboptimalEvs": "There is a superior alternative for EV allocation. If you change nature to {{nature}}, you will save {{savedPoints}} EVs"
     },
     "drawer": {
       "overview": "Overview",

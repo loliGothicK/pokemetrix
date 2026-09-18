@@ -50,7 +50,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         const candidates = [activeTeam, ...localTeams.filter((t) => t.id !== activeTeam.id)];
         const validTeams = candidates.filter((t) => teamSaveSchema.safeParse(t).success);
         if (validTeams.length === 0) {
-          throw new Error("No valid teams to save");
+          throw new Error(t("teamBuilder.validation.noValidTeams"));
         }
         await saveTeamsToServer(validTeams);
         return validTeams;
@@ -70,7 +70,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
         // 3. バックグラウンドで最新データを再検証（await せずに即時完了）
         void queryClient.invalidateQueries({ queryKey: ["teams"] });
 
-        setSnackMessage(t("teamBuilder.saveSuccess") || "クラウドに保存しました");
+        setSnackMessage(t("teamBuilder.saveSuccess"));
         setSnackSeverity("success");
         setSnackOpen(true);
       },
@@ -102,12 +102,12 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
     );
 
     const actionText = isLoading
-      ? t("teamBuilder.saving") || "Saving..."
+      ? t("teamBuilder.saving")
       : isSaved
-        ? t("teamBuilder.saved") || "Synced"
+        ? t("teamBuilder.saved")
         : isDraft
-          ? `${t("teamBuilder.saveToCloud") || "Sync"} (${t("teamBuilder.draft") || "Draft"})`
-          : t("teamBuilder.saveToCloud") || "Sync";
+          ? `${t("teamBuilder.saveToCloud")} (${t("teamBuilder.draft")})`
+          : t("teamBuilder.saveToCloud");
 
     const button = asSpeedDialAction ? (
       <SpeedDialAction
@@ -144,7 +144,7 @@ export const CloudSaveButton = React.forwardRef<HTMLButtonElement, CloudSaveButt
             title={
               <Box sx={{ p: 0.5 }}>
                 <Typography variant="caption" sx={{ fontWeight: 700, display: "block", mb: 0.5 }}>
-                  {t("teamBuilder.draftReasonTitle") || "このチームを保存できない理由"}
+                  {t("teamBuilder.draftReasonTitle")}
                 </Typography>
                 {draftReasons.map((reason, i) => (
                   <Typography key={i} variant="caption" sx={{ display: "block" }}>

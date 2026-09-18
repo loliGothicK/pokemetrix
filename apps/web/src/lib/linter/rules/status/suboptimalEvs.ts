@@ -180,13 +180,20 @@ export const checkSuboptimalEVs = (member: TrainedPokemon): Option<SuboptimalEvs
   const best = optimization.alternatives[0];
   const plus = best.nature.plus;
   const minus = best.nature.minus;
+  const natureName = natureObjectToString({ plus, minus }) ?? "Serious";
+  const natureKey = natureName.toLowerCase();
 
   return option.some(
     suboptimalEvs(
       outdent`
         There is a superior alternative for Effort Value allocation. 
-        If you change the nature to ${natureObjectToString({ plus, minus })}, you will gain ${best.savedPoints} Effort EVs.
+        If you change the nature to ${natureName}, you will gain ${best.savedPoints} Effort EVs.
       `,
+      {
+        natureKey,
+        natureName,
+        savedPoints: best.savedPoints,
+      },
     ),
   );
 };

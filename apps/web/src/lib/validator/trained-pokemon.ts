@@ -70,6 +70,7 @@ export const trainedPokemonSchema = z
       ctx.addIssue({
         code: "custom",
         message: `Invalid Pokemon identifier: ${data.identifier}`,
+        path: ["identifier"],
       });
       return;
     }

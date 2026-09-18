@@ -699,7 +699,16 @@
       "natureRequired": "性格が設定されていません",
       "invalidGender": "性別が不正です",
       "teamSizeRequired": "チームは6匹である必要があります",
-      "teamNameRequired": "チーム名を入力してください"
+      "teamNameRequired": "チーム名を入力してください",
+      "invalidPokemon": "不正なポケモンです",
+      "noValidTeams": "保存できる有効なチームがありません"
+    },
+    "lint": {
+      "noItem": "持ち物が持たされていません",
+      "cannotMegaEvolve": "メガシンカできないポケモンにメガストーンが持たされています",
+      "wrongMegaStone": "このポケモンに対応していないメガストーンです",
+      "remainingEvs": "努力値がまだ {{remaining}} 余っています",
+      "suboptimalEvs": "より効率的な努力値振りがあります。性格を{{nature}}にすると、努力値が{{savedPoints}}節約できます"
     },
     "drawer": {
       "overview": "概要",

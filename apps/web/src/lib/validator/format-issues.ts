@@ -34,9 +34,15 @@ export function formatTeamValidationIssues(
       const member = members[slotIndex];
 
       // ポケモン名（翻訳キー: pokemon.{identifier}.name）
-      const pokemonName = member ? t(`pokemon.${member.identifier}.name`) : `Slot ${slotIndex + 1}`;
+      const pokemonName = member
+        ? t(`pokemon.${member.identifier}.name`)
+        : t("teamBuilder.slotLabel", { index: slotIndex + 1 });
 
       const field = path[2];
+
+      if (!field && issue.message.includes("Invalid Pokemon")) {
+        return `${pokemonName}: ${t("teamBuilder.validation.invalidPokemon")}`;
+      }
 
       // 特性 (ability)
       if (field === "ability") {
@@ -65,8 +71,11 @@ export function formatTeamValidationIssues(
         return `${prefix}: ${t("teamBuilder.validation.duplicateItem")}`;
       }
 
-      // ポケモン重複 (identifier)
+      // ポケモン重複・不正 (identifier)
       if (field === "identifier") {
+        if (issue.message.includes("Invalid") || issue.message.includes("not valid")) {
+          return `${pokemonName}: ${t("teamBuilder.validation.invalidPokemon")}`;
+        }
         return `${pokemonName}: ${t("teamBuilder.validation.duplicateSpecies")}`;
       }
 

@@ -18,10 +18,16 @@ export const checkWrongMegaStone = (member: TrainedPokemon): Option<WrongMegaSto
       .mega?.map(({ stone_id }) => stone_id);
     if (!specifiedMegaStone) {
       return option.some(
-        wrongMegaStone(`A Pokémon that cannot Mega Evolve is holding a Mega Stone.`),
+        wrongMegaStone(`A Pokémon that cannot Mega Evolve is holding a Mega Stone.`, {
+          reason: "cannotMega",
+        }),
       );
     } else if (!specifiedMegaStone.includes(item)) {
-      return option.some(wrongMegaStone(`This is wrong Mega Stone.`));
+      return option.some(
+        wrongMegaStone(`This is wrong Mega Stone.`, {
+          reason: "wrongStone",
+        }),
+      );
     } else {
       return option.none;
     }

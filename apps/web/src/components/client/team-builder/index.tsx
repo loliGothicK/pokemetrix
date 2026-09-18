@@ -920,7 +920,7 @@ export default function TeamBuilderPage({
                                           variant="caption"
                                           sx={{ fontWeight: 700, display: "block", mb: 0.5 }}
                                         >
-                                          {t("teamBuilder.draftReasonTitle") || "保存できない理由"}
+                                          {t("teamBuilder.draftReasonTitle")}
                                         </Typography>
                                         {reasons.map((r: string, i: number) => (
                                           <Typography
@@ -1083,17 +1083,17 @@ export default function TeamBuilderPage({
             />
             <SpeedDialAction
               icon={<RuleIcon color={isLintOn ? "primary" : "inherit"} />}
-              title={t("teamBuilder.lintToggle") || "Lint Toggle"}
+              title={t("teamBuilder.lintToggle")}
               slotProps={{
-                tooltip: { title: t("teamBuilder.lintToggle") || "Lint Toggle", open: true },
+                tooltip: { title: t("teamBuilder.lintToggle"), open: true },
               }}
               onClick={() => setIsLintOn(!isLintOn)}
             />
             <SpeedDialAction
               icon={<DeleteOutlineIcon />}
-              title={t("teamBuilder.deleteTeamTitle") || "Delete Team"}
+              title={t("teamBuilder.deleteTeamTitle")}
               slotProps={{
-                tooltip: { title: t("teamBuilder.deleteTeamTitle") || "Delete Team", open: true },
+                tooltip: { title: t("teamBuilder.deleteTeamTitle"), open: true },
               }}
               onClick={() => setDeleteTargetId(activeTeam.id)}
             />

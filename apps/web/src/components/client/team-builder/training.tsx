@@ -56,6 +56,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { activeTeamLintAtom } from "@/store/team/options";
 import { useHotkeys } from "react-hotkeys-hook";
 import { MoveSelectionDrawer } from "@/components/client/team-builder/MovesDrawer";
+import { formatLintIssue } from "@/lib/linter/format";
 
 const DICTIONARY = (() => {
   const mapped = new Map(
@@ -518,7 +519,7 @@ export function Training({
                           <Box>
                             {issue.item.map((issue) => (
                               <Alert severity={issue.severity} key={issue.source._tag}>
-                                {issue.source.message}
+                                {formatLintIssue(issue, t)}
                               </Alert>
                             ))}
                           </Box>
@@ -1013,7 +1014,7 @@ export function Training({
                 issue.status.map((issue) => {
                   return (
                     <Alert severity={issue.severity} key={issue.source._tag}>
-                      {issue.source.message}
+                      {formatLintIssue(issue, t)}
                     </Alert>
                   );
                 })}

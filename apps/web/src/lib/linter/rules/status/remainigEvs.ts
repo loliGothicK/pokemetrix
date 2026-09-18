@@ -13,6 +13,11 @@ export const checkRemainingEVs = (member: TrainedPokemon): Option<RemainingEvs> 
   return match(remaining)
     .with(0, () => option.none)
     .otherwise((remaining) =>
-      option.some(remainingEvs(`${member.identifier} has ${remaining} remaining EVs.`)),
+      option.some(
+        remainingEvs(`${member.identifier} has ${remaining} remaining EVs.`, {
+          identifier: member.identifier,
+          remaining,
+        }),
+      ),
     );
 };

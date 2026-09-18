@@ -238,4 +238,74 @@ describe("formatTeamValidationIssues", () => {
     const issuesEn = formatTeamValidationIssues(parseResult, i18nEn.t.bind(i18nEn), invalidTeam.members);
     expect(issuesEn).toContain("Pikachu: Total EVs exceed maximum (66)");
   });
+
+  it("スロットが未登録（null）のメンバーにバリデーションエラーがある場合、スロットラベルを正しくローカライズする", () => {
+    const invalidTeam = {
+      id: "01JTEAM",
+      name: "My Team",
+      members: [
+        null,
+        {
+          boxId: "01J9Z81",
+          identifier: "pikachu",
+          slug: "pikachu",
+          item: null,
+          ability: null as unknown as number,
+          gender: { fixed: false },
+          nature: { plus: "atk", minus: "spa" },
+          moves: [1, null, null, null],
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+        },
+        null,
+        null,
+        null,
+        null,
+      ],
+    };
+
+    const parseResult = teamSchema.safeParse(invalidTeam);
+    expect(parseResult.success).toBe(false);
+
+    // members 引数でスロット2を null に見立てた場合
+    const membersWithNull = [null, null, null, null, null, null];
+    const issuesJa = formatTeamValidationIssues(parseResult, i18nJa.t.bind(i18nJa), membersWithNull);
+    expect(issuesJa).toContain("スロット 2: 特性が設定されていません");
+
+    const issuesEn = formatTeamValidationIssues(parseResult, i18nEn.t.bind(i18nEn), membersWithNull);
+    expect(issuesEn).toContain("Slot 2: Ability is required");
+  });
+
+  it("不正なポケモン識別子の場合、不正ポケモンエラーをローカライズして出力する", () => {
+    const invalidTeam = {
+      id: "01JTEAM",
+      name: "My Team",
+      members: [
+        {
+          boxId: "01J9Z81",
+          identifier: "invalid_pokemon_identifier",
+          slug: "invalid",
+          item: null,
+          ability: 1,
+          gender: { fixed: false },
+          nature: { plus: "atk", minus: "spa" },
+          moves: [1, null, null, null],
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+      ],
+    };
+
+    const parseResult = teamSchema.safeParse(invalidTeam);
+    expect(parseResult.success).toBe(false);
+
+    const issuesJa = formatTeamValidationIssues(parseResult, i18nJa.t.bind(i18nJa), invalidTeam.members);
+    expect(issuesJa.some((msg) => msg.includes("不正なポケモンです"))).toBe(true);
+
+    const issuesEn = formatTeamValidationIssues(parseResult, i18nEn.t.bind(i18nEn), invalidTeam.members);
+    expect(issuesEn.some((msg) => msg.includes("Invalid Pokémon"))).toBe(true);
+  });
 });
