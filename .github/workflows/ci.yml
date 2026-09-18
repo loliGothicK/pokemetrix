@@ -22,7 +22,7 @@ jobs:
       NODE_ENV: production
     steps:
       - uses: actions/checkout@v7
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@v4
         id: changes
         with:
           filters:
