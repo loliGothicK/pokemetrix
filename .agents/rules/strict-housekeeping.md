@@ -3,13 +3,14 @@ name: strict-housekeeping
 description: "Rules for housekeeping, testing, and cleanup before reporting task completion"
 trigger: always_on
 ---
+
 # Strict Housekeeping & Clean-up
 
 Before concluding any task or reporting completion to the user, you MUST perform the following cleanup steps:
 
-1. **NEVER Report Completion Prematurely (ZERO ERROR POLICY)**: You are strictly prohibited from reporting a task as complete or claiming a fix is successful without FIRST executing `pnpm typecheck` (or `tsc --noEmit`) AND `pnpm build` (to verify Next.js and Contentlayer Zod schemas), ensuring **0 errors**. Never blindly claim a UI looks "beautiful" or functions correctly without absolute verification.
-2. **Run Static Analysis & Typechecks**: Always run the project's linter (e.g., `pnpm lint`), TypeScript compiler (`pnpm typecheck`), and the build command (`pnpm build`) to detect unused variables, missing imports, Zod schema violations, or build failures introduced by your edits (including MDX content changes). **If your edits involved any translation JSON files, you MUST also run `pnpm run i18n:check`.** Fix all warnings and errors you caused before stopping.
-3. **Run the Full Test Suite, Always (UNCONDITIONAL)**: You are **STRICTLY FORBIDDEN** from ever running a single test file (e.g., `vitest run tests/moves/dragoncheer.test.ts`). You **MUST** consistently run the entire test suite (e.g., `pnpm exec vitest run tests/`) EVERY SINGLE TIME. 
+1. **NEVER Report Completion Prematurely (ZERO ERROR POLICY)**: You are strictly prohibited from reporting a task as complete or claiming a fix is successful without FIRST executing `pnpm check` (or `tsc --noEmit`) AND `pnpm build` (to verify Next.js and Contentlayer Zod schemas), ensuring **0 errors**. Never blindly claim a UI looks "beautiful" or functions correctly without absolute verification.
+2. **Run Static Analysis & Typechecks**: Always run the project's linter (e.g., `pnpm lint`), TypeScript compiler (`pnpm check`), and the build command (`pnpm build`) to detect unused variables, missing imports, Zod schema violations, or build failures introduced by your edits (including MDX content changes). **If your edits involved any translation JSON files, you MUST also run `pnpm run i18n:check`.** Fix all warnings and errors you caused before stopping.
+3. **Run the Full Test Suite, Always (UNCONDITIONAL)**: You are **STRICTLY FORBIDDEN** from ever running a single test file (e.g., `vitest run tests/moves/dragoncheer.test.ts`). You **MUST** consistently run the entire test suite (e.g., `pnpm exec vitest run tests/`) EVERY SINGLE TIME.
    - **No Exceptions**: This applies **EVEN IF** you have only modified that specific test file and made zero changes to core logic.
    - **Enforcement**: The environment has an automated monitoring script that will actively kill and interrupt your process if you attempt to run a single test file. You will physically be unable to proceed unless you run the full suite.
 4. **Execute and Test**: Run the relevant code or tests to verify your implementation actually works in practice, rather than assuming it works based on the source code.

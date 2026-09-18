@@ -26,9 +26,9 @@
     "test": "vitest run",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
     "release": "pnpm run build && pnpm run pack && pnpm run publish",
-    "typecheck": "cargo check && pnpm exec tsc --noEmit",
+    "check": "cargo check && pnpm exec tsc --noEmit",
     "lint:fix": "cargo clippy --fix --allow-dirty --allow-staged -- -D warnings && oxlint --fix-dangerously .",
-    "pretty": "pnpm run typecheck && pnpm run lint:fix && pnpm run fmt",
+    "pretty": "pnpm run check && pnpm run lint:fix && pnpm run fmt",
     "todo": "pnpm exec tsx .scratch/todo.ts"
   },
   "dependencies": {

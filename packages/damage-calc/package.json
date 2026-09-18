@@ -27,6 +27,7 @@
     "test": "wasm-pack test --node",
     "publish": "pnpm publish --access public --no-git-checks --ignore-scripts",
     "release": "pnpm run build && pnpm run pack && pnpm run publish",
-    "typecheck": "cargo check"
+    "renovate": "cargo upgrade -i",
+    "check": "cargo check"
   }
 }

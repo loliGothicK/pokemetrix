@@ -9,7 +9,8 @@
     "./*": "./*"
   },
   "scripts": {
-    "typecheck": "cargo check"
+    "check": "cargo check",
+    "renovate": "cargo upgrade -i"
   },
   "devDependencies": {
     "@types/node": "catalog:"

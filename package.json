@@ -16,7 +16,8 @@
     "version": "changeset version && pnpm --filter @poketistix/app exec tsx scripts/generate-blog.ts && pnpm --filter @poketistix/damage-calc run sync-version",
     "prepare": "husky",
     "benchmark": "pnpm --filter @poketistix/app run benchmark",
-    "typecheck": "pnpm -r run typecheck"
+    "check": "pnpm -r run check",
+    "renovate": "pnpm -r run renovate"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
