@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.1
+
+### Patch Changes
+
+- [`e7bbf22`](https://github.com/loliGothicK/poketistix/commit/e7bbf22dd10e68768abb27f201bf3f4d721a8e7c) Thanks [@loliGothicK](https://github.com/loliGothicK)! - Fixes:
+
+    - team builder: Fixed a bug where Meowsticite was not designated as a Mega Stone for Meowstic
+    - team builder: Fixed a bug where Baxcalibrite Knight was not designated as a Mega Stone for Baxcalibur
+    - damage-calc: Fixed a bug where ‘Scrappy’ was not applied
+
+- [`e7bbf22`](https://github.com/loliGothicK/poketistix/commit/e7bbf22dd10e68768abb27f201bf3f4d721a8e7c) Thanks [@loliGothicK](https://github.com/loliGothicK)! - - Add `Report an Issue / Feedback`
+
 ## [0.6.0](https://github.com/loliGothicK/poketistix/compare/app-v0.5.0...app-v0.6.0) (2026-08-16)
 
 ### Features
