@@ -1,5 +1,70 @@
 # Changelog
 
+## [0.7.0](https://github.com/loliGothicK/poketistix/compare/app-v0.6.0...app-v0.7.0) (2026-09-18)
+
+
+### Features
+
+* .vercelignore ([422fb7f](https://github.com/loliGothicK/poketistix/commit/422fb7ffc100255eee0d0ecf8da01342752e6ca2))
+* **app:** add documents ([22c4e5c](https://github.com/loliGothicK/poketistix/commit/22c4e5cd56b98bba5969a8269713c499d44164f6))
+* bug report ([0fa7eb4](https://github.com/loliGothicK/poketistix/commit/0fa7eb4bd52be772568c1ff78841c25574df777f))
+* Bulk Optimizer and Survival Tuner ([9a4a8e7](https://github.com/loliGothicK/poketistix/commit/9a4a8e7d4469e65b1e0746511bb0a86295545ab9))
+* dashboard up ([b52f173](https://github.com/loliGothicK/poketistix/commit/b52f173ab478ae33b44c27d25f208660f5fa5102))
+* dashboard up ([c6cb105](https://github.com/loliGothicK/poketistix/commit/c6cb105e614b6f763bb5a8ff440a4545378fd367))
+* **data:** inherit ([9b4d501](https://github.com/loliGothicK/poketistix/commit/9b4d501747197d2d89ff60c10bb78f55e58a5ba3))
+* engine ([a852e98](https://github.com/loliGothicK/poketistix/commit/a852e9889bd97d63c84bec1b3a019c9d801ff348))
+* Git Configuration ([af7a3dc](https://github.com/loliGothicK/poketistix/commit/af7a3dceea5605a240f7c3a2703dee56224569ba))
+* good by monaco ([3dd1a32](https://github.com/loliGothicK/poketistix/commit/3dd1a325f6edbf5e724048303ab67084e908dbfc))
+* i18n ([7aa557b](https://github.com/loliGothicK/poketistix/commit/7aa557bf66a21bd742b370a1523f33f6b79dc648))
+* **quiz:** prep for tsume-poke ([95122eb](https://github.com/loliGothicK/poketistix/commit/95122ebbef9e944a8d789927f6868da4d9a6b984))
+* **reg:** update Reg M-C ([c02b314](https://github.com/loliGothicK/poketistix/commit/c02b31408640f63a574ea69ef5e12e652a275d18))
+* SEO ([066c4d6](https://github.com/loliGothicK/poketistix/commit/066c4d6cdb30dda4ecf341569d38a803ea8862c0))
+
+
+### Bug Fixes
+
+* **app:** fix authSync ([a86c8ad](https://github.com/loliGothicK/poketistix/commit/a86c8ada0752fe41989aea6d49b9d4a434d87040))
+* **app:** fix battle records ([5cf6f1c](https://github.com/loliGothicK/poketistix/commit/5cf6f1cd7f19a3553de07ccb54567707083ad48f))
+* **app:** fix battle records ([2eefd49](https://github.com/loliGothicK/poketistix/commit/2eefd4975c5c406d07b5dc47cad740fee8f46733))
+* **app:** fix data fetch ([da47318](https://github.com/loliGothicK/poketistix/commit/da47318a33be08f591978bc9f9ff7684f556b271))
+* **app:** fix ev slider bars ([c922c16](https://github.com/loliGothicK/poketistix/commit/c922c167e7f8cd7f31e9500e1677215a3dc9c517))
+* **app:** fix optimize bulk ([feca952](https://github.com/loliGothicK/poketistix/commit/feca9521bd8d67754a84e46ebe238bae5ce63e69))
+* **app:** fix race condition ([0816904](https://github.com/loliGothicK/poketistix/commit/08169043ba9200dcb3b502d62707708b799b08b4))
+* **app:** fix team builder ([5293409](https://github.com/loliGothicK/poketistix/commit/52934094673d035ea66e793b5be528c3c9b36fda))
+* **app:** fix team builder ([2e603d1](https://github.com/loliGothicK/poketistix/commit/2e603d1a080680d5373c996cf922e92159b01355))
+* **app:** lang router ([f7865c0](https://github.com/loliGothicK/poketistix/commit/f7865c0a46d86ca63b085c2a0241278d4bdeb47e))
+* **app:** pin ([19d7ef1](https://github.com/loliGothicK/poketistix/commit/19d7ef1df5afbca11a38831e9da2634c76e73359))
+* **app:** renovate ([43b3056](https://github.com/loliGothicK/poketistix/commit/43b3056d0f2eb8abd0c51c60094ec76a011c8613))
+* **app:** useeffect-taught-by-extremist ([3a3b46f](https://github.com/loliGothicK/poketistix/commit/3a3b46fb31a42c6c9e695c7d8d5f426db7039db3))
+* **app:** useeffect-taught-by-extremist ([f14c1b0](https://github.com/loliGothicK/poketistix/commit/f14c1b00e1f4947afd7ade219b5bf7cadba67d10))
+* ci ([77c6b95](https://github.com/loliGothicK/poketistix/commit/77c6b95024ebcde1b15ee282c7ed39948f90e26c))
+* D1 index ([9d1cb20](https://github.com/loliGothicK/poketistix/commit/9d1cb20d84916fc7450a0d46827a44253766dd6c))
+* **engine:** fix ability apply ([dfab8b3](https://github.com/loliGothicK/poketistix/commit/dfab8b3bf20e0f8e5280e7d65718cb6904d5f7cf))
+* fix auth ([4e0ed33](https://github.com/loliGothicK/poketistix/commit/4e0ed3320ee06fb1e94bc9c2c36022689db9950d))
+* fix local storage ([8c19fd3](https://github.com/loliGothicK/poketistix/commit/8c19fd38c18ed1e8e08be9f5bd58d6ffa44fcf82))
+* fix merge strategy ([b5668cc](https://github.com/loliGothicK/poketistix/commit/b5668ccf480eead0884ddd9cd04c992e7e109bf9))
+* fix metadata ([0a7dc08](https://github.com/loliGothicK/poketistix/commit/0a7dc086a0ce3a5308601c6ac8db970ac47e999d))
+* fix metadata ([762a18f](https://github.com/loliGothicK/poketistix/commit/762a18f79b728f97048f270e726ef14be2e23927))
+* fix team builder ([36bda55](https://github.com/loliGothicK/poketistix/commit/36bda559b3e1ae31516dd097ce83b4e062479ed4))
+* fix team jotai ([34be352](https://github.com/loliGothicK/poketistix/commit/34be3524b729a098d8ce542e273b35c0eea665c7))
+* fix team share ([61183af](https://github.com/loliGothicK/poketistix/commit/61183af6df149ab34c8d8ea7b51ae5dbe2b8160a))
+* fix team share feedback ([de610f5](https://github.com/loliGothicK/poketistix/commit/de610f510fc6c987d2842012a4ceefc6a1526c1a))
+* fix team share feedback ([2e32694](https://github.com/loliGothicK/poketistix/commit/2e32694855b9d9f9b72ab0e1e158e39ed8819b78))
+* fix team share feedback ([7b9160c](https://github.com/loliGothicK/poketistix/commit/7b9160c1eab202d84e2173a979274f3fa2b101e2))
+* pretty ([bdb727c](https://github.com/loliGothicK/poketistix/commit/bdb727cd97a2150869a4cf60fd6cea20f751f54f))
+* pretty ([ec16dce](https://github.com/loliGothicK/poketistix/commit/ec16dced33404e26216fa3d53f50c00496ee4e1a))
+* pretty ([6bbdfa2](https://github.com/loliGothicK/poketistix/commit/6bbdfa2150edea07de138b691f58341a1fcd0812))
+* quiz ([e0e646c](https://github.com/loliGothicK/poketistix/commit/e0e646cfb43e6989facb8c9a5cf7800572219644))
+* quiz ([6875941](https://github.com/loliGothicK/poketistix/commit/68759414a8e72e4f2f5ac4c14286b76b670a3165))
+* quiz ([ef90b6a](https://github.com/loliGothicK/poketistix/commit/ef90b6a01827316927045ce357fdf0526885b637))
+* quiz ([4ec6187](https://github.com/loliGothicK/poketistix/commit/4ec618781b50985d8f59af33c7ed03b7ac9a5d0a))
+* quiz ([d410d8f](https://github.com/loliGothicK/poketistix/commit/d410d8f7ab39100a5047d675cc29f5cedab6ff6e))
+* quiz ([c93f9a8](https://github.com/loliGothicK/poketistix/commit/c93f9a811cbeecf887a6ecc6485a21e0091cb497))
+* quiz studio ([7bf2a27](https://github.com/loliGothicK/poketistix/commit/7bf2a27c0e45ddaf9bc17dab5d63dc3488c4ddf2))
+* remove auto save ([4524c3e](https://github.com/loliGothicK/poketistix/commit/4524c3ef073793bbf229edc294bbfa68e4515299))
+* rename { pokemetrix =&gt; poketistix } ([986aec5](https://github.com/loliGothicK/poketistix/commit/986aec5f0460c925da113637538e9c52d6f4687e))
+* sumbit records ([41aa118](https://github.com/loliGothicK/poketistix/commit/41aa1189cca3dcd473427234a0376b6fd78aeeb5))
+
 ## [0.6.0](https://github.com/loliGothicK/poketistix/compare/app-v0.5.0...app-v0.6.0) (2026-08-16)
 
 ### Features
