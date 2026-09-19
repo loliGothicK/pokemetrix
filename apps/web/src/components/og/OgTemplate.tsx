@@ -9,6 +9,10 @@ export function OgTemplate({
   title = "Pokétistix",
   subtitle = "Analytics Workspace for Pokémon Battle",
 }: OgTemplateProps) {
+  const titleFontSize =
+    title.length > 35 ? 52 : title.length > 22 ? 66 : title.length > 14 ? 80 : 96;
+  const subtitleFontSize = subtitle.length > 60 ? 32 : 38;
+
   return (
     <div
       style={{
@@ -32,7 +36,7 @@ export function OgTemplate({
           height: "140px",
           borderRadius: "50%",
           background: "white",
-          marginBottom: "40px",
+          marginBottom: "36px",
           boxShadow: "0 0 40px rgba(255,255,255,0.2)",
           padding: "10px",
         }}
@@ -85,13 +89,15 @@ export function OgTemplate({
       <div
         style={{
           display: "flex",
-          fontSize: 100,
+          fontSize: titleFontSize,
           fontWeight: "bold",
-          letterSpacing: "-0.05em",
+          letterSpacing: "-0.04em",
           color: "white",
-          marginBottom: "20px",
+          marginBottom: "16px",
           textShadow: "0 4px 20px rgba(0,0,0,0.5)",
           textAlign: "center",
+          maxWidth: "1050px",
+          lineHeight: 1.15,
         }}
       >
         {title}
@@ -99,11 +105,13 @@ export function OgTemplate({
       <div
         style={{
           display: "flex",
-          fontSize: 42,
+          fontSize: subtitleFontSize,
           color: "#94a3b8",
           fontWeight: 500,
           letterSpacing: "-0.02em",
           textAlign: "center",
+          maxWidth: "1000px",
+          lineHeight: 1.3,
         }}
       >
         {subtitle}
