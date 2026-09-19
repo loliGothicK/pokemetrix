@@ -104,7 +104,7 @@ export const config = {
      * 以下を除くすべてのパスにマッチ:
      * - _next/static (静的ファイル)
      * - _next/image (画像最適化)
-     * - monitoring
+     * - monitoring (Sentry tunnelRoute)
      * - favicon.ico, sitemap.xml, robots.txt, google verification html
      */
     "/((?!_next/static|_next/image|monitoring|favicon.ico|sitemap.xml|robots.txt|google[a-z0-9]+\\.html|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",

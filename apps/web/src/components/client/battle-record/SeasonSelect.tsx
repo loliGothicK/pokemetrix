@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import {
   Box,
   Divider,
@@ -37,9 +37,8 @@ interface SeasonSelectProps {
  * シーズン選択のドロップダウン。作成・編集・削除の操作を
  * リスト内（各項目のアイコン + 末尾の「新規シーズン」）に押し込む。
  *
- * open の controlled 管理は行わない（anchorEl 警告を防ぐため）。
- * アイコンの onMouseDown で e.preventDefault() してフォーカス移動を阻止し、
- * onClick で inputRef.current.blur() を呼ぶことで Select を自然に閉じる。
+ * open を controlled 管理することで、アイテム内のアクション（編集・削除）
+ * 実行時にも自然かつ確実にドロップダウンを閉じる。
  */
 export function SeasonSelect({
   seasons,
@@ -52,12 +51,12 @@ export function SeasonSelect({
   sx,
 }: SeasonSelectProps) {
   const { t } = useTranslation();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
   const active = seasons.find((s) => s.id === value) ?? null;
   const labelId = "season-select-inline-label";
 
-  /** ドロップダウンを閉じる（blur で Select のポップアップが閉じる） */
-  const closeDropdown = () => inputRef.current?.blur();
+  /** ドロップダウンを閉じる */
+  const closeDropdown = () => setOpen(false);
 
   return (
     <FormControl size="small" sx={sx}>
@@ -71,7 +70,9 @@ export function SeasonSelect({
         label={label}
         value={active?.id ?? ""}
         displayEmpty
-        inputRef={inputRef}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         onChange={(e) => {
           const next = e.target.value;
           if (next === NEW_SEASON) {
@@ -100,9 +101,10 @@ export function SeasonSelect({
                 size="small"
                 edge="end"
                 aria-label={t("common.edit")}
-                /* preventDefault でフォーカスが外れるのを防ぎ、
-                   blur() で明示的に Select を閉じてから onEdit を呼ぶ */
-                onMouseDown={(e) => e.preventDefault()}
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   closeDropdown();
@@ -116,7 +118,10 @@ export function SeasonSelect({
                 edge="end"
                 color="error"
                 aria-label={t("common.delete")}
-                onMouseDown={(e) => e.preventDefault()}
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   closeDropdown();
