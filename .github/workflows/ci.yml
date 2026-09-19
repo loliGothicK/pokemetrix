@@ -12,43 +12,55 @@ permissions:
   contents: read
   checks: write
   id-token: write
+  pull-requests: read
 
 jobs:
-  build:
-    name: Build/Format/Lint/Test
-    environment: Test
+  changes:
+    name: Detect changes
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production
+    outputs:
+      shared: ${{ steps.filter.outputs.shared }}
+      damage_calc: ${{ steps.filter.outputs.damage_calc }}
+      engine: ${{ steps.filter.outputs.engine }}
+      app: ${{ steps.filter.outputs.app }}
     steps:
       - uses: actions/checkout@v7
-      - uses: dorny/paths-filter@v3
-        id: changes
+      - uses: dorny/paths-filter@v4
+        id: filter
         with:
-          filters:
-            shared: &shared
-              - 'pnpm-lock.yaml'
-              - 'package.json'
-              - 'pnpm-workspace.yaml'
-              - 'packages/Cargo.lock'
-              - 'packages/Cargo.toml'
-              - '.github/workflows/ci.yml'
+          filters: |
+            shared:
+              - "pnpm-lock.yaml"
+              - "package.json"
+              - "pnpm-workspace.yaml"
+              - ".github/workflows/ci.yml"
+              - "packages/rust-toolchain.toml"
             damage_calc:
-              - 'packages/damage-calc/**'
-              - 'packages/pkmn-meta/**'
-              - 'packages/data/**'
-              - *shared
+              - "packages/damage-calc/**"
+              - "packages/pkmn-meta/**"
+              - "packages/data/**"
+              - "packages/Cargo.lock"
+              - "packages/Cargo.toml"
             engine:
-              - 'packages/engine/**'
-              - 'packages/damage-calc/**'
-              - 'packages/pkmn-meta/**'
-              - 'packages/data/**'
-              - *shared
+              - "packages/engine/**"
+              - "packages/damage-calc/**"
+              - "packages/pkmn-meta/**"
+              - "packages/data/**"
+              - "packages/Cargo.lock"
+              - "packages/Cargo.toml"
             app:
-              - 'apps/web/**'
-              - 'packages/damage-calc/**'
-              - 'packages/data/**'
-              - *shared
+              - "apps/web/**"
+              - "packages/damage-calc/**"
+              - "packages/pkmn-meta/**"
+              - "packages/data/**"
+
+  test-damage-calc:
+    name: Damage Calc (Rust/Wasm)
+    needs: changes
+    if: ${{ needs.changes.outputs.shared == 'true' || needs.changes.outputs.damage_calc == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
@@ -60,6 +72,82 @@ jobs:
         with:
           node-version: 24
           cache: "pnpm"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: "latest"
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "packages"
+
+      - name: Lint damage-calc & pkmn-meta
+        run: |
+          pnpm --filter @poketistix/damage-calc run lint
+          pnpm --filter @poketistix/pkmn-meta run lint
+
+      - name: Build damage-calc WebAssembly
+        run: pnpm --filter @poketistix/damage-calc run build
+
+      - name: Install nextest
+        uses: taiki-e/install-action@nextest
+
+      - name: Test damage-calc (Chrome)
+        run: wasm-pack test --headless --chrome packages/damage-calc
+
+      - name: Test damage-calc (Firefox)
+        run: wasm-pack test --headless --firefox packages/damage-calc
+
+      - name: Test Rust (cargo nextest)
+        run: |
+          cd packages/damage-calc
+          cargo nextest run --profile ci
+
+  test-engine:
+    name: Engine (Rust/Wasm/Vitest)
+    needs: changes
+    if: ${{ needs.changes.outputs.shared == 'true' || needs.changes.outputs.engine == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          package_json_file: ./package.json
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "pnpm"
+
       - name: Enable Corepack
         run: corepack enable
 
@@ -95,26 +183,86 @@ jobs:
           workspaces: "packages"
 
       - name: Build damage-calc WebAssembly
-        if: steps.changes.outputs.damage_calc == 'true' || steps.changes.outputs.engine == 'true' || steps.changes.outputs.app == 'true'
         run: pnpm --filter @poketistix/damage-calc run build
 
       - name: Build engine WebAssembly
-        if: steps.changes.outputs.engine == 'true'
         run: pnpm --filter @poketistix/engine run build
 
+      - name: Lint engine
+        run: pnpm --filter @poketistix/engine run lint
+
+      - name: Test engine (Vitest)
+        run: pnpm --filter @poketistix/engine run test
+
+  test-app:
+    name: Web App (Next.js/Vitest)
+    environment: Test
+    needs: changes
+    if: ${{ needs.changes.outputs.shared == 'true' || needs.changes.outputs.app == 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          package_json_file: ./package.json
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "pnpm"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: "latest"
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "packages"
+
+      - name: Build damage-calc WebAssembly
+        run: pnpm --filter @poketistix/damage-calc run build
+
       - name: Generate content-collections
-        if: steps.changes.outputs.app == 'true'
         run: pnpm --filter @poketistix/app exec content-collections build
 
-      - name: Lint
-        run: pnpm lint
+      - name: Lint web
+        run: pnpm --filter @poketistix/app run lint
 
       - name: Check i18n keys
-        if: steps.changes.outputs.app == 'true'
         run: pnpm --filter @poketistix/app run i18n:check
 
       - name: Build Next.js App
-        if: steps.changes.outputs.app == 'true'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -123,36 +271,29 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
         run: pnpm build:app
 
-      - name: Install nextest
-        if: steps.changes.outputs.damage_calc == 'true'
-        uses: taiki-e/install-action@nextest
-
-      - name: Test damage-calc (Chrome)
-        if: steps.changes.outputs.damage_calc == 'true'
-        run: wasm-pack test --headless --chrome packages/damage-calc
-
-      - name: Test damage-calc (Firefox)
-        if: steps.changes.outputs.damage_calc == 'true'
-        run: wasm-pack test --headless --firefox packages/damage-calc
-
-      - name: Test Rust (cargo nextest)
-        if: steps.changes.outputs.damage_calc == 'true'
-        run: |
-          cd packages/damage-calc
-          cargo nextest run --profile ci
-
-      - name: Test engine (Vitest)
-        if: steps.changes.outputs.engine == 'true'
-        run: pnpm --filter @poketistix/engine run test
-
       - name: Test Next.js (Vitest)
-        if: steps.changes.outputs.app == 'true'
         env:
           NODE_ENV: test
         run: pnpm --filter @poketistix/app run test:ci
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v6
-        if: success() || failure() # always run even if the previous step fails
+        if: success() || failure()
         with:
           report_paths: "**/test-results/*.xml"
+
+  ci-status:
+    name: CI Status
+    needs: [changes, test-damage-calc, test-engine, test-app]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate status of CI jobs
+        run: |
+          results="${{ needs.changes.result }} ${{ needs.test-damage-calc.result }} ${{ needs.test-engine.result }} ${{ needs.test-app.result }}"
+          echo "Job results: $results"
+          if echo "$results" | grep -qE "failure|cancelled"; then
+            echo "One or more CI jobs failed or were cancelled."
+            exit 1
+          fi
+          echo "All required CI jobs succeeded or were skipped."
