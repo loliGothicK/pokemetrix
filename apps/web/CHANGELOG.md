@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.2
+
+### Patch Changes
+
+- [`a8a0154`](https://github.com/loliGothicK/poketistix/commit/a8a0154db3f2b106d379494992d59842fef9a763) Thanks [@loliGothicK](https://github.com/loliGothicK)! - - Fix an error that occurs when click edit/delete icon in season at `/battle-record` page.
+
 ## 0.6.1
 
 ### Patch Changes
