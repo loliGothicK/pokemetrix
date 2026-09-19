@@ -63,4 +63,29 @@ mod tests {
         assert!(!is_pokemon_allowed("salamence", Regulation::MB));
         assert!(is_pokemon_allowed("salamence", Regulation::MC));
     }
+
+    #[test]
+    fn test_regulation_mc_slash_move_additions() {
+        // Slash: 163
+        // Charizard should NOT have Slash in M-A or M-B, but should have it in M-C
+        assert!(!is_move_allowed("charizard", 163, Regulation::MA));
+        assert!(!is_move_allowed("charizard", 163, Regulation::MB));
+        assert!(is_move_allowed("charizard", 163, Regulation::MC));
+
+        // Mega forms should also have Slash in M-C
+        assert!(is_move_allowed("charizardmegax", 163, Regulation::MC));
+        assert!(is_move_allowed("charizardmegay", 163, Regulation::MC));
+
+        // Archaludon should have Slash in M-C along with its removals
+        assert!(!is_move_allowed("archaludon", 163, Regulation::MA));
+        assert!(!is_move_allowed("archaludon", 163, Regulation::MB));
+        assert!(is_move_allowed("archaludon", 163, Regulation::MC));
+
+        // Garchomp, Weavile, Kingambit should have Slash in M-C
+        assert!(is_move_allowed("garchomp", 163, Regulation::MC));
+        assert!(is_move_allowed("garchompmega", 163, Regulation::MC));
+        assert!(is_move_allowed("garchompmegaz", 163, Regulation::MC));
+        assert!(is_move_allowed("weavile", 163, Regulation::MC));
+        assert!(is_move_allowed("kingambit", 163, Regulation::MC));
+    }
 }

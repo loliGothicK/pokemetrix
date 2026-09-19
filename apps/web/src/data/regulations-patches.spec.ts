@@ -93,4 +93,34 @@ describe("Regulation M-C Move Patches", () => {
     // Abilities should NOT be inherited since Mega Venusaur has Thick Fat [47]
     expect(venusaurMega.abilities).toEqual([47]);
   });
+
+  it("should verify Slash (163) move additions in Regulation M-C", () => {
+    // Slash: 163
+    // Charizard: ID 6
+    expect(isMoveAllowedForPokemon(6, 163, "M-A")).toBe(false);
+    expect(isMoveAllowedForPokemon(6, 163, "M-B")).toBe(false);
+    expect(isMoveAllowedForPokemon(6, 163, "M-C")).toBe(true);
+
+    // Mega Charizard X (10034) and Y (10035)
+    expect(isMoveAllowedForPokemon(10034, 163, "M-C")).toBe(true);
+    expect(isMoveAllowedForPokemon(10035, 163, "M-C")).toBe(true);
+
+    // Archaludon (1018) should gain Slash while having Mirror Coat / Metal Burst removed
+    expect(isMoveAllowedForPokemon(1018, 163, "M-A")).toBe(false);
+    expect(isMoveAllowedForPokemon(1018, 163, "M-B")).toBe(false);
+    expect(isMoveAllowedForPokemon(1018, 163, "M-C")).toBe(true);
+
+    // Check slug and identifier lookups for M-C
+    expect(getPokemonMoves("charizard", "M-C")).toContain(163);
+    expect(getPokemonMoves("archaludon", "M-C")).toContain(163);
+    expect(getPokemonMoves("kingambit", "M-C")).toContain(163);
+    expect(getPokemonMoves("meowscarada", "M-C")).toContain(163);
+    expect(getPokemonMoves("garchomp", "M-C")).toContain(163);
+
+    // Also check via getChampionsPokemonById
+    const byIdMC = getChampionsPokemonById("M-C");
+    expect(byIdMC.get(6)?.moves).toContain(163);
+    expect(byIdMC.get(1018)?.moves).toContain(163);
+    expect(byIdMC.get(983)?.moves).toContain(163);
+  });
 });
